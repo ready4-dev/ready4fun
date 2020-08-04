@@ -1,0 +1,6 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+data-raw/auto_gen_cde_mk_class/
+inst/doc

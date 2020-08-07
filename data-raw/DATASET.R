@@ -45,6 +45,7 @@ make_abbr_lup_tb(short_name_chr_vec = c("abbr","arg","artl","db","desc","dir","d
 make_and_doc_fn_type_R(pkg_nm_chr = pkg_nm_chr,
                        url_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
 data("fn_type_lup_tb")
+data("object_type_lup")
 #
 # 9. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl_tb(fns_path_chr_vec,
@@ -61,7 +62,8 @@ fns_dmt_tb <- make_fn_dmt_tbl_tb(fns_path_chr_vec,
                                                       args_ls_ls = list(add_indefartls_to_phrases_chr_vec = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_lgl = "TEST_ARG_DESC_3")
                                                                         )),
                                  append_lgl = T,
-                                 fn_type_lup_tb = fn_type_lup_tb)
+                                 fn_type_lup_tb = fn_type_lup_tb,
+                                 object_type_lup = object_type_lup)
 # NOTE: To update, make call to update_fns_dmt_tb_tb
 #
 # 10. Write documented functions to R directory.
@@ -78,6 +80,7 @@ devtools::document()
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814
+# NOTE TO SELF: IDEALLY SHOULD ADD OPTION TO INCREMENT PACKAGE VERSION NUMBER WHEN DESCRIPTION FILE GETS UPDATED. See: https://stackoverflow.com/questions/24209336/automating-version-increase-of-r-packages
 # NOTE TO SELF: IN WORKFOW VIGNETTE, INCLUDE LINK TO: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
 # and https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 # and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/

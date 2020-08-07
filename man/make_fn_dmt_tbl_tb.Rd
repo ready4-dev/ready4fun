@@ -11,7 +11,8 @@ make_fn_dmt_tbl_tb(
   custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls =
     NULL, output_ls = NULL, example_ls = NULL, args_ls_ls = NULL),
   append_lgl = T,
-  fn_type_lup_tb = NULL
+  fn_type_lup_tb = NULL,
+  object_type_lup = NULL
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 \item{append_lgl}{Append (a logical vector of length 1), Default: T}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+
+\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \value{
 Function dmt table (a tibble)

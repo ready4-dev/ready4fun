@@ -78,3 +78,4 @@ devtools::document()
 # NOTE TO SELF: IN WORKFOW VIGNETTE, INCLUDE LINK TO: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
 # and https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 # and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/
+# NOTE TO SELF: Currently Vignettes are overwritten when writing package files. Need to implement more sophisticated workflow.

@@ -291,8 +291,8 @@ make_fn_desc_spine_chr_vec <- function (fn_name_chr, fn_title_chr, fn_type_lup_t
             ""))
     return(fn_desc_spine_chr_vec)
 }
-#' Make function documentation spine
-#' @description make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation spine. The function returns a function documentation spine (a list of character vectors of length 1).
+#' Make function dmt spine
+#' @description make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt spine. The function returns a function dmt spine (a list of character vectors of length 1).
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_type_chr Function type (a character vector of length 1)
 #' @param fn_title_chr Function title (a character vector of length 1), Default: 'NA'
@@ -302,7 +302,7 @@ make_fn_desc_spine_chr_vec <- function (fn_name_chr, fn_title_chr, fn_type_lup_t
 #' @param export_lgl Export (a logical vector of length 1), Default: T
 #' @param class_name_chr Class name (a character vector of length 1)
 #' @param doc_in_class_lgl Document in class (a logical vector of length 1)
-#' @return Function documentation spine (a list of character vectors of length 1)
+#' @return Function dmt spine (a list of character vectors of length 1)
 #' @rdname make_fn_dmt_spine_chr_ls
 #' @export 
 
@@ -327,15 +327,15 @@ make_fn_dmt_spine_chr_ls <- function (fn_name_chr, fn_type_chr, fn_title_chr = N
     }
     return(fn_dmt_spine_chr_ls)
 }
-#' Make function documentation table
-#' @description make_fn_dmt_tbl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation a table. The function returns a function documentation table (a tibble).
+#' Make function dmt table
+#' @description make_fn_dmt_tbl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table. The function returns a function dmt table (a tibble).
 #' @param fns_path_chr_vec Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector of length 1)
 #' @param pkg_nm_chr Package name (a character vector of length 1)
-#' @param custom_dmt_ls Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls = NULL, 
+#' @param custom_dmt_ls Custom dmt (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls = NULL, 
 #'    output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)
 #' @param append_lgl Append (a logical vector of length 1), Default: T
-#' @return Function documentation table (a tibble)
+#' @return Function dmt table (a tibble)
 #' @rdname make_fn_dmt_tbl_tb
 #' @export 
 #' @importFrom purrr map_lgl discard
@@ -354,11 +354,11 @@ make_fn_dmt_tbl_tb <- function (fns_path_chr_vec, fns_dir_chr, pkg_nm_chr, custo
     }
     return(fn_dmt_tbl_tb)
 }
-#' Make function documentation table template
-#' @description make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation a table template. The function returns a function documentation table (a tibble).
+#' Make function dmt table template
+#' @description make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table template. The function returns a function dmt table (a tibble).
 #' @param fns_path_chr_vec Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector of length 1)
-#' @return Function documentation table (a tibble)
+#' @return Function dmt table (a tibble)
 #' @rdname make_fn_dmt_tbl_tpl_tb
 #' @export 
 #' @importFrom stringr str_replace
@@ -450,14 +450,14 @@ make_fn_type_lup_tb <- function ()
         "Object to be updated.", NA_character_))
     return(fn_type_lup_tb)
 }
-#' Make getter setter documentation spine
-#' @description make_gtr_str_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a getter setter documentation spine. The function returns a getter setter documentation spine (a list of character vectors of length 1).
+#' Make getter setter dmt spine
+#' @description make_gtr_str_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a getter setter dmt spine. The function returns a getter setter dmt spine (a list of character vectors of length 1).
 #' @param fn_type_chr Function type (a character vector of length 1)
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param class_name_chr Class name (a character vector of length 1)
 #' @param doc_in_class_lgl Document in class (a logical vector of length 1)
 #' @param example_lgl Example (a logical vector of length 1), Default: F
-#' @return Getter setter documentation spine (a list of character vectors of length 1)
+#' @return Getter setter dmt spine (a list of character vectors of length 1)
 #' @rdname make_gtr_str_dmt_spine_chr_ls
 #' @export 
 #' @importFrom stringr str_replace str_sub
@@ -495,8 +495,8 @@ make_gtr_str_dmt_spine_chr_ls <- function (fn_type_chr, fn_name_chr, class_name_
         ref_slot_chr = ref_slot_chr)
     return(gtr_str_dmt_spine_chr_ls)
 }
-#' Make new function documentation
-#' @description make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function documentation. The function returns new function documentation (a list of character vectors of length 1).
+#' Make new function dmt
+#' @description make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function dmt. The function returns new function dmt (a list of character vectors of length 1).
 #' @param fn_type_chr Function type (a character vector of length 1)
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_desc_chr Function description (a character vector of length 1), Default: 'NA'
@@ -505,7 +505,7 @@ make_gtr_str_dmt_spine_chr_ls <- function (fn_type_chr, fn_name_chr, class_name_
 #' @param args_ls Arguments (a list), Default: NULL
 #' @param fn Function (a function), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
-#' @return New function documentation (a list of character vectors of length 1)
+#' @return New function dmt (a list of character vectors of length 1)
 #' @rdname make_new_fn_dmt_chr_ls
 #' @export 
 #' @importFrom stringr str_replace
@@ -643,8 +643,8 @@ make_obj_lup_tb <- function ()
     obj_tb <- obj_tb %>% dplyr::mutate(plural_lgl = F)
     return(obj_tb)
 }
-#' Make standard function documentation spine
-#' @description make_std_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a standard function documentation spine. The function returns a standard function documentation spine (a list of character vectors of length 1).
+#' Make standard function dmt spine
+#' @description make_std_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a standard function dmt spine. The function returns a standard function dmt spine (a list of character vectors of length 1).
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_type_chr Function type (a character vector of length 1)
 #' @param fn_title_chr Function title (a character vector of length 1)
@@ -654,7 +654,7 @@ make_obj_lup_tb <- function ()
 #' @param export_lgl Export (a logical vector of length 1), Default: T
 #' @param class_name_chr Class name (a character vector of length 1), Default: ''
 #' @param exclude_if_match_chr_vec Exclude if match (a character vector)
-#' @return Standard function documentation spine (a list of character vectors of length 1)
+#' @return Standard function dmt spine (a list of character vectors of length 1)
 #' @rdname make_std_fn_dmt_spine_chr_ls
 #' @export 
 #' @importFrom sinew makeOxygen

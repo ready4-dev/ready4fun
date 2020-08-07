@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_ds_dmt_R}
 \alias{write_ds_dmt_R}
-\title{Write dataset documentation}
+\title{Write dataset dmt}
 \usage{
 write_ds_dmt_R(
   db,
@@ -39,6 +39,6 @@ write_ds_dmt_R(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \description{
-write_ds_dmt_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a dataset documentation R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_ds_dmt_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a dataset dmt R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
 \keyword{internal}

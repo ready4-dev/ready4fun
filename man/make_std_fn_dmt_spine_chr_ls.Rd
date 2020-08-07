@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_std_fn_dmt_spine_chr_ls}
 \alias{make_std_fn_dmt_spine_chr_ls}
-\title{Make standard function documentation spine}
+\title{Make standard function dmt spine}
 \usage{
 make_std_fn_dmt_spine_chr_ls(
   fn_name_chr,
@@ -36,9 +36,9 @@ make_std_fn_dmt_spine_chr_ls(
 \item{exclude_if_match_chr_vec}{Exclude if match (a character vector)}
 }
 \value{
-Standard function documentation spine (a list of character vectors of length 1)
+Standard function dmt spine (a list of character vectors of length 1)
 }
 \description{
-make_std_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a standard function documentation spine. The function returns a standard function documentation spine (a list of character vectors of length 1).
+make_std_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a standard function dmt spine. The function returns a standard function dmt spine (a list of character vectors of length 1).
 }
 \keyword{internal}

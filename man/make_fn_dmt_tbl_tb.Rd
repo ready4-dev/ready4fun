@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_dmt_tbl_tb}
 \alias{make_fn_dmt_tbl_tb}
-\title{Make function documentation table}
+\title{Make function dmt table}
 \usage{
 make_fn_dmt_tbl_tb(
   fns_path_chr_vec,
@@ -20,14 +20,14 @@ make_fn_dmt_tbl_tb(
 
 \item{pkg_nm_chr}{Package name (a character vector of length 1)}
 
-\item{custom_dmt_ls}{Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls = NULL, 
+\item{custom_dmt_ls}{Custom dmt (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls = NULL, 
 output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 
 \item{append_lgl}{Append (a logical vector of length 1), Default: T}
 }
 \value{
-Function documentation table (a tibble)
+Function dmt table (a tibble)
 }
 \description{
-make_fn_dmt_tbl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation a table. The function returns a function documentation table (a tibble).
+make_fn_dmt_tbl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table. The function returns a function dmt table (a tibble).
 }

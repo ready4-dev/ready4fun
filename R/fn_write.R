@@ -53,10 +53,10 @@ write_and_doc_ds_R <- function (db, overwrite_lgl = T, db_chr, title_chr, desc_c
 }
 #' Write and document function files
 #' @description write_and_doc_fn_fls_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document function files R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble)
+#' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param r_dir_chr R directory (a character vector of length 1), Default: 'R'
-#' @param path_to_user_dmt_dir_chr Path to user documentation directory (a character vector of length 1), Default: '../../../../Documentation/Code/User'
-#' @param path_to_dvpr_dmt_dir_chr Path to developer documentation directory (a character vector of length 1), Default: '../../../../Documentation/Code/Developer'
+#' @param path_to_user_dmt_dir_chr Path to user dmt directory (a character vector of length 1), Default: '../../../../Documentation/Code/User'
+#' @param path_to_dvpr_dmt_dir_chr Path to developer dmt directory (a character vector of length 1), Default: '../../../../Documentation/Code/Developer'
 #' @return NULL
 #' @rdname write_and_doc_fn_fls_R
 #' @export 
@@ -75,8 +75,8 @@ write_and_doc_fn_fls_R <- function (fns_dmt_tb, r_dir_chr = "R", path_to_user_dm
         })
 }
 #' Write documented functions
-#' @description write_documented_fns_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented a functions R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param tmp_fn_dir_chr Temporary function directory (a character vector of length 1)
+#' @description write_documented_fns_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a documented functions R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param tmp_fn_dir_chr Tmp function directory (a character vector of length 1)
 #' @param R_dir_chr R directory (a character vector of length 1)
 #' @return NULL
 #' @rdname write_documented_fns_R
@@ -100,8 +100,8 @@ write_documented_fns_R <- function (tmp_fn_dir_chr, R_dir_chr)
     })
     do.call(file.remove, list(paste0(tmp_fn_dir_chr, "/", files_chr_vec)))
 }
-#' Write dataset documentation
-#' @description write_ds_dmt_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a dataset documentation R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' Write dataset dmt
+#' @description write_ds_dmt_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a dataset dmt R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param db PARAM_DESCRIPTION
 #' @param db_chr Database (a character vector of length 1)
 #' @param title_chr Title (a character vector of length 1)
@@ -152,8 +152,8 @@ write_ds_dmt_R <- function (db, db_chr, title_chr, desc_chr, format_chr = "A tib
             "\n#' }\n"), ifelse(is.na(url_chr), "", paste0("#' @source \\url{", 
             url_chr, "}\n")), "\"", db_chr, "\""))
 }
-#' Write function documentation
-#' @description write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation. The function is called for its side effects and does not return a value.
+#' Write function dmt
+#' @description write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function dmt. The function is called for its side effects and does not return a value.
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_type_chr Function type (a character vector of length 1)
 #' @param fn Function (a function), Default: NULL
@@ -196,7 +196,7 @@ write_fn_dmt <- function (fn_name_chr, fn_type_chr, fn = NULL, fn_desc_chr = NA_
 }
 #' Write function file
 #' @description write_fn_fl_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function file R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble)
+#' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param r_dir_chr R directory (a character vector of length 1), Default: 'R'
 #' @param document_unexp_lgl Document unexported (a logical vector of length 1), Default: T
 #' @return NULL
@@ -232,8 +232,8 @@ write_fn_fl_R <- function (fns_dmt_tb, r_dir_chr = "R", document_unexp_lgl = T)
         })
     })
 }
-#' Write from temporary
-#' @description write_from_tmp_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' Write from tmp
+#' @description write_from_tmp_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from tmp R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param temp_path_chr Temp path (a character vector of length 1)
 #' @param dest_path_chr Dest path (a character vector of length 1)
 #' @param edit_fn Edit (a function), Default: function(x) {

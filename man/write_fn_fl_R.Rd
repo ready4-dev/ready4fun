@@ -7,7 +7,7 @@
 write_fn_fl_R(fns_dmt_tb, r_dir_chr = "R", document_unexp_lgl = T)
 }
 \arguments{
-\item{fns_dmt_tb}{Functions documentation (a tibble)}
+\item{fns_dmt_tb}{Functions dmt (a tibble)}
 
 \item{r_dir_chr}{R directory (a character vector of length 1), Default: 'R'}
 

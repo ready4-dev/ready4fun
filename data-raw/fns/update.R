@@ -13,7 +13,8 @@ update_abbr_lup_tb <- function(abbr_tb,
   new_tb <- tibble::tibble(short_name_chr = short_name_chr_vec,
                            long_name_chr = long_name_chr_vec) %>%
     add_plurals_to_abbr_lup_tb(no_plural_chr_vec = no_plural_chr_vec,
-                               custom_plural_ls = custom_plural_ls)
+                               custom_plural_ls = custom_plural_ls) %>%
+    tidyr::drop_na()
   abbr_tb <- tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
                             long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),
                             plural_lgl = c(abbr_tb$plural_lgl,new_tb$plural_lgl)) %>%

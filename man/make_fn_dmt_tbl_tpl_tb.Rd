@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_dmt_tbl_tpl_tb}
 \alias{make_fn_dmt_tbl_tpl_tb}
-\title{Make function documentation table template}
+\title{Make function dmt table template}
 \usage{
 make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec, fns_dir_chr)
 }
@@ -12,9 +12,9 @@ make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec, fns_dir_chr)
 \item{fns_dir_chr}{Functions directory (a character vector of length 1)}
 }
 \value{
-Function documentation table (a tibble)
+Function dmt table (a tibble)
 }
 \description{
-make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation a table template. The function returns a function documentation table (a tibble).
+make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table template. The function returns a function dmt table (a tibble).
 }
 \keyword{internal}

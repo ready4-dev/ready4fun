@@ -46,7 +46,8 @@ write_and_doc_ds_R <- function(db,
 write_and_doc_fn_fls_R <- function(fns_dmt_tb,
                                    r_dir_chr = "R",
                                    path_to_user_dmt_dir_chr = "../../../../Documentation/Code/User",
-                                   path_to_dvpr_dmt_dir_chr = "../../../../Documentation/Code/Developer" ){
+                                   path_to_dvpr_dmt_dir_chr = "../../../../Documentation/Code/Developer",
+                                   make_pdfs_lgl = T){
   purrr::walk2(list(path_to_dvpr_dmt_dir_chr,
                     path_to_user_dmt_dir_chr),
                c(T,F),
@@ -56,6 +57,7 @@ write_and_doc_fn_fls_R <- function(fns_dmt_tb,
                                document_unexp_lgl = .y)
                  devtools::document()
                  devtools::load_all()
+                 if(make_pdfs_lgl)
                  devtools::build_manual(path = .x)
                })
 

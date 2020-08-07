@@ -67,14 +67,17 @@ make_arg_desc_chr_vec <- function (fn_args_chr_vec, object_type_lup = NULL, abbr
 #' Make argument description
 #' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description. The function is called for its side effects and does not return a value.
 #' @param fn_nms_chr_vec Function names (a character vector)
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return NULL
 #' @rdname make_arg_desc_ls
 #' @export 
 #' @importFrom purrr map
 #' @importFrom stats setNames
 #' @keywords internal
-make_arg_desc_ls <- function (fn_nms_chr_vec) 
+make_arg_desc_ls <- function (fn_nms_chr_vec, object_type_lup = NULL) 
 {
+    if (is.null(object_type_lup)) 
+        data("object_type_lup", package = "ready4fun", envir = environment())
     purrr::map(fn_nms_chr_vec, ~{
         eval(parse(text = paste0("fn <- ", .x)))
         get_fn_args_chr_vec(fn) %>% make_arg_desc_chr_vec(object_type_lup = object_type_lup) %>% 
@@ -238,23 +241,24 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
 #' @param fns_chr_vec Functions (a character vector)
 #' @param title_chr_vec Title (a character vector)
 #' @param output_chr_vec Output (a character vector)
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @return Function description (a character vector)
 #' @rdname make_fn_desc_chr_vec
 #' @export 
 #' @importFrom purrr pmap_chr
 #' @importFrom stringr str_extract
 #' @keywords internal
-make_fn_desc_chr_vec <- function (fns_chr_vec, title_chr_vec, output_chr_vec) 
+make_fn_desc_chr_vec <- function (fns_chr_vec, title_chr_vec, output_chr_vec, fn_type_lup_tb = NULL) 
 {
     fn_desc_chr_vec <- purrr::pmap_chr(list(fns_chr_vec, title_chr_vec, 
         output_chr_vec), ~{
         fn_type_chr <- stringr::str_extract(..2, "[A-Za-z]+")
         paste0(make_fn_desc_spine_chr_vec(fn_name_chr = ..1, 
-            fn_title_chr = ..2), " The function ", ifelse(..3 == 
-            "NULL", paste0("is called for its side effects and does not return a value.", 
-            ifelse(endsWith(..1, "_R"), " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
-                "")), paste0("returns ", ..3 %>% tolower() %>% 
-            add_indef_artl_to_item_chr_vec(), ".")))
+            fn_title_chr = ..2, fn_type_lup_tb = fn_type_lup_tb), 
+            " The function ", ifelse(..3 == "NULL", paste0("is called for its side effects and does not return a value.", 
+                ifelse(endsWith(..1, "_R"), " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
+                  "")), paste0("returns ", ..3 %>% tolower() %>% 
+                add_indef_artl_to_item_chr_vec(), ".")))
     })
     return(fn_desc_chr_vec)
 }
@@ -335,6 +339,8 @@ make_fn_dmt_spine_chr_ls <- function (fn_name_chr, fn_type_chr, fn_title_chr = N
 #' @param custom_dmt_ls Custom dmt (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, export_ls = NULL, 
 #'    output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)
 #' @param append_lgl Append (a logical vector of length 1), Default: T
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return Function dmt table (a tibble)
 #' @rdname make_fn_dmt_tbl_tb
 #' @export 
@@ -342,10 +348,14 @@ make_fn_dmt_spine_chr_ls <- function (fn_name_chr, fn_type_chr, fn_title_chr = N
 #' @importFrom rlang exec
 make_fn_dmt_tbl_tb <- function (fns_path_chr_vec, fns_dir_chr, pkg_nm_chr, custom_dmt_ls = list(title_ls = NULL, 
     desc_ls = NULL, details_ls = NULL, export_ls = NULL, output_ls = NULL, 
-    example_ls = NULL, args_ls_ls = NULL), append_lgl = T) 
+    example_ls = NULL, args_ls_ls = NULL), append_lgl = T, fn_type_lup_tb = NULL, 
+    object_type_lup = NULL) 
 {
+    if (is.null(object_type_lup)) 
+        data("object_type_lup", package = "ready4fun", envir = environment())
     fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec, 
-        fns_dir_chr = fns_dir_chr)
+        fns_dir_chr = fns_dir_chr, fn_type_lup_tb = fn_type_lup_tb, 
+        object_type_lup = object_type_lup)
     if (purrr::map_lgl(custom_dmt_ls, ~!is.null(.x)) %>% any()) {
         args_ls <- append(custom_dmt_ls, list(append_lgl = append_lgl)) %>% 
             purrr::discard(is.null)
@@ -358,6 +368,8 @@ make_fn_dmt_tbl_tb <- function (fns_path_chr_vec, fns_dir_chr, pkg_nm_chr, custo
 #' @description make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table template. The function returns a function dmt table (a tibble).
 #' @param fns_path_chr_vec Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector of length 1)
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return Function dmt table (a tibble)
 #' @rdname make_fn_dmt_tbl_tpl_tb
 #' @export 
@@ -366,8 +378,11 @@ make_fn_dmt_tbl_tb <- function (fns_path_chr_vec, fns_dir_chr, pkg_nm_chr, custo
 #' @importFrom tibble tibble
 #' @importFrom dplyr mutate
 #' @keywords internal
-make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr) 
+make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_tb = NULL, 
+    object_type_lup = NULL) 
 {
+    if (is.null(object_type_lup)) 
+        data("object_type_lup", package = "ready4fun", envir = environment())
     file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/", 
         "") %>% switch(fns = "fn_", s3 = "C3_", "s4 = C4_")
     fn_dmt_tbl_tb <- fns_path_chr_vec %>% purrr::map_dfr(~tibble::tibble(fns_chr = get_fn_nms_in_file_chr(.x), 
@@ -379,8 +394,10 @@ make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr)
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc_chr_vec(fns_chr, 
-        title_chr_vec = title_chr, output_chr_vec = output_chr))
-    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr))
+        title_chr_vec = title_chr, output_chr_vec = output_chr, 
+        fn_type_lup_tb = fn_type_lup_tb))
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
+        object_type_lup = object_type_lup))
     return(fn_dmt_tbl_tb)
 }
 #' Make function title

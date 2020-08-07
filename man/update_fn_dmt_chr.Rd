@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fn_dmt_chr}
 \alias{update_fn_dmt_chr}
-\title{Update function documentation}
+\title{Update function dmt}
 \usage{
 update_fn_dmt_chr(
   fn_tags_spine_ls,
@@ -24,9 +24,9 @@ update_fn_dmt_chr(
 \item{import_chr_vec}{Import (a character vector)}
 }
 \value{
-Function documentation (a character vector of length 1)
+Function dmt (a character vector of length 1)
 }
 \description{
-update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function documentation. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated. The function returns a function documentation (a character vector of length 1).
+update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated. The function returns a function dmt (a character vector of length 1).
 }
 \keyword{internal}

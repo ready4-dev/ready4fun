@@ -2,19 +2,19 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fn_dmt_with_slots_chr}
 \alias{update_fn_dmt_with_slots_chr}
-\title{Update function documentation with slots}
+\title{Update function dmt with slots}
 \usage{
 update_fn_dmt_with_slots_chr(fn_name_chr, fn_dmt_chr)
 }
 \arguments{
 \item{fn_name_chr}{Function name (a character vector of length 1)}
 
-\item{fn_dmt_chr}{Function documentation (a character vector of length 1)}
+\item{fn_dmt_chr}{Function dmt (a character vector of length 1)}
 }
 \value{
-Function documentation (a character vector of length 1)
+Function dmt (a character vector of length 1)
 }
 \description{
-update_fn_dmt_with_slots_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function documentation with slots. Function argument fn_name_chr specifies the object to be updated. Argument fn_dmt_chr provides the object to be updated. The function returns a function documentation (a character vector of length 1).
+update_fn_dmt_with_slots_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt with slots. Function argument fn_name_chr specifies the object to be updated. Argument fn_dmt_chr provides the object to be updated. The function returns a function dmt (a character vector of length 1).
 }
 \keyword{internal}

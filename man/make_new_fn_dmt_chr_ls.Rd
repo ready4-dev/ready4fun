@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_new_fn_dmt_chr_ls}
 \alias{make_new_fn_dmt_chr_ls}
-\title{Make new function documentation}
+\title{Make new function dmt}
 \usage{
 make_new_fn_dmt_chr_ls(
   fn_type_chr,
@@ -33,9 +33,9 @@ make_new_fn_dmt_chr_ls(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \value{
-New function documentation (a list of character vectors of length 1)
+New function dmt (a list of character vectors of length 1)
 }
 \description{
-make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function documentation. The function returns new function documentation (a list of character vectors of length 1).
+make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function dmt. The function returns new function dmt (a list of character vectors of length 1).
 }
 \keyword{internal}

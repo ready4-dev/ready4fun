@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_dmt_spine_chr_ls}
 \alias{make_fn_dmt_spine_chr_ls}
-\title{Make function documentation spine}
+\title{Make function dmt spine}
 \usage{
 make_fn_dmt_spine_chr_ls(
   fn_name_chr,
@@ -36,9 +36,9 @@ make_fn_dmt_spine_chr_ls(
 \item{doc_in_class_lgl}{Document in class (a logical vector of length 1)}
 }
 \value{
-Function documentation spine (a list of character vectors of length 1)
+Function dmt spine (a list of character vectors of length 1)
 }
 \description{
-make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function documentation spine. The function returns a function documentation spine (a list of character vectors of length 1).
+make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt spine. The function returns a function dmt spine (a list of character vectors of length 1).
 }
 \keyword{internal}

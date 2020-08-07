@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fns_dmt_tb_tb}
 \alias{update_fns_dmt_tb_tb}
-\title{Update functions documentation tibble}
+\title{Update functions dmt tibble}
 \usage{
 update_fns_dmt_tb_tb(
   fns_dmt_tb,
@@ -17,7 +17,7 @@ update_fns_dmt_tb_tb(
 )
 }
 \arguments{
-\item{fns_dmt_tb}{Functions documentation (a tibble)}
+\item{fns_dmt_tb}{Functions dmt (a tibble)}
 
 \item{title_ls}{Title (a list), Default: NULL}
 
@@ -36,9 +36,9 @@ update_fns_dmt_tb_tb(
 \item{append_lgl}{Append (a logical vector of length 1), Default: T}
 }
 \value{
-Functions documentation (a tibble)
+Functions dmt (a tibble)
 }
 \description{
-update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions documentation a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated. The function returns a functions documentation (a tibble).
+update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated. The function returns a functions dmt (a tibble).
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_gtr_str_dmt_spine_chr_ls}
 \alias{make_gtr_str_dmt_spine_chr_ls}
-\title{Make getter setter documentation spine}
+\title{Make getter setter dmt spine}
 \usage{
 make_gtr_str_dmt_spine_chr_ls(
   fn_type_chr,
@@ -24,9 +24,9 @@ make_gtr_str_dmt_spine_chr_ls(
 \item{example_lgl}{Example (a logical vector of length 1), Default: F}
 }
 \value{
-Getter setter documentation spine (a list of character vectors of length 1)
+Getter setter dmt spine (a list of character vectors of length 1)
 }
 \description{
-make_gtr_str_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a getter setter documentation spine. The function returns a getter setter documentation spine (a list of character vectors of length 1).
+make_gtr_str_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a getter setter dmt spine. The function returns a getter setter dmt spine (a list of character vectors of length 1).
 }
 \keyword{internal}

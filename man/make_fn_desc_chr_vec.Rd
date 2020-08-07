@@ -4,7 +4,12 @@
 \alias{make_fn_desc_chr_vec}
 \title{Make function description}
 \usage{
-make_fn_desc_chr_vec(fns_chr_vec, title_chr_vec, output_chr_vec)
+make_fn_desc_chr_vec(
+  fns_chr_vec,
+  title_chr_vec,
+  output_chr_vec,
+  fn_type_lup_tb = NULL
+)
 }
 \arguments{
 \item{fns_chr_vec}{Functions (a character vector)}
@@ -12,6 +17,8 @@ make_fn_desc_chr_vec(fns_chr_vec, title_chr_vec, output_chr_vec)
 \item{title_chr_vec}{Title (a character vector)}
 
 \item{output_chr_vec}{Output (a character vector)}
+
+\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
 }
 \value{
 Function description (a character vector)

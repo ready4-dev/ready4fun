@@ -157,14 +157,16 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
 }
 make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                   title_chr_vec,
-                                  output_chr_vec){
+                                  output_chr_vec,
+                                  fn_type_lup_tb = NULL){
   fn_desc_chr_vec <- purrr::pmap_chr(list(fns_chr_vec,
                                           title_chr_vec,
                                           output_chr_vec),
                                      ~ {
                                        fn_type_chr <- stringr::str_extract(..2, '[A-Za-z]+')
                                        paste0(make_fn_desc_spine_chr_vec(fn_name_chr = ..1,
-                                                                         fn_title_chr = ..2),
+                                                                         fn_title_chr = ..2,
+                                                                         fn_type_lup_tb = fn_type_lup_tb),
                                               " The function ",
                                               #..1,
                                               #"() ",
@@ -237,9 +239,11 @@ make_fn_dmt_tbl_tb <- function(fns_path_chr_vec,
                                                     output_ls = NULL,
                                                     example_ls = NULL,
                                                     args_ls_ls = NULL),
-                               append_lgl = T){
+                               append_lgl = T,
+                               fn_type_lup_tb = NULL){
   fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec,
-                                            fns_dir_chr = fns_dir_chr)
+                                          fns_dir_chr = fns_dir_chr,
+                                          fn_type_lup_tb = fn_type_lup_tb)
   if(purrr::map_lgl(custom_dmt_ls,
                     ~ !is.null(.x)) %>% any()){
     args_ls <- append(custom_dmt_ls, list(append_lgl = append_lgl)) %>% purrr::discard(is.null)
@@ -248,7 +252,8 @@ make_fn_dmt_tbl_tb <- function(fns_path_chr_vec,
   return(fn_dmt_tbl_tb)
 }
 make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
-                                   fns_dir_chr){
+                                   fns_dir_chr,
+                                   fn_type_lup_tb = NULL){
   file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/","") %>%
     switch("fns"="fn_", "s3" = "C3_", "s4 = C4_")
   fn_dmt_tbl_tb <- fns_path_chr_vec %>%
@@ -269,7 +274,8 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(desc_chr = make_fn_desc_chr_vec(fns_chr,
                                                   title_chr_vec = title_chr,
-                                                  output_chr_vec = output_chr))
+                                                  output_chr_vec = output_chr,
+                                                  fn_type_lup_tb = fn_type_lup_tb))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr))
   return(fn_dmt_tbl_tb)

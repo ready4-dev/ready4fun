@@ -4,12 +4,14 @@
 \alias{make_fn_dmt_tbl_tpl_tb}
 \title{Make function dmt table template}
 \usage{
-make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec, fns_dir_chr)
+make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec, fns_dir_chr, fn_type_lup_tb = NULL)
 }
 \arguments{
 \item{fns_path_chr_vec}{Functions path (a character vector)}
 
 \item{fns_dir_chr}{Functions directory (a character vector of length 1)}
+
+\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
 }
 \value{
 Function dmt table (a tibble)

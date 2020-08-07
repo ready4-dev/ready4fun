@@ -57,13 +57,15 @@ write_and_doc_ds_R <- function (db, overwrite_lgl = T, db_chr, title_chr, desc_c
 #' @param r_dir_chr R directory (a character vector of length 1), Default: 'R'
 #' @param path_to_user_dmt_dir_chr Path to user dmt directory (a character vector of length 1), Default: '../../../../Documentation/Code/User'
 #' @param path_to_dvpr_dmt_dir_chr Path to developer dmt directory (a character vector of length 1), Default: '../../../../Documentation/Code/Developer'
+#' @param make_pdfs_lgl Make pdfs (a logical vector of length 1), Default: T
 #' @return NULL
 #' @rdname write_and_doc_fn_fls_R
 #' @export 
 #' @importFrom purrr walk2
 #' @importFrom devtools document load_all build_manual
 write_and_doc_fn_fls_R <- function (fns_dmt_tb, r_dir_chr = "R", path_to_user_dmt_dir_chr = "../../../../Documentation/Code/User", 
-    path_to_dvpr_dmt_dir_chr = "../../../../Documentation/Code/Developer") 
+    path_to_dvpr_dmt_dir_chr = "../../../../Documentation/Code/Developer", 
+    make_pdfs_lgl = T) 
 {
     purrr::walk2(list(path_to_dvpr_dmt_dir_chr, path_to_user_dmt_dir_chr), 
         c(T, F), ~{
@@ -71,7 +73,8 @@ write_and_doc_fn_fls_R <- function (fns_dmt_tb, r_dir_chr = "R", path_to_user_dm
                 document_unexp_lgl = .y)
             devtools::document()
             devtools::load_all()
-            devtools::build_manual(path = .x)
+            if (make_pdfs_lgl) 
+                devtools::build_manual(path = .x)
         })
 }
 #' Write documented functions

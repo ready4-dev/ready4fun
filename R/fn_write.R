@@ -170,6 +170,7 @@ write_ds_dmt_R <- function (db, db_chr, title_chr, desc_chr, format_chr = "A tib
 #' @param args_ls Arguments (a list), Default: NULL
 #' @param import_chr_vec Import (a character vector), Default: 'NA'
 #' @param doc_in_class_lgl Document in class (a logical vector of length 1), Default: F
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return NULL
 #' @rdname write_fn_dmt
@@ -179,8 +180,10 @@ write_fn_dmt <- function (fn_name_chr, fn_type_chr, fn = NULL, fn_desc_chr = NA_
     fn_out_type_chr = NA_character_, fn_title_chr = NA_character_, 
     example_lgl = F, export_lgl = T, class_name_chr = "", details_chr = "DETAILS", 
     args_ls = NULL, import_chr_vec = NA_character_, doc_in_class_lgl = F, 
-    object_type_lup = NULL) 
+    abbreviations_lup = NULL, object_type_lup = NULL) 
 {
+    if (is.null(abbreviations_lup)) 
+        data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
     fn_tags_spine_ls <- make_fn_dmt_spine_chr_ls(fn_name_chr = fn_name_chr, 
@@ -191,7 +194,8 @@ write_fn_dmt <- function (fn_name_chr, fn_type_chr, fn = NULL, fn_desc_chr = NA_
     new_tag_chr_ls <- make_new_fn_dmt_chr_ls(fn_type_chr = fn_type_chr, 
         fn_name_chr = fn_name_chr, fn_desc_chr = fn_desc_chr, 
         fn_det_chr = details_chr, fn_out_type_chr = fn_out_type_chr, 
-        args_ls = args_ls, fn, object_type_lup = object_type_lup)
+        args_ls = args_ls, fn, abbreviations_lup = abbreviations_lup, 
+        object_type_lup = object_type_lup)
     fn_tags_chr <- update_fn_dmt_chr(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_chr = fn_name_chr, 
         fn_type_chr = fn_type_chr, import_chr_vec = import_chr_vec)

@@ -4,7 +4,12 @@
 \alias{make_fn_desc_spine_chr_vec}
 \title{Make function description spine}
 \usage{
-make_fn_desc_spine_chr_vec(fn_name_chr, fn_title_chr, fn_type_lup_tb = NULL)
+make_fn_desc_spine_chr_vec(
+  fn_name_chr,
+  fn_title_chr,
+  fn_type_lup_tb = NULL,
+  abbreviations_lup = NULL
+)
 }
 \arguments{
 \item{fn_name_chr}{Function name (a character vector of length 1)}
@@ -12,6 +17,8 @@ make_fn_desc_spine_chr_vec(fn_name_chr, fn_title_chr, fn_type_lup_tb = NULL)
 \item{fn_title_chr}{Function title (a character vector of length 1)}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \value{
 Function description spine (a character vector)

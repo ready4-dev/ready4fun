@@ -11,6 +11,7 @@ remove_obj_type_from_nm_chr_vec <- function(nms_chr_vec,
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   output_chr_vec <- make_arg_type_abbr_chr_vec(nms_chr_vec,
+                                               abbreviations_lup = abbreviations_lup,
                                                object_type_lup = object_type_lup)
   suffices_chr_vec <- output_chr_vec %>% purrr::map_chr(~{
     ifelse(.x=="NO MATCH",

@@ -4,12 +4,18 @@
 \alias{make_arg_type_abbr_chr_vec}
 \title{Make argument type abbreviation}
 \usage{
-make_arg_type_abbr_chr_vec(fn_args_chr_vec, object_type_lup = NULL)
+make_arg_type_abbr_chr_vec(
+  fn_args_chr_vec,
+  object_type_lup = NULL,
+  abbreviations_lup = NULL
+)
 }
 \arguments{
 \item{fn_args_chr_vec}{Function arguments (a character vector)}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \value{
 Argument type abbreviation (a character vector)

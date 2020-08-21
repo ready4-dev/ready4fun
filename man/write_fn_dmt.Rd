@@ -18,6 +18,7 @@ write_fn_dmt(
   args_ls = NULL,
   import_chr_vec = NA_character_,
   doc_in_class_lgl = F,
+  abbreviations_lup = NULL,
   object_type_lup = NULL
 )
 }
@@ -47,6 +48,8 @@ write_fn_dmt(
 \item{import_chr_vec}{Import (a character vector), Default: 'NA'}
 
 \item{doc_in_class_lgl}{Document in class (a logical vector of length 1), Default: F}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }

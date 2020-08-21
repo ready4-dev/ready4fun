@@ -147,7 +147,10 @@ write_fn_dmt <- function(fn_name_chr,
                          args_ls = NULL,
                          import_chr_vec = NA_character_,
                          doc_in_class_lgl = F,
+                         abbreviations_lup = NULL,
                          object_type_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   fn_tags_spine_ls <- make_fn_dmt_spine_chr_ls(fn_name_chr = fn_name_chr,
@@ -166,6 +169,7 @@ write_fn_dmt <- function(fn_name_chr,
                                            fn_out_type_chr = fn_out_type_chr,
                                            args_ls = args_ls,
                                            fn,
+                                           abbreviations_lup = abbreviations_lup,
                                            object_type_lup = object_type_lup)
   fn_tags_chr <- update_fn_dmt_chr(fn_tags_spine_ls = fn_tags_spine_ls,
                                    new_tag_chr_ls = new_tag_chr_ls,

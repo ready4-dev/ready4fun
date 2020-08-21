@@ -8,6 +8,7 @@ make_fn_dmt_tbl_tpl_tb(
   fns_path_chr_vec,
   fns_dir_chr,
   fn_type_lup_tb = NULL,
+  abbreviations_lup = NULL,
   object_type_lup = NULL
 )
 }
@@ -17,6 +18,8 @@ make_fn_dmt_tbl_tpl_tb(
 \item{fns_dir_chr}{Functions directory (a character vector of length 1)}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }

@@ -38,13 +38,17 @@ make_arg_desc_chr_vec <- function(fn_args_chr_vec,
   return(arg_desc_chr_vec)
 }
 make_arg_desc_ls <- function(fn_nms_chr_vec,
+                             abbreviations_lup = NULL,
                              object_type_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   purrr::map(fn_nms_chr_vec,
              ~ {
                eval(parse(text = paste0("fn <- ",.x)))
-               get_fn_args_chr_vec(fn) %>% make_arg_desc_chr_vec(object_type_lup = object_type_lup) %>%
+               get_fn_args_chr_vec(fn) %>% make_arg_desc_chr_vec(abbreviations_lup = abbreviations_lup,
+                                                                 object_type_lup = object_type_lup) %>%
                  stats::setNames(get_fn_args_chr_vec(fn))
              }
   )
@@ -66,7 +70,8 @@ make_arg_desc_spine_chr <- function(argument_nm_chr,
   }
   arg_desc_spine_chr <- ifelse(identical(match_chr,character(0)),
                                NA_character_,
-                               paste0(argument_nm_chr %>% make_arg_title_chr_vec(match_chr_vec = match_chr),
+                               paste0(argument_nm_chr %>% make_arg_title_chr_vec(match_chr_vec = match_chr,
+                                                                                 abbreviations_lup = abbreviations_lup),
                                       " (",
                                       match_chr %>% update_first_word_case_chr() %>%
                                         add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup,
@@ -136,12 +141,16 @@ make_arg_type_chr_vec <- function(fn_args_chr_vec,
   return(arg_desc_chr_vec)
 }
 make_arg_type_abbr_chr_vec <- function(fn_args_chr_vec,
-                                       object_type_lup = NULL){
+                                       object_type_lup = NULL,
+                                       abbreviations_lup = NULL){#
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   arg_type_abbr_chr_vec <- make_arg_type_chr_vec(fn_args_chr_vec,
                                                  object_type_lup = object_type_lup,
-                                                 fn = make_arg_type_abbr_spine_chr)
+                                                 fn = make_arg_type_abbr_spine_chr,
+                                                 abbreviations_lup = abbreviations_lup)
   return(arg_type_abbr_chr_vec)
 }
 make_arg_type_abbr_spine_chr <- function(argument_nm_chr,
@@ -165,7 +174,10 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
 make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                   title_chr_vec,
                                   output_chr_vec,
-                                  fn_type_lup_tb = NULL){
+                                  fn_type_lup_tb = NULL,
+                                  abbreviations_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_desc_chr_vec <- purrr::pmap_chr(list(fns_chr_vec,
                                           title_chr_vec,
                                           output_chr_vec),
@@ -173,7 +185,8 @@ make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                        fn_type_chr <- stringr::str_extract(..2, '[A-Za-z]+')
                                        paste0(make_fn_desc_spine_chr_vec(fn_name_chr = ..1,
                                                                          fn_title_chr = ..2,
-                                                                         fn_type_lup_tb = fn_type_lup_tb),
+                                                                         fn_type_lup_tb = fn_type_lup_tb,
+                                                                         abbreviations_lup = abbreviations_lup),
                                               " The function ",
                                               #..1,
                                               #"() ",
@@ -183,7 +196,7 @@ make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                                                    " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                                                                    "")),
                                                      paste0("returns ",
-                                                            ..3 %>% tolower() %>% add_indef_artl_to_item_chr_vec(),".")
+                                                            ..3 %>% tolower() %>% add_indef_artl_to_item_chr_vec(abbreviations_lup = abbreviations_lup),".")
                                               )
                                        )
                                      }
@@ -192,9 +205,12 @@ make_fn_desc_chr_vec <-  function(fns_chr_vec,
 }
 make_fn_desc_spine_chr_vec <- function(fn_name_chr,
                                        fn_title_chr,
-                                       fn_type_lup_tb = NULL){
+                                       fn_type_lup_tb = NULL,
+                                       abbreviations_lup = NULL){
   if(is.null(fn_type_lup_tb))
     data("fn_type_lup_tb", package="ready4fun", envir = environment())
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_args_chr_vec <- get_fn_args_chr_vec(eval(parse(text = fn_name_chr)))
   fn_type_chr_vec <- fn_title_chr %>% stringr::word()
   text_elements_chr_vec <- names(fn_type_lup_tb)[2:4] %>%
@@ -206,7 +222,8 @@ make_fn_desc_spine_chr_vec <- function(fn_name_chr,
   fn_desc_spine_chr_vec <- paste0(fn_name_chr,
                                   "() is ",
                                   add_indef_artl_to_item_chr_vec(fn_type_chr_vec[1],
-                                                                   ignore_phrs_not_in_lup = F),
+                                                                   ignore_phrs_not_in_lup = F,
+                                                                 abbreviations_lup = abbreviations_lup),
                                   " function that ",
                                   update_first_word_case_chr(text_elements_chr_vec[1]),
                                   " Specifically, this function implements an algorithm to ",
@@ -215,8 +232,8 @@ make_fn_desc_spine_chr_vec <- function(fn_name_chr,
                                   # fn_title_chr %>% stringr::str_remove(paste0(fn_title_chr %>% stringr::word()," ")) %>%
                                   #   add_indef_artl_to_item_chr_vec(),
                                   fn_name_chr %>%
-                                    remove_obj_type_from_nm_chr_vec() %>%
-                                    add_indefartls_to_phrases_chr_vec(),
+                                    remove_obj_type_from_nm_chr_vec(abbreviations_lup = abbreviations_lup) %>%
+                                    add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup),
                                   ".",
                                   ifelse(ifelse(is.null(fn_args_chr_vec)|is.na(text_elements_chr_vec[2]),
                                                 F,
@@ -248,12 +265,16 @@ make_fn_dmt_tbl_tb <- function(fns_path_chr_vec,
                                                     args_ls_ls = NULL),
                                append_lgl = T,
                                fn_type_lup_tb = NULL,
+                               abbreviations_lup = NULL,
                                object_type_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl_tb(fns_path_chr_vec,
                                           fns_dir_chr = fns_dir_chr,
                                           fn_type_lup_tb = fn_type_lup_tb,
+                                          abbreviations_lup = abbreviations_lup,
                                           object_type_lup = object_type_lup)
   if(purrr::map_lgl(custom_dmt_ls,
                     ~ !is.null(.x)) %>% any()){
@@ -265,7 +286,10 @@ make_fn_dmt_tbl_tb <- function(fns_path_chr_vec,
 make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
                                    fns_dir_chr,
                                    fn_type_lup_tb = NULL,
+                                   abbreviations_lup = NULL,
                                    object_type_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/","") %>%
@@ -282,16 +306,19 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
                                    file_nm_chr = .x %>% stringr::str_replace(paste0(fns_dir_chr,"/"),""),
                                    file_pfx_chr = file_pfx_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
-    dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr))
+    dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr,
+                                                    abbreviations_lup = abbreviations_lup))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(desc_chr = make_fn_desc_chr_vec(fns_chr,
                                                   title_chr_vec = title_chr,
                                                   output_chr_vec = output_chr,
-                                                  fn_type_lup_tb = fn_type_lup_tb))
+                                                  fn_type_lup_tb = fn_type_lup_tb,
+                                                  abbreviations_lup = abbreviations_lup))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr,
+                                             abbreviations_lup = abbreviations_lup,
                                              object_type_lup = object_type_lup))
   return(fn_dmt_tbl_tb)
 }
@@ -344,14 +371,18 @@ make_fn_title_chr_vec <- function(fns_chr_vec,
 make_and_doc_fn_type_R <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
                                    overwrite_lgl = T,
                                    pkg_nm_chr,
-                                   url_chr = url_chr){
+                                   url_chr = url_chr,
+                                   abbreviations_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_type_lup_tb %>%
   write_and_doc_ds_R(overwrite_lgl = overwrite_lgl,
                      db_chr = "fn_type_lup_tb",
                      title_chr = "Function type lookup table",
                      desc_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_chr,"package suite."),
                      format_chr = "A tibble",
-                     url_chr = url_chr)
+                     url_chr = url_chr,
+                     abbreviations_lup = abbreviations_lup)
 }
 make_fn_type_lup_tb <- function(){
   fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
@@ -474,7 +505,10 @@ make_new_fn_dmt_chr_ls <- function(fn_type_chr,
                                    fn_out_type_chr = NA_character_,
                                    args_ls = NULL,
                                    fn = NULL,
+                                   abbreviations_lup = NULL,
                                    object_type_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   s3_class_main <- NULL
@@ -482,7 +516,8 @@ make_new_fn_dmt_chr_ls <- function(fn_type_chr,
     fn_args_chr_vec <- get_fn_args_chr_vec(fn)
     fn_out_type_chr <- ifelse(is.na(fn_out_type_chr),
                               get_return_obj_nm_chr(fn) %>%
-                                make_arg_desc_chr_vec(object_type_lup = object_type_lup),
+                                make_arg_desc_chr_vec(abbreviations_lup = abbreviations_lup,
+                                                      object_type_lup = object_type_lup),
                               fn_out_type_chr)
   }else{
     fn_args_chr_vec <- NA_character_
@@ -536,6 +571,7 @@ make_new_fn_dmt_chr_ls <- function(fn_type_chr,
     arg_desc_chr_vec <- NULL
     if(any(!is.na(fn_args_chr_vec)) & !is.null(object_type_lup)){
       arg_desc_chr_vec <- make_arg_desc_chr_vec(fn_args_chr_vec,
+                                                abbreviations_lup = abbreviations_lup,
                                                 object_type_lup = object_type_lup)
       if(!is.null(arg_desc_chr_vec)){
         names(arg_desc_chr_vec) <- fn_args_chr_vec

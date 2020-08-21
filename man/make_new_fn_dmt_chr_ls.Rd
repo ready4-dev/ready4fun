@@ -12,6 +12,7 @@ make_new_fn_dmt_chr_ls(
   fn_out_type_chr = NA_character_,
   args_ls = NULL,
   fn = NULL,
+  abbreviations_lup = NULL,
   object_type_lup = NULL
 )
 }
@@ -29,6 +30,8 @@ make_new_fn_dmt_chr_ls(
 \item{args_ls}{Arguments (a list), Default: NULL}
 
 \item{fn}{Function (a function), Default: NULL}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }

@@ -4,10 +4,16 @@
 \alias{make_arg_desc_ls}
 \title{Make argument description}
 \usage{
-make_arg_desc_ls(fn_nms_chr_vec, object_type_lup = NULL)
+make_arg_desc_ls(
+  fn_nms_chr_vec,
+  abbreviations_lup = NULL,
+  object_type_lup = NULL
+)
 }
 \arguments{
 \item{fn_nms_chr_vec}{Function names (a character vector)}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }

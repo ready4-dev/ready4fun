@@ -8,7 +8,8 @@ make_fn_desc_chr_vec(
   fns_chr_vec,
   title_chr_vec,
   output_chr_vec,
-  fn_type_lup_tb = NULL
+  fn_type_lup_tb = NULL,
+  abbreviations_lup = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ make_fn_desc_chr_vec(
 \item{output_chr_vec}{Output (a character vector)}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \value{
 Function description (a character vector)

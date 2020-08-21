@@ -41,7 +41,6 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
 #' @rdname make_all_fns_dmt_tb
 #' @export 
 #' @importFrom purrr pmap_dfr discard
-#' @importFrom ready4fun make_fn_dmt_tbl_tb
 #' @keywords internal
 make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr, custom_dmt_ls = list(details_ls = NULL, 
     export_ls = list(force_true_chr_vec = NA_character_, force_false_chr_vec = NA_character_), 
@@ -52,7 +51,7 @@ make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr, custom_dmt_
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls, undocumented_fns_dir_chr, 
         list(fn_type_lup_tb, generics_lup_tb, generics_lup_tb) %>% 
-            purrr::discard(is.null)), ~ready4fun::make_fn_dmt_tbl_tb(..1, 
+            purrr::discard(is.null)), ~make_fn_dmt_tbl_tb(..1, 
         fns_dir_chr = ..2, custom_dmt_ls = custom_dmt_ls, append_lgl = T, 
         fn_type_lup_tb = ..3, abbreviations_lup = abbreviations_lup))
     return(all_fns_dmt_tb)
@@ -92,7 +91,6 @@ make_and_doc_fn_type_R <- function (fn_type_lup_tb = make_fn_type_lup_tb(), over
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom dplyr arrange
-#' @importFrom ready4fun write_and_doc_ds_R
 #' @keywords internal
 make_and_doc_generics_tb_R <- function (generic_nm_chr, description_chr, overwrite_lgl = T, 
     pkg_nm_chr, url_chr = NA_character_, abbreviations_lup = NULL) 
@@ -102,9 +100,8 @@ make_and_doc_generics_tb_R <- function (generic_nm_chr, description_chr, overwri
     tibble::tibble(fn_type_nm_chr = generic_nm_chr, fn_type_desc_chr = description_chr, 
         first_arg_desc_chr = NA_character_, second_arg_desc_chr = NA_character_, 
         is_generic_lgl = T) %>% dplyr::arrange(fn_type_nm_chr) %>% 
-        ready4fun::write_and_doc_ds_R(overwrite_lgl = overwrite_lgl, 
-            db_chr = "generics_lup_tb", title_chr = "Generics lookup table", 
-            desc_chr = paste0("A lookup table to find descriptions of generics exported with the ", 
+        write_and_doc_ds_R(overwrite_lgl = overwrite_lgl, db_chr = "generics_lup_tb", 
+            title_chr = "Generics lookup table", desc_chr = paste0("A lookup table to find descriptions of generics exported with the ", 
                 pkg_nm_chr, " package suite."), format_chr = "A tibble", 
             url_chr = url_chr, abbreviations_lup = abbreviations_lup)
 }

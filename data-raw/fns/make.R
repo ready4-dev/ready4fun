@@ -212,29 +212,49 @@ make_fn_desc_spine_chr_vec <- function(fn_name_chr,
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_args_chr_vec <- get_fn_args_chr_vec(eval(parse(text = fn_name_chr)))
-  fn_type_chr_vec <- fn_title_chr %>% stringr::word()
+
+  #fn_type_chr_vec <- fn_title_chr %>% stringr::word()
+  pfx_matches_chr_vec <- fn_type_lup_tb$fn_type_nm_chr[purrr::map_lgl(fn_type_lup_tb$fn_type_nm_chr, ~ startsWith(fn_title_chr %>% tools::toTitleCase(),.x))]
+  fn_type_chr_vec <- pfx_matches_chr_vec[nchar(pfx_matches_chr_vec) == max(nchar(pfx_matches_chr_vec))]
   text_elements_chr_vec <- names(fn_type_lup_tb)[2:4] %>%
     purrr::map_chr(~ get_from_lup_obj(fn_type_lup_tb,
                                       match_var_nm_chr = "fn_type_nm_chr",
                                       match_value_xx = fn_type_chr_vec[1],
                                       target_var_nm_chr = .x,
                                       evaluate_lgl = F))
+  is_generic_lgl <- get_from_lup_obj(fn_type_lup_tb,
+                                     match_var_nm_chr = "fn_type_nm_chr",
+                                     match_value_xx = fn_type_chr_vec[1],
+                                     target_var_nm_chr = "is_generic_lgl",
+                                     evaluate_lgl = F)
+  treat_as_chr <- ifelse(is_generic_lgl,
+                         ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr,
+                                               ~ endsWith(fn_name_chr,paste0(".",.x))) %>% any(),
+                                "Method",
+                                "Generic"),
+                         "Function")
   fn_desc_spine_chr_vec <- paste0(fn_name_chr,
                                   "() is ",
                                   add_indef_artl_to_item_chr_vec(fn_type_chr_vec[1],
                                                                    ignore_phrs_not_in_lup = F,
                                                                  abbreviations_lup = abbreviations_lup),
-                                  " function that ",
+                                  " ",
+                                  tolower(treat_as_chr),
+                                  " that ",
                                   update_first_word_case_chr(text_elements_chr_vec[1]),
-                                  " Specifically, this function implements an algorithm to ",
-                                  # fn_title_chr %>% stringr::word() %>% tolower(),
-                                  # " ",
-                                  # fn_title_chr %>% stringr::str_remove(paste0(fn_title_chr %>% stringr::word()," ")) %>%
-                                  #   add_indef_artl_to_item_chr_vec(),
-                                  fn_name_chr %>%
-                                    remove_obj_type_from_nm_chr_vec(abbreviations_lup = abbreviations_lup) %>%
-                                    add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup),
-                                  ".",
+                                  ifelse(treat_as_chr=="Generic",
+                                         "",
+                                         ifelse(treat_as_chr == "Method",
+                                                paste0(" This method is implemented for the ",
+                                                       abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr,
+                                                                      ~ endsWith(fn_name_chr,paste0(".",.x)))],
+                                                       "."),
+                                                paste0( " Specifically, this function implements an algorithm to ",
+                                                        fn_name_chr %>%
+                                                          remove_obj_type_from_nm_chr_vec(abbreviations_lup = abbreviations_lup) %>%
+                                                          add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup),
+                                                        "."))),
+
                                   ifelse(ifelse(is.null(fn_args_chr_vec)|is.na(text_elements_chr_vec[2]),
                                                 F,
                                                 T),
@@ -293,7 +313,12 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/","") %>%
-    switch("fns"="fn_", "s3" = "C3_", "s4 = C4_")
+    switch("fns"="fn_", "s3" = "C3_","gnrcs"="grp_", "mthds"="mthd_","s4 = C4_")
+  if(is.null(fn_type_lup_tb)){
+    is_generic_lgl <- F
+  }else{
+    is_generic_lgl <- fn_type_lup_tb$is_generic_lgl[1]  # Only works if generics in separate table
+  }
   fn_dmt_tbl_tb <- fns_path_chr_vec %>%
     purrr::map_dfr(~tibble::tibble(fns_chr = get_fn_nms_in_file_chr(.x),
                                    title_chr = NA_character_,
@@ -307,7 +332,8 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
                                    file_pfx_chr = file_pfx_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr,
-                                                    abbreviations_lup = abbreviations_lup))
+                                                    abbreviations_lup = abbreviations_lup,
+                                                    is_generic_lgl = is_generic_lgl))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
@@ -353,14 +379,16 @@ make_fn_dmt_spine_chr_ls <- function(fn_name_chr,
 }
 make_fn_title_chr_vec <- function(fns_chr_vec,
                                   object_type_lup = NULL,
-                                  abbreviations_lup = NULL){
+                                  abbreviations_lup = NULL,
+                                  is_generic_lgl = F){
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   title_chr_vec <- remove_obj_type_from_nm_chr_vec(fns_chr_vec,
                                   object_type_lup = object_type_lup,
-                                  abbreviations_lup = abbreviations_lup) %>%
+                                  abbreviations_lup = abbreviations_lup,
+                                  is_generic_lgl = is_generic_lgl) %>%
     stringr::str_replace_all("_"," ") %>%
     Hmisc::capitalize() %>%
     purrr::map_chr(~replace_abbr_chr(.x,
@@ -436,7 +464,8 @@ make_fn_type_lup_tb <- function(){
                                                            "Object to be updated.",
                                                            "Package(s) to be detached from the search path.",
                                                            "Object to be updated.",
-                                                           NA_character_))
+                                                           NA_character_),
+                                   is_generic_lgl = F)
   return(fn_type_lup_tb)
 }
 make_gtr_str_dmt_spine_chr_ls <- function(fn_type_chr,

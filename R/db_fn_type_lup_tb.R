@@ -9,6 +9,7 @@
 #'   \item{fn_type_desc_chr}{Function type description (a character vector)}
 #'   \item{first_arg_desc_chr}{First argument description (a character vector)}
 #'   \item{second_arg_desc_chr}{Second argument description (a character vector)}
+#'   \item{is_generic_lgl}{Is generic (a logical vector)}
 #' }
 #' @source \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
 "fn_type_lup_tb"

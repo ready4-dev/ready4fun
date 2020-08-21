@@ -18,13 +18,16 @@ remove_collate_chr_vec <- function (description_chr)
 #' @param nms_chr_vec Names (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param is_generic_lgl_vec Is generic (a logical vector), Default: F
 #' @return Names (a character vector)
 #' @rdname remove_obj_type_from_nm_chr_vec
 #' @export 
-#' @importFrom purrr map_chr map2_chr
+#' @importFrom purrr map2_chr map_lgl
+#' @importFrom stringr str_remove
 #' @importFrom stringi stri_replace_last_fixed
 #' @keywords internal
-remove_obj_type_from_nm_chr_vec <- function (nms_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL) 
+remove_obj_type_from_nm_chr_vec <- function (nms_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL, 
+    is_generic_lgl_vec = F) 
 {
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
@@ -32,11 +35,22 @@ remove_obj_type_from_nm_chr_vec <- function (nms_chr_vec, object_type_lup = NULL
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     output_chr_vec <- make_arg_type_abbr_chr_vec(nms_chr_vec, 
         abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
-    suffices_chr_vec <- output_chr_vec %>% purrr::map_chr(~{
-        ifelse(.x == "NO MATCH", "", .x)
-    })
+    suffices_chr_vec <- output_chr_vec %>% purrr::map2_chr(is_generic_lgl_vec, 
+        ~{
+            ifelse(.x == "NO MATCH" | .y, "", .x)
+        })
     names_chr_vec <- purrr::map2_chr(nms_chr_vec, suffices_chr_vec, 
-        ~ifelse(.y == "", .x, stringi::stri_replace_last_fixed(.x, 
-            paste0("_", .y), "")))
+        ~{
+            name_chr <- .x
+            ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
+                ~endsWith(name_chr, paste0(".", .x))) %>% any(), 
+                paste0(name_chr %>% stringr::str_remove(paste0(".", 
+                  abbreviations_lup$short_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
+                    ~endsWith(name_chr, paste0(".", .x)))])), 
+                  " method applied to ", abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
+                    ~endsWith(name_chr, paste0(".", .x)))], "."), 
+                ifelse(.y == "", .x, stringi::stri_replace_last_fixed(.x, 
+                  paste0("_", .y), "")))
+        })
     return(names_chr_vec)
 }

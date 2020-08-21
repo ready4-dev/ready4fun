@@ -40,6 +40,7 @@ make_abbr_lup_tb(short_name_chr_vec = c("abbr","arg","artl","db","desc","dir","d
                                          suffix = c("suffices","sfcs")),
                  url_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
                  pkg_nm_chr = pkg_nm_chr)
+data("abbreviations_lup")
 #
 # 8. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_and_doc_fn_type_R(pkg_nm_chr = pkg_nm_chr,
@@ -63,7 +64,8 @@ fns_dmt_tb <- make_fn_dmt_tbl_tb(fns_path_chr_vec,
                                                                         )),
                                  append_lgl = T,
                                  fn_type_lup_tb = fn_type_lup_tb,
-                                 object_type_lup = object_type_lup)
+                                 object_type_lup = object_type_lup,
+                                 abbreviations_lup = abbreviations_lup)
 # NOTE: To update, make call to update_fns_dmt_tb_tb
 #
 # 10. Write documented functions to R directory.

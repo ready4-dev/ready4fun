@@ -7,7 +7,8 @@
 make_fn_title_chr_vec(
   fns_chr_vec,
   object_type_lup = NULL,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  is_generic_lgl = F
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ make_fn_title_chr_vec(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{is_generic_lgl}{Is generic (a logical vector of length 1), Default: F}
 }
 \value{
 Title (a character vector)

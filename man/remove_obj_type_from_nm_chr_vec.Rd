@@ -7,7 +7,8 @@
 remove_obj_type_from_nm_chr_vec(
   nms_chr_vec,
   object_type_lup = NULL,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  is_generic_lgl_vec = F
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ remove_obj_type_from_nm_chr_vec(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{is_generic_lgl_vec}{Is generic (a logical vector), Default: F}
 }
 \value{
 Names (a character vector)

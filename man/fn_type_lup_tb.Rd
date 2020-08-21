@@ -14,7 +14,7 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 fn_type_lup_tb
 }
 \description{
-A lookup table to find descriptions for different types of functions used within the ready4funpackage suite.
+A lookup table to find descriptions for different types of functions used within the ready4fun package suite.
 }
 \details{
 A tibble

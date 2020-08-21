@@ -28,6 +28,35 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
             pkg_nm_chr, "package."), format_chr = "A tibble", 
         url_chr = url_chr, abbreviations_lup = .)
 }
+#' Make all functions dmt
+#' @description make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt. The function returns all functions dmt (a tibble).
+#' @param paths_ls Paths (a list)
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector of length 1)
+#' @param custom_dmt_ls Custom dmt (a list), Default: list(details_ls = NULL, export_ls = list(force_true_chr_vec = NA_character_, 
+#'    force_false_chr_vec = NA_character_), args_ls_ls = NULL)
+#' @param fn_type_lup_tb Function type lookup table (a tibble)
+#' @param generics_lup_tb Generics lookup table (a tibble), Default: NULL
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @return All functions dmt (a tibble)
+#' @rdname make_all_fns_dmt_tb
+#' @export 
+#' @importFrom purrr pmap_dfr discard
+#' @importFrom ready4fun make_fn_dmt_tbl_tb
+#' @keywords internal
+make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr, custom_dmt_ls = list(details_ls = NULL, 
+    export_ls = list(force_true_chr_vec = NA_character_, force_false_chr_vec = NA_character_), 
+    args_ls_ls = NULL), fn_type_lup_tb, generics_lup_tb = NULL, 
+    abbreviations_lup = NULL) 
+{
+    if (is.null(abbreviations_lup)) 
+        data("abbreviations_lup", package = "ready4fun", envir = environment())
+    all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls, undocumented_fns_dir_chr, 
+        list(fn_type_lup_tb, generics_lup_tb, generics_lup_tb) %>% 
+            purrr::discard(is.null)), ~ready4fun::make_fn_dmt_tbl_tb(..1, 
+        fns_dir_chr = ..2, custom_dmt_ls = custom_dmt_ls, append_lgl = T, 
+        fn_type_lup_tb = ..3, abbreviations_lup = abbreviations_lup))
+    return(all_fns_dmt_tb)
+}
 #' Make and document function type
 #' @description make_and_doc_fn_type_R() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make and a document function type R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup_tb()
@@ -47,8 +76,37 @@ make_and_doc_fn_type_R <- function (fn_type_lup_tb = make_fn_type_lup_tb(), over
     fn_type_lup_tb %>% write_and_doc_ds_R(overwrite_lgl = overwrite_lgl, 
         db_chr = "fn_type_lup_tb", title_chr = "Function type lookup table", 
         desc_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
-            pkg_nm_chr, "package suite."), format_chr = "A tibble", 
+            pkg_nm_chr, " package suite."), format_chr = "A tibble", 
         url_chr = url_chr, abbreviations_lup = abbreviations_lup)
+}
+#' Make and document generics tibble
+#' @description make_and_doc_generics_tb_R() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make and a document generics a tibble R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param generic_nm_chr Generic name (a character vector of length 1)
+#' @param description_chr Description (a character vector of length 1)
+#' @param overwrite_lgl Overwrite (a logical vector of length 1), Default: T
+#' @param pkg_nm_chr Package name (a character vector of length 1)
+#' @param url_chr Url (a character vector of length 1), Default: 'NA'
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @return NULL
+#' @rdname make_and_doc_generics_tb_R
+#' @export 
+#' @importFrom tibble tibble
+#' @importFrom dplyr arrange
+#' @importFrom ready4fun write_and_doc_ds_R
+#' @keywords internal
+make_and_doc_generics_tb_R <- function (generic_nm_chr, description_chr, overwrite_lgl = T, 
+    pkg_nm_chr, url_chr = NA_character_, abbreviations_lup = NULL) 
+{
+    if (is.null(abbreviations_lup)) 
+        data("abbreviations_lup", package = "ready4fun", envir = environment())
+    tibble::tibble(fn_type_nm_chr = generic_nm_chr, fn_type_desc_chr = description_chr, 
+        first_arg_desc_chr = NA_character_, second_arg_desc_chr = NA_character_, 
+        is_generic_lgl = T) %>% dplyr::arrange(fn_type_nm_chr) %>% 
+        ready4fun::write_and_doc_ds_R(overwrite_lgl = overwrite_lgl, 
+            db_chr = "generics_lup_tb", title_chr = "Generics lookup table", 
+            desc_chr = paste0("A lookup table to find descriptions of generics exported with the ", 
+                pkg_nm_chr, " package suite."), format_chr = "A tibble", 
+            url_chr = url_chr, abbreviations_lup = abbreviations_lup)
 }
 #' Make argument description
 #' @description make_arg_desc_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description. The function returns an argument description (a character vector).

@@ -6,7 +6,7 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                              seed_lup = NULL,
                              url_chr,
                              pkg_nm_chr){
-  if(is.null(seed_lup_tb)){
+  if(is.null(seed_lup)){
     data("object_type_lup",package="ready4fun",envir = environment())
     seed_lup <- object_type_lup
   }

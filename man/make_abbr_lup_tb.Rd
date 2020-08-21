@@ -10,6 +10,7 @@ make_abbr_lup_tb(
   no_plural_chr_vec = NA_character_,
   custom_plural_ls = NULL,
   overwrite_lgl = T,
+  seed_lup = NULL,
   url_chr,
   pkg_nm_chr
 )
@@ -24,6 +25,8 @@ make_abbr_lup_tb(
 \item{custom_plural_ls}{Custom plural (a list), Default: NULL}
 
 \item{overwrite_lgl}{Overwrite (a logical vector of length 1), Default: T}
+
+\item{seed_lup}{Seed (a lookup table), Default: NULL}
 
 \item{url_chr}{Url (a character vector of length 1)}
 

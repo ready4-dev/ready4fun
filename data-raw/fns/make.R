@@ -3,10 +3,14 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                              no_plural_chr_vec = NA_character_,
                              custom_plural_ls = NULL,
                              overwrite_lgl = T,
+                             seed_lup = NULL,
                              url_chr,
                              pkg_nm_chr){
-  data("object_type_lup",package="ready4fun",envir = environment())
-  update_abbr_lup_tb(object_type_lup,
+  if(is.null(seed_lup_tb)){
+    data("object_type_lup",package="ready4fun",envir = environment())
+    seed_lup <- object_type_lup
+  }
+  update_abbr_lup_tb(seed_lup,
                      short_name_chr_vec = short_name_chr_vec,
                      long_name_chr_vec = long_name_chr_vec,
                      no_plural_chr_vec = no_plural_chr_vec,

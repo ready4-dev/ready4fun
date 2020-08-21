@@ -5,6 +5,7 @@
 #' @param no_plural_chr_vec No plural (a character vector), Default: 'NA'
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param overwrite_lgl Overwrite (a logical vector of length 1), Default: T
+#' @param seed_lup Seed (a lookup table), Default: NULL
 #' @param url_chr Url (a character vector of length 1)
 #' @param pkg_nm_chr Package name (a character vector of length 1)
 #' @return NULL
@@ -13,10 +14,13 @@
 
 make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_vec = NA_character_, 
     no_plural_chr_vec = NA_character_, custom_plural_ls = NULL, 
-    overwrite_lgl = T, url_chr, pkg_nm_chr) 
+    overwrite_lgl = T, seed_lup = NULL, url_chr, pkg_nm_chr) 
 {
-    data("object_type_lup", package = "ready4fun", envir = environment())
-    update_abbr_lup_tb(object_type_lup, short_name_chr_vec = short_name_chr_vec, 
+    if (is.null(seed_lup_tb)) {
+        data("object_type_lup", package = "ready4fun", envir = environment())
+        seed_lup <- object_type_lup
+    }
+    update_abbr_lup_tb(seed_lup, short_name_chr_vec = short_name_chr_vec, 
         long_name_chr_vec = long_name_chr_vec, no_plural_chr_vec = no_plural_chr_vec, 
         custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds_R(db = ., 
         overwrite_lgl = overwrite_lgl, db_chr = "abbreviations_lup", 

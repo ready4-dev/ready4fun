@@ -1,5 +1,5 @@
 #' Add indefinite article to item
-#' @description add_indef_artl_to_item_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add an indefinite article to item. Function argument phrase_chr_vec specifies the object to be updated. The function returns an indefinite item (a character vector).
+#' @description add_indef_artl_to_item_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add an indefinite article to item. Function argument phrase_chr_vec specifies the object to be updated.The function returns an indefinite item (a character vector).
 #' @param phrase_chr_vec Phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_lgl Ignore phrases not in lookup table (a logical vector of length 1), Default: T
@@ -39,7 +39,7 @@ add_indef_artl_to_item_chr_vec <- function (phrase_chr_vec, abbreviations_lup = 
     return(indefinite_item_chr_vec)
 }
 #' Add indefinite articles to phrases
-#' @description add_indefartls_to_phrases_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_chr_vec specifies the object to be updated. The function returns phrases (a character vector).
+#' @description add_indefartls_to_phrases_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_chr_vec specifies the object to be updated.The function returns phrases (a character vector).
 #' @param abbreviated_phrase_chr_vec Abbreviated phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_lgl Ignore phrases not in lookup table (a logical vector of length 1), Default: T
@@ -79,7 +79,7 @@ add_indefartls_to_phrases_chr_vec <- function (abbreviated_phrase_chr_vec, abbre
     return(phrases_chr_vec)
 }
 #' Add plurals to abbreviation lookup table
-#' @description add_plurals_to_abbr_lup_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to an abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. The function returns an abbreviation (a tibble).
+#' @description add_plurals_to_abbr_lup_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to an abbreviation lookup table. Function argument abbr_tb specifies the object to be updated.The function returns an abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param no_plural_chr_vec No plural (a character vector), Default: 'NA'
 #' @param custom_plural_ls Custom plural (a list), Default: NULL

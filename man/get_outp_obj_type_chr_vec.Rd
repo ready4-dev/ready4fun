@@ -13,6 +13,6 @@ get_outp_obj_type_chr_vec(fns_chr_vec)
 Output object type (a character vector)
 }
 \description{
-get_outp_obj_type_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get an output object type. Function argument fns_chr_vec specifies the where to look for the required object. The function returns an output object type (a character vector).
+get_outp_obj_type_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get an output object type. Function argument fns_chr_vec specifies the where to look for the required object.The function returns an output object type (a character vector).
 }
 \keyword{internal}

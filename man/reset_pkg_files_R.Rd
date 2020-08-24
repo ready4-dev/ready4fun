@@ -21,6 +21,6 @@ reset_pkg_files_R(
 \item{keep_version_lgl}{Keep version (a logical vector of length 1), Default: T}
 }
 \description{
-reset_pkg_files_R() is a Reset function that edits an object, overwriting the current version with a default version. Specifically, this function implements an algorithm to reset a package files R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+reset_pkg_files_R() is a Reset function that edits an object, overwriting the current version with a default version. Specifically, this function implements an algorithm to reset a package files R.NA
 }
 \keyword{internal}

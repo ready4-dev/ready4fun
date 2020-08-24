@@ -10,6 +10,6 @@ make_fn_type_lup_tb()
 Function type lookup table (a tibble)
 }
 \description{
-make_fn_type_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function type a lookup table. The function returns a function type lookup table (a tibble).
+make_fn_type_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function type a lookup table.The function returns a function type lookup table (a tibble).
 }
 \keyword{internal}

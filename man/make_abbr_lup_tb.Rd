@@ -33,5 +33,5 @@ make_abbr_lup_tb(
 \item{pkg_nm_chr}{Package name (a character vector of length 1)}
 }
 \description{
-make_abbr_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an abbreviation lookup table. The function is called for its side effects and does not return a value.
+make_abbr_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an abbreviation lookup table.NA
 }

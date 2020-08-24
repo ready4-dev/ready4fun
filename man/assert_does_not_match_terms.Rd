@@ -12,6 +12,6 @@ assert_does_not_match_terms(input_chr_vec, exclude_if_match_chr_vec)
 \item{exclude_if_match_chr_vec}{Exclude if match (a character vector)}
 }
 \description{
-assert_does_not_match_terms() is an Assert function that validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided. Specifically, this function implements an algorithm to assert does not match terms. Function argument input_chr_vec specifies the object on which assert validation checks are to be performed. Argument exclude_if_match_chr_vec provides the object containing values used for validation tests. The function is called for its side effects and does not return a value.
+assert_does_not_match_terms() is an Assert function that validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided. Specifically, this function implements an algorithm to assert does not match terms. Function argument input_chr_vec specifies the object on which assert validation checks are to be performed. Argument exclude_if_match_chr_vec provides the object containing values used for validation tests.NA
 }
 \keyword{internal}

@@ -17,5 +17,5 @@ rowbind_all_tbs_in_r4_obj_r4(tbs_r4, second_tbs_r4, r4_name_chr)
 Tibbles (a readyforwhatsnext S4)
 }
 \description{
-rowbind_all_tbs_in_r4_obj_r4() is a Rowbind function that performs custom rowbind operations on table objects. Specifically, this function implements an algorithm to rowbind all a tibbles in a readyforwhatsnext S4 object. The function returns a tibbles (a readyforwhatsnext s4).
+rowbind_all_tbs_in_r4_obj_r4() is a Rowbind function that performs custom rowbind operations on table objects. Specifically, this function implements an algorithm to rowbind all a tibbles in a readyforwhatsnext S4 object.The function returns a tibbles (a readyforwhatsnext s4).
 }

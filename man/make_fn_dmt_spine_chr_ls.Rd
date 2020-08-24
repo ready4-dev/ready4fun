@@ -39,6 +39,6 @@ make_fn_dmt_spine_chr_ls(
 Function dmt spine (a list of character vectors of length 1)
 }
 \description{
-make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt spine. The function returns a function dmt spine (a list of character vectors of length 1).
+make_fn_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt spine.The function returns a function dmt spine (a list of character vectors of length 1).
 }
 \keyword{internal}

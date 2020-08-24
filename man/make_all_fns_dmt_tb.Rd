@@ -10,7 +10,6 @@ make_all_fns_dmt_tb(
   custom_dmt_ls = list(details_ls = NULL, export_ls = list(force_true_chr_vec =
     NA_character_, force_false_chr_vec = NA_character_), args_ls_ls = NULL),
   fn_type_lup_tb,
-  generics_lup_tb = NULL,
   abbreviations_lup = NULL
 )
 }
@@ -24,14 +23,12 @@ force_false_chr_vec = NA_character_), args_ls_ls = NULL)}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble)}
 
-\item{generics_lup_tb}{Generics lookup table (a tibble), Default: NULL}
-
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \value{
 All functions dmt (a tibble)
 }
 \description{
-make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt. The function returns all functions dmt (a tibble).
+make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt.The function returns all functions dmt (a tibble).
 }
 \keyword{internal}

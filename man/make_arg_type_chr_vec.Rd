@@ -24,6 +24,6 @@ make_arg_type_chr_vec(
 Argument description (a character vector)
 }
 \description{
-make_arg_type_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type. The function returns an argument description (a character vector).
+make_arg_type_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type.The function returns an argument description (a character vector).
 }
 \keyword{internal}

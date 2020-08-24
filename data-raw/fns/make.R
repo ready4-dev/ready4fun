@@ -31,7 +31,7 @@ make_all_fns_dmt_tb <- function(paths_ls,
                                                                       force_false_chr_vec = NA_character_),
                                                      args_ls_ls = NULL),
                                 fn_type_lup_tb,
-                                generics_lup_tb = NULL,
+                                #generics_lup_tb = NULL,
                                 abbreviations_lup = NULL){
   # add assert - same length inputs to purrr
   if (is.null(abbreviations_lup))
@@ -39,13 +39,25 @@ make_all_fns_dmt_tb <- function(paths_ls,
          envir = environment())
   all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls,
                                          undocumented_fns_dir_chr,
-                                         list(fn_type_lup_tb,generics_lup_tb,generics_lup_tb) %>% purrr::discard(is.null)),
-                                    ~ make_fn_dmt_tbl_tb(..1,
+                                         names(paths_ls)
+                                         # list(fn_type_lup_tb,
+                                         #      generics_lup_tb,
+                                         #      generics_lup_tb) #%>% purrr::discard(is.null) %>% purrr::map_dfr(~.x)
+                                         ),
+                                    ~ {
+                                      if(..3 == "fns")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(!is_generic_lgl & !is_method_lgl)
+                                      if(..3 == "gnrcs")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(is_generic_lgl)
+                                      if(..3 == "mthds")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
+                                      make_fn_dmt_tbl_tb(..1,
                                                                     fns_dir_chr = ..2,
                                                                     custom_dmt_ls = custom_dmt_ls,
                                                                     append_lgl = T,
-                                                                    fn_type_lup_tb = ..3,
-                                                                    abbreviations_lup = abbreviations_lup))
+                                                                    fn_type_lup_tb = tb,
+                                                                    abbreviations_lup = abbreviations_lup)
+                                      })
   return(all_fns_dmt_tb)
 }
 make_and_doc_fn_type_R <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
@@ -248,15 +260,21 @@ make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                                                          fn_title_chr = ..2,
                                                                          fn_type_lup_tb = fn_type_lup_tb,
                                                                          abbreviations_lup = abbreviations_lup),
-                                              " The function ",
+                                              #" The function ",
                                               #..1,
                                               #"() ",
                                               ifelse(..3=="NULL",
-                                                     paste0("is called for its side effects and does not return a value.",
-                                                            ifelse(endsWith(..1,"_R"),
-                                                                   " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
-                                                                   "")),
-                                                     paste0("returns ",
+                                                     ifelse(get_from_lup_obj(fn_type_lup_tb,
+                                                                             match_var_nm_chr = "fn_type_nm_chr",
+                                                                             match_value_xx = ..1 %>% make_fn_title_chr_vec(abbreviations_lup = abbreviations_lup) %>% tools::toTitleCase(),
+                                                                             target_var_nm_chr = "is_generic_lgl",
+                                                                             evaluate_lgl = F),
+                                                            "",
+                                                            paste0("The function is called for its side effects and does not return a value.",
+                                                                   ifelse(endsWith(..1,"_R"),
+                                                                          " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
+                                                                          ""))),
+                                                     paste0("The function returns ",
                                                             ..3 %>% tolower() %>% add_indef_artl_to_item_chr_vec(abbreviations_lup = abbreviations_lup),".")
                                               )
                                        )

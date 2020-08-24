@@ -10,5 +10,5 @@ write_ns_imps_to_desc(dev_pkgs_chr_vec = NA_character_)
 \item{dev_pkgs_chr_vec}{Dev packages (a character vector), Default: 'NA'}
 }
 \description{
-write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description. The function is called for its side effects and does not return a value.
+write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description.NA
 }

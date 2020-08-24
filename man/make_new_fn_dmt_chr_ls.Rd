@@ -39,6 +39,6 @@ make_new_fn_dmt_chr_ls(
 New function dmt (a list of character vectors of length 1)
 }
 \description{
-make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function dmt. The function returns new function dmt (a list of character vectors of length 1).
+make_new_fn_dmt_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function dmt.The function returns new function dmt (a list of character vectors of length 1).
 }
 \keyword{internal}

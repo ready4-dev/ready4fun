@@ -18,6 +18,6 @@ make_arg_desc_ls(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \description{
-make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description. The function is called for its side effects and does not return a value.
+make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.NA
 }
 \keyword{internal}

@@ -17,6 +17,6 @@ update_fns_dmt_tb_lgl_vars_chr_vec(fns_dmt_tb, data_chr, new_ls)
 Functions dmt (a tibble)
 }
 \description{
-update_fns_dmt_tb_lgl_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated. The function returns a functions dmt (a tibble).
+update_fns_dmt_tb_lgl_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 }
 \keyword{internal}

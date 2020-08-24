@@ -30,6 +30,6 @@ update_abbr_lup_tb(
 Abbreviation (a tibble)
 }
 \description{
-update_abbr_lup_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. Argument short_name_chr_vec provides the object to be updated. The function returns an abbreviation (a tibble).
+update_abbr_lup_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. Argument short_name_chr_vec provides the object to be updated.The function returns an abbreviation (a tibble).
 }
 \keyword{internal}

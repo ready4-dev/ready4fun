@@ -14,6 +14,6 @@ write_fn_fl_R(fns_dmt_tb, r_dir_chr = "R", document_unexp_lgl = T)
 \item{document_unexp_lgl}{Document unexported (a logical vector of length 1), Default: T}
 }
 \description{
-write_fn_fl_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function file R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_fn_fl_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function file R.NA
 }
 \keyword{internal}

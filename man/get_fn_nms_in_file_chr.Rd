@@ -13,6 +13,6 @@ get_fn_nms_in_file_chr(path_chr)
 Local (a character vector of length 1)
 }
 \description{
-get_fn_nms_in_file_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function names in a file. Function argument path_chr specifies the where to look for the required object. The function returns local (a character vector of length 1).
+get_fn_nms_in_file_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function names in a file. Function argument path_chr specifies the where to look for the required object.The function returns local (a character vector of length 1).
 }
 \keyword{internal}

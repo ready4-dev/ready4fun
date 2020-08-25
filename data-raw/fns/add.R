@@ -115,3 +115,19 @@ add_plurals_to_abbr_lup_tb <- function(abbr_tb,
     dplyr::arrange(short_name_chr)
   return(abbr_tb)
 }
+add_rows_to_fn_type_lup_tb <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
+                                       fn_type_nm_chr = NA_character_,
+                                       fn_type_desc_chr = NA_character_,
+                                       first_arg_desc_chr = NA_character_,
+                                       second_arg_desc_chr = NA_character_,
+                                       is_generic_lgl = F,
+                                       is_method_lgl = F){
+  updated_fn_type_lup_tb <- fn_type_lup_tb %>%
+    dplyr::bind_rows(tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+                                    fn_type_desc_chr = fn_type_desc_chr,
+                                    first_arg_desc_chr = first_arg_desc_chr,
+                                    second_arg_desc_chr = second_arg_desc_chr,
+                                    is_generic_lgl = is_generic_lgl,
+                                    is_method_lgl = is_method_lgl))
+  return(updated_fn_type_lup_tb)
+}

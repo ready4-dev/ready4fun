@@ -584,7 +584,8 @@ make_fn_type_lup_tb <- function ()
         NA_character_, NA_character_, "Object to be updated.", 
         "Object to be updated.", NA_character_, NA_character_, 
         "Object to be updated.", "Package(s) to be detached from the search path.", 
-        "Object to be updated.", NA_character_), is_generic_lgl = F)
+        "Object to be updated.", NA_character_), is_generic_lgl = F, 
+        is_method_lgl = F)
     return(fn_type_lup_tb)
 }
 #' Make getter setter dmt spine

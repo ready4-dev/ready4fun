@@ -528,7 +528,8 @@ make_fn_type_lup_tb <- function(){
                                                            "Package(s) to be detached from the search path.",
                                                            "Object to be updated.",
                                                            NA_character_),
-                                   is_generic_lgl = F)
+                                   is_generic_lgl = F,
+                                   is_method_lgl = F)
   return(fn_type_lup_tb)
 }
 make_gtr_str_dmt_spine_chr_ls <- function(fn_type_chr,

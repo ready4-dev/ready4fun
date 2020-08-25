@@ -5,7 +5,7 @@
 \alias{fn_type_lup_tb}
 \title{Function type lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16 rows and 5 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16 rows and 6 columns.
 }
 \source{
 \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
@@ -25,6 +25,7 @@ A tibble
   \item{first_arg_desc_chr}{First argument description (a character vector)}
   \item{second_arg_desc_chr}{Second argument description (a character vector)}
   \item{is_generic_lgl}{Is generic (a logical vector)}
+  \item{is_method_lgl}{Is method (a logical vector)}
 }
 }
 \keyword{datasets}

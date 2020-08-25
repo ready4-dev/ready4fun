@@ -31,7 +31,7 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
 #' Make all functions dmt
 #' @description make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt.The function returns all functions dmt (a tibble).
 #' @param paths_ls Paths (a list)
-#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector of length 1)
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector of length 1), Default: make_undmtd_fns_dir_chr()
 #' @param custom_dmt_ls Custom dmt (a list), Default: list(details_ls = NULL, export_ls = list(force_true_chr_vec = NA_character_, 
 #'    force_false_chr_vec = NA_character_), args_ls_ls = NULL)
 #' @param fn_type_lup_tb Function type lookup table (a tibble)
@@ -42,9 +42,10 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter
 #' @keywords internal
-make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr, custom_dmt_ls = list(details_ls = NULL, 
-    export_ls = list(force_true_chr_vec = NA_character_, force_false_chr_vec = NA_character_), 
-    args_ls_ls = NULL), fn_type_lup_tb, abbreviations_lup = NULL) 
+make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
+    custom_dmt_ls = list(details_ls = NULL, export_ls = list(force_true_chr_vec = NA_character_, 
+        force_false_chr_vec = NA_character_), args_ls_ls = NULL), 
+    fn_type_lup_tb, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -588,6 +589,36 @@ make_fn_type_lup_tb <- function ()
         is_method_lgl = F)
     return(fn_type_lup_tb)
 }
+#' Make functions
+#' @description make_fns_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a functions.The function returns a functions (a list of character vectors of length 1).
+#' @param path_1L_chr Path 1L (a character vector of length 1), Default: 'data-raw'
+#' @return Functions (a list of character vectors of length 1)
+#' @rdname make_fns_chr_ls
+#' @export 
+#' @importFrom purrr map discard
+#' @importFrom stats setNames
+#' @keywords internal
+make_fns_chr_ls <- function (path_1L_chr = "data-raw") 
+{
+    fns_chr_ls <- make_undmtd_fns_dir_chr(path_1L_chr) %>% purrr::map(~read_fns(.x)) %>% 
+        stats::setNames(make_fns_type_chr())
+    fns_chr_ls <- fns_chr_ls %>% purrr::discard(~identical(.x, 
+        character(0)))
+    return(fns_chr_ls)
+}
+#' Make functions type
+#' @description make_fns_type_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a functions type.The function returns a functions type (a character vector of length 1).
+
+#' @return Functions type (a character vector of length 1)
+#' @rdname make_fns_type_chr
+#' @export 
+
+#' @keywords internal
+make_fns_type_chr <- function () 
+{
+    fns_type_chr <- c("fns", "gnrcs", "mthds")
+    return(fns_type_chr)
+}
 #' Make getter setter dmt spine
 #' @description make_gtr_str_dmt_spine_chr_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a getter setter dmt spine.The function returns a getter setter dmt spine (a list of character vectors of length 1).
 #' @param fn_type_chr Function type (a character vector of length 1)
@@ -837,4 +868,17 @@ make_std_fn_dmt_spine_chr_ls <- function (fn_name_chr, fn_type_chr, fn_title_chr
     std_fn_dmt_spine_chr_ls <- list(fn_tags_chr = fn_tags_chr, 
         ref_slot_chr = fn_name_chr)
     return(std_fn_dmt_spine_chr_ls)
+}
+#' Make undmtd functions directory
+#' @description make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make undmtd a functions directory.The function returns undocumented functions directory (a character vector of length 1).
+#' @param path_1L_chr Path 1L (a character vector of length 1), Default: 'data-raw'
+#' @return Undocumented functions directory (a character vector of length 1)
+#' @rdname make_undmtd_fns_dir_chr
+#' @export 
+
+#' @keywords internal
+make_undmtd_fns_dir_chr <- function (path_1L_chr = "data-raw") 
+{
+    undocumented_fns_dir_chr <- paste0(path_1L_chr, "/", make_fns_type_chr())
+    return(undocumented_fns_dir_chr)
 }

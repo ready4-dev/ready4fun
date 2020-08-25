@@ -25,7 +25,7 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                        abbreviations_lup = .)
 }
 make_all_fns_dmt_tb <- function(paths_ls,
-                                undocumented_fns_dir_chr,
+                                undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
                                 custom_dmt_ls = list(details_ls = NULL,
                                                      export_ls = list(force_true_chr_vec = NA_character_,
                                                                       force_false_chr_vec = NA_character_),
@@ -241,6 +241,15 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
     purrr::map(~dplyr::filter(new_lup,nchar_int==.x))
   return(lup_ls)
 }
+
+make_fns_chr_ls <- function(path_1L_chr = "data-raw"){
+  fns_chr_ls <- make_undmtd_fns_dir_chr(path_1L_chr) %>%
+    purrr::map(~read_fns(.x)) %>%
+    stats::setNames(make_fns_type_chr())
+  fns_chr_ls <- fns_chr_ls %>% purrr::discard(~ identical(.x,character(0)))
+  return(fns_chr_ls)
+}
+
 make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                   title_chr_vec,
                                   output_chr_vec,
@@ -474,7 +483,10 @@ make_fn_title_chr_vec <- function(fns_chr_vec,
                      stringi::stri_replace_last_fixed(" R",""))
   return(title_chr_vec)
 }
-
+make_fns_type_chr <- function(){
+  fns_type_chr <- c("fns","gnrcs","mthds")
+  return(fns_type_chr)
+}
 make_fn_type_lup_tb <- function(){
   fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                                       "Get", "Import", "Make", "Read",
@@ -769,6 +781,9 @@ make_std_fn_dmt_spine_chr_ls <- function(fn_name_chr,
                                   ref_slot_chr = fn_name_chr)
   return(std_fn_dmt_spine_chr_ls)
 }
-
+make_undmtd_fns_dir_chr <- function(path_1L_chr = "data-raw"){
+  undocumented_fns_dir_chr <- paste0(path_1L_chr,"/",make_fns_type_chr())
+  return(undocumented_fns_dir_chr)
+}
 
 

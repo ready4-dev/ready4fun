@@ -218,6 +218,13 @@ write_fn_fl_R <- function(fns_dmt_tb,
                   }
     )
 }
+write_fn_type_dirs <- function(path_1L_chr = "data-raw"){
+  undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
+  paths_ls <- undocumented_fns_dir_chr %>% purrr::walk(~{
+    if(!dir.exists(.x))
+      dir.create(.x)
+  })
+}
 write_from_tmp_R <- function(temp_path_chr,
                              dest_path_chr,
                              edit_fn = function(x){x},

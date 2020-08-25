@@ -239,6 +239,22 @@ write_fn_fl_R <- function (fns_dmt_tb, r_dir_chr = "R", document_unexp_lgl = T)
         })
     })
 }
+#' Write function type directories
+#' @description write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function type directories.NA
+#' @param path_1L_chr Path 1L (a character vector of length 1), Default: 'data-raw'
+#' @return NULL
+#' @rdname write_fn_type_dirs
+#' @export 
+#' @importFrom purrr walk
+#' @keywords internal
+write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
+{
+    undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
+    paths_ls <- undocumented_fns_dir_chr %>% purrr::walk(~{
+        if (!dir.exists(.x)) 
+            dir.create(.x)
+    })
+}
 #' Write from tmp
 #' @description write_from_tmp_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from tmp R.NA
 #' @param temp_path_chr Temp path (a character vector of length 1)

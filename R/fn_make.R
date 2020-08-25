@@ -481,9 +481,10 @@ make_fn_dmt_tbl_tb <- function (fns_path_chr_vec, fns_dir_chr, pkg_nm_chr, custo
 #' @rdname make_fn_dmt_tbl_tpl_tb
 #' @export 
 #' @importFrom stringr str_replace
-#' @importFrom purrr map_dfr
+#' @importFrom purrr map_dfr map_lgl
 #' @importFrom tibble tibble
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate filter
+#' @importFrom tools toTitleCase
 #' @keywords internal
 make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_tb = NULL, 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -495,12 +496,6 @@ make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_t
     file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/", 
         "") %>% switch(fns = "fn_", s3 = "C3_", gnrcs = "grp_", 
         mthds = "mthd_", "s4 = C4_")
-    if (is.null(fn_type_lup_tb)) {
-        is_generic_lgl <- F
-    }
-    else {
-        is_generic_lgl <- fn_type_lup_tb$is_generic_lgl[1]
-    }
     fn_dmt_tbl_tb <- fns_path_chr_vec %>% purrr::map_dfr(~tibble::tibble(fns_chr = get_fn_nms_in_file_chr(.x), 
         title_chr = NA_character_, desc_chr = NA_character_, 
         details_chr = NA_character_, export_lgl = F, output_chr = NA_character_, 
@@ -508,7 +503,12 @@ make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_t
             stringr::str_replace(paste0(fns_dir_chr, "/"), ""), 
         file_pfx_chr = file_pfx_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr, 
-        abbreviations_lup = abbreviations_lup, is_generic_lgl = is_generic_lgl))
+        abbreviations_lup = abbreviations_lup, is_generic_lgl = purrr::map_lgl(file_nm_chr, 
+            ~.x == "generics.R")))
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::filter(title_chr %>% 
+        tools::toTitleCase() %>% purrr::map_lgl(~{
+        startsWith(.x, fn_type_lup_tb$fn_type_nm_chr) %>% any()
+    }))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc_chr_vec(fns_chr, 
         title_chr_vec = title_chr, output_chr_vec = output_chr, 

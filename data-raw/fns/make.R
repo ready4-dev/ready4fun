@@ -492,12 +492,13 @@ make_fn_type_lup_tb <- function(fn_type_nm_chr = character(0),
                                 second_arg_desc_chr = character(0),
                                 is_generic_lgl = logical(0),
                                 is_method_lgl = logical(0)){
-  fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = character(0),
-                  fn_type_desc_chr = character(0),
-                  first_arg_desc_chr = character(0),
-                  second_arg_desc_chr = character(0),
-                  is_generic_lgl = logical(0),
-                  is_method_lgl = logical(0))
+  fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+                  fn_type_desc_chr = fn_type_desc_chr,
+                  first_arg_desc_chr = first_arg_desc_chr,
+                  second_arg_desc_chr = second_arg_desc_chr,
+                  is_generic_lgl = is_generic_lgl,
+                  is_method_lgl = is_method_lgl) %>%
+    dplyr::arrange(fn_type_nm_chr)
   return(fn_type_lup_tb)
 }
 make_gtr_str_dmt_spine_chr_ls <- function(fn_type_chr,

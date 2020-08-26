@@ -30,7 +30,7 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
 }
 #' Make all functions dmt
 #' @description make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt.The function returns all functions dmt (a tibble).
-#' @param paths_ls Paths (a list)
+#' @param paths_ls Paths (a list), Default: make_fns_chr_ls()
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector of length 1), Default: make_undmtd_fns_dir_chr()
 #' @param custom_dmt_ls Custom dmt (a list), Default: list(details_ls = NULL, export_ls = list(force_true_chr_vec = NA_character_, 
 #'    force_false_chr_vec = NA_character_), args_ls_ls = NULL)
@@ -41,8 +41,7 @@ make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_
 #' @export 
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter
-#' @keywords internal
-make_all_fns_dmt_tb <- function (paths_ls, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
+make_all_fns_dmt_tb <- function (paths_ls = make_fns_chr_ls(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     custom_dmt_ls = list(details_ls = NULL, export_ls = list(force_true_chr_vec = NA_character_, 
         force_false_chr_vec = NA_character_), args_ls_ls = NULL), 
     fn_type_lup_tb, abbreviations_lup = NULL) 
@@ -549,44 +548,26 @@ make_fn_title_chr_vec <- function (fns_chr_vec, object_type_lup = NULL, abbrevia
 }
 #' Make function type lookup table
 #' @description make_fn_type_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function type a lookup table.The function returns a function type lookup table (a tibble).
-
+#' @param fn_type_nm_chr Function type name (a character vector of length 1), Default: character(0)
+#' @param fn_type_desc_chr Function type description (a character vector of length 1), Default: character(0)
+#' @param first_arg_desc_chr First argument description (a character vector of length 1), Default: character(0)
+#' @param second_arg_desc_chr Second argument description (a character vector of length 1), Default: character(0)
+#' @param is_generic_lgl Is generic (a logical vector of length 1), Default: logical(0)
+#' @param is_method_lgl Is method (a logical vector of length 1), Default: logical(0)
 #' @return Function type lookup table (a tibble)
 #' @rdname make_fn_type_lup_tb
 #' @export 
 #' @importFrom tibble tibble
+#' @importFrom dplyr arrange
 #' @keywords internal
-make_fn_type_lup_tb <- function () 
+make_fn_type_lup_tb <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = character(0), 
+    first_arg_desc_chr = character(0), second_arg_desc_chr = character(0), 
+    is_generic_lgl = logical(0), is_method_lgl = logical(0)) 
 {
-    fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = c("Add", 
-        "Assert", "Close", "Force", "Get", "Import", "Make", 
-        "Read", "Remove", "Replace", "Reset", "Rowbind", "Transform", 
-        "Unload", "Update", "Write"), fn_type_desc_chr = c("Updates an object by adding data to that object.", 
-        "Validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided.", 
-        "Closes specified connections.", "Checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition.", 
-        "Retrieves a pre-existing data object from memory, local file system or online repository.", 
-        "Reads a data object in its native format and converts it to an R object.", 
-        "Creates a new R object.", "Reads an R script into memory.", 
-        "Edits an object, removing a specified element or elements.", 
-        "Edits an object, replacing a specified element with another specified element.", 
-        "Edits an object, overwriting the current version with a default version.", 
-        "Performs custom rowbind operations on table objects.", 
-        "Edits an object in such a way that core object attributes - e.g. shape, dimensions, elements, type - are altered.", 
-        "Performs a custom detaching of a package from the search path.", 
-        "Edits an object, while preserving core object attributes.", 
-        "Writes a file to a specified local directory."), first_arg_desc_chr = c("Object to be updated.", 
-        "Object on which assert validation checks are to be performed.", 
-        NA_character_, NA_character_, "Where to look for the required object.", 
-        NA_character_, NA_character_, "Path to object.", "Object to be updated.", 
-        "Object to be updated.", NA_character_, NA_character_, 
-        "Object to be updated.", "Package(s) to be detached from the search path.", 
-        "Object to be updated.", NA_character_), second_arg_desc_chr = c(NA_character_, 
-        "Object containing values used for validation tests.", 
-        NA_character_, NA_character_, NA_character_, NA_character_, 
-        NA_character_, NA_character_, "Object to be updated.", 
-        "Object to be updated.", NA_character_, NA_character_, 
-        "Object to be updated.", "Package(s) to be detached from the search path.", 
-        "Object to be updated.", NA_character_), is_generic_lgl = F, 
-        is_method_lgl = F)
+    fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
+        fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
+        second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
+        is_method_lgl = is_method_lgl) %>% dplyr::arrange(fn_type_nm_chr)
     return(fn_type_lup_tb)
 }
 #' Make functions

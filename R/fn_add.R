@@ -89,7 +89,6 @@ add_indefartls_to_phrases_chr_vec <- function (abbreviated_phrase_chr_vec, abbre
 #' @importFrom dplyr filter mutate_all mutate bind_rows arrange
 #' @importFrom purrr map_dfr map2_lgl
 #' @importFrom tibble tibble
-#' @keywords internal
 add_plurals_to_abbr_lup_tb <- function (abbr_tb, no_plural_chr_vec = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_chr_vec <- no_plural_chr_vec
@@ -120,4 +119,30 @@ add_plurals_to_abbr_lup_tb <- function (abbr_tb, no_plural_chr_vec = NA_characte
         long_name_chr, ~ifelse(.y %in% no_plural_chr_vec, NA, 
             .x))) %>% dplyr::arrange(short_name_chr)
     return(abbr_tb)
+}
+#' Add rows to function type lookup table
+#' @description add_rows_to_fn_type_lup_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to a function type a lookup table. Function argument fn_type_lup_tb specifies the object to be updated.The function returns an updated function type lookup table (a tibble).
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup_tb()
+#' @param fn_type_nm_chr Function type name (a character vector of length 1), Default: 'NA'
+#' @param fn_type_desc_chr Function type description (a character vector of length 1), Default: 'NA'
+#' @param first_arg_desc_chr First argument description (a character vector of length 1), Default: 'NA'
+#' @param second_arg_desc_chr Second argument description (a character vector of length 1), Default: 'NA'
+#' @param is_generic_lgl Is generic (a logical vector of length 1), Default: F
+#' @param is_method_lgl Is method (a logical vector of length 1), Default: F
+#' @return Updated function type lookup table (a tibble)
+#' @rdname add_rows_to_fn_type_lup_tb
+#' @export 
+#' @importFrom dplyr bind_rows arrange
+#' @importFrom tibble tibble
+#' @keywords internal
+add_rows_to_fn_type_lup_tb <- function (fn_type_lup_tb = make_fn_type_lup_tb(), fn_type_nm_chr = NA_character_, 
+    fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
+    second_arg_desc_chr = NA_character_, is_generic_lgl = F, 
+    is_method_lgl = F) 
+{
+    updated_fn_type_lup_tb <- fn_type_lup_tb %>% dplyr::bind_rows(tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
+        fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
+        second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
+        is_method_lgl = is_method_lgl)) %>% dplyr::arrange(fn_type_nm_chr)
+    return(updated_fn_type_lup_tb)
 }

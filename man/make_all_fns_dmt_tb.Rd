@@ -5,7 +5,7 @@
 \title{Make all functions dmt}
 \usage{
 make_all_fns_dmt_tb(
-  paths_ls,
+  paths_ls = make_fns_chr_ls(),
   undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
   custom_dmt_ls = list(details_ls = NULL, export_ls = list(force_true_chr_vec =
     NA_character_, force_false_chr_vec = NA_character_), args_ls_ls = NULL),
@@ -14,7 +14,7 @@ make_all_fns_dmt_tb(
 )
 }
 \arguments{
-\item{paths_ls}{Paths (a list)}
+\item{paths_ls}{Paths (a list), Default: make_fns_chr_ls()}
 
 \item{undocumented_fns_dir_chr}{Undocumented functions directory (a character vector of length 1), Default: make_undmtd_fns_dir_chr()}
 
@@ -31,4 +31,3 @@ All functions dmt (a tibble)
 \description{
 make_all_fns_dmt_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make all a functions dmt.The function returns all functions dmt (a tibble).
 }
-\keyword{internal}

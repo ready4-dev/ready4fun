@@ -246,7 +246,6 @@ write_fn_fl_R <- function (fns_dmt_tb, r_dir_chr = "R", document_unexp_lgl = T)
 #' @rdname write_fn_type_dirs
 #' @export 
 #' @importFrom purrr walk
-#' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)

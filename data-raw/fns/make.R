@@ -5,7 +5,7 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                              overwrite_lgl = T,
                              seed_lup = NULL,
                              url_chr,
-                             pkg_nm_chr){
+                             pkg_nm_chr = get_dev_pkg_nm_1L_chr()){
   if(is.null(seed_lup)){
     data("object_type_lup",package="ready4fun",envir = environment())
     seed_lup <- object_type_lup
@@ -58,7 +58,7 @@ make_all_fns_dmt_tb <- function(paths_ls = make_fns_chr_ls(),
 }
 make_and_doc_fn_type_R <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
                                    overwrite_lgl = T,
-                                   pkg_nm_chr,
+                                   pkg_nm_chr = get_dev_pkg_nm_1L_chr(),
                                    url_chr = url_chr,
                                    abbreviations_lup = NULL){
   if(is.null(abbreviations_lup))

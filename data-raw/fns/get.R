@@ -1,3 +1,7 @@
+get_dev_pkg_nm_1L_chr <- function(path_to_pkg_rt_chr = "."){
+  dev_pkg_nm_chr <- readLines(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"))[1] %>% stringr::str_sub(start=10)
+  return(dev_pkg_nm_chr)
+}
 get_fn_args_chr_vec <- function(fn){
   fn_args_chr_vec <- as.list(args(fn)) %>%
     names() %>%

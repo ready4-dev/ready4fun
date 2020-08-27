@@ -12,7 +12,7 @@ make_abbr_lup_tb(
   overwrite_lgl = T,
   seed_lup = NULL,
   url_chr,
-  pkg_nm_chr
+  pkg_nm_chr = get_dev_pkg_nm_1L_chr()
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ make_abbr_lup_tb(
 
 \item{url_chr}{Url (a character vector of length 1)}
 
-\item{pkg_nm_chr}{Package name (a character vector of length 1)}
+\item{pkg_nm_chr}{Package name (a character vector of length 1), Default: get_dev_pkg_nm_1L_chr()}
 }
 \description{
 make_abbr_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an abbreviation lookup table.NA

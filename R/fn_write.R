@@ -332,6 +332,38 @@ write_pkg_R <- function (package_chr, R_dir_chr = "R")
             txt_chr
         }, args_ls = list(package_chr = package_chr))
 }
+#' Write package setup files
+#' @description write_pkg_setup_fls_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files R.NA
+#' @param path_to_pkg_rt_chr Path to package rt (a character vector of length 1), Default: '.'
+#' @param dev_pkg_nm_chr Dev package name (a character vector of length 1), Default: 'NA'
+#' @param incr_ver_lgl Incr ver (a logical vector of length 1), Default: T
+#' @return NULL
+#' @rdname write_pkg_setup_fls_R
+#' @export 
+#' @importFrom devtools load_all
+#' @importFrom usethis use_version
+#' @keywords internal
+write_pkg_setup_fls_R <- function (path_to_pkg_rt_chr = ".", dev_pkg_nm_chr = NA_character_, 
+    incr_ver_lgl = T) 
+{
+    update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_chr)
+    if (!update_desc_fl_1L_lgl) 
+        dev_pkg_nm_chr <- get_dev_pkg_nm_1L_chr(path_to_pkg_rt_chr)
+    devtools::load_all(path_to_pkg_rt_chr)
+    write_pkg_R(dev_pkg_nm_chr, R_dir_chr = paste0(path_to_pkg_rt_chr, 
+        "/R"))
+    write_std_imp_R(paste0(path_to_pkg_rt_chr, "/R"))
+    if (update_desc_fl_1L_lgl) {
+        desc_chr <- readLines(paste0(path_to_pkg_rt_chr, "/DESCRIPTION"))
+        desc_chr[1] <- paste0("Package: ", dev_pkg_nm_chr)
+        sink(paste0(path_to_pkg_rt_chr, "/DESCRIPTION"), append = F)
+        writeLines(desc_chr)
+        close_open_sinks()
+    }
+    if (incr_ver_lgl) {
+        usethis::use_version()
+    }
+}
 #' Write prototype lookup table database
 #' @description write_pt_lup_db_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a prototype lookup table database R.NA
 #' @param R_dir_chr R directory (a character vector of length 1), Default: 'R'

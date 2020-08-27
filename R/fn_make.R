@@ -7,14 +7,14 @@
 #' @param overwrite_lgl Overwrite (a logical vector of length 1), Default: T
 #' @param seed_lup Seed (a lookup table), Default: NULL
 #' @param url_chr Url (a character vector of length 1)
-#' @param pkg_nm_chr Package name (a character vector of length 1)
+#' @param pkg_nm_chr Package name (a character vector of length 1), Default: get_dev_pkg_nm_1L_chr()
 #' @return NULL
 #' @rdname make_abbr_lup_tb
 #' @export 
 
 make_abbr_lup_tb <- function (short_name_chr_vec = NA_character_, long_name_chr_vec = NA_character_, 
     no_plural_chr_vec = NA_character_, custom_plural_ls = NULL, 
-    overwrite_lgl = T, seed_lup = NULL, url_chr, pkg_nm_chr) 
+    overwrite_lgl = T, seed_lup = NULL, url_chr, pkg_nm_chr = get_dev_pkg_nm_1L_chr()) 
 {
     if (is.null(seed_lup)) {
         data("object_type_lup", package = "ready4fun", envir = environment())
@@ -66,7 +66,7 @@ make_all_fns_dmt_tb <- function (paths_ls = make_fns_chr_ls(), undocumented_fns_
 #' @description make_and_doc_fn_type_R() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make and a document function type R.NA
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup_tb()
 #' @param overwrite_lgl Overwrite (a logical vector of length 1), Default: T
-#' @param pkg_nm_chr Package name (a character vector of length 1)
+#' @param pkg_nm_chr Package name (a character vector of length 1), Default: get_dev_pkg_nm_1L_chr()
 #' @param url_chr Url (a character vector of length 1), Default: url_chr
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return NULL
@@ -74,7 +74,8 @@ make_all_fns_dmt_tb <- function (paths_ls = make_fns_chr_ls(), undocumented_fns_
 #' @export 
 
 make_and_doc_fn_type_R <- function (fn_type_lup_tb = make_fn_type_lup_tb(), overwrite_lgl = T, 
-    pkg_nm_chr, url_chr = url_chr, abbreviations_lup = NULL) 
+    pkg_nm_chr = get_dev_pkg_nm_1L_chr(), url_chr = url_chr, 
+    abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())

@@ -1,3 +1,17 @@
+#' Get dev package name 1L
+#' @description get_dev_pkg_nm_1L_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get dev a package name 1L. Function argument path_to_pkg_rt_chr specifies the where to look for the required object.The function returns dev package name (a character vector of length 1).
+#' @param path_to_pkg_rt_chr Path to package rt (a character vector of length 1), Default: '.'
+#' @return Dev package name (a character vector of length 1)
+#' @rdname get_dev_pkg_nm_1L_chr
+#' @export 
+#' @importFrom stringr str_sub
+#' @keywords internal
+get_dev_pkg_nm_1L_chr <- function (path_to_pkg_rt_chr = ".") 
+{
+    dev_pkg_nm_chr <- readLines(paste0(path_to_pkg_rt_chr, "/DESCRIPTION"))[1] %>% 
+        stringr::str_sub(start = 10)
+    return(dev_pkg_nm_chr)
+}
 #' Get function arguments
 #' @description get_fn_args_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function arguments. Function argument fn specifies the where to look for the required object.The function returns a function arguments (a character vector).
 #' @param fn Function (a function)

@@ -4,7 +4,7 @@
 library(magrittr)
 #
 # 2. Specify package name
-pkg_nm_chr <- "ready4fun"
+#pkg_nm_chr <- "ready4fun"
 #
 # 3. Create a "fns" sub-directory.
 fns_dir_chr <-"data-raw/fns"
@@ -38,8 +38,9 @@ make_abbr_lup_tb(short_name_chr_vec = c("abbr","arg","artl","db","desc","dir","d
                  custom_plural_ls = list(directory = "directories",
                                          prefix = c("prefixes"),
                                          suffix = c("suffices","sfcs")),
-                 url_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
-                 pkg_nm_chr = pkg_nm_chr)
+                 url_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/"#,
+                 #pkg_nm_chr = pkg_nm_chr
+                 )
 data("abbreviations_lup")
 #
 # 8. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
@@ -97,7 +98,7 @@ make_fn_type_lup_tb(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                                          NA_character_),
                                  is_generic_lgl = F,
                                  is_method_lgl = F) %>%
-make_and_doc_fn_type_R(pkg_nm_chr = pkg_nm_chr,
+make_and_doc_fn_type_R(#pkg_nm_chr = pkg_nm_chr,
                        url_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
 data("fn_type_lup_tb")
 data("object_type_lup")

@@ -278,10 +278,31 @@ write_pkg_R <- function(package_chr,
                    },
                    args_ls = list(package_chr = package_chr))
 }
+write_pkg_setup_fls_R <- function(path_to_pkg_rt_chr = ".",
+                                  dev_pkg_nm_chr = NA_character_,
+                                  incr_ver_lgl = T){
+  update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_chr)
+  if(!update_desc_fl_1L_lgl)
+    dev_pkg_nm_chr <- get_dev_pkg_nm_1L_chr(path_to_pkg_rt_chr)
+  devtools::load_all(path_to_pkg_rt_chr)
+  write_pkg_R(dev_pkg_nm_chr,R_dir_chr = paste0(path_to_pkg_rt_chr,"/R"))
+  write_std_imp_R(paste0(path_to_pkg_rt_chr,"/R"))
+  if(update_desc_fl_1L_lgl){
+    desc_chr <- readLines(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"))
+    desc_chr[1] <- paste0("Package: ",dev_pkg_nm_chr)
+    sink(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"), append = F)
+    writeLines(desc_chr)
+    close_open_sinks()
+  }
+  if(incr_ver_lgl){
+    usethis::use_version()
+  }
+}
 write_pt_lup_db_R <- function(R_dir_chr = "R"){
   write_from_tmp_R(system.file("db_pt_lup.R",package="ready4fun"),
                    dest_path_chr = paste0(R_dir_chr,"/db_pt_lup.R"))
 }
+
 write_std_imp_R <- function(R_dir_chr = "R"){
   write_from_tmp_R(system.file("imp_pipe_tmp.R",package="ready4fun"),
                    dest_path_chr = paste0(R_dir_chr,"/imp_pipe.R"))

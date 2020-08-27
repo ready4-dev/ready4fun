@@ -132,7 +132,7 @@ add_plurals_to_abbr_lup_tb <- function (abbr_tb, no_plural_chr_vec = NA_characte
 #' @return Updated function type lookup table (a tibble)
 #' @rdname add_rows_to_fn_type_lup_tb
 #' @export 
-#' @importFrom dplyr bind_rows arrange
+#' @importFrom dplyr bind_rows arrange distinct
 #' @importFrom tibble tibble
 #' @keywords internal
 add_rows_to_fn_type_lup_tb <- function (fn_type_lup_tb = make_fn_type_lup_tb(), fn_type_nm_chr = NA_character_, 
@@ -143,6 +143,7 @@ add_rows_to_fn_type_lup_tb <- function (fn_type_lup_tb = make_fn_type_lup_tb(), 
     updated_fn_type_lup_tb <- fn_type_lup_tb %>% dplyr::bind_rows(tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
         fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
         second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
-        is_method_lgl = is_method_lgl)) %>% dplyr::arrange(fn_type_nm_chr)
+        is_method_lgl = is_method_lgl)) %>% dplyr::arrange(fn_type_nm_chr) %>% 
+        dplyr::distinct()
     return(updated_fn_type_lup_tb)
 }

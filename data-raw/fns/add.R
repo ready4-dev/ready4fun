@@ -129,6 +129,7 @@ add_rows_to_fn_type_lup_tb <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
                                     second_arg_desc_chr = second_arg_desc_chr,
                                     is_generic_lgl = is_generic_lgl,
                                     is_method_lgl = is_method_lgl)) %>%
-    dplyr::arrange(fn_type_nm_chr)
+    dplyr::arrange(fn_type_nm_chr) %>%
+    dplyr::distinct()
   return(updated_fn_type_lup_tb)
 }

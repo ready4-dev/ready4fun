@@ -13,7 +13,7 @@ if(!dir.exists(fns_dir_chr))
 # 4. Read all undocumented functions in the temporary "fns" directory.
 source(paste0(fns_dir_chr,"/read.R"))
 fns_path_chr_vec <- read_fns(fns_dir_chr)
-write_pkg_setup_fls_R()
+write_pkg_setup_fls_R(incr_ver_lgl = F)
 #
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup_tb() %>%

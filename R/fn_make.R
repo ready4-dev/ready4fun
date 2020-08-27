@@ -846,7 +846,7 @@ make_std_fn_dmt_spine_chr_ls <- function (fn_name_chr, fn_type_chr, fn_title_chr
         c("fn", "gen_std_s3_mthd", "meth_std_s3_mthd", "gen_std_s4_mthd", 
             "meth_std_s4_mthd")) 
         fn_tags_chr <- update_fn_dmt_with_slots_chr(fn_name_chr = fn_name_chr, 
-            fn_tags_chr = fn_tags_chr)
+            fn_dmt_chr = fn_tags_chr)
     std_fn_dmt_spine_chr_ls <- list(fn_tags_chr = fn_tags_chr, 
         ref_slot_chr = fn_name_chr)
     return(std_fn_dmt_spine_chr_ls)

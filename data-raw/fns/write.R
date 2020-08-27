@@ -239,7 +239,8 @@ write_from_tmp_R <- function(temp_path_chr,
   writeLines(txt_chr, fileConn)
   close(fileConn)
 }
-write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_){
+write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_,
+                                  incr_ver_lgl = T){
   devtools::document()
   packages_chr_vec <- readLines("NAMESPACE") %>%
     purrr::map_chr(~ifelse(startsWith(.x,"import"),
@@ -260,6 +261,8 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_){
   purrr::walk(packages_chr_vec,
               ~usethis::use_package(.x))
   devtools::document()
+  if(incr_ver_lgl)
+    usethis::use_version()
 }
 write_pkg_R <- function(package_chr,
                         R_dir_chr = "R"){

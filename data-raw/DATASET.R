@@ -3,20 +3,17 @@
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
 #
-# 2. Specify package name
-#pkg_nm_chr <- "ready4fun"
-#
-# 3. Create a "fns" sub-directory.
+# 2. Create a "fns" sub-directory.
 fns_dir_chr <-"data-raw/fns"
 if(!dir.exists(fns_dir_chr))
   dir.create(fns_dir_chr)
-## MAKE THIS A FUNCTION
 #
-# 4. MANUAL STEP. Write all your functions to R files in the new "fns" directory.
+# 3. MANUAL STEP. Write all your functions to R files in the new "fns" directory.
 #
-# 5. Read all undocumented functions in the temporary "fns" directory.
+# 4. Read all undocumented functions in the temporary "fns" directory.
 source(paste0(fns_dir_chr,"/read.R"))
 fns_path_chr_vec <- read_fns(fns_dir_chr)
+write_pkg_setup_fls_R()
 #
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup_tb() %>%
@@ -141,3 +138,6 @@ devtools::document()
 # NOTE TO SELF: IN WORKFOW VIGNETTE, INCLUDE LINK TO: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
 # and https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 # and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/
+# NOTE TO SELF: In vignette, include: https://docs.github.com/en/github/using-git/setting-your-username-in-git
+# (plus user.email)
+

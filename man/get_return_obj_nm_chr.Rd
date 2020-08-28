@@ -13,6 +13,6 @@ get_return_obj_nm_chr(fn)
 Return (a character vector of length 1)
 }
 \description{
-get_return_obj_nm_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return an object name. Function argument fn specifies the where to look for the required object. The function returns return (a character vector of length 1).
+get_return_obj_nm_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return an object name. Function argument fn specifies the where to look for the required object.The function returns return (a character vector of length 1).
 }
 \keyword{internal}

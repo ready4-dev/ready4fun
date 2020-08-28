@@ -13,6 +13,6 @@ get_fn_args_chr_vec(fn)
 Function arguments (a character vector)
 }
 \description{
-get_fn_args_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function arguments. Function argument fn specifies the where to look for the required object. The function returns a function arguments (a character vector).
+get_fn_args_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function arguments. Function argument fn specifies the where to look for the required object.The function returns a function arguments (a character vector).
 }
 \keyword{internal}

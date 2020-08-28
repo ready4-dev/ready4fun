@@ -39,6 +39,6 @@ update_fns_dmt_tb_tb(
 Functions dmt (a tibble)
 }
 \description{
-update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated. The function returns a functions dmt (a tibble).
+update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated.The function returns a functions dmt (a tibble).
 }
 \keyword{internal}

@@ -27,6 +27,6 @@ make_fn_dmt_tbl_tpl_tb(
 Function dmt table (a tibble)
 }
 \description{
-make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table template. The function returns a function dmt table (a tibble).
+make_fn_dmt_tbl_tpl_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function dmt a table template.The function returns a function dmt table (a tibble).
 }
 \keyword{internal}

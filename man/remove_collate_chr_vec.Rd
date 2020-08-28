@@ -13,6 +13,6 @@ remove_collate_chr_vec(description_chr)
 Description (a character vector of length 1)
 }
 \description{
-remove_collate_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove collate. Function argument description_chr specifies the object to be updated. Argument NA provides the object to be updated. The function returns a description (a character vector of length 1).
+remove_collate_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove collate. Function argument description_chr specifies the object to be updated. Argument NA provides the object to be updated.The function returns a description (a character vector of length 1).
 }
 \keyword{internal}

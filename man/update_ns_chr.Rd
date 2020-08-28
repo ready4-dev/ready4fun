@@ -13,5 +13,5 @@ update_ns_chr(package_chr)
 Package name (a character vector of length 1)
 }
 \description{
-update_ns_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update namespace. Function argument package_chr specifies the object to be updated. Argument NA provides the object to be updated. The function returns a package name (a character vector of length 1).
+update_ns_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update namespace. Function argument package_chr specifies the object to be updated. Argument NA provides the object to be updated.The function returns a package name (a character vector of length 1).
 }

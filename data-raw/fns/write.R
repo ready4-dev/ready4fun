@@ -218,6 +218,13 @@ write_fn_fl_R <- function(fns_dmt_tb,
                   }
     )
 }
+write_fn_type_dirs <- function(path_1L_chr = "data-raw"){
+  undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
+  paths_ls <- undocumented_fns_dir_chr %>% purrr::walk(~{
+    if(!dir.exists(.x))
+      dir.create(.x)
+  })
+}
 write_from_tmp_R <- function(temp_path_chr,
                              dest_path_chr,
                              edit_fn = function(x){x},
@@ -232,7 +239,8 @@ write_from_tmp_R <- function(temp_path_chr,
   writeLines(txt_chr, fileConn)
   close(fileConn)
 }
-write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_){
+write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_,
+                                  incr_ver_lgl = T){
   devtools::document()
   packages_chr_vec <- readLines("NAMESPACE") %>%
     purrr::map_chr(~ifelse(startsWith(.x,"import"),
@@ -253,6 +261,8 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_){
   purrr::walk(packages_chr_vec,
               ~usethis::use_package(.x))
   devtools::document()
+  if(incr_ver_lgl)
+    usethis::use_version()
 }
 write_pkg_R <- function(package_chr,
                         R_dir_chr = "R"){
@@ -271,10 +281,31 @@ write_pkg_R <- function(package_chr,
                    },
                    args_ls = list(package_chr = package_chr))
 }
+write_pkg_setup_fls_R <- function(path_to_pkg_rt_chr = ".",
+                                  dev_pkg_nm_chr = NA_character_,
+                                  incr_ver_lgl = T){
+  update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_chr)
+  if(!update_desc_fl_1L_lgl)
+    dev_pkg_nm_chr <- get_dev_pkg_nm_1L_chr(path_to_pkg_rt_chr)
+  devtools::load_all(path_to_pkg_rt_chr)
+  write_pkg_R(dev_pkg_nm_chr,R_dir_chr = paste0(path_to_pkg_rt_chr,"/R"))
+  write_std_imp_R(paste0(path_to_pkg_rt_chr,"/R"))
+  if(update_desc_fl_1L_lgl){
+    desc_chr <- readLines(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"))
+    desc_chr[1] <- paste0("Package: ",dev_pkg_nm_chr)
+    sink(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"), append = F)
+    writeLines(desc_chr)
+    close_open_sinks()
+  }
+  if(incr_ver_lgl){
+    usethis::use_version()
+  }
+}
 write_pt_lup_db_R <- function(R_dir_chr = "R"){
   write_from_tmp_R(system.file("db_pt_lup.R",package="ready4fun"),
                    dest_path_chr = paste0(R_dir_chr,"/db_pt_lup.R"))
 }
+
 write_std_imp_R <- function(R_dir_chr = "R"){
   write_from_tmp_R(system.file("imp_pipe_tmp.R",package="ready4fun"),
                    dest_path_chr = paste0(R_dir_chr,"/imp_pipe.R"))

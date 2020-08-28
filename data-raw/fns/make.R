@@ -5,7 +5,7 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                              overwrite_lgl = T,
                              seed_lup = NULL,
                              url_chr,
-                             pkg_nm_chr){
+                             pkg_nm_chr = get_dev_pkg_nm_1L_chr()){
   if(is.null(seed_lup)){
     data("object_type_lup",package="ready4fun",envir = environment())
     seed_lup <- object_type_lup
@@ -24,14 +24,13 @@ make_abbr_lup_tb <- function(short_name_chr_vec = NA_character_,
                        url_chr = url_chr,
                        abbreviations_lup = .)
 }
-make_all_fns_dmt_tb <- function(paths_ls,
-                                undocumented_fns_dir_chr,
+make_all_fns_dmt_tb <- function(paths_ls = make_fns_chr_ls(),
+                                undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
                                 custom_dmt_ls = list(details_ls = NULL,
                                                      export_ls = list(force_true_chr_vec = NA_character_,
                                                                       force_false_chr_vec = NA_character_),
                                                      args_ls_ls = NULL),
                                 fn_type_lup_tb,
-                                generics_lup_tb = NULL,
                                 abbreviations_lup = NULL){
   # add assert - same length inputs to purrr
   if (is.null(abbreviations_lup))
@@ -39,18 +38,27 @@ make_all_fns_dmt_tb <- function(paths_ls,
          envir = environment())
   all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls,
                                          undocumented_fns_dir_chr,
-                                         list(fn_type_lup_tb,generics_lup_tb,generics_lup_tb) %>% purrr::discard(is.null)),
-                                    ~ make_fn_dmt_tbl_tb(..1,
+                                         names(paths_ls)
+                                         ),
+                                    ~ {
+                                      if(..3 == "fns")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(!is_generic_lgl & !is_method_lgl)
+                                      if(..3 == "gnrcs")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(is_generic_lgl)
+                                      if(..3 == "mthds")
+                                        tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
+                                      make_fn_dmt_tbl_tb(..1,
                                                                     fns_dir_chr = ..2,
                                                                     custom_dmt_ls = custom_dmt_ls,
                                                                     append_lgl = T,
-                                                                    fn_type_lup_tb = ..3,
-                                                                    abbreviations_lup = abbreviations_lup))
+                                                                    fn_type_lup_tb = tb,
+                                                                    abbreviations_lup = abbreviations_lup)
+                                      })
   return(all_fns_dmt_tb)
 }
 make_and_doc_fn_type_R <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
                                    overwrite_lgl = T,
-                                   pkg_nm_chr,
+                                   pkg_nm_chr = get_dev_pkg_nm_1L_chr(),
                                    url_chr = url_chr,
                                    abbreviations_lup = NULL){
   if(is.null(abbreviations_lup))
@@ -232,6 +240,15 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
     purrr::map(~dplyr::filter(new_lup,nchar_int==.x))
   return(lup_ls)
 }
+
+make_fns_chr_ls <- function(path_1L_chr = "data-raw"){
+  fns_chr_ls <- make_undmtd_fns_dir_chr(path_1L_chr) %>%
+    purrr::map(~read_fns(.x)) %>%
+    stats::setNames(make_fns_type_chr())
+  fns_chr_ls <- fns_chr_ls %>% purrr::discard(~ identical(.x,character(0)))
+  return(fns_chr_ls)
+}
+
 make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                   title_chr_vec,
                                   output_chr_vec,
@@ -248,15 +265,21 @@ make_fn_desc_chr_vec <-  function(fns_chr_vec,
                                                                          fn_title_chr = ..2,
                                                                          fn_type_lup_tb = fn_type_lup_tb,
                                                                          abbreviations_lup = abbreviations_lup),
-                                              " The function ",
+                                              #" The function ",
                                               #..1,
                                               #"() ",
                                               ifelse(..3=="NULL",
-                                                     paste0("is called for its side effects and does not return a value.",
-                                                            ifelse(endsWith(..1,"_R"),
-                                                                   " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
-                                                                   "")),
-                                                     paste0("returns ",
+                                                     ifelse(get_from_lup_obj(fn_type_lup_tb,
+                                                                             match_var_nm_chr = "fn_type_nm_chr",
+                                                                             match_value_xx = ..1 %>% make_fn_title_chr_vec(abbreviations_lup = abbreviations_lup) %>% tools::toTitleCase(),
+                                                                             target_var_nm_chr = "is_generic_lgl",
+                                                                             evaluate_lgl = F),
+                                                            "",
+                                                            paste0("The function is called for its side effects and does not return a value.",
+                                                                   ifelse(endsWith(..1,"_R"),
+                                                                          " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
+                                                                          ""))),
+                                                     paste0("The function returns ",
                                                             ..3 %>% tolower() %>% add_indef_artl_to_item_chr_vec(abbreviations_lup = abbreviations_lup),".")
                                               )
                                        )
@@ -375,11 +398,6 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
     data("object_type_lup",package="ready4fun",envir = environment())
   file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/","") %>%
     switch("fns"="fn_", "s3" = "C3_","gnrcs"="grp_", "mthds"="mthd_","s4 = C4_")
-  if(is.null(fn_type_lup_tb)){
-    is_generic_lgl <- F
-  }else{
-    is_generic_lgl <- fn_type_lup_tb$is_generic_lgl[1]  # Only works if generics in separate table
-  }
   fn_dmt_tbl_tb <- fns_path_chr_vec %>%
     purrr::map_dfr(~tibble::tibble(fns_chr = get_fn_nms_in_file_chr(.x),
                                    title_chr = NA_character_,
@@ -394,7 +412,14 @@ make_fn_dmt_tbl_tpl_tb <- function(fns_path_chr_vec,
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr,
                                                     abbreviations_lup = abbreviations_lup,
-                                                    is_generic_lgl = is_generic_lgl))
+                                                    is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_lgl
+                                                    ))
+  fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
+    dplyr::filter(title_chr %>%
+      tools::toTitleCase() %>%
+      purrr::map_lgl(~{
+        startsWith(.x, fn_type_lup_tb$fn_type_nm_chr) %>% any()
+      }))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
@@ -457,61 +482,23 @@ make_fn_title_chr_vec <- function(fns_chr_vec,
                      stringi::stri_replace_last_fixed(" R",""))
   return(title_chr_vec)
 }
-
-make_fn_type_lup_tb <- function(){
-  fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
-                                                      "Get", "Import", "Make", "Read",
-                                                      "Remove", "Replace", "Reset", "Rowbind",
-                                                      "Transform","Unload", "Update",  "Write"),
-                                   fn_type_desc_chr = c("Updates an object by adding data to that object.",
-                                                        "Validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided.",
-                                                        "Closes specified connections.",
-                                                        "Checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition.",
-                                                        "Retrieves a pre-existing data object from memory, local file system or online repository.",
-                                                        "Reads a data object in its native format and converts it to an R object.",
-                                                        "Creates a new R object.",
-                                                        "Reads an R script into memory.",
-                                                        "Edits an object, removing a specified element or elements.",
-                                                        "Edits an object, replacing a specified element with another specified element.",
-                                                        "Edits an object, overwriting the current version with a default version.",
-                                                        "Performs custom rowbind operations on table objects.",
-                                                        "Edits an object in such a way that core object attributes - e.g. shape, dimensions, elements, type - are altered.",
-                                                        "Performs a custom detaching of a package from the search path.",
-                                                        "Edits an object, while preserving core object attributes.",
-                                                        "Writes a file to a specified local directory."),
-                                   first_arg_desc_chr = c("Object to be updated.",
-                                                          "Object on which assert validation checks are to be performed.",
-                                                          NA_character_,
-                                                          NA_character_,
-                                                          "Where to look for the required object.",
-                                                          NA_character_,
-                                                          NA_character_,
-                                                          "Path to object.",
-                                                          "Object to be updated.",
-                                                          "Object to be updated.",
-                                                          NA_character_,
-                                                          NA_character_,
-                                                          "Object to be updated.",
-                                                          "Package(s) to be detached from the search path.",
-                                                          "Object to be updated.",
-                                                          NA_character_),
-                                   second_arg_desc_chr = c(NA_character_,
-                                                           "Object containing values used for validation tests.",
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           "Object to be updated.",
-                                                           "Object to be updated.",
-                                                           NA_character_,
-                                                           NA_character_,
-                                                           "Object to be updated.",
-                                                           "Package(s) to be detached from the search path.",
-                                                           "Object to be updated.",
-                                                           NA_character_),
-                                   is_generic_lgl = F)
+make_fns_type_chr <- function(){
+  fns_type_chr <- c("fns","gnrcs","mthds")
+  return(fns_type_chr)
+}
+make_fn_type_lup_tb <- function(fn_type_nm_chr = character(0),
+                                fn_type_desc_chr = character(0),
+                                first_arg_desc_chr = character(0),
+                                second_arg_desc_chr = character(0),
+                                is_generic_lgl = logical(0),
+                                is_method_lgl = logical(0)){
+  fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+                  fn_type_desc_chr = fn_type_desc_chr,
+                  first_arg_desc_chr = first_arg_desc_chr,
+                  second_arg_desc_chr = second_arg_desc_chr,
+                  is_generic_lgl = is_generic_lgl,
+                  is_method_lgl = is_method_lgl) %>%
+    dplyr::arrange(fn_type_nm_chr)
   return(fn_type_lup_tb)
 }
 make_gtr_str_dmt_spine_chr_ls <- function(fn_type_chr,
@@ -746,11 +733,14 @@ make_std_fn_dmt_spine_chr_ls <- function(fn_name_chr,
                                                              "gen_std_s4_mthd",
                                                              "meth_std_s4_mthd"))
     fn_tags_chr <- update_fn_dmt_with_slots_chr(fn_name_chr = fn_name_chr,
-                                                fn_tags_chr = fn_tags_chr)
+                                                fn_dmt_chr = fn_tags_chr)
   std_fn_dmt_spine_chr_ls <- list(fn_tags_chr = fn_tags_chr,
                                   ref_slot_chr = fn_name_chr)
   return(std_fn_dmt_spine_chr_ls)
 }
-
+make_undmtd_fns_dir_chr <- function(path_1L_chr = "data-raw"){
+  undocumented_fns_dir_chr <- paste0(path_1L_chr,"/",make_fns_type_chr())
+  return(undocumented_fns_dir_chr)
+}
 
 

@@ -1,4 +1,5 @@
-#' Pipe
+#' Pipe operator
+#'
 #' Implements: https://github.com/sckott/analogsea/issues/32
 #' and https://github.com/rstudio/ggvis/blob/master/R/pipe.R.
 #'
@@ -6,6 +7,5 @@
 #' @name %>%
 #' @rdname pipe
 #' @export
-#' @param lhs,rhs A visualisation and a function to apply to it
+#' @param lhs,rhs An object and a function to apply to it
 NULL
-

@@ -1,5 +1,5 @@
 #' Replace abbreviation
-#' @description replace_abbr_chr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to replace an abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated. The function returns title (a character vector of length 1).
+#' @description replace_abbr_chr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to replace an abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector of length 1).
 #' @param title_chr Title (a character vector of length 1)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param collapse_lgl Collapse (a logical vector of length 1), Default: T

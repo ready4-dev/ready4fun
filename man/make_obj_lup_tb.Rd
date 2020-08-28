@@ -10,6 +10,6 @@ make_obj_lup_tb()
 Object (a tibble)
 }
 \description{
-make_obj_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an object lookup table. The function returns an object (a tibble).
+make_obj_lup_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an object lookup table.The function returns an object (a tibble).
 }
 \keyword{internal}

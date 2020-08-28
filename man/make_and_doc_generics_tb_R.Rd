@@ -27,6 +27,6 @@ make_and_doc_generics_tb_R(
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \description{
-make_and_doc_generics_tb_R() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make and a document generics a tibble R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+make_and_doc_generics_tb_R() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make and a document generics a tibble R.NA
 }
 \keyword{internal}

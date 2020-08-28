@@ -18,5 +18,5 @@ write_tb_to_csv(tbs_r4, slot_nm_chr, r4_name_chr, lup_dir_chr, pfx_chr)
 \item{pfx_chr}{Prefix (a character vector of length 1)}
 }
 \description{
-write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to csv. The function is called for its side effects and does not return a value.
+write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to csv.NA
 }

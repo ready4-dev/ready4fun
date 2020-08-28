@@ -1,5 +1,5 @@
 #' Remove collate
-#' @description remove_collate_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove collate. Function argument description_chr specifies the object to be updated. Argument NA provides the object to be updated. The function returns a description (a character vector of length 1).
+#' @description remove_collate_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove collate. Function argument description_chr specifies the object to be updated. Argument NA provides the object to be updated.The function returns a description (a character vector of length 1).
 #' @param description_chr Description (a character vector of length 1)
 #' @return Description (a character vector of length 1)
 #' @rdname remove_collate_chr_vec
@@ -14,7 +14,7 @@ remove_collate_chr_vec <- function (description_chr)
     return(description_chr)
 }
 #' Remove object type from name
-#' @description remove_obj_type_from_nm_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove an object type from a name. Function argument nms_chr_vec specifies the object to be updated. Argument object_type_lup provides the object to be updated. The function returns names (a character vector).
+#' @description remove_obj_type_from_nm_chr_vec() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove an object type from a name. Function argument nms_chr_vec specifies the object to be updated. Argument object_type_lup provides the object to be updated.The function returns names (a character vector).
 #' @param nms_chr_vec Names (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL

@@ -16,5 +16,5 @@ write_all_tbs_in_tbs_r4_to_csvs(tbs_r4, r4_name_chr, lup_dir_chr, pfx_chr)
 \item{pfx_chr}{Prefix (a character vector of length 1)}
 }
 \description{
-write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to csvs. The function is called for its side effects and does not return a value.
+write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to csvs.NA
 }

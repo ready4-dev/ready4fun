@@ -24,5 +24,5 @@ write_and_doc_fn_fls_R(
 \item{make_pdfs_lgl}{Make pdfs (a logical vector of length 1), Default: T}
 }
 \description{
-write_and_doc_fn_fls_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document function files R. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_and_doc_fn_fls_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document function files R.NA
 }

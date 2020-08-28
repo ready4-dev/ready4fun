@@ -1,5 +1,5 @@
 #' Update abbreviation lookup table
-#' @description update_abbr_lup_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. Argument short_name_chr_vec provides the object to be updated. The function returns an abbreviation (a tibble).
+#' @description update_abbr_lup_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. Argument short_name_chr_vec provides the object to be updated.The function returns an abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param short_name_chr_vec Short name (a character vector)
 #' @param long_name_chr_vec Long name (a character vector)
@@ -35,7 +35,7 @@ update_abbr_lup_tb <- function (abbr_tb, short_name_chr_vec, long_name_chr_vec, 
     return(abbr_tb)
 }
 #' Update first word case
-#' @description update_first_word_case_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update first word case. Function argument phrase_chr specifies the object to be updated. Argument fn provides the object to be updated. The function returns a phrase (a character vector of length 1).
+#' @description update_first_word_case_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update first word case. Function argument phrase_chr specifies the object to be updated. Argument fn provides the object to be updated.The function returns a phrase (a character vector of length 1).
 #' @param phrase_chr Phrase (a character vector of length 1)
 #' @param fn Function (a function), Default: tolower
 #' @return Phrase (a character vector of length 1)
@@ -50,7 +50,7 @@ update_first_word_case_chr <- function (phrase_chr, fn = tolower)
     return(phrase_chr)
 }
 #' Update function dmt
-#' @description update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated. The function returns a function dmt (a character vector of length 1).
+#' @description update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated.The function returns a function dmt (a character vector of length 1).
 #' @param fn_tags_spine_ls Function tags spine (a list)
 #' @param new_tag_chr_ls New tag (a list of character vectors of length 1)
 #' @param fn_name_chr Function name (a character vector of length 1)
@@ -92,7 +92,7 @@ update_fn_dmt_chr <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_chr, fn
     return(fn_dmt_chr)
 }
 #' Update function dmt with slots
-#' @description update_fn_dmt_with_slots_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt with slots. Function argument fn_name_chr specifies the object to be updated. Argument fn_dmt_chr provides the object to be updated. The function returns a function dmt (a character vector of length 1).
+#' @description update_fn_dmt_with_slots_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt with slots. Function argument fn_name_chr specifies the object to be updated. Argument fn_dmt_chr provides the object to be updated.The function returns a function dmt (a character vector of length 1).
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_dmt_chr Function dmt (a character vector of length 1)
 #' @return Function dmt (a character vector of length 1)
@@ -111,7 +111,7 @@ update_fn_dmt_with_slots_chr <- function (fn_name_chr, fn_dmt_chr)
     return(fn_dmt_chr)
 }
 #' Update functions dmt tibble character vector of length 1 vars
-#' @description update_fns_dmt_tb_chr_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble character vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated. The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_chr_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble character vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
@@ -141,7 +141,7 @@ update_fns_dmt_tb_chr_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls, ap
     return(fns_dmt_tb)
 }
 #' Update functions dmt tibble logical vector of length 1 vars
-#' @description update_fns_dmt_tb_lgl_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated. The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_lgl_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
@@ -165,7 +165,7 @@ update_fns_dmt_tb_lgl_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls)
     return(fns_dmt_tb)
 }
 #' Update functions dmt tibble list vars
-#' @description update_fns_dmt_tb_ls_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble list vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated. The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_ls_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble list vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
@@ -216,7 +216,7 @@ update_fns_dmt_tb_ls_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls, app
     return(fns_dmt_tb)
 }
 #' Update functions dmt tibble
-#' @description update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated. The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param title_ls Title (a list), Default: NULL
 #' @param desc_ls Description (a list), Default: NULL
@@ -266,7 +266,7 @@ update_fns_dmt_tb_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, d
     return(fns_dmt_tb)
 }
 #' Update namespace
-#' @description update_ns_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update namespace. Function argument package_chr specifies the object to be updated. Argument NA provides the object to be updated. The function returns a package name (a character vector of length 1).
+#' @description update_ns_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update namespace. Function argument package_chr specifies the object to be updated. Argument NA provides the object to be updated.The function returns a package name (a character vector of length 1).
 #' @param package_chr Package (a character vector of length 1)
 #' @return Package name (a character vector of length 1)
 #' @rdname update_ns_chr

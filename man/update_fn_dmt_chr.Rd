@@ -27,6 +27,6 @@ update_fn_dmt_chr(
 Function dmt (a character vector of length 1)
 }
 \description{
-update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated. The function returns a function dmt (a character vector of length 1).
+update_fn_dmt_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function dmt. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated.The function returns a function dmt (a character vector of length 1).
 }
 \keyword{internal}

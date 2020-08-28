@@ -553,7 +553,7 @@ make_gtr_str_dmt_spine_chr_ls <- function(fn_type_chr,
                           "#' @rdname ",
                           ifelse(doc_in_class_lgl,
                                  class_name_chr,
-                                 ifelse(fn_type_chr == "meth_get_slot",fn_name_chr, paste0(stringr::str_sub(fn_name_chr,end = -3),"-set"))
+                                 ifelse(fn_type_chr == "meth_get_slot",fn_name_chr, paste0(stringr::str_sub(fn_name_chr,end = -1),"-set"))
                           ))
   }
   gtr_str_dmt_spine_chr_ls <- list(fn_tags_chr = fn_tags_chr,

@@ -266,8 +266,8 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr_vec = NA_character_,
 }
 write_pkg_R <- function(package_chr,
                         R_dir_chr = "R"){
-  write_from_tmp_R(system.file("pckg_ready_fun.R",package="ready4fun"),
-                   dest_path_chr = paste0(R_dir_chr,"/pckg_",package_chr,".R"),
+  write_from_tmp_R(system.file("pkg_ready_fun.R",package="ready4fun"),
+                   dest_path_chr = paste0(R_dir_chr,"/pkg_",package_chr,".R"),
                    edit_fn = function(txt_chr,
                                       package_chr){
                      pkg_desc_ls <- packageDescription(package_chr)
@@ -283,6 +283,7 @@ write_pkg_R <- function(package_chr,
 }
 write_pkg_setup_fls_R <- function(path_to_pkg_rt_chr = ".",
                                   dev_pkg_nm_chr = NA_character_,
+                                  make_tmpl_vignette_lgl = F,
                                   incr_ver_lgl = T){
   update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_chr)
   if(!update_desc_fl_1L_lgl)
@@ -297,6 +298,8 @@ write_pkg_setup_fls_R <- function(path_to_pkg_rt_chr = ".",
     writeLines(desc_chr)
     close_open_sinks()
   }
+  if(make_tmpl_vignette_lgl)
+    write_vignette_R(dev_pkg_nm_chr, pkg_rt_dir_chr = path_to_pkg_rt_chr)
   if(incr_ver_lgl){
     usethis::use_version()
   }
@@ -321,6 +324,28 @@ write_tb_to_csv <- function(tbs_r4,
     dplyr::mutate_if(is.list,.funs = dplyr::funs(ifelse(stringr::str_c(.)=="NULL",NA_character_ , stringr::str_c (.)))) %>%
     write.csv(file = paste0(lup_dir_chr,"/",pfx_chr,"_",slot_nm_chr,".csv"),
               row.names = F)
+}
+write_vignette_R <- function(package_chr,
+                             pkg_rt_dir_chr = "."){
+  if(!dir.exists(paste0(pkg_rt_dir_chr,"/vignettes")))
+    dir.create(paste0(pkg_rt_dir_chr,"/vignettes"))
+  write_from_tmp_R(system.file("ready4fun.Rmd",package="ready4fun"),
+                   dest_path_chr = paste0(pkg_rt_dir_chr,"/vignettes/",package_chr,".Rmd"),
+                   edit_fn = function(txt_chr,
+                                      package_chr){
+                     txt_chr <- purrr::map_chr(txt_chr,
+                                               ~ stringr::str_replace_all(.x,
+                                                                          "ready4fun",
+                                                                          package_chr))
+                     txt_chr
+                   },
+                   args_ls = list(package_chr = package_chr))
+  write_from_tmp_R(system.file(".gitignore",package="ready4fun"),
+                   dest_path_chr = paste0(pkg_rt_dir_chr,"/vignettes/",".gitignore"),
+                   edit_fn = function(txt_chr, package_chr){
+                     txt_chr
+                   },
+                   args_ls = list(package_chr = package_chr))
 }
 write_ws <- function(path_chr){
   dir.create(paste0(path_chr,"/Readyforwhatsnext"))

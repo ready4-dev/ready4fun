@@ -1,6 +1,6 @@
 Package: ready4fun
 Title: Readyforwhatsnext Function Authoring And Documentation Tools
-Version: 0.0.0.9113
+Version: 0.0.0.9114
 Authors@R: 
   c(
     person(given = "Matthew",family = "Hamilton", email = "matthew.hamilton@orygen.org.au",role = c("aut", "cre"),comment = c(ORCID = "0000-0001-7407-9194")),

@@ -13,7 +13,8 @@ if(!dir.exists(fns_dir_chr))
 # 4. Read all undocumented functions in the temporary "fns" directory.
 source(paste0(fns_dir_chr,"/read.R"))
 fns_path_chr_vec <- read_fns(fns_dir_chr)
-write_pkg_setup_fls_R(incr_ver_lgl = F)
+write_pkg_setup_fls_R(#make_tmpl_vignette_lgl = T, First time script is run this should be uncommented then switched off again.
+                      incr_ver_lgl = F)
 #
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup_tb() %>%
@@ -129,8 +130,8 @@ write_and_doc_fn_fls_R(fns_dmt_tb,
 write_ns_imps_to_desc()
 #
 # 12. Create vignettes
-usethis::use_vignette("ready4fun")
-devtools::document()
+# usethis::use_vignette("ready4fun")
+# devtools::document()
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

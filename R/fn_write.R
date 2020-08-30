@@ -324,8 +324,8 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr_vec = NA_character_, incr_ver_lg
 #' @importFrom stringr str_replace_all
 write_pkg_R <- function (package_chr, R_dir_chr = "R") 
 {
-    write_from_tmp_R(system.file("pckg_ready_fun.R", package = "ready4fun"), 
-        dest_path_chr = paste0(R_dir_chr, "/pckg_", package_chr, 
+    write_from_tmp_R(system.file("pkg_ready_fun.R", package = "ready4fun"), 
+        dest_path_chr = paste0(R_dir_chr, "/pkg_", package_chr, 
             ".R"), edit_fn = function(txt_chr, package_chr) {
             pkg_desc_ls <- packageDescription(package_chr)
             txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
@@ -339,6 +339,7 @@ write_pkg_R <- function (package_chr, R_dir_chr = "R")
 #' @description write_pkg_setup_fls_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files R.NA
 #' @param path_to_pkg_rt_chr Path to package rt (a character vector of length 1), Default: '.'
 #' @param dev_pkg_nm_chr Dev package name (a character vector of length 1), Default: 'NA'
+#' @param make_tmpl_vignette_lgl Make tmpl vignette (a logical vector of length 1), Default: F
 #' @param incr_ver_lgl Incr ver (a logical vector of length 1), Default: T
 #' @return NULL
 #' @rdname write_pkg_setup_fls_R
@@ -347,7 +348,7 @@ write_pkg_R <- function (package_chr, R_dir_chr = "R")
 #' @importFrom usethis use_version
 #' @keywords internal
 write_pkg_setup_fls_R <- function (path_to_pkg_rt_chr = ".", dev_pkg_nm_chr = NA_character_, 
-    incr_ver_lgl = T) 
+    make_tmpl_vignette_lgl = F, incr_ver_lgl = T) 
 {
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_chr)
     if (!update_desc_fl_1L_lgl) 
@@ -363,6 +364,8 @@ write_pkg_setup_fls_R <- function (path_to_pkg_rt_chr = ".", dev_pkg_nm_chr = NA
         writeLines(desc_chr)
         close_open_sinks()
     }
+    if (make_tmpl_vignette_lgl) 
+        write_vignette_R(dev_pkg_nm_chr, pkg_rt_dir_chr = path_to_pkg_rt_chr)
     if (incr_ver_lgl) {
         usethis::use_version()
     }
@@ -412,6 +415,34 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_chr, r4_name_chr, lup_dir_chr, pfx_
         .funs = dplyr::funs(ifelse(stringr::str_c(.) == "NULL", 
             NA_character_, stringr::str_c(.)))) %>% write.csv(file = paste0(lup_dir_chr, 
         "/", pfx_chr, "_", slot_nm_chr, ".csv"), row.names = F)
+}
+#' Write vignette
+#' @description write_vignette_R() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette R.NA
+#' @param package_chr Package (a character vector of length 1)
+#' @param pkg_rt_dir_chr Package rt directory (a character vector of length 1), Default: '.'
+#' @return NULL
+#' @rdname write_vignette_R
+#' @export 
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_replace_all
+#' @keywords internal
+write_vignette_R <- function (package_chr, pkg_rt_dir_chr = ".") 
+{
+    if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 
+        dir.create(paste0(pkg_rt_dir_chr, "/vignettes"))
+    write_from_tmp_R(system.file("ready4fun.Rmd", package = "ready4fun"), 
+        dest_path_chr = paste0(pkg_rt_dir_chr, "/vignettes/", 
+            package_chr, ".Rmd"), edit_fn = function(txt_chr, 
+            package_chr) {
+            txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
+                "ready4fun", package_chr))
+            txt_chr
+        }, args_ls = list(package_chr = package_chr))
+    write_from_tmp_R(system.file(".gitignore", package = "ready4fun"), 
+        dest_path_chr = paste0(pkg_rt_dir_chr, "/vignettes/", 
+            ".gitignore"), edit_fn = function(txt_chr, package_chr) {
+            txt_chr
+        }, args_ls = list(package_chr = package_chr))
 }
 #' Write workspace
 #' @description write_ws() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a workspace.NA

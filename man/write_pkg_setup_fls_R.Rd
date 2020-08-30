@@ -7,6 +7,7 @@
 write_pkg_setup_fls_R(
   path_to_pkg_rt_chr = ".",
   dev_pkg_nm_chr = NA_character_,
+  make_tmpl_vignette_lgl = F,
   incr_ver_lgl = T
 )
 }
@@ -14,6 +15,8 @@ write_pkg_setup_fls_R(
 \item{path_to_pkg_rt_chr}{Path to package rt (a character vector of length 1), Default: '.'}
 
 \item{dev_pkg_nm_chr}{Dev package name (a character vector of length 1), Default: 'NA'}
+
+\item{make_tmpl_vignette_lgl}{Make tmpl vignette (a logical vector of length 1), Default: F}
 
 \item{incr_ver_lgl}{Incr ver (a logical vector of length 1), Default: T}
 }

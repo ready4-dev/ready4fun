@@ -1,5 +1,5 @@
 #' @keywords internal
-remove_collate_chr <- function (description_chr) 
+remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
         description_chr <- description_chr[1:(which(description_chr == 
@@ -7,14 +7,14 @@ remove_collate_chr <- function (description_chr)
     return(description_chr)
 }
 #' @keywords internal
-remove_obj_type_from_nm_chr <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
+remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     is_generic_lgl = F) 
 {
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
-    output_chr <- make_arg_type_abbr_chr(nms_chr, abbreviations_lup = abbreviations_lup, 
+    output_chr <- make_arg_type_abbr(nms_chr, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup)
     suffices_chr <- output_chr %>% purrr::map2_chr(is_generic_lgl, 
         ~{

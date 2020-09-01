@@ -7,7 +7,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
             pfx_1L_chr = pfx_1L_chr))
 }
 #' @keywords internal
-write_and_doc_ds_R <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
+write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", abbreviations_lup = NULL, 
     object_type_lup = NULL) 
@@ -20,7 +20,7 @@ write_and_doc_ds_R <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_ch
     eval(parse(text = paste0("usethis::use_data(", db_1L_chr, 
         ", overwrite = overwrite_1L_lgl)")))
     sink(paste0(R_dir_1L_chr, "/db_", db_1L_chr, ".R"), append = F)
-    write_ds_dmt_R(db = db, db_1L_chr = db_1L_chr, title_1L_chr = title_1L_chr, 
+    write_ds_dmt(db = db, db_1L_chr = db_1L_chr, title_1L_chr = title_1L_chr, 
         desc_1L_chr = desc_1L_chr, format_1L_chr = format_1L_chr, 
         vars_ls = vars_ls, url_1L_chr = url_1L_chr, R_dir_1L_chr = R_dir_1L_chr, 
         abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
@@ -29,13 +29,13 @@ write_and_doc_ds_R <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_ch
     devtools::load_all()
 }
 #' @keywords internal
-write_and_doc_fn_fls_R <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
+write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
     make_pdfs_1L_lgl = T) 
 {
     purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 
         c(T, F), ~{
-            write_fn_fl_R(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
+            write_fn_fl(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
                 document_unexp_lgl = .y)
             devtools::document()
             devtools::load_all()
@@ -44,7 +44,7 @@ write_and_doc_fn_fls_R <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user
         })
 }
 #' @keywords internal
-write_documented_fns_R <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
+write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
     sinew::makeOxyFile(tmp_fn_dir_1L_chr, verbose = F)
     files_chr <- list.files(tmp_fn_dir_1L_chr) %>% purrr::map_chr(~{
@@ -61,7 +61,7 @@ write_documented_fns_R <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
         files_chr)))
 }
 #' @keywords internal
-write_ds_dmt_R <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
+write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
 {
@@ -69,7 +69,7 @@ write_ds_dmt_R <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc_1L_chr(paste0(.x), 
+    auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc(paste0(.x), 
         object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup)) %>% 
         stats::setNames(names(db))
     if (is.null(vars_ls)) {
@@ -122,7 +122,7 @@ write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_
     writeLines(fn_tags_chr)
 }
 #' @keywords internal
-write_fn_fl_R <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
+write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
     file_nms_chr %>% purrr::walk(~{
@@ -159,7 +159,7 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
     })
 }
 #' @keywords internal
-write_from_tmp_R <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
+write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
 {
@@ -174,14 +174,14 @@ write_from_tmp_R <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = func
     close(fileConn)
 }
 #' @keywords internal
-write_new_arg_sfxs_R <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
+write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
     if (is.na(inc_fns_idx_dbl)) 
         inc_fns_idx_dbl <- 1:length(ls(paste0("package:", pkg_nm_1L_chr))[ls(paste0("package:", 
             pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)])
     purrr::walk(arg_nms_chr[order(nchar(arg_nms_chr), arg_nms_chr, 
-        decreasing = T)] %>% unique(), ~replace_1L_and_indefL_sfxs_R(.x, 
+        decreasing = T)] %>% unique(), ~write_to_rpl_1L_and_indefL_sfcs(.x, 
         file_path_chr = paste0(dir_path_chr, "/", fn_type_1L_chr, 
             ".R")))
     updated_fns_chr <- ls(paste0("package:", pkg_nm_1L_chr))[ls(paste0("package:", 
@@ -192,10 +192,10 @@ write_new_arg_sfxs_R <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_
         stringr::str_sub(start = -8) %in% updated_sfxs_chr]
     if (ifelse(identical(fn_nms_to_upd_chr, character(0)), F, 
         !is.na(fn_nms_to_upd_chr))) {
-        purrr::walk(fn_nms_to_upd_chr, ~replace_1L_and_indefL_sfxs_R(.x, 
+        purrr::walk(fn_nms_to_upd_chr, ~write_to_rpl_1L_and_indefL_sfcs(.x, 
             dir_path_chr = dir_path_chr))
         purrr::walk(paste0(pkg_nm_1L_chr, "::", fn_nms_to_upd_chr), 
-            ~replace_1L_and_indefL_sfxs_R(.x, dir_path_chr = rt_dev_dir_path_1L_chr))
+            ~write_to_rpl_1L_and_indefL_sfcs(.x, dir_path_chr = rt_dev_dir_path_1L_chr))
     }
     fn_args_to_rnm_ls <- purrr::map(updated_fns_chr, ~{
         fn_args_chr <- get_fn_args_chr(eval(parse(text = .x)))
@@ -227,9 +227,9 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
         usethis::use_version()
 }
 #' @keywords internal
-write_pkg_R <- function (package_1L_chr, R_dir_1L_chr = "R") 
+write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
-    write_from_tmp_R(system.file("pkg_ready_fun.R", package = "ready4fun"), 
+    write_from_tmp(system.file("pkg_ready_fun.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, 
             ".R"), edit_fn = function(txt_chr, package_1L_chr) {
             pkg_desc_ls <- packageDescription(package_1L_chr)
@@ -242,16 +242,16 @@ write_pkg_R <- function (package_1L_chr, R_dir_1L_chr = "R")
         }, args_ls = list(package_1L_chr = package_1L_chr))
 }
 #' @keywords internal
-write_pkg_setup_fls_R <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = NA_character_, 
+write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = NA_character_, 
     make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T) 
 {
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
     if (!update_desc_fl_1L_lgl) 
-        dev_pkg_nm_1L_chr <- get_dev_pkg_nm_1L_chr(path_to_pkg_rt_1L_chr)
+        dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
     devtools::load_all(path_to_pkg_rt_1L_chr)
-    write_pkg_R(dev_pkg_nm_1L_chr, R_dir_1L_chr = paste0(path_to_pkg_rt_1L_chr, 
+    write_pkg(dev_pkg_nm_1L_chr, R_dir_1L_chr = paste0(path_to_pkg_rt_1L_chr, 
         "/R"))
-    write_std_imp_R(paste0(path_to_pkg_rt_1L_chr, "/R"))
+    write_std_imp(paste0(path_to_pkg_rt_1L_chr, "/R"))
     if (update_desc_fl_1L_lgl) {
         desc_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, 
             "/DESCRIPTION"))
@@ -261,23 +261,23 @@ write_pkg_setup_fls_R <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_ch
         close_open_sinks()
     }
     if (make_tmpl_vignette_1L_lgl) 
-        write_vignette_R(dev_pkg_nm_1L_chr, pkg_rt_dir_chr = path_to_pkg_rt_1L_chr)
+        write_vignette(dev_pkg_nm_1L_chr, pkg_rt_dir_chr = path_to_pkg_rt_1L_chr)
     if (incr_ver_1L_lgl) {
         usethis::use_version()
     }
 }
 #' @keywords internal
-write_pt_lup_db_R <- function (R_dir_1L_chr = "R") 
+write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
-    write_from_tmp_R(system.file("db_pt_lup.R", package = "ready4fun"), 
+    write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/db_pt_lup.R"))
 }
 #' @keywords internal
-write_std_imp_R <- function (R_dir_1L_chr = "R") 
+write_std_imp <- function (R_dir_1L_chr = "R") 
 {
-    write_from_tmp_R(system.file("imp_pipe_tmp.R", package = "ready4fun"), 
+    write_from_tmp(system.file("imp_pipe_tmp.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/imp_pipe.R"))
-    write_from_tmp_R(system.file("imp_mthds_tmp.R", package = "ready4fun"), 
+    write_from_tmp(system.file("imp_mthds_tmp.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/imp_mthds.R"))
 }
 #' @keywords internal
@@ -290,11 +290,11 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
         "/", pfx_1L_chr, "_", slot_nm_1L_chr, ".csv"), row.names = F)
 }
 #' @keywords internal
-write_vignette_R <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
+write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 
         dir.create(paste0(pkg_rt_dir_chr, "/vignettes"))
-    write_from_tmp_R(system.file("ready4fun.Rmd", package = "ready4fun"), 
+    write_from_tmp(system.file("ready4fun.Rmd", package = "ready4fun"), 
         dest_path_1L_chr = paste0(pkg_rt_dir_chr, "/vignettes/", 
             package_1L_chr, ".Rmd"), edit_fn = function(txt_chr, 
             package_1L_chr) {
@@ -302,7 +302,7 @@ write_vignette_R <- function (package_1L_chr, pkg_rt_dir_chr = ".")
                 "ready4fun", package_1L_chr))
             txt_chr
         }, args_ls = list(package_1L_chr = package_1L_chr))
-    write_from_tmp_R(system.file(".gitignore", package = "ready4fun"), 
+    write_from_tmp(system.file(".gitignore", package = "ready4fun"), 
         dest_path_1L_chr = paste0(pkg_rt_dir_chr, "/vignettes/", 
             ".gitignore"), edit_fn = function(txt_chr, package_1L_chr) {
             txt_chr

@@ -1,5 +1,5 @@
 #' @keywords internal
-update_abbr_lup_tb <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
+update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
     custom_plural_ls = NULL, pfx_rgx = NA_character_) 
 {
     if (!"plural_lgl" %in% names(abbr_tb)) 
@@ -8,7 +8,7 @@ update_abbr_lup_tb <- function (abbr_tb, short_name_chr, long_name_chr, no_plura
         abbr_tb <- abbr_tb %>% dplyr::mutate(long_name_chr = purrr::map_chr(long_name_chr, 
             ~stringi::stri_replace_first_regex(.x, pfx_rgx, "")))
     new_tb <- tibble::tibble(short_name_chr = short_name_chr, 
-        long_name_chr = long_name_chr) %>% add_plurals_to_abbr_lup_tb(no_plural_chr = no_plural_chr, 
+        long_name_chr = long_name_chr) %>% add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr, 
         custom_plural_ls = custom_plural_ls)
     abbr_tb <- tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr, 
         new_tb$short_name_chr)), long_name_chr = make.unique(c(abbr_tb$long_name_chr, 
@@ -18,14 +18,14 @@ update_abbr_lup_tb <- function (abbr_tb, short_name_chr, long_name_chr, no_plura
     return(abbr_tb)
 }
 #' @keywords internal
-update_first_word_case_chr <- function (phrase_1L_chr, fn = tolower) 
+update_first_word_case <- function (phrase_1L_chr, fn = tolower) 
 {
     phrase_1L_chr <- paste0(phrase_1L_chr %>% stringr::str_sub(end = 1) %>% 
         fn, phrase_1L_chr %>% stringr::str_sub(start = 2))
     return(phrase_1L_chr)
 }
 #' @keywords internal
-update_fn_dmt_1L_chr <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
+update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
     import_chr) 
 {
     fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_chr
@@ -55,7 +55,7 @@ update_fn_dmt_1L_chr <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_c
     return(fn_dmt_1L_chr)
 }
 #' @keywords internal
-update_fn_dmt_with_slots_1L_chr <- function (fn_name_1L_chr, fn_dmt_1L_chr) 
+update_fn_dmt_with_slots <- function (fn_name_1L_chr, fn_dmt_1L_chr) 
 {
     slots_chr <- get_r4_obj_slots_1L_chr(fn_name_1L_chr)
     fn_dmt_1L_chr <- purrr::reduce(1:length(slots_chr), .init = fn_dmt_1L_chr, 
@@ -65,7 +65,41 @@ update_fn_dmt_with_slots_1L_chr <- function (fn_name_1L_chr, fn_dmt_1L_chr)
     return(fn_dmt_1L_chr)
 }
 #' @keywords internal
-update_fns_dmt_tb_chr_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
+update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
+    export_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls = NULL, 
+    append_1L_lgl = T) 
+{
+    lgl_vecs_ls <- list(chr_vars_to_upd_lgl = list(title_ls, 
+        desc_ls, details_ls, output_ls) %>% purrr::map_lgl(~!is.null(.x)), 
+        lgl_vars_to_upd_lgl = list(export_ls, example_ls) %>% 
+            purrr::map_lgl(~!is.null(.x)), arg_ls_to_upd_lgl = !is.null(args_ls_ls))
+    input_ls_ls <- list(chr_input_ls = list(variable_chr = c("title_chr", 
+        "desc_chr", "details_chr", "output_chr"), data_chr = c("title_ls", 
+        "desc_ls", "details_ls", "output_ls")), lgl_input_ls = list(variable_chr = c("export_lgl", 
+        "example_lgl"), data_chr = c("export_ls", "example_ls")), 
+        ls_input_ls = list(variable_chr = c("args_ls"), data_chr = c("args_ls_ls")))
+    fns_dmt_tb <- purrr::reduce(1:3, .init = fns_dmt_tb, ~{
+        idx_1L_dbl <- .y
+        fn <- list(update_fns_dmt_tb_chr_vars, update_fns_dmt_tb_lgl_vars, 
+            update_fns_dmt_tb_ls_vars)[[idx_1L_dbl]]
+        if (any(lgl_vecs_ls[[idx_1L_dbl]])) {
+            input_ls <- input_ls_ls[[idx_1L_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_1L_dbl]]])
+            fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]), 
+                .init = .x, ~{
+                  eval(parse(text = paste0("new_ls <- ", input_ls[[2]][.y])))
+                  args_ls <- list(.x, data_1L_chr = input_ls[[1]][.y], 
+                    new_ls = new_ls, append_1L_lgl = append_1L_lgl)
+                  if (idx_1L_dbl == 2) 
+                    args_ls$append_1L_lgl <- NULL
+                  rlang::exec(fn, !!!args_ls)
+                })
+        }
+        fns_dmt_tb
+    })
+    return(fns_dmt_tb)
+}
+#' @keywords internal
+update_fns_dmt_tb_chr_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
 {
     if (is.na(data_1L_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -83,7 +117,7 @@ update_fns_dmt_tb_chr_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls, app
     return(fns_dmt_tb)
 }
 #' @keywords internal
-update_fns_dmt_tb_lgl_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls) 
+update_fns_dmt_tb_lgl_vars <- function (fns_dmt_tb, data_1L_chr, new_ls) 
 {
     if (is.na(data_1L_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -97,7 +131,7 @@ update_fns_dmt_tb_lgl_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls)
     return(fns_dmt_tb)
 }
 #' @keywords internal
-update_fns_dmt_tb_ls_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
+update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
 {
     if (is.na(data_1L_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -133,41 +167,7 @@ update_fns_dmt_tb_ls_vars_chr <- function (fns_dmt_tb, data_1L_chr, new_ls, appe
     return(fns_dmt_tb)
 }
 #' @keywords internal
-update_fns_dmt_tb_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
-    export_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls = NULL, 
-    append_1L_lgl = T) 
-{
-    lgl_vecs_ls <- list(chr_vars_to_upd_lgl = list(title_ls, 
-        desc_ls, details_ls, output_ls) %>% purrr::map_lgl(~!is.null(.x)), 
-        lgl_vars_to_upd_lgl = list(export_ls, example_ls) %>% 
-            purrr::map_lgl(~!is.null(.x)), arg_ls_to_upd_lgl = !is.null(args_ls_ls))
-    input_ls_ls <- list(chr_input_ls = list(variable_chr = c("title_chr", 
-        "desc_chr", "details_chr", "output_chr"), data_chr = c("title_ls", 
-        "desc_ls", "details_ls", "output_ls")), lgl_input_ls = list(variable_chr = c("export_lgl", 
-        "example_lgl"), data_chr = c("export_ls", "example_ls")), 
-        ls_input_ls = list(variable_chr = c("args_ls"), data_chr = c("args_ls_ls")))
-    fns_dmt_tb <- purrr::reduce(1:3, .init = fns_dmt_tb, ~{
-        idx_1L_dbl <- .y
-        fn <- list(update_fns_dmt_tb_chr_vars_chr, update_fns_dmt_tb_lgl_vars_chr, 
-            update_fns_dmt_tb_ls_vars_chr)[[idx_1L_dbl]]
-        if (any(lgl_vecs_ls[[idx_1L_dbl]])) {
-            input_ls <- input_ls_ls[[idx_1L_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_1L_dbl]]])
-            fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]), 
-                .init = .x, ~{
-                  eval(parse(text = paste0("new_ls <- ", input_ls[[2]][.y])))
-                  args_ls <- list(.x, data_1L_chr = input_ls[[1]][.y], 
-                    new_ls = new_ls, append_1L_lgl = append_1L_lgl)
-                  if (idx_1L_dbl == 2) 
-                    args_ls$append_1L_lgl <- NULL
-                  rlang::exec(fn, !!!args_ls)
-                })
-        }
-        fns_dmt_tb
-    })
-    return(fns_dmt_tb)
-}
-#' @keywords internal
-update_ns_chr <- function (package_1L_chr) 
+update_ns <- function (package_1L_chr) 
 {
     package_nm_chr <- ifelse(package_1L_chr == "", ".GlobalEnv", 
         package_1L_chr)

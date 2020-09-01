@@ -1,5 +1,5 @@
 #' @keywords internal
-reset_pkg_files_R <- function (package_1L_chr, package_dir_1L_chr = getwd(), description_ls = NULL, 
+write_to_reset_pkg_files <- function (package_1L_chr, package_dir_1L_chr = getwd(), description_ls = NULL, 
     keep_version_lgl = T) 
 {
     devtools::load_all()

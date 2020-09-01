@@ -1,5 +1,5 @@
 #' @keywords internal
-add_indef_artl_to_item_chr <- function (phrase_chr, abbreviations_lup = NULL, ignore_phrs_not_in_lup_1L_lgl = T) 
+add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -27,7 +27,7 @@ add_indef_artl_to_item_chr <- function (phrase_chr, abbreviations_lup = NULL, ig
     return(indefinite_item_chr)
 }
 #' @keywords internal
-add_indefartls_to_phrases_1L_chr <- function (abbreviated_phrase_1L_chr, abbreviations_lup = NULL, 
+add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup = NULL, 
     ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
@@ -35,8 +35,8 @@ add_indefartls_to_phrases_1L_chr <- function (abbreviated_phrase_1L_chr, abbrevi
     phrases_chr <- abbreviated_phrase_1L_chr %>% purrr::map_chr(~{
         words_chr_ls <- strsplit(.x, "_")
         words_chr_ls %>% purrr::map_chr(~{
-            expanded_chr <- replace_abbr_chr(.x, collapse_lgl = F)
-            indefinite_chr <- add_indef_artl_to_item_chr(expanded_chr, 
+            expanded_chr <- replace_abbr(.x, collapse_lgl = F)
+            indefinite_chr <- add_indef_artl_to_item(expanded_chr, 
                 abbreviations_lup = abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = ignore_phrs_not_in_lup_1L_lgl)
             matches_lgl <- expanded_chr == indefinite_chr
             run_length_ls <- rle(matches_lgl)
@@ -58,7 +58,7 @@ add_indefartls_to_phrases_1L_chr <- function (abbreviated_phrase_1L_chr, abbrevi
     return(phrases_chr)
 }
 #' @keywords internal
-add_plurals_to_abbr_lup_tb <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
+add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_1L_chr <- no_plural_chr
     if (!is.null(custom_plural_ls)) {
@@ -90,7 +90,7 @@ add_plurals_to_abbr_lup_tb <- function (abbr_tb, no_plural_chr = NA_character_, 
     return(abbr_tb)
 }
 #' @keywords internal
-add_rows_to_fn_type_lup_tb <- function (fn_type_lup_tb = make_fn_type_lup_tb(), fn_type_nm_chr = NA_character_, 
+add_rows_to_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), fn_type_nm_chr = NA_character_, 
     fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     second_arg_desc_chr = NA_character_, is_generic_lgl = F, 
     is_method_lgl = F) 

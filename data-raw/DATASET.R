@@ -102,7 +102,7 @@ data("object_type_lup")
 #
 # 9. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
-                                 fns_dir_1L_chr = fns_dir_1L_chr,
+                                 fns_dir_chr = fns_dir_1L_chr,
                                  custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
                                                       export_ls = list(force_true_chr = c("add_plurals_to_abbr_lup","close_open_sinks","force_instl_of_reqd_pkg","get_from_lup_obj","import_xls_sheets",
                                                                                               "make_abbr_lup","make_dmt_for_all_fns","write_dmtd_fn_type_lup","make_fn_dmt_tbl","read_fns",

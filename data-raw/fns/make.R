@@ -376,7 +376,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
   return(fn_dmt_spine_chr_ls)
 }
 make_fn_dmt_tbl <- function(fns_path_chr,
-                               fns_dir_1L_chr,
+                               fns_dir_chr = make_undmtd_fns_dir_chr(),
                                pkg_nm_1L_chr,
                                custom_dmt_ls = list(title_ls = NULL,
                                                     desc_ls = NULL,
@@ -394,7 +394,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl(fns_path_chr,
-                                          fns_dir_1L_chr = fns_dir_1L_chr,
+                                          fns_dir_chr = fns_dir_chr,
                                           fn_type_lup_tb = fn_type_lup_tb,
                                           abbreviations_lup = abbreviations_lup,
                                           object_type_lup = object_type_lup)
@@ -406,7 +406,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
   return(fn_dmt_tbl_tb)
 }
 make_fn_dmt_tbl_tpl <- function(fns_path_chr,
-                                   fns_dir_chr,
+                                   fns_dir_chr = make_undmtd_fns_dir_chr(),
                                    fn_type_lup_tb = NULL,
                                    abbreviations_lup = NULL,
                                    object_type_lup = NULL){

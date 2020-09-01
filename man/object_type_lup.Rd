@@ -5,7 +5,7 @@
 \alias{object_type_lup}
 \title{Object abbreviations lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 100 rows and 3 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 109 rows and 3 columns.
 }
 \source{
 \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}

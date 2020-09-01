@@ -190,29 +190,29 @@ make_short_long_nms_vec_chr <- function(long_vecs_chr = character(0),
 #                        dir_path_chr = "data-raw/fns",
 #                        pkg_nm_1L_chr = "ready4fun")
 # saveRDS(fn_args_to_rnm_ls, paste0("data-raw/",fn_type_1L_chr,"_fn_args_to_rnm_ls.RDS"))
-fn_type_1L_chr <- "write"
-fn_args_to_rnm_ls <- make_short_long_nms_vec_chr(long_vecs_chr = c("dev_pkgs_chr_vec","files_chr_vec","file_nms_chr_vec",
-                                                                   "import_chr_vec","keep_auto_nms_chr_vec","packages_chr_vec",
-                                                                   "top_level_chr_vec"),
-                                                 short_vecs_chr = c("db_chr","desc_chr","dev_pkg_nm_chr","dest_path_chr","doc_in_class_lgl",
-                                                                    "example_lgl","export_lgl",
-                                                                    "fn_title_chr","fn_type_chr","fn_name_chr","fn_desc_chr","fn_out_type_chr",
-                                                                    "format_chr",
-                                                                    "incr_ver_lgl",
-                                                                    "lup_dir_chr",
-                                                                    "make_tmpl_vignette_lgl","make_pdfs_lgl","overwrite_lgl",
-                                                                    "package_chr","path_chr",
-                                                                    "path_to_dvpr_dmt_dir_chr","path_to_pkg_rt_chr","path_to_user_dmt_dir_chr","pfx_chr",
-                                                                    "r4_name_chr",
-                                                                    "r_dir_chr","R_dir_chr",
-                                                                    "slot_nm_chr",
-                                                                    "temp_path_chr","title_chr","tmp_fn_dir_chr",
-                                                                    "url_chr")
-) %>%
-  write_new_arg_sfxs_R(fn_type_1L_chr = fn_type_1L_chr,
-                       dir_path_chr = "data-raw/fns",
-                       pkg_nm_1L_chr = "ready4fun")
-saveRDS(fn_args_to_rnm_ls, paste0("data-raw/",fn_type_1L_chr,"_fn_args_to_rnm_ls.RDS"))
+# fn_type_1L_chr <- "write"
+# fn_args_to_rnm_ls <- make_short_long_nms_vec_chr(long_vecs_chr = c("dev_pkgs_chr_vec","files_chr_vec","file_nms_chr_vec",
+#                                                                    "import_chr_vec","keep_auto_nms_chr_vec","packages_chr_vec",
+#                                                                    "top_level_chr_vec"),
+#                                                  short_vecs_chr = c("db_chr","desc_chr","dev_pkg_nm_chr","dest_path_chr","doc_in_class_lgl",
+#                                                                     "example_lgl","export_lgl",
+#                                                                     "fn_title_chr","fn_type_chr","fn_name_chr","fn_desc_chr","fn_out_type_chr",
+#                                                                     "format_chr",
+#                                                                     "incr_ver_lgl",
+#                                                                     "lup_dir_chr",
+#                                                                     "make_tmpl_vignette_lgl","make_pdfs_lgl","overwrite_lgl",
+#                                                                     "package_chr","path_chr",
+#                                                                     "path_to_dvpr_dmt_dir_chr","path_to_pkg_rt_chr","path_to_user_dmt_dir_chr","pfx_chr",
+#                                                                     "r4_name_chr",
+#                                                                     "r_dir_chr","R_dir_chr",
+#                                                                     "slot_nm_chr",
+#                                                                     "temp_path_chr","title_chr","tmp_fn_dir_chr",
+#                                                                     "url_chr")
+# ) %>%
+#   write_new_arg_sfxs_R(fn_type_1L_chr = fn_type_1L_chr,
+#                        dir_path_chr = "data-raw/fns",
+#                        pkg_nm_1L_chr = "ready4fun")
+# saveRDS(fn_args_to_rnm_ls, paste0("data-raw/",fn_type_1L_chr,"_fn_args_to_rnm_ls.RDS"))
 ## Irregular changes for reset.R
 
 # Update argument names (within package - for other function types)

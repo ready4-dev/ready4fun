@@ -13,8 +13,7 @@ update_abbr_lup_tb <- function(abbr_tb,
   new_tb <- tibble::tibble(short_name_chr = short_name_chr,
                            long_name_chr = long_name_chr) %>%
     add_plurals_to_abbr_lup_tb(no_plural_chr = no_plural_chr,
-                               custom_plural_ls = custom_plural_ls) %>%
-    tidyr::drop_na()
+                               custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
   abbr_tb <- tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
                             long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),
                             plural_lgl = c(abbr_tb$plural_lgl,new_tb$plural_lgl)) %>%
@@ -145,7 +144,7 @@ update_fns_dmt_tb_ls_vars_chr <- function(fns_dmt_tb,
                                                                                                                                   if(!append_1L_lgl)
                                                                                                                                     testit::assert("When not appending, each function whose argument description text is being updated must have new argument descriptions for ALL arguments.",
                                                                                                                                                    ifelse(length(old_args_chr)==length(fn_args_chr),names(old_args_chr) %>% sort()==names(fn_args_chr) %>% sort(),F))
-                                                                                                                                  new_args_chr_vec <- purrr::map2_chr(fn_args_chr,
+                                                                                                                                  new_args_chr <- purrr::map2_chr(fn_args_chr,
                                                                                                                                                                       names(fn_args_chr),
                                                                                                                                                                       ~ {
                                                                                                                                                                         if(append_1L_lgl){
@@ -155,8 +154,8 @@ update_fns_dmt_tb_ls_vars_chr <- function(fns_dmt_tb,
                                                                                                                                                                         }
                                                                                                                                                                       })
                                                                                                                                   purrr::map_chr(names(old_args_chr),
-                                                                                                                                                 ~ ifelse(.x %in% names(new_args_chr_vec),
-                                                                                                                                                          new_args_chr_vec[.x],
+                                                                                                                                                 ~ ifelse(.x %in% names(new_args_chr),
+                                                                                                                                                          new_args_chr[.x],
                                                                                                                                                           old_args_chr[.x])) %>%
                                                                                                                                     stats::setNames(names(old_args_chr))
                                                                                                                                 }),

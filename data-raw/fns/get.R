@@ -60,7 +60,7 @@ get_outp_obj_type_1L_chr <- function(fns_chr){
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             return_obj_chr <- get_return_obj_nm_chr(eval(parse(text=.x))) %>%
-                                              make_arg_desc_chr()
+                                              make_arg_desc_1L_chr()
                                             ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                           })
   return(outp_obj_type_chr)

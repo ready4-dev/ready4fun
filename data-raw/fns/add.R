@@ -15,9 +15,9 @@ add_indef_artl_to_item_chr <- function(phrase_chr,
                                               }
                                               plural_1L_lgl <- ifelse(prefix_chr %in% abbreviations_lup$long_name_chr,
                                                                    get_from_lup_obj(abbreviations_lup,
-                                                                                    match_var_nm_chr = "long_name_chr",
+                                                                                    match_var_nm_1L_chr = "long_name_chr",
                                                                                     match_value_xx = prefix_chr,
-                                                                                    target_var_nm_chr = "plural_1L_lgl",
+                                                                                    target_var_nm_1L_chr = "plural_lgl",
                                                                                     evaluate_lgl = F),
                                                                    ignore_phrs_not_in_lup_1L_lgl)
                                               ifelse(is.na(plural_1L_lgl),
@@ -107,9 +107,9 @@ add_plurals_to_abbr_lup_tb <- function(abbr_tb,
   }
   abbr_tb <- tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
                             long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),
-                            plural_1L_lgl = c(rep(F,length(abbr_tb$long_name_chr)),rep(T,length(new_tb$long_name_chr)))
+                            plural_lgl = c(rep(F,length(abbr_tb$long_name_chr)),rep(T,length(new_tb$long_name_chr)))
   ) %>%
-    dplyr::mutate(plural_1L_lgl = purrr::map2_lgl(plural_1L_lgl, long_name_chr, ~ ifelse(.y %in% no_plural_chr,
+    dplyr::mutate(plural_lgl = purrr::map2_lgl(plural_lgl, long_name_chr, ~ ifelse(.y %in% no_plural_chr,
                                                                                    NA,
                                                                                    .x))) %>%
     dplyr::arrange(short_name_chr)

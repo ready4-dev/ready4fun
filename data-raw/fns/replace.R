@@ -1,9 +1,9 @@
-replace_1L_and_indefL_sfxs_R <- function(indefL_arg_nm_1L_chr,
+write_to_rpl_1L_and_indefL_sfcs <- function(indefL_arg_nm_1L_chr,
                                          file_path_1L_chr = NA_character_,
                                          dir_path_1L_chr = NA_character_){
   sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end=-5),
                     indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
-  replace_sfx_pair_R(args_nm_chr =   paste0(indefL_arg_nm_1L_chr %>% stringr::str_sub(end=-9),
+  write_to_replace_sfx_pair(args_nm_chr =   paste0(indefL_arg_nm_1L_chr %>% stringr::str_sub(end=-9),
                                                 sfxs_chr),
                      sfxs_chr = sfxs_chr,
                      replacements_chr = paste0(c("_1L",""),sfxs_chr[1]),
@@ -11,7 +11,7 @@ replace_1L_and_indefL_sfxs_R <- function(indefL_arg_nm_1L_chr,
                      dir_path_1L_chr = dir_path_1L_chr)
 
 }
-replace_abbr_chr <- function(title_chr,
+replace_abbr <- function(title_chr,
                              abbreviations_lup = NULL,
                              collapse_lgl = T){
   if(is.null(abbreviations_lup))
@@ -38,7 +38,30 @@ replace_abbr_chr <- function(title_chr,
     title_chr <- title_chr %>% paste0(collapse = " ")
   return(title_chr)
 }
-replace_sfx_pair_R <- function(args_nm_chr,
+replace_fn_nms <- function(rename_tb,
+                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                           rt_dev_dir_path_1L_chr = normalizePath("../../../"),
+                           dev_pkg_nm_1L_chr = get_dev_pkg_nm()){
+  if(any(rename_tb$duplicated_lgl))
+    stop("Duplicates in rename table")
+  rename_tb <- rename_tb %>%
+    dplyr::filter(fns_chr != new_nm) %>%
+    dplyr::select(fns_chr,new_nm)
+  purrr::pwalk(rename_tb, ~  {
+    pattern_1L_chr <- ..1
+    replacement_1L_chr <- ..2
+    purrr::walk(undocumented_fns_dir_chr,
+                ~ xfun::gsub_dir(undocumented_fns_dir_chr,
+                                 pattern = pattern_1L_chr,
+                                 replacement = replacement_1L_chr))
+    xfun::gsub_dir(dir = rt_dev_dir_path_1L_chr,
+                   pattern = paste0(dev_pkg_nm_1L_chr,"::",pattern_1L_chr),
+                   replacement = paste0(dev_pkg_nm_1L_chr,"::",replacement_1L_chr),
+                   ext = "R",
+                   fixed = T)
+  })
+}
+write_to_replace_sfx_pair <- function(args_nm_chr,
                                sfxs_chr,
                                replacements_chr,
                                file_path_1L_chr = NA_character_,

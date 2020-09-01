@@ -1,14 +1,14 @@
-get_dev_pkg_nm_1L_chr <- function(path_to_pkg_rt_1L_chr = "."){
+get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){
   dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr,"/DESCRIPTION"))[1] %>% stringr::str_sub(start=10)
   return(dev_pkg_nm_1L_chr)
 }
-get_fn_args_1L_chr <- function(fn){
+get_fn_args <- function(fn){
   fn_args_chr <- as.list(args(fn)) %>%
     names() %>%
     purrr::discard({.==""})
   return(fn_args_chr)
 }
-get_fn_nms_in_file_chr <- function(path_1L_chr){
+get_fn_nms_in_file <- function(path_1L_chr){
   source(path_1L_chr, local=T)
   local_chr <- ls()
   local_chr <- local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text=.x))))]
@@ -56,22 +56,22 @@ get_from_lup_obj <- function(data_lookup_tb,
   }
   return(return_object_xx)
 }
-get_outp_obj_type_1L_chr <- function(fns_chr){
+get_outp_obj_type <- function(fns_chr){
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
-                                            return_obj_chr <- get_return_obj_nm_chr(eval(parse(text=.x))) %>%
-                                              make_arg_desc_1L_chr()
+                                            return_obj_chr <- get_return_obj_nm(eval(parse(text=.x))) %>%
+                                              make_arg_desc()
                                             ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                           })
   return(outp_obj_type_chr)
 }
-get_r4_obj_slots_chr <- function(fn_name_1L_chr,
+get_r4_obj_slots <- function(fn_name_1L_chr,
                                      package_1L_chr = ""){
-  slots_ls <- className(fn_name_1L_chr,update_ns_chr(package_1L_chr)) %>% methods::getSlots()
+  slots_ls <- className(fn_name_1L_chr,update_ns(package_1L_chr)) %>% methods::getSlots()
   slots_chr_vec <- purrr::map_chr(slots_ls, ~ .x)
   return(slots_chr_vec)
 }
-get_return_obj_nm_chr <- function(fn){
+get_return_obj_nm <- function(fn){
   fn_chr <- deparse(fn)
   last_line_1L_chr <- fn_chr[length(fn_chr)-1] %>%
     trimws()

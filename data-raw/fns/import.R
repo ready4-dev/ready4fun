@@ -1,4 +1,4 @@
-import_xls_sheets_ls <- function(range_1L_chr,
+import_xls_sheets <- function(range_1L_chr,
                                    sheet_names_chr,
                                    path_1L_chr){
   tb_ls <-purrr::map(sheet_names_chr,

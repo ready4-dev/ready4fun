@@ -1,4 +1,4 @@
-update_abbr_lup_tb <- function(abbr_tb,
+update_abbr_lup <- function(abbr_tb,
                                short_name_chr,
                                long_name_chr,
                                no_plural_chr = NA_character_,
@@ -12,7 +12,7 @@ update_abbr_lup_tb <- function(abbr_tb,
                                                ~ stringi::stri_replace_first_regex(.x,pfx_rgx,"")))
   new_tb <- tibble::tibble(short_name_chr = short_name_chr,
                            long_name_chr = long_name_chr) %>%
-    add_plurals_to_abbr_lup_tb(no_plural_chr = no_plural_chr,
+    add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr,
                                custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
   abbr_tb <- tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
                             long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),
@@ -21,13 +21,13 @@ update_abbr_lup_tb <- function(abbr_tb,
     dplyr::distinct()
   return(abbr_tb)
 }
-update_first_word_case_chr <- function(phrase_1L_chr,
+update_first_word_case <- function(phrase_1L_chr,
                                        fn = tolower){
   phrase_1L_chr <- paste0(phrase_1L_chr %>% stringr::str_sub(end=1) %>% fn,
                        phrase_1L_chr %>% stringr::str_sub(start=2))
   return(phrase_1L_chr)
 }
-update_fn_dmt_with_slots_1L_chr <- function(fn_name_1L_chr,
+update_fn_dmt_with_slots <- function(fn_name_1L_chr,
                                          fn_dmt_1L_chr){
   slots_chr <- get_r4_obj_slots_1L_chr(fn_name_1L_chr)
   fn_dmt_1L_chr <- purrr::reduce(1:length(slots_chr),
@@ -38,7 +38,7 @@ update_fn_dmt_with_slots_1L_chr <- function(fn_name_1L_chr,
   return(fn_dmt_1L_chr)
 
 }
-update_fn_dmt_1L_chr <- function(fn_tags_spine_ls,
+update_fn_dmt <- function(fn_tags_spine_ls,
                               new_tag_chr_ls,
                               fn_name_1L_chr,
                               fn_type_1L_chr,
@@ -82,7 +82,7 @@ update_fn_dmt_1L_chr <- function(fn_tags_spine_ls,
                          stringr::str_c(import_chr,collapse = " "))
   return(fn_dmt_1L_chr)
 }
-update_fns_dmt_tb_tb <- function(fns_dmt_tb,
+update_fns_dmt_tb <- function(fns_dmt_tb,
                                  title_ls = NULL,
                                  desc_ls = NULL,
                                  details_ls = NULL,
@@ -104,9 +104,9 @@ update_fns_dmt_tb_tb <- function(fns_dmt_tb,
                               .init = fns_dmt_tb,
                               ~ {
                                 idx_1L_dbl <- .y
-                                fn <- list(update_fns_dmt_tb_chr_vars_chr,
-                                           update_fns_dmt_tb_lgl_vars_chr,
-                                           update_fns_dmt_tb_ls_vars_chr)[[idx_1L_dbl]]
+                                fn <- list(update_fns_dmt_tb_chr_vars,
+                                           update_fns_dmt_tb_lgl_vars,
+                                           update_fns_dmt_tb_ls_vars)[[idx_1L_dbl]]
                                 if(any(lgl_vecs_ls[[idx_1L_dbl]])){
                                   input_ls <- input_ls_ls[[idx_1L_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_1L_dbl]]])
                                   fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]),
@@ -128,7 +128,7 @@ update_fns_dmt_tb_tb <- function(fns_dmt_tb,
                               })
   return(fns_dmt_tb)
 }
-update_fns_dmt_tb_ls_vars_chr <- function(fns_dmt_tb,
+update_fns_dmt_tb_ls_vars <- function(fns_dmt_tb,
                                               data_1L_chr,
                                               new_ls,
                                               append_1L_lgl){
@@ -164,7 +164,7 @@ update_fns_dmt_tb_ls_vars_chr <- function(fns_dmt_tb,
   }
   return(fns_dmt_tb)
 }
-update_fns_dmt_tb_lgl_vars_chr <- function(fns_dmt_tb,
+update_fns_dmt_tb_lgl_vars <- function(fns_dmt_tb,
                                                data_1L_chr,
                                                new_ls){
   if(is.na(data_1L_chr)){
@@ -177,7 +177,7 @@ update_fns_dmt_tb_lgl_vars_chr <- function(fns_dmt_tb,
   }
   return(fns_dmt_tb)
 }
-update_fns_dmt_tb_chr_vars_chr <- function(fns_dmt_tb,
+update_fns_dmt_tb_chr_vars <- function(fns_dmt_tb,
                                                data_1L_chr,
                                                new_ls,
                                                append_1L_lgl){
@@ -202,7 +202,7 @@ update_fns_dmt_tb_chr_vars_chr <- function(fns_dmt_tb,
   }
   return(fns_dmt_tb)
 }
-update_ns_chr <- function(package_1L_chr){
+update_ns <- function(package_1L_chr){
   package_nm_chr <- ifelse(package_1L_chr=="",".GlobalEnv",package_1L_chr)
   return(package_nm_chr)
 }

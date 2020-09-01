@@ -106,17 +106,17 @@ write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    fn_tags_spine_ls <- make_fn_dmt_spine_chr_ls(fn_name_1L_chr = fn_name_1L_chr, 
+    fn_tags_spine_ls <- make_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
         fn = fn, example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
         details_1L_chr = details_1L_chr, class_name_1L_chr = class_name_1L_chr, 
         doc_in_class_1L_lgl = doc_in_class_1L_lgl)
-    new_tag_chr_ls <- make_new_fn_dmt_chr_ls(fn_type_1L_chr = fn_type_1L_chr, 
+    new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
         fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
         fn_det_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
         args_ls = args_ls, fn, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup)
-    fn_tags_chr <- update_fn_dmt_1L_chr(fn_tags_spine_ls = fn_tags_spine_ls, 
+    fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr)
     writeLines(fn_tags_chr)

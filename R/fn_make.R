@@ -70,8 +70,8 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
         data("object_type_lup", package = "ready4fun", envir = environment())
     purrr::map(fn_nms_chr, ~{
         eval(parse(text = paste0("fn <- ", .x)))
-        get_fn_args_1L_chr(fn) %>% make_arg_desc_1L_chr(abbreviations_lup = abbreviations_lup, 
-            object_type_lup = object_type_lup) %>% stats::setNames(get_fn_args_1L_chr(fn))
+        get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup, 
+            object_type_lup = object_type_lup) %>% stats::setNames(get_fn_args(fn))
     })
 }
 #' @keywords internal
@@ -91,9 +91,9 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
                 "", "_"), object_type_lup$short_name_chr))]
     }
     arg_desc_spine <- ifelse(identical(match_1L_chr, character(0)), 
-        NA_character_, paste0(argument_nm_1L_chr %>% make_arg_title_1L_chr(match_chr = match_1L_chr, 
+        NA_character_, paste0(argument_nm_1L_chr %>% make_arg_title(match_chr = match_1L_chr, 
             abbreviations_lup = abbreviations_lup), " (", match_1L_chr %>% 
-            update_first_word_case_chr() %>% add_indefartls_to_phrases_1L_chr(abbreviations_lup = abbreviations_lup, 
+            update_first_word_case() %>% add_indefartls_to_phrases(abbreviations_lup = abbreviations_lup, 
             ignore_phrs_not_in_lup_1L_lgl = F), ")"))
     return(arg_desc_spine)
 }

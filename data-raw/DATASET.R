@@ -104,16 +104,16 @@ data("object_type_lup")
 # 9. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl_tb(fns_path_chr_vec,
                                  fns_dir_chr = fns_dir_chr,
-                                 custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases_chr_vec = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
+                                 custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases_chr = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
                                                       export_ls = list(force_true_chr_vec = c("add_plurals_to_abbr_lup_tb","close_open_sinks","force_req_pkg_install","get_from_lup_obj","import_xls_sheets_ls",
                                                                                               "make_abbr_lup_tb","make_all_fns_dmt_tb","make_and_doc_fn_type_R","make_fn_dmt_tbl_tb","read_fns",
                                                                                               "rowbind_all_tbs_in_r4_obj_r4","unload_packages","update_ns_chr","write_all_tbs_in_tbs_r4_to_csvs",
                                                                                               "write_and_doc_ds_R","write_and_doc_fn_fls_R","write_documented_fns","write_fn_dmt","write_fn_type_dirs",
                                                                                               "write_ns_imps_to_desc","write_pkg_R","write_pt_lup_db_R","write_std_imp_R",
                                                                                               "write_tb_to_csv","write_ws"),
-                                                                       force_false_chr_vec = NA_character_#c("add_indef_artl_to_item_chr_vec", "get_fn_args_chr_vec")
+                                                                       force_false_chr_vec = NA_character_#c("add_indef_artl_to_item_chr", "get_fn_args_chr")
                                                                        ),
-                                                      args_ls_ls = list(add_indefartls_to_phrases_chr_vec = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_lgl = "TEST_ARG_DESC_3")
+                                                      args_ls_ls = list(add_indefartls_to_phrases_chr = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_lgl = "TEST_ARG_DESC_3")
                                                                         )),
                                  append_lgl = T,
                                  fn_type_lup_tb = fn_type_lup_tb,

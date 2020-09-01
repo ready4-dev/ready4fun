@@ -13,14 +13,14 @@ get_dev_pkg_nm_1L_chr <- function (path_to_pkg_rt_chr = ".")
     return(dev_pkg_nm_chr)
 }
 #' Get function arguments
-#' @description get_fn_args_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function arguments. Function argument fn specifies the where to look for the required object.The function returns a function arguments (a character vector).
+#' @description get_fn_args_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a function arguments. Function argument fn specifies the where to look for the required object.The function returns a function arguments (a character vector).
 #' @param fn Function (a function)
 #' @return Function arguments (a character vector)
-#' @rdname get_fn_args_chr_vec
+#' @rdname get_fn_args_chr
 #' @export 
 #' @importFrom purrr discard
 #' @keywords internal
-get_fn_args_chr_vec <- function (fn) 
+get_fn_args_chr <- function (fn) 
 {
     fn_args_chr_vec <- as.list(args(fn)) %>% names() %>% purrr::discard({
         . == ""
@@ -93,33 +93,33 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_chr, 
     return(return_object_xx)
 }
 #' Get output object type
-#' @description get_outp_obj_type_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get an output object type. Function argument fns_chr_vec specifies the where to look for the required object.The function returns an output object type (a character vector).
+#' @description get_outp_obj_type_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get an output object type. Function argument fns_chr_vec specifies the where to look for the required object.The function returns an output object type (a character vector).
 #' @param fns_chr_vec Functions (a character vector)
 #' @return Output object type (a character vector)
-#' @rdname get_outp_obj_type_chr_vec
+#' @rdname get_outp_obj_type_chr
 #' @export 
 #' @importFrom purrr map_chr
 #' @keywords internal
-get_outp_obj_type_chr_vec <- function (fns_chr_vec) 
+get_outp_obj_type_chr <- function (fns_chr_vec) 
 {
     outp_obj_type_chr_vec <- purrr::map_chr(fns_chr_vec, ~{
         return_obj_chr <- get_return_obj_nm_chr(eval(parse(text = .x))) %>% 
-            make_arg_desc_chr_vec()
+            make_arg_desc_chr()
         ifelse(return_obj_chr == "NO MATCH", "NULL", return_obj_chr)
     })
     return(outp_obj_type_chr_vec)
 }
 #' Get readyforwhatsnext S4 object slots
-#' @description get_r4_obj_slots_chr_vec() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_chr specifies the where to look for the required object.The function returns slots (a character vector).
+#' @description get_r4_obj_slots_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_chr specifies the where to look for the required object.The function returns slots (a character vector).
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param package_chr Package (a character vector of length 1), Default: ''
 #' @return Slots (a character vector)
-#' @rdname get_r4_obj_slots_chr_vec
+#' @rdname get_r4_obj_slots_chr
 #' @export 
 #' @importFrom methods getSlots
 #' @importFrom purrr map_chr
 #' @keywords internal
-get_r4_obj_slots_chr_vec <- function (fn_name_chr, package_chr = "") 
+get_r4_obj_slots_chr <- function (fn_name_chr, package_chr = "") 
 {
     slots_ls <- className(fn_name_chr, update_ns_chr(package_chr)) %>% 
         methods::getSlots()

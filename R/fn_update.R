@@ -103,7 +103,7 @@ update_fn_dmt_chr <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_chr, fn
 #' @keywords internal
 update_fn_dmt_with_slots_chr <- function (fn_name_chr, fn_dmt_chr) 
 {
-    slots_chr_vec <- get_r4_obj_slots_chr_vec(fn_name_chr)
+    slots_chr_vec <- get_r4_obj_slots_chr(fn_name_chr)
     fn_dmt_chr <- purrr::reduce(1:length(slots_chr_vec), .init = fn_dmt_chr, 
         ~.x %>% stringr::str_replace(paste0(names(slots_chr_vec)[.y], 
             " PARAM_DESCRIPTION"), paste0(names(slots_chr_vec)[.y], 
@@ -111,19 +111,19 @@ update_fn_dmt_with_slots_chr <- function (fn_name_chr, fn_dmt_chr)
     return(fn_dmt_chr)
 }
 #' Update functions dmt tibble character vector of length 1 vars
-#' @description update_fns_dmt_tb_chr_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble character vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_chr_vars_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble character vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
 #' @param append_lgl Append (a logical vector of length 1)
 #' @return Functions dmt (a tibble)
-#' @rdname update_fns_dmt_tb_chr_vars_chr_vec
+#' @rdname update_fns_dmt_tb_chr_vars_chr
 #' @export 
 #' @importFrom dplyr mutate case_when
 #' @importFrom rlang sym
 #' @importFrom purrr map_chr
 #' @keywords internal
-update_fns_dmt_tb_chr_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls, append_lgl) 
+update_fns_dmt_tb_chr_vars_chr <- function (fns_dmt_tb, data_chr, new_ls, append_lgl) 
 {
     if (is.na(data_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -141,17 +141,17 @@ update_fns_dmt_tb_chr_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls, ap
     return(fns_dmt_tb)
 }
 #' Update functions dmt tibble logical vector of length 1 vars
-#' @description update_fns_dmt_tb_lgl_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_lgl_vars_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble logical vector of length 1 vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
 #' @return Functions dmt (a tibble)
-#' @rdname update_fns_dmt_tb_lgl_vars_chr_vec
+#' @rdname update_fns_dmt_tb_lgl_vars_chr
 #' @export 
 #' @importFrom dplyr mutate case_when
 #' @importFrom rlang sym
 #' @keywords internal
-update_fns_dmt_tb_lgl_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls) 
+update_fns_dmt_tb_lgl_vars_chr <- function (fns_dmt_tb, data_chr, new_ls) 
 {
     if (is.na(data_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -165,13 +165,13 @@ update_fns_dmt_tb_lgl_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls)
     return(fns_dmt_tb)
 }
 #' Update functions dmt tibble list vars
-#' @description update_fns_dmt_tb_ls_vars_chr_vec() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble list vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
+#' @description update_fns_dmt_tb_ls_vars_chr() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update functions dmt a tibble list vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_chr provides the object to be updated.The function returns a functions dmt (a tibble).
 #' @param fns_dmt_tb Functions dmt (a tibble)
 #' @param data_chr Data (a character vector of length 1)
 #' @param new_ls New (a list)
 #' @param append_lgl Append (a logical vector of length 1)
 #' @return Functions dmt (a tibble)
-#' @rdname update_fns_dmt_tb_ls_vars_chr_vec
+#' @rdname update_fns_dmt_tb_ls_vars_chr
 #' @export 
 #' @importFrom dplyr mutate case_when
 #' @importFrom rlang sym
@@ -179,7 +179,7 @@ update_fns_dmt_tb_lgl_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls)
 #' @importFrom testit assert
 #' @importFrom stats setNames
 #' @keywords internal
-update_fns_dmt_tb_ls_vars_chr_vec <- function (fns_dmt_tb, data_chr, new_ls, append_lgl) 
+update_fns_dmt_tb_ls_vars_chr <- function (fns_dmt_tb, data_chr, new_ls, append_lgl) 
 {
     if (is.na(data_chr)) {
         fns_dmt_tb <- fns_dmt_tb
@@ -247,8 +247,8 @@ update_fns_dmt_tb_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, d
         ls_input_ls = list(variable_chr_vec = c("args_ls"), data_chr_vec = c("args_ls_ls")))
     fns_dmt_tb <- purrr::reduce(1:3, .init = fns_dmt_tb, ~{
         idx_dbl <- .y
-        fn <- list(update_fns_dmt_tb_chr_vars_chr_vec, update_fns_dmt_tb_lgl_vars_chr_vec, 
-            update_fns_dmt_tb_ls_vars_chr_vec)[[idx_dbl]]
+        fn <- list(update_fns_dmt_tb_chr_vars_chr, update_fns_dmt_tb_lgl_vars_chr, 
+            update_fns_dmt_tb_ls_vars_chr)[[idx_dbl]]
         if (any(lgl_vecs_ls[[idx_dbl]])) {
             input_ls <- input_ls_ls[[idx_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_dbl]]])
             fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_dbl]]), 

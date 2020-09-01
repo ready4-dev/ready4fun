@@ -129,7 +129,7 @@ write_ds_dmt_R <- function (db, db_chr, title_chr, desc_chr, format_chr = "A tib
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc_chr_vec(paste0(.x, 
+    auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc_chr(paste0(.x, 
         "_vec"), object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup)) %>% 
         stats::setNames(names(db))
     if (is.null(vars_ls)) {

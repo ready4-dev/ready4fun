@@ -113,22 +113,22 @@ make_and_doc_generics_tb_R <- function (generic_nm_chr, description_chr, overwri
             url_chr = url_chr, abbreviations_lup = abbreviations_lup)
 }
 #' Make argument description
-#' @description make_arg_desc_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function returns an argument description (a character vector).
+#' @description make_arg_desc_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function returns an argument description (a character vector).
 #' @param fn_args_chr_vec Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Argument description (a character vector)
-#' @rdname make_arg_desc_chr_vec
+#' @rdname make_arg_desc_chr
 #' @export 
 
 #' @keywords internal
-make_arg_desc_chr_vec <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL) 
+make_arg_desc_chr <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    arg_desc_chr_vec <- make_arg_type_chr_vec(fn_args_chr_vec, 
+    arg_desc_chr_vec <- make_arg_type_chr(fn_args_chr_vec, 
         object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup, 
         fn = make_arg_desc_spine_chr)
     return(arg_desc_chr_vec)
@@ -152,8 +152,8 @@ make_arg_desc_ls <- function (fn_nms_chr_vec, abbreviations_lup = NULL, object_t
         data("object_type_lup", package = "ready4fun", envir = environment())
     purrr::map(fn_nms_chr_vec, ~{
         eval(parse(text = paste0("fn <- ", .x)))
-        get_fn_args_chr_vec(fn) %>% make_arg_desc_chr_vec(abbreviations_lup = abbreviations_lup, 
-            object_type_lup = object_type_lup) %>% stats::setNames(get_fn_args_chr_vec(fn))
+        get_fn_args_chr(fn) %>% make_arg_desc_chr(abbreviations_lup = abbreviations_lup, 
+            object_type_lup = object_type_lup) %>% stats::setNames(get_fn_args_chr(fn))
     })
 }
 #' Make argument description spine
@@ -182,27 +182,27 @@ make_arg_desc_spine_chr <- function (argument_nm_chr, object_type_lup = NULL, ab
                 "", "_"), object_type_lup$short_name_chr))]
     }
     arg_desc_spine_chr <- ifelse(identical(match_chr, character(0)), 
-        NA_character_, paste0(argument_nm_chr %>% make_arg_title_chr_vec(match_chr_vec = match_chr, 
+        NA_character_, paste0(argument_nm_chr %>% make_arg_title_chr(match_chr_vec = match_chr, 
             abbreviations_lup = abbreviations_lup), " (", match_chr %>% 
-            update_first_word_case_chr() %>% add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup, 
+            update_first_word_case_chr() %>% add_indefartls_to_phrases_chr(abbreviations_lup = abbreviations_lup, 
             ignore_phrs_not_in_lup_lgl = F), ")"))
     return(arg_desc_spine_chr)
 }
 #' Make argument title
-#' @description make_arg_title_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument title.The function returns title (a character vector).
+#' @description make_arg_title_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument title.The function returns title (a character vector).
 #' @param args_chr_vec Arguments (a character vector)
 #' @param match_chr_vec Match (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Title (a character vector)
-#' @rdname make_arg_title_chr_vec
+#' @rdname make_arg_title_chr
 #' @export 
 #' @importFrom purrr map_chr map2_chr
 #' @importFrom stringi stri_replace_last_fixed
 #' @importFrom stringr str_replace_all
 #' @importFrom Hmisc capitalize
 #' @keywords internal
-make_arg_title_chr_vec <- function (args_chr_vec, match_chr_vec, object_type_lup = NULL, 
+make_arg_title_chr <- function (args_chr_vec, match_chr_vec, object_type_lup = NULL, 
     abbreviations_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
@@ -222,22 +222,22 @@ make_arg_title_chr_vec <- function (args_chr_vec, match_chr_vec, object_type_lup
     return(title_chr_vec)
 }
 #' Make argument type abbreviation
-#' @description make_arg_type_abbr_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.The function returns an argument type abbreviation (a character vector).
+#' @description make_arg_type_abbr_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.The function returns an argument type abbreviation (a character vector).
 #' @param fn_args_chr_vec Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Argument type abbreviation (a character vector)
-#' @rdname make_arg_type_abbr_chr_vec
+#' @rdname make_arg_type_abbr_chr
 #' @export 
 
 #' @keywords internal
-make_arg_type_abbr_chr_vec <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL) 
+make_arg_type_abbr_chr <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    arg_type_abbr_chr_vec <- make_arg_type_chr_vec(fn_args_chr_vec, 
+    arg_type_abbr_chr_vec <- make_arg_type_chr(fn_args_chr_vec, 
         object_type_lup = object_type_lup, fn = make_arg_type_abbr_spine_chr, 
         abbreviations_lup = abbreviations_lup)
     return(arg_type_abbr_chr_vec)
@@ -260,18 +260,18 @@ make_arg_type_abbr_spine_chr <- function (argument_nm_chr, lup_tb)
     return(arg_type_abbr_spine_chr)
 }
 #' Make argument type
-#' @description make_arg_type_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type.The function returns an argument description (a character vector).
+#' @description make_arg_type_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type.The function returns an argument description (a character vector).
 #' @param fn_args_chr_vec Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param fn Function (a function)
 #' @return Argument description (a character vector)
-#' @rdname make_arg_type_chr_vec
+#' @rdname make_arg_type_chr
 #' @export 
 #' @importFrom purrr map_chr discard pluck
 #' @importFrom rlang exec
 #' @keywords internal
-make_arg_type_chr_vec <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL, 
+make_arg_type_chr <- function (fn_args_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL, 
     fn) 
 {
     if (is.null(object_type_lup)) 
@@ -279,7 +279,7 @@ make_arg_type_chr_vec <- function (fn_args_chr_vec, object_type_lup = NULL, abbr
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     lup_ls <- make_arg_type_lup_ls(object_type_lup)
-    append_lgl <- "abbreviations_lup" %in% get_fn_args_chr_vec(fn)
+    append_lgl <- "abbreviations_lup" %in% get_fn_args_chr(fn)
     arg_desc_chr_vec <- fn_args_chr_vec %>% purrr::map_chr(~{
         argument_nm_chr <- .x
         arg_desc_chr <- purrr::map_chr(lup_ls, ~{
@@ -313,20 +313,20 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
     return(lup_ls)
 }
 #' Make function description
-#' @description make_fn_desc_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function description.The function returns a function description (a character vector).
+#' @description make_fn_desc_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function description.The function returns a function description (a character vector).
 #' @param fns_chr_vec Functions (a character vector)
 #' @param title_chr_vec Title (a character vector)
 #' @param output_chr_vec Output (a character vector)
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Function description (a character vector)
-#' @rdname make_fn_desc_chr_vec
+#' @rdname make_fn_desc_chr
 #' @export 
 #' @importFrom purrr pmap_chr
 #' @importFrom stringr str_extract
 #' @importFrom tools toTitleCase
 #' @keywords internal
-make_fn_desc_chr_vec <- function (fns_chr_vec, title_chr_vec, output_chr_vec, fn_type_lup_tb = NULL, 
+make_fn_desc_chr <- function (fns_chr_vec, title_chr_vec, output_chr_vec, fn_type_lup_tb = NULL, 
     abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
@@ -334,39 +334,39 @@ make_fn_desc_chr_vec <- function (fns_chr_vec, title_chr_vec, output_chr_vec, fn
     fn_desc_chr_vec <- purrr::pmap_chr(list(fns_chr_vec, title_chr_vec, 
         output_chr_vec), ~{
         fn_type_chr <- stringr::str_extract(..2, "[A-Za-z]+")
-        paste0(make_fn_desc_spine_chr_vec(fn_name_chr = ..1, 
+        paste0(make_fn_desc_spine_chr(fn_name_chr = ..1, 
             fn_title_chr = ..2, fn_type_lup_tb = fn_type_lup_tb, 
             abbreviations_lup = abbreviations_lup), ifelse(..3 == 
             "NULL", ifelse(get_from_lup_obj(fn_type_lup_tb, match_var_nm_chr = "fn_type_nm_chr", 
-            match_value_xx = ..1 %>% make_fn_title_chr_vec(abbreviations_lup = abbreviations_lup) %>% 
+            match_value_xx = ..1 %>% make_fn_title_chr(abbreviations_lup = abbreviations_lup) %>% 
                 tools::toTitleCase(), target_var_nm_chr = "is_generic_lgl", 
             evaluate_lgl = F), "", paste0("The function is called for its side effects and does not return a value.", 
             ifelse(endsWith(..1, "_R"), " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
                 ""))), paste0("The function returns ", ..3 %>% 
-            tolower() %>% add_indef_artl_to_item_chr_vec(abbreviations_lup = abbreviations_lup), 
+            tolower() %>% add_indef_artl_to_item_chr(abbreviations_lup = abbreviations_lup), 
             ".")))
     })
     return(fn_desc_chr_vec)
 }
 #' Make function description spine
-#' @description make_fn_desc_spine_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function description spine.The function returns a function description spine (a character vector).
+#' @description make_fn_desc_spine_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function description spine.The function returns a function description spine (a character vector).
 #' @param fn_name_chr Function name (a character vector of length 1)
 #' @param fn_title_chr Function title (a character vector of length 1)
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Function description spine (a character vector)
-#' @rdname make_fn_desc_spine_chr_vec
+#' @rdname make_fn_desc_spine_chr
 #' @export 
 #' @importFrom purrr map_lgl map_chr
 #' @importFrom tools toTitleCase
 #' @keywords internal
-make_fn_desc_spine_chr_vec <- function (fn_name_chr, fn_title_chr, fn_type_lup_tb = NULL, abbreviations_lup = NULL) 
+make_fn_desc_spine_chr <- function (fn_name_chr, fn_title_chr, fn_type_lup_tb = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(fn_type_lup_tb)) 
         data("fn_type_lup_tb", package = "ready4fun", envir = environment())
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
-    fn_args_chr_vec <- get_fn_args_chr_vec(eval(parse(text = fn_name_chr)))
+    fn_args_chr_vec <- get_fn_args_chr(eval(parse(text = fn_name_chr)))
     pfx_matches_chr_vec <- fn_type_lup_tb$fn_type_nm_chr[purrr::map_lgl(fn_type_lup_tb$fn_type_nm_chr, 
         ~startsWith(fn_title_chr %>% tools::toTitleCase(), .x))]
     fn_type_chr_vec <- pfx_matches_chr_vec[nchar(pfx_matches_chr_vec) == 
@@ -380,7 +380,7 @@ make_fn_desc_spine_chr_vec <- function (fn_name_chr, fn_title_chr, fn_type_lup_t
     treat_as_chr <- ifelse(is_generic_lgl, ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
         ~endsWith(fn_name_chr, paste0(".", .x))) %>% any(), "Method", 
         "Generic"), "Function")
-    fn_desc_spine_chr_vec <- paste0(fn_name_chr, "() is ", add_indef_artl_to_item_chr_vec(fn_type_chr_vec[1], 
+    fn_desc_spine_chr_vec <- paste0(fn_name_chr, "() is ", add_indef_artl_to_item_chr(fn_type_chr_vec[1], 
         ignore_phrs_not_in_lup = F, abbreviations_lup = abbreviations_lup), 
         " ", tolower(treat_as_chr), " that ", update_first_word_case_chr(text_elements_chr_vec[1]), 
         ifelse(treat_as_chr == "Generic", "", ifelse(treat_as_chr == 
@@ -388,8 +388,8 @@ make_fn_desc_spine_chr_vec <- function (fn_name_chr, fn_title_chr, fn_type_lup_t
             abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
                 ~endsWith(fn_name_chr, paste0(".", .x)))], "."), 
             paste0(" Specifically, this function implements an algorithm to ", 
-                fn_name_chr %>% remove_obj_type_from_nm_chr_vec(abbreviations_lup = abbreviations_lup) %>% 
-                  add_indefartls_to_phrases_chr_vec(abbreviations_lup = abbreviations_lup), 
+                fn_name_chr %>% remove_obj_type_from_nm_chr(abbreviations_lup = abbreviations_lup) %>% 
+                  add_indefartls_to_phrases_chr(abbreviations_lup = abbreviations_lup), 
                 "."))), ifelse(ifelse(is.null(fn_args_chr_vec) | 
             is.na(text_elements_chr_vec[2]), F, T), paste0(" Function argument ", 
             fn_args_chr_vec[1], " specifies the ", update_first_word_case_chr(text_elements_chr_vec[2])), 
@@ -503,15 +503,15 @@ make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_t
         example_lgl = F, args_ls = list(NULL), file_nm_chr = .x %>% 
             stringr::str_replace(paste0(fns_dir_chr, "/"), ""), 
         file_pfx_chr = file_pfx_chr))
-    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title_chr_vec(fns_chr, 
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title_chr(fns_chr, 
         abbreviations_lup = abbreviations_lup, is_generic_lgl = purrr::map_lgl(file_nm_chr, 
             ~.x == "generics.R")))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::filter(title_chr %>% 
         tools::toTitleCase() %>% purrr::map_lgl(~{
         startsWith(.x, fn_type_lup_tb$fn_type_nm_chr) %>% any()
     }))
-    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type_chr_vec(fns_chr))
-    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc_chr_vec(fns_chr, 
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type_chr(fns_chr))
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc_chr(fns_chr, 
         title_chr_vec = title_chr, output_chr_vec = output_chr, 
         fn_type_lup_tb = fn_type_lup_tb, abbreviations_lup = abbreviations_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
@@ -519,27 +519,27 @@ make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr_vec, fns_dir_chr, fn_type_lup_t
     return(fn_dmt_tbl_tb)
 }
 #' Make function title
-#' @description make_fn_title_chr_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function title.The function returns title (a character vector).
+#' @description make_fn_title_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function title.The function returns title (a character vector).
 #' @param fns_chr_vec Functions (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param is_generic_lgl Is generic (a logical vector of length 1), Default: F
 #' @return Title (a character vector)
-#' @rdname make_fn_title_chr_vec
+#' @rdname make_fn_title_chr
 #' @export 
 #' @importFrom stringr str_replace_all
 #' @importFrom Hmisc capitalize
 #' @importFrom purrr map_chr
 #' @importFrom stringi stri_replace_last_fixed
 #' @keywords internal
-make_fn_title_chr_vec <- function (fns_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL, 
+make_fn_title_chr <- function (fns_chr_vec, object_type_lup = NULL, abbreviations_lup = NULL, 
     is_generic_lgl = F) 
 {
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
-    title_chr_vec <- remove_obj_type_from_nm_chr_vec(fns_chr_vec, 
+    title_chr_vec <- remove_obj_type_from_nm_chr(fns_chr_vec, 
         object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup, 
         is_generic_lgl = is_generic_lgl) %>% stringr::str_replace_all("_", 
         " ") %>% Hmisc::capitalize() %>% purrr::map_chr(~replace_abbr_chr(.x, 
@@ -674,9 +674,9 @@ make_new_fn_dmt_chr_ls <- function (fn_type_chr, fn_name_chr, fn_desc_chr = NA_c
         data("object_type_lup", package = "ready4fun", envir = environment())
     s3_class_main <- NULL
     if (!is.null(fn)) {
-        fn_args_chr_vec <- get_fn_args_chr_vec(fn)
+        fn_args_chr_vec <- get_fn_args_chr(fn)
         fn_out_type_chr <- ifelse(is.na(fn_out_type_chr), get_return_obj_nm_chr(fn) %>% 
-            make_arg_desc_chr_vec(abbreviations_lup = abbreviations_lup, 
+            make_arg_desc_chr(abbreviations_lup = abbreviations_lup, 
                 object_type_lup = object_type_lup), fn_out_type_chr)
     }
     else {
@@ -736,7 +736,7 @@ make_new_fn_dmt_chr_ls <- function (fn_type_chr, fn_name_chr, fn_desc_chr = NA_c
     if (is.null(args_ls)) {
         arg_desc_chr_vec <- NULL
         if (any(!is.na(fn_args_chr_vec)) & !is.null(object_type_lup)) {
-            arg_desc_chr_vec <- make_arg_desc_chr_vec(fn_args_chr_vec, 
+            arg_desc_chr_vec <- make_arg_desc_chr(fn_args_chr_vec, 
                 abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
             if (!is.null(arg_desc_chr_vec)) {
                 names(arg_desc_chr_vec) <- fn_args_chr_vec

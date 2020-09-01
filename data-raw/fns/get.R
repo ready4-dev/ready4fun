@@ -1,27 +1,27 @@
-get_dev_pkg_nm_1L_chr <- function(path_to_pkg_rt_chr = "."){
-  dev_pkg_nm_chr <- readLines(paste0(path_to_pkg_rt_chr,"/DESCRIPTION"))[1] %>% stringr::str_sub(start=10)
-  return(dev_pkg_nm_chr)
+get_dev_pkg_nm_1L_chr <- function(path_to_pkg_rt_1L_chr = "."){
+  dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr,"/DESCRIPTION"))[1] %>% stringr::str_sub(start=10)
+  return(dev_pkg_nm_1L_chr)
 }
-get_fn_args_chr_vec <- function(fn){
-  fn_args_chr_vec <- as.list(args(fn)) %>%
+get_fn_args_1L_chr <- function(fn){
+  fn_args_chr <- as.list(args(fn)) %>%
     names() %>%
     purrr::discard({.==""})
-  return(fn_args_chr_vec)
+  return(fn_args_chr)
 }
-get_fn_nms_in_file_chr <- function(path_chr){
-  source(path_chr, local=T)
+get_fn_nms_in_file_chr <- function(path_1L_chr){
+  source(path_1L_chr, local=T)
   local_chr <- ls()
-  local_chr <-local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text=.x))))]
+  local_chr <- local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text=.x))))]
   return(local_chr)
 }
 get_from_lup_obj <- function(data_lookup_tb,
                              match_value_xx,
-                             match_var_nm_chr,
-                             target_var_nm_chr,
+                             match_var_nm_1L_chr,
+                             target_var_nm_1L_chr,
                              evaluate_lgl = TRUE){
   return_object_ref <- data_lookup_tb %>%
-    dplyr::filter(!!rlang::sym(match_var_nm_chr)==match_value_xx) %>%
-    dplyr::select(!!target_var_nm_chr) %>%
+    dplyr::filter(!!rlang::sym(match_var_nm_1L_chr)==match_value_xx) %>%
+    dplyr::select(!!target_var_nm_1L_chr) %>%
     dplyr::pull()
   if(evaluate_lgl){
     if(stringr::str_detect(return_object_ref,"::")){
@@ -56,30 +56,30 @@ get_from_lup_obj <- function(data_lookup_tb,
   }
   return(return_object_xx)
 }
-get_outp_obj_type_chr_vec <- function(fns_chr_vec){
-  outp_obj_type_chr_vec <- purrr::map_chr(fns_chr_vec,
+get_outp_obj_type_1L_chr <- function(fns_chr){
+  outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             return_obj_chr <- get_return_obj_nm_chr(eval(parse(text=.x))) %>%
-                                              make_arg_desc_chr_vec()
+                                              make_arg_desc_chr()
                                             ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                           })
-  return(outp_obj_type_chr_vec)
+  return(outp_obj_type_chr)
 }
-get_r4_obj_slots_chr_vec <- function(fn_name_chr,
-                                     package_chr = ""){
-  slots_ls <- className(fn_name_chr,update_ns_chr(package_chr)) %>% methods::getSlots()
+get_r4_obj_slots_chr <- function(fn_name_1L_chr,
+                                     package_1L_chr = ""){
+  slots_ls <- className(fn_name_1L_chr,update_ns_chr(package_1L_chr)) %>% methods::getSlots()
   slots_chr_vec <- purrr::map_chr(slots_ls, ~ .x)
   return(slots_chr_vec)
 }
 get_return_obj_nm_chr <- function(fn){
   fn_chr <- deparse(fn)
-  last_line_chr <- fn_chr[length(fn_chr)-1] %>%
+  last_line_1L_chr <- fn_chr[length(fn_chr)-1] %>%
     trimws()
-  if(startsWith(last_line_chr,"return(")){
-    return_chr <- stringr::str_replace(last_line_chr,"return","") %>%
+  if(startsWith(last_line_1L_chr,"return(")){
+    return_1L_chr <- stringr::str_replace(last_line_1L_chr,"return","") %>%
       stringr::str_sub(start=2,end=-2)
   }else{
-    return_chr <- NA_character_
+    return_1L_chr <- NA_character_
   }
-  return(return_chr)
+  return(return_1L_chr)
 }

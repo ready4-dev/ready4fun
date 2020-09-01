@@ -1,15 +1,15 @@
 #' Add indefinite article to item
-#' @description add_indef_artl_to_item_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add an indefinite article to item. Function argument phrase_chr_vec specifies the object to be updated.The function returns an indefinite item (a character vector).
+#' @description add_indef_artl_to_item_chr() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add an indefinite article to item. Function argument phrase_chr_vec specifies the object to be updated.The function returns an indefinite item (a character vector).
 #' @param phrase_chr_vec Phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_lgl Ignore phrases not in lookup table (a logical vector of length 1), Default: T
 #' @return Indefinite item (a character vector)
-#' @rdname add_indef_artl_to_item_chr_vec
+#' @rdname add_indef_artl_to_item_chr
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
 #' @keywords internal
-add_indef_artl_to_item_chr_vec <- function (phrase_chr_vec, abbreviations_lup = NULL, ignore_phrs_not_in_lup_lgl = T) 
+add_indef_artl_to_item_chr <- function (phrase_chr_vec, abbreviations_lup = NULL, ignore_phrs_not_in_lup_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -39,16 +39,16 @@ add_indef_artl_to_item_chr_vec <- function (phrase_chr_vec, abbreviations_lup = 
     return(indefinite_item_chr_vec)
 }
 #' Add indefinite articles to phrases
-#' @description add_indefartls_to_phrases_chr_vec() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_chr_vec specifies the object to be updated.The function returns phrases (a character vector).
+#' @description add_indefartls_to_phrases_chr() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_chr_vec specifies the object to be updated.The function returns phrases (a character vector).
 #' @param abbreviated_phrase_chr_vec Abbreviated phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_lgl Ignore phrases not in lookup table (a logical vector of length 1), Default: T
 #' @return Phrases (a character vector)
-#' @rdname add_indefartls_to_phrases_chr_vec
+#' @rdname add_indefartls_to_phrases_chr
 #' @export 
 #' @importFrom purrr map_chr discard
 #' @keywords internal
-add_indefartls_to_phrases_chr_vec <- function (abbreviated_phrase_chr_vec, abbreviations_lup = NULL, 
+add_indefartls_to_phrases_chr <- function (abbreviated_phrase_chr_vec, abbreviations_lup = NULL, 
     ignore_phrs_not_in_lup_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
@@ -57,7 +57,7 @@ add_indefartls_to_phrases_chr_vec <- function (abbreviated_phrase_chr_vec, abbre
         words_chr_vec_ls <- strsplit(.x, "_")
         words_chr_vec_ls %>% purrr::map_chr(~{
             expanded_chr_vec <- replace_abbr_chr(.x, collapse_lgl = F)
-            indefinite_chr_vec <- add_indef_artl_to_item_chr_vec(expanded_chr_vec, 
+            indefinite_chr_vec <- add_indef_artl_to_item_chr(expanded_chr_vec, 
                 abbreviations_lup = abbreviations_lup, ignore_phrs_not_in_lup_lgl = ignore_phrs_not_in_lup_lgl)
             matches_lgl_vec <- expanded_chr_vec == indefinite_chr_vec
             run_length_ls <- rle(matches_lgl_vec)

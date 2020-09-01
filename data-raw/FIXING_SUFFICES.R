@@ -1,50 +1,5 @@
 library(ready4fun)
 ##
-write_new_arg_sfxs_R <- function(arg_nms_chr,
-                                 fn_type_1L_chr,
-                                 dir_path_chr,
-                                 pkg_nm_1L_chr,
-                                 inc_fns_idx_dbl = NA_real_){
-  if(is.na(inc_fns_idx_dbl))
-    inc_fns_idx_dbl <- 1:length(ls(paste0("package:",pkg_nm_1L_chr))[ls(paste0("package:",pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)])
-  # Update argument names (within package - same function type)
-  purrr::walk(arg_nms_chr[order(nchar(arg_nms_chr), arg_nms_chr,  decreasing=T )] %>% unique(),
-              ~ replace_1L_and_indefL_sfxs_R(.x,
-                                             file_path_chr = paste0(dir_path_chr,"/",fn_type_1L_chr,".R")))
-  # Update function names (within package)
-  updated_fns_chr <- ls(paste0("package:",pkg_nm_1L_chr))[ls(paste0("package:",pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)][inc_fns_idx_dbl]
-  updated_sfxs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% stringr::str_sub(start=-8) %>% unique()
-  fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% stringr::str_sub(start=-8) %in% updated_sfxs_chr]
-  if(ifelse(identical(fn_nms_to_upd_chr, character(0)),
-            F,
-            !is.na(fn_nms_to_upd_chr)
-            )){
-    purrr::walk(fn_nms_to_upd_chr,
-                ~ replace_1L_and_indefL_sfxs_R(.x,
-                                               dir_path_chr = dir_path_chr))
-    # Update function names (outside package)
-    normalizePath("../../../")
-    purrr::walk(paste0(pkg_nm_1L_chr,"::",fn_nms_to_upd_chr),
-                ~ replace_1L_and_indefL_sfxs_R(.x,
-                                               dir_path_chr = normalizePath("../../../")))
-  }
-  fn_args_to_rnm_ls <- purrr::map(updated_fns_chr,
-                                    ~ {
-                                      fn_args_chr <- get_fn_args_chr(eval(parse(text=.x)))
-                                      fn_args_chr[purrr::map_lgl(fn_args_chr, ~ .x %in% c(arg_nms_chr,arg_nms_chr %>% stringr::str_sub(end=-5)))]
-                                    }) %>% stats::setNames(updated_fns_chr)
-
-  return(fn_args_to_rnm_ls)
-}
-make_short_long_nms_vec_chr <- function(long_vecs_chr = character(0),
-                                        short_vecs_chr = character(0)){
-  short_vecs_chr <- paste0(short_vecs_chr,"_vec")
-  if(short_vecs_chr[1]=="_vec"){
-    short_vecs_chr <- character(0)
-  }
-  short_and_long_vec_chr <- c(long_vecs_chr, short_vecs_chr)
-  return(short_and_long_vec_chr)
-}
 # FIRST BIT
 # pkg_nm_1L_chr <- "ready4fun"
 # fn_type_1L_chr <- "add"

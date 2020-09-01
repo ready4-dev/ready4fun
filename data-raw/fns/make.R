@@ -72,30 +72,30 @@ make_and_doc_fn_type_R <- function(fn_type_lup_tb = make_fn_type_lup_tb(),
                        url_1L_chr = url_1L_chr,
                        abbreviations_lup = abbreviations_lup)
 }
-make_and_doc_generics_tb_R <- function(generic_nm_chr,
-                                       description_chr,
-                                       overwrite_1L_lgl = T,
-                                       pkg_nm_1L_chr,
-                                       url_1L_chr = NA_character_,
-                                       abbreviations_lup = NULL){
-  if (is.null(abbreviations_lup))
-    data("abbreviations_lup", package = "ready4fun",
-         envir = environment())
-  tibble::tibble(fn_type_nm_chr = generic_nm_chr,
-                 fn_type_desc_chr = description_chr,
-                 first_arg_desc_chr = NA_character_,
-                 second_arg_desc_chr = NA_character_,
-                 is_generic_lgl = T) %>%
-    dplyr::arrange(fn_type_nm_chr) %>%
-    write_and_doc_ds_R(overwrite_1L_lgl = overwrite_1L_lgl,
-                       db_1L_chr = "generics_lup_tb",
-                       title_1L_chr = "Generics lookup table",
-                       desc_1L_chr = paste0("A lookup table to find descriptions of generics exported with the ",
-                                            pkg_nm_1L_chr, " package suite."),
-                       format_1L_chr = "A tibble",
-                       url_1L_chr = url_1L_chr,
-                       abbreviations_lup = abbreviations_lup)
-}
+# make_and_doc_generics_tb_R <- function(generic_nm_chr,
+#                                        description_chr,
+#                                        overwrite_1L_lgl = T,
+#                                        pkg_nm_1L_chr,
+#                                        url_1L_chr = NA_character_,
+#                                        abbreviations_lup = NULL){
+#   if (is.null(abbreviations_lup))
+#     data("abbreviations_lup", package = "ready4fun",
+#          envir = environment())
+#   tibble::tibble(fn_type_nm_chr = generic_nm_chr,
+#                  fn_type_desc_chr = description_chr,
+#                  first_arg_desc_chr = NA_character_,
+#                  second_arg_desc_chr = NA_character_,
+#                  is_generic_lgl = T) %>%
+#     dplyr::arrange(fn_type_nm_chr) %>%
+#     write_and_doc_ds_R(overwrite_1L_lgl = overwrite_1L_lgl,
+#                        db_1L_chr = "generics_lup_tb",
+#                        title_1L_chr = "Generics lookup table",
+#                        desc_1L_chr = paste0("A lookup table to find descriptions of generics exported with the ",
+#                                             pkg_nm_1L_chr, " package suite."),
+#                        format_1L_chr = "A tibble",
+#                        url_1L_chr = url_1L_chr,
+#                        abbreviations_lup = abbreviations_lup)
+# }
 make_arg_desc_1L_chr <- function(fn_args_1L_chr,
                                   object_type_lup = NULL,
                                   abbreviations_lup = NULL){
@@ -689,6 +689,15 @@ make_obj_lup_tb <- function(){
   obj_tb <- obj_tb %>%
     dplyr::mutate(plural_lgl = F)
   return(obj_tb)
+}
+make_short_long_nms_vec_chr <- function(long_vecs_chr = character(0),
+                                        short_vecs_chr = character(0)){
+  short_vecs_chr <- paste0(short_vecs_chr,"_vec")
+  if(short_vecs_chr[1]=="_vec"){
+    short_vecs_chr <- character(0)
+  }
+  short_and_long_vec_chr <- c(long_vecs_chr, short_vecs_chr)
+  return(short_and_long_vec_chr)
 }
 make_std_fn_dmt_spine_chr_ls <- function(fn_name_1L_chr,
                                          fn_type_1L_chr,

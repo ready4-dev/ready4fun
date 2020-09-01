@@ -170,8 +170,8 @@ update_fns_dmt_tb_lgl_vars <- function(fns_dmt_tb,
   if(is.na(data_1L_chr)){
     fns_dmt_tb <- fns_dmt_tb
   }else{
-    fns_dmt_tb <- dplyr::mutate(fns_dmt_tb,!!rlang::sym(data_1L_chr) := dplyr::case_when(fns_chr %in% new_ls$force_true_chr_vec ~ T,
-                                                                                      fns_chr %in% new_ls$force_false_chr_vec ~ F,
+    fns_dmt_tb <- dplyr::mutate(fns_dmt_tb,!!rlang::sym(data_1L_chr) := dplyr::case_when(fns_chr %in% new_ls$force_true_chr ~ T,
+                                                                                      fns_chr %in% new_ls$force_false_chr ~ F,
                                                                                       TRUE ~ !!rlang::sym(data_1L_chr))
     )
   }

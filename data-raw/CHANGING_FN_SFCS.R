@@ -18,6 +18,13 @@ tb <- tb %>% dplyr::mutate(new_nm = dplyr::case_when(startsWith(new_nm,"write") 
                                                      new_nm == "write_pt_lup_db" ~ "write_pt_lup",
                                                      TRUE ~ new_nm))
 tb <- tb %>% dplyr::mutate(duplicated_lgl = duplicated(new_nm))
+rename_fns <- function(rename_tb,
+                       undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                       rt_dev_dir_path_1L_chr = normalizePath("../../../")){
+  if(any(rename_tb$duplicated_lgl))
+    stop("Duplicates in rename table")
+
+}
 any(tb$duplicated_lgl)
 
 

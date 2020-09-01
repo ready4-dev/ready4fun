@@ -16,7 +16,7 @@ make_abbr_lup_tb <- function (short_name_chr = NA_character_, long_name_chr = NA
         url_1L_chr = url_1L_chr, abbreviations_lup = .)
 }
 #' @keywords internal
-make_all_fns_dmt_tb <- function (paths_ls = make_fns_1L_chr_ls(), undocumented_fns_dir_chr = make_undmtd_fns_dir_1L_chr(), 
+make_all_fns_dmt_tb <- function (paths_ls = make_fns_1L_chr_ls(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     custom_dmt_ls = list(details_ls = NULL, export_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
     fn_type_lup_tb, abbreviations_lup = NULL) 
@@ -281,22 +281,22 @@ make_fn_dmt_tbl_tb <- function (fns_path_chr, fns_dir_1L_chr, pkg_nm_1L_chr, cus
     return(fn_dmt_tbl_tb)
 }
 #' @keywords internal
-make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr, fns_dir_1L_chr, fn_type_lup_tb = NULL, 
-    abbreviations_lup = NULL, object_type_lup = NULL) 
+make_fn_dmt_tbl_tpl_tb <- function (fns_path_chr, fns_dir_chr, fn_type_lup_tb = NULL, abbreviations_lup = NULL, 
+    object_type_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
-    file_pfx_chr <- fns_dir_1L_chr %>% stringr::str_replace("data-raw/", 
+    file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/", 
         "") %>% switch(fns = "fn_", s3 = "C3_", gnrcs = "grp_", 
         mthds = "mthd_", "s4 = C4_")
     fn_dmt_tbl_tb <- fns_path_chr %>% purrr::map_dfr(~tibble::tibble(fns_chr = get_fn_nms_in_file_chr(.x), 
         title_chr = NA_character_, desc_chr = NA_character_, 
         details_chr = NA_character_, export_lgl = F, output_chr = NA_character_, 
         example_lgl = F, args_ls = list(NULL), file_nm_chr = .x %>% 
-            stringr::str_replace(paste0(fns_dir_1L_chr, "/"), 
-                ""), file_pfx_chr = file_pfx_chr))
+            stringr::str_replace(paste0(fns_dir_chr, "/"), ""), 
+        file_pfx_chr = file_pfx_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title_chr(fns_chr, 
         abbreviations_lup = abbreviations_lup, is_generic_lgl = purrr::map_lgl(file_nm_chr, 
             ~.x == "generics.R")))
@@ -341,7 +341,7 @@ make_fn_type_lup_tb <- function (fn_type_nm_chr = character(0), fn_type_desc_chr
 #' @keywords internal
 make_fns_1L_chr_ls <- function (path_1L_chr = "data-raw") 
 {
-    fns_1L_chr_ls <- make_undmtd_fns_dir_1L_chr(path_1L_chr) %>% 
+    fns_1L_chr_ls <- make_undmtd_fns_dir_chr(path_1L_chr) %>% 
         purrr::map(~read_fns(.x)) %>% stats::setNames(make_fns_type_chr())
     fns_1L_chr_ls <- fns_1L_chr_ls %>% purrr::discard(~identical(.x, 
         character(0)))

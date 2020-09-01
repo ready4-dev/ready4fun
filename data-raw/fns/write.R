@@ -241,7 +241,7 @@ write_from_tmp_R <- function(temp_path_1L_chr,
 write_new_arg_sfxs_R <- function(arg_nms_chr,
                                  fn_type_1L_chr,
                                  dir_path_chr,
-                                 dev_top_dir_path_1L_chr = normalizePath("../../../"),
+                                 rt_dev_dir_path_1L_chr = normalizePath("../../../"),
                                  pkg_nm_1L_chr,
                                  inc_fns_idx_dbl = NA_real_){
   if(is.na(inc_fns_idx_dbl))
@@ -261,7 +261,7 @@ write_new_arg_sfxs_R <- function(arg_nms_chr,
                                                dir_path_chr = dir_path_chr))
     purrr::walk(paste0(pkg_nm_1L_chr,"::",fn_nms_to_upd_chr),
                 ~ replace_1L_and_indefL_sfxs_R(.x,
-                                               dir_path_chr = dev_top_dir_path_1L_chr))
+                                               dir_path_chr = rt_dev_dir_path_1L_chr))
   }
   fn_args_to_rnm_ls <- purrr::map(updated_fns_chr,
                                   ~ {

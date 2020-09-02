@@ -87,7 +87,6 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom dplyr filter mutate_all mutate bind_rows arrange
 #' @importFrom purrr map_dfr map2_lgl
 #' @importFrom tibble tibble
-#' @keywords internal
 add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_1L_chr <- no_plural_chr

@@ -14,4 +14,3 @@ write_ns_imps_to_desc(dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T)
 \description{
 write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description.NA
 }
-\keyword{internal}

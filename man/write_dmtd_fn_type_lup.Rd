@@ -26,4 +26,3 @@ write_dmtd_fn_type_lup(
 \description{
 write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented a function type.NA
 }
-\keyword{internal}

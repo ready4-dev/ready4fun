@@ -26,4 +26,3 @@ write_tb_to_csv(
 \description{
 write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to a comma separated variables file.NA
 }
-\keyword{internal}

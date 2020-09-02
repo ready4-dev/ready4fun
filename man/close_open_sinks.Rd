@@ -9,4 +9,3 @@ close_open_sinks()
 \description{
 close_open_sinks() is a Close function that closes specified connections. Specifically, this function implements an algorithm to close open sinks.NA
 }
-\keyword{internal}

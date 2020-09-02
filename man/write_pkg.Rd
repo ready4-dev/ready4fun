@@ -14,4 +14,3 @@ write_pkg(package_1L_chr, R_dir_1L_chr = "R")
 \description{
 write_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package.NA
 }
-\keyword{internal}

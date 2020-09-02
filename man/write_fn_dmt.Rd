@@ -56,4 +56,3 @@ write_fn_dmt(
 \description{
 write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation.NA
 }
-\keyword{internal}

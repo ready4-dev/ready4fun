@@ -208,7 +208,6 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
 #' @export 
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter
-#' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
@@ -372,7 +371,6 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @export 
 #' @importFrom purrr map_lgl discard
 #' @importFrom rlang exec
-#' @keywords internal
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(), 
     pkg_nm_1L_chr, custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, 
         details_ls = NULL, inc_for_main_user_lgl_ls = NULL, output_ls = NULL, 

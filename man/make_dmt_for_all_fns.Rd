@@ -32,4 +32,3 @@ All functions documentation (a tibble)
 \description{
 make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all a functions.The function returns all functions documentation (a tibble).
 }
-\keyword{internal}

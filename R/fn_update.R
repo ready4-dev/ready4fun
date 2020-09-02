@@ -141,13 +141,14 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
         "example_ls")), ls_input_ls = list(variable_chr = c("args_ls"), 
         data_chr = c("args_ls_ls")))
     fns_dmt_tb <- purrr::reduce(1:3, .init = fns_dmt_tb, ~{
+        updated_fns_dmt_tb <- .x
         idx_1L_dbl <- .y
         fn <- list(update_fns_dmt_tb_chr_vars, update_fns_dmt_tb_lgl_vars, 
             update_fns_dmt_tb_ls_vars)[[idx_1L_dbl]]
         if (any(lgl_vecs_ls[[idx_1L_dbl]])) {
             input_ls <- input_ls_ls[[idx_1L_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_1L_dbl]]])
-            fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]), 
-                .init = .x, ~{
+            updated_fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]), 
+                .init = updated_fns_dmt_tb, ~{
                   eval(parse(text = paste0("new_ls <- ", input_ls[[2]])))
                   args_ls <- list(.x, data_1L_chr = input_ls[[1]], 
                     new_ls = new_ls, append_1L_lgl = append_1L_lgl)
@@ -156,7 +157,7 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
                   rlang::exec(fn, !!!args_ls)
                 })
         }
-        fns_dmt_tb
+        updated_fns_dmt_tb
     })
     return(fns_dmt_tb)
 }
@@ -271,7 +272,6 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
 #' @rdname update_ns
 #' @export 
 
-#' @keywords internal
 update_ns <- function (package_1L_chr) 
 {
     package_nm_chr <- ifelse(package_1L_chr == "", ".GlobalEnv", 

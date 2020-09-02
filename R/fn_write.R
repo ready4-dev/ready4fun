@@ -12,7 +12,6 @@
 #' @rdname write_abbr_lup
 #' @export 
 
-#' @keywords internal
 write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
     seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm()) 
@@ -40,7 +39,6 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom methods getSlots
-#' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
     purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
@@ -65,7 +63,6 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_and_doc_ds
 #' @export 
 #' @importFrom devtools document load_all
-#' @keywords internal
 write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", abbreviations_lup = NULL, 
@@ -99,7 +96,6 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @export 
 #' @importFrom purrr walk2
 #' @importFrom devtools document load_all build_manual
-#' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
     make_pdfs_1L_lgl = T) 
@@ -125,7 +121,6 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_d
 #' @rdname write_dmtd_fn_type_lup
 #' @export 
 
-#' @keywords internal
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = url_1L_chr, 
     abbreviations_lup = NULL) 
@@ -148,7 +143,6 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
 #' @importFrom sinew makeOxyFile
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
     sinew::makeOxyFile(tmp_fn_dir_1L_chr, verbose = F)
@@ -238,7 +232,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @rdname write_fn_dmt
 #' @export 
 
-#' @keywords internal
 write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
@@ -309,7 +302,6 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
 #' @rdname write_fn_type_dirs
 #' @export 
 #' @importFrom purrr walk
-#' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
@@ -401,7 +393,6 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_replace str_sub str_locate
 #' @importFrom usethis use_dev_package use_package use_version
-#' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
     devtools::document()
@@ -432,7 +423,6 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("pkg_ready_fun.R", package = "ready4fun"), 
@@ -492,7 +482,6 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr 
 #' @rdname write_pt_lup_db
 #' @export 
 
-#' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 
@@ -505,7 +494,6 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @rdname write_std_imp
 #' @export 
 
-#' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("imp_pipe_tmp.R", package = "ready4fun"), 
@@ -526,7 +514,6 @@ write_std_imp <- function (R_dir_1L_chr = "R")
 #' @importFrom methods slot
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
-#' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
@@ -661,7 +648,6 @@ write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".")
 #' @rdname write_ws
 #' @export 
 #' @importFrom purrr walk
-#' @keywords internal
 write_ws <- function (path_1L_chr) 
 {
     dir.create(paste0(path_1L_chr, "/Readyforwhatsnext"))

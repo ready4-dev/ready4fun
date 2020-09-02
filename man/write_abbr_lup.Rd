@@ -35,4 +35,3 @@ write_abbr_lup(
 \description{
 write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write an abbreviation.NA
 }
-\keyword{internal}

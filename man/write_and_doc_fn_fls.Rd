@@ -26,4 +26,3 @@ write_and_doc_fn_fls(
 \description{
 write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document function files.NA
 }
-\keyword{internal}

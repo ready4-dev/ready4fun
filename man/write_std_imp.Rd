@@ -12,4 +12,3 @@ write_std_imp(R_dir_1L_chr = "R")
 \description{
 write_std_imp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a standard import.NA
 }
-\keyword{internal}

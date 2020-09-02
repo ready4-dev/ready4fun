@@ -12,4 +12,3 @@ write_pt_lup_db(R_dir_1L_chr = "R")
 \description{
 write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a prototype lookup table database.NA
 }
-\keyword{internal}

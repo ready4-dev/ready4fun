@@ -23,4 +23,3 @@ write_all_tbs_in_tbs_r4_to_csvs(
 \description{
 write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to comma separated variables files.NA
 }
-\keyword{internal}

@@ -23,4 +23,3 @@ write_pkg_setup_fls(
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files.NA
 }
-\keyword{internal}

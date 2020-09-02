@@ -450,7 +450,6 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @export 
 #' @importFrom devtools load_all
 #' @importFrom usethis use_version
-#' @keywords internal
 write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T) 
 {
@@ -577,7 +576,6 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @export 
 #' @importFrom devtools load_all document
 #' @importFrom usethis use_description
-#' @keywords internal
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {

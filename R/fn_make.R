@@ -497,7 +497,6 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom dplyr arrange
-#' @keywords internal
 make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = character(0), 
     first_arg_desc_chr = character(0), second_arg_desc_chr = character(0), 
     is_generic_lgl = logical(0), is_method_lgl = logical(0)) 

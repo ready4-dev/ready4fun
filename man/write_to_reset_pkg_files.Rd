@@ -26,4 +26,3 @@ write_to_reset_pkg_files(
 \description{
 write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset a package files.NA
 }
-\keyword{internal}

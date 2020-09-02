@@ -272,6 +272,7 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
 #' @rdname update_ns
 #' @export 
 
+#' @keywords internal
 update_ns <- function (package_1L_chr) 
 {
     package_nm_chr <- ifelse(package_1L_chr == "", ".GlobalEnv", 

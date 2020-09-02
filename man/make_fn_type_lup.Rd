@@ -32,4 +32,3 @@ Function type lookup table (a tibble)
 \description{
 make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function type.The function returns a function type lookup table (a tibble).
 }
-\keyword{internal}

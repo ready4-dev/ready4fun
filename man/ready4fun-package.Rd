@@ -4,13 +4,17 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Readyforwhatsnext Function Authoring And Documentation Tools}
+\title{ready4fun: Readyforwhatsnext Function Authoring And Documentation
+Tools}
 \description{
-ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the readyforwhatsnext ecosystem.
+ready4fun is a collection of functions for
+authoring code libraries of functions and datasets for use in mental
+health simulations developed within the readyforwhatsnext
+ecosystem.
 }
 \details{
 To learn more about ready4fun, start with the vignettes:
-`browseVignettes(package = "ready4fun")`
+\code{browseVignettes(package = "ready4fun")}
 }
 \author{
 \strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton@orygen.org.au} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})

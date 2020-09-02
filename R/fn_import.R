@@ -1,3 +1,14 @@
+#' Import Excel workbook sheets
+#' @description import_xls_sheets() is an Import function that reads a data object in its native format and converts it to an R object. Specifically, this function implements an algorithm to an import Excel workbook sheets.The function returns a tibble list (a list of tibbles).
+#' @param range_1L_chr Range (a character vector of length one)
+#' @param sheet_names_chr Sheet names (a character vector)
+#' @param path_1L_chr Path (a character vector of length one)
+#' @return Tibble list (a list of tibbles)
+#' @rdname import_xls_sheets
+#' @export 
+#' @importFrom purrr map
+#' @importFrom readxl read_excel
+#' @importFrom stats setNames
 #' @keywords internal
 import_xls_sheets <- function (range_1L_chr, sheet_names_chr, path_1L_chr) 
 {

@@ -1,3 +1,45 @@
+#' Write abbreviation
+#' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write an abbreviation.NA
+#' @param short_name_chr Short name (a character vector), Default: 'NA'
+#' @param long_name_chr Long name (a character vector), Default: 'NA'
+#' @param no_plural_chr No plural (a character vector), Default: 'NA'
+#' @param custom_plural_ls Custom plural (a list), Default: NULL
+#' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
+#' @param seed_lup Seed (a lookup table), Default: NULL
+#' @param url_1L_chr Url (a character vector of length one)
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @return NULL
+#' @rdname write_abbr_lup
+#' @export 
+
+#' @keywords internal
+write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_character_, 
+    no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
+    seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm()) 
+{
+    if (is.null(seed_lup)) {
+        data("object_type_lup", package = "ready4fun", envir = environment())
+        seed_lup <- object_type_lup
+    }
+    update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
+        long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
+        custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds(db = ., 
+        overwrite_1L_lgl = overwrite_1L_lgl, db_1L_chr = "abbreviations_lup", 
+        title_1L_chr = "Common abbreviations lookup table", desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ", 
+            pkg_nm_1L_chr, "package."), format_1L_chr = "A tibble", 
+        url_1L_chr = url_1L_chr, abbreviations_lup = .)
+}
+#' Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files
+#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to comma separated variables files.NA
+#' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
+#' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
+#' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
+#' @param pfx_1L_chr Prefix (a character vector of length one)
+#' @return NULL
+#' @rdname write_all_tbs_in_tbs_r4_to_csvs
+#' @export 
+#' @importFrom purrr walk
+#' @importFrom methods getSlots
 #' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
@@ -6,6 +48,23 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
             r4_name_1L_chr = r4_name_1L_chr, lup_dir_1L_chr = lup_dir_1L_chr, 
             pfx_1L_chr = pfx_1L_chr))
 }
+#' Write and document dataset
+#' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document dataset.NA
+#' @param db PARAM_DESCRIPTION
+#' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
+#' @param db_1L_chr Database (a character vector of length one)
+#' @param title_1L_chr Title (a character vector of length one)
+#' @param desc_1L_chr Description (a character vector of length one)
+#' @param format_1L_chr Format (a character vector of length one), Default: 'A tibble'
+#' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
+#' @param vars_ls Vars (a list), Default: NULL
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @return NULL
+#' @rdname write_and_doc_ds
+#' @export 
+#' @importFrom devtools document load_all
 #' @keywords internal
 write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
@@ -28,6 +87,18 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
     devtools::document()
     devtools::load_all()
 }
+#' Write and document function files
+#' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and a document function files.NA
+#' @param fns_dmt_tb Functions documentation (a tibble)
+#' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'
+#' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/Developer'
+#' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
+#' @return NULL
+#' @rdname write_and_doc_fn_fls
+#' @export 
+#' @importFrom purrr walk2
+#' @importFrom devtools document load_all build_manual
 #' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
@@ -43,6 +114,40 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_d
                 devtools::build_manual(path = .x)
         })
 }
+#' Write documented function type
+#' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented a function type.NA
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup()
+#' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param url_1L_chr Url (a character vector of length one), Default: url_1L_chr
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @return NULL
+#' @rdname write_dmtd_fn_type_lup
+#' @export 
+
+#' @keywords internal
+write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
+    pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = url_1L_chr, 
+    abbreviations_lup = NULL) 
+{
+    if (is.null(abbreviations_lup)) 
+        data("abbreviations_lup", package = "ready4fun", envir = environment())
+    fn_type_lup_tb %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
+        db_1L_chr = "fn_type_lup_tb", title_1L_chr = "Function type lookup table", 
+        desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
+            pkg_nm_1L_chr, " package suite."), format_1L_chr = "A tibble", 
+        url_1L_chr = url_1L_chr, abbreviations_lup = abbreviations_lup)
+}
+#' Write documented functions
+#' @description write_documented_fns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented a functions.NA
+#' @param tmp_fn_dir_1L_chr Temporary function directory (a character vector of length one)
+#' @param R_dir_1L_chr R directory (a character vector of length one)
+#' @return NULL
+#' @rdname write_documented_fns
+#' @export 
+#' @importFrom sinew makeOxyFile
+#' @importFrom purrr map_chr discard walk
+#' @importFrom stringr str_sub
 #' @keywords internal
 write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
@@ -60,6 +165,23 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
     do.call(file.remove, list(paste0(tmp_fn_dir_1L_chr, "/", 
         files_chr)))
 }
+#' Write dataset documentation
+#' @description write_ds_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a dataset documentation.NA
+#' @param db PARAM_DESCRIPTION
+#' @param db_1L_chr Database (a character vector of length one)
+#' @param title_1L_chr Title (a character vector of length one)
+#' @param desc_1L_chr Description (a character vector of length one)
+#' @param format_1L_chr Format (a character vector of length one), Default: 'A tibble'
+#' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
+#' @param vars_ls Vars (a list), Default: NULL
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @return NULL
+#' @rdname write_ds_dmt
+#' @export 
+#' @importFrom purrr map map2 pluck map2_chr
+#' @importFrom stats setNames
 #' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
@@ -95,6 +217,27 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
         ifelse(is.na(url_1L_chr), "", paste0("#' @source \\url{", 
             url_1L_chr, "}\n")), "\"", db_1L_chr, "\""))
 }
+#' Write function documentation
+#' @description write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation.NA
+#' @param fn_name_1L_chr Function name (a character vector of length one)
+#' @param fn_type_1L_chr Function type (a character vector of length one)
+#' @param fn Function (a function), Default: NULL
+#' @param fn_desc_1L_chr Function description (a character vector of length one), Default: 'NA'
+#' @param fn_out_type_1L_chr Function out type (a character vector of length one), Default: 'NA'
+#' @param fn_title_1L_chr Function title (a character vector of length one), Default: 'NA'
+#' @param example_1L_lgl Example (a logical vector of length one), Default: F
+#' @param export_1L_lgl Export (a logical vector of length one), Default: T
+#' @param class_name_1L_chr Class name (a character vector of length one), Default: ''
+#' @param details_1L_chr Details (a character vector of length one), Default: 'DETAILS'
+#' @param args_ls Arguments (a list), Default: NULL
+#' @param import_chr Import (a character vector), Default: 'NA'
+#' @param doc_in_class_1L_lgl Document in class (a logical vector of length one), Default: F
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @return NULL
+#' @rdname write_fn_dmt
+#' @export 
+
 #' @keywords internal
 write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
@@ -113,7 +256,7 @@ write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_
         doc_in_class_1L_lgl = doc_in_class_1L_lgl)
     new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
         fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
-        fn_det_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
+        fn_det_1L_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
         args_ls = args_ls, fn, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup)
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
@@ -121,6 +264,16 @@ write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_
         fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr)
     writeLines(fn_tags_chr)
 }
+#' Write function file
+#' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function file.NA
+#' @param fns_dmt_tb Functions documentation (a tibble)
+#' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param document_unexp_lgl Document unexported (a logical vector), Default: T
+#' @return NULL
+#' @rdname write_fn_fl
+#' @export 
+#' @importFrom purrr walk
+#' @importFrom dplyr filter
 #' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
@@ -149,6 +302,13 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
         })
     })
 }
+#' Write function type directories
+#' @description write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function type directories.NA
+#' @param path_1L_chr Path (a character vector of length one), Default: 'data-raw'
+#' @return NULL
+#' @rdname write_fn_type_dirs
+#' @export 
+#' @importFrom purrr walk
 #' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
@@ -158,6 +318,18 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
             dir.create(.x)
     })
 }
+#' Write from temporary
+#' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary.NA
+#' @param temp_path_1L_chr Temp path (a character vector of length one)
+#' @param dest_path_1L_chr Dest path (a character vector of length one)
+#' @param edit_fn Edit (a function), Default: function(x) {
+#'    x
+#'}
+#' @param args_ls Arguments (a list), Default: NULL
+#' @return NULL
+#' @rdname write_from_tmp
+#' @export 
+#' @importFrom rlang exec
 #' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
@@ -173,6 +345,20 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
     writeLines(txt_chr, fileConn)
     close(fileConn)
 }
+#' Write new argument sfxs
+#' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new an argument sfxs.The function returns a function arguments to rnm (a list).
+#' @param arg_nms_chr Argument names (a character vector)
+#' @param fn_type_1L_chr Function type (a character vector of length one)
+#' @param dir_path_chr Directory path (a character vector)
+#' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")
+#' @param pkg_nm_1L_chr Package name (a character vector of length one)
+#' @param inc_fns_idx_dbl Inc functions idx (a double vector), Default: NA
+#' @return Function arguments to rnm (a list)
+#' @rdname write_new_arg_sfxs
+#' @export 
+#' @importFrom purrr walk map map_lgl
+#' @importFrom stringr str_sub
+#' @importFrom stats setNames
 #' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
@@ -204,6 +390,17 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
     }) %>% stats::setNames(updated_fns_chr)
     return(fn_args_to_rnm_ls)
 }
+#' Write namespace imports to description
+#' @description write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description.NA
+#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
+#' @return NULL
+#' @rdname write_ns_imps_to_desc
+#' @export 
+#' @importFrom devtools document
+#' @importFrom purrr map_chr discard walk
+#' @importFrom stringr str_replace str_sub str_locate
+#' @importFrom usethis use_dev_package use_package use_version
 #' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
@@ -226,6 +423,15 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
     if (incr_ver_1L_lgl) 
         usethis::use_version()
 }
+#' Write package
+#' @description write_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package.NA
+#' @param package_1L_chr Package (a character vector of length one)
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @return NULL
+#' @rdname write_pkg
+#' @export 
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_replace_all
 #' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
@@ -236,13 +442,26 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
             txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
                 "ready4fun", package_1L_chr))
             txt_chr[1] <- paste0("#' ", package_1L_chr, ": ", 
-                pkg_desc_ls$Title)
-            txt_chr[3] <- paste0("#' ", pkg_desc_ls$Description)
+                pkg_desc_ls$Title %>% stringr::str_replace_all("\n", 
+                  "\n#' "))
+            txt_chr[3] <- paste0("#' ", pkg_desc_ls$Description %>% 
+                stringr::str_replace_all("\n", "\n#' "))
             txt_chr
         }, args_ls = list(package_1L_chr = package_1L_chr))
 }
+#' Write package setup files
+#' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files.NA
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param make_tmpl_vignette_1L_lgl Make tmpl vignette (a logical vector of length one), Default: F
+#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
+#' @return NULL
+#' @rdname write_pkg_setup_fls
+#' @export 
+#' @importFrom devtools load_all
+#' @importFrom usethis use_version
 #' @keywords internal
-write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = NA_character_, 
+write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T) 
 {
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
@@ -266,12 +485,26 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr 
         usethis::use_version()
     }
 }
+#' Write prototype lookup table database
+#' @description write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a prototype lookup table database.NA
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @return NULL
+#' @rdname write_pt_lup_db
+#' @export 
+
 #' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/db_pt_lup.R"))
 }
+#' Write standard import
+#' @description write_std_imp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a standard import.NA
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @return NULL
+#' @rdname write_std_imp
+#' @export 
+
 #' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R") 
 {
@@ -280,6 +513,19 @@ write_std_imp <- function (R_dir_1L_chr = "R")
     write_from_tmp(system.file("imp_mthds_tmp.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/imp_mthds.R"))
 }
+#' Write tibble to comma separated variables file
+#' @description write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to a comma separated variables file.NA
+#' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
+#' @param slot_nm_1L_chr Slot name (a character vector of length one)
+#' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
+#' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
+#' @param pfx_1L_chr Prefix (a character vector of length one)
+#' @return NULL
+#' @rdname write_tb_to_csv
+#' @export 
+#' @importFrom methods slot
+#' @importFrom dplyr mutate_if funs
+#' @importFrom stringr str_c
 #' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
@@ -289,6 +535,106 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
             NA_character_, stringr::str_c(.)))) %>% write.csv(file = paste0(lup_dir_1L_chr, 
         "/", pfx_1L_chr, "_", slot_nm_1L_chr, ".csv"), row.names = F)
 }
+#' Write to remove collate
+#' @description write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to remove collate.The function returns a description (a character vector).
+#' @param description_chr Description (a character vector)
+#' @return Description (a character vector)
+#' @rdname write_to_remove_collate
+#' @export 
+
+#' @keywords internal
+write_to_remove_collate <- function (description_chr) 
+{
+    if (!identical(which(description_chr == "Collate: "), integer(0))) 
+        description_chr <- description_chr[1:(which(description_chr == 
+            "Collate: ") - 1)]
+    return(description_chr)
+}
+#' Write to replace suffix pair
+#' @description write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace suffix pair.NA
+#' @param args_nm_chr Arguments name (a character vector)
+#' @param sfxs_chr Sfxs (a character vector)
+#' @param replacements_chr Replacements (a character vector)
+#' @param file_path_1L_chr File path (a character vector of length one), Default: 'NA'
+#' @param dir_path_1L_chr Directory path (a character vector of length one), Default: 'NA'
+#' @return NULL
+#' @rdname write_to_replace_sfx_pair
+#' @export 
+#' @importFrom xfun gsub_dir gsub_file
+#' @importFrom stringr str_remove
+#' @importFrom rlang exec
+#' @keywords internal
+write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
+    dir_path_1L_chr = NA_character_) 
+{
+    fn <- ifelse(is.na(file_path_1L_chr), xfun::gsub_dir, xfun::gsub_file)
+    path_chr <- ifelse(is.na(file_path_1L_chr), dir_path_1L_chr, 
+        file_path_1L_chr)
+    args_ls <- list(pattern = paste0(args_nm_chr[1], "(?!", stringr::str_remove(sfxs_chr[2], 
+        sfxs_chr[1]), ")"), replacement = paste0(stringr::str_remove(args_nm_chr[1], 
+        sfxs_chr[1]), replacements_chr[1]), perl = T)
+    rlang::exec(fn, path_chr, !!!args_ls)
+    args_ls <- list(pattern = args_nm_chr[2], replacement = paste0(stringr::str_remove(args_nm_chr[2], 
+        sfxs_chr[2]), replacements_chr[2]), perl = T)
+    rlang::exec(fn, path_chr, !!!args_ls)
+}
+#' Write to reset package files
+#' @description write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset a package files.NA
+#' @param delete_contents_of_1L_chr Delete contents of (a character vector of length one)
+#' @param package_1L_chr Package (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param package_dir_1L_chr Package directory (a character vector of length one), Default: getwd()
+#' @param description_ls Description (a list), Default: NULL
+#' @param keep_version_lgl Keep version (a logical vector), Default: T
+#' @return NULL
+#' @rdname write_to_reset_pkg_files
+#' @export 
+#' @importFrom devtools load_all document
+#' @importFrom usethis use_description
+#' @keywords internal
+write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(), 
+    package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
+{
+    devtools::load_all()
+    if (keep_version_lgl) {
+        desc_ls <- packageDescription(package_1L_chr)
+        description_ls$Version <- desc_ls$Version
+    }
+    usethis::use_description(fields = description_ls)
+    file.remove(paste0(package_dir_1L_chr, "/NAMESPACE"))
+    do.call(file.remove, list(list.files(paste0(package_dir_1L_chr, 
+        "/", delete_contents_of_1L_chr), full.names = TRUE)))
+    devtools::document()
+    devtools::load_all()
+}
+#' Write to replace length one and indefinite length suffices
+#' @description write_to_rpl_1L_and_indefL_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace length one and an indefinite length suffices.NA
+#' @param indefL_arg_nm_1L_chr Indefinite length argument name (a character vector of length one)
+#' @param file_path_1L_chr File path (a character vector of length one), Default: 'NA'
+#' @param dir_path_1L_chr Directory path (a character vector of length one), Default: 'NA'
+#' @return NULL
+#' @rdname write_to_rpl_1L_and_indefL_sfcs
+#' @export 
+#' @importFrom stringr str_sub
+#' @keywords internal
+write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
+    dir_path_1L_chr = NA_character_) 
+{
+    sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, 
+        end = -5), indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
+    write_to_replace_sfx_pair(args_nm_chr = paste0(indefL_arg_nm_1L_chr %>% 
+        stringr::str_sub(end = -9), sfxs_chr), sfxs_chr = sfxs_chr, 
+        replacements_chr = paste0(c("_1L", ""), sfxs_chr[1]), 
+        file_path_1L_chr = file_path_1L_chr, dir_path_1L_chr = dir_path_1L_chr)
+}
+#' Write vignette
+#' @description write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette.NA
+#' @param package_1L_chr Package (a character vector of length one)
+#' @param pkg_rt_dir_chr Package root directory (a character vector), Default: '.'
+#' @return NULL
+#' @rdname write_vignette
+#' @export 
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_replace_all
 #' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
@@ -308,6 +654,13 @@ write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".")
             txt_chr
         }, args_ls = list(package_1L_chr = package_1L_chr))
 }
+#' Write workspace
+#' @description write_ws() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a workspace.NA
+#' @param path_1L_chr Path (a character vector of length one)
+#' @return NULL
+#' @rdname write_ws
+#' @export 
+#' @importFrom purrr walk
 #' @keywords internal
 write_ws <- function (path_1L_chr) 
 {

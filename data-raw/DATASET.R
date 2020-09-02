@@ -13,6 +13,31 @@ if(!dir.exists(fns_dir_1L_chr))
 # 4. Read all undocumented functions in the temporary "fns" directory.
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
+#
+# 5. Set-up package structure
+options(usethis.description = list(
+  Package = get_dev_pkg_nm(),
+  Title =  "Readyforwhatsnext Function Authoring And Documentation Tools",
+  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the readyforwhatsnext ecosystem.",
+  `Authors@R` = c(utils::person(
+    given = "Matthew",family = "Hamilton", email =
+      "matthew.hamilton@orygen.org.au",role = c("aut",
+                                                "cre"),comment = c(ORCID = "0000-0001-7407-9194")
+  ),
+  utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
+                role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
+  #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
+  #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
+  #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
+  #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
+  utils::person("Orygen", role = c("cph", "fnd")),
+  utils::person("VicHealth",role = c("fnd")),
+  utils::person("Victoria University", role =c("fnd"))
+  ),
+  License = usethis::use_gpl3_license()
+))
+write_to_reset_pkg_files("R") # Deletes contents of R directory and resets DESCRIPTION and NAMESPACE files.
+## INTERACTIVE INPUT
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be uncommented then switched off again.
                       incr_ver_1L_lgl = F)
 #
@@ -30,7 +55,7 @@ make_obj_lup() %>%
                      )
 #
 # 7. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-make_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
+write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
                  long_name_chr = c("length one","abbreviation","argument","article","comma separated variables file","database","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
                  no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
                  custom_plural_ls = list(directory = "directories",
@@ -104,8 +129,8 @@ data("object_type_lup")
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                  fns_dir_chr = fns_dir_1L_chr,
                                  custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                      export_ls = list(force_true_chr = c("add_plurals_to_abbr_lup","close_open_sinks","force_instl_of_reqd_pkg","get_from_lup_obj","import_xls_sheets",
-                                                                                              "make_abbr_lup","make_dmt_for_all_fns","write_dmtd_fn_type_lup","make_fn_dmt_tbl","read_fns",
+                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("add_plurals_to_abbr_lup","close_open_sinks","force_instl_of_reqd_pkg","get_from_lup_obj","import_xls_sheets",
+                                                                                              "write_abbr_lup","make_dmt_for_all_fns","write_dmtd_fn_type_lup","make_fn_dmt_tbl","read_fns",
                                                                                               "rowbind_all_tbs_in_r4_obj","unload_packages","update_ns","write_all_tbs_in_tbs_r4_to_csvs",
                                                                                               "write_and_doc_ds","write_and_doc_fn_fls","write_documented_fns","write_fn_dmt","write_fn_type_dirs",
                                                                                               "write_ns_imps_to_desc","write_pkg","write_pt_lup_db","write_std_imp",

@@ -43,26 +43,26 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                               fn_name_1L_chr,
                               fn_type_1L_chr,
                               import_chr){
-  fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_chr
+  fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("FUNCTION_TITLE",fn_name_1L_chr) %>%
     stringr::str_replace("FUNCTION_DESCRIPTION",
-                         paste0(ifelse(is.na(new_tag_chr_ls$desc_start),
+                         paste0(ifelse(is.na(new_tag_chr_ls$desc_start_1L_chr),
                                        "FUNCTION_DESCRIPTION",
-                                       new_tag_chr_ls$desc_start),
+                                       new_tag_chr_ls$desc_start_1L_chr),
                                 ifelse(fn_type_1L_chr %in% c("fn","gen_std_s3_mthd",
                                                           "meth_std_s3_mthd",
                                                           "gen_std_s4_mthd",
                                                           "meth_std_s4_mthd"),
                                        "",
                                        fn_tags_spine_ls$ref_slot_chr))) %>%
-    stringr::str_replace("OUTPUT_DESCRIPTION",new_tag_chr_ls$output_txt)
+    stringr::str_replace("OUTPUT_DESCRIPTION",new_tag_chr_ls$output_txt_1L_chr)
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("@details DETAILS",
-                         ifelse(fn_type_1L_chr == "s3_valid_instance" | ifelse(is.na(new_tag_chr_ls$fn_det_chr),
+                         ifelse(fn_type_1L_chr == "s3_valid_instance" | ifelse(is.na(new_tag_chr_ls$fn_det_1L_chr),
                                                                             F,
-                                                                            new_tag_chr_ls$fn_det_chr!="DETAILS"),
-                                paste0("@details ",new_tag_chr_ls$fn_det_chr),
+                                                                            new_tag_chr_ls$fn_det_1L_chr!="DETAILS"),
+                                paste0("@details ",new_tag_chr_ls$fn_det_1L_chr),
                                 ""))
   if(!is.null(new_tag_chr_ls$arg_desc_chr)){
     fn_dmt_1L_chr <- purrr::reduce(1:length(new_tag_chr_ls$arg_desc_chr),
@@ -86,18 +86,18 @@ update_fns_dmt_tb <- function(fns_dmt_tb,
                                  title_ls = NULL,
                                  desc_ls = NULL,
                                  details_ls = NULL,
-                                 export_ls = NULL,
+                                 inc_for_main_user_lgl_ls = NULL,
                                  output_ls = NULL,
                                  example_ls = NULL,
                                  args_ls_ls = NULL,
                                  append_1L_lgl = T){
   lgl_vecs_ls <- list(chr_vars_to_upd_lgl = list(title_ls,desc_ls,details_ls,output_ls) %>% purrr::map_lgl(~!is.null(.x)),
-                      lgl_vars_to_upd_lgl = list(export_ls,example_ls) %>% purrr::map_lgl(~!is.null(.x)),
+                      lgl_vars_to_upd_lgl = list(inc_for_main_user_lgl_ls,example_ls) %>% purrr::map_lgl(~!is.null(.x)),
                       arg_ls_to_upd_lgl = !is.null(args_ls_ls))
   input_ls_ls <- list(chr_input_ls = list(variable_chr = c("title_chr","desc_chr","details_chr","output_chr"),
                                           data_chr = c("title_ls","desc_ls","details_ls","output_ls")),
-                      lgl_input_ls = list(variable_chr = c("export_lgl","example_lgl"),
-                                          data_chr = c("export_ls","example_ls")),
+                      lgl_input_ls = list(variable_chr = c("inc_for_main_user_lgl","example_lgl"),
+                                          data_chr = c("inc_for_main_user_lgl_ls","example_ls")),
                       ls_input_ls = list(variable_chr = c("args_ls"),
                                          data_chr = c("args_ls_ls")))
   fns_dmt_tb <- purrr::reduce(1:3,
@@ -112,9 +112,10 @@ update_fns_dmt_tb <- function(fns_dmt_tb,
                                   fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]),
                                                               .init = .x,
                                                               ~ {
-                                                                eval(parse(text = paste0("new_ls <- ",input_ls[[2]][.y])))
+                                                                eval(parse(text = paste0("new_ls <- ",input_ls[[2]]#[.y]
+                                                                                         )))
                                                                 args_ls <- list(.x,
-                                                                                data_1L_chr = input_ls[[1]][.y],
+                                                                                data_1L_chr = input_ls[[1]],#[.y],
                                                                                 new_ls =  new_ls,
                                                                                 append_1L_lgl = append_1L_lgl)
                                                                 if(idx_1L_dbl==2)

@@ -1,8 +1,4 @@
-remove_collate <- function(description_chr){
-  if(!identical(which(description_chr=="Collate: "),integer(0)))
-    description_chr <- description_chr[1:(which(description_chr=="Collate: ")-1)]
-  return(description_chr)
-}
+
 remove_obj_type_from_nm <- function(nms_chr,
                                             object_type_lup = NULL,
                                             abbreviations_lup = NULL,

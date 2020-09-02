@@ -1,33 +1,7 @@
-make_abbr_lup <- function(short_name_chr = NA_character_,
-                             long_name_chr = NA_character_,
-                             no_plural_chr = NA_character_,
-                             custom_plural_ls = NULL,
-                             overwrite_1L_lgl = T,
-                             seed_lup = NULL,
-                             url_1L_chr,
-                             pkg_nm_1L_chr = get_dev_pkg_nm()){
-  if(is.null(seed_lup)){
-    data("object_type_lup",package="ready4fun",envir = environment())
-    seed_lup <- object_type_lup
-  }
-  update_abbr_lup(seed_lup,
-                     short_name_chr = short_name_chr,
-                     long_name_chr = long_name_chr,
-                     no_plural_chr = no_plural_chr,
-                     custom_plural_ls = custom_plural_ls) %>%
-    write_and_doc_ds(db = .,
-                       overwrite_1L_lgl = overwrite_1L_lgl,
-                       db_1L_chr = "abbreviations_lup",
-                       title_1L_chr = "Common abbreviations lookup table",
-                       desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ",pkg_nm_1L_chr,"package."),
-                       format_1L_chr = "A tibble",
-                       url_1L_chr = url_1L_chr,
-                       abbreviations_lup = .)
-}
 make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                 undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
                                 custom_dmt_ls = list(details_ls = NULL,
-                                                     export_ls = list(force_true_chr = NA_character_,
+                                                     inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
                                                                       force_false_chr = NA_character_),
                                                      args_ls_ls = NULL),
                                 fn_type_lup_tb,
@@ -56,46 +30,6 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                       })
   return(all_fns_dmt_tb)
 }
-write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
-                                   overwrite_1L_lgl = T,
-                                   pkg_nm_1L_chr = get_dev_pkg_nm(),
-                                   url_1L_chr = url_1L_chr,
-                                   abbreviations_lup = NULL){
-  if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
-  fn_type_lup_tb %>%
-    write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
-                       db_1L_chr = "fn_type_lup_tb",
-                       title_1L_chr = "Function type lookup table",
-                       desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
-                       format_1L_chr = "A tibble",
-                       url_1L_chr = url_1L_chr,
-                       abbreviations_lup = abbreviations_lup)
-}
-# make_and_doc_generics_tb_R <- function(generic_nm_chr,
-#                                        description_chr,
-#                                        overwrite_1L_lgl = T,
-#                                        pkg_nm_1L_chr,
-#                                        url_1L_chr = NA_character_,
-#                                        abbreviations_lup = NULL){
-#   if (is.null(abbreviations_lup))
-#     data("abbreviations_lup", package = "ready4fun",
-#          envir = environment())
-#   tibble::tibble(fn_type_nm_chr = generic_nm_chr,
-#                  fn_type_desc_chr = description_chr,
-#                  first_arg_desc_chr = NA_character_,
-#                  second_arg_desc_chr = NA_character_,
-#                  is_generic_lgl = T) %>%
-#     dplyr::arrange(fn_type_nm_chr) %>%
-#     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
-#                        db_1L_chr = "generics_lup_tb",
-#                        title_1L_chr = "Generics lookup table",
-#                        desc_1L_chr = paste0("A lookup table to find descriptions of generics exported with the ",
-#                                             pkg_nm_1L_chr, " package suite."),
-#                        format_1L_chr = "A tibble",
-#                        url_1L_chr = url_1L_chr,
-#                        abbreviations_lup = abbreviations_lup)
-# }
 make_arg_desc <- function(fn_args_1L_chr,
                                   object_type_lup = NULL,
                                   abbreviations_lup = NULL){
@@ -381,7 +315,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                                custom_dmt_ls = list(title_ls = NULL,
                                                     desc_ls = NULL,
                                                     details_ls = NULL,
-                                                    export_ls = NULL,
+                                                    inc_for_main_user_lgl_ls = NULL,
                                                     output_ls = NULL,
                                                     example_ls = NULL,
                                                     args_ls_ls = NULL),
@@ -421,7 +355,7 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
                                    title_chr = NA_character_,
                                    desc_chr = NA_character_,
                                    details_chr = NA_character_,
-                                   export_lgl = F,
+                                   inc_for_main_user_lgl = F,
                                    output_chr = NA_character_,
                                    example_lgl = F,
                                    args_ls = list(NULL),
@@ -559,7 +493,7 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
 make_new_fn_dmt <- function(fn_type_1L_chr,
                                    fn_name_1L_chr,
                                    fn_desc_1L_chr = NA_character_,
-                                   fn_det_chr = NA_character_,
+                                   fn_det_1L_chr = NA_character_,
                                    fn_out_type_1L_chr = NA_character_,
                                    args_ls = NULL,
                                    fn = NULL,
@@ -569,7 +503,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
-  s3_class_main <- NULL
+  s3_class_main_1L_chr <- NULL
   if(!is.null(fn)){
     fn_args_1L_chr <- get_fn_args(fn)
     fn_out_type_1L_chr <- ifelse(is.na(fn_out_type_1L_chr),
@@ -581,48 +515,48 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     fn_args_1L_chr <- NA_character_
   }
   if(fn_type_1L_chr == "set_class"){
-    desc_start <- "Create a new S4 object of the class:"
-    output_txt <- paste0("An S4 object of the ",fn_name_1L_chr," class")
+    desc_start_1L_chr <- "Create a new S4 object of the class:"
+    output_txt_1L_chr <- paste0("An S4 object of the ",fn_name_1L_chr," class")
   }
   if(fn_type_1L_chr == "s3_valid_instance"){
-    desc_start <- "Create a new valid instance of the S3 class: "
-    output_txt <- paste0("A validated instance of the ",fn_name_1L_chr," class")
+    desc_start_1L_chr <- "Create a new valid instance of the S3 class: "
+    output_txt_1L_chr <- paste0("A validated instance of the ",fn_name_1L_chr," class")
   }
   if(fn_type_1L_chr == "s3_unvalidated_instance"){
-    desc_start <- "Create a new unvalidated instance of the S3 class: "
-    s3_class_main <- stringr::str_replace(fn_name_1L_chr,"new_","")
-    output_txt <- paste0("An unvalidated instance of the ",s3_class_main," class")
+    desc_start_1L_chr <- "Create a new unvalidated instance of the S3 class: "
+    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"new_","")
+    output_txt_1L_chr <- paste0("An unvalidated instance of the ",s3_class_main_1L_chr," class")
   }
   if(fn_type_1L_chr == "s3_prototype"){
-    desc_start <- "Create a new prototype for S3 class: "
-    s3_class_main <- stringr::str_replace(fn_name_1L_chr,"make_prototype_","")
-    output_txt <- paste0("A prototpe for ",s3_class_main," class")
+    desc_start_1L_chr <- "Create a new prototype for S3 class: "
+    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_prototype_","")
+    output_txt_1L_chr <- paste0("A prototpe for ",s3_class_main_1L_chr," class")
   }
   if(fn_type_1L_chr == "s3_validator"){
-    desc_start <- "Validate an instance of the S3 class: "
-    s3_class_main <- stringr::str_replace(fn_name_1L_chr,"validate_","")
-    output_txt <- paste0("A prototpe for ",s3_class_main," class")
+    desc_start_1L_chr <- "Validate an instance of the S3 class: "
+    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"validate_","")
+    output_txt_1L_chr <- paste0("A prototpe for ",s3_class_main_1L_chr," class")
   }
   if(fn_type_1L_chr == "s3_checker"){
-    desc_start <- "Check whether an object is a valid instance of the S3 class: "
-    s3_class_main <- stringr::str_replace(fn_name_1L_chr,"is_","")
-    output_txt <- paste0("A logical value, TRUE if a valid instance of the ",s3_class_main," class")
+    desc_start_1L_chr <- "Check whether an object is a valid instance of the S3 class: "
+    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"is_","")
+    output_txt_1L_chr <- paste0("A logical value, TRUE if a valid instance of the ",s3_class_main_1L_chr," class")
   }
   if(fn_type_1L_chr %in% c("gen_get_slot","meth_get_slot")){
-    desc_start <- "Get the value of the slot "
-    output_txt <- "A XXX ..."
+    desc_start_1L_chr <- "Get the value of the slot "
+    output_txt_1L_chr <- "A XXX ..."
   }
   if(fn_type_1L_chr %in% c("gen_set_slot","meth_set_slot")){
-    desc_start <- "Set the value of the slot "
-    output_txt <- "NULL"
+    desc_start_1L_chr <- "Set the value of the slot "
+    output_txt_1L_chr <- "NULL"
   }
   if(fn_type_1L_chr %in% c("fn",
                         "gen_std_s3_mthd",
                         "meth_std_s3_mthd",
                         "gen_std_s4_mthd",
                         "meth_std_s4_mthd")){
-    desc_start <- fn_desc_1L_chr
-    output_txt <- fn_out_type_1L_chr
+    desc_start_1L_chr <- fn_desc_1L_chr
+    output_txt_1L_chr <- fn_out_type_1L_chr
   }
   if(is.null(args_ls)){
     arg_desc_chr <- NULL
@@ -637,10 +571,10 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   }else{
     arg_desc_chr <- args_ls %>% purrr::flatten_chr() %>% stats::setNames(names(args_ls))
   }
-  new_fn_dmt_chr_ls <- list(desc_start = desc_start,
-                            s3_class_main = s3_class_main,
-                            output_txt = output_txt,
-                            fn_det_chr = fn_det_chr,
+  new_fn_dmt_chr_ls <- list(desc_start_1L_chr = desc_start_1L_chr,
+                            s3_class_main_1L_chr = s3_class_main_1L_chr,
+                            output_txt_1L_chr = output_txt_1L_chr,
+                            fn_det_1L_chr = fn_det_1L_chr,
                             arg_desc_chr = arg_desc_chr)
   return(new_fn_dmt_chr_ls)
 }

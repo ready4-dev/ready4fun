@@ -1,3 +1,29 @@
+write_abbr_lup <- function(short_name_chr = NA_character_,
+                           long_name_chr = NA_character_,
+                           no_plural_chr = NA_character_,
+                           custom_plural_ls = NULL,
+                           overwrite_1L_lgl = T,
+                           seed_lup = NULL,
+                           url_1L_chr,
+                           pkg_nm_1L_chr = get_dev_pkg_nm()){
+  if(is.null(seed_lup)){
+    data("object_type_lup",package="ready4fun",envir = environment())
+    seed_lup <- object_type_lup
+  }
+  update_abbr_lup(seed_lup,
+                  short_name_chr = short_name_chr,
+                  long_name_chr = long_name_chr,
+                  no_plural_chr = no_plural_chr,
+                  custom_plural_ls = custom_plural_ls) %>%
+    write_and_doc_ds(db = .,
+                     overwrite_1L_lgl = overwrite_1L_lgl,
+                     db_1L_chr = "abbreviations_lup",
+                     title_1L_chr = "Common abbreviations lookup table",
+                     desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ",pkg_nm_1L_chr,"package."),
+                     format_1L_chr = "A tibble",
+                     url_1L_chr = url_1L_chr,
+                     abbreviations_lup = .)
+}
 write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
                                             r4_name_1L_chr,
                                             lup_dir_1L_chr,
@@ -61,6 +87,22 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
 
+}
+write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
+                                   overwrite_1L_lgl = T,
+                                   pkg_nm_1L_chr = get_dev_pkg_nm(),
+                                   url_1L_chr = url_1L_chr,
+                                   abbreviations_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
+  fn_type_lup_tb %>%
+    write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
+                     db_1L_chr = "fn_type_lup_tb",
+                     title_1L_chr = "Function type lookup table",
+                     desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
+                     format_1L_chr = "A tibble",
+                     url_1L_chr = url_1L_chr,
+                     abbreviations_lup = abbreviations_lup)
 }
 write_documented_fns <- function(tmp_fn_dir_1L_chr,
                                    R_dir_1L_chr){
@@ -164,7 +206,7 @@ write_fn_dmt <- function(fn_name_1L_chr,
   new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr,
                                            fn_name_1L_chr = fn_name_1L_chr,
                                            fn_desc_1L_chr = fn_desc_1L_chr,
-                                           fn_det_chr = details_1L_chr,
+                                           fn_det_1L_chr = details_1L_chr,
                                            fn_out_type_1L_chr = fn_out_type_1L_chr,
                                            args_ls = args_ls,
                                            fn,
@@ -201,7 +243,7 @@ write_fn_fl <- function(fns_dmt_tb,
                                                  fn_out_type_1L_chr = tb[[.x,6]],
                                                  fn_title_1L_chr = tb[[.x,2]],
                                                  example_1L_lgl = tb[[.x,7]],
-                                                 export_1L_lgl = T,#tb[[.x,5]],
+                                                 export_1L_lgl = T,
                                                  class_name_1L_chr = "",
                                                  details_1L_chr = tb[[.x,4]],
                                                  args_ls = tb$args_ls[[.x]] %>% as.list(),
@@ -307,14 +349,16 @@ write_pkg <- function(package_1L_chr,
                                                ~ stringr::str_replace_all(.x,
                                                                           "ready4fun",
                                                                           package_1L_chr))
-                     txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title)
-                     txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description)
+                     txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title %>%
+                                            stringr::str_replace_all("\n","\n#' "))
+                     txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description %>%
+                                            stringr::str_replace_all("\n","\n#' "))
                      txt_chr
                    },
                    args_ls = list(package_1L_chr = package_1L_chr))
 }
 write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
-                                  dev_pkg_nm_1L_chr = NA_character_,
+                                  dev_pkg_nm_1L_chr = get_dev_pkg_nm(),
                                   make_tmpl_vignette_1L_lgl = F,
                                   incr_ver_1L_lgl = T){
   update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
@@ -355,6 +399,65 @@ write_tb_to_csv <- function(tbs_r4,
     dplyr::mutate_if(is.list,.funs = dplyr::funs(ifelse(stringr::str_c(.)=="NULL",NA_character_ , stringr::str_c (.)))) %>%
     write.csv(file = paste0(lup_dir_1L_chr,"/",pfx_1L_chr,"_",slot_nm_1L_chr,".csv"),
               row.names = F)
+}
+write_to_remove_collate <- function(description_chr){
+  if(!identical(which(description_chr=="Collate: "),integer(0)))
+    description_chr <- description_chr[1:(which(description_chr=="Collate: ")-1)]
+  return(description_chr)
+}
+write_to_rpl_1L_and_indefL_sfcs <- function(indefL_arg_nm_1L_chr,
+                                            file_path_1L_chr = NA_character_,
+                                            dir_path_1L_chr = NA_character_){
+  sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end=-5),
+                indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
+  write_to_replace_sfx_pair(args_nm_chr =   paste0(indefL_arg_nm_1L_chr %>% stringr::str_sub(end=-9),
+                                                   sfxs_chr),
+                            sfxs_chr = sfxs_chr,
+                            replacements_chr = paste0(c("_1L",""),sfxs_chr[1]),
+                            file_path_1L_chr = file_path_1L_chr,
+                            dir_path_1L_chr = dir_path_1L_chr)
+
+}
+write_to_replace_sfx_pair <- function(args_nm_chr,
+                                      sfxs_chr,
+                                      replacements_chr,
+                                      file_path_1L_chr = NA_character_,
+                                      dir_path_1L_chr = NA_character_){
+  fn <- ifelse(is.na(file_path_1L_chr),xfun::gsub_dir,xfun::gsub_file)
+  path_chr <- ifelse(is.na(file_path_1L_chr),dir_path_1L_chr,file_path_1L_chr)
+  args_ls <- list(pattern = paste0(args_nm_chr[1],
+                                   "(?!",
+                                   stringr::str_remove(sfxs_chr[2],
+                                                       sfxs_chr[1]),
+                                   ")"),
+                  replacement = paste0(stringr::str_remove(args_nm_chr[1],
+                                                           sfxs_chr[1]),
+                                       replacements_chr[1]),
+                  perl=T)
+  rlang::exec(fn, path_chr, !!!args_ls)
+  args_ls <- list(pattern = args_nm_chr[2],
+                  replacement = paste0(stringr::str_remove(args_nm_chr[2],
+                                                           sfxs_chr[2]),
+                                       replacements_chr[2]),
+                  perl=T)
+  rlang::exec(fn, path_chr, !!!args_ls)
+}
+write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
+                                     package_1L_chr = get_dev_pkg_nm(),
+                                     package_dir_1L_chr = getwd(),
+                                     description_ls = NULL,
+                                     keep_version_lgl = T
+                                     ){
+  devtools::load_all()
+  if(keep_version_lgl){
+    desc_ls <- packageDescription(package_1L_chr)
+    description_ls$Version <- desc_ls$Version
+  }
+  usethis::use_description(fields = description_ls)
+  file.remove(paste0(package_dir_1L_chr,"/NAMESPACE"))
+  do.call(file.remove, list(list.files(paste0(package_dir_1L_chr,"/",delete_contents_of_1L_chr), full.names = TRUE)))
+  devtools::document()
+  devtools::load_all()
 }
 write_vignette <- function(package_1L_chr,
                              pkg_rt_dir_chr = "."){

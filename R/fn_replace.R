@@ -1,3 +1,12 @@
+#' Replace abbreviation
+#' @description replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector).
+#' @param title_chr Title (a character vector)
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param collapse_lgl Collapse (a logical vector), Default: T
+#' @return Title (a character vector)
+#' @rdname replace_abbr
+#' @export 
+#' @importFrom purrr flatten_chr map_chr
 #' @keywords internal
 replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T) 
 {
@@ -17,6 +26,18 @@ replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T)
         title_chr <- title_chr %>% paste0(collapse = " ")
     return(title_chr)
 }
+#' Replace function names
+#' @description replace_fn_nms() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace function names. Function argument rename_tb specifies the object to be updated. Argument undocumented_fns_dir_chr provides the object to be updated.NA
+#' @param rename_tb Rename (a tibble)
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
+#' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @return NULL
+#' @rdname replace_fn_nms
+#' @export 
+#' @importFrom dplyr filter select
+#' @importFrom purrr pwalk walk
+#' @importFrom xfun gsub_dir
 #' @keywords internal
 replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
@@ -34,30 +55,4 @@ replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fn
             "::", pattern_1L_chr), replacement = paste0(dev_pkg_nm_1L_chr, 
             "::", replacement_1L_chr), ext = "R", fixed = T)
     })
-}
-#' @keywords internal
-write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
-    dir_path_1L_chr = NA_character_) 
-{
-    fn <- ifelse(is.na(file_path_1L_chr), xfun::gsub_dir, xfun::gsub_file)
-    path_chr <- ifelse(is.na(file_path_1L_chr), dir_path_1L_chr, 
-        file_path_1L_chr)
-    args_ls <- list(pattern = paste0(args_nm_chr[1], "(?!", stringr::str_remove(sfxs_chr[2], 
-        sfxs_chr[1]), ")"), replacement = paste0(stringr::str_remove(args_nm_chr[1], 
-        sfxs_chr[1]), replacements_chr[1]), perl = T)
-    rlang::exec(fn, path_chr, !!!args_ls)
-    args_ls <- list(pattern = args_nm_chr[2], replacement = paste0(stringr::str_remove(args_nm_chr[2], 
-        sfxs_chr[2]), replacements_chr[2]), perl = T)
-    rlang::exec(fn, path_chr, !!!args_ls)
-}
-#' @keywords internal
-write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
-    dir_path_1L_chr = NA_character_) 
-{
-    sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, 
-        end = -5), indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
-    write_to_replace_sfx_pair(args_nm_chr = paste0(indefL_arg_nm_1L_chr %>% 
-        stringr::str_sub(end = -9), sfxs_chr), sfxs_chr = sfxs_chr, 
-        replacements_chr = paste0(c("_1L", ""), sfxs_chr[1]), 
-        file_path_1L_chr = file_path_1L_chr, dir_path_1L_chr = dir_path_1L_chr)
 }

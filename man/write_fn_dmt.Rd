@@ -54,5 +54,5 @@ write_fn_dmt(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \description{
-write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation.NA
+write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

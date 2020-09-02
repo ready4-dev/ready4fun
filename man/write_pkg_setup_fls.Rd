@@ -21,5 +21,5 @@ write_pkg_setup_fls(
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 }
 \description{
-write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files.NA
+write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

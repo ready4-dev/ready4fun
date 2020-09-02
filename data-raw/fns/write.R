@@ -138,10 +138,9 @@ write_ds_dmt <- function(db,
   if(is.null(object_type_lup))
     data("object_type_lup",package="ready4fun",envir = environment())
   auto_vars_ls <- names(db) %>%
-    purrr::map(~ make_arg_desc(paste0(.x#,"_vec"
-                                          ),
-                                       object_type_lup = object_type_lup,
-                                       abbreviations_lup = abbreviations_lup)) %>%
+    purrr::map(~ make_arg_desc(.x,
+                               object_type_lup = object_type_lup,
+                               abbreviations_lup = abbreviations_lup)) %>%
     stats::setNames(names(db))
   if(is.null(vars_ls)){
     vars_ls <- auto_vars_ls
@@ -237,7 +236,7 @@ write_fn_fl <- function(fns_dmt_tb,
                                     fn_chr <- deparse(fn)
                                     sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
                                     write_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
-                                                 fn_type_1L_chr = "fn", ####
+                                                 fn_type_1L_chr = "fn",
                                                  fn = fn,
                                                  fn_desc_1L_chr = tb[[.x,3]],
                                                  fn_out_type_1L_chr = tb[[.x,6]],

@@ -27,7 +27,7 @@ replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T)
     return(title_chr)
 }
 #' Replace function names
-#' @description replace_fn_nms() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace function names. Function argument rename_tb specifies the object to be updated. Argument undocumented_fns_dir_chr provides the object to be updated.NA
+#' @description replace_fn_nms() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace function names. Function argument rename_tb specifies the object to be updated. Argument undocumented_fns_dir_chr provides the object to be updated.The function is called for its side effects and does not return a value.
 #' @param rename_tb Rename (a tibble)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
 #' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")

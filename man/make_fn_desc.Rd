@@ -9,7 +9,8 @@ make_fn_desc(
   title_chr,
   output_chr,
   fn_type_lup_tb = NULL,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  test_for_write_R_warning_fn = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ make_fn_desc(
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{test_for_write_R_warning_fn}{Test for write warning (a function), Default: NULL}
 }
 \value{
 Function description (a character vector)

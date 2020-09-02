@@ -19,7 +19,7 @@ make_arg_desc <- function (fn_args_1L_chr, object_type_lup = NULL, abbreviations
     return(arg_desc_chr)
 }
 #' Make argument description
-#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.NA
+#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function is called for its side effects and does not return a value.
 #' @param fn_nms_chr Function names (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -42,7 +42,7 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
     })
 }
 #' Make argument description spine
-#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description spine.NA
+#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description spine.The function is called for its side effects and does not return a value.
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -141,7 +141,7 @@ make_arg_type <- function (fn_args_1L_chr, object_type_lup = NULL, abbreviations
     return(arg_desc_chr)
 }
 #' Make argument type abbreviation
-#' @description make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.NA
+#' @description make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.The function is called for its side effects and does not return a value.
 #' @param fn_args_1L_chr Function arguments (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -236,32 +236,42 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @param output_chr Output (a character vector)
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
 #' @return Function description (a character vector)
 #' @rdname make_fn_desc
 #' @export 
 #' @importFrom purrr pmap_chr
-#' @importFrom stringr str_extract
+#' @importFrom stringr str_extract word
 #' @importFrom tools toTitleCase
 #' @keywords internal
 make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_type_lup_tb = NULL, 
-    abbreviations_lup = NULL) 
+    abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL) 
 {
+    if (is.null(test_for_write_R_warning_fn)) 
+        test_for_write_R_warning_fn <- function(x) {
+            startsWith(x, "write")
+        }
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
     fn_desc_chr <- purrr::pmap_chr(list(fns_chr, title_chr, output_chr), 
         ~{
             fn_type_1L_chr <- stringr::str_extract(..2, "[A-Za-z]+")
-            paste0(make_fn_desc_spine(fn_name_1L_chr = ..1, fn_title_1L_chr = ..2, 
-                fn_type_lup_tb = fn_type_lup_tb, abbreviations_lup = abbreviations_lup), 
-                ifelse(..3 == "NULL", ifelse(get_from_lup_obj(fn_type_lup_tb, 
-                  match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = ..1 %>% 
-                    make_fn_title(abbreviations_lup = abbreviations_lup) %>% 
-                    tools::toTitleCase(), target_var_nm_1L_chr = "is_generic_lgl", 
-                  evaluate_lgl = F), "", paste0("The function is called for its side effects and does not return a value.", 
-                  ifelse(endsWith(..1, "_R"), " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
-                    ""))), paste0("The function returns ", ..3 %>% 
-                  tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup), 
-                  ".")))
+            fn_name_1L_chr <- ..1
+            fn_title_1L_chr <- ..2
+            fn_output_1L_chr <- ..3
+            paste0(make_fn_desc_spine(fn_name_1L_chr = fn_name_1L_chr, 
+                fn_title_1L_chr = fn_title_1L_chr, fn_type_lup_tb = fn_type_lup_tb, 
+                abbreviations_lup = abbreviations_lup), ifelse(fn_output_1L_chr == 
+                "NULL", ifelse(get_from_lup_obj(fn_type_lup_tb, 
+                match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = fn_name_1L_chr %>% 
+                  make_fn_title(abbreviations_lup = abbreviations_lup) %>% 
+                  tools::toTitleCase() %>% stringr::word(), target_var_nm_1L_chr = "is_generic_lgl", 
+                evaluate_lgl = F), "", paste0("The function is called for its side effects and does not return a value.", 
+                ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn, 
+                  " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
+                  ""))), paste0("The function returns ", fn_output_1L_chr %>% 
+                tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup), 
+                ".")))
         })
     return(fn_desc_chr)
 }
@@ -366,6 +376,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
 #' @return Function documentation table (a tibble)
 #' @rdname make_fn_dmt_tbl
 #' @export 
@@ -375,7 +386,8 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
     pkg_nm_1L_chr, custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, 
         details_ls = NULL, inc_for_main_user_lgl_ls = NULL, output_ls = NULL, 
         example_ls = NULL, args_ls_ls = NULL), append_1L_lgl = T, 
-    fn_type_lup_tb = NULL, abbreviations_lup = NULL, object_type_lup = NULL) 
+    fn_type_lup_tb = NULL, abbreviations_lup = NULL, object_type_lup = NULL, 
+    test_for_write_R_warning_fn = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -383,7 +395,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
         data("object_type_lup", package = "ready4fun", envir = environment())
     fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl(fns_path_chr, fns_dir_chr = fns_dir_chr, 
         fn_type_lup_tb = fn_type_lup_tb, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup)
+        object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn)
     if (purrr::map_lgl(custom_dmt_ls, ~!is.null(.x)) %>% any()) {
         args_ls <- append(custom_dmt_ls, list(append_1L_lgl = append_1L_lgl)) %>% 
             purrr::discard(is.null)
@@ -399,6 +411,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
 #' @return Function documentation table (a tibble)
 #' @rdname make_fn_dmt_tbl_tpl
 #' @export 
@@ -409,7 +422,8 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @importFrom tools toTitleCase
 #' @keywords internal
 make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(), 
-    fn_type_lup_tb = NULL, abbreviations_lup = NULL, object_type_lup = NULL) 
+    fn_type_lup_tb = NULL, abbreviations_lup = NULL, object_type_lup = NULL, 
+    test_for_write_R_warning_fn = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -434,7 +448,7 @@ make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
         title_chr = title_chr, output_chr = output_chr, fn_type_lup_tb = fn_type_lup_tb, 
-        abbreviations_lup = abbreviations_lup))
+        abbreviations_lup = abbreviations_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
         abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup))
     return(fn_dmt_tbl_tb)

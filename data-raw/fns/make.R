@@ -181,7 +181,10 @@ make_fn_desc <-  function(fns_chr,
                                   title_chr,
                                   output_chr,
                                   fn_type_lup_tb = NULL,
-                                  abbreviations_lup = NULL){
+                                  abbreviations_lup = NULL,
+                          test_for_write_R_warning_fn = NULL){
+  if(is.null(test_for_write_R_warning_fn))
+    test_for_write_R_warning_fn <- function(x){startsWith(x,"write")}
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_desc_chr <- purrr::pmap_chr(list(fns_chr,
@@ -189,23 +192,29 @@ make_fn_desc <-  function(fns_chr,
                                           output_chr),
                                      ~ {
                                        fn_type_1L_chr <- stringr::str_extract(..2, '[A-Za-z]+')
-                                       paste0(make_fn_desc_spine(fn_name_1L_chr = ..1,
-                                                                         fn_title_1L_chr = ..2,
+                                       fn_name_1L_chr <- ..1
+                                       fn_title_1L_chr <- ..2
+                                       fn_output_1L_chr <- ..3
+                                       paste0(make_fn_desc_spine(fn_name_1L_chr = fn_name_1L_chr,
+                                                                         fn_title_1L_chr = fn_title_1L_chr,
                                                                          fn_type_lup_tb = fn_type_lup_tb,
                                                                          abbreviations_lup = abbreviations_lup),
-                                              ifelse(..3=="NULL",
+                                              ifelse(fn_output_1L_chr=="NULL",
                                                      ifelse(get_from_lup_obj(fn_type_lup_tb,
                                                                              match_var_nm_1L_chr = "fn_type_nm_chr",
-                                                                             match_value_xx = ..1 %>% make_fn_title(abbreviations_lup = abbreviations_lup) %>% tools::toTitleCase(),
+                                                                             match_value_xx = fn_name_1L_chr %>%
+                                                                               make_fn_title(abbreviations_lup = abbreviations_lup) %>%
+                                                                               tools::toTitleCase() %>%
+                                                                               stringr::word(),
                                                                              target_var_nm_1L_chr = "is_generic_lgl",
                                                                              evaluate_lgl = F),
                                                             "",
                                                             paste0("The function is called for its side effects and does not return a value.",
-                                                                   ifelse(endsWith(..1,"_R"),
+                                                                   ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn,#startsWith(fn_name_1L_chr,"write"),
                                                                           " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                                                                           ""))),
                                                      paste0("The function returns ",
-                                                            ..3 %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),".")
+                                                            fn_output_1L_chr %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),".")
                                               )
                                        )
                                      }
@@ -322,7 +331,8 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                                append_1L_lgl = T,
                                fn_type_lup_tb = NULL,
                                abbreviations_lup = NULL,
-                               object_type_lup = NULL){
+                               object_type_lup = NULL,
+                            test_for_write_R_warning_fn = NULL){
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
@@ -331,7 +341,8 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                                           fns_dir_chr = fns_dir_chr,
                                           fn_type_lup_tb = fn_type_lup_tb,
                                           abbreviations_lup = abbreviations_lup,
-                                          object_type_lup = object_type_lup)
+                                          object_type_lup = object_type_lup,
+                                       test_for_write_R_warning_fn = test_for_write_R_warning_fn)
   if(purrr::map_lgl(custom_dmt_ls,
                     ~ !is.null(.x)) %>% any()){
     args_ls <- append(custom_dmt_ls, list(append_1L_lgl = append_1L_lgl)) %>% purrr::discard(is.null)
@@ -343,7 +354,8 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
                                    fns_dir_chr = make_undmtd_fns_dir_chr(),
                                    fn_type_lup_tb = NULL,
                                    abbreviations_lup = NULL,
-                                   object_type_lup = NULL){
+                                   object_type_lup = NULL,
+                                test_for_write_R_warning_fn = NULL){
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
@@ -379,7 +391,8 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
                                                   title_chr = title_chr,
                                                   output_chr = output_chr,
                                                   fn_type_lup_tb = fn_type_lup_tb,
-                                                  abbreviations_lup = abbreviations_lup))
+                                                  abbreviations_lup = abbreviations_lup,
+                                          test_for_write_R_warning_fn = test_for_write_R_warning_fn))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr,
                                              abbreviations_lup = abbreviations_lup,

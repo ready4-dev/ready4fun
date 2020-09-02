@@ -9,7 +9,8 @@ make_fn_dmt_tbl_tpl(
   fns_dir_chr = make_undmtd_fns_dir_chr(),
   fn_type_lup_tb = NULL,
   abbreviations_lup = NULL,
-  object_type_lup = NULL
+  object_type_lup = NULL,
+  test_for_write_R_warning_fn = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ make_fn_dmt_tbl_tpl(
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
+
+\item{test_for_write_R_warning_fn}{Test for write warning (a function), Default: NULL}
 }
 \value{
 Function documentation table (a tibble)

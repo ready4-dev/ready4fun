@@ -110,7 +110,7 @@ get_outp_obj_type <- function (fns_chr)
     return(outp_obj_type_chr)
 }
 #' Get readyforwhatsnext S4 object slots
-#' @description get_r4_obj_slots() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_1L_chr specifies the where to look for the required object.NA
+#' @description get_r4_obj_slots() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_1L_chr specifies the where to look for the required object.The function is called for its side effects and does not return a value.
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param package_1L_chr Package (a character vector of length one), Default: ''
 #' @return NULL

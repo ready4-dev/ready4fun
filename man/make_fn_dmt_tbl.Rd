@@ -14,7 +14,8 @@ make_fn_dmt_tbl(
   append_1L_lgl = T,
   fn_type_lup_tb = NULL,
   abbreviations_lup = NULL,
-  object_type_lup = NULL
+  object_type_lup = NULL,
+  test_for_write_R_warning_fn = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
+
+\item{test_for_write_R_warning_fn}{Test for write warning (a function), Default: NULL}
 }
 \value{
 Function documentation table (a tibble)

@@ -21,6 +21,6 @@ replace_fn_nms(
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm()}
 }
 \description{
-replace_fn_nms() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace function names. Function argument rename_tb specifies the object to be updated. Argument undocumented_fns_dir_chr provides the object to be updated.NA
+replace_fn_nms() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace function names. Function argument rename_tb specifies the object to be updated. Argument undocumented_fns_dir_chr provides the object to be updated.The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

@@ -18,6 +18,6 @@ make_arg_type_abbr(
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \description{
-make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.NA
+make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

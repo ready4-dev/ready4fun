@@ -26,8 +26,8 @@ library(ready4fun)
 # saveRDS(force_fn_args_to_rnm_ls,"data-raw/force_fn_args_to_rnm_ls.RDS")
 # FOURTH BIT
 # get_fn_args_to_rnm_ls <- write_new_arg_sfxs(arg_nms_chr = c("fn_args_chr_vec","fns_chr_vec","outp_obj_type_chr_vec",
-#                                                                 paste0(c("path_to_pkg_rt_chr","dev_pkg_nm_chr", "path_chr","match_var_nm_chr",
-#                                                                          "target_var_nm_chr","fn_name_chr", "package_chr", "last_line_chr", "return_chr"
+#                                                                 paste0(c("path_to_pkg_rt_chr","dev_pkg_nm_chr", "path_chr","match_var_nm_1L_chr",
+#                                                                          "target_var_nm_1L_chr","fn_name_chr", "package_chr", "last_line_chr", "return_chr"
 #                                                                 ),"_vec")),
 #                                                  fn_type_1L_chr = "get",
 #                                                  dir_path_chr = "data-raw/fns",

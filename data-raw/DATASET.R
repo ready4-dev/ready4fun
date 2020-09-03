@@ -152,10 +152,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
                      dev_pkgs_chr = NA_character_)
 #
-# 11. Update Description file with imported packages.
-# write_ns_imps_to_desc()
-#
-# 12. Create vignettes
+# 11. Create vignettes
 # usethis::use_vignette("ready4fun")
 # devtools::document()
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

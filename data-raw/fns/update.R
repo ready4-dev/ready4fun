@@ -55,7 +55,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                                           "gen_std_s4_mthd",
                                                           "meth_std_s4_mthd"),
                                        "",
-                                       fn_tags_spine_ls$ref_slot_chr))) %>%
+                                       fn_tags_spine_ls$ref_slot_1L_chr))) %>%
     stringr::str_replace("OUTPUT_DESCRIPTION",new_tag_chr_ls$output_txt_1L_chr)
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("@details DETAILS",

@@ -224,7 +224,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
             tb <- fn_type_lup_tb %>% dplyr::filter(is_generic_lgl)
         if (..3 == "mthds") 
             tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
-        make_fn_dmt_tbl(..1, fns_dir_1L_chr = ..2, custom_dmt_ls = custom_dmt_ls, 
+        make_fn_dmt_tbl(..1, fns_dir_chr = ..2, custom_dmt_ls = custom_dmt_ls, 
             append_1L_lgl = T, fn_type_lup_tb = tb, abbreviations_lup = abbreviations_lup)
     })
     return(all_fns_dmt_tb)

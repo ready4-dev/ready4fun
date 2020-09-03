@@ -8,7 +8,8 @@ write_pkg_setup_fls(
   path_to_pkg_rt_1L_chr = ".",
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(),
   make_tmpl_vignette_1L_lgl = F,
-  incr_ver_1L_lgl = T
+  incr_ver_1L_lgl = T,
+  delete_contents_of_R_dir = F
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ write_pkg_setup_fls(
 \item{make_tmpl_vignette_1L_lgl}{Make tmpl vignette (a logical vector of length one), Default: F}
 
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
+
+\item{delete_contents_of_R_dir}{PARAM_DESCRIPTION, Default: F}
 }
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a package setup files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

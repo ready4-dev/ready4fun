@@ -1,4 +1,3 @@
-
 remove_obj_type_from_nm <- function(nms_chr,
                                             object_type_lup = NULL,
                                             abbreviations_lup = NULL,

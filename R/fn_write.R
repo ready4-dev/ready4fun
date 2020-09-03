@@ -445,14 +445,18 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param make_tmpl_vignette_1L_lgl Make tmpl vignette (a logical vector of length one), Default: F
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
+#' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
 #' @importFrom devtools load_all
 #' @importFrom usethis use_version
 write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = get_dev_pkg_nm(), 
-    make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T) 
+    make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T, delete_contents_of_R_dir = F) 
 {
+    if (delete_contents_of_R_dir) 
+        write_to_reset_pkg_files(paste0(path_to_pkg_rt_1L_chr, 
+            "/R"))
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
     if (!update_desc_fl_1L_lgl) 
         dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
@@ -535,6 +539,36 @@ write_to_remove_collate <- function (description_chr)
         description_chr <- description_chr[1:(which(description_chr == 
             "Collate: ") - 1)]
     return(description_chr)
+}
+#' Write to replace function names
+#' @description write_to_replace_fn_nms() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace function names.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param rename_tb Rename (a tibble)
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
+#' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @return NULL
+#' @rdname write_to_replace_fn_nms
+#' @export 
+#' @importFrom dplyr filter select
+#' @importFrom purrr pwalk walk
+#' @importFrom xfun gsub_dir
+#' @keywords internal
+write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
+    rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
+{
+    if (any(rename_tb$duplicated_lgl)) 
+        stop("Duplicates in rename table")
+    rename_tb <- rename_tb %>% dplyr::filter(fns_chr != new_nm) %>% 
+        dplyr::select(fns_chr, new_nm)
+    purrr::pwalk(rename_tb, ~{
+        pattern_1L_chr <- ..1
+        replacement_1L_chr <- ..2
+        purrr::walk(undocumented_fns_dir_chr, ~xfun::gsub_dir(undocumented_fns_dir_chr, 
+            pattern = pattern_1L_chr, replacement = replacement_1L_chr))
+        xfun::gsub_dir(dir = rt_dev_dir_path_1L_chr, pattern = paste0(dev_pkg_nm_1L_chr, 
+            "::", pattern_1L_chr), replacement = paste0(dev_pkg_nm_1L_chr, 
+            "::", replacement_1L_chr), ext = "R", fixed = T)
+    })
 }
 #' Write to replace suffix pair
 #' @description write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace suffix pair.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

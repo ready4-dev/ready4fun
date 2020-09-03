@@ -12,3 +12,4 @@ force_instl_of_reqd_pkg(package_nm_1L_chr)
 \description{
 force_instl_of_reqd_pkg() is a Force function that checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition. Specifically, this function implements an algorithm to force an install of a required package.The function is called for its side effects and does not return a value.
 }
+\keyword{internal}

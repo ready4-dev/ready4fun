@@ -5,7 +5,6 @@
 #' @rdname unload_packages
 #' @export 
 #' @importFrom purrr discard map_lgl walk
-#' @keywords internal
 unload_packages <- function (package_chr) 
 {
     if (!package_chr %>% purrr::discard(is.na) %>% identical(character(0))) {

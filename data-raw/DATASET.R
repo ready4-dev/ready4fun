@@ -37,11 +37,10 @@ options(usethis.description = list(
   License = usethis::use_gpl3_license()
 ))
 # write_to_reset_pkg_files("R") # Deletes contents of R directory and resets DESCRIPTION and NAMESPACE files.
-## INTERACTIVE INPUT
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
                       incr_ver_1L_lgl = F,
                       delete_contents_of_R_dir = T)
-#
+## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
   write_and_doc_ds(db = .,
@@ -150,10 +149,11 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
 # 10. Write documented functions to R directory.
 ## Note files to be rewritten cannot be open in RStudio.
 write_and_doc_fn_fls(fns_dmt_tb,
-                       r_dir_1L_chr = "R")
+                     r_dir_1L_chr = "R",
+                     dev_pkgs_chr = NA_character_)
 #
 # 11. Update Description file with imported packages.
-write_ns_imps_to_desc()
+# write_ns_imps_to_desc()
 #
 # 12. Create vignettes
 # usethis::use_vignette("ready4fun")

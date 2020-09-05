@@ -177,7 +177,6 @@ write_ds_dmt <- function(db,
                            paste0("#' @source \\url{",url_1L_chr,"}\n")),
                     "\"",db_1L_chr,"\""))
 }
-
 write_fn_dmt <- function(fn_name_1L_chr,
                          fn_type_1L_chr,
                          fn = NULL,

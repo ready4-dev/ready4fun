@@ -68,8 +68,8 @@ get_outp_obj_type <- function(fns_chr){
 get_r4_obj_slots <- function(fn_name_1L_chr,
                                      package_1L_chr = ""){
   slots_ls <- className(fn_name_1L_chr,update_ns(package_1L_chr)) %>% methods::getSlots()
-  slots_chr_vec <- purrr::map_chr(slots_ls, ~ .x)
-  return(slots_chr_vec)
+  slots_chr <- purrr::map_chr(slots_ls, ~ .x)
+  return(slots_chr)
 }
 get_return_obj_nm <- function(fn){
   fn_chr <- deparse(fn)

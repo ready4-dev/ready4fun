@@ -11,7 +11,9 @@ get_r4_obj_slots(fn_name_1L_chr, package_1L_chr = "")
 
 \item{package_1L_chr}{Package (a character vector of length one), Default: ''}
 }
-\description{
-get_r4_obj_slots() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_1L_chr specifies the where to look for the required object.The function is called for its side effects and does not return a value.
+\value{
+Slots (a character vector)
 }
-\keyword{internal}
+\description{
+get_r4_obj_slots() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a readyforwhatsnext S4 object slots. Function argument fn_name_1L_chr specifies the where to look for the required object.The function returns slots (a character vector).
+}

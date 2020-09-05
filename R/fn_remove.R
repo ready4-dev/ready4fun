@@ -10,7 +10,6 @@
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
 #' @importFrom stringi stri_replace_last_fixed
-#' @keywords internal
 remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     is_generic_lgl = F) 
 {

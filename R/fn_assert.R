@@ -7,6 +7,7 @@
 #' @export 
 #' @importFrom testit assert
 #' @importFrom purrr walk
+#' @keywords internal
 assert_inp_does_not_match_terms <- function (input_chr, exclude_if_match_chr) 
 {
     testit::assert("Not a character vector.", is.character(input_chr))

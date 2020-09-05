@@ -17,3 +17,4 @@ Argument type abbreviation spine (a character vector of length one)
 \description{
 make_arg_type_abbr_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation spine.The function returns an argument type abbreviation spine (a character vector of length one).
 }
+\keyword{internal}

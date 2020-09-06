@@ -20,3 +20,4 @@ Short and long vec (a character vector)
 \description{
 make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vec.The function returns short and long vec (a character vector).
 }
+\keyword{internal}

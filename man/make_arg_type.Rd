@@ -5,14 +5,14 @@
 \title{Make argument type}
 \usage{
 make_arg_type(
-  fn_args_1L_chr,
+  fn_args_chr,
   object_type_lup = NULL,
   abbreviations_lup = NULL,
   fn
 )
 }
 \arguments{
-\item{fn_args_1L_chr}{Function arguments (a character vector of length one)}
+\item{fn_args_chr}{Function arguments (a character vector)}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
@@ -26,4 +26,3 @@ Argument description (a character vector)
 \description{
 make_arg_type() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type.The function returns an argument description (a character vector).
 }
-\keyword{internal}

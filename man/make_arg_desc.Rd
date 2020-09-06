@@ -4,10 +4,10 @@
 \alias{make_arg_desc}
 \title{Make argument description}
 \usage{
-make_arg_desc(fn_args_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL)
+make_arg_desc(fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL)
 }
 \arguments{
-\item{fn_args_1L_chr}{Function arguments (a character vector of length one)}
+\item{fn_args_chr}{Function arguments (a character vector)}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
@@ -19,4 +19,3 @@ Argument description (a character vector)
 \description{
 make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function returns an argument description (a character vector).
 }
-\keyword{internal}

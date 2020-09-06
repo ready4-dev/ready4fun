@@ -5,13 +5,13 @@
 \title{Make argument type abbreviation}
 \usage{
 make_arg_type_abbr(
-  fn_args_1L_chr,
+  fn_args_chr,
   object_type_lup = NULL,
   abbreviations_lup = NULL
 )
 }
 \arguments{
-\item{fn_args_1L_chr}{Function arguments (a character vector of length one)}
+\item{fn_args_chr}{Function arguments (a character vector)}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
@@ -20,4 +20,3 @@ make_arg_type_abbr(
 \description{
 make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument type an abbreviation.The function is called for its side effects and does not return a value.
 }
-\keyword{internal}

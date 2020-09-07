@@ -6,11 +6,15 @@ get_arg_obj_type_1L_chr <- function(argument_nm_1L_chr,
   match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr,
                                                       paste0(ifelse(nchar(argument_nm_1L_chr)==nchar_int,"","_"),
                                                              object_type_lup$short_name_chr))]
-  arg_obj_type_1L_chr <- dplyr::filter(object_type_lup,
-                                       long_name_chr %in% match_chr) %>%
-    dplyr::mutate(nchar_int = nchar(short_name_chr)) %>%
-    dplyr::filter(nchar_int == max(nchar_int)) %>%
-    dplyr::pull(long_name_chr)
+  if(!identical(match_chr,character(0))){
+    arg_obj_type_1L_chr <- dplyr::filter(object_type_lup,
+                                         long_name_chr %in% match_chr) %>%
+      dplyr::mutate(nchar_int = nchar(short_name_chr)) %>%
+      dplyr::filter(nchar_int == max(nchar_int)) %>%
+      dplyr::pull(long_name_chr)
+  }else{
+    arg_obj_type_1L_chr <- character(0)
+  }
   return(arg_obj_type_1L_chr)
 }
 get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){

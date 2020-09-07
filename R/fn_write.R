@@ -180,7 +180,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -215,53 +214,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
         ifelse(is.na(url_1L_chr), "", paste0("#' @source \\url{", 
             url_1L_chr, "}\n")), "\"", db_1L_chr, "\""))
 }
-#' Write function documentation
-#' @description write_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function documentation.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fn_name_1L_chr Function name (a character vector of length one)
-#' @param fn_type_1L_chr Function type (a character vector of length one)
-#' @param fn Function (a function), Default: NULL
-#' @param fn_desc_1L_chr Function description (a character vector of length one), Default: 'NA'
-#' @param fn_out_type_1L_chr Function out type (a character vector of length one), Default: 'NA'
-#' @param fn_title_1L_chr Function title (a character vector of length one), Default: 'NA'
-#' @param example_1L_lgl Example (a logical vector of length one), Default: F
-#' @param export_1L_lgl Export (a logical vector of length one), Default: T
-#' @param class_name_1L_chr Class name (a character vector of length one), Default: ''
-#' @param details_1L_chr Details (a character vector of length one), Default: 'DETAILS'
-#' @param args_ls Arguments (a list), Default: NULL
-#' @param import_chr Import (a character vector), Default: 'NA'
-#' @param doc_in_class_1L_lgl Document in class (a logical vector of length one), Default: F
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param object_type_lup Object type (a lookup table), Default: NULL
-#' @return NULL
-#' @rdname write_fn_dmt
-#' @export 
-
-write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
-    fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
-    example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
-    details_1L_chr = "DETAILS", args_ls = NULL, import_chr = NA_character_, 
-    doc_in_class_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL) 
-{
-    if (is.null(abbreviations_lup)) 
-        data("abbreviations_lup", package = "ready4fun", envir = environment())
-    if (is.null(object_type_lup)) 
-        data("object_type_lup", package = "ready4fun", envir = environment())
-    fn_tags_spine_ls <- make_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
-        fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
-        fn = fn, example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
-        details_1L_chr = details_1L_chr, class_name_1L_chr = class_name_1L_chr, 
-        doc_in_class_1L_lgl = doc_in_class_1L_lgl)
-    new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
-        fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
-        fn_det_1L_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
-        args_ls = args_ls, fn, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup)
-    fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
-        new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
-        fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr, 
-        abbreviations_lup = abbreviations_lup)
-    writeLines(fn_tags_chr)
-}
 #' Write function file
 #' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a function file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
@@ -272,7 +224,6 @@ write_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -285,12 +236,13 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
             fn <- eval(parse(text = tb[[.x, 1]]))
             fn_chr <- deparse(fn)
             sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
-            write_fn_dmt(fn_name_1L_chr = tb[[.x, 1]], fn_type_1L_chr = "fn", 
-                fn = fn, fn_desc_1L_chr = tb[[.x, 3]], fn_out_type_1L_chr = tb[[.x, 
-                  6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
-                  7]], export_1L_lgl = T, class_name_1L_chr = "", 
-                details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
-                  as.list(), import_chr = NA_character_, doc_in_class_1L_lgl = F)
+            make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x, 1]], 
+                fn_type_1L_chr = "fn", fn = fn, fn_desc_1L_chr = tb[[.x, 
+                  3]], fn_out_type_1L_chr = tb[[.x, 6]], fn_title_1L_chr = tb[[.x, 
+                  2]], example_1L_lgl = tb[[.x, 7]], export_1L_lgl = T, 
+                class_name_1L_chr = "", details_1L_chr = tb[[.x, 
+                  4]], args_ls = tb$args_ls[[.x]] %>% as.list(), 
+                import_chr = NA_character_, doc_in_class_1L_lgl = F)
             if (tb[[.x, 5]] + document_unexp_lgl == 0) {
                 writeLines(paste0("#' @keywords internal"))
             }
@@ -327,7 +279,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -356,7 +307,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -537,7 +487,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -557,7 +506,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -588,7 +536,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -639,7 +586,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -659,7 +605,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 

@@ -53,10 +53,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                          paste0(ifelse(is.na(new_tag_chr_ls$desc_start_1L_chr),
                                        "FUNCTION_DESCRIPTION",
                                        new_tag_chr_ls$desc_start_1L_chr),
-                                ifelse(fn_type_1L_chr %in% c("fn","gen_std_s3_mthd",
+                                ifelse((fn_type_1L_chr %in% c("fn","gen_std_s3_mthd",
                                                           "meth_std_s3_mthd",
                                                           "gen_std_s4_mthd",
-                                                          "meth_std_s4_mthd"),
+                                                          "meth_std_s4_mthd") | startsWith(fn_type_1L_chr,"s3_")) ,
                                        "",
                                        fn_tags_spine_ls$ref_slot_1L_chr))) %>%
     stringr::str_replace("OUTPUT_DESCRIPTION",new_tag_chr_ls$output_txt_1L_chr)

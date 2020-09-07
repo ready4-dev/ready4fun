@@ -133,7 +133,7 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                                                                               "make_dmt_for_all_fns","make_fn_dmt_tbl","make_fn_type_lup","read_fns",
                                                                                               "rowbind_all_tbs_in_r4_obj","write_abbr_lup","write_all_tbs_in_tbs_r4_to_csvs",
                                                                                               "write_and_doc_ds","write_and_doc_fn_fls","write_dmtd_fn_type_lup","write_documented_fns",
-                                                                                              "write_fn_dmt","write_fn_type_dirs","write_ns_imps_to_desc",
+                                                                                              "make_lines_for_fn_dmt","write_fn_type_dirs","write_ns_imps_to_desc",
                                                                                               "write_pkg","write_pkg_setup_fls","write_pt_lup_db","write_std_imp",
                                                                                               "write_tb_to_csv","write_to_reset_pkg_files","write_ws"),
                                                                        force_false_chr = NA_character_#c("add_indef_artl_to_item", "get_fn_args_chr")

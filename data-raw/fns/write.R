@@ -218,7 +218,8 @@ write_fn_dmt <- function(fn_name_1L_chr,
                                    new_tag_chr_ls = new_tag_chr_ls,
                                    fn_name_1L_chr = fn_name_1L_chr,
                                    fn_type_1L_chr = fn_type_1L_chr,
-                                   import_chr = import_chr)
+                                   import_chr = import_chr,
+                               abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
 }
 write_fn_fl <- function(fns_dmt_tb,

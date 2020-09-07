@@ -9,7 +9,8 @@ update_fn_dmt(
   new_tag_chr_ls,
   fn_name_1L_chr,
   fn_type_1L_chr,
-  import_chr
+  import_chr,
+  abbreviations_lup = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ update_fn_dmt(
 \item{fn_type_1L_chr}{Function type (a character vector of length one)}
 
 \item{import_chr}{Import (a character vector)}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }
 \value{
 Function documentation (a character vector of length one)
@@ -29,4 +32,3 @@ Function documentation (a character vector of length one)
 \description{
 update_fn_dmt() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to an update function documentation. Function argument fn_tags_spine_ls specifies the object to be updated. Argument new_tag_chr_ls provides the object to be updated.The function returns a function documentation (a character vector of length one).
 }
-\keyword{internal}

@@ -42,7 +42,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                               new_tag_chr_ls,
                               fn_name_1L_chr,
                               fn_type_1L_chr,
-                              import_chr){
+                              import_chr,
+                          abbreviations_lup = NULL){
+  if(is.null(abbreviations_lup))
+    data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("FUNCTION_TITLE",fn_name_1L_chr) %>%
@@ -79,7 +82,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
   if(!is.null(new_tag_chr_ls$s3_class_main_1L_chr))
     fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
                                           names(new_tag_chr_ls$s3_class_main_1L_chr),
-                                          new_tag_chr_ls$s3_class_main_1L_chr)
+                                          new_tag_chr_ls$s3_class_main_1L_chr) %>%
+    stringr::str_replace(new_tag_chr_ls$s3_class_main_1L_chr,
+                         get_arg_obj_type_1L_chr(new_tag_chr_ls$s3_class_main_1L_chr,
+                                                 object_type_lup = abbreviations_lup))
   if(!is.na(import_chr))
     fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr,
                          "\n#' @import ",

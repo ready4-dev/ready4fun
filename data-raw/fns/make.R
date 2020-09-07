@@ -570,40 +570,64 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   }else{
     fn_args_chr <- NA_character_
   }
-  if(fn_type_1L_chr == "set_class" | startsWith(fn_type_1L_chr, "s3_"))
-    short_class_desc_1L_chr <- get_from_lup_obj(abbreviations_lup,match_var_nm_1L_chr = "short_name_chr", match_value_xx = fn_name_1L_chr, target_var_nm_1L_chr = "long_name_chr", evaluate_lgl = F)
-  if(fn_type_1L_chr == "set_class"){
-    desc_start_1L_chr <- "Create a new S4 object of the class:"
-    output_txt_1L_chr <- paste0("An S4 object of the ",short_class_desc_1L_chr)
+  if(fn_type_1L_chr == "set_class" | startsWith(fn_type_1L_chr, "s3_")){
+    if(fn_type_1L_chr %in% c("set_class","s3_valid_instance"))
+    short_class_desc_1L_chr <- get_from_lup_obj(abbreviations_lup,
+                                                match_var_nm_1L_chr = "short_name_chr",
+                                                match_value_xx = fn_name_1L_chr,
+                                                target_var_nm_1L_chr = "long_name_chr",
+                                                evaluate_lgl = F)
+    if(fn_type_1L_chr == "s3_valid_instance"){
+      s3_class_main_1L_chr <- short_class_desc_1L_chr %>% `names<-`(fn_name_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_unvalidated_instance"){
+      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_new_","") %>% `names<-`(fn_name_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_prototype"){
+      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_prototype_","") %>% `names<-`(fn_name_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_validator"){
+      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"validate_","") %>% `names<-`(fn_name_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_checker"){
+      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"is_","") %>% `names<-`(fn_name_1L_chr)
+    }
+    if(!fn_type_1L_chr %in% c("set_class","s3_valid_instance"))
+    short_class_desc_1L_chr <- get_from_lup_obj(abbreviations_lup,
+                                                match_var_nm_1L_chr = "short_name_chr",
+                                                match_value_xx = s3_class_main_1L_chr,
+                                                target_var_nm_1L_chr = "long_name_chr",
+                                                evaluate_lgl = F)
+    if(fn_type_1L_chr == "set_class"){
+      desc_start_1L_chr <- "Create a new S4 object of the class:"
+      output_txt_1L_chr <- paste0("An S4 object of the ",short_class_desc_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_valid_instance"){
+      desc_start_1L_chr <- paste0("Create a new valid instance of the ",short_class_desc_1L_chr)
+      output_txt_1L_chr <- paste0("A validated instance of the ",short_class_desc_1L_chr)
+      x_param_desc_1L_chr <- paste0("A prototype for the ",short_class_desc_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_unvalidated_instance"){
+      desc_start_1L_chr <- paste0("Create a new unvalidated instance of the ",short_class_desc_1L_chr)
+      x_param_desc_1L_chr <- paste0("A prototype for the ",short_class_desc_1L_chr)
+      output_txt_1L_chr <- paste0("An unvalidated instance of the ",short_class_desc_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_prototype"){
+      desc_start_1L_chr <- paste0("Create a new prototype for the ",short_class_desc_1L_chr)
+      output_txt_1L_chr <- paste0("A prototype for ",short_class_desc_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_validator"){
+      desc_start_1L_chr <- paste0("Validate an instance of the ",short_class_desc_1L_chr)
+      x_param_desc_1L_chr <- paste0("An unvalidated instance of the ",short_class_desc_1L_chr)
+      output_txt_1L_chr <- paste0("A prototpe for ",short_class_desc_1L_chr)
+    }
+    if(fn_type_1L_chr == "s3_checker"){
+      desc_start_1L_chr <- paste0("Check whether an object is a valid instance of the ",short_class_desc_1L_chr)
+      x_param_desc_1L_chr <- "An object of any type"
+      output_txt_1L_chr <- paste0("A logical value, TRUE if a valid instance of the ",short_class_desc_1L_chr)
+    }
   }
-  if(fn_type_1L_chr == "s3_valid_instance"){
-    desc_start_1L_chr <- paste0("Create a new valid instance of the ",short_class_desc_1L_chr)
-    output_txt_1L_chr <- paste0("A validated instance of the ",fn_name_1L_chr," class")
-    x_param_desc_1L_chr <- paste0("A prototype for the ",short_class_desc_1L_chr)
-  }
-  if(fn_type_1L_chr == "s3_unvalidated_instance"){
-    desc_start_1L_chr <- paste0("Create a new unvalidated instance of the ",short_class_desc_1L_chr)
-    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"new_","") %>% `names<-`(fn_name_1L_chr)
-    x_param_desc_1L_chr <- paste0("A prototype for the ",s3_class_main_1L_chr," class")
-    output_txt_1L_chr <- paste0("An unvalidated instance of the ",short_class_desc_1L_chr)
-  }
-  if(fn_type_1L_chr == "s3_prototype"){
-    desc_start_1L_chr <- paste0("Create a new prototype for the ",short_class_desc_1L_chr)
-    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_prototype_","") %>% `names<-`(fn_name_1L_chr)
-    output_txt_1L_chr <- paste0("A prototype for ",short_class_desc_1L_chr)
-  }
-  if(fn_type_1L_chr == "s3_validator"){
-    desc_start_1L_chr <- paste0("Validate an instance of the ",short_class_desc_1L_chr)
-    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"validate_","") %>% `names<-`(fn_name_1L_chr)
-    x_param_desc_1L_chr <- paste0("An unvalidated instance of the ",s3_class_main_1L_chr," class")
-    output_txt_1L_chr <- paste0("A prototpe for ",short_class_desc_1L_chr)
-  }
-  if(fn_type_1L_chr == "s3_checker"){
-    desc_start_1L_chr <- paste0("Check whether an object is a valid instance of the ",short_class_desc_1L_chr)
-    s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"is_","") %>% `names<-`(fn_name_1L_chr)
-    x_param_desc_1L_chr <- "An object of any type"
-    output_txt_1L_chr <- paste0("A logical value, TRUE if a valid instance of the ",short_class_desc_1L_chr)
-  }
+
   if(fn_type_1L_chr %in% c("gen_get_slot","meth_get_slot")){
     desc_start_1L_chr <- "Get the value of the slot "
     output_txt_1L_chr <- "A XXX ..."
@@ -638,7 +662,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     if(is.null(arg_desc_chr)){
       arg_desc_chr <- x_param_desc_1L_chr
     }else{
-      arg_desc_chr <- c(x_param_desc_1L_chr,arg_desc_chr)
+      arg_desc_chr <- c(x_param_desc_1L_chr,arg_desc_chr[names(arg_desc_chr)!="x"])
     }
   }
   new_fn_dmt_chr_ls <- list(desc_start_1L_chr = desc_start_1L_chr,

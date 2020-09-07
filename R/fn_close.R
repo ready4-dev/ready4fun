@@ -5,7 +5,6 @@
 #' @rdname close_open_sinks
 #' @export 
 #' @importFrom purrr walk
-#' @keywords internal
 close_open_sinks <- function () 
 {
     purrr::walk(1:length(sink.number()), ~sink(NULL))

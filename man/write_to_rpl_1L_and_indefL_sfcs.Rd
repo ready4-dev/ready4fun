@@ -20,4 +20,3 @@ write_to_rpl_1L_and_indefL_sfcs(
 \description{
 write_to_rpl_1L_and_indefL_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace length one and an indefinite length suffices.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
-\keyword{internal}

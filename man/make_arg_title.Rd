@@ -26,4 +26,3 @@ Title (a character vector)
 \description{
 make_arg_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument title.The function returns title (a character vector).
 }
-\keyword{internal}

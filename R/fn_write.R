@@ -239,12 +239,14 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
             fn_chr <- deparse(fn)
             sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
             make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x, 1]], 
-                fn_type_1L_chr = "fn", fn = fn, fn_desc_1L_chr = tb[[.x, 
-                  3]], fn_out_type_1L_chr = tb[[.x, 6]], fn_title_1L_chr = tb[[.x, 
-                  2]], example_1L_lgl = tb[[.x, 7]], export_1L_lgl = T, 
-                class_name_1L_chr = "", details_1L_chr = tb[[.x, 
-                  4]], args_ls = tb$args_ls[[.x]] %>% as.list(), 
-                import_chr = NA_character_, doc_in_class_1L_lgl = F)
+                fn_type_1L_chr = ifelse(tb$file_pfx_chr[1] == 
+                  "mthd_", "meth_std_s3_mthd", ifelse(tb$file_pfx_chr[1] == 
+                  "grp_", "gen_std_s3_mthd", "fn")), fn = fn, 
+                fn_desc_1L_chr = tb[[.x, 3]], fn_out_type_1L_chr = tb[[.x, 
+                  6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
+                  7]], export_1L_lgl = T, class_name_1L_chr = "", 
+                details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
+                  as.list(), import_chr = NA_character_, doc_in_class_1L_lgl = F)
             if (tb[[.x, 5]] + document_unexp_lgl == 0) {
                 writeLines(paste0("#' @keywords internal"))
             }

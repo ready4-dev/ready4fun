@@ -195,7 +195,11 @@ write_fn_fl <- function(fns_dmt_tb,
                                     fn_chr <- deparse(fn)
                                     sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
                                     make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
-                                                 fn_type_1L_chr = "fn",
+                                                 fn_type_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
+                                                                         "meth_std_s3_mthd",
+                                                                         ifelse(tb$file_pfx_chr[1]=="grp_",
+                                                                                "gen_std_s3_mthd",
+                                                                                "fn")),
                                                  fn = fn,
                                                  fn_desc_1L_chr = tb[[.x,3]],
                                                  fn_out_type_1L_chr = tb[[.x,6]],

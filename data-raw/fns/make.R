@@ -661,6 +661,19 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
                            "meth_std_s4_mthd")){
     desc_start_1L_chr <- fn_desc_1L_chr
     output_txt_1L_chr <- fn_out_type_1L_chr
+    if(fn_type_1L_chr == "meth_std_s3_mthd"){
+      x_param_desc_1L_chr <- paste0("An instance of ",
+                                    stringr::str_sub(fn_name_1L_chr,
+                                              start=(1+stringi::stri_locate_last_fixed(fn_name_1L_chr,".")[1,1])) %>%
+        ready4fun::get_from_lup_obj(abbreviations_lup,
+                                    match_var_nm_1L_chr = "short_name_chr",
+                                    match_value_xx = .,
+                                    target_var_nm_1L_chr = "long_name_chr",
+                                    evaluate_lgl = F))
+    }
+    if(fn_type_1L_chr == "gen_std_s3_mthd"){
+      x_param_desc_1L_chr <- "An object"
+    }
   }
   if(is.null(args_ls)){
     arg_desc_chr <- NULL

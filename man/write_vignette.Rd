@@ -12,6 +12,6 @@ write_vignette(package_1L_chr, pkg_rt_dir_chr = ".")
 \item{pkg_rt_dir_chr}{Package root directory (a character vector), Default: '.'}
 }
 \description{
-write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write vignette.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
 \keyword{internal}

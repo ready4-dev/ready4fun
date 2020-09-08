@@ -17,6 +17,6 @@ make_arg_desc(fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL)
 Argument description (a character vector)
 }
 \description{
-make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function returns an argument description (a character vector).
+make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument description.The function returns an argument description (a character vector).
 }
 \keyword{internal}

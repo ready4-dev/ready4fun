@@ -21,6 +21,6 @@ add_indefartls_to_phrases(
 Phrases (a character vector)
 }
 \description{
-add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated.The function returns phrases (a character vector).
+add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to Add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated.The function returns phrases (a character vector).
 }
 \keyword{internal}

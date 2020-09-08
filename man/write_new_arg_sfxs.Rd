@@ -30,6 +30,6 @@ write_new_arg_sfxs(
 Function arguments to rnm (a list)
 }
 \description{
-write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new an argument sfxs.The function returns a function arguments to rnm (a list).
+write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write new argument sfxs.The function returns a function arguments to rnm (a list).
 }
 \keyword{internal}

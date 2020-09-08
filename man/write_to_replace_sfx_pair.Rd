@@ -24,6 +24,6 @@ write_to_replace_sfx_pair(
 \item{dir_path_1L_chr}{Directory path (a character vector of length one), Default: 'NA'}
 }
 \description{
-write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to a replace suffix pair.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to replace suffix pair.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
 \keyword{internal}

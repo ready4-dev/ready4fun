@@ -39,6 +39,6 @@ make_new_fn_dmt(
 New function documentation (a list of character vectors)
 }
 \description{
-make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new a function documentation.The function returns new function documentation (a list of character vectors).
+make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make new function documentation.The function returns new function documentation (a list of character vectors).
 }
 \keyword{internal}

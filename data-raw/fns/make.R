@@ -665,7 +665,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
       x_param_desc_1L_chr <- paste0("An instance of ",
                                     stringr::str_sub(fn_name_1L_chr,
                                               start=(1+stringi::stri_locate_last_fixed(fn_name_1L_chr,".")[1,1])) %>%
-        ready4fun::get_from_lup_obj(abbreviations_lup,
+        get_from_lup_obj(abbreviations_lup,
                                     match_var_nm_1L_chr = "short_name_chr",
                                     match_value_xx = .,
                                     target_var_nm_1L_chr = "long_name_chr",

@@ -13,6 +13,5 @@ make_fn_nms(path_1L_chr = "data-raw")
 Functions (a list of character vectors of length one)
 }
 \description{
-make_fn_nms() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make a function names.The function returns a functions (a list of character vectors of length one).
+make_fn_nms() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function names.The function returns a functions (a list of character vectors of length one).
 }
-\keyword{internal}

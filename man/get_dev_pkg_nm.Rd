@@ -13,6 +13,5 @@ get_dev_pkg_nm(path_to_pkg_rt_1L_chr = ".")
 Development package name (a character vector of length one)
 }
 \description{
-get_dev_pkg_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get a development package name. Function argument path_to_pkg_rt_1L_chr specifies the where to look for the required object.The function returns a development package name (a character vector of length one).
+get_dev_pkg_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to Get development package name. Function argument path_to_pkg_rt_1L_chr specifies the where to look for the required object.The function returns a development package name (a character vector of length one).
 }
-\keyword{internal}

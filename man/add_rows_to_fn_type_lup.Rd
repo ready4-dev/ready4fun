@@ -33,6 +33,5 @@ add_rows_to_fn_type_lup(
 Updated function type lookup table (a tibble)
 }
 \description{
-add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to a function type. Function argument fn_type_lup_tb specifies the object to be updated.The function returns an updated function type lookup table (a tibble).
+add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to Add rows to function type lookup table. Function argument fn_type_lup_tb specifies the object to be updated.The function returns an updated function type lookup table (a tibble).
 }
-\keyword{internal}

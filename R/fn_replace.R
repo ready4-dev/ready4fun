@@ -1,5 +1,5 @@
 #' Replace abbreviation
-#' @description replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to a replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector).
+#' @description replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to Replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector).
 #' @param title_chr Title (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param collapse_lgl Collapse (a logical vector), Default: T
@@ -7,7 +7,6 @@
 #' @rdname replace_abbr
 #' @export 
 #' @importFrom purrr flatten_chr map_chr
-#' @keywords internal
 replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 

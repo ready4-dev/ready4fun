@@ -17,6 +17,6 @@ replace_abbr(title_chr, abbreviations_lup = NULL, collapse_lgl = T)
 Title (a character vector)
 }
 \description{
-replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to Replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector).
+replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated.The function returns title (a character vector).
 }
 \keyword{internal}

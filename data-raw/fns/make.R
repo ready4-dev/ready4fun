@@ -267,7 +267,7 @@ make_fn_desc_spine <- function(fn_name_1L_chr,
                                                         make_fn_title(fn_name_1L_chr,
                                                                       object_type_lup = abbreviations_lup,
                                                                       abbreviations_lup = abbreviations_lup,
-                                                                      is_generic_lgl = T),
+                                                                      is_generic_lgl = T) %>% tolower(),
                                                         # fn_name_1L_chr %>%
                                                         #   remove_obj_type_from_nm(abbreviations_lup = abbreviations_lup) %>%
                                                         #   add_indefartls_to_phrases(abbreviations_lup = abbreviations_lup),

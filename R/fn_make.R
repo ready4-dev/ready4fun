@@ -1,5 +1,5 @@
 #' Make argument description
-#' @description make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument description.The function returns an argument description (a character vector).
+#' @description make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description.The function returns an argument description (a character vector).
 #' @param fn_args_chr Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -19,7 +19,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
     return(arg_desc_chr)
 }
 #' Make argument description
-#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument description list.The function is called for its side effects and does not return a value.
+#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list.The function is called for its side effects and does not return a value.
 #' @param fn_nms_chr Function names (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -42,7 +42,7 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
     })
 }
 #' Make argument description spine
-#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument description spine.The function is called for its side effects and does not return a value.
+#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine.The function is called for its side effects and does not return a value.
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -72,7 +72,7 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
     return(arg_desc_spine)
 }
 #' Make argument title
-#' @description make_arg_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument title.The function returns title (a character vector).
+#' @description make_arg_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument title.The function returns title (a character vector).
 #' @param args_chr Arguments (a character vector)
 #' @param match_chr Match (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -104,7 +104,7 @@ make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbrevi
     return(title_chr)
 }
 #' Make argument type
-#' @description make_arg_type() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument type.The function returns an argument description (a character vector).
+#' @description make_arg_type() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type.The function returns an argument description (a character vector).
 #' @param fn_args_chr Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -139,7 +139,7 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
     return(arg_desc_chr)
 }
 #' Make argument type abbreviation
-#' @description make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument type abbreviation.The function returns an argument type abbreviation (a character vector).
+#' @description make_arg_type_abbr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type abbreviation.The function returns an argument type abbreviation (a character vector).
 #' @param fn_args_chr Function arguments (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -159,7 +159,7 @@ make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviatio
     return(arg_type_abbr_chr)
 }
 #' Make argument type abbreviation spine
-#' @description make_arg_type_abbr_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument type abbreviation spine.The function returns an argument type abbreviation spine (a character vector of length one).
+#' @description make_arg_type_abbr_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type abbreviation spine.The function returns an argument type abbreviation spine (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param lup_tb Lookup table (a tibble)
 #' @return Argument type abbreviation spine (a character vector of length one)
@@ -176,7 +176,7 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, lup_tb)
     return(arg_type_abbr_spine_1L_chr)
 }
 #' Make argument type
-#' @description make_arg_type_lup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make argument type lookup table list.The function returns a lookup table list (a list of lookup tables).
+#' @description make_arg_type_lup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type lookup table list.The function returns a lookup table list (a list of lookup tables).
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return Lookup table list (a list of lookup tables)
 #' @rdname make_arg_type_lup_ls
@@ -194,7 +194,7 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
     return(lup_ls)
 }
 #' Make documentation for all functions
-#' @description make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make documentation for all functions.The function returns all functions documentation (a tibble).
+#' @description make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions.The function returns all functions documentation (a tibble).
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
@@ -228,7 +228,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
     return(all_fns_dmt_tb)
 }
 #' Make function description
-#' @description make_fn_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function description.The function returns a function description (a character vector).
+#' @description make_fn_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description.The function returns a function description (a character vector).
 #' @param fns_chr Functions (a character vector)
 #' @param title_chr Title (a character vector)
 #' @param output_chr Output (a character vector)
@@ -274,7 +274,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_type_lup_tb = NULL,
     return(fn_desc_chr)
 }
 #' Make function description spine
-#' @description make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function description spine.The function returns a function description spine (a character vector of length one).
+#' @description make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description spine.The function returns a function description spine (a character vector of length one).
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one)
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
@@ -317,10 +317,10 @@ make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_type_lup_tb 
                 ~endsWith(fn_name_1L_chr, paste0(".", .x)))], 
             "."), paste0(" Specifically, this function implements an algorithm to ", 
             make_fn_title(fn_name_1L_chr, object_type_lup = abbreviations_lup, 
-                abbreviations_lup = abbreviations_lup, is_generic_lgl = T), 
-            "."))), ifelse(ifelse(is.null(fn_args_chr) | is.na(text_elements_chr[2]), 
-            F, T), paste0(" Function argument ", fn_args_chr[1], 
-            " specifies the ", update_first_word_case(text_elements_chr[2])), 
+                abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
+                tolower(), "."))), ifelse(ifelse(is.null(fn_args_chr) | 
+            is.na(text_elements_chr[2]), F, T), paste0(" Function argument ", 
+            fn_args_chr[1], " specifies the ", update_first_word_case(text_elements_chr[2])), 
             ""), ifelse(ifelse(is.null(fn_args_chr) | is.na(text_elements_chr[3]), 
             F, length(fn_args_chr) > 1), paste0(" Argument ", 
             fn_args_chr[2], " provides the ", update_first_word_case(text_elements_chr[3])), 
@@ -328,7 +328,7 @@ make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_type_lup_tb 
     return(fn_desc_spine_1L_chr)
 }
 #' Make function documentation spine
-#' @description make_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function documentation spine.The function returns a function documentation spine (a list of character vectors).
+#' @description make_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation spine.The function returns a function documentation spine (a list of character vectors).
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one), Default: 'NA'
@@ -364,7 +364,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
     return(fn_dmt_spine_chr_ls)
 }
 #' Make function documentation table
-#' @description make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function documentation table.The function returns a function documentation table (a tibble).
+#' @description make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table.The function returns a function documentation table (a tibble).
 #' @param fns_path_chr Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
 #' @param pkg_nm_1L_chr Package name (a character vector of length one)
@@ -403,7 +403,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
     return(fn_dmt_tbl_tb)
 }
 #' Make function documentation table template
-#' @description make_fn_dmt_tbl_tpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function documentation table template.The function returns a function documentation table (a tibble).
+#' @description make_fn_dmt_tbl_tpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table template.The function returns a function documentation table (a tibble).
 #' @param fns_path_chr Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
@@ -452,7 +452,7 @@ make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir
     return(fn_dmt_tbl_tb)
 }
 #' Make function names
-#' @description make_fn_nms() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function names.The function returns a functions (a list of character vectors of length one).
+#' @description make_fn_nms() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function names.The function returns a functions (a list of character vectors of length one).
 #' @param path_1L_chr Path (a character vector of length one), Default: 'data-raw'
 #' @return Functions (a list of character vectors of length one)
 #' @rdname make_fn_nms
@@ -469,7 +469,7 @@ make_fn_nms <- function (path_1L_chr = "data-raw")
     return(fns_1L_chr_ls)
 }
 #' Make function title
-#' @description make_fn_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function title.The function returns title (a character vector).
+#' @description make_fn_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function title.The function returns title (a character vector).
 #' @param fns_chr Functions (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -497,7 +497,7 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
     return(title_chr)
 }
 #' Make function type
-#' @description make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function type lookup table.The function returns a function type lookup table (a tibble).
+#' @description make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table.The function returns a function type lookup table (a tibble).
 #' @param fn_type_nm_chr Function type name (a character vector), Default: character(0)
 #' @param fn_type_desc_chr Function type description (a character vector), Default: character(0)
 #' @param first_arg_desc_chr First argument description (a character vector), Default: character(0)
@@ -520,7 +520,7 @@ make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = 
     return(fn_type_lup_tb)
 }
 #' Make function types
-#' @description make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function types.The function returns a functions type (a character vector).
+#' @description make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function types.The function returns a functions type (a character vector).
 
 #' @return Functions type (a character vector)
 #' @rdname make_fn_types
@@ -533,7 +533,7 @@ make_fn_types <- function ()
     return(fns_type_chr)
 }
 #' Make getter setter documentation spine
-#' @description make_gtr_str_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make getter setter documentation spine.The function returns a getter setter documentation spine (a list of character vectors).
+#' @description make_gtr_str_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make getter setter documentation spine.The function returns a getter setter documentation spine (a list of character vectors).
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param class_name_1L_chr Class name (a character vector of length one)
@@ -579,7 +579,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
     return(gtr_str_dmt_spine_chr_ls)
 }
 #' Make lines for function documentation
-#' @description make_lines_for_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make lines for function documentation.The function is called for its side effects and does not return a value.
+#' @description make_lines_for_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make lines for function documentation.The function is called for its side effects and does not return a value.
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn Function (a function), Default: NULL
@@ -626,7 +626,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     writeLines(fn_tags_chr)
 }
 #' Make new function documentation
-#' @description make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make new function documentation.The function returns new function documentation (a list of character vectors).
+#' @description make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new function documentation.The function returns new function documentation (a list of character vectors).
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_desc_1L_chr Function description (a character vector of length one), Default: 'NA'
@@ -775,7 +775,7 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
     return(new_fn_dmt_chr_ls)
 }
 #' Make object
-#' @description make_obj_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make object lookup table.The function returns an object (a tibble).
+#' @description make_obj_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table.The function returns an object (a tibble).
 
 #' @return Object (a tibble)
 #' @rdname make_obj_lup
@@ -822,7 +822,7 @@ make_obj_lup <- function ()
     return(obj_tb)
 }
 #' Make short long names vec
-#' @description make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make short long names vec.The function returns short and long vec (a character vector).
+#' @description make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vec.The function returns short and long vec (a character vector).
 #' @param long_vecs_chr Long vecs (a character vector), Default: character(0)
 #' @param short_vecs_chr Short vecs (a character vector), Default: character(0)
 #' @return Short and long vec (a character vector)
@@ -840,7 +840,7 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
     return(short_and_long_vec_chr)
 }
 #' Make standard function documentation spine
-#' @description make_std_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make standard function documentation spine.The function returns a standard function documentation spine (a list of character vectors).
+#' @description make_std_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make standard function documentation spine.The function returns a standard function documentation spine (a list of character vectors).
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one)
@@ -897,7 +897,7 @@ make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_c
     return(std_fn_dmt_spine_chr_ls)
 }
 #' Make undocumented functions directory
-#' @description make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make undocumented functions directory character vector.The function returns undocumented functions directory (a character vector).
+#' @description make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make undocumented functions directory character vector.The function returns undocumented functions directory (a character vector).
 #' @param path_1L_chr Path (a character vector of length one), Default: 'data-raw'
 #' @return Undocumented functions directory (a character vector)
 #' @rdname make_undmtd_fns_dir_chr

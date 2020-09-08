@@ -21,5 +21,5 @@ write_all_tbs_in_tbs_r4_to_csvs(
 \item{pfx_1L_chr}{Prefix (a character vector of length one)}
 }
 \description{
-write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles readyforwhatsnext s4 to comma separated variables files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

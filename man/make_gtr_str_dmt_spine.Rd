@@ -27,6 +27,6 @@ make_gtr_str_dmt_spine(
 Getter setter documentation spine (a list of character vectors)
 }
 \description{
-make_gtr_str_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make getter setter documentation spine.The function returns a getter setter documentation spine (a list of character vectors).
+make_gtr_str_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make getter setter documentation spine.The function returns a getter setter documentation spine (a list of character vectors).
 }
 \keyword{internal}

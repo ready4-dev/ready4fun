@@ -24,6 +24,6 @@ make_fn_desc_spine(
 Function description spine (a character vector of length one)
 }
 \description{
-make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function description spine.The function returns a function description spine (a character vector of length one).
+make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description spine.The function returns a function description spine (a character vector of length one).
 }
 \keyword{internal}

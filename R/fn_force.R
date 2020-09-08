@@ -1,5 +1,5 @@
 #' Force install of required package
-#' @description force_instl_of_reqd_pkg() is a Force function that checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition. Specifically, this function implements an algorithm to Force install of required package.The function is called for its side effects and does not return a value.
+#' @description force_instl_of_reqd_pkg() is a Force function that checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition. Specifically, this function implements an algorithm to force install of required package.The function is called for its side effects and does not return a value.
 #' @param package_nm_1L_chr Package name (a character vector of length one)
 #' @return NULL
 #' @rdname force_instl_of_reqd_pkg

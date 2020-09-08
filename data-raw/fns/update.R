@@ -91,7 +91,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                                   object_type_lup = abbreviations_lup,
                                                   abbreviations_lup = abbreviations_lup),
                                     " ",
-                                    get_arg_obj_type_1L_chr(new_tag_chr_ls$s3_class_main_1L_chr,
+                                    get_arg_obj_type(new_tag_chr_ls$s3_class_main_1L_chr,
                                                             object_type_lup = abbreviations_lup))
                              )
     }

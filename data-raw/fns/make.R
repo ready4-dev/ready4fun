@@ -37,7 +37,7 @@ make_arg_desc_spine <- function(argument_nm_1L_chr,
   if(is.na(argument_nm_1L_chr)){
     match_1L_chr <- character(0)
   }else{
-    match_1L_chr <- get_arg_obj_type_1L_chr(argument_nm_1L_chr,
+    match_1L_chr <- get_arg_obj_type(argument_nm_1L_chr,
                                             object_type_lup = object_type_lup)
   }
   arg_desc_spine <- ifelse(identical(match_1L_chr,character(0)),
@@ -212,7 +212,9 @@ make_fn_desc <-  function(fns_chr,
                                                                       " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                                                                       ""))),
                                                  paste0("The function returns ",
-                                                        fn_output_1L_chr %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),".")
+                                                        get_return_obj_nm(eval(parse(text=fn_name_1L_chr))) %>% make_arg_desc() %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
+                                                        #fn_output_1L_chr %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
+                                                        ".")
                                           )
                                    )
                                  }

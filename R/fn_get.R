@@ -1,13 +1,12 @@
 #' Get argument object type
-#' @description get_arg_obj_type_1L_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get argument object type length one character vector. Function argument argument_nm_1L_chr specifies the where to look for the required object.The function returns an argument object type (a character vector of length one).
+#' @description get_arg_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get argument object type. Function argument argument_nm_1L_chr specifies the where to look for the required object.The function returns an argument object type (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return Argument object type (a character vector of length one)
-#' @rdname get_arg_obj_type_1L_chr
+#' @rdname get_arg_obj_type
 #' @export 
 #' @importFrom dplyr filter mutate pull
-#' @keywords internal
-get_arg_obj_type_1L_chr <- function (argument_nm_1L_chr, object_type_lup = NULL) 
+get_arg_obj_type <- function (argument_nm_1L_chr, object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
         data("object_type_lup", package = "ready4fun", envir = environment())
@@ -32,7 +31,6 @@ get_arg_obj_type_1L_chr <- function (argument_nm_1L_chr, object_type_lup = NULL)
 #' @rdname get_dev_pkg_nm
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".") 
 {
     dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, 
@@ -46,7 +44,6 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
 #' @rdname get_fn_args
 #' @export 
 #' @importFrom purrr discard
-#' @keywords internal
 get_fn_args <- function (fn) 
 {
     fn_args_chr <- as.list(args(fn)) %>% names() %>% purrr::discard({
@@ -61,7 +58,6 @@ get_fn_args <- function (fn)
 #' @rdname get_fn_nms_in_file
 #' @export 
 #' @importFrom purrr map_lgl
-#' @keywords internal
 get_fn_nms_in_file <- function (path_1L_chr) 
 {
     source(path_1L_chr, local = T)
@@ -126,7 +122,6 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @rdname get_outp_obj_type
 #' @export 
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_outp_obj_type <- function (fns_chr) 
 {
     outp_obj_type_chr <- purrr::map_chr(fns_chr, ~{
@@ -145,7 +140,6 @@ get_outp_obj_type <- function (fns_chr)
 #' @export 
 #' @importFrom methods getSlots
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "") 
 {
     slots_ls <- className(fn_name_1L_chr, update_ns(package_1L_chr)) %>% 
@@ -160,7 +154,6 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @rdname get_return_obj_nm
 #' @export 
 #' @importFrom stringr str_replace str_sub
-#' @keywords internal
 get_return_obj_nm <- function (fn) 
 {
     fn_chr <- deparse(fn)

@@ -1,4 +1,4 @@
-get_arg_obj_type_1L_chr <- function(argument_nm_1L_chr,
+get_arg_obj_type <- function(argument_nm_1L_chr,
                                     object_type_lup = NULL){
   if(is.null(object_type_lup))
     data("object_type_lup", package="ready4fun",envir = environment())

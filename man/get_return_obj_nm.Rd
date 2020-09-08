@@ -13,5 +13,5 @@ get_return_obj_nm(fn)
 Return (a character vector of length one)
 }
 \description{
-get_return_obj_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return object name. Function argument fn specifies the where to look for the required object.The function returns return (a character vector of length one).
+get_return_obj_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return object name. Function argument fn specifies the where to look for the required object. The function returns return (a character vector of length one).
 }

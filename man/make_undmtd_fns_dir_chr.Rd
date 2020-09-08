@@ -13,5 +13,5 @@ make_undmtd_fns_dir_chr(path_1L_chr = "data-raw")
 Undocumented functions directory (a character vector)
 }
 \description{
-make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make undocumented functions directory character vector.The function returns undocumented functions directory (a character vector).
+make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make undocumented functions directory character vector. The function returns undocumented functions directory (a character vector).
 }

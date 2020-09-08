@@ -10,5 +10,5 @@ make_fn_types()
 Functions type (a character vector)
 }
 \description{
-make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function types.The function returns a functions type (a character vector).
+make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function types. The function returns a functions type (a character vector).
 }

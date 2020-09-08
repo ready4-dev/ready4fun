@@ -207,11 +207,11 @@ make_fn_desc <-  function(fns_chr,
                                                                          target_var_nm_1L_chr = "is_generic_lgl",
                                                                          evaluate_lgl = F),
                                                         "",
-                                                        paste0("The function is called for its side effects and does not return a value.",
+                                                        paste0(" The function is called for its side effects and does not return a value.",
                                                                ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn,#startsWith(fn_name_1L_chr,"write"),
                                                                       " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                                                                       ""))),
-                                                 paste0("The function returns ",
+                                                 paste0(" The function returns ",
                                                         {
                                                           ret_obj_nm_1L_chr <- get_return_obj_nm(eval(parse(text=fn_name_1L_chr)))
                                                           obj_type_1L_chr <- get_arg_obj_type(ret_obj_nm_1L_chr,

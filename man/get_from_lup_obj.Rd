@@ -7,8 +7,8 @@
 get_from_lup_obj(
   data_lookup_tb,
   match_value_xx,
-  match_var_nm_chr,
-  target_var_nm_chr,
+  match_var_nm_1L_chr,
+  target_var_nm_1L_chr,
   evaluate_lgl = TRUE
 )
 }
@@ -17,11 +17,11 @@ get_from_lup_obj(
 
 \item{match_value_xx}{Match value (an output object of multiple potential types)}
 
-\item{match_var_nm_chr}{Match var name (a character vector of length 1)}
+\item{match_var_nm_1L_chr}{Match var name (a character vector of length one)}
 
-\item{target_var_nm_chr}{Target var name (a character vector of length 1)}
+\item{target_var_nm_1L_chr}{Target var name (a character vector of length one)}
 
-\item{evaluate_lgl}{Evaluate (a logical vector of length 1), Default: TRUE}
+\item{evaluate_lgl}{Evaluate (a logical vector), Default: TRUE}
 }
 \value{
 Return object (an output object of multiple potential types)

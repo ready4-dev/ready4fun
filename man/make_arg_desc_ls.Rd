@@ -4,20 +4,16 @@
 \alias{make_arg_desc_ls}
 \title{Make argument description}
 \usage{
-make_arg_desc_ls(
-  fn_nms_chr_vec,
-  abbreviations_lup = NULL,
-  object_type_lup = NULL
-)
+make_arg_desc_ls(fn_nms_chr, abbreviations_lup = NULL, object_type_lup = NULL)
 }
 \arguments{
-\item{fn_nms_chr_vec}{Function names (a character vector)}
+\item{fn_nms_chr}{Function names (a character vector)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \description{
-make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.NA
+make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make an argument description.The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

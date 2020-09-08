@@ -4,14 +4,14 @@
 \alias{read_fns}
 \title{Read functions}
 \usage{
-read_fns(fns_dir_chr = "data-raw/fns/")
+read_fns(fns_dir_1L_chr = "data-raw/fns/")
 }
 \arguments{
-\item{fns_dir_chr}{Functions directory (a character vector of length 1), Default: 'data-raw/fns/'}
+\item{fns_dir_1L_chr}{Functions directory (a character vector of length one), Default: 'data-raw/fns/'}
 }
 \value{
 Functions path (a character vector)
 }
 \description{
-read_fns() is a Read function that reads an R script into memory. Specifically, this function implements an algorithm to read a functions. Function argument fns_dir_chr specifies the path to object.The function returns a functions path (a character vector).
+read_fns() is a Read function that reads an R script into memory. Specifically, this function implements an algorithm to read a functions. Function argument fns_dir_1L_chr specifies the path to object.The function returns a functions path (a character vector).
 }

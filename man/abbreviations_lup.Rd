@@ -5,7 +5,7 @@
 \alias{abbreviations_lup}
 \title{Common abbreviations lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 170 rows and 3 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 198 rows and 3 columns.
 }
 \source{
 \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
@@ -20,9 +20,9 @@ A lookup table for abbreviations commonly used in object names in the ready4funp
 A tibble
 
 \describe{
-  \item{short_name_chr}{Short name (a character vector)}
-  \item{long_name_chr}{Long name (a character vector)}
-  \item{plural_lgl}{Plural (a logical vector)}
+\item{short_name_chr}{Short name (a character vector)}
+\item{long_name_chr}{Long name (a character vector)}
+\item{plural_lgl}{Plural (a logical vector)}
 }
 }
 \keyword{datasets}

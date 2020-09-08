@@ -2,21 +2,27 @@
 % Please edit documentation in R/fn_write.R
 \name{write_tb_to_csv}
 \alias{write_tb_to_csv}
-\title{Write tibble to csv}
+\title{Write tibble to comma separated variables file}
 \usage{
-write_tb_to_csv(tbs_r4, slot_nm_chr, r4_name_chr, lup_dir_chr, pfx_chr)
+write_tb_to_csv(
+  tbs_r4,
+  slot_nm_1L_chr,
+  r4_name_1L_chr,
+  lup_dir_1L_chr,
+  pfx_1L_chr
+)
 }
 \arguments{
 \item{tbs_r4}{Tibbles (a readyforwhatsnext S4)}
 
-\item{slot_nm_chr}{Slot name (a character vector of length 1)}
+\item{slot_nm_1L_chr}{Slot name (a character vector of length one)}
 
-\item{r4_name_chr}{Readyforwhatsnext S4 name (a character vector of length 1)}
+\item{r4_name_1L_chr}{Readyforwhatsnext S4 name (a character vector of length one)}
 
-\item{lup_dir_chr}{Lookup table directory (a character vector of length 1)}
+\item{lup_dir_1L_chr}{Lookup table directory (a character vector of length one)}
 
-\item{pfx_chr}{Prefix (a character vector of length 1)}
+\item{pfx_1L_chr}{Prefix (a character vector of length one)}
 }
 \description{
-write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to csv.NA
+write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a tibble to a comma separated variables file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

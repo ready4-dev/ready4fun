@@ -4,13 +4,13 @@
 \alias{write_ns_imps_to_desc}
 \title{Write namespace imports to description}
 \usage{
-write_ns_imps_to_desc(dev_pkgs_chr_vec = NA_character_, incr_ver_lgl = T)
+write_ns_imps_to_desc(dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T)
 }
 \arguments{
-\item{dev_pkgs_chr_vec}{Dev packages (a character vector), Default: 'NA'}
+\item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
 
-\item{incr_ver_lgl}{Incr ver (a logical vector of length 1), Default: T}
+\item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 }
 \description{
-write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description.NA
+write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write a namespace imports to a description.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

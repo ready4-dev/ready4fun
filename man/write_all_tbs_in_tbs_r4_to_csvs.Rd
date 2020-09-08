@@ -2,19 +2,24 @@
 % Please edit documentation in R/fn_write.R
 \name{write_all_tbs_in_tbs_r4_to_csvs}
 \alias{write_all_tbs_in_tbs_r4_to_csvs}
-\title{Write all tibbles in tibbles readyforwhatsnext S4 to csvs}
+\title{Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files}
 \usage{
-write_all_tbs_in_tbs_r4_to_csvs(tbs_r4, r4_name_chr, lup_dir_chr, pfx_chr)
+write_all_tbs_in_tbs_r4_to_csvs(
+  tbs_r4,
+  r4_name_1L_chr,
+  lup_dir_1L_chr,
+  pfx_1L_chr
+)
 }
 \arguments{
 \item{tbs_r4}{Tibbles (a readyforwhatsnext S4)}
 
-\item{r4_name_chr}{Readyforwhatsnext S4 name (a character vector of length 1)}
+\item{r4_name_1L_chr}{Readyforwhatsnext S4 name (a character vector of length one)}
 
-\item{lup_dir_chr}{Lookup table directory (a character vector of length 1)}
+\item{lup_dir_1L_chr}{Lookup table directory (a character vector of length one)}
 
-\item{pfx_chr}{Prefix (a character vector of length 1)}
+\item{pfx_1L_chr}{Prefix (a character vector of length one)}
 }
 \description{
-write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to csvs.NA
+write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all a tibbles in a tibbles readyforwhatsnext S4 to comma separated variables files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }

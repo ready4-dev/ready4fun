@@ -1,4 +1,4 @@
-replace_abbr_chr <- function(title_chr,
+replace_abbr <- function(title_chr,
                              abbreviations_lup = NULL,
                              collapse_lgl = T){
   if(is.null(abbreviations_lup))
@@ -15,8 +15,8 @@ replace_abbr_chr <- function(title_chr,
                                      match_value_xx = ifelse(.x == abbreviations_lup$short_name_chr[match_lgl_vec],
                                                              .x,
                                                              abbreviations_lup$short_name_chr[match_lgl_vec]),
-                                     match_var_nm_chr = "short_name_chr",
-                                     target_var_nm_chr = "long_name_chr",
+                                     match_var_nm_1L_chr = "short_name_chr",
+                                     target_var_nm_1L_chr = "long_name_chr",
                                      evaluate_lgl = F),
                     .x),
              .x)
@@ -25,3 +25,5 @@ replace_abbr_chr <- function(title_chr,
     title_chr <- title_chr %>% paste0(collapse = " ")
   return(title_chr)
 }
+
+

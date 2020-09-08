@@ -5,7 +5,7 @@
 \alias{object_type_lup}
 \title{Object abbreviations lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 100 rows and 3 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 109 rows and 3 columns.
 }
 \source{
 \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
@@ -20,9 +20,9 @@ A lookup table to identify R object types from an abbreviation that can be used 
 A tibble
 
 \describe{
-  \item{short_name_chr}{Short name (a character vector)}
-  \item{long_name_chr}{Long name (a character vector)}
-  \item{plural_lgl}{Plural (a logical vector)}
+\item{short_name_chr}{Short name (a character vector)}
+\item{long_name_chr}{Long name (a character vector)}
+\item{plural_lgl}{Plural (a logical vector)}
 }
 }
 \keyword{datasets}

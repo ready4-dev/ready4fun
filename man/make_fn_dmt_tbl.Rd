@@ -42,5 +42,5 @@ output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 Function documentation table (a tibble)
 }
 \description{
-make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table. The function returns a function documentation table (a tibble).
+make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table. The function returns Function documentation table (a tibble).
 }

@@ -210,7 +210,9 @@ write_fn_fl <- function(fns_dmt_tb,
                                                  details_1L_chr = tb[[.x,4]],
                                                  args_ls = tb$args_ls[[.x]] %>% as.list(),
                                                  import_chr = NA_character_,
-                                                 doc_in_class_1L_lgl = F)
+                                                 doc_in_class_1L_lgl = F,
+                                                 abbreviations_lup = abbreviations_lup,
+                                                 object_type_lup = abbreviations_lup)
                                     if(tb[[.x,5]] + document_unexp_lgl == 0){
                                       writeLines(paste0("#' @keywords internal"))
                                     }

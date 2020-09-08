@@ -1,5 +1,5 @@
 #' Read functions
-#' @description read_fns() is a Read function that reads an R script into memory. Specifically, this function implements an algorithm to read functions. Function argument fns_dir_1L_chr specifies the path to object. The function returns a functions path (a character vector).
+#' @description read_fns() is a Read function that reads an R script into memory. Specifically, this function implements an algorithm to read functions. Function argument fns_dir_1L_chr specifies the path to object. The function returns Functions path (a character vector).
 #' @param fns_dir_1L_chr Functions directory (a character vector of length one), Default: 'data-raw/fns/'
 #' @return Functions path (a character vector)
 #' @rdname read_fns

@@ -39,6 +39,5 @@ make_fn_dmt_spine(
 Function documentation spine (a list of character vectors)
 }
 \description{
-make_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation spine. The function returns a function documentation spine (a list of character vectors).
+make_fn_dmt_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation spine. The function returns Function documentation spine (a list of character vectors).
 }
-\keyword{internal}

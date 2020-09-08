@@ -212,20 +212,9 @@ make_fn_desc <-  function(fns_chr,
                                                                       " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                                                                       ""))),
                                                  paste0(" The function returns ",
-                                                        {
-                                                          ret_obj_nm_1L_chr <- get_return_obj_nm(eval(parse(text=fn_name_1L_chr)))
-                                                          obj_type_1L_chr <- get_arg_obj_type(ret_obj_nm_1L_chr,
-                                                                           object_type_lup = abbreviations_lup)
-                                                          paste0(ret_obj_nm_1L_chr %>% make_arg_title(match_chr = obj_type_1L_chr,
-                                                                                               abbreviations_lup = abbreviations_lup,
-                                                                                               object_type_lup = abbreviations_lup) %>%
-                                                                   tolower() %>%
-                                                                   add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
-                                                                 " (",
-                                                                 obj_type_1L_chr %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
-                                                                 ")")
-                                                        },
-                                                        #fn_output_1L_chr %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
+                                                        make_ret_obj_desc(eval(parse(text=fn_name_1L_chr)),
+                                                                          abbreviations_lup = abbreviations_lup,
+                                                                          starts_sentence_1L_lgl = T),
                                                         ".")
                                           )
                                    )
@@ -580,11 +569,8 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   s3_class_main_1L_chr <- x_param_desc_1L_chr <- NULL
   if(!is.null(fn)){
     fn_args_chr <- get_fn_args(fn)
-    fn_out_type_1L_chr <- ifelse(is.na(fn_out_type_1L_chr),
-                                 get_return_obj_nm(fn) %>%
-                                   make_arg_desc(abbreviations_lup = abbreviations_lup,
-                                                 object_type_lup = object_type_lup),
-                                 fn_out_type_1L_chr)
+    fn_out_type_1L_chr <- make_ret_obj_desc(fn,
+                                            abbreviations_lup = abbreviations_lup)
   }else{
     fn_args_chr <- NA_character_
   }
@@ -749,6 +735,26 @@ make_obj_lup <- function(){
     dplyr::mutate(plural_lgl = F)
   return(obj_tb)
 }
+make_ret_obj_desc <- function(fn,
+                              abbreviations_lup,
+                              starts_sentence_1L_lgl = T){
+  ret_obj_nm_1L_chr <- get_return_obj_nm(fn)
+  if(is.na(ret_obj_nm_1L_chr)){
+    ret_obj_desc_1L_chr <- "NULL"
+  }else{
+    obj_type_1L_chr <- get_arg_obj_type(ret_obj_nm_1L_chr,
+                                        object_type_lup = abbreviations_lup)
+    ret_obj_desc_1L_chr <- paste0(ret_obj_nm_1L_chr %>% make_arg_title(match_chr = obj_type_1L_chr,
+                                                                       abbreviations_lup = abbreviations_lup,
+                                                                       object_type_lup = abbreviations_lup) %>%
+                                    add_indef_artl_to_item(abbreviations_lup = abbreviations_lup) %>%
+                                    ifelse(!starts_sentence_1L_lgl,tolower(.),.),
+                                  " (",
+                                  obj_type_1L_chr %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
+                                  ")")
+  }
+  return(ret_obj_desc_1L_chr)
+}
 make_short_long_nms_vec <- function(long_vecs_chr = character(0),
                                         short_vecs_chr = character(0)){
   short_vecs_chr <- paste0(short_vecs_chr,"_vec")
@@ -790,7 +796,7 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
     stringr::str_replace("@title ","@name ") %>%
     stringr::str_replace("@rdname fn",paste0("@rdname ",fn_name_1L_chr))
   fn_tags_1L_chr <- paste0("#' ",
-                        ifelse((startsWith(fn_type_1L_chr,"gen_")|fn_type_1L_chr=="fn"|startsWith(fn_type_1L_chr,"s3_")),fn_title_1L_chr,""),
+                        ifelse((startsWith(fn_type_1L_chr,"gen_")|fn_type_1L_chr %in% c("fn","meth_std_s3_mthd")|startsWith(fn_type_1L_chr,"s3_")),fn_title_1L_chr,""),
                         "\n",fn_tags_1L_chr)
   if(!fn_type_1L_chr %>% startsWith("s3") & !fn_type_1L_chr %in% c("fn",
                                                              "gen_std_s3_mthd",

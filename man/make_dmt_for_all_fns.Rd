@@ -30,5 +30,5 @@ force_false_chr = NA_character_), args_ls_ls = NULL)}
 All functions documentation (a tibble)
 }
 \description{
-make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions.The function returns all functions documentation tibble.
+make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions.The function returns all functions documentation (a tibble).
 }

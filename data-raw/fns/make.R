@@ -221,8 +221,9 @@ make_fn_desc <-  function(fns_chr,
                                                                                                object_type_lup = abbreviations_lup) %>%
                                                                    tolower() %>%
                                                                    add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
-                                                                 " ",
-                                                                 obj_type_1L_chr)
+                                                                 " (",
+                                                                 obj_type_1L_chr %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
+                                                                 ")")
                                                         },
                                                         #fn_output_1L_chr %>% tolower() %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup),
                                                         ".")

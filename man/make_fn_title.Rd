@@ -26,3 +26,4 @@ Title (a character vector)
 \description{
 make_fn_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to Make function title.The function returns title (a character vector).
 }
+\keyword{internal}

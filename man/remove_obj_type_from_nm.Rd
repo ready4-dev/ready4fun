@@ -26,3 +26,4 @@ Names (a character vector)
 \description{
 remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to Remove object type from name. Function argument nms_chr specifies the object to be updated. Argument object_type_lup provides the object to be updated.The function returns names (a character vector).
 }
+\keyword{internal}

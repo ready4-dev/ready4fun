@@ -21,3 +21,4 @@ Tibbles (a readyforwhatsnext S4)
 \description{
 rowbind_tbs_in_r4_obj() is a Rowbind function that performs custom rowbind operations on table objects. Specifically, this function implements an algorithm to Rowbind tibbles in readyforwhatsnext S4 object.The function returns a tibbles (a readyforwhatsnext s4).
 }
+\keyword{internal}

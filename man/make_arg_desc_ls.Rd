@@ -16,4 +16,3 @@ make_arg_desc_ls(fn_nms_chr, abbreviations_lup = NULL, object_type_lup = NULL)
 \description{
 make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list.The function is called for its side effects and does not return a value.
 }
-\keyword{internal}

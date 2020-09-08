@@ -1,5 +1,5 @@
 #' Add indefinite article to item
-#' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated.The function returns an indefinite item (a character vector).
+#' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated.The function returns an indefinite item character vector.
 #' @param phrase_chr Phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_1L_lgl Ignore phrases not in lookup table (a logical vector of length one), Default: T
@@ -8,7 +8,6 @@
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
-#' @keywords internal
 add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
@@ -37,7 +36,7 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore
     return(indefinite_item_chr)
 }
 #' Add indefinite articles to phrases
-#' @description add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated.The function returns phrases (a character vector).
+#' @description add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated.The function returns phrases character vector.
 #' @param abbreviated_phrase_1L_chr Abbreviated phrase (a character vector of length one)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param ignore_phrs_not_in_lup_1L_lgl Ignore phrases not in lookup table (a logical vector of length one), Default: T
@@ -45,7 +44,6 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore
 #' @rdname add_indefartls_to_phrases
 #' @export 
 #' @importFrom purrr map_chr discard
-#' @keywords internal
 add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup = NULL, 
     ignore_phrs_not_in_lup_1L_lgl = T) 
 {
@@ -77,7 +75,7 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
     return(phrases_chr)
 }
 #' Add plurals to abbreviation
-#' @description add_plurals_to_abbr_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. Function argument abbr_tb specifies the object to be updated.The function returns an abbreviation (a tibble).
+#' @description add_plurals_to_abbr_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. Function argument abbr_tb specifies the object to be updated.The function returns an abbreviation tibble.
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
@@ -87,7 +85,6 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom dplyr filter mutate_all mutate bind_rows arrange
 #' @importFrom purrr map_dfr map2_lgl
 #' @importFrom tibble tibble
-#' @keywords internal
 add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_1L_chr <- no_plural_chr
@@ -120,7 +117,7 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
     return(abbr_tb)
 }
 #' Add rows to function type
-#' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_type_lup_tb specifies the object to be updated.The function returns an updated function type lookup table (a tibble).
+#' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_type_lup_tb specifies the object to be updated.The function returns an updated function type lookup table tibble.
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup()
 #' @param fn_type_nm_chr Function type name (a character vector), Default: 'NA'
 #' @param fn_type_desc_chr Function type description (a character vector), Default: 'NA'
@@ -133,7 +130,6 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
 #' @export 
 #' @importFrom dplyr bind_rows arrange distinct
 #' @importFrom tibble tibble
-#' @keywords internal
 add_rows_to_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), fn_type_nm_chr = NA_character_, 
     fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     second_arg_desc_chr = NA_character_, is_generic_lgl = F, 

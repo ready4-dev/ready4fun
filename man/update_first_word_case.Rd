@@ -15,6 +15,5 @@ update_first_word_case(phrase_1L_chr, fn = tolower)
 Phrase (a character vector of length one)
 }
 \description{
-update_first_word_case() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update first word case. Function argument phrase_1L_chr specifies the object to be updated. Argument fn provides the object to be updated.The function returns a phrase (a character vector of length one).
+update_first_word_case() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update first word case. Function argument phrase_1L_chr specifies the object to be updated. Argument fn provides the object to be updated.The function returns a phrase character vector of length one.
 }
-\keyword{internal}

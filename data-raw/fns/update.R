@@ -79,6 +79,9 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                 })
 
   }
+  fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
+    stringr::str_replace("@param ... PARAM_DESCRIPTION",
+                         paste0("@param ... ", "Additional arguments"))
   if(!is.null(new_tag_chr_ls$s3_class_main_1L_chr)){
     if(fn_type_1L_chr == "s3_valid_instance"){
       fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,

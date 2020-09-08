@@ -1,5 +1,5 @@
 #' Write abbreviation
-#' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write abbreviation lookup table.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
 #' @param long_name_chr Long name (a character vector), Default: 'NA'
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
@@ -29,7 +29,7 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
         url_1L_chr = url_1L_chr, abbreviations_lup = .)
 }
 #' Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files
-#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles readyforwhatsnext s4 to comma separated variables files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
 #' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
 #' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
@@ -47,7 +47,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
             pfx_1L_chr = pfx_1L_chr))
 }
 #' Write and document dataset
-#' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write and document dataset.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param db PARAM_DESCRIPTION
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param db_1L_chr Database (a character vector of length one)
@@ -85,7 +85,7 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
     devtools::load_all()
 }
 #' Write and document function files
-#' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write and document function files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'
@@ -115,7 +115,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_d
         })
 }
 #' Write documented function type
-#' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write documented function type lookup table.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup()
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
@@ -138,7 +138,7 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
         url_1L_chr = url_1L_chr, abbreviations_lup = abbreviations_lup)
 }
 #' Write documented functions
-#' @description write_documented_fns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write documented functions.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_documented_fns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented functions.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param tmp_fn_dir_1L_chr Temporary function directory (a character vector of length one)
 #' @param R_dir_1L_chr R directory (a character vector of length one)
 #' @return NULL
@@ -164,7 +164,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
         files_chr)))
 }
 #' Write dataset documentation
-#' @description write_ds_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write dataset documentation.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_ds_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write dataset documentation.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param db PARAM_DESCRIPTION
 #' @param db_1L_chr Database (a character vector of length one)
 #' @param title_1L_chr Title (a character vector of length one)
@@ -180,7 +180,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -216,7 +215,7 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
             url_1L_chr, "}\n")), "\"", db_1L_chr, "\""))
 }
 #' Write function file
-#' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write function file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param document_unexp_lgl Document unexported (a logical vector), Default: T
@@ -225,7 +224,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -255,7 +253,7 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
     })
 }
 #' Write function type directories
-#' @description write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write function type directories.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function type directories.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_1L_chr Path (a character vector of length one), Default: 'data-raw'
 #' @return NULL
 #' @rdname write_fn_type_dirs
@@ -270,7 +268,7 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
     })
 }
 #' Write from temporary
-#' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write from temporary.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param temp_path_1L_chr Temp path (a character vector of length one)
 #' @param dest_path_1L_chr Dest path (a character vector of length one)
 #' @param edit_fn Edit (a function), Default: function(x) {
@@ -281,7 +279,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -297,7 +294,7 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
     close(fileConn)
 }
 #' Write new argument sfxs
-#' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write new argument sfxs.The function returns a function arguments to rnm (a list).
+#' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs.The function returns a function arguments to rnm (a list).
 #' @param arg_nms_chr Argument names (a character vector)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param dir_path_chr Directory path (a character vector)
@@ -310,7 +307,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -342,7 +338,7 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
     return(fn_args_to_rnm_ls)
 }
 #' Write namespace imports to description
-#' @description write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write namespace imports to description.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write namespace imports to description.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @return NULL
@@ -374,7 +370,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
         usethis::use_version()
 }
 #' Write package
-#' @description write_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write package.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param package_1L_chr Package (a character vector of length one)
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @return NULL
@@ -399,7 +395,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
         }, args_ls = list(package_1L_chr = package_1L_chr))
 }
 #' Write package setup files
-#' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write package setup files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param make_tmpl_vignette_1L_lgl Make tmpl vignette (a logical vector of length one), Default: F
@@ -438,7 +434,7 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr 
     }
 }
 #' Write prototype lookup table database
-#' @description write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write prototype lookup table database.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write prototype lookup table database.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @return NULL
 #' @rdname write_pt_lup_db
@@ -450,7 +446,7 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/db_pt_lup.R"))
 }
 #' Write standard import
-#' @description write_std_imp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write standard import.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_std_imp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write standard import.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @return NULL
 #' @rdname write_std_imp
@@ -464,7 +460,7 @@ write_std_imp <- function (R_dir_1L_chr = "R")
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/imp_mthds.R"))
 }
 #' Write tibble to comma separated variables file
-#' @description write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write tibble to comma separated variables file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write tibble to comma separated variables file.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
 #' @param slot_nm_1L_chr Slot name (a character vector of length one)
 #' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
@@ -485,13 +481,12 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
         "/", pfx_1L_chr, "_", slot_nm_1L_chr, ".csv"), row.names = F)
 }
 #' Write to remove collate
-#' @description write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to remove collate.The function returns a description (a character vector).
+#' @description write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to remove collate.The function returns a description (a character vector).
 #' @param description_chr Description (a character vector)
 #' @return Description (a character vector)
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -500,7 +495,7 @@ write_to_remove_collate <- function (description_chr)
     return(description_chr)
 }
 #' Write to replace function names
-#' @description write_to_replace_fn_nms() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to replace function names.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_to_replace_fn_nms() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace function names.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param rename_tb Rename (a tibble)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
 #' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")
@@ -511,7 +506,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -530,7 +524,7 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
     })
 }
 #' Write to replace suffix pair
-#' @description write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to replace suffix pair.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace suffix pair.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param args_nm_chr Arguments name (a character vector)
 #' @param sfxs_chr Sfxs (a character vector)
 #' @param replacements_chr Replacements (a character vector)
@@ -542,7 +536,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -558,7 +551,7 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
     rlang::exec(fn, path_chr, !!!args_ls)
 }
 #' Write to reset package files
-#' @description write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to reset package files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param delete_contents_of_1L_chr Delete contents of (a character vector of length one)
 #' @param package_1L_chr Package (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param package_dir_1L_chr Package directory (a character vector of length one), Default: getwd()
@@ -585,7 +578,7 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
     devtools::load_all()
 }
 #' Write to replace length one and indefinite length suffices
-#' @description write_to_rpl_1L_and_indefL_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write to replace length one and indefinite length suffices.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_to_rpl_1L_and_indefL_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace length one and indefinite length suffices.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param indefL_arg_nm_1L_chr Indefinite length argument name (a character vector of length one)
 #' @param file_path_1L_chr File path (a character vector of length one), Default: 'NA'
 #' @param dir_path_1L_chr Directory path (a character vector of length one), Default: 'NA'
@@ -593,7 +586,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -605,7 +597,7 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
         file_path_1L_chr = file_path_1L_chr, dir_path_1L_chr = dir_path_1L_chr)
 }
 #' Write vignette
-#' @description write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write vignette.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param package_1L_chr Package (a character vector of length one)
 #' @param pkg_rt_dir_chr Package root directory (a character vector), Default: '.'
 #' @return NULL
@@ -613,7 +605,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 
@@ -633,7 +624,7 @@ write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".")
         }, args_ls = list(package_1L_chr = package_1L_chr))
 }
 #' Write workspace
-#' @description write_ws() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to Write workspace.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_ws() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write workspace.The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_1L_chr Path (a character vector of length one)
 #' @return NULL
 #' @rdname write_ws

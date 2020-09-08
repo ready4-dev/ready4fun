@@ -15,6 +15,5 @@ get_arg_obj_type_1L_chr(argument_nm_1L_chr, object_type_lup = NULL)
 Argument object type (a character vector of length one)
 }
 \description{
-get_arg_obj_type_1L_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to Get argument object type length one character vector. Function argument argument_nm_1L_chr specifies the where to look for the required object.The function returns an argument object type (a character vector of length one).
+get_arg_obj_type_1L_chr() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get argument object type length one character vector. Function argument argument_nm_1L_chr specifies the where to look for the required object.The function returns an argument object type (a character vector of length one).
 }
-\keyword{internal}

@@ -10,6 +10,5 @@ unload_packages(package_chr)
 \item{package_chr}{Package (a character vector)}
 }
 \description{
-unload_packages() is an Unload function that performs a custom detaching of a package from the search path. Specifically, this function implements an algorithm to Unload packages. Function argument package_chr specifies the package(s) to be detached from the search path.The function is called for its side effects and does not return a value.
+unload_packages() is an Unload function that performs a custom detaching of a package from the search path. Specifically, this function implements an algorithm to unload packages. Function argument package_chr specifies the package(s) to be detached from the search path.The function is called for its side effects and does not return a value.
 }
-\keyword{internal}

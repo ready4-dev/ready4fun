@@ -346,6 +346,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
   if(incr_ver_1L_lgl){
     usethis::use_version()
   }
+  usethis::use_gpl3_license()
 }
 write_pt_lup_db <- function(R_dir_1L_chr = "R"){
   write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),

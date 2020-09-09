@@ -40,6 +40,7 @@ options(usethis.description = list(
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
                       incr_ver_1L_lgl = F,
                       delete_contents_of_R_dir = T)
+
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
@@ -168,4 +169,5 @@ usethis::use_github_action("pkgdown")
 # and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/
 # NOTE TO SELF: In vignette, include: https://docs.github.com/en/github/using-git/setting-your-username-in-git
 # (plus user.email)
+# Note to self - Ensure gitignore in default package bundle does not include docs/
 

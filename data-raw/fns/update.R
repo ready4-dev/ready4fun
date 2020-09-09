@@ -29,7 +29,7 @@ update_first_word_case <- function(phrase_1L_chr,
 }
 update_fn_dmt_with_slots <- function(fn_name_1L_chr,
                                          fn_dmt_1L_chr){
-  slots_chr <- get_r4_obj_slots_1L_chr(fn_name_1L_chr)
+  slots_chr <- get_r4_obj_slots(fn_name_1L_chr)
   fn_dmt_1L_chr <- purrr::reduce(1:length(slots_chr),
                               .init = fn_dmt_1L_chr,
                               ~ .x %>%

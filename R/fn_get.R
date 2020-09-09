@@ -6,7 +6,6 @@
 #' @rdname get_arg_obj_type
 #' @export 
 #' @importFrom dplyr filter mutate pull
-#' @keywords internal
 get_arg_obj_type <- function (argument_nm_1L_chr, object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
@@ -32,7 +31,6 @@ get_arg_obj_type <- function (argument_nm_1L_chr, object_type_lup = NULL)
 #' @rdname get_dev_pkg_nm
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".") 
 {
     dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, 
@@ -46,7 +44,6 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
 #' @rdname get_fn_args
 #' @export 
 #' @importFrom purrr discard
-#' @keywords internal
 get_fn_args <- function (fn) 
 {
     fn_args_chr <- as.list(args(fn)) %>% names() %>% purrr::discard({
@@ -61,7 +58,6 @@ get_fn_args <- function (fn)
 #' @rdname get_fn_nms_in_file
 #' @export 
 #' @importFrom purrr map_lgl
-#' @keywords internal
 get_fn_nms_in_file <- function (path_1L_chr) 
 {
     source(path_1L_chr, local = T)
@@ -119,6 +115,28 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
     }
     return(return_object_xx)
 }
+#' Get new function types
+#' @description get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).
+#' @param abbreviations_lup Abbreviations (a lookup table)
+#' @param fn_type_lup_tb Function type lookup table (a tibble)
+#' @param fn_nms_ls Function names (a list), Default: make_fn_nms()
+#' @param undmtd_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()
+#' @return New function types (a character vector)
+#' @rdname get_new_fn_types
+#' @export 
+#' @importFrom purrr map2 flatten_chr
+#' @importFrom stringr str_remove str_sub
+#' @importFrom tools toTitleCase
+get_new_fn_types <- function (abbreviations_lup, fn_type_lup_tb, fn_nms_ls = make_fn_nms(), 
+    undmtd_fns_dir_chr = make_undmtd_fns_dir_chr()) 
+{
+    new_fn_types_chr <- purrr::map2(fn_nms_ls[c(1, 3)], undmtd_fns_dir_chr[c(1, 
+        3)], ~stringr::str_remove(.x, paste0(.y, "/")) %>% stringr::str_sub(end = -3)) %>% 
+        purrr::flatten_chr() %>% c(get_fn_nms_in_file(paste0(undmtd_fns_dir_chr[2], 
+        "/generics.R"))) %>% unique() %>% sort() %>% make_fn_title(abbreviations_lup = abbreviations_lup, 
+        is_generic_lgl = T) %>% tools::toTitleCase() %>% setdiff(fn_type_lup_tb$fn_type_nm_chr)
+    return(new_fn_types_chr)
+}
 #' Get output object type
 #' @description get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).
 #' @param fns_chr Functions (a character vector)
@@ -126,7 +144,6 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @rdname get_outp_obj_type
 #' @export 
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_outp_obj_type <- function (fns_chr) 
 {
     outp_obj_type_chr <- purrr::map_chr(fns_chr, ~{
@@ -145,7 +162,6 @@ get_outp_obj_type <- function (fns_chr)
 #' @export 
 #' @importFrom methods getSlots
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "") 
 {
     slots_ls <- className(fn_name_1L_chr, update_ns(package_1L_chr)) %>% 
@@ -160,7 +176,6 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @rdname get_return_obj_nm
 #' @export 
 #' @importFrom stringr str_replace str_sub
-#' @keywords internal
 get_return_obj_nm <- function (fn) 
 {
     fn_chr <- deparse(fn)

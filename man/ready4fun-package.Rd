@@ -16,6 +16,14 @@ ecosystem.
 To learn more about ready4fun, start with the vignettes:
 \code{browseVignettes(package = "ready4fun")}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://readyforwhatsnext.github.io/ready4fun/}
+  \item \url{https://github.com/readyforwhatsnext/ready4fun}
+}
+
+}
 \author{
 \strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton@orygen.org.au} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
 

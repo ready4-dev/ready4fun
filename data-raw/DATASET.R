@@ -34,7 +34,8 @@ options(usethis.description = list(
   utils::person("VicHealth",role = c("fnd")),
   utils::person("Victoria University", role =c("fnd"))
   ),
-  License = usethis::use_gpl3_license("Orygen")
+  License = usethis::use_gpl3_license("Orygen"),
+  URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun") # Updated from first run
 ))
 # write_to_reset_pkg_files("R") # Deletes contents of R directory and resets DESCRIPTION and NAMESPACE files.
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
@@ -160,6 +161,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
 usethis::use_pkgdown()
 pkgdown::build_site()
 #usethis::use_github_action("pkgdown")
+#usethis::use_description(fields = list(URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun")))
+
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

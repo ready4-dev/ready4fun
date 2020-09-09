@@ -803,8 +803,8 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
                                                              "meth_std_s3_mthd",
                                                              "gen_std_s4_mthd",
                                                              "meth_std_s4_mthd"))
-    fn_tags_1L_chr <- update_fn_dmt_with_slots_chr(fn_name_1L_chr = fn_name_1L_chr,
-                                                fn_dmt_chr = fn_tags_1L_chr)
+    fn_tags_1L_chr <- update_fn_dmt_with_slots(fn_name_1L_chr = fn_name_1L_chr,
+                                                   fn_dmt_1L_chr = fn_tags_1L_chr)
   std_fn_dmt_spine_chr_ls <- list(fn_tags_1L_chr = fn_tags_1L_chr,
                                   ref_slot_1L_chr = fn_name_1L_chr)
   return(std_fn_dmt_spine_chr_ls)

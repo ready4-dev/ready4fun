@@ -159,7 +159,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # 12. Create Website
 usethis::use_pkgdown()
 pkgdown::build_site()
-usethis::use_github_action("pkgdown")
+#usethis::use_github_action("pkgdown")
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

@@ -10,3 +10,4 @@
 Implements: https://github.com/sckott/analogsea/issues/32
 and https://github.com/rstudio/ggvis/blob/master/R/pipe.R.
 }
+\keyword{internal}

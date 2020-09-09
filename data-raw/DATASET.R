@@ -34,7 +34,7 @@ options(usethis.description = list(
   utils::person("VicHealth",role = c("fnd")),
   utils::person("Victoria University", role =c("fnd"))
   ),
-  License = usethis::use_gpl3_license()
+  License = usethis::use_gpl3_license("Orygen")
 ))
 # write_to_reset_pkg_files("R") # Deletes contents of R directory and resets DESCRIPTION and NAMESPACE files.
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.

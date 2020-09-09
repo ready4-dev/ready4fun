@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^ready4fun\.Rproj$
 ^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

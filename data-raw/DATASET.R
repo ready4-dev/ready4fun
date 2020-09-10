@@ -41,7 +41,7 @@ options(usethis.description = list(
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
                       incr_ver_1L_lgl = F,
                       delete_contents_of_R_dir = T)
-
+usethis::use_gpl3_license("Orygen")
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%

@@ -1,4 +1,4 @@
-# ready4fun
+# ready4fun <img src="pkgdown/favicon/apple-touch-icon-120x120.png" align="right" />
 
 This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE. 
 
@@ -12,4 +12,5 @@ devtools::install_github("readyforwhatsnext/ready4fun")
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.com/readyforwhatsnext/ready4fun.svg?branch=master)](https://travis-ci.com/readyforwhatsnext/ready4fun)
 <!-- badges: end -->

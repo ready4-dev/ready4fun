@@ -2,3 +2,17 @@ urls:
   reference: https://readyforwhatsnext.github.io/readyforwhatsnext/
 development:
   mode: auto
+reference:
+- title: "Classes"
+- title: "Datasets"
+- contents:
+  - abbreviations_lup
+  - fn_type_lup_tb
+  - object_type_lup
+- title: "Functions"
+- contents:
+  - add_rows_to_fn_type_lup
+- title: "Generics"
+- title: "Methods"
+- contents:
+  - unload_packages

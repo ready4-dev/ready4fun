@@ -42,6 +42,14 @@ write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this s
                       incr_ver_1L_lgl = F,
                       delete_contents_of_R_dir = T)
 usethis::use_gpl3_license("Orygen")
+usethis::use_pkgdown()
+# Edit README.md - insert badges container
+usethis::use_travis()
+#Copy Icon into man > figures
+pkgdown::build_favicons()
+# Copy faviconb-120*120 into man > figures
+usethis::use_lifecycle()
+usethis::use_lifecycle_badge("experimental")
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
@@ -158,12 +166,9 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # usethis::use_vignette("ready4fun")
 # devtools::document()
 # 12. Create Website
-usethis::use_pkgdown()
-usethis::use_lifecycle()
-usethis::use_lifecycle_badge("experimental")
 pkgdown::build_site()
 # usethis::use_gpl3_license("Orygen")
-usethis::use_travis()
+
 #usethis::use_github_action("pkgdown")
 #usethis::use_description(fields = list(URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun")))
 

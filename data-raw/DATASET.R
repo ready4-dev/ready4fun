@@ -18,7 +18,9 @@ fns_path_chr <- read_fns(fns_dir_1L_chr)
 options(usethis.description = list(
   Package = get_dev_pkg_nm(),
   Title =  "Readyforwhatsnext Function Authoring And Documentation Tools",
-  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the readyforwhatsnext ecosystem.",
+  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the readyforwhatsnext ecosystem.
+  This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
+  While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
   `Authors@R` = c(utils::person(
     given = "Matthew",family = "Hamilton", email =
       "matthew.hamilton@orygen.org.au",role = c("aut",
@@ -35,18 +37,41 @@ options(usethis.description = list(
   utils::person("Victoria University", role =c("fnd"))
   ),
   License = usethis::use_gpl3_license("Orygen"),
-  URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun") # Updated from first run
+  URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun, https://readyforwhatsnext.github.io/readyforwhatsnext/") # Updated from first run
 ))
-# write_to_reset_pkg_files("R") # Deletes contents of R directory and resets DESCRIPTION and NAMESPACE files.
 write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
                       incr_ver_1L_lgl = F,
                       delete_contents_of_R_dir = T)
 usethis::use_gpl3_license("Orygen")
 usethis::use_pkgdown()
-# Edit README.md - insert badges container
+path_to_pkg_logo_1L_chr <- "../../../../Documentation/Images/ready4fun-logo/default.png"
+if(!is.na(path_to_pkg_logo_1L_chr)){
+  if(!dir.exists("man/figures/"))
+    dir.create("man/figures/")
+  file.copy(path_to_pkg_logo_1L_chr,
+            "man/figures/logo.png")
+}
+writeLines(c(paste0("# ",get_dev_pkg_nm(),ifelse(is.na(path_to_pkg_logo_1L_chr),
+                                                 "",
+                                                 " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
+             "",
+             paste0("## ",packageDescription(get_dev_pkg_nm(),fields ="Title") %>% stringr::str_replace_all("\n"," ")),
+             "",
+             packageDescription(get_dev_pkg_nm(),fields ="Description"),
+             "",
+             "If you plan on testing this software you can install it by running the following commands in your R console:",
+             "",
+             "install.packages(\"devtools\")",
+             "devtools::install_github(\"readyforwhatsnext/ready4fun\")",
+             "<!-- badges: start -->",
+             "<!-- badges: end -->" ),
+           con = "README.md")
 usethis::use_travis()
-#Copy Icon into man > figures
-pkgdown::build_favicons()
+if(!is.na(path_to_pkg_logo_1L_chr)){
+  pkgdown::build_favicons()
+  file.copy("pkgdown/favicon/apple-touch-icon-120x120.png",
+            "man/figures/fav120.png")
+}
 # Copy faviconb-120*120 into man > figures
 usethis::use_lifecycle()
 usethis::use_lifecycle_badge("experimental")
@@ -166,6 +191,23 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # usethis::use_vignette("ready4fun")
 # devtools::document()
 # 12. Create Website
+
+
+writeLines(c("development:",
+             "  mode: auto",
+             "reference:",
+             "- title: \"Datasets\"",
+             "- contents:",
+             paste0("  - ",data(package=get_dev_pkg_nm())$results[,3]),
+           {
+             fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == "fn_") %>%
+               dplyr::pull(fns_chr)
+             if(length(fns_chr)>0)
+               c( "- title: \"Functions\"",
+                  "- contents:",
+                  paste0("  - ",fns_chr))
+           }),
+           con = "_pkgdown.yml")
 pkgdown::build_site()
 # usethis::use_gpl3_license("Orygen")
 

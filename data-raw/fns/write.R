@@ -108,7 +108,8 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                         paste0("  - ",fns_chr))
                  }),
                con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
-    pkgdown::build_site()
+    usethis::use_build_ignore(files = "_pkgdown.yml")
+    #pkgdown::build_site()
   }
 }
 write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
@@ -399,10 +400,13 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
              con = "README.md")
   if(use_travis_1L_lgl){
     usethis::use_travis()
-    sink(file = paste0(path_to_pkg_rt_1L_chr,
-                       "/.travis.yml"), append = T)
-    writeLines("warnings_are_errors: false")
-    close_open_sinks()
+    write_from_tmp(system.file("travis_extras.yml",
+                               package = "ready4fun"),
+                   paste0(path_to_pkg_rt_1L_chr,
+                          "/.travis.yml"),
+                   edit_fn = function(x,y){c(readLines(y),x)},
+                   args_ls = list(y=paste0(path_to_pkg_rt_1L_chr,
+                                           "/.travis.yml")))
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()

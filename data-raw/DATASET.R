@@ -1,5 +1,11 @@
 # NOTE: To install, deprecated rtools is sought. Users with R>4.0 need the following line in Renviron: PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
 #
+# WS Set-up
+# remotes::install_github("ropenscilabs/travis")
+# travis::browse_travis_token()
+# # Add token to R environ
+# travis::use_travis_deploy()
+# Ensure gh-pages branch on repo: https://sahirbhatnagar.com/blog/2020/03/03/creating-a-website-for-your-r-package/
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
 #
@@ -154,6 +160,7 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
 # NOTE: To update, make call to update_fns_dmt_tb
 #
 # 10. Write documented functions to R directory.
+
 ## Note files to be rewritten cannot be open in RStudio.
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",

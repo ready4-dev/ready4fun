@@ -159,6 +159,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # devtools::document()
 # 12. Create Website
 usethis::use_pkgdown()
+usethis::use_lifecycle()
+usethis::use_lifecycle_badge("experimental")
 pkgdown::build_site()
 # usethis::use_gpl3_license("Orygen")
 usethis::use_travis()

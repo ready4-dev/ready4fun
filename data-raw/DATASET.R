@@ -62,17 +62,19 @@ writeLines(c(paste0("# ",get_dev_pkg_nm(),ifelse(is.na(path_to_pkg_logo_1L_chr),
              "If you plan on testing this software you can install it by running the following commands in your R console:",
              "",
              "install.packages(\"devtools\")",
+             "",
              "devtools::install_github(\"readyforwhatsnext/ready4fun\")",
+             "",
              "<!-- badges: start -->",
              "<!-- badges: end -->" ),
            con = "README.md")
-usethis::use_travis()
-if(!is.na(path_to_pkg_logo_1L_chr)){
+if(use_travis_lgl)
+  usethis::use_travis()
+if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists("pkgdown/favicon/apple-touch-icon-120x120.png")){
   pkgdown::build_favicons()
   file.copy("pkgdown/favicon/apple-touch-icon-120x120.png",
             "man/figures/fav120.png")
 }
-# Copy faviconb-120*120 into man > figures
 usethis::use_lifecycle()
 usethis::use_lifecycle_badge("experimental")
 ## INTERACTIVE INPUT
@@ -191,8 +193,6 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # usethis::use_vignette("ready4fun")
 # devtools::document()
 # 12. Create Website
-
-
 writeLines(c("development:",
              "  mode: auto",
              "reference:",

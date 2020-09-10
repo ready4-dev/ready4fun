@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Readyforwhatsnext Function Authoring And Documentation
     Tools
-Version: 0.0.0.9001
+Version: 0.0.1
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",

@@ -1,2 +1,4 @@
 urls:
   reference: https://readyforwhatsnext.github.io/readyforwhatsnext/
+development:
+  mode: auto

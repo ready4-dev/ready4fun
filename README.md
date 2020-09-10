@@ -21,7 +21,9 @@ testing. If you have any questions, please contact the authors
 If you plan on testing this software you can install it by running the following commands in your R console:
 
 install.packages("devtools")
+
 devtools::install_github("readyforwhatsnext/ready4fun")
+
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->

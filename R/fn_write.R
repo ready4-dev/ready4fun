@@ -88,18 +88,22 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
 #' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/Developer'
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param update_pkgdown_1L_lgl Update pkgdown (a logical vector of length one), Default: T
 #' @return NULL
 #' @rdname write_and_doc_fn_fls
 #' @export 
 #' @importFrom purrr walk2
 #' @importFrom devtools document load_all build_manual
-write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
+#' @importFrom dplyr filter pull
+write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = ".", 
+    path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
-    make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_) 
+    make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
 {
     purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 
         c(T, F), ~{
@@ -113,6 +117,17 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_user_d
             if (make_pdfs_1L_lgl) 
                 devtools::build_manual(path = .x)
         })
+    if (update_pkgdown_1L_lgl) {
+        writeLines(c("development:", "  mode: auto", "reference:", 
+            "- title: \"Datasets\"", "- contents:", paste0("  - ", 
+                data(package = get_dev_pkg_nm())$results[, 3]), 
+            {
+                fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & 
+                  file_pfx_chr == "fn_") %>% dplyr::pull(fns_chr)
+                if (length(fns_chr) > 0) c("- title: \"Functions\"", 
+                  "- contents:", paste0("  - ", fns_chr))
+            }), con = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"))
+    }
 }
 #' Write documented function type
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -401,16 +416,24 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
-#' @param make_tmpl_vignette_1L_lgl Make tmpl vignette (a logical vector of length one), Default: F
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
+#' @param copyright_holders_chr Copyright holders (a character vector)
+#' @param use_travis_1L_lgl Use travis (a logical vector of length one), Default: T
+#' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
+#' @param github_repo_1L_chr Github repo (a character vector of length one)
+#' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
 #' @importFrom devtools load_all
-#' @importFrom usethis use_version
+#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_travis use_lifecycle use_lifecycle_badge
+#' @importFrom stringr str_replace_all
+#' @importFrom pkgdown build_favicons
 write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = get_dev_pkg_nm(), 
-    make_tmpl_vignette_1L_lgl = F, incr_ver_1L_lgl = T, delete_contents_of_R_dir = F) 
+    incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
+    use_travis_1L_lgl = T, path_to_pkg_logo_1L_chr = NA_character_, 
+    github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental") 
 {
     if (delete_contents_of_R_dir) 
         write_to_reset_pkg_files(paste0(path_to_pkg_rt_1L_chr, 
@@ -430,11 +453,44 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr 
         writeLines(desc_1L_chr)
         close_open_sinks()
     }
-    if (make_tmpl_vignette_1L_lgl) 
+    if (!file.exists(paste0(path_to_pkg_rt_1L_chr, "/vignettes/", 
+        get_dev_pkg_nm(), ".Rmd"))) 
         write_vignette(dev_pkg_nm_1L_chr, pkg_rt_dir_chr = path_to_pkg_rt_1L_chr)
     if (incr_ver_1L_lgl) {
         usethis::use_version()
     }
+    usethis::use_gpl3_license(copyright_holders_chr)
+    usethis::use_pkgdown()
+    if (!is.na(path_to_pkg_logo_1L_chr)) {
+        if (!dir.exists(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))) 
+            dir.create(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))
+        file.copy(path_to_pkg_logo_1L_chr, paste0(path_to_pkg_rt_1L_chr, 
+            "/man/figures/logo.png"))
+    }
+    writeLines(c(paste0("# ", get_dev_pkg_nm(), ifelse(is.na(path_to_pkg_logo_1L_chr), 
+        "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
+        "", paste0("## ", packageDescription(get_dev_pkg_nm(), 
+            fields = "Title") %>% stringr::str_replace_all("\n", 
+            " ")), "", packageDescription(get_dev_pkg_nm(), fields = "Description"), 
+        "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
+        "", "install.packages(\"devtools\")", "", paste0("devtools::install_github(\"", 
+            github_repo_1L_chr, "\")"), "", "<!-- badges: start -->", 
+        "<!-- badges: end -->"), con = "README.md")
+    if (use_travis_1L_lgl) {
+        usethis::use_travis()
+        sink(file = paste0(path_to_pkg_rt_1L_chr, "/.travis.yml"), 
+            append = T)
+        writeLines("warnings_are_errors: false")
+        close_open_sinks()
+    }
+    if (!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr, 
+        "/pkgdown/favicon/apple-touch-icon-120x120.png"))) {
+        pkgdown::build_favicons()
+        file.copy(paste0(path_to_pkg_rt_1L_chr, "/pkgdown/favicon/apple-touch-icon-120x120.png"), 
+            paste0(path_to_pkg_rt_1L_chr, "/man/figures/fav120.png"))
+    }
+    usethis::use_lifecycle()
+    usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
 }
 #' Write prototype lookup table database
 #' @description write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write prototype lookup table database. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

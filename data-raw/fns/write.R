@@ -71,10 +71,12 @@ write_and_doc_ds <- function(db,
 }
 write_and_doc_fn_fls <- function(fns_dmt_tb,
                                    r_dir_1L_chr = "R",
+                                 path_to_pkg_rt_1L_chr = ".",
                                    path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User",
                                    path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
                                    make_pdfs_1L_lgl = T,
-                                 dev_pkgs_chr = NA_character_){
+                                 dev_pkgs_chr = NA_character_,
+                                 update_pkgdown_1L_lgl = T){
   purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr,
                     path_to_user_dmt_dir_1L_chr),
                c(T,F),
@@ -90,7 +92,23 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  if(make_pdfs_1L_lgl)
                  devtools::build_manual(path = .x)
                })
-
+  if(update_pkgdown_1L_lgl){
+    writeLines(c("development:",
+                 "  mode: auto",
+                 "reference:",
+                 "- title: \"Datasets\"",
+                 "- contents:",
+                 paste0("  - ",data(package=get_dev_pkg_nm())$results[,3]),
+                 {
+                   fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == "fn_") %>%
+                     dplyr::pull(fns_chr)
+                   if(length(fns_chr)>0)
+                     c( "- title: \"Functions\"",
+                        "- contents:",
+                        paste0("  - ",fns_chr))
+                 }),
+               con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
+  }
 }
 write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    overwrite_1L_lgl = T,
@@ -323,9 +341,13 @@ write_pkg <- function(package_1L_chr,
 }
 write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                                   dev_pkg_nm_1L_chr = get_dev_pkg_nm(),
-                                  make_tmpl_vignette_1L_lgl = F,
                                   incr_ver_1L_lgl = T,
-                                delete_contents_of_R_dir = F){
+                                delete_contents_of_R_dir = F,
+                                copyright_holders_chr,
+                                use_travis_1L_lgl = T,
+                                path_to_pkg_logo_1L_chr = NA_character_,
+                                github_repo_1L_chr,
+                                lifecycle_stage_1L_chr = "experimental"){
   if(delete_contents_of_R_dir)
     write_to_reset_pkg_files(paste0(path_to_pkg_rt_1L_chr,"/R"))
   update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
@@ -341,12 +363,53 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
     writeLines(desc_1L_chr)
     close_open_sinks()
   }
-  if(make_tmpl_vignette_1L_lgl)
+  if(!file.exists(paste0(path_to_pkg_rt_1L_chr,
+                         "/vignettes/",
+                         get_dev_pkg_nm(),
+                         ".Rmd")))
     write_vignette(dev_pkg_nm_1L_chr, pkg_rt_dir_chr = path_to_pkg_rt_1L_chr)
   if(incr_ver_1L_lgl){
     usethis::use_version()
   }
-  #usethis::use_gpl3_license()
+  usethis::use_gpl3_license(copyright_holders_chr)
+  usethis::use_pkgdown()
+  if(!is.na(path_to_pkg_logo_1L_chr)){
+    if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
+      dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
+    file.copy(path_to_pkg_logo_1L_chr,
+              paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
+  }
+  writeLines(c(paste0("# ",get_dev_pkg_nm(),ifelse(is.na(path_to_pkg_logo_1L_chr),
+                                                   "",
+                                                   " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
+               "",
+               paste0("## ",packageDescription(get_dev_pkg_nm(),fields ="Title") %>% stringr::str_replace_all("\n"," ")),
+               "",
+               packageDescription(get_dev_pkg_nm(),fields ="Description"),
+               "",
+               "If you plan on testing this software you can install it by running the following commands in your R console:",
+               "",
+               "install.packages(\"devtools\")",
+               "",
+               paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
+               "",
+               "<!-- badges: start -->",
+               "<!-- badges: end -->" ),
+             con = "README.md")
+  if(use_travis_1L_lgl){
+    usethis::use_travis()
+    sink(file = paste0(path_to_pkg_rt_1L_chr,
+                       "/.travis.yml"), append = T)
+    writeLines("warnings_are_errors: false")
+    close_open_sinks()
+  }
+  if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
+    pkgdown::build_favicons()
+    file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
+              paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
+  }
+  usethis::use_lifecycle()
+  usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
 }
 write_pt_lup_db <- function(R_dir_1L_chr = "R"){
   write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),

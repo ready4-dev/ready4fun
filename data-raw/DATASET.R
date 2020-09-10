@@ -39,44 +39,14 @@ options(usethis.description = list(
   License = usethis::use_gpl3_license("Orygen"),
   URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun, https://readyforwhatsnext.github.io/readyforwhatsnext/") # Updated from first run
 ))
-write_pkg_setup_fls(#make_tmpl_vignette_lgl = T, First time script is run this should be un-commented then switched off again.
-                      incr_ver_1L_lgl = F,
-                      delete_contents_of_R_dir = T)
-usethis::use_gpl3_license("Orygen")
-usethis::use_pkgdown()
-path_to_pkg_logo_1L_chr <- "../../../../Documentation/Images/ready4fun-logo/default.png"
-if(!is.na(path_to_pkg_logo_1L_chr)){
-  if(!dir.exists("man/figures/"))
-    dir.create("man/figures/")
-  file.copy(path_to_pkg_logo_1L_chr,
-            "man/figures/logo.png")
-}
-writeLines(c(paste0("# ",get_dev_pkg_nm(),ifelse(is.na(path_to_pkg_logo_1L_chr),
-                                                 "",
-                                                 " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
-             "",
-             paste0("## ",packageDescription(get_dev_pkg_nm(),fields ="Title") %>% stringr::str_replace_all("\n"," ")),
-             "",
-             packageDescription(get_dev_pkg_nm(),fields ="Description"),
-             "",
-             "If you plan on testing this software you can install it by running the following commands in your R console:",
-             "",
-             "install.packages(\"devtools\")",
-             "",
-             "devtools::install_github(\"readyforwhatsnext/ready4fun\")",
-             "",
-             "<!-- badges: start -->",
-             "<!-- badges: end -->" ),
-           con = "README.md")
-if(use_travis_lgl)
-  usethis::use_travis()
-if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists("pkgdown/favicon/apple-touch-icon-120x120.png")){
-  pkgdown::build_favicons()
-  file.copy("pkgdown/favicon/apple-touch-icon-120x120.png",
-            "man/figures/fav120.png")
-}
-usethis::use_lifecycle()
-usethis::use_lifecycle_badge("experimental")
+write_pkg_setup_fls(incr_ver_1L_lgl = F,
+                    delete_contents_of_R_dir = T,
+                    copyright_holders_chr = "Orygen",
+                    use_travis_1L_lgl = T,
+                    path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
+                    github_repo = "readyforwhatsnext/ready4fun",
+                    lifecycle_stage_1L_chr = "experimental")
+
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
@@ -187,27 +157,14 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
 ## Note files to be rewritten cannot be open in RStudio.
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
-                     dev_pkgs_chr = NA_character_)
+                     dev_pkgs_chr = NA_character_,
+                     update_pkgdown_1L_lgl = T)
 #
 # 11. Create vignettes
 # usethis::use_vignette("ready4fun")
 # devtools::document()
 # 12. Create Website
-writeLines(c("development:",
-             "  mode: auto",
-             "reference:",
-             "- title: \"Datasets\"",
-             "- contents:",
-             paste0("  - ",data(package=get_dev_pkg_nm())$results[,3]),
-           {
-             fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == "fn_") %>%
-               dplyr::pull(fns_chr)
-             if(length(fns_chr)>0)
-               c( "- title: \"Functions\"",
-                  "- contents:",
-                  paste0("  - ",fns_chr))
-           }),
-           con = "_pkgdown.yml")
+
 pkgdown::build_site()
 # usethis::use_gpl3_license("Orygen")
 

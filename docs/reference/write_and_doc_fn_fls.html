@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9203</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9204</span>
       </span>
     </div>
 
@@ -131,10 +131,12 @@
     <pre class="usage"><span class='fu'>write_and_doc_fn_fls</span>(
   <span class='kw'>fns_dmt_tb</span>,
   r_dir_1L_chr = <span class='st'>"R"</span>,
+  path_to_pkg_rt_1L_chr = <span class='st'>"."</span>,
   path_to_user_dmt_dir_1L_chr = <span class='st'>"../../../../Documentation/Code/User"</span>,
   path_to_dvpr_dmt_dir_1L_chr = <span class='st'>"../../../../Documentation/Code/Developer"</span>,
   make_pdfs_1L_lgl = <span class='kw'>T</span>,
-  dev_pkgs_chr = <span class='fl'>NA_character_</span>
+  dev_pkgs_chr = <span class='fl'>NA_character_</span>,
+  update_pkgdown_1L_lgl = <span class='kw'>T</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -147,6 +149,10 @@
     <tr>
       <th>r_dir_1L_chr</th>
       <td><p>R directory (a character vector of length one), Default: 'R'</p></td>
+    </tr>
+    <tr>
+      <th>path_to_pkg_rt_1L_chr</th>
+      <td><p>Path to package root (a character vector of length one), Default: '.'</p></td>
     </tr>
     <tr>
       <th>path_to_user_dmt_dir_1L_chr</th>
@@ -163,6 +169,10 @@
     <tr>
       <th>dev_pkgs_chr</th>
       <td><p>Development packages (a character vector), Default: 'NA'</p></td>
+    </tr>
+    <tr>
+      <th>update_pkgdown_1L_lgl</th>
+      <td><p>Update pkgdown (a logical vector of length one), Default: T</p></td>
     </tr>
     </table>
 

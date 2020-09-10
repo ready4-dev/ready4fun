@@ -108,6 +108,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                         paste0("  - ",fns_chr))
                  }),
                con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
+    pkgdown::build_site()
   }
 }
 write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),

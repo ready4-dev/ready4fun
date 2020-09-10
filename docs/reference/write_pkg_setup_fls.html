@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9203</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9204</span>
       </span>
     </div>
 
@@ -131,9 +131,13 @@
     <pre class="usage"><span class='fu'>write_pkg_setup_fls</span>(
   path_to_pkg_rt_1L_chr = <span class='st'>"."</span>,
   dev_pkg_nm_1L_chr = <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span>(),
-  make_tmpl_vignette_1L_lgl = <span class='kw'>F</span>,
   incr_ver_1L_lgl = <span class='kw'>T</span>,
-  delete_contents_of_R_dir = <span class='kw'>F</span>
+  delete_contents_of_R_dir = <span class='kw'>F</span>,
+  <span class='kw'>copyright_holders_chr</span>,
+  use_travis_1L_lgl = <span class='kw'>T</span>,
+  path_to_pkg_logo_1L_chr = <span class='fl'>NA_character_</span>,
+  <span class='kw'>github_repo_1L_chr</span>,
+  lifecycle_stage_1L_chr = <span class='st'>"experimental"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -148,16 +152,32 @@
       <td><p>Development package name (a character vector of length one), Default: get_dev_pkg_nm()</p></td>
     </tr>
     <tr>
-      <th>make_tmpl_vignette_1L_lgl</th>
-      <td><p>Make tmpl vignette (a logical vector of length one), Default: F</p></td>
-    </tr>
-    <tr>
       <th>incr_ver_1L_lgl</th>
       <td><p>Incr ver (a logical vector of length one), Default: T</p></td>
     </tr>
     <tr>
       <th>delete_contents_of_R_dir</th>
       <td><p>PARAM_DESCRIPTION, Default: F</p></td>
+    </tr>
+    <tr>
+      <th>copyright_holders_chr</th>
+      <td><p>Copyright holders (a character vector)</p></td>
+    </tr>
+    <tr>
+      <th>use_travis_1L_lgl</th>
+      <td><p>Use travis (a logical vector of length one), Default: T</p></td>
+    </tr>
+    <tr>
+      <th>path_to_pkg_logo_1L_chr</th>
+      <td><p>Path to package logo (a character vector of length one), Default: 'NA'</p></td>
+    </tr>
+    <tr>
+      <th>github_repo_1L_chr</th>
+      <td><p>Github repo (a character vector of length one)</p></td>
+    </tr>
+    <tr>
+      <th>lifecycle_stage_1L_chr</th>
+      <td><p>Lifecycle stage (a character vector of length one), Default: 'experimental'</p></td>
     </tr>
     </table>
 

@@ -160,6 +160,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # 12. Create Website
 usethis::use_pkgdown()
 pkgdown::build_site()
+usethis::use_travis()
 #usethis::use_github_action("pkgdown")
 #usethis::use_description(fields = list(URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun")))
 

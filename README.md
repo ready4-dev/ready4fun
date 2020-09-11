@@ -2,6 +2,11 @@
 
 ## Readyforwhatsnext Function Authoring And Documentation Tools
 
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.com/readyforwhatsnext/ready4fun.svg?branch=master)](https://travis-ci.com/readyforwhatsnext/ready4fun)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
 ready4fun is a collection of functions for
 authoring code libraries of functions and datasets for use in mental
 health simulations developed within the readyforwhatsnext ecosystem.
@@ -20,11 +25,9 @@ testing. If you have any questions, please contact the authors
 
 If you plan on testing this software you can install it by running the following commands in your R console:
 
+```r
 install.packages("devtools")
 
 devtools::install_github("readyforwhatsnext/ready4fun")
 
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.com/readyforwhatsnext/ready4fun.svg?branch=master)](https://travis-ci.com/readyforwhatsnext/ready4fun)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-<!-- badges: end -->
+```

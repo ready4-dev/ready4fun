@@ -52,9 +52,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental")
-
 ## INTERACTIVE INPUT
-#travis::use_travis_deploy()
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
   write_and_doc_ds(db = .,

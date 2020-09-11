@@ -161,7 +161,7 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
 # NOTE: To update, make call to update_fns_dmt_tb
 #
 # 10. Write documented functions to R directory.
-
+usethis::use_pkgdown_travis()
 ## Note files to be rewritten cannot be open in RStudio.
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",

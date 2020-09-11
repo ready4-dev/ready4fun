@@ -400,13 +400,14 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
              con = "README.md")
   if(use_travis_1L_lgl){
     usethis::use_travis()
-    write_from_tmp(system.file("travis_extras.yml",
-                               package = "ready4fun"),
-                   paste0(path_to_pkg_rt_1L_chr,
+    usethis::use_pkgdown_travis()
+    write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                           "/.travis.yml"),
-                   edit_fn = function(x,y){c(readLines(y),x)},
-                   args_ls = list(y=paste0(path_to_pkg_rt_1L_chr,
-                                           "/.travis.yml")))
+                   dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
+                                             "/.travis.yml"),
+                   edit_fn = function(txt_chr){
+                     c(txt_chr,"warnings_are_errors: false")
+                   })
     # travis::use_travis_deploy()
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){

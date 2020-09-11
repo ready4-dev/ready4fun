@@ -407,6 +407,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                    edit_fn = function(x,y){c(readLines(y),x)},
                    args_ls = list(y=paste0(path_to_pkg_rt_1L_chr,
                                            "/.travis.yml")))
+    travis::use_travis_deploy()
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()

@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Readyforwhatsnext Function Authoring And Documentation
     Tools
-Version: 0.0.0.9206
+Version: 0.0.0.9207
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -60,6 +60,7 @@ Imports:
     testit,
     tibble,
     tools,
+    travis,
     usethis,
     xfun
 RdMacros: lifecycle

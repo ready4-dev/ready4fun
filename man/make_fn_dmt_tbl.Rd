@@ -7,7 +7,6 @@
 make_fn_dmt_tbl(
   fns_path_chr,
   fns_dir_chr = make_undmtd_fns_dir_chr(),
-  pkg_nm_1L_chr,
   custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL,
     inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls =
     NULL),
@@ -22,8 +21,6 @@ make_fn_dmt_tbl(
 \item{fns_path_chr}{Functions path (a character vector)}
 
 \item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr()}
-
-\item{pkg_nm_1L_chr}{Package name (a character vector of length one)}
 
 \item{custom_dmt_ls}{Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL,
 output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}

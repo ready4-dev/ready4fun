@@ -71,7 +71,7 @@ write_and_doc_ds <- function(db,
 }
 write_and_doc_fn_fls <- function(fns_dmt_tb,
                                    r_dir_1L_chr = "R",
-                                 path_to_pkg_rt_1L_chr = ".",
+                                 path_to_pkg_rt_1L_chr = getwd(),
                                    path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User",
                                    path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
                                    make_pdfs_1L_lgl = T,
@@ -93,7 +93,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
   if(update_pkgdown_1L_lgl){
-    datasets_chr <- data(package=get_dev_pkg_nm(), envir = environment())$results[,3]
+    datasets_chr <- data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())$results[,3]
     writeLines(c("development:",
                  "  mode: auto",
                  "reference:",
@@ -102,8 +102,8 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  paste0("  - ",datasets_chr),
                  {
                    if("prototype_lup" %in% datasets_chr){
-                     data("prototype_lup",package=get_dev_pkg_nm(), envir = environment())
-                     fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm()) %>%
+                     data("prototype_lup",package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())
+                     fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm(path_to_pkg_rt_1L_chr)) %>%
                        dplyr::pull(fn_to_call_chr)
                      if(length(fns_chr)>0){
                        c( paste0("- title: \"","Classes","\""),
@@ -111,8 +111,9 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                                       paste0("  - ",fns_chr))
                    }
                    }
-                 }
-                 purrr::map2(c("fn_","grp_","mthd_"),c("Functions","Generics","Methods"),~{
+                 },
+                 purrr::map2(c("fn_","grp_","mthd_"),c("Functions","Generics","Methods"),
+                             ~{
                    fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
                      dplyr::pull(fns_chr)
                    if(length(fns_chr)>0){
@@ -357,8 +358,8 @@ write_pkg <- function(package_1L_chr,
                    },
                    args_ls = list(package_1L_chr = package_1L_chr))
 }
-write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
-                                  dev_pkg_nm_1L_chr = get_dev_pkg_nm(),
+write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
+                                  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                                   incr_ver_1L_lgl = T,
                                 delete_contents_of_R_dir = F,
                                 copyright_holders_chr,
@@ -367,7 +368,9 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                                 github_repo_1L_chr,
                                 lifecycle_stage_1L_chr = "experimental"){
   if(delete_contents_of_R_dir)
-    write_to_reset_pkg_files(paste0(path_to_pkg_rt_1L_chr,"/R"))
+    write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",
+                             package_1L_chr = dev_pkg_nm_1L_chr,
+                             package_dir_1L_chr = path_to_pkg_rt_1L_chr)
   update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
   if(!update_desc_fl_1L_lgl)
     dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
@@ -398,16 +401,16 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
     file.copy(path_to_pkg_logo_1L_chr,
               paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
   }
-  writeLines(c(paste0("# ",get_dev_pkg_nm(),ifelse(is.na(path_to_pkg_logo_1L_chr),
+  writeLines(c(paste0("# ",dev_pkg_nm_1L_chr,ifelse(is.na(path_to_pkg_logo_1L_chr),
                                                    "",
                                                    " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
                "",
-               paste0("## ",packageDescription(get_dev_pkg_nm(),fields ="Title") %>% stringr::str_replace_all("\n"," ")),
+               paste0("## ",packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
                "",
                "<!-- badges: start -->",
                "<!-- badges: end -->" ,
                "",
-               packageDescription(get_dev_pkg_nm(),fields ="Description"),
+               packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
                "",
                "If you plan on testing this software you can install it by running the following commands in your R console:",
                "",
@@ -417,7 +420,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
                "",
                "```"),
-             con = "README.md")
+             con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
   if(use_travis_1L_lgl){
     usethis::use_travis()
     usethis::use_pkgdown_travis()
@@ -428,11 +431,26 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                    edit_fn = function(txt_chr){
                      c(txt_chr,
                        "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
-                       "  deploy:",
-                       "    provider: script",
-                       "    script: Rscript -e 'pkgdown::deploy_site_github()'",
-                       "    skip_cleanup: true",
+                       "deploy:",
+                       "  provider: script",
+                       "  script: Rscript -e 'pkgdown::deploy_site_github()'",
+                       "  skip_cleanup: true",
                        "warnings_are_errors: false")
+                   })
+    pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr,
+                              "/R/",
+                              "pkg_",
+                              dev_pkg_nm_1L_chr,
+                              ".R")
+    write_from_tmp(pkg_path_1L_chr,
+                   dest_path_1L_chr = pkg_path_1L_chr,
+                   edit_fn = function(txt_chr){
+                     c(txt_chr,
+                       "## usethis namespace: start",
+                       "#' @importFrom lifecycle deprecate_soft",
+                       "## usethis namespace: end",
+                       "NULL"
+                       )
                    })
     # travis::use_travis_deploy()
   }
@@ -530,7 +548,7 @@ write_to_rpl_1L_and_indefL_sfcs <- function(indefL_arg_nm_1L_chr,
 
 }
 write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
-                                     package_1L_chr = get_dev_pkg_nm(),
+                                     package_1L_chr = get_dev_pkg_nm(getwd()),
                                      package_dir_1L_chr = getwd(),
                                      description_ls = NULL,
                                      keep_version_lgl = T

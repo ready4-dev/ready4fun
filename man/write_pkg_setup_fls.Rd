@@ -5,8 +5,8 @@
 \title{Write package setup files}
 \usage{
 write_pkg_setup_fls(
-  path_to_pkg_rt_1L_chr = ".",
-  dev_pkg_nm_1L_chr = get_dev_pkg_nm(),
+  path_to_pkg_rt_1L_chr = getwd(),
+  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   incr_ver_1L_lgl = T,
   delete_contents_of_R_dir = F,
   copyright_holders_chr,
@@ -17,9 +17,9 @@ write_pkg_setup_fls(
 )
 }
 \arguments{
-\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: '.'}
+\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
-\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm()}
+\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 

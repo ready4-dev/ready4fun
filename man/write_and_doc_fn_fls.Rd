@@ -7,7 +7,7 @@
 write_and_doc_fn_fls(
   fns_dmt_tb,
   r_dir_1L_chr = "R",
-  path_to_pkg_rt_1L_chr = ".",
+  path_to_pkg_rt_1L_chr = getwd(),
   path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User",
   path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
   make_pdfs_1L_lgl = T,
@@ -20,7 +20,7 @@ write_and_doc_fn_fls(
 
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 
-\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: '.'}
+\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
 \item{path_to_user_dmt_dir_1L_chr}{Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'}
 

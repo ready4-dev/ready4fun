@@ -10,7 +10,8 @@ make_fn_desc(
   output_chr,
   fn_type_lup_tb = NULL,
   abbreviations_lup = NULL,
-  test_for_write_R_warning_fn = NULL
+  test_for_write_R_warning_fn = NULL,
+  is_generic_lgl = F
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ make_fn_desc(
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{test_for_write_R_warning_fn}{Test for write warning (a function), Default: NULL}
+
+\item{is_generic_lgl}{Is generic (a logical vector), Default: F}
 }
 \value{
 Function description (a character vector)
@@ -32,4 +35,3 @@ Function description (a character vector)
 \description{
 make_fn_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description. The function returns Function description (a character vector).
 }
-\keyword{internal}

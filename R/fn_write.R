@@ -88,7 +88,7 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
-#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/Developer'
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
@@ -97,11 +97,10 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @return NULL
 #' @rdname write_and_doc_fn_fls
 #' @export 
-#' @importFrom purrr walk2
+#' @importFrom purrr walk2 map2 flatten_chr discard
 #' @importFrom devtools document load_all build_manual
 #' @importFrom dplyr filter pull
-#' @importFrom usethis use_build_ignore
-write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = ".", 
+write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
     path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
     make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
@@ -119,16 +118,34 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
                 devtools::build_manual(path = .x)
         })
     if (update_pkgdown_1L_lgl) {
+        datasets_chr <- data(package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
+            envir = environment())$results[, 3]
         writeLines(c("development:", "  mode: auto", "reference:", 
             "- title: \"Datasets\"", "- contents:", paste0("  - ", 
-                data(package = get_dev_pkg_nm())$results[, 3]), 
-            {
+                datasets_chr), {
+                if ("prototype_lup" %in% datasets_chr) {
+                  data("prototype_lup", package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
+                    envir = environment())
+                  fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == 
+                    get_dev_pkg_nm(path_to_pkg_rt_1L_chr)) %>% 
+                    dplyr::pull(fn_to_call_chr)
+                  if (length(fns_chr) > 0) {
+                    c(paste0("- title: \"", "Classes", "\""), 
+                      "- contents:", paste0("  - ", fns_chr))
+                  }
+                }
+            }, purrr::map2(c("fn_", "grp_", "mthd_"), c("Functions", 
+                "Generics", "Methods"), ~{
                 fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & 
-                  file_pfx_chr == "fn_") %>% dplyr::pull(fns_chr)
-                if (length(fns_chr) > 0) c("- title: \"Functions\"", 
-                  "- contents:", paste0("  - ", fns_chr))
-            }), con = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"))
-        usethis::use_build_ignore(files = "_pkgdown.yml")
+                  file_pfx_chr == .x) %>% dplyr::pull(fns_chr)
+                if (length(fns_chr) > 0) {
+                  txt_chr <- c(paste0("- title: \"", .y, "\""), 
+                    "- contents:", paste0("  - ", fns_chr))
+                } else {
+                  txt_chr <- ""
+                }
+            }) %>% purrr::flatten_chr() %>% purrr::discard(~.x == 
+                "")), con = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"))
     }
 }
 #' Write documented function type
@@ -197,7 +214,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -242,7 +258,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -301,7 +316,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -330,7 +344,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -420,8 +433,8 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 }
 #' Write package setup files
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
-#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
 #' @param copyright_holders_chr Copyright holders (a character vector)
@@ -433,17 +446,17 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @rdname write_pkg_setup_fls
 #' @export 
 #' @importFrom devtools load_all
-#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_travis use_pkgdown_travis use_lifecycle use_lifecycle_badge
+#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_travis use_pkgdown_travis use_lifecycle use_lifecycle_badge
 #' @importFrom stringr str_replace_all
 #' @importFrom pkgdown build_favicons
-write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr = get_dev_pkg_nm(), 
+write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
     use_travis_1L_lgl = T, path_to_pkg_logo_1L_chr = NA_character_, 
     github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental") 
 {
     if (delete_contents_of_R_dir) 
-        write_to_reset_pkg_files(paste0(path_to_pkg_rt_1L_chr, 
-            "/R"))
+        write_to_reset_pkg_files(delete_contents_of_1L_chr = "R", 
+            package_1L_chr = dev_pkg_nm_1L_chr, package_dir_1L_chr = path_to_pkg_rt_1L_chr)
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
     if (!update_desc_fl_1L_lgl) 
         dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
@@ -467,36 +480,47 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = ".", dev_pkg_nm_1L_chr 
     }
     usethis::use_gpl3_license(copyright_holders_chr)
     usethis::use_pkgdown()
+    usethis::use_build_ignore(files = "_pkgdown.yml")
     if (!is.na(path_to_pkg_logo_1L_chr)) {
         if (!dir.exists(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))) 
             dir.create(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))
         file.copy(path_to_pkg_logo_1L_chr, paste0(path_to_pkg_rt_1L_chr, 
             "/man/figures/logo.png"))
     }
-    writeLines(c(paste0("# ", get_dev_pkg_nm(), ifelse(is.na(path_to_pkg_logo_1L_chr), 
+    writeLines(c(paste0("# ", dev_pkg_nm_1L_chr, ifelse(is.na(path_to_pkg_logo_1L_chr), 
         "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
-        "", paste0("## ", packageDescription(get_dev_pkg_nm(), 
+        "", paste0("## ", packageDescription(dev_pkg_nm_1L_chr, 
             fields = "Title") %>% stringr::str_replace_all("\n", 
             " ")), "", "<!-- badges: start -->", "<!-- badges: end -->", 
-        "", packageDescription(get_dev_pkg_nm(), fields = "Description"), 
+        "", packageDescription(dev_pkg_nm_1L_chr, fields = "Description"), 
         "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
         "", "```r", "install.packages(\"devtools\")", "", paste0("devtools::install_github(\"", 
-            github_repo_1L_chr, "\")"), "", "```"), con = "README.md")
+            github_repo_1L_chr, "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
+        "/README.md"))
     if (use_travis_1L_lgl) {
         usethis::use_travis()
         usethis::use_pkgdown_travis()
         write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/.travis.yml"), 
             dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr, 
                 "/.travis.yml"), edit_fn = function(txt_chr) {
-                c(txt_chr, "warnings_are_errors: false")
+                c(txt_chr, "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'", 
+                  "deploy:", "  provider: script", "  script: Rscript -e 'pkgdown::deploy_site_github()'", 
+                  "  skip_cleanup: true", "warnings_are_errors: false")
+            })
+        pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/R/", 
+            "pkg_", dev_pkg_nm_1L_chr, ".R")
+        write_from_tmp(pkg_path_1L_chr, dest_path_1L_chr = pkg_path_1L_chr, 
+            edit_fn = function(txt_chr) {
+                c(txt_chr, "## usethis namespace: start", "#' @importFrom lifecycle deprecate_soft", 
+                  "## usethis namespace: end", "NULL")
             })
     }
     if (!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr, 
         "/pkgdown/favicon/apple-touch-icon-120x120.png"))) {
         pkgdown::build_favicons()
-        file.copy(paste0(path_to_pkg_rt_1L_chr, "/pkgdown/favicon/apple-touch-icon-120x120.png"), 
-            paste0(path_to_pkg_rt_1L_chr, "/man/figures/fav120.png"))
     }
+    file.copy(paste0(path_to_pkg_rt_1L_chr, "/pkgdown/favicon/apple-touch-icon-120x120.png"), 
+        paste0(path_to_pkg_rt_1L_chr, "/man/figures/fav120.png"))
     usethis::use_lifecycle()
     usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
 }
@@ -554,7 +578,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -574,7 +597,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -605,7 +627,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -623,7 +644,7 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' Write to reset package files
 #' @description write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param delete_contents_of_1L_chr Delete contents of (a character vector of length one)
-#' @param package_1L_chr Package (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param package_1L_chr Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param package_dir_1L_chr Package directory (a character vector of length one), Default: getwd()
 #' @param description_ls Description (a list), Default: NULL
 #' @param keep_version_lgl Keep version (a logical vector), Default: T
@@ -632,7 +653,7 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @export 
 #' @importFrom devtools load_all document
 #' @importFrom usethis use_description
-write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(), 
+write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {
     devtools::load_all()
@@ -656,7 +677,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -676,7 +696,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 

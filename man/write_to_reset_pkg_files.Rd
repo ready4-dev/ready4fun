@@ -6,7 +6,7 @@
 \usage{
 write_to_reset_pkg_files(
   delete_contents_of_1L_chr,
-  package_1L_chr = get_dev_pkg_nm(),
+  package_1L_chr = get_dev_pkg_nm(getwd()),
   package_dir_1L_chr = getwd(),
   description_ls = NULL,
   keep_version_lgl = T
@@ -15,7 +15,7 @@ write_to_reset_pkg_files(
 \arguments{
 \item{delete_contents_of_1L_chr}{Delete contents of (a character vector of length one)}
 
-\item{package_1L_chr}{Package (a character vector of length one), Default: get_dev_pkg_nm()}
+\item{package_1L_chr}{Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 
 \item{package_dir_1L_chr}{Package directory (a character vector of length one), Default: getwd()}
 

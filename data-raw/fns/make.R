@@ -180,32 +180,28 @@ make_fn_desc <-  function(fns_chr,
                           output_chr,
                           fn_type_lup_tb = NULL,
                           abbreviations_lup = NULL,
-                          test_for_write_R_warning_fn = NULL){
+                          test_for_write_R_warning_fn = NULL,
+                          is_generic_lgl = F){
   if(is.null(test_for_write_R_warning_fn))
     test_for_write_R_warning_fn <- function(x){startsWith(x,"write")}
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_desc_chr <- purrr::pmap_chr(list(fns_chr,
                                       title_chr,
-                                      output_chr),
+                                      output_chr,
+                                      is_generic_lgl),
                                  ~ {
                                    fn_type_1L_chr <- stringr::str_extract(..2, '[A-Za-z]+')
                                    fn_name_1L_chr <- ..1
                                    fn_title_1L_chr <- ..2
                                    fn_output_1L_chr <- ..3
+                                   is_generic_1L_lgl <- ..4
                                    paste0(make_fn_desc_spine(fn_name_1L_chr = fn_name_1L_chr,
                                                              fn_title_1L_chr = fn_title_1L_chr,
                                                              fn_type_lup_tb = fn_type_lup_tb,
                                                              abbreviations_lup = abbreviations_lup),
                                           ifelse(fn_output_1L_chr=="NULL",
-                                                 ifelse(get_from_lup_obj(fn_type_lup_tb,
-                                                                         match_var_nm_1L_chr = "fn_type_nm_chr",
-                                                                         match_value_xx = fn_name_1L_chr %>%
-                                                                           make_fn_title(abbreviations_lup = abbreviations_lup) %>%
-                                                                           tools::toTitleCase() %>%
-                                                                           stringr::word(),
-                                                                         target_var_nm_1L_chr = "is_generic_lgl",
-                                                                         evaluate_lgl = F),
+                                                 ifelse(is_generic_1L_lgl,
                                                         "",
                                                         paste0(" The function is called for its side effects and does not return a value.",
                                                                ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn,#startsWith(fn_name_1L_chr,"write"),
@@ -324,7 +320,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
 }
 make_fn_dmt_tbl <- function(fns_path_chr,
                             fns_dir_chr = make_undmtd_fns_dir_chr(),
-                            pkg_nm_1L_chr,
+                            #pkg_nm_1L_chr,
                             custom_dmt_ls = list(title_ls = NULL,
                                                  desc_ls = NULL,
                                                  details_ls = NULL,
@@ -379,9 +375,9 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
                                    file_pfx_chr = file_pfx_chr))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(title_chr = make_fn_title(fns_chr,
-                                                    abbreviations_lup = abbreviations_lup,
-                                                    is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
-                                                    ))
+                                            abbreviations_lup = abbreviations_lup,
+                                            is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
+    ))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::filter(title_chr %>%
       tools::toTitleCase() %>%
@@ -396,7 +392,8 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
                                                   output_chr = output_chr,
                                                   fn_type_lup_tb = fn_type_lup_tb,
                                                   abbreviations_lup = abbreviations_lup,
-                                          test_for_write_R_warning_fn = test_for_write_R_warning_fn))
+                                          test_for_write_R_warning_fn = test_for_write_R_warning_fn,
+                                          is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R")))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr,
                                              abbreviations_lup = abbreviations_lup,

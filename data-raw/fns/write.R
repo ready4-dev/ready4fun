@@ -93,22 +93,38 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
   if(update_pkgdown_1L_lgl){
+    datasets_chr <- data(package=get_dev_pkg_nm(), envir = environment())$results[,3]
     writeLines(c("development:",
                  "  mode: auto",
                  "reference:",
                  "- title: \"Datasets\"",
                  "- contents:",
-                 paste0("  - ",data(package=get_dev_pkg_nm())$results[,3]),
+                 paste0("  - ",datasets_chr),
                  {
-                   fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == "fn_") %>%
+                   if("prototype_lup" %in% datasets_chr){
+                     data("prototype_lup",package=get_dev_pkg_nm(), envir = environment())
+                     fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm()) %>%
+                       dplyr::pull(fn_to_call_chr)
+                     if(length(fns_chr)>0){
+                       c( paste0("- title: \"","Classes","\""),
+                                      "- contents:",
+                                      paste0("  - ",fns_chr))
+                   }
+                   }
+                 }
+                 purrr::map2(c("fn_","grp_","mthd_"),c("Functions","Generics","Methods"),~{
+                   fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
                      dplyr::pull(fns_chr)
-                   if(length(fns_chr)>0)
-                     c( "- title: \"Functions\"",
+                   if(length(fns_chr)>0){
+                    txt_chr  <- c( paste0("- title: \"",.y,"\""),
                         "- contents:",
                         paste0("  - ",fns_chr))
-                 }),
+                   }else{
+                     txt_chr  <- ""
+                   }
+                 }) %>% purrr::flatten_chr() %>% purrr::discard(~.x=="")),
                con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
-    usethis::use_build_ignore(files = "_pkgdown.yml")
+    #usethis::use_build_ignore(files = "_pkgdown.yml")
     #pkgdown::build_site()
   }
 }
@@ -375,6 +391,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
   }
   usethis::use_gpl3_license(copyright_holders_chr)
   usethis::use_pkgdown()
+  usethis::use_build_ignore(files = "_pkgdown.yml")
   if(!is.na(path_to_pkg_logo_1L_chr)){
     if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
       dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
@@ -409,15 +426,21 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = ".",
                    dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
                                              "/.travis.yml"),
                    edit_fn = function(txt_chr){
-                     c(txt_chr,"warnings_are_errors: false")
+                     c(txt_chr,
+                       "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
+                       "  deploy:",
+                       "    provider: script",
+                       "    script: Rscript -e 'pkgdown::deploy_site_github()'",
+                       "    skip_cleanup: true",
+                       "warnings_are_errors: false")
                    })
     # travis::use_travis_deploy()
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()
-    file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
-              paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
   }
+  file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
+            paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
 }

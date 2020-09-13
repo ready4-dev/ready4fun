@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9211</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9213</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@
 
     <pre class="usage"><span class='fu'>write_to_reset_pkg_files</span>(
   <span class='kw'>delete_contents_of_1L_chr</span>,
-  package_1L_chr = <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span>(),
+  package_1L_chr = <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>()),
   package_dir_1L_chr = <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
   description_ls = <span class='kw'>NULL</span>,
   keep_version_lgl = <span class='kw'>T</span>
@@ -145,7 +145,7 @@
     </tr>
     <tr>
       <th>package_1L_chr</th>
-      <td><p>Package (a character vector of length one), Default: get_dev_pkg_nm()</p></td>
+      <td><p>Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())</p></td>
     </tr>
     <tr>
       <th>package_dir_1L_chr</th>
@@ -177,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

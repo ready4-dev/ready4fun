@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update functions documentation tibble logical vector vars — update_fns_dmt_tb_lgl_vars • ready4fun</title>
+<title>Write links for website — write_links_for_website • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Update functions documentation tibble logical vector vars — update_fns_dmt_tb_lgl_vars" />
-<meta property="og:description" content="update_fns_dmt_tb_lgl_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble logical vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble)." />
+<meta property="og:title" content="Write links for website — write_links_for_website" />
+<meta property="og:description" content="write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,37 +119,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update functions documentation tibble logical vector vars</h1>
-    <small class="dont-index">Source: <a href='https://github.com/readyforwhatsnext/ready4fun/blob/master/R/fn_update.R'><code>R/fn_update.R</code></a></small>
-    <div class="hidden name"><code>update_fns_dmt_tb_lgl_vars.Rd</code></div>
+    <h1>Write links for website</h1>
+    <small class="dont-index">Source: <a href='https://github.com/readyforwhatsnext/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
+    <div class="hidden name"><code>write_links_for_website.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>update_fns_dmt_tb_lgl_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble logical vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).</p>
+    <p>write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_fns_dmt_tb_lgl_vars</span>(<span class='kw'>fns_dmt_tb</span>, <span class='kw'>data_1L_chr</span>, <span class='kw'>new_ls</span>)</pre>
+    <pre class="usage"><span class='fu'>write_links_for_website</span>(
+  path_to_pkg_rt_1L_chr = <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
+  <span class='kw'>user_manual_url_1L_chr</span>,
+  <span class='kw'>developer_manual_url_1L_chr</span>,
+  project_website_url_1L_chr = <span class='st'>"https://readyforwhatsnext.github.io/readyforwhatsnext/"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
+      <th>path_to_pkg_rt_1L_chr</th>
+      <td><p>Path to package root (a character vector of length one), Default: getwd()</p></td>
     </tr>
     <tr>
-      <th>data_1L_chr</th>
-      <td><p>Data (a character vector of length one)</p></td>
+      <th>user_manual_url_1L_chr</th>
+      <td><p>User manual url (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>new_ls</th>
-      <td><p>New (a list)</p></td>
+      <th>developer_manual_url_1L_chr</th>
+      <td><p>Developer manual url (a character vector of length one)</p></td>
+    </tr>
+    <tr>
+      <th>project_website_url_1L_chr</th>
+      <td><p>Project website url (a character vector of length one), Default: 'https://readyforwhatsnext.github.io/readyforwhatsnext/'</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Functions documentation (a tibble)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

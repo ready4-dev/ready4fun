@@ -169,7 +169,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
 #
 write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
-pkgdown::build_site()
+#pkgdown::build_site()
 # 11. Create vignettes
 # usethis::use_vignette("ready4fun")
 # devtools::document()

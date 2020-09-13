@@ -281,7 +281,7 @@ write_from_tmp <- function(temp_path_1L_chr,
   writeLines(txt_chr, fileConn)
   close(fileConn)
 }
-write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
+write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
                                     user_manual_url_1L_chr,
                                     developer_manual_url_1L_chr,
                                     project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
@@ -298,7 +298,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                      paste0("    href: ", developer_manual_url_1L_chr),
                      "  - text: Project website",
                      paste0("    href: ", project_website_url_1L_chr),
-                     txt_chr) %>% unique()
+                     txt_chr)
                  })
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,

@@ -349,7 +349,7 @@ write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"),
             paste0("    href: ", user_manual_url_1L_chr), "  - text: Developer version of usual manual (PDF)", 
             paste0("    href: ", developer_manual_url_1L_chr), 
             "  - text: Project website", paste0("    href: ", 
-                project_website_url_1L_chr), txt_chr) %>% unique()
+                project_website_url_1L_chr), txt_chr)
     })
 #' Write new argument sfxs
 #' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).

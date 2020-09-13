@@ -214,6 +214,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
+#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -258,6 +259,7 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom dplyr filter
+#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -316,6 +318,7 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
+#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -340,6 +343,7 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @rdname write_links_for_website
 #' @export 
 
+#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
     developer_manual_url_1L_chr, project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/") 
 write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
@@ -365,6 +369,7 @@ write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"),
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
+#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -597,6 +602,7 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
+#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -616,6 +622,7 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
+#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -646,6 +653,7 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
+#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -696,6 +704,7 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
+#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -715,6 +724,7 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 

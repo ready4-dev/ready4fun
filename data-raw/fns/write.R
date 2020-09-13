@@ -423,20 +423,21 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
              con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
   if(use_travis_1L_lgl){
     usethis::use_travis()
-    usethis::use_pkgdown_travis()
+    #usethis::use_pkgdown_travis()
     write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                           "/.travis.yml"),
                    dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
                                              "/.travis.yml"),
                    edit_fn = function(txt_chr){
                      c(txt_chr,
-                       "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
-                       "deploy:",
-                       "  provider: script",
-                       "  script: Rscript -e 'pkgdown::deploy_site_github()'",
-                       "  skip_cleanup: true",
+                       # "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
+                       # "deploy:",
+                       # "  provider: script",
+                       # "  script: Rscript -e 'pkgdown::deploy_site_github()'",
+                       # "  skip_cleanup: true",
                        "warnings_are_errors: false")
                    })
+    usethis::use_github_action("pkgdown")
     pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr,
                               "/R/",
                               "pkg_",

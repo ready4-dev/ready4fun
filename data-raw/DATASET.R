@@ -52,7 +52,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental")
 #
-travis::use_travis_deploy()
+travis::use_travis_deploy() # Check if needed now using GH Actions
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%
@@ -170,7 +170,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
 # 11. Create vignettes
 # usethis::use_vignette("ready4fun")
 # devtools::document()
-usethis::use_github_action("pkgdown")
+
 
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl

@@ -15,3 +15,4 @@ Description (a character vector)
 \description{
 write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to remove collate. The function returns Description (a character vector).
 }
+\keyword{internal}

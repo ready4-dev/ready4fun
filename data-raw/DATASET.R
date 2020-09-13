@@ -4,7 +4,6 @@
 # remotes::install_github("ropenscilabs/travis")
 # travis::browse_travis_token()
 # # Add token to R environ
-travis::use_travis_deploy()
 # Ensure gh-pages branch on repo: https://sahirbhatnagar.com/blog/2020/03/03/creating-a-website-for-your-r-package/
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
@@ -52,6 +51,8 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental")
+#
+travis::use_travis_deploy()
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 make_obj_lup() %>%

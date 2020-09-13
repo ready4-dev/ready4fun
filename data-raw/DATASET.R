@@ -4,7 +4,7 @@
 # remotes::install_github("ropenscilabs/travis")
 # travis::browse_travis_token()
 # # Add token to R environ
-# travis::use_travis_deploy()
+travis::use_travis_deploy()
 # Ensure gh-pages branch on repo: https://sahirbhatnagar.com/blog/2020/03/03/creating-a-website-for-your-r-package/
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)

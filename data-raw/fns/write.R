@@ -281,6 +281,25 @@ write_from_tmp <- function(temp_path_1L_chr,
   writeLines(txt_chr, fileConn)
   close(fileConn)
 }
+write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
+                                    user_manual_url_1L_chr,
+                                    developer_manual_url_1L_chr,
+                                    project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
+  write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
+                        "/_pkgdown.yml"),
+                 dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
+                                           "/_pkgdown.yml"),
+                 edit_fn = function(txt_chr){
+                   c("home:",
+                     "  links:",
+                     "  - text: User manual (PDF)",
+                     paste0("    href: ", user_manual_url_1L_chr),
+                     "  - text: Developer version of usual manual (PDF)",
+                     paste0("    href: ", developer_manual_url_1L_chr),
+                     "  - text: Project website",
+                     paste0("    href: ", project_website_url_1L_chr),
+                     txt_chr) %>% unique()
+                 })
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
                                  dir_path_chr,

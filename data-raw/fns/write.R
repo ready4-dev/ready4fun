@@ -399,8 +399,8 @@ write_pkg <- function(package_1L_chr,
                    args_ls = list(package_1L_chr = package_1L_chr))
 }
 write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
-                                  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                  incr_ver_1L_lgl = T,
+                                dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+                                incr_ver_1L_lgl = T,
                                 delete_contents_of_R_dir = F,
                                 copyright_holders_chr,
                                 use_travis_1L_lgl = T,
@@ -442,8 +442,8 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
               paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
   }
   writeLines(c(paste0("# ",dev_pkg_nm_1L_chr,ifelse(is.na(path_to_pkg_logo_1L_chr),
-                                                   "",
-                                                   " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
+                                                    "",
+                                                    " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
                "",
                paste0("## ",packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
                "",
@@ -491,7 +491,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
                        "#' @importFrom lifecycle deprecate_soft",
                        "## usethis namespace: end",
                        "NULL"
-                       )
+                     )
                    })
     # travis::use_travis_deploy()
   }

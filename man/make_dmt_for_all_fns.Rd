@@ -11,7 +11,8 @@ make_dmt_for_all_fns(
     list(force_true_chr = NA_character_, force_false_chr = NA_character_), args_ls_ls =
     NULL),
   fn_type_lup_tb,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  inc_all_mthds_1L_lgl = T
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ force_false_chr = NA_character_), args_ls_ls = NULL)}
 \item{fn_type_lup_tb}{Function type lookup table (a tibble)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{inc_all_mthds_1L_lgl}{Inc all mthds (a logical vector of length one), Default: T}
 }
 \value{
 All functions documentation (a tibble)

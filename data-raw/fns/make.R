@@ -150,7 +150,8 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                                                                       force_false_chr = NA_character_),
                                                       args_ls_ls = NULL),
                                  fn_type_lup_tb,
-                                 abbreviations_lup = NULL){
+                                 abbreviations_lup = NULL,
+                                 inc_all_mthds_1L_lgl = T){
   # add assert - same length inputs to purrr
   if (is.null(abbreviations_lup))
     data("abbreviations_lup", package = "ready4fun",
@@ -166,12 +167,34 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
       tb <- fn_type_lup_tb %>% dplyr::filter(is_generic_lgl)
     if(..3 == "mthds")
       tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
-    make_fn_dmt_tbl(..1,
+    fns_dmt_tb <- make_fn_dmt_tbl(..1,
                     fns_dir_chr = ..2,
                     custom_dmt_ls = custom_dmt_ls,
                     append_1L_lgl = T,
                     fn_type_lup_tb = tb,
                     abbreviations_lup = abbreviations_lup)
+    if(inc_all_mthds_1L_lgl)
+      fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% c("grp_","mthd_") ~ T,
+                                                                            TRUE ~ inc_for_main_user_lgl))
+    # custom_dmt_ls$inc_for_main_user_lgl_ls$force_true_chr <- c(fns_dmt_tb %>%
+    #     dplyr::filter(file_pfx_chr %in% c("grp_","mthd_")) %>%
+    #     dplyr::pull(fns_chr),
+    #   {
+    #     slots_chr <- prototype_lup %>%
+    #       dplyr::filter(pt_ns_chr == ready4fun::get_dev_pkg_nm() & !old_class_lgl) %>%
+    #       dplyr::pull(fn_to_call_chr) %>%
+    #       purrr::map(~getSlots(.x) %>%
+    #                    names()) %>%
+    #       purrr::flatten_chr() %>% unique() %>% sort()
+    #     c(slots_chr,paste0(slots_chr,"<-"))
+    #   },
+    #   custom_dmt_ls$inc_for_main_user_lgl_ls$force_true_chr)
+    # make_fn_dmt_tbl(..1,
+    #                 fns_dir_chr = ..2,
+    #                 custom_dmt_ls = custom_dmt_ls,
+    #                 append_1L_lgl = T,
+    #                 fn_type_lup_tb = tb,
+    #                 abbreviations_lup = abbreviations_lup)
   })
   return(all_fns_dmt_tb)
 }
@@ -320,7 +343,6 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
 }
 make_fn_dmt_tbl <- function(fns_path_chr,
                             fns_dir_chr = make_undmtd_fns_dir_chr(),
-                            #pkg_nm_1L_chr,
                             custom_dmt_ls = list(title_ls = NULL,
                                                  desc_ls = NULL,
                                                  details_ls = NULL,

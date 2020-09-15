@@ -12,7 +12,9 @@ write_abbr_lup(
   overwrite_1L_lgl = T,
   seed_lup = NULL,
   url_1L_chr,
-  pkg_nm_1L_chr = get_dev_pkg_nm()
+  pkg_nm_1L_chr = get_dev_pkg_nm(),
+  pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+    desc_chr = character(0), url_chr = character(0))
 )
 }
 \arguments{
@@ -31,7 +33,13 @@ write_abbr_lup(
 \item{url_1L_chr}{Url (a character vector of length one)}
 
 \item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
+
+\item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+desc_chr = character(0), url_chr = character(0))}
+}
+\value{
+Package datasets (a tibble)
 }
 \description{
-write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
 }

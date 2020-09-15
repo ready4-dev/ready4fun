@@ -55,32 +55,32 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
 #travis::use_travis_deploy() # Check if needed now using GH Actions
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-make_obj_lup() %>%
+pkg_dss_tb <- make_obj_lup() %>%
   write_and_doc_ds(db = .,
-                     overwrite_1L_lgl = T,
-                     db_1L_chr = "object_type_lup",
-                     title_1L_chr = "Object abbreviations lookup table",
-                     desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
-                     format_1L_chr = "A tibble",
-                     url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
-                     abbreviations_lup = .,
-                     object_type_lup = .
-                     )
+                   overwrite_1L_lgl = T,
+                   db_1L_chr = "object_type_lup",
+                   title_1L_chr = "Object abbreviations lookup table",
+                   desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
+                   format_1L_chr = "A tibble",
+                   url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                   abbreviations_lup = .,
+                   object_type_lup = .
+  )
 #
 # 7. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
+pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
                  long_name_chr = c("length one","abbreviation","argument","article","comma separated variables file","database","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
                  no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
                  custom_plural_ls = list(directory = "directories",
                                          prefix = c("prefixes"),
                                          suffix = c("suffices","sfcs")),
-                 url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/"#,
-                 #pkg_nm_chr = pkg_nm_chr
+                 url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                 pkg_dss_tb = pkg_dss_tb
                  )
 data("abbreviations_lup")
 #
 # 8. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
+pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                                     "Get", "Import", "Make", "Read",
                                                     "Remove", "Replace", "Reset", "Rowbind",
                                                     "Transform","Unload", "Update",  "Write"),
@@ -134,7 +134,8 @@ make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                                          NA_character_),
                                  is_generic_lgl = F,
                                  is_method_lgl = F) %>%
-write_dmtd_fn_type_lup(url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
+write_dmtd_fn_type_lup(url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                       pkg_dss_tb = pkg_dss_tb)
 data("fn_type_lup_tb")
 data("object_type_lup")
 #

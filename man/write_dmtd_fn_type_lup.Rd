@@ -9,7 +9,9 @@ write_dmtd_fn_type_lup(
   overwrite_1L_lgl = T,
   pkg_nm_1L_chr = get_dev_pkg_nm(),
   url_1L_chr = url_1L_chr,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+    desc_chr = character(0), url_chr = character(0))
 )
 }
 \arguments{
@@ -22,6 +24,9 @@ write_dmtd_fn_type_lup(
 \item{url_1L_chr}{Url (a character vector of length one), Default: url_1L_chr}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+desc_chr = character(0), url_chr = character(0))}
 }
 \description{
 write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

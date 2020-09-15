@@ -1,5 +1,5 @@
 #' Write abbreviation
-#' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
 #' @param long_name_chr Long name (a character vector), Default: 'NA'
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
@@ -8,25 +8,30 @@
 #' @param seed_lup Seed (a lookup table), Default: NULL
 #' @param url_1L_chr Url (a character vector of length one)
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
-#' @return NULL
+#' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
+#'    desc_chr = character(0), url_chr = character(0))
+#' @return Package datasets (a tibble)
 #' @rdname write_abbr_lup
 #' @export 
-
+#' @importFrom tibble tibble
 write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
-    seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm()) 
+    seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm(), 
+    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+        title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(seed_lup)) {
         data("object_type_lup", package = "ready4fun", envir = environment())
         seed_lup <- object_type_lup
     }
-    update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
+    pkg_dss_tb <- update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
         custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds(db = ., 
         overwrite_1L_lgl = overwrite_1L_lgl, db_1L_chr = "abbreviations_lup", 
         title_1L_chr = "Common abbreviations lookup table", desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ", 
             pkg_nm_1L_chr, "package."), format_1L_chr = "A tibble", 
-        url_1L_chr = url_1L_chr, abbreviations_lup = .)
+        url_1L_chr = url_1L_chr, abbreviations_lup = ., pkg_dss_tb = pkg_dss_tb)
+    return(pkg_dss_tb)
 }
 #' Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files
 #' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles readyforwhatsnext s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -47,7 +52,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
             pfx_1L_chr = pfx_1L_chr))
 }
 #' Write and document dataset
-#' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
 #' @param db PARAM_DESCRIPTION
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param db_1L_chr Database (a character vector of length one)
@@ -59,14 +64,18 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
-#' @return NULL
+#' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
+#'    desc_chr = character(0), url_chr = character(0))
+#' @return Package datasets (a tibble)
 #' @rdname write_and_doc_ds
 #' @export 
+#' @importFrom tibble tibble add_case
 #' @importFrom devtools document load_all
 write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", abbreviations_lup = NULL, 
-    object_type_lup = NULL) 
+    object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+        title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -83,6 +92,9 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
     close_open_sinks()
     devtools::document()
     devtools::load_all()
+    pkg_dss_tb <- tibble::add_case(pkg_dss_tb, ds_obj_nm_chr = db_1L_chr, 
+        title_chr = title_1L_chr, desc_chr = desc_1L_chr, url_chr = url_1L_chr)
+    return(pkg_dss_tb)
 }
 #' Write and document function files
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -155,13 +167,16 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param url_1L_chr Url (a character vector of length one), Default: url_1L_chr
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
+#'    desc_chr = character(0), url_chr = character(0))
 #' @return NULL
 #' @rdname write_dmtd_fn_type_lup
 #' @export 
-
+#' @importFrom tibble tibble
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = url_1L_chr, 
-    abbreviations_lup = NULL) 
+    abbreviations_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+        title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
         data("abbreviations_lup", package = "ready4fun", envir = environment())
@@ -169,7 +184,8 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
         db_1L_chr = "fn_type_lup_tb", title_1L_chr = "Function type lookup table", 
         desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
             pkg_nm_1L_chr, " package suite."), format_1L_chr = "A tibble", 
-        url_1L_chr = url_1L_chr, abbreviations_lup = abbreviations_lup)
+        url_1L_chr = url_1L_chr, abbreviations_lup = abbreviations_lup, 
+        pkg_dss_tb = pkg_dss_tb)
 }
 #' Write documented functions
 #' @description write_documented_fns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented functions. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -214,7 +230,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -259,7 +274,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -318,7 +332,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -343,7 +356,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @rdname write_links_for_website
 #' @export 
 
-#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
     developer_manual_url_1L_chr, project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/") 
 write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
@@ -369,7 +381,6 @@ write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"),
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -602,7 +613,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -622,7 +632,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -653,7 +662,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -704,7 +712,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -724,7 +731,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 

@@ -15,7 +15,9 @@ write_and_doc_ds(
   vars_ls = NULL,
   R_dir_1L_chr = "R",
   abbreviations_lup = NULL,
-  object_type_lup = NULL
+  object_type_lup = NULL,
+  pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+    desc_chr = character(0), url_chr = character(0))
 )
 }
 \arguments{
@@ -40,7 +42,13 @@ write_and_doc_ds(
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
+
+\item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
+desc_chr = character(0), url_chr = character(0))}
+}
+\value{
+Package datasets (a tibble)
 }
 \description{
-write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
 }

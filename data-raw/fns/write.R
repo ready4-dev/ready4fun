@@ -5,12 +5,16 @@ write_abbr_lup <- function(short_name_chr = NA_character_,
                            overwrite_1L_lgl = T,
                            seed_lup = NULL,
                            url_1L_chr,
-                           pkg_nm_1L_chr = get_dev_pkg_nm()){
+                           pkg_nm_1L_chr = get_dev_pkg_nm(),
+                           pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
+                                                       title_chr = character(0),
+                                                       desc_chr = character(0),
+                                                       url_chr = character(0))){
   if(is.null(seed_lup)){
     data("object_type_lup",package="ready4fun",envir = environment())
     seed_lup <- object_type_lup
   }
-  update_abbr_lup(seed_lup,
+  pkg_dss_tb <- update_abbr_lup(seed_lup,
                   short_name_chr = short_name_chr,
                   long_name_chr = long_name_chr,
                   no_plural_chr = no_plural_chr,
@@ -22,7 +26,9 @@ write_abbr_lup <- function(short_name_chr = NA_character_,
                      desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ",pkg_nm_1L_chr,"package."),
                      format_1L_chr = "A tibble",
                      url_1L_chr = url_1L_chr,
-                     abbreviations_lup = .)
+                     abbreviations_lup = .,
+                     pkg_dss_tb = pkg_dss_tb)
+  return(pkg_dss_tb)
 }
 write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
                                             r4_name_1L_chr,
@@ -45,7 +51,11 @@ write_and_doc_ds <- function(db,
                                vars_ls = NULL,
                                R_dir_1L_chr = "R",
                                abbreviations_lup = NULL,
-                               object_type_lup = NULL){
+                               object_type_lup = NULL,
+                             pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
+                                                         title_chr = character(0),
+                                                         desc_chr = character(0),
+                                                         url_chr = character(0))){
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
@@ -68,6 +78,12 @@ write_and_doc_ds <- function(db,
   close_open_sinks()
   devtools::document()
   devtools::load_all()
+  pkg_dss_tb <- tibble::add_case(pkg_dss_tb,
+                                 ds_obj_nm_chr = db_1L_chr,
+                                 title_chr = title_1L_chr,
+                                 desc_chr = desc_1L_chr,
+                                 url_chr = url_1L_chr)
+  return(pkg_dss_tb)
 }
 write_and_doc_fn_fls <- function(fns_dmt_tb,
                                    r_dir_1L_chr = "R",
@@ -133,7 +149,11 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    overwrite_1L_lgl = T,
                                    pkg_nm_1L_chr = get_dev_pkg_nm(),
                                    url_1L_chr = url_1L_chr,
-                                   abbreviations_lup = NULL){
+                                   abbreviations_lup = NULL,
+                                   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
+                                                               title_chr = character(0),
+                                                               desc_chr = character(0),
+                                                               url_chr = character(0))){
   if(is.null(abbreviations_lup))
     data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_type_lup_tb %>%
@@ -143,7 +163,8 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                      desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
                      format_1L_chr = "A tibble",
                      url_1L_chr = url_1L_chr,
-                     abbreviations_lup = abbreviations_lup)
+                     abbreviations_lup = abbreviations_lup,
+                     pkg_dss_tb = pkg_dss_tb)
 }
 write_documented_fns <- function(tmp_fn_dir_1L_chr,
                                    R_dir_1L_chr){

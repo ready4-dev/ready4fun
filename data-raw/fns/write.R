@@ -276,6 +276,11 @@ write_fn_fl <- function(fns_dmt_tb,
                                     }
                                     writeLines(paste0(tb[[.x,1]]," <- ",fn_chr[1]))
                                     writeLines(fn_chr[2:length(fn_chr)])
+                                    if(tb$file_pfx_chr[1]=="grp_"){
+                                      writeLines(paste0("methods::setGeneric(\"",
+                                                        tb[[.x,1]],
+                                                        "\")"))
+                                    }
                                     close_open_sinks()
                                   })
                   }

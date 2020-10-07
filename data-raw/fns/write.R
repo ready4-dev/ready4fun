@@ -251,6 +251,7 @@ write_fn_fl <- function(fns_dmt_tb,
                                   {
                                     fn <- eval(parse(text=tb[[.x,1]]))
                                     fn_chr <- deparse(fn)
+                                    fn_and_cls_chr <- tb[[.x,1]] %>% strsplit("\\.") %>% purrr::pluck(1)
                                     sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
                                     make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
                                                  fn_type_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
@@ -280,6 +281,12 @@ write_fn_fl <- function(fns_dmt_tb,
                                       writeLines(paste0("methods::setGeneric(\"",
                                                         tb[[.x,1]],
                                                         "\")"))
+                                    }
+                                    if(tb$file_pfx_chr[1]=="mthd_"){
+                                      writeLines(paste0('methods::setMethod(\"', fn_and_cls_chr[1], '\"',
+                                                        ', ',paste0('\"',fn_and_cls_chr[2],'\"'),
+                                                        ', ', tb[[.x,1]],
+                                                        ')'))
                                     }
                                     close_open_sinks()
                                   })

@@ -6,6 +6,14 @@ home:
     href: https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf
   - text: Project website
     href: https://readyforwhatsnext.github.io/readyforwhatsnext/
+home:
+  links:
+  - text: User manual (PDF)
+    href: https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf
+  - text: Developer version of usual manual (PDF)
+    href: https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf
+  - text: Project website
+    href: https://readyforwhatsnext.github.io/readyforwhatsnext/
 development:
   mode: auto
 reference:

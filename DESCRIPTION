@@ -61,7 +61,8 @@ Imports:
     tibble,
     tools,
     usethis,
-    xfun
+    xfun,
+    textshaping
 RdMacros: lifecycle
 Depends: 
     R (>= 2.10)

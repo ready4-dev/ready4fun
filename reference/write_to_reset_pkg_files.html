@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9230</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@
     <p>write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_to_reset_pkg_files</span>(
-  <span class='kw'>delete_contents_of_1L_chr</span>,
-  package_1L_chr = <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>()),
-  package_dir_1L_chr = <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span>(),
-  description_ls = <span class='kw'>NULL</span>,
-  keep_version_lgl = <span class='kw'>T</span>
-)</pre>
+    <pre class="usage"><span class='fu'>write_to_reset_pkg_files</span><span class='op'>(</span>
+  <span class='va'>delete_contents_of_1L_chr</span>,
+  package_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  package_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
+  description_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  keep_version_lgl <span class='op'>=</span> <span class='cn'>T</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

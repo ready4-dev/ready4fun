@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9223</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9230</span>
       </span>
     </div>
 
@@ -128,16 +128,16 @@
     <p>make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions. The function returns All functions documentation (a tibble).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_dmt_for_all_fns</span>(
-  paths_ls = <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span>(),
-  undocumented_fns_dir_chr = <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span>(),
-  custom_dmt_ls = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(details_ls = <span class='kw'>NULL</span>, inc_for_main_user_lgl_ls =
-    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(force_true_chr = <span class='fl'>NA_character_</span>, force_false_chr = <span class='fl'>NA_character_</span>), args_ls_ls =
-    <span class='kw'>NULL</span>),
-  <span class='kw'>fn_type_lup_tb</span>,
-  abbreviations_lup = <span class='kw'>NULL</span>,
-  inc_all_mthds_1L_lgl = <span class='kw'>T</span>
-)</pre>
+    <pre class="usage"><span class='fu'>make_dmt_for_all_fns</span><span class='op'>(</span>
+  paths_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
+  undocumented_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
+  custom_dmt_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>details_ls <span class='op'>=</span> <span class='cn'>NULL</span>, inc_for_main_user_lgl_ls <span class='op'>=</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>force_true_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>, force_false_chr <span class='op'>=</span> <span class='cn'>NA_character_</span><span class='op'>)</span>, args_ls_ls <span class='op'>=</span>
+    <span class='cn'>NULL</span><span class='op'>)</span>,
+  <span class='va'>fn_type_lup_tb</span>,
+  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inc_all_mthds_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

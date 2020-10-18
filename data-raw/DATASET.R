@@ -47,7 +47,7 @@ options(usethis.description = list(
 write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     delete_contents_of_R_dir = T,
                     copyright_holders_chr = "Orygen",
-                    use_travis_1L_lgl = T,
+                    use_travis_1L_lgl = F, # Change once pkgdown textshaping issue is resolved
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental")
@@ -170,8 +170,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
 #
 write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
-usethis::use_package("textshaping")
-devtools::document()
+# usethis::use_package("textshaping")
+# devtools::document()
 #pkgdown::build_site()
 # 11. Create vignettes
 # usethis::use_vignette("ready4fun")

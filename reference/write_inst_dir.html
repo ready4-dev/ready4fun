@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write to remove collate — write_to_remove_collate • ready4fun</title>
+<title>Write inst directory — write_inst_dir • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Write to remove collate — write_to_remove_collate" />
-<meta property="og:description" content="write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to remove collate. The function returns Description (a character vector)." />
+<meta property="og:title" content="Write inst directory — write_inst_dir" />
+<meta property="og:description" content="write_inst_dir() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write inst directory. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,29 +119,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write to remove collate</h1>
+    <h1>Write inst directory</h1>
     <small class="dont-index">Source: <a href='https://github.com/readyforwhatsnext/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
-    <div class="hidden name"><code>write_to_remove_collate.Rd</code></div>
+    <div class="hidden name"><code>write_inst_dir.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>write_to_remove_collate() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to remove collate. The function returns Description (a character vector).</p>
+    <p>write_inst_dir() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write inst directory. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_to_remove_collate</span><span class='op'>(</span><span class='va'>description_chr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_inst_dir</span><span class='op'>(</span>path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>description_chr</th>
-      <td><p>Description (a character vector)</p></td>
+      <th>path_to_pkg_rt_1L_chr</th>
+      <td><p>Path to package root (a character vector of length one), Default: getwd()</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Description (a character vector)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

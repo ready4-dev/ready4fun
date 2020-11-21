@@ -171,6 +171,20 @@ write_and_doc_fn_fls(fns_dmt_tb,
 write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 # usethis::use_package("textshaping")
+usethis::use_package("testthat")
+usethis::use_package("knitr")
+# workflow_bdg <- badgr::get_badge(
+#   label = "ready4",   # left-side text
+#   message = "workflow",         # right-side text
+#   color = "008900",         # left-side colour (green)
+#   label_color = "black",    # right_side colour
+#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
+#   #logo_path = logo,         # path to my logo
+#   browser_preview = FALSE,  # don't open preview
+#   to_clipboard = FALSE      # don't copy to clipboard
+# )
+# Copied to readme:
+#[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)
 # devtools::document()
 #pkgdown::build_site()
 # 11. Create vignettes

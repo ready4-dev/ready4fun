@@ -5,6 +5,7 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build status](https://github.com/readyforwhatsnext/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/readyforwhatsnext/ready4fun/actions)
+[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html) 
 <!-- badges: end -->
 
 ready4fun is a collection of functions for

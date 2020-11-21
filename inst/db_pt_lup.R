@@ -1,7 +1,7 @@
-#' Lookup data table of readyforwhatsnext classes
+#' Lookup data table of ready4 classes
 #'
-#' A lookup table for use when creating new readyforwhatsnext classes. The lookup table contains information on a
-#' number of base class types plus the latest list of readyforwhatsnext classes up to the release of this package.
+#' A lookup table for use when creating new ready4 classes. The lookup table contains information on a
+#' number of base class types plus the latest list of ready4 classes up to the release of this package.
 #'
 #' @format A tibble
 #'   ...

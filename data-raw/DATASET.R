@@ -22,8 +22,8 @@ fns_path_chr <- read_fns(fns_dir_1L_chr)
 # 5. Set-up package structure
 options(usethis.description = list(
   Package = get_dev_pkg_nm(),
-  Title =  "Readyforwhatsnext Function Authoring And Documentation Tools",
-  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the readyforwhatsnext ecosystem.
+  Title =  "ready4 Function Authoring And Documentation Tools",
+  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
   While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
   `Authors@R` = c(utils::person(
@@ -51,7 +51,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental")
-#
+usethis::use_github_action_check_standard()
 #travis::use_travis_deploy() # Check if needed now using GH Actions
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).

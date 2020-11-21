@@ -13,11 +13,11 @@ write_tb_to_csv(
 )
 }
 \arguments{
-\item{tbs_r4}{Tibbles (a readyforwhatsnext S4)}
+\item{tbs_r4}{Tibbles (a ready4 S4)}
 
 \item{slot_nm_1L_chr}{Slot name (a character vector of length one)}
 
-\item{r4_name_1L_chr}{Readyforwhatsnext S4 name (a character vector of length one)}
+\item{r4_name_1L_chr}{Ready4 S4 name (a character vector of length one)}
 
 \item{lup_dir_1L_chr}{Lookup table directory (a character vector of length one)}
 

@@ -2,20 +2,20 @@
 % Please edit documentation in R/fn_rowbind.R
 \name{rowbind_all_tbs_in_r4_obj}
 \alias{rowbind_all_tbs_in_r4_obj}
-\title{Rowbind all tibbles in readyforwhatsnext S4 object}
+\title{Rowbind all tibbles in ready4 S4 object}
 \usage{
 rowbind_all_tbs_in_r4_obj(tbs_r4, second_tbs_r4, r4_name_1L_chr)
 }
 \arguments{
-\item{tbs_r4}{Tibbles (a readyforwhatsnext S4)}
+\item{tbs_r4}{Tibbles (a ready4 S4)}
 
-\item{second_tbs_r4}{Second tibbles (a readyforwhatsnext S4)}
+\item{second_tbs_r4}{Second tibbles (a ready4 S4)}
 
-\item{r4_name_1L_chr}{Readyforwhatsnext S4 name (a character vector of length one)}
+\item{r4_name_1L_chr}{Ready4 S4 name (a character vector of length one)}
 }
 \value{
-Tibbles (a readyforwhatsnext S4)
+Tibbles (a ready4 S4)
 }
 \description{
-rowbind_all_tbs_in_r4_obj() is a Rowbind function that performs custom rowbind operations on table objects. Specifically, this function implements an algorithm to rowbind all tibbles in readyforwhatsnext s4 object. The function returns Tibbles (a readyforwhatsnext S4).
+rowbind_all_tbs_in_r4_obj() is a Rowbind function that performs custom rowbind operations on table objects. Specifically, this function implements an algorithm to rowbind all tibbles in ready4 s4 object. The function returns Tibbles (a ready4 S4).
 }

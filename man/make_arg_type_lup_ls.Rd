@@ -15,4 +15,3 @@ Lookup table list (a list of lookup tables)
 \description{
 make_arg_type_lup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type lookup table list. The function returns Lookup table list (a list of lookup tables).
 }
-\keyword{internal}

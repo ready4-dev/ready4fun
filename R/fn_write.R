@@ -33,10 +33,10 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
         url_1L_chr = url_1L_chr, abbreviations_lup = ., pkg_dss_tb = pkg_dss_tb)
     return(pkg_dss_tb)
 }
-#' Write all tibbles in tibbles readyforwhatsnext S4 to comma separated variables files
-#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles readyforwhatsnext s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
-#' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
+#' Write all tibbles in tibbles ready4 S4 to comma separated variables files
+#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles ready4 s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param tbs_r4 Tibbles (a ready4 S4)
+#' @param r4_name_1L_chr Ready4 S4 name (a character vector of length one)
 #' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
 #' @param pfx_1L_chr Prefix (a character vector of length one)
 #' @return NULL
@@ -230,7 +230,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -275,7 +274,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -345,7 +343,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -360,6 +357,25 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
     writeLines(txt_chr, fileConn)
     close(fileConn)
 }
+#' Write inst directory
+#' @description write_inst_dir() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write inst directory. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @return NULL
+#' @rdname write_inst_dir
+#' @export 
+
+write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
+{
+    source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
+    if (dir.exists(source_inst_dir_1L_chr)) {
+        inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/inst")
+        if (dir.exists(inst_dir_1L_chr)) 
+            unlink(inst_dir_1L_chr, recursive = TRUE)
+        dir.create(inst_dir_1L_chr)
+        file.copy(source_inst_dir_1L_chr, path_to_pkg_rt_1L_chr, 
+            recursive = TRUE)
+    }
+}
 #' Write links for website
 #' @description write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
@@ -370,7 +386,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @rdname write_links_for_website
 #' @export 
 
-#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
     developer_manual_url_1L_chr, project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/") 
 write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
@@ -396,7 +411,6 @@ write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"),
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -531,6 +545,7 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_
     if (incr_ver_1L_lgl) {
         usethis::use_version()
     }
+    write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
     usethis::use_gpl3_license(copyright_holders_chr)
     usethis::use_pkgdown()
     usethis::use_build_ignore(files = "_pkgdown.yml")
@@ -603,9 +618,9 @@ write_std_imp <- function (R_dir_1L_chr = "R")
 }
 #' Write tibble to comma separated variables file
 #' @description write_tb_to_csv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write tibble to comma separated variables file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param tbs_r4 Tibbles (a readyforwhatsnext S4)
+#' @param tbs_r4 Tibbles (a ready4 S4)
 #' @param slot_nm_1L_chr Slot name (a character vector of length one)
-#' @param r4_name_1L_chr Readyforwhatsnext S4 name (a character vector of length one)
+#' @param r4_name_1L_chr Ready4 S4 name (a character vector of length one)
 #' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
 #' @param pfx_1L_chr Prefix (a character vector of length one)
 #' @return NULL
@@ -629,7 +644,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -649,7 +663,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -680,7 +693,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -731,7 +743,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -751,7 +762,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 
@@ -779,9 +789,9 @@ write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".")
 #' @importFrom purrr walk
 write_ws <- function (path_1L_chr) 
 {
-    dir.create(paste0(path_1L_chr, "/Readyforwhatsnext"))
-    top_level_chr <- paste0(path_1L_chr, "/Readyforwhatsnext/", 
-        c("Code", "Data", "Documentation", "Insight"))
+    dir.create(paste0(path_1L_chr, "/ready4"))
+    top_level_chr <- paste0(path_1L_chr, "/ready4/", c("Code", 
+        "Data", "Documentation", "Insight"))
     top_level_chr %>% purrr::walk(~dir.create(.x))
     c("Framework", "Models") %>% purrr::walk(~{
         dir.create(paste0(top_level_chr[1], "/", .x))

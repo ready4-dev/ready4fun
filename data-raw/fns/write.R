@@ -314,6 +314,16 @@ write_from_tmp <- function(temp_path_1L_chr,
   writeLines(txt_chr, fileConn)
   close(fileConn)
 }
+write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
+  source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr,"/data-raw/inst")
+  if(dir.exists(source_inst_dir_1L_chr)){
+    inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr,"/inst")
+    if(dir.exists(inst_dir_1L_chr))
+      unlink(inst_dir_1L_chr, recursive=TRUE)
+    dir.create(inst_dir_1L_chr)
+    file.copy(source_inst_dir_1L_chr, path_to_pkg_rt_1L_chr, recursive=TRUE)
+  }
+}
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
                                     user_manual_url_1L_chr,
                                     developer_manual_url_1L_chr,
@@ -444,6 +454,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
   if(incr_ver_1L_lgl){
     usethis::use_version()
   }
+  write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
   usethis::use_gpl3_license(copyright_holders_chr)
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
@@ -640,8 +651,8 @@ write_vignette <- function(package_1L_chr,
                    args_ls = list(package_1L_chr = package_1L_chr))
 }
 write_ws <- function(path_1L_chr){
-  dir.create(paste0(path_1L_chr,"/Readyforwhatsnext"))
-  top_level_chr <- paste0(path_1L_chr,"/Readyforwhatsnext/",c("Code", "Data","Documentation", "Insight"))
+  dir.create(paste0(path_1L_chr,"/ready4"))
+  top_level_chr <- paste0(path_1L_chr,"/ready4/",c("Code", "Data","Documentation", "Insight"))
   top_level_chr %>%
     purrr::walk(~ dir.create(.x))
   c("Framework", "Models") %>%

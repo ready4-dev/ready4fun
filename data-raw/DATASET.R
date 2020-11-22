@@ -171,8 +171,11 @@ write_and_doc_fn_fls(fns_dmt_tb,
 write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 # usethis::use_package("textshaping")
+# Manually added: + file LICENSE to DESCRIPTION
+usethis::use_build_ignore("initial_setup.R")
 usethis::use_package("testthat")
 usethis::use_package("knitr")
+usethis::use_build_ignore(list.files("data-raw", recursive = T))
 # workflow_bdg <- badgr::get_badge(
 #   label = "ready4",   # left-side text
 #   message = "workflow",         # right-side text
@@ -185,6 +188,8 @@ usethis::use_package("knitr")
 # )
 # Copied to readme:
 #[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)
+# Added to DESCRIPTION:
+# VignetteBuilder: knitr
 # devtools::document()
 #pkgdown::build_site()
 # 11. Create vignettes

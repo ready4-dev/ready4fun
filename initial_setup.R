@@ -4,7 +4,6 @@
 #Save templates
 ##
 ## NB WRITE FN TO AUTOMATE THIS FROM NS. NEEDS DEV_PACKAGE ARGS
-
-devtools::document()
+#devtools::document()
 #random
 ##

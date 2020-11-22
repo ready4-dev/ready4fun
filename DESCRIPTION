@@ -33,7 +33,7 @@ Description: ready4fun is a collection of functions for
     created a sandpit area in which you can safely undertake testing. If
     you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
-License: GPL-3
+License: GPL-3 + file LICENSE
 URL: https://readyforwhatsnext.github.io/ready4fun/,
     https://github.com/readyforwhatsnext/ready4fun,
     https://readyforwhatsnext.github.io/readyforwhatsnext/

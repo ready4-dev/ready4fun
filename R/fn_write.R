@@ -523,22 +523,23 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param badges_lup Badges (a lookup table), Default: NULL
-#' @param addl_badges_chr Addl badges (a character vector), Default: 'NA'
+#' @param addl_badges_ls PARAM_DESCRIPTION, Default: NULL
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
 #' @importFrom utils data packageDescription
 #' @importFrom devtools load_all
-#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_travis use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge
+#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_travis use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge use_badge
 #' @importFrom desc desc_get desc_set
-#' @importFrom purrr map_chr
-#' @importFrom stringr str_trim str_replace_all
+#' @importFrom purrr map_chr map2_chr walk2 walk
+#' @importFrom stringr str_trim str_replace_all str_locate_all str_sub
 #' @importFrom pkgdown build_favicons
+#' @importFrom dplyr filter
 write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
     check_type_1L_chr = "none", path_to_pkg_logo_1L_chr = NA_character_, 
     github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental", 
-    badges_lup = NULL, addl_badges_chr = NA_character_) 
+    badges_lup = NULL, addl_badges_ls = NULL) 
 {
     options(usethis.description = pkg_desc_ls)
     use_travis_1L_lgl = (check_type_1L_chr == "travis")
@@ -589,21 +590,13 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
         file.copy(path_to_pkg_logo_1L_chr, paste0(path_to_pkg_rt_1L_chr, 
             "/man/figures/logo.png"))
     }
-    if (is.na(addl_badges_chr[1])) {
-        badges_chr <- purrr::map_chr(addl_badges_chr, ~get_from_lup_obj(badges_lup, 
-            match_value_xx = .x, match_var_nm_1L_chr = "names_chr", 
-            target_var_nm_1L_chr = "badges_chr", evaluate_lgl = F))
-    }
-    else {
-        badges_chr <- character(0)
-    }
     writeLines(c(paste0("# ", dev_pkg_nm_1L_chr, ifelse(is.na(path_to_pkg_logo_1L_chr), 
         "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
         "", paste0("## ", utils::packageDescription(dev_pkg_nm_1L_chr, 
             fields = "Title") %>% stringr::str_replace_all("\n", 
-            " ")), "", "<!-- badges: start -->", badges_chr, 
-        "<!-- badges: end -->", "", utils::packageDescription(dev_pkg_nm_1L_chr, 
-            fields = "Description"), "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
+            " ")), "", "<!-- badges: start -->", "<!-- badges: end -->", 
+        "", utils::packageDescription(dev_pkg_nm_1L_chr, fields = "Description"), 
+        "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
         "", "```r", "utils::install.packages(\"devtools\")", 
         "", paste0("devtools::install_github(\"", github_repo_1L_chr, 
             "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
@@ -635,6 +628,29 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
         paste0(path_to_pkg_rt_1L_chr, "/man/figures/fav120.png"))
     usethis::use_lifecycle()
     usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
+    if (!is.null(addl_badges_ls)) {
+        badges_chr <- purrr::map2_chr(addl_badges_ls, names(addl_badges_ls), 
+            ~{
+                badges_lup %>% dplyr::filter(badge_names_chr == 
+                  .y) %>% get_from_lup_obj(match_value_xx = .x, 
+                  match_var_nm_1L_chr = "label_names_chr", target_var_nm_1L_chr = "badges_chr", 
+                  evaluate_lgl = F)
+            }) %>% unname()
+        purrr::walk2(badges_chr, names(addl_badges_ls), ~{
+            badge_1L_chr <- .x
+            badge_nm_1L_chr <- .y
+            break_points_ls <- badge_1L_chr %>% stringr::str_locate_all("\\]\\(")
+            purrr::walk(break_points_ls, ~{
+                src_1L_chr <- stringr::str_sub(badge_1L_chr, 
+                  start = .x[1, 2] %>% as.vector() + 1, end = .x[2, 
+                    1] %>% as.vector() - 2)
+                href_1L_chr <- stringr::str_sub(badge_1L_chr, 
+                  start = .x[2, 2] %>% as.vector() + 1, end = -2)
+                usethis::use_badge(badge_name = badge_nm_1L_chr, 
+                  src = src_1L_chr, href = href_1L_chr)
+            })
+        })
+    }
 }
 #' Write prototype lookup table database
 #' @description write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write prototype lookup table database. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

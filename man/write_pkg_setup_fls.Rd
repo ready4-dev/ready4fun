@@ -16,7 +16,7 @@ write_pkg_setup_fls(
   github_repo_1L_chr,
   lifecycle_stage_1L_chr = "experimental",
   badges_lup = NULL,
-  addl_badges_chr = NA_character_
+  addl_badges_ls = NULL
 )
 }
 \arguments{
@@ -42,7 +42,7 @@ write_pkg_setup_fls(
 
 \item{badges_lup}{Badges (a lookup table), Default: NULL}
 
-\item{addl_badges_chr}{Addl badges (a character vector), Default: 'NA'}
+\item{addl_badges_ls}{PARAM_DESCRIPTION, Default: NULL}
 }
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

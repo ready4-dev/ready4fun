@@ -431,7 +431,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 github_repo_1L_chr,
                                 lifecycle_stage_1L_chr = "experimental",
                                 badges_lup = NULL,
-                                addl_badges_chr = NA_character_){
+                                addl_badges_ls = NULL){
   options(usethis.description = pkg_desc_ls)
   use_travis_1L_lgl = (check_type_1L_chr == "travis")
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
@@ -484,16 +484,6 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
     file.copy(path_to_pkg_logo_1L_chr,
               paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
   }
-  if(is.na(addl_badges_chr[1])){
-   badges_chr <- purrr::map_chr(addl_badges_chr,
-                   ~ get_from_lup_obj(badges_lup,
-                                      match_value_xx = .x,
-                                      match_var_nm_1L_chr = "names_chr",
-                                      target_var_nm_1L_chr = "badges_chr",
-                                      evaluate_lgl = F))
-  }else{
-    badges_chr <- character(0)
-  }
   writeLines(c(paste0("# ",dev_pkg_nm_1L_chr,ifelse(is.na(path_to_pkg_logo_1L_chr),
                                                     "",
                                                     " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
@@ -501,7 +491,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
                "",
                "<!-- badges: start -->",
-               badges_chr,
+               #badges_chr,
                "<!-- badges: end -->" ,
                "",
                utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
@@ -559,6 +549,41 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
             paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
+  if(!is.null(addl_badges_ls)){
+    badges_chr <- purrr::map2_chr(addl_badges_ls,
+                      names(addl_badges_ls),
+                      ~{
+                        badges_lup %>%
+                          dplyr::filter(badge_names_chr == .y) %>%
+                          get_from_lup_obj(match_value_xx = .x,
+                                           match_var_nm_1L_chr = "label_names_chr",
+                                           target_var_nm_1L_chr = "badges_chr",
+                                           evaluate_lgl = F)
+                      }) %>% unname()
+
+      # purrr::map_chr(addl_badges_ls,
+      #                            ~ )
+    purrr::walk2(badges_chr,
+                 names(addl_badges_ls),
+                ~ {
+                  badge_1L_chr <- .x
+                  badge_nm_1L_chr <- .y
+                  break_points_ls <- badge_1L_chr  %>% stringr::str_locate_all("\\]\\(")
+                  purrr::walk(break_points_ls,
+                              ~ {
+                                src_1L_chr <- stringr::str_sub(badge_1L_chr, start = .x[1,2] %>% as.vector() + 1,
+                                                 end = .x[2,1] %>% as.vector() - 2)
+                                href_1L_chr <- stringr::str_sub(badge_1L_chr, start = .x[2,2] %>% as.vector() + 1,
+                                                                end = -2)
+                                usethis::use_badge(badge_name = badge_nm_1L_chr,
+                                                   src = src_1L_chr,
+                                                   href = href_1L_chr)
+
+                              })
+                })
+
+  }
+
 }
 write_pt_lup_db <- function(R_dir_1L_chr = "R"){
   write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),

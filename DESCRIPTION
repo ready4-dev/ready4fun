@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring And Documentation Tools
     For Use With The ready4 Suite
-Version: 0.0.0.9238
+Version: 0.0.0.9239
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -68,5 +68,3 @@ Imports:
     xfun
 VignetteBuilder: knitr
 RdMacros: lifecycle
-Depends: 
-    R (>= 2.10)

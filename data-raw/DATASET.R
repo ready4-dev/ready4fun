@@ -20,9 +20,10 @@ source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
 # 5. Set-up package structure
-badges_lup <- tibble::tibble(names_chr = c("development","modelling", "prediction"),
+badges_lup <- tibble::tibble(badge_names_chr = "ready4",
+                             label_names_chr = c("development","modelling", "prediction"),
                             colours_chr = c("maroon", "indigo", "forestgreen")) %>%
-  dplyr::mutate(badges_chr = purrr::map2_chr(names_chr, colours_chr,
+  dplyr::mutate(badges_chr = purrr::map2_chr(label_names_chr, colours_chr,
                                              ~badgr::get_badge(
                                                label = "ready4",
                                                message = .x,
@@ -62,7 +63,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     badges_lup = badges_lup,
-                    addl_badges_chr = "development")
+                    addl_badges_ls = list(ready4 = "development"))
 #usethis::use_github_action_check_standard()
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
@@ -188,11 +189,12 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #
+
 write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 # usethis::use_package("textshaping")
 # Manually added: + file LICENSE to DESCRIPTION
-usethis::use_build_ignore("initial_setup.R")
+
 # Added to DESCRIPTION:
 # VignetteBuilder: knitr
 # devtools::document()

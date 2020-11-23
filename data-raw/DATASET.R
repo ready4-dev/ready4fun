@@ -194,12 +194,13 @@ pkg_dss_tb <- fns_dmt_tb %>%
 #
 # 10. Write documented functions to R directory.
 ## Note files to be rewritten cannot be open in RStudio.
+usethis::use_build_ignore("initial_setup.R")
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #
-usethis::use_build_ignore("initial_setup.R")
+
 # write_links_for_website(user_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216.pdf",
 #                         developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 

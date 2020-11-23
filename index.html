@@ -5,7 +5,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ready4 Function Authoring And Documentation Tools • ready4fun</title>
+<title>Standardised Function Authoring And Documentation Tools
+    For Use With The ready4 Suite • ready4fun</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,7 +18,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="ready4 Function Authoring And Documentation Tools">
+<script src="pkgdown.js"></script><meta property="og:title" content="Standardised Function Authoring And Documentation Tools
+    For Use With The ready4 Suite">
 <meta property="og:description" content="ready4fun is a collection of functions for
     authoring code libraries of functions and datasets for use in mental
     health simulations developed within the ready4 ecosystem.  This
@@ -52,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9232</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9238</span>
       </span>
     </div>
 
@@ -94,15 +96,15 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#ready4fun-" class="anchor"></a>ready4fun <img src="reference/figures/fav120.png" align="right">
 </h1></div>
-<div id="ready4-function-authoring-and-documentation-tools" class="section level2">
+<div id="standardised-function-authoring-and-documentation-tools-for-use-with-the-ready4-suite" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ready4-function-authoring-and-documentation-tools" class="anchor"></a>ready4 Function Authoring And Documentation Tools</h2>
+<a href="#standardised-function-authoring-and-documentation-tools-for-use-with-the-ready4-suite" class="anchor"></a>Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite</h2>
 <!-- badges: start -->
 
 <p>ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem. This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE. While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (<a href="mailto:matthew.hamilton@orygen.org.au" class="email">matthew.hamilton@orygen.org.au</a>).</p>
 <p>If you plan on testing this software you can install it by running the following commands in your R console:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"readyforwhatsnext/ready4fun"</span><span class="op">)</span></code></pre></div>
 </div>
@@ -115,13 +117,19 @@
 <ul class="list-unstyled">
 <li>Browse source code at <br><a href="https://github.com/readyforwhatsnext/ready4fun/">https://​github.com/​readyforwhatsnext/​ready4fun/​</a>
 </li>
+<li>User manual (PDF) at <br><a href="https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf">https://​readyforwhatsnext.github.io/​readyforwhatsnext/​pdfs/​ready4fun_0.0.0.9216.pdf</a>
+</li>
+<li>Developer version of usual manual (PDF) at <br><a href="https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf">https://​readyforwhatsnext.github.io/​readyforwhatsnext/​pdfs/​ready4fun_0.0.0.9216_dev.pdf</a>
+</li>
+<li>Project website at <br><a href="https://readyforwhatsnext.github.io/readyforwhatsnext/">https://​readyforwhatsnext.github.io/​readyforwhatsnext/​</a>
+</li>
 </ul>
 </div>
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 <div class="developers">
@@ -138,9 +146,8 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/readyforwhatsnext/ready4fun/actions"><img src="https://github.com/readyforwhatsnext/ready4fun/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://readyforwhatsnext.github.io/readyforwhatsnext/index.html"><img src="https://img.shields.io/badge/ready4-workflow-008900?style=flat&amp;labelColor=black"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 </div>

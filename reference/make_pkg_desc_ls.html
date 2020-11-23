@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update functions documentation tibble character vector vars — update_fns_dmt_tb_chr_vars • ready4fun</title>
+<title>Make package description — make_pkg_desc_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Update functions documentation tibble character vector vars — update_fns_dmt_tb_chr_vars" />
-<meta property="og:description" content="update_fns_dmt_tb_chr_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble character vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble)." />
+<meta property="og:title" content="Make package description — make_pkg_desc_ls" />
+<meta property="og:description" content="make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,41 +119,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update functions documentation tibble character vector vars</h1>
-    <small class="dont-index">Source: <a href='https://github.com/readyforwhatsnext/ready4fun/blob/master/R/fn_update.R'><code>R/fn_update.R</code></a></small>
-    <div class="hidden name"><code>update_fns_dmt_tb_chr_vars.Rd</code></div>
+    <h1>Make package description</h1>
+    <small class="dont-index">Source: <a href='https://github.com/readyforwhatsnext/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
+    <div class="hidden name"><code>make_pkg_desc_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>update_fns_dmt_tb_chr_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble character vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).</p>
+    <p>make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_fns_dmt_tb_chr_vars</span><span class='op'>(</span><span class='va'>fns_dmt_tb</span>, <span class='va'>data_1L_chr</span>, <span class='va'>new_ls</span>, <span class='va'>append_1L_lgl</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_pkg_desc_ls</span><span class='op'>(</span>
+  pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>pkg_title_1L_chr</span>,
+  <span class='va'>pkg_desc_1L_chr</span>,
+  <span class='va'>authors_prsns</span>,
+  <span class='va'>urls_chr</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
+      <th>pkg_nm_1L_chr</th>
+      <td><p>Package name (a character vector of length one), Default: get_dev_pkg_nm()</p></td>
     </tr>
     <tr>
-      <th>data_1L_chr</th>
-      <td><p>Data (a character vector of length one)</p></td>
+      <th>pkg_title_1L_chr</th>
+      <td><p>Package title (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>new_ls</th>
-      <td><p>New (a list)</p></td>
+      <th>pkg_desc_1L_chr</th>
+      <td><p>Package description (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>append_1L_lgl</th>
-      <td><p>Append (a logical vector of length one)</p></td>
+      <th>authors_prsns</th>
+      <td><p>PARAM_DESCRIPTION</p></td>
+    </tr>
+    <tr>
+      <th>urls_chr</th>
+      <td><p>Urls (a character vector)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Functions documentation (a tibble)</p>
+    <p>Package description (a list)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

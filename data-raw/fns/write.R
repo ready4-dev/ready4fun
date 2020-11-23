@@ -425,10 +425,17 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
                                 incr_ver_1L_lgl = T,
                                 delete_contents_of_R_dir = F,
                                 copyright_holders_chr,
-                                use_travis_1L_lgl = T,
+                                check_type_1L_chr = "none",
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 github_repo_1L_chr,
-                                lifecycle_stage_1L_chr = "experimental"){
+                                lifecycle_stage_1L_chr = "experimental",
+                                badges_lup = NULL,
+                                addl_badges_chr = NA_character_){
+  use_travis_1L_lgl = (check_type_1L_chr == "travis")
+  use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
+  if(is.null(badges_lup)){
+    data("badges_lup",envir = environment())
+  }
   if(delete_contents_of_R_dir)
     write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",
                              package_1L_chr = dev_pkg_nm_1L_chr,
@@ -458,11 +465,24 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
   usethis::use_gpl3_license(copyright_holders_chr)
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
+  usethis::use_package("testthat")
+  usethis::use_package("knitr")
+  usethis::use_build_ignore(list.files(paste0(path_to_pkg_rt_1L_chr,"/data-raw"), recursive = T))
   if(!is.na(path_to_pkg_logo_1L_chr)){
     if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
       dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
     file.copy(path_to_pkg_logo_1L_chr,
               paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
+  }
+  if(is.na(addl_badges_chr[1])){
+   badges_chr <- purrr::map_chr(addl_badges_chr,
+                   ~ get_from_lup_obj(badges_lup,
+                                      match_value_xx = .x,
+                                      match_var_nm_1L_chr = "names_chr",
+                                      target_var_nm_1L_chr = "badges_chr",
+                                      evaluate_lgl = F))
+  }else{
+    badges_chr <- character(0)
   }
   writeLines(c(paste0("# ",dev_pkg_nm_1L_chr,ifelse(is.na(path_to_pkg_logo_1L_chr),
                                                     "",
@@ -471,6 +491,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
                paste0("## ",packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
                "",
                "<!-- badges: start -->",
+               badges_chr,
                "<!-- badges: end -->" ,
                "",
                packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
@@ -517,6 +538,9 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
                      )
                    })
     # travis::use_travis_deploy()
+  }
+  if(use_gh_cmd_check_1L_lgl){
+    usethis::use_github_action_check_standard()
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()

@@ -20,6 +20,18 @@ source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
 # 5. Set-up package structure
+badges_lup <- tibble::tibble(names_chr = c("development","modelling", "prediction"),
+                            colours_chr = c("maroon", "indigo", "forestgreen")) %>%
+  dplyr::mutate(badges_chr = purrr::map2_chr(names_chr, colours_chr,
+                                             ~badgr::get_badge(
+                                               label = "ready4",
+                                               message = .x,
+                                               color = .y,
+                                               label_color = "black",
+                                               md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",
+                                               logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",
+                                               browser_preview = F,
+                                               to_clipboard = F)))
 options(usethis.description = list(
   Package = get_dev_pkg_nm(),
   Title =  "ready4 Function Authoring And Documentation Tools",
@@ -50,7 +62,9 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     use_travis_1L_lgl = F, # Change once pkgdown textshaping issue is resolved
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
-                    lifecycle_stage_1L_chr = "experimental")
+                    lifecycle_stage_1L_chr = "experimental",
+                    badges_lup = badges_lup,
+                    addl_badges_chr = "development")
 usethis::use_github_action_check_standard()
 #travis::use_travis_deploy() # Check if needed now using GH Actions
 ## INTERACTIVE INPUT
@@ -138,6 +152,16 @@ write_dmtd_fn_type_lup(url_1L_chr = "https://readyforwhatsnext.github.io/readyfo
                        pkg_dss_tb = pkg_dss_tb)
 data("fn_type_lup_tb")
 data("object_type_lup")
+pkg_dss_tb <- badges_lup %>%
+  write_and_doc_ds(overwrite_1L_lgl = T,
+                   db_1L_chr = "badges_lup",
+                   title_1L_chr = "ready4 badges lookup table",
+                   desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
+                   format_1L_chr = "A tibble",
+                   url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                   abbreviations_lup = abbreviations_lup,
+                   object_type_lup = object_type_lup
+  )
 #
 # 9. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
@@ -173,21 +197,44 @@ write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.gith
 # usethis::use_package("textshaping")
 # Manually added: + file LICENSE to DESCRIPTION
 usethis::use_build_ignore("initial_setup.R")
-usethis::use_package("testthat")
-usethis::use_package("knitr")
-usethis::use_build_ignore(list.files("data-raw", recursive = T))
-# workflow_bdg <- badgr::get_badge(
+
+# r4_dev_bdg <- badgr::get_badge(
 #   label = "ready4",   # left-side text
-#   message = "workflow",         # right-side text
-#   color = "008900",         # left-side colour (green)
+#   message = "development",         # right-side text
+#   color = "maroon",         # left-side colour
 #   label_color = "black",    # right_side colour
 #   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
-#   #logo_path = logo,         # path to my logo
-#   browser_preview = FALSE,  # don't open preview
+#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
+#   browser_preview = F,  # don't open preview
 #   to_clipboard = FALSE      # don't copy to clipboard
 # )
+# r4_mdlng_bdg <- badgr::get_badge(
+#   label = "ready4",   # left-side text
+#   message = "modelling",         # right-side text
+#   color = "indigo",         # left-side colour
+#   label_color = "black",    # right_side colour
+#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
+#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
+#   browser_preview = F,  # don't open preview
+#   to_clipboard = FALSE      # don't copy to clipboard
+# )
+# r4_pred_bdg <- badgr::get_badge(
+#   label = "ready4",   # left-side text
+#   message = "prediction",         # right-side text
+#   color = "forestgreen",         # left-side colour
+#   label_color = "black",    # right_side colour
+#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
+#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
+#   browser_preview = F,  # don't open preview
+#   to_clipboard = FALSE      # don't copy to clipboard
+# )
+
 # Copied to readme:
 #[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)
+is_workflow_1L_lgl <- F
+paste0("[![](https://img.shields.io/badge/ready4-",
+       ifelse(is_workflow_1L_lgl,"workflow","model"),
+       "-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)")
 # Added to DESCRIPTION:
 # VignetteBuilder: knitr
 # devtools::document()

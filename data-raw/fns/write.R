@@ -11,7 +11,7 @@ write_abbr_lup <- function(short_name_chr = NA_character_,
                                                        desc_chr = character(0),
                                                        url_chr = character(0))){
   if(is.null(seed_lup)){
-    data("object_type_lup",package="ready4fun",envir = environment())
+    utils::data("object_type_lup",package="ready4fun",envir = environment())
     seed_lup <- object_type_lup
   }
   pkg_dss_tb <- update_abbr_lup(seed_lup,
@@ -57,9 +57,9 @@ write_and_doc_ds <- function(db,
                                                          desc_chr = character(0),
                                                          url_chr = character(0))){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    data("object_type_lup",package="ready4fun",envir = environment())
+    utils::data("object_type_lup",package="ready4fun",envir = environment())
   eval(parse(text=paste0(db_1L_chr,"<-db")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
@@ -109,7 +109,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
   if(update_pkgdown_1L_lgl){
-    datasets_chr <- data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())$results[,3]
+    datasets_chr <- utils::data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())$results[,3]
     writeLines(c("development:",
                  "  mode: auto",
                  "reference:",
@@ -118,7 +118,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  paste0("  - ",datasets_chr),
                  {
                    if("prototype_lup" %in% datasets_chr){
-                     data("prototype_lup",package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())
+                     utils::data("prototype_lup",package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())
                      fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm(path_to_pkg_rt_1L_chr)) %>%
                        dplyr::pull(fn_to_call_chr)
                      if(length(fns_chr)>0){
@@ -155,7 +155,7 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                                                desc_chr = character(0),
                                                                url_chr = character(0))){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_type_lup_tb %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
                      db_1L_chr = "fn_type_lup_tb",
@@ -196,9 +196,9 @@ write_ds_dmt <- function(db,
                            abbreviations_lup = NULL,
                            object_type_lup = NULL){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    data("object_type_lup",package="ready4fun",envir = environment())
+    utils::data("object_type_lup",package="ready4fun",envir = environment())
   auto_vars_ls <- names(db) %>%
     purrr::map(~ make_arg_desc(.x,
                                object_type_lup = object_type_lup,
@@ -407,7 +407,7 @@ write_pkg <- function(package_1L_chr,
                    dest_path_1L_chr = paste0(R_dir_1L_chr,"/pkg_",package_1L_chr,".R"),
                    edit_fn = function(txt_chr,
                                       package_1L_chr){
-                     pkg_desc_ls <- packageDescription(package_1L_chr)
+                     pkg_desc_ls <- utils::packageDescription(package_1L_chr)
                      txt_chr <- purrr::map_chr(txt_chr,
                                                ~ stringr::str_replace_all(.x,
                                                                           "ready4fun",
@@ -436,7 +436,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   use_travis_1L_lgl = (check_type_1L_chr == "travis")
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
   if(is.null(badges_lup)){
-    data("badges_lup",envir = environment())
+    utils::data("badges_lup",envir = environment())
   }
   if(delete_contents_of_R_dir)
     write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",
@@ -470,6 +470,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
     readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
     purrr::map_chr(~stringr::str_trim(.x)) %>%
     writeLines(con = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"))
+  desc::desc_set("License", "GPL-3 + file LICENSE")
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
   usethis::use_package("testthat")
@@ -496,18 +497,18 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                                     "",
                                                     " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
                "",
-               paste0("## ",packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
+               paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
                "",
                "<!-- badges: start -->",
                badges_chr,
                "<!-- badges: end -->" ,
                "",
-               packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
+               utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
                "",
                "If you plan on testing this software you can install it by running the following commands in your R console:",
                "",
                "```r",
-               "install.packages(\"devtools\")",
+               "utils::install.packages(\"devtools\")",
                "",
                paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
                "",
@@ -575,7 +576,7 @@ write_tb_to_csv <- function(tbs_r4,
                             pfx_1L_chr){
   methods::slot(tbs_r4,slot_nm_1L_chr) %>%
     dplyr::mutate_if(is.list,.funs = dplyr::funs(ifelse(stringr::str_c(.)=="NULL",NA_character_ , stringr::str_c (.)))) %>%
-    write.csv(file = paste0(lup_dir_1L_chr,"/",pfx_1L_chr,"_",slot_nm_1L_chr,".csv"),
+    utils::write.csv(file = paste0(lup_dir_1L_chr,"/",pfx_1L_chr,"_",slot_nm_1L_chr,".csv"),
               row.names = F)
 }
 write_to_remove_collate <- function(description_chr){
@@ -651,7 +652,7 @@ write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
                                      ){
   devtools::load_all()
   if(keep_version_lgl){
-    desc_ls <- packageDescription(package_1L_chr)
+    desc_ls <- utils::packageDescription(package_1L_chr)
     description_ls$Version <- desc_ls$Version
   }
   usethis::use_description(fields = description_ls)

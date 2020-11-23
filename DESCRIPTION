@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring And Documentation Tools
     For Use With The ready4 Suite
-Version: 0.0.0.9233
+Version: 0.0.0.9234
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -34,7 +34,7 @@ Description: ready4fun is a collection of functions for
     created a sandpit area in which you can safely undertake testing. If
     you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
-License: GPL-3
+License: GPL-3 + file LICENSE
 URL: https://readyforwhatsnext.github.io/ready4fun/,
     https://github.com/readyforwhatsnext/ready4fun,
     https://readyforwhatsnext.github.io/readyforwhatsnext/
@@ -64,6 +64,7 @@ Imports:
     tibble,
     tools,
     usethis,
+    utils,
     xfun
 VignetteBuilder: knitr
 RdMacros: lifecycle

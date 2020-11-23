@@ -26,7 +26,7 @@ you have any questions, please contact the authors
 If you plan on testing this software you can install it by running the following commands in your R console:
 
 ```r
-install.packages("devtools")
+utils::install.packages("devtools")
 
 devtools::install_github("readyforwhatsnext/ready4fun")
 

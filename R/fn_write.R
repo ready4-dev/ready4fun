@@ -14,6 +14,7 @@
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
+#' @importFrom utils data
 write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
     seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm(), 
@@ -21,7 +22,8 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(seed_lup)) {
-        data("object_type_lup", package = "ready4fun", envir = environment())
+        utils::data("object_type_lup", package = "ready4fun", 
+            envir = environment())
         seed_lup <- object_type_lup
     }
     pkg_dss_tb <- update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
@@ -70,6 +72,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_and_doc_ds
 #' @export 
 #' @importFrom tibble tibble add_case
+#' @importFrom utils data
 #' @importFrom devtools document load_all
 write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
@@ -78,9 +81,11 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
-        data("abbreviations_lup", package = "ready4fun", envir = environment())
+        utils::data("abbreviations_lup", package = "ready4fun", 
+            envir = environment())
     if (is.null(object_type_lup)) 
-        data("object_type_lup", package = "ready4fun", envir = environment())
+        utils::data("object_type_lup", package = "ready4fun", 
+            envir = environment())
     eval(parse(text = paste0(db_1L_chr, "<-db")))
     eval(parse(text = paste0("usethis::use_data(", db_1L_chr, 
         ", overwrite = overwrite_1L_lgl)")))
@@ -111,6 +116,7 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @export 
 #' @importFrom purrr walk2 map2 flatten_chr discard
 #' @importFrom devtools document load_all build_manual
+#' @importFrom utils data
 #' @importFrom dplyr filter pull
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
     path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
@@ -130,13 +136,13 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
                 devtools::build_manual(path = .x)
         })
     if (update_pkgdown_1L_lgl) {
-        datasets_chr <- data(package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
+        datasets_chr <- utils::data(package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
             envir = environment())$results[, 3]
         writeLines(c("development:", "  mode: auto", "reference:", 
             "- title: \"Datasets\"", "- contents:", paste0("  - ", 
                 datasets_chr), {
                 if ("prototype_lup" %in% datasets_chr) {
-                  data("prototype_lup", package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
+                  utils::data("prototype_lup", package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
                     envir = environment())
                   fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == 
                     get_dev_pkg_nm(path_to_pkg_rt_1L_chr)) %>% 
@@ -173,13 +179,15 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @rdname write_dmtd_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
+#' @importFrom utils data
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = url_1L_chr, 
     abbreviations_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
-        data("abbreviations_lup", package = "ready4fun", envir = environment())
+        utils::data("abbreviations_lup", package = "ready4fun", 
+            envir = environment())
     fn_type_lup_tb %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
         db_1L_chr = "fn_type_lup_tb", title_1L_chr = "Function type lookup table", 
         desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
@@ -228,6 +236,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @return NULL
 #' @rdname write_ds_dmt
 #' @export 
+#' @importFrom utils data
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
@@ -235,9 +244,11 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
     abbreviations_lup = NULL, object_type_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
-        data("abbreviations_lup", package = "ready4fun", envir = environment())
+        utils::data("abbreviations_lup", package = "ready4fun", 
+            envir = environment())
     if (is.null(object_type_lup)) 
-        data("object_type_lup", package = "ready4fun", envir = environment())
+        utils::data("object_type_lup", package = "ready4fun", 
+            envir = environment())
     auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc(.x, 
         object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup)) %>% 
         stats::setNames(names(db))
@@ -480,6 +491,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @return NULL
 #' @rdname write_pkg
 #' @export 
+#' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
@@ -487,7 +499,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
     write_from_tmp(system.file("pkg_ready_fun.R", package = "ready4fun"), 
         dest_path_1L_chr = paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, 
             ".R"), edit_fn = function(txt_chr, package_1L_chr) {
-            pkg_desc_ls <- packageDescription(package_1L_chr)
+            pkg_desc_ls <- utils::packageDescription(package_1L_chr)
             txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
                 "ready4fun", package_1L_chr))
             txt_chr[1] <- paste0("#' ", package_1L_chr, ": ", 
@@ -515,6 +527,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
+#' @importFrom utils data packageDescription
 #' @importFrom devtools load_all
 #' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_travis use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge
 #' @importFrom desc desc_get desc_set
@@ -531,7 +544,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
     use_travis_1L_lgl = (check_type_1L_chr == "travis")
     use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
     if (is.null(badges_lup)) {
-        data("badges_lup", envir = environment())
+        utils::data("badges_lup", envir = environment())
     }
     if (delete_contents_of_R_dir) 
         write_to_reset_pkg_files(delete_contents_of_1L_chr = "R", 
@@ -562,6 +575,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
     c(desc::desc_get("Title") %>% as.vector(), readLines(paste0(path_to_pkg_rt_1L_chr, 
         "/License.md"))[556:569]) %>% purrr::map_chr(~stringr::str_trim(.x)) %>% 
         writeLines(con = paste0(path_to_pkg_rt_1L_chr, "/LICENSE"))
+    desc::desc_set("License", "GPL-3 + file LICENSE")
     usethis::use_pkgdown()
     usethis::use_build_ignore(files = "_pkgdown.yml")
     usethis::use_package("testthat")
@@ -585,13 +599,14 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
     }
     writeLines(c(paste0("# ", dev_pkg_nm_1L_chr, ifelse(is.na(path_to_pkg_logo_1L_chr), 
         "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
-        "", paste0("## ", packageDescription(dev_pkg_nm_1L_chr, 
+        "", paste0("## ", utils::packageDescription(dev_pkg_nm_1L_chr, 
             fields = "Title") %>% stringr::str_replace_all("\n", 
             " ")), "", "<!-- badges: start -->", badges_chr, 
-        "<!-- badges: end -->", "", packageDescription(dev_pkg_nm_1L_chr, 
+        "<!-- badges: end -->", "", utils::packageDescription(dev_pkg_nm_1L_chr, 
             fields = "Description"), "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
-        "", "```r", "install.packages(\"devtools\")", "", paste0("devtools::install_github(\"", 
-            github_repo_1L_chr, "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
+        "", "```r", "utils::install.packages(\"devtools\")", 
+        "", paste0("devtools::install_github(\"", github_repo_1L_chr, 
+            "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
         "/README.md"))
     if (use_travis_1L_lgl) {
         usethis::use_travis()
@@ -660,12 +675,13 @@ write_std_imp <- function (R_dir_1L_chr = "R")
 #' @importFrom methods slot
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
+#' @importFrom utils write.csv
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
     methods::slot(tbs_r4, slot_nm_1L_chr) %>% dplyr::mutate_if(is.list, 
         .funs = dplyr::funs(ifelse(stringr::str_c(.) == "NULL", 
-            NA_character_, stringr::str_c(.)))) %>% write.csv(file = paste0(lup_dir_1L_chr, 
+            NA_character_, stringr::str_c(.)))) %>% utils::write.csv(file = paste0(lup_dir_1L_chr, 
         "/", pfx_1L_chr, "_", slot_nm_1L_chr, ".csv"), row.names = F)
 }
 #' Write to remove collate
@@ -749,13 +765,14 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @rdname write_to_reset_pkg_files
 #' @export 
 #' @importFrom devtools load_all document
+#' @importFrom utils packageDescription
 #' @importFrom usethis use_description
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {
     devtools::load_all()
     if (keep_version_lgl) {
-        desc_ls <- packageDescription(package_1L_chr)
+        desc_ls <- utils::packageDescription(package_1L_chr)
         description_ls$Version <- desc_ls$Version
     }
     usethis::use_description(fields = description_ls)

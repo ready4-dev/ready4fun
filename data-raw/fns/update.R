@@ -45,7 +45,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                               import_chr,
                           abbreviations_lup = NULL){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("FUNCTION_TITLE",fn_name_1L_chr) %>%

@@ -3,9 +3,9 @@ remove_obj_type_from_nm <- function(nms_chr,
                                             abbreviations_lup = NULL,
                                             is_generic_lgl = F){
   if(is.null(object_type_lup))
-    data("object_type_lup",package="ready4fun",envir = environment())
+    utils::data("object_type_lup",package="ready4fun",envir = environment())
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   output_chr <- make_arg_type_abbr(nms_chr,
                                                abbreviations_lup = abbreviations_lup,
                                                object_type_lup = object_type_lup)

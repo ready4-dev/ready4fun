@@ -5,11 +5,13 @@
 #' @return Argument object type (a character vector of length one)
 #' @rdname get_arg_obj_type
 #' @export 
+#' @importFrom utils data
 #' @importFrom dplyr filter mutate pull
 get_arg_obj_type <- function (argument_nm_1L_chr, object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
-        data("object_type_lup", package = "ready4fun", envir = environment())
+        utils::data("object_type_lup", package = "ready4fun", 
+            envir = environment())
     nchar_int <- nchar(object_type_lup$short_name_chr)
     match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr, 
         paste0(ifelse(nchar(argument_nm_1L_chr) == nchar_int, 

@@ -2,7 +2,7 @@ add_indef_artl_to_item <- function(phrase_chr,
                                            abbreviations_lup = NULL,
                                            ignore_phrs_not_in_lup_1L_lgl = T){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   indefinite_item_chr <- purrr::map_chr(phrase_chr,
                                             ~{
                                               phrase_1L_chr <- .x
@@ -36,7 +36,7 @@ add_indefartls_to_phrases <- function(abbreviated_phrase_1L_chr,
                                                abbreviations_lup = NULL,
                                                ignore_phrs_not_in_lup_1L_lgl = T){
   if(is.null(abbreviations_lup))
-    data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   phrases_chr <- abbreviated_phrase_1L_chr %>%
     purrr::map_chr(~{
       words_chr_ls <- strsplit(.x,"_")

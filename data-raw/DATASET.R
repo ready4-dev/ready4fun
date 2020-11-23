@@ -32,31 +32,6 @@ badges_lup <- tibble::tibble(names_chr = c("development","modelling", "predictio
                                                logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-# options(usethis.description = test_ls)
-# options(usethis.description = list(
-#   Package = get_dev_pkg_nm(),
-#   Title =  "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
-#   Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
-#   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
-#   While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
-#   `Authors@R` = c(utils::person(
-#     given = "Matthew",family = "Hamilton", email =
-#       "matthew.hamilton@orygen.org.au",role = c("aut",
-#                                                 "cre"),comment = c(ORCID = "0000-0001-7407-9194")
-#   ),
-#   utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
-#                 role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
-#   #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
-#   #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
-#   #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
-#   #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
-#   utils::person("Orygen", role = c("cph", "fnd")),
-#   utils::person("VicHealth",role = c("fnd")),
-#   utils::person("Victoria University", role =c("fnd"))
-#   ),
-#   License = usethis::use_gpl3_license("Orygen"),
-#   URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun, https://readyforwhatsnext.github.io/readyforwhatsnext/") # Updated from first run
-# ))
 make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
                  pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
@@ -113,7 +88,7 @@ pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","
                  url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
                  pkg_dss_tb = pkg_dss_tb
                  )
-data("abbreviations_lup")
+utils::data("abbreviations_lup")
 #
 # 8. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
@@ -172,8 +147,8 @@ pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "For
                                  is_method_lgl = F) %>%
 write_dmtd_fn_type_lup(url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
                        pkg_dss_tb = pkg_dss_tb)
-data("fn_type_lup_tb")
-data("object_type_lup")
+utils::data("fn_type_lup_tb")
+utils::data("object_type_lup")
 pkg_dss_tb <- badges_lup %>%
   write_and_doc_ds(overwrite_1L_lgl = T,
                    db_1L_chr = "badges_lup",

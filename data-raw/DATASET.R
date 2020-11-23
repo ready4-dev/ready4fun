@@ -189,19 +189,11 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #
+usethis::use_build_ignore("initial_setup.R")
+# write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
+#                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 
-write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
-                        developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
-# usethis::use_package("textshaping")
-# Manually added: + file LICENSE to DESCRIPTION
-
-# Added to DESCRIPTION:
-# VignetteBuilder: knitr
-# devtools::document()
-#pkgdown::build_site()
 # 11. Create vignettes
-# usethis::use_vignette("ready4fun")
-# devtools::document()
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

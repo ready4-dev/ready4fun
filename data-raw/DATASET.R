@@ -29,8 +29,8 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                message = .x,
                                                color = .y,
                                                label_color = "black",
-                                               md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",
-                                               logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",
+                                               md_link = "https://ready4-dev.github.io/ready4/index.html",
+                                               logo_path = "https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
 make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
@@ -52,15 +52,15 @@ make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documen
                  utils::person("VicHealth",role = c("fnd")),
                  utils::person("Victoria University", role =c("fnd"))
                  ),
-                 urls_chr = c("https://readyforwhatsnext.github.io/ready4fun/",
-                              "https://github.com/readyforwhatsnext/ready4fun",
-                              "https://readyforwhatsnext.github.io/readyforwhatsnext/")) %>%
+                 urls_chr = c("https://ready4-dev.github.io/ready4fun/",
+                              "https://github.com/ready4-dev/ready4fun",
+                              "https://ready4-dev.github.io/ready4/")) %>%
 write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     delete_contents_of_R_dir = T,
                     copyright_holders_chr = "Orygen",
                     check_type_1L_chr = "gh",
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
-                    github_repo = "readyforwhatsnext/ready4fun",
+                    github_repo = "ready4-dev/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     badges_lup = badges_lup,
                     addl_badges_ls = list(ready4 = "development"))
@@ -74,7 +74,7 @@ pkg_dss_tb <- make_obj_lup() %>%
                    title_1L_chr = "Object abbreviations lookup table",
                    desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
                    format_1L_chr = "A tibble",
-                   url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
                    abbreviations_lup = .,
                    object_type_lup = .
   )
@@ -86,7 +86,7 @@ pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","
                  custom_plural_ls = list(directory = "directories",
                                          prefix = c("prefixes"),
                                          suffix = c("suffices","sfcs")),
-                 url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                 url_1L_chr = "https://ready4-dev.github.io/ready4/",
                  pkg_dss_tb = pkg_dss_tb
                  )
 utils::data("abbreviations_lup")
@@ -146,7 +146,7 @@ pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "For
                                                          NA_character_),
                                  is_generic_lgl = F,
                                  is_method_lgl = F) %>%
-write_dmtd_fn_type_lup(url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+write_dmtd_fn_type_lup(url_1L_chr = "https://ready4-dev.github.io/ready4/",
                        pkg_dss_tb = pkg_dss_tb)
 utils::data("fn_type_lup_tb")
 utils::data("object_type_lup")
@@ -156,10 +156,10 @@ pkg_dss_tb <- badges_lup %>%
                    title_1L_chr = "ready4 badges lookup table",
                    desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
                    format_1L_chr = "A tibble",
-                   url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/",
+                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
                    abbreviations_lup = abbreviations_lup,
-                   object_type_lup = object_type_lup
-  )
+                   object_type_lup = object_type_lup,
+                   pkg_dss_tb = pkg_dss_tb)
 #
 # 9. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
@@ -180,6 +180,16 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                  fn_type_lup_tb = fn_type_lup_tb,
                                  object_type_lup = object_type_lup,
                                  abbreviations_lup = abbreviations_lup)
+pkg_dss_tb <- fns_dmt_tb %>%
+  write_and_doc_ds(overwrite_1L_lgl = T,
+                   db_1L_chr = "fns_dmt_tb",
+                   title_1L_chr = "ready4fun function documentation table",
+                   desc_1L_chr = "A table with the summary information on functions included in the ready4fun package.",
+                   format_1L_chr = "A tibble",
+                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
+                   abbreviations_lup = abbreviations_lup,
+                   object_type_lup = object_type_lup,
+                   pkg_dss_tb = pkg_dss_tb)
 # NOTE: To update, make call to update_fns_dmt_tb
 #
 # 10. Write documented functions to R directory.
@@ -190,8 +200,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      update_pkgdown_1L_lgl = T)
 #
 usethis::use_build_ignore("initial_setup.R")
-# write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216.pdf",
-#                         developer_manual_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/pdfs/ready4fun_0.0.0.9216_dev.pdf")
+# write_links_for_website(user_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216.pdf",
+#                         developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 
 # 11. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring And Documentation Tools
     For Use With The ready4 Suite
-Version: 0.0.0.9240
+Version: 0.0.0.9241
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -35,9 +35,9 @@ Description: ready4fun is a collection of functions for
     you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
 License: GPL-3 + file LICENSE
-URL: https://readyforwhatsnext.github.io/ready4fun/,
-    https://github.com/readyforwhatsnext/ready4fun,
-    https://readyforwhatsnext.github.io/readyforwhatsnext/
+URL: https://ready4-dev.github.io/ready4fun/,
+    https://github.com/ready4-dev/ready4fun,
+    https://ready4-dev.github.io/ready4/
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

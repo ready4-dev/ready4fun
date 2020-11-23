@@ -12,5 +12,5 @@
 #'   \item{is_generic_lgl}{Is generic (a logical vector)}
 #'   \item{is_method_lgl}{Is method (a logical vector)}
 #' }
-#' @source \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
+#' @source \url{https://ready4-dev.github.io/ready4/}
 "fn_type_lup_tb"

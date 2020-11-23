@@ -10,5 +10,5 @@
 #'   \item{colours_chr}{Colours (a character vector)}
 #'   \item{badges_chr}{Badges (a character vector)}
 #' }
-#' @source \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
+#' @source \url{https://ready4-dev.github.io/ready4/}
 "badges_lup"

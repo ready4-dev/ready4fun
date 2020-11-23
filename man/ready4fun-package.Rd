@@ -30,9 +30,9 @@ To learn more about ready4fun, start with the vignettes:
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://readyforwhatsnext.github.io/ready4fun/}
-  \item \url{https://github.com/readyforwhatsnext/ready4fun}
-  \item \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
+  \item \url{https://ready4-dev.github.io/ready4fun/}
+  \item \url{https://github.com/ready4-dev/ready4fun}
+  \item \url{https://ready4-dev.github.io/ready4/}
 }
 
 }

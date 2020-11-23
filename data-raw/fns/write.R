@@ -465,8 +465,8 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   }
   write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
   usethis::use_gpl3_license(copyright_holders_chr)
-  c(desc::desc_get("Title") %>%
-      as.vector(),
+  c(paste0(dev_pkg_nm_1L_chr," - ",desc::desc_get("Title") %>%
+      as.vector()),
     readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
     purrr::map_chr(~stringr::str_trim(.x)) %>%
     writeLines(con = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"))
@@ -714,19 +714,24 @@ write_ws <- function(path_1L_chr){
   top_level_chr <- paste0(path_1L_chr,"/ready4/",c("Code", "Data","Documentation", "Insight"))
   top_level_chr %>%
     purrr::walk(~ dir.create(.x))
-  c("Framework", "Models") %>%
+  c("Brochures","Models","Workflows") %>%
     purrr::walk(~ {
       dir.create(paste0(top_level_chr[1],"/",.x))
-      dir.create(paste0(top_level_chr[1],"/",.x,"/R"))
+    })
+  dir.create(paste0(top_level_chr[1],"/Brochures/HTML"))
+  c("Developer", "Modeller") %>%
+    purrr::walk(~ {
+      dir.create(paste0(top_level_chr[1],"/Workflows/",.x))
+      dir.create(paste0(top_level_chr[1],"/Workflows/",.x,"/R"))
     })
   c("Dataverse","Project","R_Format","Raw_Format") %>%
     purrr::walk(~dir.create(paste0(top_level_chr[2],"/",.x)))
   c("Agents","Attributes","Geometries","Metadata") %>%
     purrr::walk(~dir.create(paste0(top_level_chr[2],"/Raw_Format/",.x)))
-  c("Code", "Data") %>%
+  c("Code", "Data","Images") %>%
     purrr::walk(~dir.create(paste0(top_level_chr[3],"/",.x)))
   c("Developer", "User") %>%
     purrr::walk(~dir.create(paste0(top_level_chr[3],"/Code/",.x)))
-  c("Analysis","Apps","Pages","Scientific Summaries") %>%
+  c("Analysis","Apps","Science","Team") %>%
     purrr::walk(~dir.create(paste0(top_level_chr[4],"/",.x)))
 }

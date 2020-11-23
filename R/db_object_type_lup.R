@@ -9,5 +9,5 @@
 #'   \item{long_name_chr}{Long name (a character vector)}
 #'   \item{plural_lgl}{Plural (a logical vector)}
 #' }
-#' @source \url{https://readyforwhatsnext.github.io/readyforwhatsnext/}
+#' @source \url{https://ready4-dev.github.io/ready4/}
 "object_type_lup"

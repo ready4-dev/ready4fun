@@ -581,8 +581,8 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
     usethis::use_package("testthat")
     usethis::use_package("knitr")
     desc::desc_set("VignetteBuilder", "knitr")
-    usethis::use_build_ignore(list.files(paste0(path_to_pkg_rt_1L_chr, 
-        "/data-raw"), recursive = T))
+    usethis::use_build_ignore(paste0(paste0("data-raw/"), list.files(paste0(path_to_pkg_rt_1L_chr, 
+        "/data-raw"))), recursive = T)
     if (!is.na(path_to_pkg_logo_1L_chr)) {
         if (!dir.exists(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))) 
             dir.create(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))

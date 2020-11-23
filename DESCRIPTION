@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring And Documentation Tools
     For Use With The ready4 Suite
-Version: 0.0.0.9234
+Version: 0.0.0.9235
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -42,10 +42,9 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
 Imports: 
-    testthat,
-    knitr,
-    lifecycle,
     methods,
     Hmisc,
     desc,
@@ -66,7 +65,3 @@ Imports:
     usethis,
     utils,
     xfun
-VignetteBuilder: knitr
-RdMacros: lifecycle
-Depends: 
-    R (>= 2.10)

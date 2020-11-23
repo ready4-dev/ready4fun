@@ -32,3 +32,4 @@
 ^data-raw/inst/pkg_ready_fun\.R$
 ^data-raw/inst/ready4fun\.Rmd$
 ^data-raw/inst/travis_extras\.yml$
+^initial_setup\.R$

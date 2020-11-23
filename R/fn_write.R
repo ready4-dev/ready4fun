@@ -500,27 +500,39 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 }
 #' Write package setup files
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param pkg_desc_ls Package description (a list)
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
 #' @param copyright_holders_chr Copyright holders (a character vector)
-#' @param use_travis_1L_lgl Use travis (a logical vector of length one), Default: T
+#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
+#' @param badges_lup Badges (a lookup table), Default: NULL
+#' @param addl_badges_chr Addl badges (a character vector), Default: 'NA'
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
 #' @importFrom devtools load_all
-#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_travis use_github_action use_lifecycle use_lifecycle_badge
-#' @importFrom stringr str_replace_all
+#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_travis use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge
+#' @importFrom desc desc_get desc_set
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_trim str_replace_all
 #' @importFrom pkgdown build_favicons
-write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
+write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
-    use_travis_1L_lgl = T, path_to_pkg_logo_1L_chr = NA_character_, 
-    github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental") 
+    check_type_1L_chr = "none", path_to_pkg_logo_1L_chr = NA_character_, 
+    github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental", 
+    badges_lup = NULL, addl_badges_chr = NA_character_) 
 {
+    options(usethis.description = pkg_desc_ls)
+    use_travis_1L_lgl = (check_type_1L_chr == "travis")
+    use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
+    if (is.null(badges_lup)) {
+        data("badges_lup", envir = environment())
+    }
     if (delete_contents_of_R_dir) 
         write_to_reset_pkg_files(delete_contents_of_1L_chr = "R", 
             package_1L_chr = dev_pkg_nm_1L_chr, package_dir_1L_chr = path_to_pkg_rt_1L_chr)
@@ -547,21 +559,37 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_
     }
     write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
     usethis::use_gpl3_license(copyright_holders_chr)
+    c(desc::desc_get("Title") %>% as.vector(), readLines(paste0(path_to_pkg_rt_1L_chr, 
+        "/License.md"))[556:569]) %>% purrr::map_chr(~stringr::str_trim(.x)) %>% 
+        writeLines(con = paste0(path_to_pkg_rt_1L_chr, "/LICENSE"))
     usethis::use_pkgdown()
     usethis::use_build_ignore(files = "_pkgdown.yml")
+    usethis::use_package("testthat")
+    usethis::use_package("knitr")
+    desc::desc_set("VignetteBuilder", "knitr")
+    usethis::use_build_ignore(list.files(paste0(path_to_pkg_rt_1L_chr, 
+        "/data-raw"), recursive = T))
     if (!is.na(path_to_pkg_logo_1L_chr)) {
         if (!dir.exists(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))) 
             dir.create(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))
         file.copy(path_to_pkg_logo_1L_chr, paste0(path_to_pkg_rt_1L_chr, 
             "/man/figures/logo.png"))
     }
+    if (is.na(addl_badges_chr[1])) {
+        badges_chr <- purrr::map_chr(addl_badges_chr, ~get_from_lup_obj(badges_lup, 
+            match_value_xx = .x, match_var_nm_1L_chr = "names_chr", 
+            target_var_nm_1L_chr = "badges_chr", evaluate_lgl = F))
+    }
+    else {
+        badges_chr <- character(0)
+    }
     writeLines(c(paste0("# ", dev_pkg_nm_1L_chr, ifelse(is.na(path_to_pkg_logo_1L_chr), 
         "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
         "", paste0("## ", packageDescription(dev_pkg_nm_1L_chr, 
             fields = "Title") %>% stringr::str_replace_all("\n", 
-            " ")), "", "<!-- badges: start -->", "<!-- badges: end -->", 
-        "", packageDescription(dev_pkg_nm_1L_chr, fields = "Description"), 
-        "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
+            " ")), "", "<!-- badges: start -->", badges_chr, 
+        "<!-- badges: end -->", "", packageDescription(dev_pkg_nm_1L_chr, 
+            fields = "Description"), "", "If you plan on testing this software you can install it by running the following commands in your R console:", 
         "", "```r", "install.packages(\"devtools\")", "", paste0("devtools::install_github(\"", 
             github_repo_1L_chr, "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
         "/README.md"))
@@ -580,6 +608,9 @@ write_pkg_setup_fls <- function (path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_
                 c(txt_chr, "## usethis namespace: start", "#' @importFrom lifecycle deprecate_soft", 
                   "## usethis namespace: end", "NULL")
             })
+    }
+    if (use_gh_cmd_check_1L_lgl) {
+        usethis::use_github_action_check_standard()
     }
     if (!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr, 
         "/pkgdown/favicon/apple-touch-icon-120x120.png"))) {

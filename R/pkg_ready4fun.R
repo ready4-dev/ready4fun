@@ -1,4 +1,5 @@
-#' ready4fun: ready4 Function Authoring And Documentation Tools
+#' ready4fun: Standardised Function Authoring And Documentation Tools
+#' For Use With The ready4 Suite
 #'
 #' ready4fun is a collection of functions for
 #' authoring code libraries of functions and datasets for use in mental

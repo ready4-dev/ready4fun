@@ -753,6 +753,30 @@ make_obj_lup <- function(){
     dplyr::mutate(plural_lgl = F)
   return(obj_tb)
 }
+make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),
+                             pkg_title_1L_chr,
+                             pkg_desc_1L_chr,
+                             authors_prsns,
+                             #cpyr_hldr_1L_chr,
+                             urls_chr){
+  cpyr_hldr_1L_chr <- authors_prsns[authors_prsns %>%
+                                      as.character() %>%
+                                      purrr::map_lgl(~stringr::str_detect(.x,
+                                                                          "\\[cph") | stringr::str_detect(.x,
+                                                                                                          " cph, "))] %>%
+    as.character()
+  cpyr_hldr_1L_chr <- cpyr_hldr_1L_chr  %>%
+    stringr::str_sub(end = -1 + (cpyr_hldr_1L_chr %>% stringr::str_locate("\\["))[1,1] %>% unname()) %>%
+    stringr::str_trim()
+  pkg_desc_ls <- list(
+    Package = pkg_nm_1L_chr,
+    Title =  pkg_title_1L_chr,
+    Description = pkg_desc_1L_chr,
+    `Authors@R` = authors_prsns,
+    License = usethis::use_gpl3_license(cpyr_hldr_1L_chr),
+    URL = paste0(urls_chr, collapse = ", "))
+  return(pkg_desc_ls)
+}
 make_ret_obj_desc <- function(fn,
                               abbreviations_lup,
                               starts_sentence_1L_lgl = T){

@@ -5,18 +5,23 @@
 \title{Write package setup files}
 \usage{
 write_pkg_setup_fls(
+  pkg_desc_ls,
   path_to_pkg_rt_1L_chr = getwd(),
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   incr_ver_1L_lgl = T,
   delete_contents_of_R_dir = F,
   copyright_holders_chr,
-  use_travis_1L_lgl = T,
+  check_type_1L_chr = "none",
   path_to_pkg_logo_1L_chr = NA_character_,
   github_repo_1L_chr,
-  lifecycle_stage_1L_chr = "experimental"
+  lifecycle_stage_1L_chr = "experimental",
+  badges_lup = NULL,
+  addl_badges_chr = NA_character_
 )
 }
 \arguments{
+\item{pkg_desc_ls}{Package description (a list)}
+
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
@@ -27,13 +32,17 @@ write_pkg_setup_fls(
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 
-\item{use_travis_1L_lgl}{Use travis (a logical vector of length one), Default: T}
+\item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'none'}
 
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
 \item{github_repo_1L_chr}{Github repo (a character vector of length one)}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
+
+\item{badges_lup}{Badges (a lookup table), Default: NULL}
+
+\item{addl_badges_chr}{Addl badges (a character vector), Default: 'NA'}
 }
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

@@ -1,11 +1,10 @@
 # ready4fun <img src="man/figures/fav120.png" align="right" />
 
-## ready4 Function Authoring And Documentation Tools
+## Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build status](https://github.com/readyforwhatsnext/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/readyforwhatsnext/ready4fun/actions)
-[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=FB0200&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABKUlEQVQ4jY2TvUrEQBSFD6uwINgqYmVhIaLvYKW1toKVf62Vuy+wlQgWNrY+gazoC2whyorOk8xkMuMkxbGYhEzCJNniMISZ891zL7mQApRfYPLsTym6pV5BNa2+IX9AtwvmA9DtFw9apCdgvgzmS6C+LwEzb84H1UXyGJc9rN7a0xIgQHMJZquguarHTW985TC+2wGzTVC9BAApwHRUN5sLXynbqEOkAPUonEEEYM6DtiKQTkBZuakQ0grQk7i5lNsC5XdXgjn4d9CSYAVMnhaZQQQSmhcaYghpmqMAfQe6bX+GEHvUMM9AewK6PVA/lIAPMB8WcYeg/GzfA3Nd/2vVFIScg9laEXcdTG99OzHZ4xhAgOoNTMegeu/Zxl/fpjkLW+hZ3z79A8ajgNdQqEYKAAAAAElFTkSuQmCC)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 ready4fun is a collection of functions for

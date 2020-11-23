@@ -32,41 +32,63 @@ badges_lup <- tibble::tibble(names_chr = c("development","modelling", "predictio
                                                logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-options(usethis.description = list(
-  Package = get_dev_pkg_nm(),
-  Title =  "ready4 Function Authoring And Documentation Tools",
-  Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
+# options(usethis.description = test_ls)
+# options(usethis.description = list(
+#   Package = get_dev_pkg_nm(),
+#   Title =  "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
+#   Description = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
+#   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
+#   While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+#   `Authors@R` = c(utils::person(
+#     given = "Matthew",family = "Hamilton", email =
+#       "matthew.hamilton@orygen.org.au",role = c("aut",
+#                                                 "cre"),comment = c(ORCID = "0000-0001-7407-9194")
+#   ),
+#   utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
+#                 role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
+#   #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
+#   #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
+#   #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
+#   #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
+#   utils::person("Orygen", role = c("cph", "fnd")),
+#   utils::person("VicHealth",role = c("fnd")),
+#   utils::person("Victoria University", role =c("fnd"))
+#   ),
+#   License = usethis::use_gpl3_license("Orygen"),
+#   URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun, https://readyforwhatsnext.github.io/readyforwhatsnext/") # Updated from first run
+# ))
+make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
+                 pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. That means this should be regarded as UNTESTED software, which is provided for free WITHOUT ANY WARRANTY. Importantly, the tools contained in this test release automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
   While we welcome and appreciate anyone who takes the time to provide us with feedback on this test release, we caution you that you should only test this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
-  `Authors@R` = c(utils::person(
-    given = "Matthew",family = "Hamilton", email =
-      "matthew.hamilton@orygen.org.au",role = c("aut",
-                                                "cre"),comment = c(ORCID = "0000-0001-7407-9194")
-  ),
-  utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
-                role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
-  #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
-  #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
-  #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
-  #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
-  utils::person("Orygen", role = c("cph", "fnd")),
-  utils::person("VicHealth",role = c("fnd")),
-  utils::person("Victoria University", role =c("fnd"))
-  ),
-  License = usethis::use_gpl3_license("Orygen"),
-  URL = c("https://readyforwhatsnext.github.io/ready4fun/, https://github.com/readyforwhatsnext/ready4fun, https://readyforwhatsnext.github.io/readyforwhatsnext/") # Updated from first run
-))
+                 authors_prsns = c(utils::person(
+                   given = "Matthew",family = "Hamilton", email =
+                     "matthew.hamilton@orygen.org.au",role = c("aut",
+                                                               "cre"),comment = c(ORCID = "0000-0001-7407-9194")
+                 ),
+                 utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
+                               role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
+                 #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
+                 #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
+                 #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
+                 #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
+                 utils::person("Orygen", role = c("cph", "fnd")),
+                 utils::person("VicHealth",role = c("fnd")),
+                 utils::person("Victoria University", role =c("fnd"))
+                 ),
+                 urls_chr = c("https://readyforwhatsnext.github.io/ready4fun/",
+                              "https://github.com/readyforwhatsnext/ready4fun",
+                              "https://readyforwhatsnext.github.io/readyforwhatsnext/")) %>%
 write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     delete_contents_of_R_dir = T,
                     copyright_holders_chr = "Orygen",
-                    use_travis_1L_lgl = F, # Change once pkgdown textshaping issue is resolved
+                    check_type_1L_chr = "gh",
                     path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "readyforwhatsnext/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     badges_lup = badges_lup,
                     addl_badges_chr = "development")
-usethis::use_github_action_check_standard()
-#travis::use_travis_deploy() # Check if needed now using GH Actions
+#usethis::use_github_action_check_standard()
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 pkg_dss_tb <- make_obj_lup() %>%
@@ -185,7 +207,6 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
 # NOTE: To update, make call to update_fns_dmt_tb
 #
 # 10. Write documented functions to R directory.
-
 ## Note files to be rewritten cannot be open in RStudio.
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
@@ -197,44 +218,6 @@ write_links_for_website(user_manual_url_1L_chr = "https://readyforwhatsnext.gith
 # usethis::use_package("textshaping")
 # Manually added: + file LICENSE to DESCRIPTION
 usethis::use_build_ignore("initial_setup.R")
-
-# r4_dev_bdg <- badgr::get_badge(
-#   label = "ready4",   # left-side text
-#   message = "development",         # right-side text
-#   color = "maroon",         # left-side colour
-#   label_color = "black",    # right_side colour
-#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
-#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
-#   browser_preview = F,  # don't open preview
-#   to_clipboard = FALSE      # don't copy to clipboard
-# )
-# r4_mdlng_bdg <- badgr::get_badge(
-#   label = "ready4",   # left-side text
-#   message = "modelling",         # right-side text
-#   color = "indigo",         # left-side colour
-#   label_color = "black",    # right_side colour
-#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
-#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
-#   browser_preview = F,  # don't open preview
-#   to_clipboard = FALSE      # don't copy to clipboard
-# )
-# r4_pred_bdg <- badgr::get_badge(
-#   label = "ready4",   # left-side text
-#   message = "prediction",         # right-side text
-#   color = "forestgreen",         # left-side colour
-#   label_color = "black",    # right_side colour
-#   md_link = "https://readyforwhatsnext.github.io/readyforwhatsnext/index.html",           # where to go when clicked
-#   logo_path = "https://raw.githubusercontent.com/readyforwhatsnext/ready4fun/dev/data-raw/favicon-16x16.png",         # path to my logo
-#   browser_preview = F,  # don't open preview
-#   to_clipboard = FALSE      # don't copy to clipboard
-# )
-
-# Copied to readme:
-#[![](https://img.shields.io/badge/ready4-workflow-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)
-is_workflow_1L_lgl <- F
-paste0("[![](https://img.shields.io/badge/ready4-",
-       ifelse(is_workflow_1L_lgl,"workflow","model"),
-       "-008900?style=flat&labelColor=black)](https://readyforwhatsnext.github.io/readyforwhatsnext/index.html)")
 # Added to DESCRIPTION:
 # VignetteBuilder: knitr
 # devtools::document()

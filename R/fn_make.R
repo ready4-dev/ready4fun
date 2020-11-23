@@ -815,6 +815,34 @@ make_obj_lup <- function ()
     obj_tb <- obj_tb %>% dplyr::mutate(plural_lgl = F)
     return(obj_tb)
 }
+#' Make package description
+#' @description make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param pkg_title_1L_chr Package title (a character vector of length one)
+#' @param pkg_desc_1L_chr Package description (a character vector of length one)
+#' @param authors_prsns PARAM_DESCRIPTION
+#' @param urls_chr Urls (a character vector)
+#' @return Package description (a list)
+#' @rdname make_pkg_desc_ls
+#' @export 
+#' @importFrom purrr map_lgl
+#' @importFrom stringr str_detect str_sub str_locate str_trim
+#' @importFrom usethis use_gpl3_license
+make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr, 
+    pkg_desc_1L_chr, authors_prsns, urls_chr) 
+{
+    cpyr_hldr_1L_chr <- authors_prsns[authors_prsns %>% as.character() %>% 
+        purrr::map_lgl(~stringr::str_detect(.x, "\\[cph") | stringr::str_detect(.x, 
+            " cph, "))] %>% as.character()
+    cpyr_hldr_1L_chr <- cpyr_hldr_1L_chr %>% stringr::str_sub(end = -1 + 
+        (cpyr_hldr_1L_chr %>% stringr::str_locate("\\["))[1, 
+            1] %>% unname()) %>% stringr::str_trim()
+    pkg_desc_ls <- list(Package = pkg_nm_1L_chr, Title = pkg_title_1L_chr, 
+        Description = pkg_desc_1L_chr, `Authors@R` = authors_prsns, 
+        License = usethis::use_gpl3_license(cpyr_hldr_1L_chr), 
+        URL = paste0(urls_chr, collapse = ", "))
+    return(pkg_desc_ls)
+}
 #' Make ret object description
 #' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make ret object description. The function returns Ret object description (a character vector of length one).
 #' @param fn Function (a function)

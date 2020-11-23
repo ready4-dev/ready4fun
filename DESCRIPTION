@@ -1,6 +1,7 @@
 Package: ready4fun
-Title: ready4 Function Authoring And Documentation Tools
-Version: 0.0.0.9232
+Title: Standardised Function Authoring And Documentation Tools
+    For Use With The ready4 Suite
+Version: 0.0.0.9233
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -33,7 +34,7 @@ Description: ready4fun is a collection of functions for
     created a sandpit area in which you can safely undertake testing. If
     you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
-License: GPL-3 + file LICENSE
+License: GPL-3
 URL: https://readyforwhatsnext.github.io/ready4fun/,
     https://github.com/readyforwhatsnext/ready4fun,
     https://readyforwhatsnext.github.io/readyforwhatsnext/
@@ -42,9 +43,12 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
+    testthat,
+    knitr,
     lifecycle,
     methods,
     Hmisc,
+    desc,
     devtools,
     dplyr,
     magrittr,
@@ -60,10 +64,8 @@ Imports:
     tibble,
     tools,
     usethis,
-    xfun,
-    testthat,
-    knitr
+    xfun
+VignetteBuilder: knitr
 RdMacros: lifecycle
 Depends: 
     R (>= 2.10)
-VignetteBuilder: knitr

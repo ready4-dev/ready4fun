@@ -4,7 +4,8 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: ready4 Function Authoring And Documentation Tools}
+\title{ready4fun: Standardised Function Authoring And Documentation Tools
+For Use With The ready4 Suite}
 \description{
 ready4fun is a collection of functions for
 authoring code libraries of functions and datasets for use in mental

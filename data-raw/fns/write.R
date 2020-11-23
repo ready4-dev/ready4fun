@@ -420,7 +420,8 @@ write_pkg <- function(package_1L_chr,
                    },
                    args_ls = list(package_1L_chr = package_1L_chr))
 }
-write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
+write_pkg_setup_fls <- function(pkg_desc_ls,
+                                path_to_pkg_rt_1L_chr = getwd(),
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                                 incr_ver_1L_lgl = T,
                                 delete_contents_of_R_dir = F,
@@ -431,6 +432,7 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
                                 lifecycle_stage_1L_chr = "experimental",
                                 badges_lup = NULL,
                                 addl_badges_chr = NA_character_){
+  options(usethis.description = pkg_desc_ls)
   use_travis_1L_lgl = (check_type_1L_chr == "travis")
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
   if(is.null(badges_lup)){
@@ -463,10 +465,16 @@ write_pkg_setup_fls <- function(path_to_pkg_rt_1L_chr = getwd(),
   }
   write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
   usethis::use_gpl3_license(copyright_holders_chr)
+  c(desc::desc_get("Title") %>%
+      as.vector(),
+    readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
+    purrr::map_chr(~stringr::str_trim(.x)) %>%
+    writeLines(con = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"))
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
   usethis::use_package("testthat")
   usethis::use_package("knitr")
+  desc::desc_set("VignetteBuilder", "knitr")
   usethis::use_build_ignore(list.files(paste0(path_to_pkg_rt_1L_chr,"/data-raw"), recursive = T))
   if(!is.na(path_to_pkg_logo_1L_chr)){
     if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))

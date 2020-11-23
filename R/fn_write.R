@@ -523,7 +523,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param badges_lup Badges (a lookup table), Default: NULL
-#' @param addl_badges_ls PARAM_DESCRIPTION, Default: NULL
+#' @param addl_badges_ls Addl badges (a list), Default: NULL
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 

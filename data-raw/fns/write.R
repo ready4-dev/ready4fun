@@ -327,7 +327,7 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
                                     user_manual_url_1L_chr,
                                     developer_manual_url_1L_chr,
-                                    project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/")
+                                    project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/")
   write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                         "/_pkgdown.yml"),
                  dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,

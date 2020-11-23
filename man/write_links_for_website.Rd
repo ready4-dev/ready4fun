@@ -8,7 +8,7 @@ write_links_for_website(
   path_to_pkg_rt_1L_chr = getwd(),
   user_manual_url_1L_chr,
   developer_manual_url_1L_chr,
-  project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/"
+  project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/"
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ write_links_for_website(
 
 \item{developer_manual_url_1L_chr}{Developer manual url (a character vector of length one)}
 
-\item{project_website_url_1L_chr}{Project website url (a character vector of length one), Default: 'https://readyforwhatsnext.github.io/readyforwhatsnext/'}
+\item{project_website_url_1L_chr}{Project website url (a character vector of length one), Default: 'https://ready4-dev.github.io/ready4/'}
 }
 \description{
 write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

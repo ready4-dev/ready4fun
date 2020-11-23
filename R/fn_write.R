@@ -392,13 +392,13 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param user_manual_url_1L_chr User manual url (a character vector of length one)
 #' @param developer_manual_url_1L_chr Developer manual url (a character vector of length one)
-#' @param project_website_url_1L_chr Project website url (a character vector of length one), Default: 'https://readyforwhatsnext.github.io/readyforwhatsnext/'
+#' @param project_website_url_1L_chr Project website url (a character vector of length one), Default: 'https://ready4-dev.github.io/ready4/'
 #' @return NULL
 #' @rdname write_links_for_website
 #' @export 
 
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
-    developer_manual_url_1L_chr, project_website_url_1L_chr = "https://readyforwhatsnext.github.io/readyforwhatsnext/") 
+    developer_manual_url_1L_chr, project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/") 
 write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
     dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
     edit_fn = function(txt_chr) {

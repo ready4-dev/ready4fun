@@ -59,7 +59,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     delete_contents_of_R_dir = T,
                     copyright_holders_chr = "Orygen",
                     check_type_1L_chr = "gh",
-                    path_to_pkg_logo_1L_chr = "../../../../Documentation/Images/ready4fun-logo/default.png",
+                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
                     github_repo = "ready4-dev/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     badges_lup = badges_lup,
@@ -200,8 +200,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      update_pkgdown_1L_lgl = T)
 #
 
-# write_links_for_website(user_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216.pdf",
-#                         developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf")
+write_links_for_website(user_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216.pdf",
+                        developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf")
 
 # 11. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

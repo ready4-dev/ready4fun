@@ -57,7 +57,7 @@ update_first_word_case <- function (phrase_1L_chr, fn = tolower)
 #' @rdname update_fn_dmt
 #' @export 
 #' @importFrom utils data
-#' @importFrom stringr str_replace str_c
+#' @importFrom stringr str_replace str_c str_sub str_locate
 #' @importFrom purrr reduce
 update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
     import_chr, abbreviations_lup = NULL) 
@@ -105,6 +105,18 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
     if (!is.na(import_chr)) 
         fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @import ", 
             stringr::str_c(import_chr, collapse = " "))
+    if (fn_type_1L_chr == "gen_std_s3_mthd") {
+        fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr, 
+            paste0("@name ", fn_name_1L_chr), paste0("@rdname ", 
+                fn_name_1L_chr, "-methods"))
+    }
+    if (fn_type_1L_chr == "meth_std_s3_mthd") {
+        fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr, 
+            paste0("@rdname ", fn_name_1L_chr), paste0("@rdname ", 
+                fn_name_1L_chr %>% stringr::str_sub(end = -1 + 
+                  stringr::str_locate(fn_name_1L_chr, "\\.")[1, 
+                    1] %>% as.vector()), "-methods"))
+    }
     return(fn_dmt_1L_chr)
 }
 #' Update function documentation with slots

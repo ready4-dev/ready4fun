@@ -577,7 +577,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
         fn_tags_1L_chr <- paste0("#' FUNCTION_TITLE\n", "#' @description S4 Generic function to ", 
             ifelse(fn_type_1L_chr == "gen_get_slot", "get", "set"), 
             " the value of the slot ", ref_slot_1L_chr, "\n", 
-            "#' @name ", fn_name_1L_chr, "\n", "#' @param x An object ", 
+            "#' @rdname ", fn_name_1L_chr, "-methods\n", "#' @param x An object ", 
             class_name_1L_chr, "\n", "#' @details DETAILS\n", 
             "#' @export\n")
     if (fn_type_1L_chr %in% c("meth_get_slot", "meth_set_slot")) {

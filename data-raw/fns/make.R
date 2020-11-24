@@ -485,9 +485,9 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
       " the value of the slot ",
       ref_slot_1L_chr,
       "\n",
-      "#' @name ",
+      "#' @rdname ", #added rd
       fn_name_1L_chr,
-      "\n",
+      "-methods\n", #added -methods
       "#' @param x An object ",
       class_name_1L_chr,
       "\n",

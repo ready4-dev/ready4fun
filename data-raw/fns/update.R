@@ -103,6 +103,20 @@ update_fn_dmt <- function(fn_tags_spine_ls,
     fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr,
                          "\n#' @import ",
                          stringr::str_c(import_chr,collapse = " "))
+  if(fn_type_1L_chr == "gen_std_s3_mthd"){
+    fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
+                                          paste0("@name ", fn_name_1L_chr),
+                                          paste0("@rdname ", fn_name_1L_chr,"-methods"))
+  }
+  if(fn_type_1L_chr == "meth_std_s3_mthd"){
+    fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
+                                          paste0("@rdname ", fn_name_1L_chr),
+                                          paste0("@rdname ",
+                                                 fn_name_1L_chr %>%
+                                                   stringr::str_sub(end = -1 + stringr::str_locate(fn_name_1L_chr,"\\.")[1,1] %>%
+                                                                      as.vector())
+                                                   ,"-methods"))
+  }
   return(fn_dmt_1L_chr)
 }
 update_fns_dmt_tb <- function(fns_dmt_tb,

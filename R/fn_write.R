@@ -319,6 +319,10 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
                   1]], "\")"))
             }
             if (tb$file_pfx_chr[1] == "mthd_") {
+                writeLines(paste0("#' @rdname ", fn_and_cls_chr[1], 
+                  "-methods"))
+                writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], 
+                  ",", fn_and_cls_chr[2], "-method"))
                 writeLines(paste0("methods::setMethod(\"", fn_and_cls_chr[1], 
                   "\"", ", ", paste0("\"", fn_and_cls_chr[2], 
                     "\""), ", ", tb[[.x, 1]], ")"))

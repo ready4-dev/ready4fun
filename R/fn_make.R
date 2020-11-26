@@ -562,7 +562,7 @@ make_fn_types <- function ()
 #' @return Getter setter documentation spine (a list of character vectors)
 #' @rdname make_gtr_str_dmt_spine
 #' @export 
-#' @importFrom stringr str_replace str_sub
+#' @importFrom stringr str_replace
 make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1L_chr, 
     doc_in_class_1L_lgl, example_1L_lgl = F) 
 {
@@ -577,21 +577,25 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
         fn_tags_1L_chr <- paste0("#' FUNCTION_TITLE\n", "#' @description S4 Generic function to ", 
             ifelse(fn_type_1L_chr == "gen_get_slot", "get", "set"), 
             " the value of the slot ", ref_slot_1L_chr, "\n", 
-            "#' @rdname ", fn_name_1L_chr, "-methods\n", "#' @param x An object ", 
-            class_name_1L_chr, "\n", "#' @details DETAILS\n", 
-            "#' @export\n")
+            "#' @rdname ", ref_slot_1L_chr, ifelse(fn_type_1L_chr == 
+                "gen_set_slot", "_set", ""), "-methods\n", "#' @param x An object ", 
+            class_name_1L_chr, "\n", ifelse(fn_type_1L_chr == 
+                "gen_set_slot", "#' @param value Value to be assigned to x\n", 
+                ""), "#' @details DETAILS\n", "#' @export\n")
     if (fn_type_1L_chr %in% c("meth_get_slot", "meth_set_slot")) {
         fn_tags_1L_chr <- paste0("#' ", fn_name_1L_chr, "\n#' @name ", 
             fn_name_1L_chr, "-", class_name_1L_chr, "\n", "#' @description FUNCTION_DESCRIPTION", 
             " for S4 objects of class ", class_name_1L_chr, "\n", 
             "#' @param x An object of class ", class_name_1L_chr, 
-            "\n", ifelse(example_1L_lgl, paste0("#' @examples\n", 
+            "\n", ifelse(fn_type_1L_chr == "gen_set_slot", "#' @param value Value to be assigned to x\n", 
+                ""), ifelse(example_1L_lgl, paste0("#' @examples\n", 
                 "#' \\dontrun{\n", "#' if(interactive()){\n", 
                 "#'  #EXAMPLE1\n", "#'  }\n", "#' }\n"), ""), 
             "#' @rdname ", ifelse(doc_in_class_1L_lgl, class_name_1L_chr, 
-                ifelse(fn_type_1L_chr == "meth_get_slot", fn_name_1L_chr, 
-                  paste0(stringr::str_sub(fn_name_1L_chr, end = -3), 
-                    "-set"))))
+                paste0(ref_slot_1L_chr, ifelse(fn_type_1L_chr == 
+                  "meth_set_slot", "_set", ""), "-methods\n"), 
+                ), paste0("#' @aliases ", fn_name_1L_chr, ",", 
+                class_name_1L_chr, "-method"))
     }
     gtr_str_dmt_spine_chr_ls <- list(fn_tags_1L_chr = fn_tags_1L_chr, 
         ref_slot_1L_chr = ref_slot_1L_chr)

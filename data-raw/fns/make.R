@@ -486,11 +486,13 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
       ref_slot_1L_chr,
       "\n",
       "#' @rdname ", #added rd
-      fn_name_1L_chr,
+      ref_slot_1L_chr,#fn_name_1L_chr,
+      ifelse(fn_type_1L_chr == "gen_set_slot","_set",""), #added
       "-methods\n", #added -methods
       "#' @param x An object ",
       class_name_1L_chr,
       "\n",
+      ifelse(fn_type_1L_chr == "gen_set_slot","#' @param value Value to be assigned to x\n",""),
       "#' @details DETAILS\n",
       "#' @export\n"
     )
@@ -509,6 +511,7 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
                           "#' @param x An object of class ",
                           class_name_1L_chr,
                           "\n",
+                          ifelse(fn_type_1L_chr == "gen_set_slot","#' @param value Value to be assigned to x\n",""),
                           ifelse(example_1L_lgl,
                                  paste0("#' @examples\n",
                                         "#' \\dontrun{\n",
@@ -519,8 +522,22 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
                           "#' @rdname ",
                           ifelse(doc_in_class_1L_lgl,
                                  class_name_1L_chr,
-                                 ifelse(fn_type_1L_chr == "meth_get_slot",fn_name_1L_chr, paste0(stringr::str_sub(fn_name_1L_chr,end = -3),"-set"))
-                          ))
+                                 paste0(ref_slot_1L_chr,
+                                        ifelse(fn_type_1L_chr == "meth_set_slot","_set",""),
+                                        "-methods\n"), #added
+                                 # ifelse(fn_type_1L_chr == "meth_get_slot",
+                                 #        fn_name_1L_chr,
+                                 #        paste0(stringr::str_sub(fn_name_1L_chr,end = -3),
+                                 #               "-set")
+                                 #        )
+                          ),
+                          paste0("#' @aliases ",fn_name_1L_chr,",",class_name_1L_chr,"-method")
+                          # "#' @rdname ", #added rd
+                          # ref_slot_1L_chr,#fn_name_1L_chr,
+                          # ifelse(fn_type_1L_chr == "gen_set_slot","_set",""), #added
+                          # "-methods\n", #added -methods
+                          # #' @aliases crs_nbr_vec,ready4_script_data-method
+                          )
   }
   gtr_str_dmt_spine_chr_ls <- list(fn_tags_1L_chr = fn_tags_1L_chr,
                                    ref_slot_1L_chr = ref_slot_1L_chr)

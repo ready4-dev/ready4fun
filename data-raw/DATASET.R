@@ -200,8 +200,8 @@ pkg_dss_tb <- fns_dmt_tb %>%
 usethis::use_build_ignore("initial_setup.R")
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
-                     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
-                     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",
+                     path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
+                     path_to_user_dmt_dir_1L_chr = "../../../../../../Documentation/Code/User",
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #

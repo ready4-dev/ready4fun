@@ -106,8 +106,8 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/User'
-#' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../Documentation/Code/Developer'
+#' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code/Developer'
+#' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../../../Documentation/Code/User'
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param update_pkgdown_1L_lgl Update pkgdown (a logical vector of length one), Default: T
@@ -119,8 +119,8 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
-    path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User", 
-    path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer", 
+    path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer", 
+    path_to_user_dmt_dir_1L_chr = "../../../../../../Documentation/Code/User", 
     make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
 {
     purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 

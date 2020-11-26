@@ -86,11 +86,11 @@ write_and_doc_ds <- function(db,
   return(pkg_dss_tb)
 }
 write_and_doc_fn_fls <- function(fns_dmt_tb,
-                                   r_dir_1L_chr = "R",
+                                 r_dir_1L_chr = "R",
                                  path_to_pkg_rt_1L_chr = getwd(),
-                                   path_to_user_dmt_dir_1L_chr = "../../../../Documentation/Code/User",
-                                   path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
-                                   make_pdfs_1L_lgl = T,
+                                 path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
+                                 path_to_user_dmt_dir_1L_chr = "../../../../../../Documentation/Code/User",
+                                 make_pdfs_1L_lgl = T,
                                  dev_pkgs_chr = NA_character_,
                                  update_pkgdown_1L_lgl = T){
   purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr,

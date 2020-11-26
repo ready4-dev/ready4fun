@@ -8,6 +8,7 @@
 # install.packages('tinytex')
 #  tinytex::install_tinytex()
 #  tinytex:::install_yihui_pkgs()
+# tinytex::tlmgr_install("makeindex")
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
 #
@@ -199,6 +200,8 @@ pkg_dss_tb <- fns_dmt_tb %>%
 usethis::use_build_ignore("initial_setup.R")
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
+                     path_to_dvpr_dmt_dir_1L_chr = "../../../../Documentation/Code/Developer",
+                     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #

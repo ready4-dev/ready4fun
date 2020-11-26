@@ -524,7 +524,7 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
                                  class_name_1L_chr,
                                  paste0(ref_slot_1L_chr,
                                         ifelse(fn_type_1L_chr == "meth_set_slot","_set",""),
-                                        "-methods\n"), #added
+                                        "-methods\n") #added
                                  # ifelse(fn_type_1L_chr == "meth_get_slot",
                                  #        fn_name_1L_chr,
                                  #        paste0(stringr::str_sub(fn_name_1L_chr,end = -3),

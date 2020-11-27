@@ -239,7 +239,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @importFrom utils data
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -286,7 +285,6 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
 #' @export 
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
@@ -348,6 +346,64 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
             dir.create(.x)
     })
 }
+#' Write functions to split destns
+#' @description write_fns_to_split_destns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split destns. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param pkg_depcy_ls Package dependency (a list)
+#' @param pkg_1_core_fns_chr Package 1 core functions (a character vector)
+#' @param original_pkg_nm_1L_chr Original package name (a character vector of length one), Default: get_dev_pkg_nm()
+#' @param pkg_1_nm_1L_chr Package 1 name (a character vector of length one), Default: 'package_1'
+#' @param pkg_2_nm_1L_chr Package 2 name (a character vector of length one), Default: 'package_2'
+#' @param tmp_dir_path_1L_chr Temporary directory path (a character vector of length one), Default: 'data-raw/pkg_migration'
+#' @param path_to_fns_dir_1L_chr Path to functions directory (a character vector of length one), Default: 'data-raw/fns'
+#' @return NULL
+#' @rdname write_fns_to_split_destns
+#' @export 
+#' @importFrom utils data
+#' @importFrom purrr map_chr walk2 walk
+#' @importFrom dplyr filter select
+write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
+    pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
+    tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
+{
+    utils::data("fns_dmt_tb", package = original_pkg_nm_1L_chr, 
+        envir = environment())
+    read_fns(path_to_fns_dir_1L_chr)
+    fns_for_pkg_1_chr <- get_all_depcys_of_fns(pkg_depcy_ls = pkg_depcy_ls, 
+        fns_chr = pkg_1_core_fns_chr)
+    fns_for_pkg_2_chr <- setdiff(pkg_depcy_ls$Nomfun$label, fns_for_pkg_1_chr)
+    migrate_ls <- list(fns_for_pkg_1_chr = fns_for_pkg_1_chr, 
+        fns_for_pkg_2_chr = fns_for_pkg_2_chr)
+    if (!dir.exists(tmp_dir_path_1L_chr)) 
+        dir.create(tmp_dir_path_1L_chr)
+    new_dest_dir_chr <- purrr::map_chr(c(pkg_1_nm_1L_chr, pkg_2_nm_1L_chr), 
+        ~{
+            new_dir_1L_chr <- paste0(tmp_dir_path_1L_chr, "/", 
+                .x)
+            if (!dir.exists(new_dir_1L_chr)) 
+                dir.create(new_dir_1L_chr)
+            new_dir_1L_chr
+        })
+    migrate_ls %>% purrr::walk2(new_dest_dir_chr, ~{
+        fns_tb <- fns_dmt_tb %>% dplyr::filter(fns_chr %in% .x) %>% 
+            dplyr::select(fns_chr, file_nm_chr)
+        file_nms_chr <- fns_tb$file_nm_chr %>% unique()
+        new_dest_dir_1L_chr <- .y
+        file_nms_chr %>% purrr::walk(~{
+            tb <- fns_tb %>% dplyr::filter(file_nm_chr == .x)
+            first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
+            dest_path_1L_chr <- paste0(new_dest_dir_1L_chr, "/", 
+                .x)
+            purrr::walk(1:nrow(tb), ~{
+                fn <- eval(parse(text = tb[[.x, 1]]))
+                fn_chr <- deparse(fn)
+                sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
+                writeLines(paste0(tb[[.x, 1]], " <- ", fn_chr[1]))
+                writeLines(fn_chr[2:length(fn_chr)])
+                close_open_sinks()
+            })
+        })
+    })
+}
 #' Write from temporary
 #' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param temp_path_1L_chr Temp path (a character vector of length one)
@@ -360,7 +416,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @rdname write_from_tmp
 #' @export 
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = function(x) {
     x
 }, args_ls = NULL) 
@@ -382,7 +437,6 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
 #' @rdname write_inst_dir
 #' @export 
 
-#' @keywords internal
 write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
 {
     source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
@@ -405,7 +459,6 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @rdname write_links_for_website
 #' @export 
 
-#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
     developer_manual_url_1L_chr, project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/") 
 write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
@@ -431,7 +484,6 @@ write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"),
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -718,7 +770,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -738,7 +789,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -769,7 +819,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -821,7 +870,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -841,7 +889,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     if (!dir.exists(paste0(pkg_rt_dir_chr, "/vignettes"))) 

@@ -83,10 +83,11 @@ pkg_dss_tb <- make_obj_lup() %>%
   )
 #
 # 7. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
-                 long_name_chr = c("length one","abbreviation","argument","article","comma separated variables file","database","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
+pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","depcy","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
+                 long_name_chr = c("length one","abbreviation","argument","article","comma separated variables file","database","dependency","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
                  no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
-                 custom_plural_ls = list(directory = "directories",
+                 custom_plural_ls = list(dependency = "dependencies",
+                                         directory = "directories",
                                          prefix = c("prefixes"),
                                          suffix = c("suffices","sfcs")),
                  url_1L_chr = "https://ready4-dev.github.io/ready4/",

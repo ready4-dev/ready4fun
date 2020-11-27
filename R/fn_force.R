@@ -5,7 +5,6 @@
 #' @rdname force_instl_of_reqd_pkg
 #' @export 
 #' @importFrom utils installed.packages install.packages
-#' @keywords internal
 force_instl_of_reqd_pkg <- function (package_nm_1L_chr) 
 {
     if (!package_nm_1L_chr %in% utils::installed.packages()) {

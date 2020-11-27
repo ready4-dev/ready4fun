@@ -143,6 +143,18 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
     purrr::map(~dplyr::filter(new_lup,nchar_int==.x))
   return(lup_ls)
 }
+make_depnt_fns_ls <- function(arg_ls,
+                              pkg_depcy_ls){
+  lower_tb <- purrr::map_dfr(arg_ls$new_dbl,
+                             ~ pkg_depcy_ls[["fromto"]] %>% dplyr::filter(to == .x))
+  upper_tb <- dplyr::bind_rows(arg_ls$upper_tb, lower_tb) %>% dplyr::distinct()
+  new_dbl <- setdiff(upper_tb$from,c(arg_ls$new_dbl,arg_ls$solo_dbl,arg_ls$upper_tb$from))
+  solo_dbl <- c(arg_ls$solo_dbl,setdiff(lower_tb$from,new_dbl))
+  arg_ls <- list(new_dbl = new_dbl,
+                 solo_dbl = solo_dbl,
+                 upper_tb = upper_tb)
+  return(arg_ls)
+}
 make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                  undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
                                  custom_dmt_ls = list(details_ls = NULL,

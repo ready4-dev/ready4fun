@@ -1,3 +1,17 @@
+get_all_depcys_of_fns <- function(pkg_depcy_ls,
+                                  fns_chr){
+  arg_ls <- list(new_dbl = pkg_depcy_ls$Nomfun %>%
+                   dplyr::filter(label %in% fns_chr) %>%
+                   dplyr::pull(id) %>% as.numeric(),
+                 solo_dbl = numeric(0),
+                 upper_tb = data.frame(from = numeric(0),to=numeric(0)))
+  while(!identical(arg_ls$new_dbl,numeric(0))){
+    arg_ls <- make_depnt_fns_ls(arg_ls, pkg_depcy_ls = pkg_depcy_ls)
+  }
+  fn_idcs_dbl <- c(arg_ls$upper_tb$to,arg_ls$solo_dbl) %>% unique() %>% sort()
+  fns_to_keep_chr <- pkg_depcy_ls$Nomfun %>% dplyr::filter(id %in% fn_idcs_dbl) %>% dplyr::pull(2)
+  return(fns_to_keep_chr)
+}
 get_arg_obj_type <- function(argument_nm_1L_chr,
                                     object_type_lup = NULL){
   if(is.null(object_type_lup))

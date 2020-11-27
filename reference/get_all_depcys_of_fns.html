@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make new function documentation — make_new_fn_dmt • ready4fun</title>
+<title>Get all dependencies of functions — get_all_depcys_of_fns • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make new function documentation — make_new_fn_dmt" />
-<meta property="og:description" content="make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new function documentation. The function returns New function documentation (a list of character vectors)." />
+<meta property="og:title" content="Get all dependencies of functions — get_all_depcys_of_fns" />
+<meta property="og:description" content="get_all_depcys_of_fns() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get all dependencies of functions. Function argument pkg_depcy_ls specifies the where to look for the required object. The function returns Functions to keep (a character vector)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,71 +119,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make new function documentation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
-    <div class="hidden name"><code>make_new_fn_dmt.Rd</code></div>
+    <h1>Get all dependencies of functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_get.R'><code>R/fn_get.R</code></a></small>
+    <div class="hidden name"><code>get_all_depcys_of_fns.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new function documentation. The function returns New function documentation (a list of character vectors).</p>
+    <p>get_all_depcys_of_fns() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get all dependencies of functions. Function argument pkg_depcy_ls specifies the where to look for the required object. The function returns Functions to keep (a character vector).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_new_fn_dmt</span><span class='op'>(</span>
-  <span class='va'>fn_type_1L_chr</span>,
-  <span class='va'>fn_name_1L_chr</span>,
-  fn_desc_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  fn_det_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  fn_out_type_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  args_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
-  fn <span class='op'>=</span> <span class='cn'>NULL</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_all_depcys_of_fns</span><span class='op'>(</span><span class='va'>pkg_depcy_ls</span>, <span class='va'>fns_chr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fn_type_1L_chr</th>
-      <td><p>Function type (a character vector of length one)</p></td>
+      <th>pkg_depcy_ls</th>
+      <td><p>Package dependency (a list)</p></td>
     </tr>
     <tr>
-      <th>fn_name_1L_chr</th>
-      <td><p>Function name (a character vector of length one)</p></td>
-    </tr>
-    <tr>
-      <th>fn_desc_1L_chr</th>
-      <td><p>Function description (a character vector of length one), Default: 'NA'</p></td>
-    </tr>
-    <tr>
-      <th>fn_det_1L_chr</th>
-      <td><p>Function det (a character vector of length one), Default: 'NA'</p></td>
-    </tr>
-    <tr>
-      <th>fn_out_type_1L_chr</th>
-      <td><p>Function out type (a character vector of length one), Default: 'NA'</p></td>
-    </tr>
-    <tr>
-      <th>args_ls</th>
-      <td><p>Arguments (a list), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>fn</th>
-      <td><p>Function (a function), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <th>fns_chr</th>
+      <td><p>Functions (a character vector)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>New function documentation (a list of character vectors)</p>
+    <p>Functions to keep (a character vector)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

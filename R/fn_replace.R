@@ -8,7 +8,6 @@
 #' @export 
 #' @importFrom utils data
 #' @importFrom purrr flatten_chr map_chr
-#' @keywords internal
 replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 

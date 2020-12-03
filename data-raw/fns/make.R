@@ -635,7 +635,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
       s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_new_","") %>% `names<-`(fn_name_1L_chr)
     }
     if(fn_type_1L_chr == "s3_prototype"){
-      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_prototype_","") %>% `names<-`(fn_name_1L_chr)
+      s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"make_pt_","") %>% `names<-`(fn_name_1L_chr)
     }
     if(fn_type_1L_chr == "s3_validator"){
       s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr,"validate_","") %>% `names<-`(fn_name_1L_chr)

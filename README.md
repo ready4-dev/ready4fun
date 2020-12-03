@@ -1,6 +1,6 @@
 # ready4fun <img src="man/figures/fav120.png" align="right" />
 
-## Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite
+## Standardised Function Authoring and Documentation Tools for Use with the Ready4 Suite
 
 <!-- badges: start -->
 [![R build status](https://github.com/ready4-dev/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/ready4-dev/ready4fun/actions)

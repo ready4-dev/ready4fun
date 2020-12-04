@@ -15,7 +15,7 @@ update_abbr_lup <- function(abbr_tb,
     add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr,
                                custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
   abbr_tb <- add_lups(abbr_tb,
-                      new_tb = new_tb,
+                      new_lup = new_tb,
                       key_var_nm_1L_chr = "short_name_chr")
     # tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
     #                         long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),

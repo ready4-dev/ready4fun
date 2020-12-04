@@ -122,14 +122,30 @@ add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                        second_arg_desc_chr = NA_character_,
                                        is_generic_lgl = F,
                                        is_method_lgl = F){
-  updated_fn_type_lup_tb <- fn_type_lup_tb %>%
-    dplyr::bind_rows(tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
-                                    fn_type_desc_chr = fn_type_desc_chr,
-                                    first_arg_desc_chr = first_arg_desc_chr,
-                                    second_arg_desc_chr = second_arg_desc_chr,
-                                    is_generic_lgl = is_generic_lgl,
-                                    is_method_lgl = is_method_lgl)) %>%
-    dplyr::arrange(fn_type_nm_chr) %>%
-    dplyr::distinct()
+  updated_fn_type_lup_tb <- add_lups(fn_type_lup_tb,
+                                     new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+                                                              fn_type_desc_chr = fn_type_desc_chr,
+                                                              first_arg_desc_chr = first_arg_desc_chr,
+                                                              second_arg_desc_chr = second_arg_desc_chr,
+                                                              is_generic_lgl = is_generic_lgl,
+                                                              is_method_lgl = is_method_lgl),
+                                     key_var_nm_1L_chr = "fn_type_nm_chr")
   return(updated_fn_type_lup_tb)
+}
+add_lups <- function(template_lup,
+                     new_lup,
+                     key_var_nm_1L_chr,
+                     priority_lup_for_dupls = "template"){
+  testit::assert("Look up tables must have same column names", names(template_lup)==names(new_lup))
+  if(priority_lup_for_dupls == "template"){
+    new_lup <- new_lup %>%
+      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+  }else{
+    template_lup <- template_lup %>%
+      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (new_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+  }
+  combined_lups <- dplyr::bind_rows(template_lup,
+                   new_lup) %>%
+    dplyr::arrange(!!rlang::sym(key_var_nm_1L_chr))
+  return(combined_lups)
 }

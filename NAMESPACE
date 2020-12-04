@@ -3,6 +3,7 @@
 export("%>%")
 export(add_indef_artl_to_item)
 export(add_indefartls_to_phrases)
+export(add_lups)
 export(add_plurals_to_abbr_lup)
 export(add_rows_to_fn_type_lup)
 export(assert_inp_does_not_match_terms)

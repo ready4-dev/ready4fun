@@ -9,7 +9,6 @@
 #' @importFrom utils data
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
-#' @keywords internal
 add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
@@ -48,7 +47,6 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore
 #' @export 
 #' @importFrom utils data
 #' @importFrom purrr map_chr discard
-#' @keywords internal
 add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup = NULL, 
     ignore_phrs_not_in_lup_1L_lgl = T) 
 {
@@ -92,7 +90,6 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom testit assert
 #' @importFrom dplyr filter pull bind_rows arrange
 #' @importFrom rlang sym
-#' @keywords internal
 add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls = "template") 
 {
     testit::assert("Look up tables must have same column names", 
@@ -120,7 +117,6 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
 #' @importFrom dplyr filter mutate_all mutate bind_rows arrange
 #' @importFrom purrr map_dfr map2_lgl
 #' @importFrom tibble tibble
-#' @keywords internal
 add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_1L_chr <- no_plural_chr
@@ -165,7 +161,6 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
 #' @rdname add_rows_to_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
-#' @keywords internal
 add_rows_to_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), fn_type_nm_chr = NA_character_, 
     fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     second_arg_desc_chr = NA_character_, is_generic_lgl = F, 

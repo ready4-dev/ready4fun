@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make function documentation table template — make_fn_dmt_tbl_tpl • ready4fun</title>
+<title>Add lups — add_lups • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make function documentation table template — make_fn_dmt_tbl_tpl" />
-<meta property="og:description" content="make_fn_dmt_tbl_tpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table template. The function returns Function documentation table (a tibble)." />
+<meta property="og:title" content="Add lups — add_lups" />
+<meta property="og:description" content="add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lups. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,56 +119,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make function documentation table template</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
-    <div class="hidden name"><code>make_fn_dmt_tbl_tpl.Rd</code></div>
+    <h1>Add lups</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_add.R'><code>R/fn_add.R</code></a></small>
+    <div class="hidden name"><code>add_lups.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make_fn_dmt_tbl_tpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table template. The function returns Function documentation table (a tibble).</p>
+    <p>add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lups. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_fn_dmt_tbl_tpl</span><span class='op'>(</span>
-  <span class='va'>fns_path_chr</span>,
-  fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
-  fn_type_lup_tb <span class='op'>=</span> <span class='cn'>NULL</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  test_for_write_R_warning_fn <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>add_lups</span><span class='op'>(</span>
+  <span class='va'>template_lup</span>,
+  <span class='va'>new_lup</span>,
+  <span class='va'>key_var_nm_1L_chr</span>,
+  priority_lup_for_dupls <span class='op'>=</span> <span class='st'>"template"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fns_path_chr</th>
-      <td><p>Functions path (a character vector)</p></td>
+      <th>template_lup</th>
+      <td><p>Template (a lookup table)</p></td>
     </tr>
     <tr>
-      <th>fns_dir_chr</th>
-      <td><p>Functions directory (a character vector), Default: make_undmtd_fns_dir_chr()</p></td>
+      <th>new_lup</th>
+      <td><p>New (a lookup table)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble), Default: NULL</p></td>
+      <th>key_var_nm_1L_chr</th>
+      <td><p>Key var name (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>test_for_write_R_warning_fn</th>
-      <td><p>Test for write warning (a function), Default: NULL</p></td>
+      <th>priority_lup_for_dupls</th>
+      <td><p>PARAM_DESCRIPTION, Default: 'template'</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Function documentation table (a tibble)</p>
+    <p>NA ()</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

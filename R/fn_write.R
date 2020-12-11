@@ -602,6 +602,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom desc desc_get desc_set
 #' @importFrom purrr map_chr map2_chr walk2 walk
 #' @importFrom stringr str_trim str_replace_all str_locate_all str_sub
+#' @importFrom lubridate year
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
 write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
@@ -641,10 +642,13 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
         usethis::use_version()
     }
     write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
-    usethis::use_gpl3_license(copyright_holders_chr)
+    usethis::use_gpl3_license()
     c(paste0(dev_pkg_nm_1L_chr, " - ", desc::desc_get("Title") %>% 
         as.vector()), readLines(paste0(path_to_pkg_rt_1L_chr, 
-        "/License.md"))[556:569]) %>% purrr::map_chr(~stringr::str_trim(.x)) %>% 
+        "/License.md"))[556:569]) %>% purrr::map_chr(~stringr::str_trim(.x) %>% 
+        stringr::str_replace_all("<year>", as.character(Sys.Date() %>% 
+            lubridate::year())) %>% stringr::str_replace_all("<name of author>", 
+        paste0(copyright_holders_chr, collapse = "and "))) %>% 
         writeLines(con = paste0(path_to_pkg_rt_1L_chr, "/LICENSE"))
     desc::desc_set("License", "GPL-3 + file LICENSE")
     usethis::use_pkgdown()

@@ -520,11 +520,13 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
     usethis::use_version()
   }
   write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
-  usethis::use_gpl3_license(copyright_holders_chr)
+  usethis::use_gpl3_license()#copyright_holders_chr
   c(paste0(dev_pkg_nm_1L_chr," - ",desc::desc_get("Title") %>%
       as.vector()),
     readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
-    purrr::map_chr(~stringr::str_trim(.x)) %>%
+    purrr::map_chr(~stringr::str_trim(.x) %>%
+                     stringr::str_replace_all("<year>",as.character(Sys.Date() %>% lubridate::year())) %>%
+                     stringr::str_replace_all("<name of author>",paste0(copyright_holders_chr,collapse = "and "))) %>%
     writeLines(con = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"))
   desc::desc_set("License", "GPL-3 + file LICENSE")
   usethis::use_pkgdown()

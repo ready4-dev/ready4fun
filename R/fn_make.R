@@ -923,7 +923,7 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
             1] %>% unname()) %>% stringr::str_trim()
     pkg_desc_ls <- list(Package = pkg_nm_1L_chr, Title = pkg_title_1L_chr %>% 
         tools::toTitleCase(), Description = pkg_desc_1L_chr, 
-        `Authors@R` = authors_prsns, License = usethis::use_gpl3_license(cpyr_hldr_1L_chr), 
+        `Authors@R` = authors_prsns, License = usethis::use_gpl3_license(), 
         URL = paste0(urls_chr, collapse = ", "))
     return(pkg_desc_ls)
 }

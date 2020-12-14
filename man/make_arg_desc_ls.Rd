@@ -13,7 +13,10 @@ make_arg_desc_ls(fn_nms_chr, abbreviations_lup = NULL, object_type_lup = NULL)
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
+\value{
+Argument description (a list)
+}
 \description{
-make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function is called for its side effects and does not return a value.
+make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).
 }
 \keyword{internal}

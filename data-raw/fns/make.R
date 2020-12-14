@@ -18,14 +18,15 @@ make_arg_desc_ls <- function(fn_nms_chr,
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     utils::data("object_type_lup",package="ready4fun",envir = environment())
-  purrr::map(fn_nms_chr,
-             ~ {
-               eval(parse(text = paste0("fn <- ",.x)))
-               get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup,
-                                                 object_type_lup = object_type_lup) %>%
-                 stats::setNames(get_fn_args(fn))
-             }
+  arg_desc_ls <- purrr::map(fn_nms_chr,
+                            ~ {
+                              eval(parse(text = paste0("fn <- ",.x)))
+                              get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup,
+                                                                object_type_lup = object_type_lup) %>%
+                                stats::setNames(get_fn_args(fn))
+                            }
   )
+  return(arg_desc_ls)
 }
 make_arg_desc_spine <- function(argument_nm_1L_chr,
                                     object_type_lup = NULL,
@@ -170,8 +171,7 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
          envir = environment())
   all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls,
                                          undocumented_fns_dir_chr,
-                                         names(paths_ls)
-  ),
+                                         names(paths_ls)),
   ~ {
     if(..3 == "fns")
       tb <- fn_type_lup_tb %>% dplyr::filter(!is_generic_lgl & !is_method_lgl)

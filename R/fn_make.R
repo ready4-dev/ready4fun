@@ -21,11 +21,11 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
     return(arg_desc_chr)
 }
 #' Make argument description
-#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function is called for its side effects and does not return a value.
+#' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).
 #' @param fn_nms_chr Function names (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
-#' @return NULL
+#' @return Argument description (a list)
 #' @rdname make_arg_desc_ls
 #' @export 
 #' @importFrom utils data
@@ -40,11 +40,12 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
     if (is.null(object_type_lup)) 
         utils::data("object_type_lup", package = "ready4fun", 
             envir = environment())
-    purrr::map(fn_nms_chr, ~{
+    arg_desc_ls <- purrr::map(fn_nms_chr, ~{
         eval(parse(text = paste0("fn <- ", .x)))
         get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup, 
             object_type_lup = object_type_lup) %>% stats::setNames(get_fn_args(fn))
     })
+    return(arg_desc_ls)
 }
 #' Make argument description spine
 #' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function is called for its side effects and does not return a value.

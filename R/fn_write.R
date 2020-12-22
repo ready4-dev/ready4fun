@@ -588,6 +588,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
 #' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
+#' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
@@ -598,7 +599,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @export 
 #' @importFrom utils data packageDescription
 #' @importFrom devtools load_all
-#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_travis use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge use_badge
+#' @importFrom usethis use_version use_gpl3_license use_pkgdown use_build_ignore use_package use_github_action use_github_action_check_standard use_lifecycle use_lifecycle_badge use_badge
 #' @importFrom desc desc_get desc_set
 #' @importFrom purrr map_chr map2_chr walk2 walk
 #' @importFrom stringr str_trim str_replace_all str_locate_all str_sub
@@ -607,12 +608,11 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom dplyr filter
 write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
-    check_type_1L_chr = "none", path_to_pkg_logo_1L_chr = NA_character_, 
+    check_type_1L_chr = "none", add_gh_site_1L_lgl = T, path_to_pkg_logo_1L_chr = NA_character_, 
     github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental", 
     badges_lup = NULL, addl_badges_ls = NULL) 
 {
     options(usethis.description = pkg_desc_ls)
-    use_travis_1L_lgl = (check_type_1L_chr == "travis")
     use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
     if (is.null(badges_lup)) {
         utils::data("badges_lup", envir = environment())
@@ -675,22 +675,8 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
         "", paste0("devtools::install_github(\"", github_repo_1L_chr, 
             "\")"), "", "```"), con = paste0(path_to_pkg_rt_1L_chr, 
         "/README.md"))
-    if (use_travis_1L_lgl) {
-        usethis::use_travis()
-        write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/.travis.yml"), 
-            dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr, 
-                "/.travis.yml"), edit_fn = function(txt_chr) {
-                c(txt_chr, "warnings_are_errors: false")
-            })
+    if (add_gh_site_1L_lgl) 
         usethis::use_github_action("pkgdown")
-        pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/R/", 
-            "pkg_", dev_pkg_nm_1L_chr, ".R")
-        write_from_tmp(pkg_path_1L_chr, dest_path_1L_chr = pkg_path_1L_chr, 
-            edit_fn = function(txt_chr) {
-                c(txt_chr, "## usethis namespace: start", "#' @importFrom lifecycle deprecate_soft", 
-                  "## usethis namespace: end", "NULL")
-            })
-    }
     if (use_gh_cmd_check_1L_lgl) {
         usethis::use_github_action_check_standard()
     }

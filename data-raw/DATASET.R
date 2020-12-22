@@ -1,8 +1,6 @@
 # NOTE: To install, deprecated rtools is sought. Users with R>4.0 need the following line in Renviron: PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
 #
 # WS Set-up
-# remotes::install_github("ropenscilabs/travis")
-# travis::browse_travis_token()
 # # Add token to R environ
 # Ensure gh-pages branch on repo: https://sahirbhatnagar.com/blog/2020/03/03/creating-a-website-for-your-r-package/
 # install.packages('tinytex')

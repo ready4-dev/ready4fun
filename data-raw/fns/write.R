@@ -483,13 +483,14 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 delete_contents_of_R_dir = F,
                                 copyright_holders_chr,
                                 check_type_1L_chr = "none",
+                                add_gh_site_1L_lgl = T,
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 github_repo_1L_chr,
                                 lifecycle_stage_1L_chr = "experimental",
                                 badges_lup = NULL,
                                 addl_badges_ls = NULL){
   options(usethis.description = pkg_desc_ls)
-  use_travis_1L_lgl = (check_type_1L_chr == "travis")
+  # use_travis_1L_lgl = (check_type_1L_chr == "travis")
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
   if(is.null(badges_lup)){
     utils::data("badges_lup",envir = environment())
@@ -563,40 +564,42 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                "",
                "```"),
              con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
-  if(use_travis_1L_lgl){
-    usethis::use_travis()
-    #usethis::use_pkgdown_travis()
-    write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
-                          "/.travis.yml"),
-                   dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
-                                             "/.travis.yml"),
-                   edit_fn = function(txt_chr){
-                     c(txt_chr,
-                       # "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
-                       # "deploy:",
-                       # "  provider: script",
-                       # "  script: Rscript -e 'pkgdown::deploy_site_github()'",
-                       # "  skip_cleanup: true",
-                       "warnings_are_errors: false")
-                   })
+  # if(use_travis_1L_lgl){
+  #   usethis::use_travis()
+  #   #usethis::use_pkgdown_travis()
+  #   write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
+  #                         "/.travis.yml"),
+  #                  dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
+  #                                            "/.travis.yml"),
+  #                  edit_fn = function(txt_chr){
+  #                    c(txt_chr,
+  #                      # "before_cache: Rscript -e 'remotes::install_cran(\"pkgdown\")'",
+  #                      # "deploy:",
+  #                      # "  provider: script",
+  #                      # "  script: Rscript -e 'pkgdown::deploy_site_github()'",
+  #                      # "  skip_cleanup: true",
+  #                      "warnings_are_errors: false")
+  #                  })
+  #   usethis::use_github_action("pkgdown")
+  #   pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr,
+  #                             "/R/",
+  #                             "pkg_",
+  #                             dev_pkg_nm_1L_chr,
+  #                             ".R")
+  #   write_from_tmp(pkg_path_1L_chr,
+  #                  dest_path_1L_chr = pkg_path_1L_chr,
+  #                  edit_fn = function(txt_chr){
+  #                    c(txt_chr,
+  #                      "## usethis namespace: start",
+  #                      "#' @importFrom lifecycle deprecate_soft",
+  #                      "## usethis namespace: end",
+  #                      "NULL"
+  #                    )
+  #                  })
+  #   # travis::use_travis_deploy()
+  # }
+  if(add_gh_site_1L_lgl)
     usethis::use_github_action("pkgdown")
-    pkg_path_1L_chr <- paste0(path_to_pkg_rt_1L_chr,
-                              "/R/",
-                              "pkg_",
-                              dev_pkg_nm_1L_chr,
-                              ".R")
-    write_from_tmp(pkg_path_1L_chr,
-                   dest_path_1L_chr = pkg_path_1L_chr,
-                   edit_fn = function(txt_chr){
-                     c(txt_chr,
-                       "## usethis namespace: start",
-                       "#' @importFrom lifecycle deprecate_soft",
-                       "## usethis namespace: end",
-                       "NULL"
-                     )
-                   })
-    # travis::use_travis_deploy()
-  }
   if(use_gh_cmd_check_1L_lgl){
     usethis::use_github_action_check_standard()
   }

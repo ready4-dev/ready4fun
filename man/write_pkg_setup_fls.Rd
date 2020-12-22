@@ -12,6 +12,7 @@ write_pkg_setup_fls(
   delete_contents_of_R_dir = F,
   copyright_holders_chr,
   check_type_1L_chr = "none",
+  add_gh_site_1L_lgl = T,
   path_to_pkg_logo_1L_chr = NA_character_,
   github_repo_1L_chr,
   lifecycle_stage_1L_chr = "experimental",
@@ -33,6 +34,8 @@ write_pkg_setup_fls(
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'none'}
+
+\item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
 
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 

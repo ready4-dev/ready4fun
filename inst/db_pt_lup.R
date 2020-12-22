@@ -5,5 +5,5 @@
 #'
 #' @format A tibble
 #'   ...
-#' @source \url{https://github.com/readyforwhatsnext}
+#' @source \url{https://github.com/ready4}
 "pt_lup"

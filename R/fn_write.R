@@ -922,14 +922,25 @@ write_ws <- function (path_1L_chr)
     top_level_chr <- paste0(path_1L_chr, "/ready4/", c("Code", 
         "Data", "Documentation", "Insight"))
     top_level_chr %>% purrr::walk(~dir.create(.x))
-    c("Brochures", "Models", "Workflows") %>% purrr::walk(~{
-        dir.create(paste0(top_level_chr[1], "/", .x))
-    })
+    c("Apps", "Brochures", "Models", "Templates", "Workflows") %>% 
+        purrr::walk(~{
+            dir.create(paste0(top_level_chr[1], "/", .x))
+        })
     dir.create(paste0(top_level_chr[1], "/Brochures/HTML"))
-    c("Developer", "Modeller") %>% purrr::walk(~{
+    c("Development") %>% purrr::walk(~{
         dir.create(paste0(top_level_chr[1], "/Workflows/", .x))
         dir.create(paste0(top_level_chr[1], "/Workflows/", .x, 
             "/R"))
+    })
+    c("Modelling") %>% purrr::walk(~{
+        dir.create(paste0(top_level_chr[1], "/Templates/", .x))
+        dir.create(paste0(top_level_chr[1], "/Templates/", .x, 
+            "/R"))
+    })
+    c("Example") %>% purrr::walk(~{
+        dir.create(paste0(top_level_chr[1], "/Models/", .x))
+        dir.create(paste0(top_level_chr[1], "/Models/", .x, "/Toolkit_1"))
+        dir.create(paste0(top_level_chr[1], "/Models/", .x, "/Toolkit_1/R"))
     })
     c("Dataverse", "Project", "R_Format", "Raw_Format") %>% purrr::walk(~dir.create(paste0(top_level_chr[2], 
         "/", .x)))
@@ -939,6 +950,6 @@ write_ws <- function (path_1L_chr)
         "/", .x)))
     c("Developer", "User") %>% purrr::walk(~dir.create(paste0(top_level_chr[3], 
         "/Code/", .x)))
-    c("Analysis", "Apps", "Science", "Team") %>% purrr::walk(~dir.create(paste0(top_level_chr[4], 
+    c("Analysis", "Science", "Team") %>% purrr::walk(~dir.create(paste0(top_level_chr[4], 
         "/", .x)))
 }

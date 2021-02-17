@@ -23,7 +23,7 @@ fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
 # 5. Set-up package structure
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
-                             label_names_chr = c("development","modelling", "prediction"),
+                             label_names_chr = c("authoring","modelling", "prediction"),
                             colours_chr = c("maroon", "indigo", "forestgreen")) %>%
   dplyr::mutate(badges_chr = purrr::map2_chr(label_names_chr, colours_chr,
                                              ~badgr::get_badge(
@@ -65,7 +65,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     github_repo = "ready4-dev/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     badges_lup = badges_lup,
-                    addl_badges_ls = list(ready4 = "development"))
+                    addl_badges_ls = list(ready4 = "authoring"))
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 pkg_dss_tb <- make_obj_lup() %>%

@@ -64,6 +64,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
 #' @param vars_ls Vars (a list), Default: NULL
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
@@ -76,8 +77,8 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @importFrom devtools document load_all
 write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
-    vars_ls = NULL, R_dir_1L_chr = "R", abbreviations_lup = NULL, 
-    object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+    vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
+    abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
@@ -93,7 +94,8 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
     write_ds_dmt(db = db, db_1L_chr = db_1L_chr, title_1L_chr = title_1L_chr, 
         desc_1L_chr = desc_1L_chr, format_1L_chr = format_1L_chr, 
         vars_ls = vars_ls, url_1L_chr = url_1L_chr, R_dir_1L_chr = R_dir_1L_chr, 
-        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
+        simple_lup_1L_lgl = simple_lup_1L_lgl, abbreviations_lup = abbreviations_lup, 
+        object_type_lup = object_type_lup)
     close_open_sinks()
     devtools::document()
     devtools::load_all()
@@ -231,6 +233,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
 #' @param vars_ls Vars (a list), Default: NULL
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return NULL
@@ -242,7 +245,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @keywords internal
 write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
-    abbreviations_lup = NULL, object_type_lup = NULL) 
+    simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
@@ -250,9 +253,11 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
     if (is.null(object_type_lup)) 
         utils::data("object_type_lup", package = "ready4fun", 
             envir = environment())
-    auto_vars_ls <- names(db) %>% purrr::map(~make_arg_desc(.x, 
-        object_type_lup = object_type_lup, abbreviations_lup = abbreviations_lup)) %>% 
-        stats::setNames(names(db))
+    auto_vars_ls <- names(db) %>% purrr::map(~ifelse(simple_lup_1L_lgl, 
+        get_from_lup_obj(abbreviations_lup, target_var_nm_1L_chr = "long_name_chr", 
+            match_var_nm_1L_chr = "short_name_chr", match_value_xx = .x, 
+            evaluate_lgl = F), make_arg_desc(.x, object_type_lup = object_type_lup, 
+            abbreviations_lup = abbreviations_lup))) %>% stats::setNames(names(db))
     if (is.null(vars_ls)) {
         vars_ls <- auto_vars_ls
     }
@@ -922,25 +927,27 @@ write_ws <- function (path_1L_chr)
     top_level_chr <- paste0(path_1L_chr, "/ready4/", c("Code", 
         "Data", "Documentation", "Insight"))
     top_level_chr %>% purrr::walk(~dir.create(.x))
-    c("Apps", "Brochures", "Models", "Templates", "Workflows") %>% 
+    c("Application", "Brochure", "Prediction", "Modelling", "Authoring") %>% 
         purrr::walk(~{
             dir.create(paste0(top_level_chr[1], "/", .x))
         })
     dir.create(paste0(top_level_chr[1], "/Brochures/HTML"))
-    c("Development") %>% purrr::walk(~{
-        dir.create(paste0(top_level_chr[1], "/Workflows/", .x))
-        dir.create(paste0(top_level_chr[1], "/Workflows/", .x, 
+    c("Workflows") %>% purrr::walk(~{
+        dir.create(paste0(top_level_chr[1], "/Authoring/", .x))
+        dir.create(paste0(top_level_chr[1], "/Authoring/", .x, 
             "/R"))
     })
-    c("Modelling") %>% purrr::walk(~{
-        dir.create(paste0(top_level_chr[1], "/Templates/", .x))
-        dir.create(paste0(top_level_chr[1], "/Templates/", .x, 
+    c("Templates") %>% purrr::walk(~{
+        dir.create(paste0(top_level_chr[1], "/Modelling/", .x))
+        dir.create(paste0(top_level_chr[1], "/Modelling/", .x, 
             "/R"))
     })
     c("Example") %>% purrr::walk(~{
-        dir.create(paste0(top_level_chr[1], "/Models/", .x))
-        dir.create(paste0(top_level_chr[1], "/Models/", .x, "/Toolkit_1"))
-        dir.create(paste0(top_level_chr[1], "/Models/", .x, "/Toolkit_1/R"))
+        dir.create(paste0(top_level_chr[1], "/Prediction/", .x))
+        dir.create(paste0(top_level_chr[1], "/Prediction/", .x, 
+            "/Toolkit_1"))
+        dir.create(paste0(top_level_chr[1], "/Prediction/", .x, 
+            "/Toolkit_1/R"))
     })
     c("Dataverse", "Project", "R_Format", "Raw_Format") %>% purrr::walk(~dir.create(paste0(top_level_chr[2], 
         "/", .x)))

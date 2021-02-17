@@ -14,6 +14,7 @@ write_and_doc_ds(
   url_1L_chr = NA_character_,
   vars_ls = NULL,
   R_dir_1L_chr = "R",
+  simple_lup_1L_lgl = F,
   abbreviations_lup = NULL,
   object_type_lup = NULL,
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
@@ -38,6 +39,8 @@ write_and_doc_ds(
 \item{vars_ls}{Vars (a list), Default: NULL}
 
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
+
+\item{simple_lup_1L_lgl}{Simple lookup table (a logical vector of length one), Default: F}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

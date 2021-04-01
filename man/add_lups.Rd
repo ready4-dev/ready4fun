@@ -8,7 +8,7 @@ add_lups(
   template_lup,
   new_lup,
   key_var_nm_1L_chr,
-  priority_lup_for_dupls = "template"
+  priority_lup_for_dupls_1L_chr = "template"
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ add_lups(
 
 \item{key_var_nm_1L_chr}{Key var name (a character vector of length one)}
 
-\item{priority_lup_for_dupls}{PARAM_DESCRIPTION, Default: 'template'}
+\item{priority_lup_for_dupls_1L_chr}{Priority lookup table for dupls (a character vector of length one), Default: 'template'}
 }
 \value{
 NA ()

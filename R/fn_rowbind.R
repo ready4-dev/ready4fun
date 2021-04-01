@@ -8,6 +8,7 @@
 #' @export 
 #' @importFrom purrr reduce
 #' @importFrom methods getSlots
+#' @keywords internal
 rowbind_all_tbs_in_r4_obj <- function (tbs_r4, second_tbs_r4, r4_name_1L_chr) 
 {
     tbs_r4 <- purrr::reduce(methods::getSlots(r4_name_1L_chr) %>% 

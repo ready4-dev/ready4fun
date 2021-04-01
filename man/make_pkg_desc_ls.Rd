@@ -19,7 +19,7 @@ make_pkg_desc_ls(
 
 \item{pkg_desc_1L_chr}{Package description (a character vector of length one)}
 
-\item{authors_prsns}{PARAM_DESCRIPTION}
+\item{authors_prsns}{Authors (a persons)}
 
 \item{urls_chr}{Urls (a character vector)}
 }

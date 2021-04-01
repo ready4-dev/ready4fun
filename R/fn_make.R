@@ -211,8 +211,8 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
         purrr::map(~dplyr::filter(new_lup, nchar_int == .x))
     return(lup_ls)
 }
-#' Make depnt functions
-#' @description make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make depnt functions list. The function returns Argument (a list).
+#' Make dependent functions
+#' @description make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make dependent functions list. The function returns Argument (a list).
 #' @param arg_ls Argument (a list)
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @return Argument (a list)
@@ -430,6 +430,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @importFrom utils data
 #' @importFrom purrr map_lgl discard
 #' @importFrom rlang exec
+#' @keywords internal
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(), 
     custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
         inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, 
@@ -866,13 +867,14 @@ make_obj_lup <- function ()
 {
     obj_tb <- tibble::tibble(short_name_chr = c("df", "fn", "ls", 
         "r3", "r4", "s3", "s4", "sf", "tb", "arr", "chr", "dbl", 
-        "fct", "int", "lgl", "lup", "mat", "rgx"), long_name_chr = c("data.frame", 
-        "function", "list", "ready4 S3", "ready4 S4", "S3", "S4", 
-        "simple features object", "tibble", "array", "character", 
-        "double", "factor", "integer", "logical", "lookup table", 
-        "matrix", "regular expression"), atomic_element_lgl = c(rep(F, 
-        10), rep(T, 2), F, rep(T, 2), rep(F, 2), T), r3_element_lgl = c(T, 
-        F, T, rep(F, 4), rep(T, 11)))
+        "dtm", "fct", "int", "lgl", "lup", "mat", "mdl", "prsns", 
+        "rgx"), long_name_chr = c("data.frame", "function", "list", 
+        "ready4 S3", "ready4 S4", "S3", "S4", "simple features object", 
+        "tibble", "array", "character", "double", "date", "factor", 
+        "integer", "logical", "lookup table", "matrix", "model", 
+        "persons", "regular expression"), atomic_element_lgl = c(rep(F, 
+        10), rep(T, 6), rep(F, 4), T), r3_element_lgl = c(T, 
+        F, T, rep(F, 4), rep(T, 14)))
     obj_tb <- dplyr::bind_rows(obj_tb %>% dplyr::mutate(long_name_chr = purrr::map2_chr(long_name_chr, 
         atomic_element_lgl, ~ifelse(.y, paste0(.x, " vector"), 
             .x))), obj_tb %>% dplyr::filter(atomic_element_lgl) %>% 
@@ -903,7 +905,7 @@ make_obj_lup <- function ()
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param pkg_title_1L_chr Package title (a character vector of length one)
 #' @param pkg_desc_1L_chr Package description (a character vector of length one)
-#' @param authors_prsns PARAM_DESCRIPTION
+#' @param authors_prsns Authors (a persons)
 #' @param urls_chr Urls (a character vector)
 #' @return Package description (a list)
 #' @rdname make_pkg_desc_ls

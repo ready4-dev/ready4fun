@@ -5,7 +5,7 @@
 \alias{abbreviations_lup}
 \title{Common abbreviations lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 200 rows and 3 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 228 rows and 3 columns.
 }
 \source{
 \url{https://ready4-dev.github.io/ready4/}

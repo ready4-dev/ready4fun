@@ -58,7 +58,7 @@ make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documen
                               "https://github.com/ready4-dev/ready4fun",
                               "https://www.ready4-dev.com/")) %>%
 write_pkg_setup_fls(incr_ver_1L_lgl = F,
-                    delete_contents_of_R_dir = T,
+                    delete_r_dir_cnts_1L_lgl = T,
                     copyright_holders_chr = "Orygen",
                     check_type_1L_chr = "gh",
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
@@ -69,7 +69,7 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
 ## INTERACTIVE INPUT
 # 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 pkg_dss_tb <- make_obj_lup() %>%
-  write_and_doc_ds(db = .,
+  write_and_doc_ds(db_df = .,
                    overwrite_1L_lgl = T,
                    db_1L_chr = "object_type_lup",
                    title_1L_chr = "Object abbreviations lookup table",
@@ -81,8 +81,8 @@ pkg_dss_tb <- make_obj_lup() %>%
   )
 #
 # 7. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","csv","db","depcy","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
-                 long_name_chr = c("length one","abbreviation","argument","article","comma separated variables file","database","dependency","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
+pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","cnt","csv","db","depcy","depnt","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
+                 long_name_chr = c("length one","abbreviation","argument","article","content","comma separated variables file","database","dependency", "dependent","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
                  no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
                  custom_plural_ls = list(dependency = "dependencies",
                                          directory = "directories",
@@ -167,13 +167,14 @@ pkg_dss_tb <- badges_lup %>%
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                  fns_dir_chr = fns_dir_1L_chr,
                                  custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj","import_xls_sheets",
-                                                                                              "make_dmt_for_all_fns","make_fn_dmt_tbl","make_fn_type_lup","read_fns",
-                                                                                              "rowbind_all_tbs_in_r4_obj","write_abbr_lup","write_all_tbs_in_tbs_r4_to_csvs",
+                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj",#"import_xls_sheets",
+                                                                                              "make_dmt_for_all_fns",#"make_fn_dmt_tbl",
+                                                                                              "make_fn_type_lup","make_lines_for_fn_dmt",#"read_fns","rowbind_all_tbs_in_r4_obj",
+                                                                                              "write_abbr_lup",#"write_all_tbs_in_tbs_r4_to_csvs",
                                                                                               "write_and_doc_ds","write_and_doc_fn_fls","write_dmtd_fn_type_lup","write_documented_fns",
-                                                                                              "make_lines_for_fn_dmt","write_fn_type_dirs","write_ns_imps_to_desc",
-                                                                                              "write_pkg","write_pkg_setup_fls","write_pt_lup_db","write_std_imp",
-                                                                                              "write_tb_to_csv","write_to_reset_pkg_files","write_ws"),
+                                                                                              "write_fn_type_dirs", "write_links_for_website", #"write_ns_imps_to_desc","write_pkg",
+                                                                                              "write_pkg_setup_fls","write_pt_lup_db", #"write_std_imp", "write_tb_to_csv", "write_to_reset_pkg_files",
+                                                                                              "write_ws"),
                                                                        force_false_chr = NA_character_#c("add_indef_artl_to_item", "get_fn_args_chr")
                                                                        ),
                                                       args_ls_ls = NULL#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
@@ -205,9 +206,9 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      update_pkgdown_1L_lgl = T)
 #
 
-write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9270/ready4fun_0.0.0.9270.pdf",
-                        #developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf",
-                        project_website_url_1L_chr = "https://www.ready4-dev.com/")
+# write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9270/ready4fun_0.0.0.9270.pdf",
+#                         #developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf",
+#                         project_website_url_1L_chr = "https://www.ready4-dev.com/")
 
 # 11. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

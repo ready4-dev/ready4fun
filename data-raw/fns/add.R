@@ -135,9 +135,9 @@ add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
 add_lups <- function(template_lup,
                      new_lup,
                      key_var_nm_1L_chr,
-                     priority_lup_for_dupls = "template"){
+                     priority_lup_for_dupls_1L_chr = "template"){
   testit::assert("Look up tables must have same column names", names(template_lup)==names(new_lup))
-  if(priority_lup_for_dupls == "template"){
+  if(priority_lup_for_dupls_1L_chr == "template"){
     new_lup <- new_lup %>%
       dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
     labels_chr <- Hmisc::label(template_lup) %>% unname()

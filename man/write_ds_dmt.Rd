@@ -5,7 +5,7 @@
 \title{Write dataset documentation}
 \usage{
 write_ds_dmt(
-  db,
+  db_df,
   db_1L_chr,
   title_1L_chr,
   desc_1L_chr,
@@ -19,7 +19,7 @@ write_ds_dmt(
 )
 }
 \arguments{
-\item{db}{PARAM_DESCRIPTION}
+\item{db_df}{Database (a data.frame)}
 
 \item{db_1L_chr}{Database (a character vector of length one)}
 

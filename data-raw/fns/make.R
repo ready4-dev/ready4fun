@@ -737,11 +737,11 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   return(new_fn_dmt_chr_ls)
 }
 make_obj_lup <- function(){
-  obj_tb <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","fct","int","lgl","lup","mat","rgx"),
+  obj_tb <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsns","rgx"),
                            long_name_chr = c("data.frame","function","list","ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
-                                         "tibble","array","character","double","factor","integer","logical","lookup table","matrix","regular expression"),
-                           atomic_element_lgl = c(rep(F,10),rep(T,2),F,rep(T,2),rep(F,2),T),
-                           r3_element_lgl = c(T,F,T,rep(F,4),rep(T,11)))
+                                         "tibble","array","character","double", "date","factor","integer","logical","lookup table","matrix","model","persons","regular expression"),
+                           atomic_element_lgl = c(rep(F,10),rep(T,6),rep(F,4),T),
+                           r3_element_lgl = c(T,F,T,rep(F,4),rep(T,14)))
   obj_tb <- dplyr::bind_rows(obj_tb %>%
                                dplyr::mutate(long_name_chr = purrr::map2_chr(long_name_chr,atomic_element_lgl,
                                                                          ~ifelse(.y,paste0(.x," vector"),.x))),

@@ -5,7 +5,7 @@
 \title{Write and document dataset}
 \usage{
 write_and_doc_ds(
-  db,
+  db_df,
   overwrite_1L_lgl = T,
   db_1L_chr,
   title_1L_chr,
@@ -22,7 +22,7 @@ write_and_doc_ds(
 )
 }
 \arguments{
-\item{db}{PARAM_DESCRIPTION}
+\item{db_df}{Database (a data.frame)}
 
 \item{overwrite_1L_lgl}{Overwrite (a logical vector of length one), Default: T}
 

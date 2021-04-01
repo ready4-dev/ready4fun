@@ -28,7 +28,7 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
     }
     pkg_dss_tb <- update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
-        custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds(db = ., 
+        custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds(db_df = ., 
         overwrite_1L_lgl = overwrite_1L_lgl, db_1L_chr = "abbreviations_lup", 
         title_1L_chr = "Common abbreviations lookup table", desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ", 
             pkg_nm_1L_chr, "package."), format_1L_chr = "A tibble", 
@@ -46,6 +46,7 @@ write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_c
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom methods getSlots
+#' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
     purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
@@ -55,7 +56,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 }
 #' Write and document dataset
 #' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
-#' @param db PARAM_DESCRIPTION
+#' @param db_df Database (a data.frame)
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param db_1L_chr Database (a character vector of length one)
 #' @param title_1L_chr Title (a character vector of length one)
@@ -75,7 +76,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @importFrom tibble tibble add_case
 #' @importFrom utils data
 #' @importFrom devtools document load_all
-write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
+write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
@@ -87,11 +88,11 @@ write_and_doc_ds <- function (db, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr,
     if (is.null(object_type_lup)) 
         utils::data("object_type_lup", package = "ready4fun", 
             envir = environment())
-    eval(parse(text = paste0(db_1L_chr, "<-db")))
+    eval(parse(text = paste0(db_1L_chr, "<-db_df")))
     eval(parse(text = paste0("usethis::use_data(", db_1L_chr, 
         ", overwrite = overwrite_1L_lgl)")))
     sink(paste0(R_dir_1L_chr, "/db_", db_1L_chr, ".R"), append = F)
-    write_ds_dmt(db = db, db_1L_chr = db_1L_chr, title_1L_chr = title_1L_chr, 
+    write_ds_dmt(db_df = db_df, db_1L_chr = db_1L_chr, title_1L_chr = title_1L_chr, 
         desc_1L_chr = desc_1L_chr, format_1L_chr = format_1L_chr, 
         vars_ls = vars_ls, url_1L_chr = url_1L_chr, R_dir_1L_chr = R_dir_1L_chr, 
         simple_lup_1L_lgl = simple_lup_1L_lgl, abbreviations_lup = abbreviations_lup, 
@@ -225,7 +226,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 }
 #' Write dataset documentation
 #' @description write_ds_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write dataset documentation. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param db PARAM_DESCRIPTION
+#' @param db_df Database (a data.frame)
 #' @param db_1L_chr Database (a character vector of length one)
 #' @param title_1L_chr Title (a character vector of length one)
 #' @param desc_1L_chr Description (a character vector of length one)
@@ -243,7 +244,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
 #' @keywords internal
-write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
+write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL) 
 {
@@ -253,11 +254,11 @@ write_ds_dmt <- function (db, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_ch
     if (is.null(object_type_lup)) 
         utils::data("object_type_lup", package = "ready4fun", 
             envir = environment())
-    auto_vars_ls <- names(db) %>% purrr::map(~ifelse(simple_lup_1L_lgl, 
+    auto_vars_ls <- names(db_df) %>% purrr::map(~ifelse(simple_lup_1L_lgl, 
         get_from_lup_obj(abbreviations_lup, target_var_nm_1L_chr = "long_name_chr", 
             match_var_nm_1L_chr = "short_name_chr", match_value_xx = .x, 
             evaluate_lgl = F), make_arg_desc(.x, object_type_lup = object_type_lup, 
-            abbreviations_lup = abbreviations_lup))) %>% stats::setNames(names(db))
+            abbreviations_lup = abbreviations_lup))) %>% stats::setNames(names(db_df))
     if (is.null(vars_ls)) {
         vars_ls <- auto_vars_ls
     }
@@ -469,7 +470,6 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @rdname write_links_for_website
 #' @export 
 
-#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr = NA_character_, 
     developer_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
 {
@@ -557,6 +557,7 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_replace str_sub str_locate
 #' @importFrom usethis use_dev_package use_package use_version
+#' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
     devtools::document()
@@ -588,6 +589,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("pkg_ready_fun.R", package = "ready4fun"), 
@@ -610,7 +612,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
-#' @param delete_contents_of_R_dir PARAM_DESCRIPTION, Default: F
+#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
 #' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
@@ -632,7 +634,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
 write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    incr_ver_1L_lgl = T, delete_contents_of_R_dir = F, copyright_holders_chr, 
+    incr_ver_1L_lgl = T, delete_r_dir_cnts_1L_lgl = F, copyright_holders_chr, 
     check_type_1L_chr = "none", add_gh_site_1L_lgl = T, path_to_pkg_logo_1L_chr = NA_character_, 
     github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental", 
     badges_lup = NULL, addl_badges_ls = NULL) 
@@ -642,7 +644,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, path_to_pkg_rt_1L_chr = getwd(), d
     if (is.null(badges_lup)) {
         utils::data("badges_lup", envir = environment())
     }
-    if (delete_contents_of_R_dir) 
+    if (delete_r_dir_cnts_1L_lgl) 
         write_to_reset_pkg_files(delete_contents_of_1L_chr = "R", 
             package_1L_chr = dev_pkg_nm_1L_chr, package_dir_1L_chr = path_to_pkg_rt_1L_chr)
     update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
@@ -756,6 +758,7 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @rdname write_std_imp
 #' @export 
 
+#' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("imp_pipe_tmp.R", package = "ready4fun"), 
@@ -777,6 +780,7 @@ write_std_imp <- function (R_dir_1L_chr = "R")
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
 #' @importFrom utils write.csv
+#' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
@@ -871,6 +875,7 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @importFrom devtools load_all document
 #' @importFrom utils packageDescription
 #' @importFrom usethis use_description
+#' @keywords internal
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {

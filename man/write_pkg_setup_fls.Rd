@@ -9,7 +9,7 @@ write_pkg_setup_fls(
   path_to_pkg_rt_1L_chr = getwd(),
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   incr_ver_1L_lgl = T,
-  delete_contents_of_R_dir = F,
+  delete_r_dir_cnts_1L_lgl = F,
   copyright_holders_chr,
   check_type_1L_chr = "none",
   add_gh_site_1L_lgl = T,
@@ -29,7 +29,7 @@ write_pkg_setup_fls(
 
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 
-\item{delete_contents_of_R_dir}{PARAM_DESCRIPTION, Default: F}
+\item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 

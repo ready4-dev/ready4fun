@@ -19,7 +19,7 @@ write_abbr_lup <- function(short_name_chr = NA_character_,
                   long_name_chr = long_name_chr,
                   no_plural_chr = no_plural_chr,
                   custom_plural_ls = custom_plural_ls) %>%
-    write_and_doc_ds(db = .,
+    write_and_doc_ds(db_df = .,
                      overwrite_1L_lgl = overwrite_1L_lgl,
                      db_1L_chr = "abbreviations_lup",
                      title_1L_chr = "Common abbreviations lookup table",
@@ -41,7 +41,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
                                 lup_dir_1L_chr = lup_dir_1L_chr,
                                 pfx_1L_chr = pfx_1L_chr))
 }
-write_and_doc_ds <- function(db,
+write_and_doc_ds <- function(db_df,
                                overwrite_1L_lgl = T,
                                db_1L_chr,
                                title_1L_chr,
@@ -61,12 +61,12 @@ write_and_doc_ds <- function(db,
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     utils::data("object_type_lup",package="ready4fun",envir = environment())
-  eval(parse(text=paste0(db_1L_chr,"<-db")))
+  eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
                          ", overwrite = overwrite_1L_lgl)")))
   sink(paste0(R_dir_1L_chr,"/db_",db_1L_chr,".R"), append = F)
-  write_ds_dmt(db=db,
+  write_ds_dmt(db_df = db_df,
                  db_1L_chr = db_1L_chr,
                  title_1L_chr = title_1L_chr,
                  desc_1L_chr = desc_1L_chr,
@@ -187,7 +187,7 @@ write_documented_fns <- function(tmp_fn_dir_1L_chr,
               })
   do.call(file.remove, list(paste0(tmp_fn_dir_1L_chr,"/",files_chr)))
 }
-write_ds_dmt <- function(db,
+write_ds_dmt <- function(db_df,
                            db_1L_chr,
                            title_1L_chr,
                            desc_1L_chr,
@@ -202,7 +202,7 @@ write_ds_dmt <- function(db,
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
     utils::data("object_type_lup",package="ready4fun",envir = environment())
-  auto_vars_ls <- names(db) %>%
+  auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
                         get_from_lup_obj(abbreviations_lup,
                                          target_var_nm_1L_chr = "long_name_chr",
@@ -212,7 +212,7 @@ write_ds_dmt <- function(db,
                         make_arg_desc(.x,
                                object_type_lup = object_type_lup,
                                abbreviations_lup = abbreviations_lup))) %>%
-    stats::setNames(names(db))
+    stats::setNames(names(db_df))
   if(is.null(vars_ls)){
     vars_ls <- auto_vars_ls
   }else{
@@ -505,7 +505,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 path_to_pkg_rt_1L_chr = getwd(),
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                                 incr_ver_1L_lgl = T,
-                                delete_contents_of_R_dir = F,
+                                delete_r_dir_cnts_1L_lgl = F,
                                 copyright_holders_chr,
                                 check_type_1L_chr = "none",
                                 add_gh_site_1L_lgl = T,
@@ -520,7 +520,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   if(is.null(badges_lup)){
     utils::data("badges_lup",envir = environment())
   }
-  if(delete_contents_of_R_dir)
+  if(delete_r_dir_cnts_1L_lgl)
     write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",
                              package_1L_chr = dev_pkg_nm_1L_chr,
                              package_dir_1L_chr = path_to_pkg_rt_1L_chr)

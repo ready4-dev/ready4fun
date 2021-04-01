@@ -85,7 +85,7 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @param template_lup Template (a lookup table)
 #' @param new_lup New (a lookup table)
 #' @param key_var_nm_1L_chr Key var name (a character vector of length one)
-#' @param priority_lup_for_dupls PARAM_DESCRIPTION, Default: 'template'
+#' @param priority_lup_for_dupls_1L_chr Priority lookup table for dupls (a character vector of length one), Default: 'template'
 #' @return NA ()
 #' @rdname add_lups
 #' @export 
@@ -95,11 +95,11 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom Hmisc label
 #' @importFrom sjlabelled unlabel
 #' @keywords internal
-add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls = "template") 
+add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls_1L_chr = "template") 
 {
     testit::assert("Look up tables must have same column names", 
         names(template_lup) == names(new_lup))
-    if (priority_lup_for_dupls == "template") {
+    if (priority_lup_for_dupls_1L_chr == "template") {
         new_lup <- new_lup %>% dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% 
             (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
         labels_chr <- Hmisc::label(template_lup) %>% unname()

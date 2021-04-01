@@ -31,7 +31,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                message = .x,
                                                color = .y,
                                                label_color = "black",
-                                               md_link = "https://ready4-dev.github.io/ready4/index.html",
+                                               md_link = "https://www.ready4-dev.com/toolkits/",
                                                logo_path = "https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
@@ -56,7 +56,7 @@ make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documen
                  ),
                  urls_chr = c("https://ready4-dev.github.io/ready4fun/",
                               "https://github.com/ready4-dev/ready4fun",
-                              "https://ready4-dev.github.io/ready4/")) %>%
+                              "https://www.ready4-dev.com/")) %>%
 write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     delete_contents_of_R_dir = T,
                     copyright_holders_chr = "Orygen",
@@ -205,9 +205,9 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      update_pkgdown_1L_lgl = T)
 #
 
-# write_links_for_website(user_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216.pdf",
-#                         developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf",
-#                         project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/")
+write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9270/ready4fun_0.0.0.9270.pdf",
+                        #developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf",
+                        project_website_url_1L_chr = "https://www.ready4-dev.com/")
 
 # 11. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

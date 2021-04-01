@@ -4,20 +4,20 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Standardised Function Authoring and Documentation Tools
-for Use with the Ready4 Suite}
+\title{ready4fun: Standardised Function Authoring and Documentation Tools for Use
+with the Ready4 Suite}
 \description{
-ready4fun is a collection of functions for
-authoring code libraries of functions and datasets for use in mental
-health simulations developed within the ready4 ecosystem.  This
-development version of the ready4fun package has been made available
-as part of the process of testing and documenting the package. The
-tools contained in this package automate a number of tasks which
-MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.  You should only
-therefore only trial this software if you feel confident you
-understand what it does and have created a sandpit area in which you
-can safely undertake testing. If you have any questions, please
-contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a collection of functions for authoring code
+libraries of functions and datasets for use in mental health
+simulations developed within the ready4 ecosystem.  This development
+version of the ready4fun package has been made available as part of
+the process of testing and documenting the package. The tools
+contained in this package automate a number of tasks which MODIFY THE
+DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.  You should only therefore
+only trial this software if you feel confident you understand what it
+does and have created a sandpit area in which you can safely undertake
+testing. If you have any questions, please contact the authors
+(matthew.hamilton@orygen.org.au).
 }
 \details{
 To learn more about ready4fun, start with the vignettes:
@@ -28,7 +28,7 @@ Useful links:
 \itemize{
   \item \url{https://ready4-dev.github.io/ready4fun/}
   \item \url{https://github.com/ready4-dev/ready4fun}
-  \item \url{https://ready4-dev.github.io/ready4/}
+  \item \url{https://www.ready4-dev.com/}
 }
 
 }

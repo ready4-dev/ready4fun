@@ -140,9 +140,15 @@ add_lups <- function(template_lup,
   if(priority_lup_for_dupls == "template"){
     new_lup <- new_lup %>%
       dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
-  }else{
+    labels_chr <- Hmisc::label(template_lup) %>% unname()
+    }else{
     template_lup <- template_lup %>%
       dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (new_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+    labels_chr <- Hmisc::label(new_lup) %>% unname()
+    }
+  if(!all(labels_chr %>% unique() =="")){
+    Hmisc::label(template_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% unname())
+    Hmisc::label(new_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% unname())
   }
   combined_lups <- dplyr::bind_rows(template_lup,
                    new_lup) %>%

@@ -462,25 +462,45 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' Write links for website
 #' @description write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param user_manual_url_1L_chr User manual url (a character vector of length one)
-#' @param developer_manual_url_1L_chr Developer manual url (a character vector of length one)
-#' @param project_website_url_1L_chr Project website url (a character vector of length one), Default: 'https://ready4-dev.github.io/ready4/'
+#' @param user_manual_url_1L_chr User manual url (a character vector of length one), Default: 'NA'
+#' @param developer_manual_url_1L_chr Developer manual url (a character vector of length one), Default: 'NA'
+#' @param project_website_url_1L_chr Project website url (a character vector of length one), Default: 'NA'
 #' @return NULL
 #' @rdname write_links_for_website
 #' @export 
 
 #' @keywords internal
-write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr, 
-    developer_manual_url_1L_chr, project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/") 
-write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
-    dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
-    edit_fn = function(txt_chr) {
-        c("home:", "  links:", "  - text: User manual (PDF)", 
-            paste0("    href: ", user_manual_url_1L_chr), "  - text: Developer version of usual manual (PDF)", 
-            paste0("    href: ", developer_manual_url_1L_chr), 
-            "  - text: Project website", paste0("    href: ", 
-                project_website_url_1L_chr), txt_chr)
-    })
+write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr = NA_character_, 
+    developer_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
+{
+    write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
+        dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
+        edit_fn = function(txt_chr, user_manual_url_1L_chr, developer_manual_url_1L_chr, 
+            project_website_url_1L_chr) {
+            idx_1L_int <- which(text_chr == "home:")
+            if (!identical(idx_1L_int, integer(0))) {
+                changes_chr <- c(any(text_chr == "  - text: User manual (PDF)"), 
+                  any(text_chr == "  - text: Developer version of usual manual (PDF)"), 
+                  any(text_chr == "  - text: Project website"))
+                txt_chr <- text_chr[-(1:(length(changes_chr[changes_chr == 
+                  T]) + 2))]
+            }
+            c("home:", "  links:", ifelse(!is.na(user_manual_url_1L_chr), 
+                "  - text: User manual (PDF)", NA_character_), 
+                ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", 
+                  user_manual_url_1L_chr), NA_character_), ifelse(!is.na(developer_manual_url_1L_chr), 
+                  "  - text: Developer version of usual manual (PDF)", 
+                  NA_character_), ifelse(!is.na(developer_manual_url_1L_chr), 
+                  paste0("    href: ", developer_manual_url_1L_chr), 
+                  NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
+                  "  - text: Project website", NA_character_), 
+                ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", 
+                  project_website_url_1L_chr), NA_character_), 
+                txt_chr) %>% na.omit()
+        }, args_ls = list(user_manual_url_1L_chr = user_manual_url_1L_chr, 
+            developer_manual_url_1L_chr = developer_manual_url_1L_chr, 
+            project_website_url_1L_chr = project_website_url_1L_chr))
+}
 #' Write new argument sfxs
 #' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
 #' @param arg_nms_chr Argument names (a character vector)

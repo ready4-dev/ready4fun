@@ -390,24 +390,40 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
   }
 }
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
-                                    user_manual_url_1L_chr,
-                                    developer_manual_url_1L_chr,
-                                    project_website_url_1L_chr = "https://ready4-dev.github.io/ready4/")
+                                    user_manual_url_1L_chr = NA_character_,
+                                    developer_manual_url_1L_chr = NA_character_,
+                                    project_website_url_1L_chr = NA_character_){
   write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                         "/_pkgdown.yml"),
                  dest_path_1L_chr = paste0(path_to_pkg_rt_1L_chr,
                                            "/_pkgdown.yml"),
-                 edit_fn = function(txt_chr){
+                 edit_fn = function(txt_chr,
+                                    user_manual_url_1L_chr,
+                                    developer_manual_url_1L_chr,
+                                    project_website_url_1L_chr){
+
+                   idx_1L_int <- which(text_chr=="home:")
+                   if(!identical(idx_1L_int,integer(0))){
+                     changes_chr <- c(any(text_chr == "  - text: User manual (PDF)"),
+                                      any(text_chr == "  - text: Developer version of usual manual (PDF)"),
+                                      any(text_chr == "  - text: Project website"))
+                     txt_chr <- text_chr[-(1:(length(changes_chr[changes_chr==T])+2))]
+                   }
                    c("home:",
                      "  links:",
-                     "  - text: User manual (PDF)",
-                     paste0("    href: ", user_manual_url_1L_chr),
-                     "  - text: Developer version of usual manual (PDF)",
-                     paste0("    href: ", developer_manual_url_1L_chr),
-                     "  - text: Project website",
-                     paste0("    href: ", project_website_url_1L_chr),
-                     txt_chr)
-                 })
+                     ifelse(!is.na(user_manual_url_1L_chr), "  - text: User manual (PDF)", NA_character_),
+                     ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
+                     ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Developer version of usual manual (PDF)", NA_character_),
+                     ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
+                     ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", NA_character_),
+                     ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
+                     txt_chr) %>% na.omit()
+                 },
+                 args_ls = list(user_manual_url_1L_chr = user_manual_url_1L_chr,
+                                developer_manual_url_1L_chr = developer_manual_url_1L_chr,
+                                project_website_url_1L_chr = project_website_url_1L_chr))
+}
+
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
                                  dir_path_chr,

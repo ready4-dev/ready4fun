@@ -92,6 +92,8 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom testit assert
 #' @importFrom dplyr filter pull bind_rows arrange
 #' @importFrom rlang sym
+#' @importFrom Hmisc label
+#' @importFrom sjlabelled unlabel
 #' @keywords internal
 add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls = "template") 
 {
@@ -100,10 +102,18 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
     if (priority_lup_for_dupls == "template") {
         new_lup <- new_lup %>% dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% 
             (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+        labels_chr <- Hmisc::label(template_lup) %>% unname()
     }
     else {
         template_lup <- template_lup %>% dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% 
             (new_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+        labels_chr <- Hmisc::label(new_lup) %>% unname()
+    }
+    if (!all(labels_chr %>% unique() == "")) {
+        Hmisc::label(template_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% 
+            unname())
+        Hmisc::label(new_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% 
+            unname())
     }
     combined_lups <- dplyr::bind_rows(template_lup, new_lup) %>% 
         dplyr::arrange(!!rlang::sym(key_var_nm_1L_chr))

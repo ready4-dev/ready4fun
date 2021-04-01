@@ -402,12 +402,12 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                                     developer_manual_url_1L_chr,
                                     project_website_url_1L_chr){
 
-                   idx_1L_int <- which(text_chr=="home:")
+                   idx_1L_int <- which(txt_chr=="home:")
                    if(!identical(idx_1L_int,integer(0))){
-                     changes_chr <- c(any(text_chr == "  - text: User manual (PDF)"),
-                                      any(text_chr == "  - text: Developer version of usual manual (PDF)"),
-                                      any(text_chr == "  - text: Project website"))
-                     txt_chr <- text_chr[-(1:(length(changes_chr[changes_chr==T])+2))]
+                     changes_chr <- c(any(txt_chr == "  - text: User manual (PDF)"),
+                                      any(txt_chr == "  - text: Developer version of usual manual (PDF)"),
+                                      any(txt_chr == "  - text: Project website"))
+                     txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr==T])+2))]
                    }
                    c("home:",
                      "  links:",

@@ -206,9 +206,9 @@ write_and_doc_fn_fls(fns_dmt_tb,
                      update_pkgdown_1L_lgl = T)
 #
 
-# write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9270/ready4fun_0.0.0.9270.pdf",
-#                         #developer_manual_url_1L_chr = "https://ready4-dev.github.io/ready4/pdfs/ready4fun_0.0.0.9216_dev.pdf",
-#                         project_website_url_1L_chr = "https://www.ready4-dev.com/")
+write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9276/ready4fun_user_0.0.0.9276.pdf",
+                        developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9276/ready4fun_developer_0.0.0.9276.pdf",
+                        project_website_url_1L_chr = "https://www.ready4-dev.com/")
 
 # 11. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

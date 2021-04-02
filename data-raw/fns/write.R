@@ -407,7 +407,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                      changes_chr <- c(any(txt_chr == "  - text: User manual (PDF)"),
                                       any(txt_chr == "  - text: Developer version of usual manual (PDF)"),
                                       any(txt_chr == "  - text: Project website"))
-                     txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr==T])+2))]
+                     txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr==T])*2))]
                    }
                    c("home:",
                      "  links:",

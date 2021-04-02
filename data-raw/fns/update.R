@@ -77,7 +77,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                   stringr::str_replace(.x,
                                                        paste0("@param ",names(new_tag_chr_ls$arg_desc_chr)[.y]," PARAM_DESCRIPTION"),
                                                        paste0("@param ",names(new_tag_chr_ls$arg_desc_chr)[.y]," ",ifelse(new_tag_chr_ls$arg_desc_chr[.y]=="NO MATCH",
-                                                                                                                              "PARAM_DESCRIPTION",
+                                                                                                                          ifelse(names(new_tag_chr_ls$arg_desc_chr[.y])!="x",
+                                                                                                                                 "PARAM_DESCRIPTION",
+                                                                                                                                 "An object"),
+                                                                                                                              #"PARAM_DESCRIPTION",
                                                                                                                               new_tag_chr_ls$arg_desc_chr[.y])))
                                 })
 

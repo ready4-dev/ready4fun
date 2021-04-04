@@ -21,7 +21,74 @@ if(!dir.exists(fns_dir_1L_chr))
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
-# 5. Set-up package structure
+# 5. Create datasets for export to dataverse.
+write_paired_ds_fls_to_dv <- function(ds_tb,
+                                      fl_nm_1L_chr,
+                                      desc_1L_chr,
+                                      ds_url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                      pkg_dv_dir_1L_chr  = "data-raw/dataverse",
+                                      data_dir_rt_1L_chr = ".",
+                                      key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                                      server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+
+  if(!dir.exists(pkg_dv_dir_1L_chr))
+    dir.create(pkg_dv_dir_1L_chr)
+  pkg_dv_dir_1L_chr <- paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr)
+  if(!dir.exists(pkg_dv_dir_1L_chr))
+    dir.create(pkg_dv_dir_1L_chr)
+  ds_tb %>%
+    saveRDS(paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".RDS"))
+  readRDS(paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".RDS")) %>%
+    utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".csv"),
+                     row.names = F)
+  ready4use::make_files_tb(paths_to_dirs_chr = pkg_dv_dir_1L_chr,
+                           recode_ls = c(rep(desc_1L_chr,2)) %>% as.list() %>% stats::setNames(c(rep(fl_nm_1L_chr,2)))) %>%
+    ready4use::add_files_to_dv(data_dir_rt_1L_chr = data_dir_rt_1L_chr,
+                               ds_url_1L_chr = ds_url_1L_chr,
+                               key_1L_chr = key_1L_chr,
+                               server_1L_chr = server_1L_chr
+                               )
+}
+pkg_dv_dir_1L_chr <- "data-raw/dataverse"
+if(!dir.exists(pkg_dv_dir_1L_chr))
+  dir.create(pkg_dv_dir_1L_chr)
+# make_obj_lup() %>%
+#   saveRDS(paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.RDS"))
+# readRDS(paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.RDS")) %>%
+#   utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.csv"),
+#                    row.names = F)
+# c("RDS", "csv") %>%
+#   purrr::walk(~dataverse::add_dataset_file(file = paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.",.x),
+#                                               dataset = "https://doi.org/10.7910/DVN/2Y9VF9",
+#                                               description = paste0("Object type lookup table - ",.x," version")))
+object_type_lup <- get_rds_from_dv("object_type_lup")
+# update_abbr_lup(object_type_lup,
+#                 short_name_chr = c("1L","abbr","arg","artl","cnt","csv","db","depcy","depnt","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
+#                 long_name_chr = c("length one","abbreviation","argument","article","content","comma separated variables file","database","dependency", "dependent","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
+#                 no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
+#                 custom_plural_ls = list(dependency = "dependencies",
+#                                         directory = "directories",
+#                                         prefix = c("prefixes"),
+#                                         suffix = c("suffices","sfcs"))) %>%
+#   saveRDS(paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.RDS"))
+# readRDS(paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.RDS")) %>%
+#   utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.csv"),
+#                    row.names = F)
+# c("RDS", "csv") %>%
+#   purrr::walk(~dataverse::add_dataset_file(file = paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.",.x),
+#                                               dataset = "https://doi.org/10.7910/DVN/2Y9VF9",
+#                                               description = paste0("Abbreviations lookup table - ",.x," version")))
+abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
+update_abbr_lup(abbreviations_lup,
+                short_name_chr = c("dv"),
+                long_name_chr = c("dataverse"),
+                no_plural_chr = NA_character_,
+                custom_plural_ls = NULL) %>%
+write_paired_ds_fls_to_dv(fl_nm_1L_chr = "abbreviations_lup",
+                          desc_1L_chr = "Abbreviations lookup table")
+abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
+#
+# 6. Set-up package structure
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                              label_names_chr = c("authoring","modelling", "prediction"),
                             colours_chr = c("maroon", "indigo", "forestgreen")) %>%
@@ -39,7 +106,7 @@ make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documen
                  pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
   This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. The tools contained in this package automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
   You should only therefore only trial this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
-                 authors_prsns = c(utils::person(
+                 authors_prsn = c(utils::person(
                    given = "Matthew",family = "Hamilton", email =
                      "matthew.hamilton@orygen.org.au",role = c("aut",
                                                                "cre"),comment = c(ORCID = "0000-0001-7407-9194")
@@ -67,33 +134,31 @@ write_pkg_setup_fls(incr_ver_1L_lgl = F,
                     badges_lup = badges_lup,
                     addl_badges_ls = list(ready4 = "authoring"))
 ## INTERACTIVE INPUT
-# 6. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- make_obj_lup() %>%
+# 7. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
+pkg_dss_tb <- get_rds_from_dv("object_type_lup") %>%
   write_and_doc_ds(db_df = .,
                    overwrite_1L_lgl = T,
                    db_1L_chr = "object_type_lup",
                    title_1L_chr = "Object abbreviations lookup table",
                    desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
                    format_1L_chr = "A tibble",
-                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
+                   url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                    abbreviations_lup = .,
                    object_type_lup = .
   )
 #
-# 7. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- write_abbr_lup(short_name_chr = c("1L","abbr","arg","artl","cnt","csv","db","depcy","depnt","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
-                 long_name_chr = c("length one","abbreviation","argument","article","content","comma separated variables file","database","dependency", "dependent","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
-                 no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
-                 custom_plural_ls = list(dependency = "dependencies",
-                                         directory = "directories",
-                                         prefix = c("prefixes"),
-                                         suffix = c("suffices","sfcs")),
-                 url_1L_chr = "https://ready4-dev.github.io/ready4/",
+# 8. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
+pkg_dss_tb <- write_abbr_lup(short_name_chr = c("dv"),
+                 long_name_chr = c("dataverse"),
+                 no_plural_chr = NA_character_,
+                 custom_plural_ls = NULL,
+                 url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                 seed_lup = get_rds_from_dv("abbreviations_lup"),
                  pkg_dss_tb = pkg_dss_tb
                  )
 utils::data("abbreviations_lup")
 #
-# 8. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
+# 9. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
 pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                                     "Get", "Import", "Make", "Read",
                                                     "Remove", "Replace", "Reset", "Rowbind",
@@ -163,7 +228,7 @@ pkg_dss_tb <- badges_lup %>%
                    object_type_lup = object_type_lup,
                    pkg_dss_tb = pkg_dss_tb)
 #
-# 9. Create a table of all undocumented functions
+# 10. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                  fns_dir_chr = fns_dir_1L_chr,
                                  custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
@@ -195,13 +260,13 @@ pkg_dss_tb <- fns_dmt_tb %>%
                    pkg_dss_tb = pkg_dss_tb)
 # NOTE: To update, make call to update_fns_dmt_tb
 #
-# 10. Write documented functions to R directory.
+# 11. Write documented functions to R directory.
 ## Note files to be rewritten cannot be open in RStudio.
 usethis::use_build_ignore("initial_setup.R")
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
                      path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
-                     path_to_user_dmt_dir_1L_chr = "../../../../../../Documentation/Code/User",
+                     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",
                      dev_pkgs_chr = NA_character_,
                      update_pkgdown_1L_lgl = T)
 #
@@ -209,7 +274,7 @@ write_and_doc_fn_fls(fns_dmt_tb,
 #                         developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9279/ready4fun_developer_0.0.0.9279.pdf",
 #                         project_website_url_1L_chr = "https://www.ready4-dev.com/")
 
-# 11. Create vignettes
+# 12. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

@@ -33,3 +33,9 @@
 ^data-raw/inst/ready4fun\.Rmd$
 ^data-raw/inst/travis_extras\.yml$
 ^initial_setup\.R$
+^data-raw/dataverse/abbreviations_lup\.csv$
+^data-raw/dataverse/abbreviations_lup\.RDS$
+^data-raw/dataverse/object_type_lup\.csv$
+^data-raw/dataverse/object_type_lup\.RDS$
+^data-raw/dataverse/abbreviations_lup/abbreviations_lup\.csv$
+^data-raw/dataverse/abbreviations_lup/abbreviations_lup\.RDS$

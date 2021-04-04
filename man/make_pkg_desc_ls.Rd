@@ -8,7 +8,7 @@ make_pkg_desc_ls(
   pkg_nm_1L_chr = get_dev_pkg_nm(),
   pkg_title_1L_chr,
   pkg_desc_1L_chr,
-  authors_prsns,
+  authors_prsn,
   urls_chr
 )
 }
@@ -19,7 +19,7 @@ make_pkg_desc_ls(
 
 \item{pkg_desc_1L_chr}{Package description (a character vector of length one)}
 
-\item{authors_prsns}{Authors (a persons)}
+\item{authors_prsn}{Authors (a person)}
 
 \item{urls_chr}{Urls (a character vector)}
 }

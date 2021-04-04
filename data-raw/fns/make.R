@@ -737,9 +737,9 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   return(new_fn_dmt_chr_ls)
 }
 make_obj_lup <- function(){
-  obj_tb <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsns","rgx"),
+  obj_tb <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsn","rgx"),
                            long_name_chr = c("data.frame","function","list","ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
-                                         "tibble","array","character","double", "date","factor","integer","logical","lookup table","matrix","model","persons","regular expression"),
+                                         "tibble","array","character","double", "date","factor","integer","logical","lookup table","matrix","model","person","regular expression"),
                            atomic_element_lgl = c(rep(F,10),rep(T,6),rep(F,4),T),
                            r3_element_lgl = c(T,F,T,rep(F,4),rep(T,14)))
   obj_tb <- dplyr::bind_rows(obj_tb %>%
@@ -785,10 +785,10 @@ make_obj_lup <- function(){
 make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),
                              pkg_title_1L_chr,
                              pkg_desc_1L_chr,
-                             authors_prsns,
+                             authors_prsn,
                              #cpyr_hldr_1L_chr,
                              urls_chr){
-  cpyr_hldr_1L_chr <- authors_prsns[authors_prsns %>%
+  cpyr_hldr_1L_chr <- authors_prsn[authors_prsn %>%
                                       as.character() %>%
                                       purrr::map_lgl(~stringr::str_detect(.x,
                                                                           "\\[cph") | stringr::str_detect(.x,
@@ -801,7 +801,7 @@ make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),
     Package = pkg_nm_1L_chr,
     Title =  pkg_title_1L_chr %>% tools::toTitleCase(),
     Description = pkg_desc_1L_chr,
-    `Authors@R` = authors_prsns,
+    `Authors@R` = authors_prsn,
     License = usethis::use_gpl3_license(),#cpyr_hldr_1L_chr
     URL = paste0(urls_chr, collapse = ", "))
   return(pkg_desc_ls)

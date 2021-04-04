@@ -201,6 +201,30 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
     slots_chr <- purrr::map_chr(slots_ls, ~.x)
     return(slots_chr)
 }
+#' Get rds from dataverse
+#' @description get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns Model (a model).
+#' @param file_nm_1L_chr File name (a character vector of length one)
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
+#' @param server_1L_chr Server (a character vector of length one), Default: 'dataverse.harvard.edu'
+#' @param key_1L_chr Key (a character vector of length one), Default: NULL
+#' @return Model (a model)
+#' @rdname get_rds_from_dv
+#' @export 
+#' @importFrom dataverse dataset_files
+#' @importFrom purrr map_chr
+#' @keywords internal
+get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+    server_1L_chr = "dataverse.harvard.edu", key_1L_chr = NULL) 
+{
+    ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr, server = server_1L_chr, 
+        key = key_1L_chr)
+    all_mdls_chr <- purrr::map_chr(ds_ls, ~.x$label)
+    idx_1L_int <- which(all_mdls_chr == paste0(file_nm_1L_chr, 
+        ".RDS"))
+    model_mdl <- readRDS(url(paste0("https://dataverse.harvard.edu/api/access/datafile/", 
+        ds_ls[[idx_1L_int]]$dataFile$id)))
+    return(model_mdl)
+}
 #' Get return object name
 #' @description get_return_obj_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return object name. Function argument fn specifies the where to look for the required object. The function returns Return (a character vector of length one).
 #' @param fn Function (a function)

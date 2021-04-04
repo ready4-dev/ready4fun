@@ -121,6 +121,18 @@ get_r4_obj_slots <- function(fn_name_1L_chr,
   slots_chr <- purrr::map_chr(slots_ls, ~ .x)
   return(slots_chr)
 }
+get_rds_from_dv <- function(file_nm_1L_chr,
+                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                            server_1L_chr = "dataverse.harvard.edu",
+                            key_1L_chr = NULL){
+  ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr,
+                                    server = server_1L_chr,
+                                    key = key_1L_chr)
+  all_mdls_chr <- purrr::map_chr(ds_ls,~.x$label)
+  idx_1L_int <- which(all_mdls_chr == paste0(file_nm_1L_chr,".RDS"))
+  model_mdl <- readRDS(url(paste0("https://dataverse.harvard.edu/api/access/datafile/",ds_ls[[idx_1L_int]]$dataFile$id)))
+  return(model_mdl)
+}
 get_return_obj_nm <- function(fn){
   fn_chr <- deparse(fn)
   last_line_1L_chr <- fn_chr[length(fn_chr)-1] %>%

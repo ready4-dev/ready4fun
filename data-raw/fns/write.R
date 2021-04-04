@@ -11,7 +11,7 @@ write_abbr_lup <- function(short_name_chr = NA_character_,
                                                        desc_chr = character(0),
                                                        url_chr = character(0))){
   if(is.null(seed_lup)){
-    utils::data("object_type_lup",package="ready4fun",envir = environment())
+    utils::data("object_type_lup", package = "ready4fun", envir = environment())
     seed_lup <- object_type_lup
   }
   pkg_dss_tb <- update_abbr_lup(seed_lup,

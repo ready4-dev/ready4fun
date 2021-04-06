@@ -84,7 +84,7 @@ pkg_dss_tb <- write_abbr_lup(seed_lup = get_rds_from_dv("abbreviations_lup"),
 utils::data("abbreviations_lup")
 #
 # 9. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- get_rds_from_dv("fn_type_lup_tb")%>%
+pkg_dss_tb <- get_rds_from_dv("fn_type_lup_tb") %>%
 write_dmtd_fn_type_lup(url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                        abbreviations_lup = abbreviations_lup,
                        pkg_dss_tb = pkg_dss_tb)

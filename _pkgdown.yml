@@ -11,6 +11,7 @@ reference:
 - title: "Functions"
 - contents:
   - get_from_lup_obj
+  - get_rds_from_dv
   - make_dmt_for_all_fns
   - make_fn_type_lup
   - make_lines_for_fn_dmt

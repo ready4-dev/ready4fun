@@ -5,19 +5,25 @@
 \title{Write abbreviation}
 \usage{
 write_abbr_lup(
+  seed_lup = NULL,
+  url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+  pkg_nm_1L_chr = get_dev_pkg_nm(),
   short_name_chr = NA_character_,
   long_name_chr = NA_character_,
   no_plural_chr = NA_character_,
   custom_plural_ls = NULL,
   overwrite_1L_lgl = T,
-  seed_lup = NULL,
-  url_1L_chr,
-  pkg_nm_1L_chr = get_dev_pkg_nm(),
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0))
 )
 }
 \arguments{
+\item{seed_lup}{Seed (a lookup table), Default: NULL}
+
+\item{url_1L_chr}{Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+
+\item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
+
 \item{short_name_chr}{Short name (a character vector), Default: 'NA'}
 
 \item{long_name_chr}{Long name (a character vector), Default: 'NA'}
@@ -27,12 +33,6 @@ write_abbr_lup(
 \item{custom_plural_ls}{Custom plural (a list), Default: NULL}
 
 \item{overwrite_1L_lgl}{Overwrite (a logical vector of length one), Default: T}
-
-\item{seed_lup}{Seed (a lookup table), Default: NULL}
-
-\item{url_1L_chr}{Url (a character vector of length one)}
-
-\item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
 
 \item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
 desc_chr = character(0), url_chr = character(0))}

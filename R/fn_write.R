@@ -1,13 +1,13 @@
 #' Write abbreviation
 #' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
+#' @param seed_lup Seed (a lookup table), Default: NULL
+#' @param url_1L_chr Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
 #' @param long_name_chr Long name (a character vector), Default: 'NA'
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
-#' @param seed_lup Seed (a lookup table), Default: NULL
-#' @param url_1L_chr Url (a character vector of length one)
-#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @return Package datasets (a tibble)
@@ -15,10 +15,10 @@
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom utils data
-write_abbr_lup <- function (short_name_chr = NA_character_, long_name_chr = NA_character_, 
-    no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
-    seed_lup = NULL, url_1L_chr, pkg_nm_1L_chr = get_dev_pkg_nm(), 
-    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+    pkg_nm_1L_chr = get_dev_pkg_nm(), short_name_chr = NA_character_, 
+    long_name_chr = NA_character_, no_plural_chr = NA_character_, 
+    custom_plural_ls = NULL, overwrite_1L_lgl = T, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(seed_lup)) {
@@ -174,7 +174,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup()
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
-#' @param url_1L_chr Url (a character vector of length one), Default: url_1L_chr
+#' @param url_1L_chr Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
@@ -184,7 +184,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @importFrom tibble tibble
 #' @importFrom utils data
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
-    pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = url_1L_chr, 
+    pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     abbreviations_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {

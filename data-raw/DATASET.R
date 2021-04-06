@@ -1,12 +1,4 @@
-# NOTE: To install, deprecated rtools is sought. Users with R>4.0 need the following line in Renviron: PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"
-#
-# WS Set-up
-# # Add token to R environ
-# Ensure gh-pages branch on repo: https://sahirbhatnagar.com/blog/2020/03/03/creating-a-website-for-your-r-package/
-# install.packages('tinytex')
-#  tinytex::install_tinytex()
-#  tinytex:::install_yihui_pkgs()
-# tinytex::tlmgr_install("makeindex")
+
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
 #
@@ -21,73 +13,10 @@ if(!dir.exists(fns_dir_1L_chr))
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
-# 5. Create datasets for export to dataverse.
-write_paired_ds_fls_to_dv <- function(ds_tb,
-                                      fl_nm_1L_chr,
-                                      desc_1L_chr,
-                                      ds_url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                      pkg_dv_dir_1L_chr  = "data-raw/dataverse",
-                                      data_dir_rt_1L_chr = ".",
-                                      key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
-                                      server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-
-  if(!dir.exists(pkg_dv_dir_1L_chr))
-    dir.create(pkg_dv_dir_1L_chr)
-  pkg_dv_dir_1L_chr <- paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr)
-  if(!dir.exists(pkg_dv_dir_1L_chr))
-    dir.create(pkg_dv_dir_1L_chr)
-  ds_tb %>%
-    saveRDS(paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".RDS"))
-  readRDS(paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".RDS")) %>%
-    utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/",fl_nm_1L_chr,".csv"),
-                     row.names = F)
-  ready4use::make_files_tb(paths_to_dirs_chr = pkg_dv_dir_1L_chr,
-                           recode_ls = c(rep(desc_1L_chr,2)) %>% as.list() %>% stats::setNames(c(rep(fl_nm_1L_chr,2)))) %>%
-    ready4use::add_files_to_dv(data_dir_rt_1L_chr = data_dir_rt_1L_chr,
-                               ds_url_1L_chr = ds_url_1L_chr,
-                               key_1L_chr = key_1L_chr,
-                               server_1L_chr = server_1L_chr
-                               )
-}
-pkg_dv_dir_1L_chr <- "data-raw/dataverse"
-if(!dir.exists(pkg_dv_dir_1L_chr))
-  dir.create(pkg_dv_dir_1L_chr)
-# make_obj_lup() %>%
-#   saveRDS(paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.RDS"))
-# readRDS(paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.RDS")) %>%
-#   utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.csv"),
-#                    row.names = F)
-# c("RDS", "csv") %>%
-#   purrr::walk(~dataverse::add_dataset_file(file = paste0(pkg_dv_dir_1L_chr,"/","object_type_lup.",.x),
-#                                               dataset = "https://doi.org/10.7910/DVN/2Y9VF9",
-#                                               description = paste0("Object type lookup table - ",.x," version")))
-object_type_lup <- get_rds_from_dv("object_type_lup")
-# update_abbr_lup(object_type_lup,
-#                 short_name_chr = c("1L","abbr","arg","artl","cnt","csv","db","depcy","depnt","desc","dev","dir","ds","dmt","dmtd","doc","dvpr","fl","fns","gtr","imp","indef","indefartl","indefL","inp","instl","nm","ns","obj","outp","par","pfx","pkg","phr","pt","reqd","rpl","rt","sfx","std","str","tbl","tbs","tmp","tpl","undmtd","unexp","upd","ws","xls"),
-#                 long_name_chr = c("length one","abbreviation","argument","article","content","comma separated variables file","database","dependency", "dependent","description","development","directory","dataset","documentation","documented","document","developer","file","functions","getter","import","indefinite","indefinite article","indefinite length","input","install","name","namespace","object","output","parameter","prefix","package","phrase","prototype","required","replace","root","suffix","standard","setter","table","tibbles","temporary","template","undocumented","unexported","update","workspace","Excel workbook"),
-#                 no_plural_chr = c("1L","documentation","documented","temporary","undocumented","unexported"),
-#                 custom_plural_ls = list(dependency = "dependencies",
-#                                         directory = "directories",
-#                                         prefix = c("prefixes"),
-#                                         suffix = c("suffices","sfcs"))) %>%
-#   saveRDS(paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.RDS"))
-# readRDS(paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.RDS")) %>%
-#   utils::write.csv(file = paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.csv"),
-#                    row.names = F)
-# c("RDS", "csv") %>%
-#   purrr::walk(~dataverse::add_dataset_file(file = paste0(pkg_dv_dir_1L_chr,"/","abbreviations_lup.",.x),
-#                                               dataset = "https://doi.org/10.7910/DVN/2Y9VF9",
-#                                               description = paste0("Abbreviations lookup table - ",.x," version")))
-abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
-update_abbr_lup(abbreviations_lup,
-                short_name_chr = c("dv"),
-                long_name_chr = c("dataverse"),
-                no_plural_chr = NA_character_,
-                custom_plural_ls = NULL) %>%
-write_paired_ds_fls_to_dv(fl_nm_1L_chr = "abbreviations_lup",
-                          desc_1L_chr = "Abbreviations lookup table")
-abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
-#
+# 5. Create code house-style datasets.
+# Every type the datasets that describe key features of the code house-style to be used require creation
+# or updating, make the necessary changes in MAKE_HOUSESTYLE_DV_DSS.R and uncomment and run the following line.
+# source("data-raw/MAKE_HOUSESTYLE_DV_DSS.R")
 # 6. Set-up package structure
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                              label_names_chr = c("authoring","modelling", "prediction"),
@@ -146,77 +75,20 @@ pkg_dss_tb <- get_rds_from_dv("object_type_lup") %>%
                    abbreviations_lup = .,
                    object_type_lup = .
   )
+utils::data("object_type_lup")
 #
 # 8. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- write_abbr_lup(short_name_chr = c("dv"),
-                 long_name_chr = c("dataverse"),
-                 no_plural_chr = NA_character_,
-                 custom_plural_ls = NULL,
-                 url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                 seed_lup = get_rds_from_dv("abbreviations_lup"),
-                 pkg_dss_tb = pkg_dss_tb
-                 )
+pkg_dss_tb <- write_abbr_lup(seed_lup = get_rds_from_dv("abbreviations_lup"),
+                             url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             pkg_dss_tb = pkg_dss_tb)
 utils::data("abbreviations_lup")
 #
 # 9. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
-                                                    "Get", "Import", "Make", "Read",
-                                                    "Remove", "Replace", "Reset", "Rowbind",
-                                                    "Transform","Unload", "Update",  "Write"),
-                                 fn_type_desc_chr = c("Updates an object by adding data to that object.",
-                                                      "Validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided.",
-                                                      "Closes specified connections.",
-                                                      "Checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition.",
-                                                      "Retrieves a pre-existing data object from memory, local file system or online repository.",
-                                                      "Reads a data object in its native format and converts it to an R object.",
-                                                      "Creates a new R object.",
-                                                      "Reads an R script into memory.",
-                                                      "Edits an object, removing a specified element or elements.",
-                                                      "Edits an object, replacing a specified element with another specified element.",
-                                                      "Edits an object, overwriting the current version with a default version.",
-                                                      "Performs custom rowbind operations on table objects.",
-                                                      "Edits an object in such a way that core object attributes - e.g. shape, dimensions, elements, type - are altered.",
-                                                      "Performs a custom detaching of a package from the search path.",
-                                                      "Edits an object, while preserving core object attributes.",
-                                                      "Writes a file to a specified local directory."),
-                                 first_arg_desc_chr = c("Object to be updated.",
-                                                        "Object on which assert validation checks are to be performed.",
-                                                        NA_character_,
-                                                        NA_character_,
-                                                        "Where to look for the required object.",
-                                                        NA_character_,
-                                                        NA_character_,
-                                                        "Path to object.",
-                                                        "Object to be updated.",
-                                                        "Object to be updated.",
-                                                        NA_character_,
-                                                        NA_character_,
-                                                        "Object to be updated.",
-                                                        "Package(s) to be detached from the search path.",
-                                                        "Object to be updated.",
-                                                        NA_character_),
-                                 second_arg_desc_chr = c(NA_character_,
-                                                         "Object containing values used for validation tests.",
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         "Object to be updated.",
-                                                         "Object to be updated.",
-                                                         NA_character_,
-                                                         NA_character_,
-                                                         "Object to be updated.",
-                                                         "Package(s) to be detached from the search path.",
-                                                         "Object to be updated.",
-                                                         NA_character_),
-                                 is_generic_lgl = F,
-                                 is_method_lgl = F) %>%
-write_dmtd_fn_type_lup(url_1L_chr = "https://ready4-dev.github.io/ready4/",
+pkg_dss_tb <- get_rds_from_dv("fn_type_lup_tb")%>%
+write_dmtd_fn_type_lup(url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                       abbreviations_lup = abbreviations_lup,
                        pkg_dss_tb = pkg_dss_tb)
 utils::data("fn_type_lup_tb")
-utils::data("object_type_lup")
 pkg_dss_tb <- badges_lup %>%
   write_and_doc_ds(overwrite_1L_lgl = T,
                    db_1L_chr = "badges_lup",
@@ -232,7 +104,7 @@ pkg_dss_tb <- badges_lup %>%
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                  fns_dir_chr = fns_dir_1L_chr,
                                  custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj",#"import_xls_sheets",
+                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj","get_rds_from_dv",#"import_xls_sheets",
                                                                                               "make_dmt_for_all_fns",#"make_fn_dmt_tbl",
                                                                                               "make_fn_type_lup","make_lines_for_fn_dmt",#"read_fns","rowbind_all_tbs_in_r4_obj",
                                                                                               "write_abbr_lup",#"write_all_tbs_in_tbs_r4_to_csvs",

@@ -212,7 +212,6 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @export 
 #' @importFrom dataverse dataset_files
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     server_1L_chr = "dataverse.harvard.edu", key_1L_chr = NULL) 
 {

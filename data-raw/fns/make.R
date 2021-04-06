@@ -53,9 +53,9 @@ make_arg_desc_spine <- function(argument_nm_1L_chr,
   return(arg_desc_spine)
 }
 make_arg_title <- function(args_chr,
-                                   match_chr,
-                                   object_type_lup = NULL,
-                                   abbreviations_lup = NULL){
+                           match_chr,
+                           object_type_lup = NULL,
+                           abbreviations_lup = NULL){
   if(is.null(object_type_lup))
     utils::data("object_type_lup",package="ready4fun",envir = environment())
   if(is.null(abbreviations_lup))

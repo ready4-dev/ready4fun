@@ -58,7 +58,8 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
     phrases_chr <- abbreviated_phrase_1L_chr %>% purrr::map_chr(~{
         words_chr_ls <- strsplit(.x, "_")
         words_chr_ls %>% purrr::map_chr(~{
-            expanded_chr <- replace_abbr(.x, collapse_lgl = F)
+            expanded_chr <- replace_abbr(.x, abbreviations_lup = abbreviations_lup, 
+                collapse_lgl = F)
             indefinite_chr <- add_indef_artl_to_item(expanded_chr, 
                 abbreviations_lup = abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = ignore_phrs_not_in_lup_1L_lgl)
             matches_lgl <- expanded_chr == indefinite_chr
@@ -117,6 +118,8 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
     }
     combined_lups <- dplyr::bind_rows(template_lup, new_lup) %>% 
         dplyr::arrange(!!rlang::sym(key_var_nm_1L_chr))
+    combined_lups <- combined_lups[rowSums(is.na(combined_lups)) != 
+        ncol(combined_lups), ]
     return(combined_lups)
 }
 #' Add plurals to abbreviation

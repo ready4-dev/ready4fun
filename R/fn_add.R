@@ -94,7 +94,6 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom dplyr filter pull bind_rows arrange
 #' @importFrom rlang sym
 #' @importFrom Hmisc label
-#' @importFrom summarytools unlabel
 #' @keywords internal
 add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls_1L_chr = "template") 
 {
@@ -111,8 +110,8 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
         labels_chr <- Hmisc::label(new_lup) %>% unname()
     }
     if (!all(labels_chr %>% unique() == "")) {
-        template_lup <- template_lup %>% summarytools::unlabel()
-        new_lup <- new_lup %>% summarytools::unlabel()
+        template_lup <- template_lup %>% remove_lbls_from_df()
+        new_lup <- new_lup %>% remove_lbls_from_df()
         Hmisc::label(template_lup) <- as.list(labels_chr %>% 
             unname())
         Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())

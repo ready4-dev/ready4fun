@@ -149,8 +149,8 @@ add_lups <- function(template_lup,
     labels_chr <- Hmisc::label(new_lup) %>% unname()
     }
   if(!all(labels_chr %>% unique() =="")){
-    template_lup <- template_lup %>% summarytools::unlabel()
-    new_lup <- new_lup %>% summarytools::unlabel()
+    template_lup <- template_lup %>% remove_lbls_from_df()
+    new_lup <- new_lup %>% remove_lbls_from_df()
     Hmisc::label(template_lup) <-  as.list(labels_chr %>% unname())
     Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())
   }

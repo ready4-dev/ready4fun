@@ -417,7 +417,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                      ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
-                     txt_chr) %>% na.omit()
+                     txt_chr) %>% stats::na.omit()
                  },
                  args_ls = list(user_manual_url_1L_chr = user_manual_url_1L_chr,
                                 developer_manual_url_1L_chr = developer_manual_url_1L_chr,

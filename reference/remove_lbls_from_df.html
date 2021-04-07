@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write function file — write_fn_fl • ready4fun</title>
+<title>Remove lbls from — remove_lbls_from_df • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Write function file — write_fn_fl" />
-<meta property="og:description" content="write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
+<meta property="og:title" content="Remove lbls from — remove_lbls_from_df" />
+<meta property="og:description" content="remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove lbls from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,34 +119,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write function file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
-    <div class="hidden name"><code>write_fn_fl.Rd</code></div>
+    <h1>Remove lbls from</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_remove.R'><code>R/fn_remove.R</code></a></small>
+    <div class="hidden name"><code>remove_lbls_from_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
+    <p>remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove lbls from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_fn_fl</span><span class='op'>(</span><span class='va'>fns_dmt_tb</span>, r_dir_1L_chr <span class='op'>=</span> <span class='st'>"R"</span>, document_unexp_lgl <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>remove_lbls_from_df</span><span class='op'>(</span><span class='va'>data_df</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
-    </tr>
-    <tr>
-      <th>r_dir_1L_chr</th>
-      <td><p>R directory (a character vector of length one), Default: 'R'</p></td>
-    </tr>
-    <tr>
-      <th>document_unexp_lgl</th>
-      <td><p>Document unexported (a logical vector), Default: T</p></td>
+      <th>data_df</th>
+      <td><p>Data (a data.frame)</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Unlabelled data (a data.frame)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

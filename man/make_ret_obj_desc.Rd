@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_ret_obj_desc}
 \alias{make_ret_obj_desc}
-\title{Make ret object description}
+\title{Make return object description}
 \usage{
 make_ret_obj_desc(fn, abbreviations_lup, starts_sentence_1L_lgl = T)
 }
@@ -14,9 +14,9 @@ make_ret_obj_desc(fn, abbreviations_lup, starts_sentence_1L_lgl = T)
 \item{starts_sentence_1L_lgl}{Starts sentence (a logical vector of length one), Default: T}
 }
 \value{
-Ret object description (a character vector of length one)
+Return object description (a character vector of length one)
 }
 \description{
-make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make ret object description. The function returns Ret object description (a character vector of length one).
+make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make return object description. The function returns Return object description (a character vector of length one).
 }
 \keyword{internal}

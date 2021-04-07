@@ -24,7 +24,7 @@ write_new_arg_sfxs(
 
 \item{pkg_nm_1L_chr}{Package name (a character vector of length one)}
 
-\item{inc_fns_idx_dbl}{Inc functions idx (a double vector), Default: NA}
+\item{inc_fns_idx_dbl}{Include functions index (a double vector), Default: NA}
 }
 \value{
 Function arguments to rnm (a list)

@@ -149,8 +149,10 @@ add_lups <- function(template_lup,
     labels_chr <- Hmisc::label(new_lup) %>% unname()
     }
   if(!all(labels_chr %>% unique() =="")){
-    Hmisc::label(template_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% unname())
-    Hmisc::label(new_lup %>% sjlabelled::unlabel()) <- as.list(Hmisc::label(labels_chr) %>% unname())
+    template_lup <- template_lup %>% summarytools::unlabel()
+    new_lup <- new_lup %>% summarytools::unlabel()
+    Hmisc::label(template_lup) <-  as.list(labels_chr %>% unname())
+    Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())
   }
   combined_lups <- dplyr::bind_rows(template_lup,
                    new_lup) %>%

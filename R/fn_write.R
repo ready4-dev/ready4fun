@@ -440,8 +440,8 @@ write_from_tmp <- function (temp_path_1L_chr, dest_path_1L_chr, edit_fn = functi
     writeLines(txt_chr, fileConn)
     close(fileConn)
 }
-#' Write inst directory
-#' @description write_inst_dir() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write inst directory. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' Write instance directory
+#' @description write_inst_dir() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write instance directory. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @return NULL
 #' @rdname write_inst_dir
@@ -508,7 +508,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manua
 #' @param dir_path_chr Directory path (a character vector)
 #' @param rt_dev_dir_path_1L_chr Root development directory path (a character vector of length one), Default: normalizePath("../../../")
 #' @param pkg_nm_1L_chr Package name (a character vector of length one)
-#' @param inc_fns_idx_dbl Inc functions idx (a double vector), Default: NA
+#' @param inc_fns_idx_dbl Include functions index (a double vector), Default: NA
 #' @return Function arguments to rnm (a list)
 #' @rdname write_new_arg_sfxs
 #' @export 

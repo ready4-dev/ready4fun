@@ -25,7 +25,7 @@ update_fns_dmt_tb(
 
 \item{details_ls}{Details (a list), Default: NULL}
 
-\item{inc_for_main_user_lgl_ls}{Inc for main user (a list of logical vectors), Default: NULL}
+\item{inc_for_main_user_lgl_ls}{Include for main user (a list of logical vectors), Default: NULL}
 
 \item{output_ls}{Output (a list), Default: NULL}
 

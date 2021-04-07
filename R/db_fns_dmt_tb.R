@@ -9,7 +9,7 @@
 #'   \item{title_chr}{Title (a character vector)}
 #'   \item{desc_chr}{Description (a character vector)}
 #'   \item{details_chr}{Details (a character vector)}
-#'   \item{inc_for_main_user_lgl}{Inc for main user (a logical vector)}
+#'   \item{inc_for_main_user_lgl}{Include for main user (a logical vector)}
 #'   \item{output_chr}{Output (a character vector)}
 #'   \item{example_lgl}{Example (a logical vector)}
 #'   \item{args_ls}{Arguments (a list)}

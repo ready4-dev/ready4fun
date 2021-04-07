@@ -241,7 +241,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
 #' @param fn_type_lup_tb Function type lookup table (a tibble)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param inc_all_mthds_1L_lgl Inc all mthds (a logical vector of length one), Default: T
+#' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @return All functions documentation (a tibble)
 #' @rdname make_dmt_for_all_fns
 #' @export 
@@ -930,12 +930,12 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
         URL = paste0(urls_chr, collapse = ", "))
     return(pkg_desc_ls)
 }
-#' Make ret object description
-#' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make ret object description. The function returns Ret object description (a character vector of length one).
+#' Make return object description
+#' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make return object description. The function returns Return object description (a character vector of length one).
 #' @param fn Function (a function)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param starts_sentence_1L_lgl Starts sentence (a logical vector of length one), Default: T
-#' @return Ret object description (a character vector of length one)
+#' @return Return object description (a character vector of length one)
 #' @rdname make_ret_obj_desc
 #' @export 
 

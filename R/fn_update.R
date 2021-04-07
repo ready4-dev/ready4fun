@@ -144,7 +144,7 @@ update_fn_dmt_with_slots <- function (fn_name_1L_chr, fn_dmt_1L_chr)
 #' @param title_ls Title (a list), Default: NULL
 #' @param desc_ls Description (a list), Default: NULL
 #' @param details_ls Details (a list), Default: NULL
-#' @param inc_for_main_user_lgl_ls Inc for main user (a list of logical vectors), Default: NULL
+#' @param inc_for_main_user_lgl_ls Include for main user (a list of logical vectors), Default: NULL
 #' @param output_ls Output (a list), Default: NULL
 #' @param example_ls Example (a list), Default: NULL
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL

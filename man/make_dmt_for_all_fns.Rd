@@ -27,7 +27,7 @@ force_false_chr = NA_character_), args_ls_ls = NULL)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
-\item{inc_all_mthds_1L_lgl}{Inc all mthds (a logical vector of length one), Default: T}
+\item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 }
 \value{
 All functions documentation (a tibble)

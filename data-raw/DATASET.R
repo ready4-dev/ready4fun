@@ -144,8 +144,8 @@ write_and_doc_fn_fls(fns_dmt_tb,
 #
 # PAUSE FOR INTERACTIVE
 #
-write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9279/ready4fun_user_0.0.0.9279.pdf",
-                        developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9279/ready4fun_developer_0.0.0.9279.pdf",
+write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_user_0.0.0.9289.pdf",
+                        developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_developer_0.0.0.9289.pdf",
                         project_website_url_1L_chr = "https://www.ready4-dev.com/")
 
 # 12. Create vignettes

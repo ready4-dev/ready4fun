@@ -63,7 +63,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @param desc_1L_chr Description (a character vector of length one)
 #' @param format_1L_chr Format (a character vector of length one), Default: 'A tibble'
 #' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
-#' @param vars_ls Vars (a list), Default: NULL
+#' @param vars_ls Variables (a list), Default: NULL
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -86,8 +86,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     eval(parse(text = paste0(db_1L_chr, "<-db_df")))
     eval(parse(text = paste0("usethis::use_data(", db_1L_chr, 
         ", overwrite = overwrite_1L_lgl)")))
@@ -232,7 +231,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @param desc_1L_chr Description (a character vector of length one)
 #' @param format_1L_chr Format (a character vector of length one), Default: 'A tibble'
 #' @param url_1L_chr Url (a character vector of length one), Default: 'NA'
-#' @param vars_ls Vars (a list), Default: NULL
+#' @param vars_ls Variables (a list), Default: NULL
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -252,8 +251,7 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     auto_vars_ls <- names(db_df) %>% purrr::map(~ifelse(simple_lup_1L_lgl, 
         get_from_lup_obj(abbreviations_lup, target_var_nm_1L_chr = "long_name_chr", 
             match_var_nm_1L_chr = "short_name_chr", match_value_xx = .x, 
@@ -415,7 +413,7 @@ write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, origina
 }
 #' Write from temporary
 #' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param temp_path_1L_chr Temp path (a character vector of length one)
+#' @param temp_path_1L_chr Temporary path (a character vector of length one)
 #' @param dest_path_1L_chr Dest path (a character vector of length one)
 #' @param edit_fn Edit (a function), Default: function(x) {
 #'    x

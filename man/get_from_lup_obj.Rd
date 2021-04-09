@@ -17,9 +17,9 @@ get_from_lup_obj(
 
 \item{match_value_xx}{Match value (an output object of multiple potential types)}
 
-\item{match_var_nm_1L_chr}{Match var name (a character vector of length one)}
+\item{match_var_nm_1L_chr}{Match variable name (a character vector of length one)}
 
-\item{target_var_nm_1L_chr}{Target var name (a character vector of length one)}
+\item{target_var_nm_1L_chr}{Target variable name (a character vector of length one)}
 
 \item{evaluate_lgl}{Evaluate (a logical vector), Default: TRUE}
 }

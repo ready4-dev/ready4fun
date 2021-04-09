@@ -1,5 +1,5 @@
-#' Remove lbls from
-#' @description remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove lbls from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).
+#' Remove labels from
+#' @description remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove labels from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).
 #' @param data_df Data (a data.frame)
 #' @return Unlabelled data (a data.frame)
 #' @rdname remove_lbls_from_df
@@ -34,8 +34,7 @@ remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviati
     is_generic_lgl = F) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())

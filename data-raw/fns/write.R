@@ -60,7 +60,7 @@ write_and_doc_ds <- function(db_df,
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    utils::data("object_type_lup",package="ready4fun",envir = environment())
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
@@ -201,7 +201,7 @@ write_ds_dmt <- function(db_df,
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    utils::data("object_type_lup",package="ready4fun",envir = environment())
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
                         get_from_lup_obj(abbreviations_lup,

@@ -36,7 +36,7 @@ write_and_doc_ds(
 
 \item{url_1L_chr}{Url (a character vector of length one), Default: 'NA'}
 
-\item{vars_ls}{Vars (a list), Default: NULL}
+\item{vars_ls}{Variables (a list), Default: NULL}
 
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 

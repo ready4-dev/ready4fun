@@ -4,7 +4,10 @@
 \alias{make_obj_lup}
 \title{Make object}
 \usage{
-make_obj_lup()
+make_obj_lup(obj_lup_spine = make_obj_lup_spine())
+}
+\arguments{
+\item{obj_lup_spine}{PARAM_DESCRIPTION, Default: make_obj_lup_spine()}
 }
 \value{
 Object (a tibble)

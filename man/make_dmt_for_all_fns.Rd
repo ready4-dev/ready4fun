@@ -12,6 +12,7 @@ make_dmt_for_all_fns(
     NULL),
   fn_type_lup_tb,
   abbreviations_lup = NULL,
+  object_type_lup = get_rds_from_dv("object_type_lup"),
   inc_all_mthds_1L_lgl = T
 )
 }
@@ -26,6 +27,8 @@ force_false_chr = NA_character_), args_ls_ls = NULL)}
 \item{fn_type_lup_tb}{Function type lookup table (a tibble)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{object_type_lup}{Object type (a lookup table), Default: get_rds_from_dv("object_type_lup")}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 }

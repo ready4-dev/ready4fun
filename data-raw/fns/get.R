@@ -13,9 +13,9 @@ get_all_depcys_of_fns <- function(pkg_depcy_ls,
   return(fns_to_keep_chr)
 }
 get_arg_obj_type <- function(argument_nm_1L_chr,
-                                    object_type_lup = NULL){
+                             object_type_lup = NULL){
   if(is.null(object_type_lup))
-    utils::data("object_type_lup", package="ready4fun",envir = environment())
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   nchar_int <- nchar(object_type_lup$short_name_chr)
   match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr,
                                                       paste0(ifelse(nchar(argument_nm_1L_chr)==nchar_int,"","_"),
@@ -106,11 +106,24 @@ get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to r
     setdiff(fn_type_lup_tb$fn_type_nm_chr)
   return(new_fn_types_chr)
 }
-get_outp_obj_type <- function(fns_chr){
+get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,
+                                         old_obj_type_lup_tb = get_rds_from_dv("object_type_lup"),
+                                         excluded_chr = NA_character_){
+  obj_type_lup_new_cses_tb <- updated_obj_type_lup_tb %>%
+    dplyr::filter(!short_name_chr %in% old_obj_type_lup_tb$short_name_chr)
+  if(!is.na(excluded_chr[1]))
+    obj_type_lup_new_cses_tb <- obj_type_lup_new_cses_tb %>%
+      dplyr::filter(!short_name_chr %in% excluded_chr)
+  return(obj_type_lup_new_cses_tb)
+}
+get_outp_obj_type <- function(fns_chr,
+                              object_type_lup = NULL){
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             return_obj_chr <- get_return_obj_nm(eval(parse(text=.x))) %>%
-                                              make_arg_desc()
+                                              make_arg_desc(object_type_lup = object_type_lup)
                                             ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                           })
   return(outp_obj_type_chr)
@@ -145,3 +158,4 @@ get_return_obj_nm <- function(fn){
   }
   return(return_1L_chr)
 }
+

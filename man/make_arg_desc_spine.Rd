@@ -7,7 +7,8 @@
 make_arg_desc_spine(
   argument_nm_1L_chr,
   object_type_lup = NULL,
-  abbreviations_lup = NULL
+  abbreviations_lup = NULL,
+  master_object_type_lup = NULL
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ make_arg_desc_spine(
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{master_object_type_lup}{Master object type (a lookup table), Default: NULL}
 }
 \value{
 NA ()

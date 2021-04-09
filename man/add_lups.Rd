@@ -16,7 +16,7 @@ add_lups(
 
 \item{new_lup}{New (a lookup table)}
 
-\item{key_var_nm_1L_chr}{Key var name (a character vector of length one)}
+\item{key_var_nm_1L_chr}{Key variable name (a character vector of length one)}
 
 \item{priority_lup_for_dupls_1L_chr}{Priority lookup table for dupls (a character vector of length one), Default: 'template'}
 }

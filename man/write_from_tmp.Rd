@@ -12,7 +12,7 @@ write_from_tmp(
 )
 }
 \arguments{
-\item{temp_path_1L_chr}{Temp path (a character vector of length one)}
+\item{temp_path_1L_chr}{Temporary path (a character vector of length one)}
 
 \item{dest_path_1L_chr}{Dest path (a character vector of length one)}
 

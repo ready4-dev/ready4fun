@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_short_long_nms_vec}
 \alias{make_short_long_nms_vec}
-\title{Make short long names vec}
+\title{Make short long names vector}
 \usage{
 make_short_long_nms_vec(
   long_vecs_chr = character(0),
@@ -10,14 +10,14 @@ make_short_long_nms_vec(
 )
 }
 \arguments{
-\item{long_vecs_chr}{Long vecs (a character vector), Default: character(0)}
+\item{long_vecs_chr}{Long vectors (a character vector), Default: character(0)}
 
-\item{short_vecs_chr}{Short vecs (a character vector), Default: character(0)}
+\item{short_vecs_chr}{Short vectors (a character vector), Default: character(0)}
 }
 \value{
-Short and long vec (a character vector)
+Short and long vector (a character vector)
 }
 \description{
-make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vec. The function returns Short and long vec (a character vector).
+make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vector. The function returns Short and long vector (a character vector).
 }
 \keyword{internal}

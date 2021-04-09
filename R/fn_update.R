@@ -190,8 +190,8 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
     })
     return(fns_dmt_tb)
 }
-#' Update functions documentation tibble character vector vars
-#' @description update_fns_dmt_tb_chr_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble character vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
+#' Update functions documentation tibble character vector variables
+#' @description update_fns_dmt_tb_chr_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble character vector variables. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param data_1L_chr Data (a character vector of length one)
 #' @param new_ls New (a list)
@@ -220,8 +220,8 @@ update_fns_dmt_tb_chr_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_
     }
     return(fns_dmt_tb)
 }
-#' Update functions documentation tibble logical vector vars
-#' @description update_fns_dmt_tb_lgl_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble logical vector vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
+#' Update functions documentation tibble logical vector variables
+#' @description update_fns_dmt_tb_lgl_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble logical vector variables. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param data_1L_chr Data (a character vector of length one)
 #' @param new_ls New (a list)
@@ -244,8 +244,8 @@ update_fns_dmt_tb_lgl_vars <- function (fns_dmt_tb, data_1L_chr, new_ls)
     }
     return(fns_dmt_tb)
 }
-#' Update functions documentation tibble list vars
-#' @description update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble list vars. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
+#' Update functions documentation tibble list variables
+#' @description update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble list variables. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param data_1L_chr Data (a character vector of length one)
 #' @param new_ls New (a list)

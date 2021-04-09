@@ -28,14 +28,12 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
 #' @return Argument object type (a character vector of length one)
 #' @rdname get_arg_obj_type
 #' @export 
-#' @importFrom utils data
 #' @importFrom dplyr filter mutate pull
 #' @keywords internal
 get_arg_obj_type <- function (argument_nm_1L_chr, object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     nchar_int <- nchar(object_type_lup$short_name_chr)
     match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr, 
         paste0(ifelse(nchar(argument_nm_1L_chr) == nchar_int, 
@@ -98,8 +96,8 @@ get_fn_nms_in_file <- function (path_1L_chr)
 #' @description get_from_lup_obj() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get from lookup table object. Function argument data_lookup_tb specifies the where to look for the required object. The function returns Return object (an output object of multiple potential types).
 #' @param data_lookup_tb Data lookup (a tibble)
 #' @param match_value_xx Match value (an output object of multiple potential types)
-#' @param match_var_nm_1L_chr Match var name (a character vector of length one)
-#' @param target_var_nm_1L_chr Target var name (a character vector of length one)
+#' @param match_var_nm_1L_chr Match variable name (a character vector of length one)
+#' @param target_var_nm_1L_chr Target variable name (a character vector of length one)
 #' @param evaluate_lgl Evaluate (a logical vector), Default: TRUE
 #' @return Return object (an output object of multiple potential types)
 #' @rdname get_from_lup_obj
@@ -167,19 +165,42 @@ get_new_fn_types <- function (abbreviations_lup, fn_type_lup_tb, fn_nms_ls = mak
         is_generic_lgl = T) %>% tools::toTitleCase() %>% setdiff(fn_type_lup_tb$fn_type_nm_chr)
     return(new_fn_types_chr)
 }
+#' Get object type lookup table new cses
+#' @description get_obj_type_lup_new_cses_tb() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cses tibble. Function argument updated_obj_type_lup_tb specifies the where to look for the required object. The function returns Object type lookup table new cses (a tibble).
+#' @param updated_obj_type_lup_tb Updated object type lookup table (a tibble)
+#' @param old_obj_type_lup_tb Old object type lookup table (a tibble), Default: get_rds_from_dv("object_type_lup")
+#' @param excluded_chr Excluded (a character vector), Default: 'NA'
+#' @return Object type lookup table new cses (a tibble)
+#' @rdname get_obj_type_lup_new_cses_tb
+#' @export 
+#' @importFrom dplyr filter
+#' @keywords internal
+get_obj_type_lup_new_cses_tb <- function (updated_obj_type_lup_tb, old_obj_type_lup_tb = get_rds_from_dv("object_type_lup"), 
+    excluded_chr = NA_character_) 
+{
+    obj_type_lup_new_cses_tb <- updated_obj_type_lup_tb %>% dplyr::filter(!short_name_chr %in% 
+        old_obj_type_lup_tb$short_name_chr)
+    if (!is.na(excluded_chr[1])) 
+        obj_type_lup_new_cses_tb <- obj_type_lup_new_cses_tb %>% 
+            dplyr::filter(!short_name_chr %in% excluded_chr)
+    return(obj_type_lup_new_cses_tb)
+}
 #' Get output object type
 #' @description get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).
 #' @param fns_chr Functions (a character vector)
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return Output object type (a character vector)
 #' @rdname get_outp_obj_type
 #' @export 
 #' @importFrom purrr map_chr
 #' @keywords internal
-get_outp_obj_type <- function (fns_chr) 
+get_outp_obj_type <- function (fns_chr, object_type_lup = NULL) 
 {
+    if (is.null(object_type_lup)) 
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     outp_obj_type_chr <- purrr::map_chr(fns_chr, ~{
         return_obj_chr <- get_return_obj_nm(eval(parse(text = .x))) %>% 
-            make_arg_desc()
+            make_arg_desc(object_type_lup = object_type_lup)
         ifelse(return_obj_chr == "NO MATCH", "NULL", return_obj_chr)
     })
     return(outp_obj_type_chr)

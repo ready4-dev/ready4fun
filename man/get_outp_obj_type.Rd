@@ -4,10 +4,12 @@
 \alias{get_outp_obj_type}
 \title{Get output object type}
 \usage{
-get_outp_obj_type(fns_chr)
+get_outp_obj_type(fns_chr, object_type_lup = NULL)
 }
 \arguments{
 \item{fns_chr}{Functions (a character vector)}
+
+\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \value{
 Output object type (a character vector)

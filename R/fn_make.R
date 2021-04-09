@@ -14,8 +14,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     arg_desc_chr <- make_arg_type(fn_args_chr, object_type_lup = object_type_lup, 
         abbreviations_lup = abbreviations_lup, fn = make_arg_desc_spine)
     return(arg_desc_chr)
@@ -38,8 +37,7 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     arg_desc_ls <- purrr::map(fn_nms_chr, ~{
         eval(parse(text = paste0("fn <- ", .x)))
         get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup, 
@@ -52,16 +50,19 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param master_object_type_lup Master object type (a lookup table), Default: NULL
 #' @return NA ()
 #' @rdname make_arg_desc_spine
 #' @export 
 #' @importFrom utils data
 #' @keywords internal
-make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL) 
+make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
+    master_object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
+    if (is.null(master_object_type_lup)) 
+        master_object_type_lup <- get_rds_from_dv("object_type_lup")
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -74,9 +75,10 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
     }
     arg_desc_spine <- ifelse(identical(match_1L_chr, character(0)), 
         NA_character_, paste0(argument_nm_1L_chr %>% make_arg_title(match_chr = match_1L_chr, 
-            abbreviations_lup = abbreviations_lup), " (", match_1L_chr %>% 
-            update_first_word_case() %>% add_indefartls_to_phrases(abbreviations_lup = abbreviations_lup, 
-            ignore_phrs_not_in_lup_1L_lgl = F), ")"))
+            abbreviations_lup = abbreviations_lup, object_type_lup = master_object_type_lup), 
+            " (", match_1L_chr %>% update_first_word_case() %>% 
+                add_indefartls_to_phrases(abbreviations_lup = abbreviations_lup, 
+                  ignore_phrs_not_in_lup_1L_lgl = F), ")"))
     return(arg_desc_spine)
 }
 #' Make argument title
@@ -97,8 +99,7 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
 make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -131,19 +132,21 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
     fn) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     lup_ls <- make_arg_type_lup_ls(object_type_lup)
     append_1L_lgl <- "abbreviations_lup" %in% get_fn_args(fn)
+    append_master_1L_lgl <- "master_object_type_lup" %in% get_fn_args(fn)
     arg_desc_chr <- fn_args_chr %>% purrr::map_chr(~{
         argument_nm_1L_chr <- .x
         arg_desc_1L_chr <- purrr::map_chr(lup_ls, ~{
             args_ls <- list(argument_nm_1L_chr, .x)
             if (append_1L_lgl) 
                 args_ls <- append(args_ls, list(abbreviations_lup))
+            if (append_master_1L_lgl) 
+                args_ls <- append(args_ls, list(object_type_lup))
             rlang::exec(fn, !!!args_ls)
         }) %>% purrr::discard(is.na) %>% purrr::pluck(1)
         if (is.null(arg_desc_1L_chr)) 
@@ -168,8 +171,7 @@ make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviatio
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     arg_type_abbr_chr <- make_arg_type(fn_args_chr, object_type_lup = object_type_lup, 
         fn = make_arg_type_abbr_spine, abbreviations_lup = abbreviations_lup)
     return(arg_type_abbr_chr)
@@ -197,15 +199,13 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, lup_tb)
 #' @return Lookup table list (a list of lookup tables)
 #' @rdname make_arg_type_lup_ls
 #' @export 
-#' @importFrom utils data
 #' @importFrom dplyr mutate filter
 #' @importFrom purrr map
 #' @keywords internal
 make_arg_type_lup_ls <- function (object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     new_lup <- object_type_lup %>% dplyr::mutate(nchar_int = nchar(short_name_chr))
     lup_ls <- new_lup$nchar_int %>% unique() %>% sort(decreasing = T) %>% 
         purrr::map(~dplyr::filter(new_lup, nchar_int == .x))
@@ -241,6 +241,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
 #' @param fn_type_lup_tb Function type lookup table (a tibble)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: get_rds_from_dv("object_type_lup")
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @return All functions documentation (a tibble)
 #' @rdname make_dmt_for_all_fns
@@ -251,7 +252,8 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
-    fn_type_lup_tb, abbreviations_lup = NULL, inc_all_mthds_1L_lgl = T) 
+    fn_type_lup_tb, abbreviations_lup = NULL, object_type_lup = get_rds_from_dv("object_type_lup"), 
+    inc_all_mthds_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
@@ -267,7 +269,8 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
             tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
         fns_dmt_tb <- make_fn_dmt_tbl(..1, fns_dir_chr = ..2, 
             custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
-            fn_type_lup_tb = tb, abbreviations_lup = abbreviations_lup)
+            fn_type_lup_tb = tb, abbreviations_lup = abbreviations_lup, 
+            object_type_lup = object_type_lup)
         if (inc_all_mthds_1L_lgl) 
             fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% 
                 c("grp_", "mthd_") ~ T, TRUE ~ inc_for_main_user_lgl))
@@ -441,8 +444,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl(fns_path_chr, fns_dir_chr = fns_dir_chr, 
         fn_type_lup_tb = fn_type_lup_tb, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn)
@@ -480,8 +482,7 @@ make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/", 
         "") %>% switch(fns = "fn_", s3 = "C3_", gnrcs = "grp_", 
         mthds = "mthd_", "s4 = C4_")
@@ -492,13 +493,14 @@ make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir
         file_nm_chr = .x %>% stringr::str_replace(paste0(fns_dir_chr, 
             "/"), ""), file_pfx_chr = file_pfx_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title(fns_chr, 
-        abbreviations_lup = abbreviations_lup, is_generic_lgl = purrr::map_lgl(file_nm_chr, 
-            ~.x == "generics.R")))
+        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, 
+        is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R")))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::filter(title_chr %>% 
         tools::toTitleCase() %>% purrr::map_lgl(~{
         startsWith(.x, fn_type_lup_tb$fn_type_nm_chr) %>% any()
     }))
-    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr))
+    fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr, 
+        object_type_lup = object_type_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
         title_chr = title_chr, output_chr = output_chr, fn_type_lup_tb = fn_type_lup_tb, 
         abbreviations_lup = abbreviations_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
@@ -543,8 +545,7 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
     is_generic_lgl = F) 
 {
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -672,8 +673,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     fn_tags_spine_ls <- make_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
         fn = fn, example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
@@ -718,8 +718,7 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     s3_class_main_1L_chr <- x_param_desc_1L_chr <- NULL
     if (!is.null(fn)) {
         fn_args_chr <- get_fn_args(fn)
@@ -854,27 +853,18 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
 }
 #' Make object
 #' @description make_obj_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table. The function returns Object (a tibble).
-
+#' @param obj_lup_spine PARAM_DESCRIPTION, Default: make_obj_lup_spine()
 #' @return Object (a tibble)
 #' @rdname make_obj_lup
 #' @export 
-#' @importFrom tibble tibble
 #' @importFrom dplyr bind_rows mutate filter select
 #' @importFrom purrr map2_chr map_chr
 #' @importFrom stringr str_sub str_replace
+#' @importFrom tibble tibble
 #' @keywords internal
-make_obj_lup <- function () 
+make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine()) 
 {
-    obj_tb <- tibble::tibble(short_name_chr = c("df", "fn", "ls", 
-        "r3", "r4", "s3", "s4", "sf", "tb", "arr", "chr", "dbl", 
-        "dtm", "fct", "int", "lgl", "lup", "mat", "mdl", "prsn", 
-        "rgx"), long_name_chr = c("data.frame", "function", "list", 
-        "ready4 S3", "ready4 S4", "S3", "S4", "simple features object", 
-        "tibble", "array", "character", "double", "date", "factor", 
-        "integer", "logical", "lookup table", "matrix", "model", 
-        "person", "regular expression"), atomic_element_lgl = c(rep(F, 
-        10), rep(T, 6), rep(F, 4), T), r3_element_lgl = c(T, 
-        F, T, rep(F, 4), rep(T, 14)))
+    obj_tb <- obj_lup_spine
     obj_tb <- dplyr::bind_rows(obj_tb %>% dplyr::mutate(long_name_chr = purrr::map2_chr(long_name_chr, 
         atomic_element_lgl, ~ifelse(.y, paste0(.x, " vector"), 
             .x))), obj_tb %>% dplyr::filter(atomic_element_lgl) %>% 
@@ -899,6 +889,38 @@ make_obj_lup <- function ()
         long_name_chr = "output object of multiple potential types"))
     obj_tb <- obj_tb %>% dplyr::mutate(plural_lgl = F)
     return(obj_tb)
+}
+#' Make object lookup table spine
+#' @description make_obj_lup_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
+#' @param seed_obj_lup_tb Seed object lookup table (a tibble), Default: get_rds_from_dv("seed_obj_lup_tb")
+#' @param new_entries_tb New entries (a tibble), Default: NULL
+#' @return NA ()
+#' @rdname make_obj_lup_spine
+#' @export 
+#' @importFrom tibble tibble
+#' @keywords internal
+make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_tb"), 
+    new_entries_tb = NULL) 
+{
+    if (is.null(seed_obj_lup_tb)) {
+        seed_obj_lup_tb <- tibble::tibble(short_name_chr = c("df", 
+            "fn", "ls", "r3", "r4", "s3", "s4", "sf", "tb", "arr", 
+            "chr", "dbl", "dtm", "fct", "int", "lgl", "lup", 
+            "mat", "mdl", "prsn", "rgx"), long_name_chr = c("data.frame", 
+            "function", "list", "ready4 S3", "ready4 S4", "S3", 
+            "S4", "simple features object", "tibble", "array", 
+            "character", "double", "date", "factor", "integer", 
+            "logical", "lookup table", "matrix", "model", "person", 
+            "regular expression"), atomic_element_lgl = c(rep(F, 
+            10), rep(T, 6), rep(F, 4), T), r3_element_lgl = c(T, 
+            F, T, rep(F, 4), rep(T, 14)))
+    }
+    obj_lup_spine <- seed_obj_lup_tb
+    if (!is.null(new_entries_tb)) {
+        obj_lup_spine <- add_lups(obj_lup_spine, new_lup = new_entries_tb, 
+            key_var_nm_1L_chr = "short_name_chr")
+    }
+    return(obj_lup_spine)
 }
 #' Make package description
 #' @description make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).
@@ -958,11 +980,11 @@ make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T
     }
     return(ret_obj_desc_1L_chr)
 }
-#' Make short long names vec
-#' @description make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vec. The function returns Short and long vec (a character vector).
-#' @param long_vecs_chr Long vecs (a character vector), Default: character(0)
-#' @param short_vecs_chr Short vecs (a character vector), Default: character(0)
-#' @return Short and long vec (a character vector)
+#' Make short long names vector
+#' @description make_short_long_nms_vec() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make short long names vector. The function returns Short and long vector (a character vector).
+#' @param long_vecs_chr Long vectors (a character vector), Default: character(0)
+#' @param short_vecs_chr Short vectors (a character vector), Default: character(0)
+#' @return Short and long vector (a character vector)
 #' @rdname make_short_long_nms_vec
 #' @export 
 

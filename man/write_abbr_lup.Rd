@@ -13,6 +13,7 @@ write_abbr_lup(
   no_plural_chr = NA_character_,
   custom_plural_ls = NULL,
   overwrite_1L_lgl = T,
+  object_type_lup = NULL,
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0))
 )
@@ -33,6 +34,8 @@ write_abbr_lup(
 \item{custom_plural_ls}{Custom plural (a list), Default: NULL}
 
 \item{overwrite_1L_lgl}{Overwrite (a logical vector of length one), Default: T}
+
+\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
 desc_chr = character(0), url_chr = character(0))}

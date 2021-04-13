@@ -10,6 +10,7 @@ write_dmtd_fn_type_lup(
   pkg_nm_1L_chr = get_dev_pkg_nm(),
   url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   abbreviations_lup = NULL,
+  object_type_lup = NULL,
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0))
 )
@@ -24,6 +25,8 @@ write_dmtd_fn_type_lup(
 \item{url_1L_chr}{Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
 desc_chr = character(0), url_chr = character(0))}

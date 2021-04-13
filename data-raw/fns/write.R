@@ -6,13 +6,16 @@ write_abbr_lup <- function(seed_lup = NULL,
                            no_plural_chr = NA_character_,
                            custom_plural_ls = NULL,
                            overwrite_1L_lgl = T,
+                           object_type_lup = NULL,
                            pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
                                                        title_chr = character(0),
                                                        desc_chr = character(0),
                                                        url_chr = character(0))){
   if(is.null(seed_lup)){
-    utils::data("object_type_lup", package = "ready4fun", envir = environment())
-    seed_lup <- object_type_lup
+    seed_lup <- get_rds_from_dv("object_type_lup")
+  }
+  if(is.null(seed_lup)){
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   }
   pkg_dss_tb <- update_abbr_lup(seed_lup,
                   short_name_chr = short_name_chr,
@@ -27,6 +30,7 @@ write_abbr_lup <- function(seed_lup = NULL,
                      format_1L_chr = "A tibble",
                      url_1L_chr = url_1L_chr,
                      abbreviations_lup = .,
+                     object_type_lup = object_type_lup,
                      pkg_dss_tb = pkg_dss_tb)
   return(pkg_dss_tb)
 }
@@ -152,12 +156,15 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    pkg_nm_1L_chr = get_dev_pkg_nm(),
                                    url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                                    abbreviations_lup = NULL,
+                                   object_type_lup = NULL,
                                    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
                                                                title_chr = character(0),
                                                                desc_chr = character(0),
                                                                url_chr = character(0))){
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   fn_type_lup_tb %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
                      db_1L_chr = "fn_type_lup_tb",
@@ -166,6 +173,7 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                      format_1L_chr = "A tibble",
                      url_1L_chr = url_1L_chr,
                      abbreviations_lup = abbreviations_lup,
+                     object_type_lup = object_type_lup,
                      pkg_dss_tb = pkg_dss_tb)
 }
 write_documented_fns <- function(tmp_fn_dir_1L_chr,

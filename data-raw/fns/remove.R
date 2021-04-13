@@ -7,8 +7,8 @@ remove_obj_type_from_nm <- function(nms_chr,
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   output_chr <- make_arg_type_abbr(nms_chr,
-                                               abbreviations_lup = abbreviations_lup,
-                                               object_type_lup = object_type_lup)
+                                   abbreviations_lup = abbreviations_lup,
+                                   object_type_lup = object_type_lup)
   suffices_chr <- output_chr %>% purrr::map2_chr(is_generic_lgl,~{
     ifelse(.x=="NO MATCH"|.y,
            "",

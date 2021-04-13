@@ -8,23 +8,25 @@
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @return Package datasets (a tibble)
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
-#' @importFrom utils data
 write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     pkg_nm_1L_chr = get_dev_pkg_nm(), short_name_chr = NA_character_, 
     long_name_chr = NA_character_, no_plural_chr = NA_character_, 
-    custom_plural_ls = NULL, overwrite_1L_lgl = T, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+    custom_plural_ls = NULL, overwrite_1L_lgl = T, object_type_lup = NULL, 
+    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(seed_lup)) {
-        utils::data("object_type_lup", package = "ready4fun", 
-            envir = environment())
-        seed_lup <- object_type_lup
+        seed_lup <- get_rds_from_dv("object_type_lup")
+    }
+    if (is.null(seed_lup)) {
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     }
     pkg_dss_tb <- update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
@@ -32,7 +34,8 @@ write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.79
         overwrite_1L_lgl = overwrite_1L_lgl, db_1L_chr = "abbreviations_lup", 
         title_1L_chr = "Common abbreviations lookup table", desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ", 
             pkg_nm_1L_chr, "package."), format_1L_chr = "A tibble", 
-        url_1L_chr = url_1L_chr, abbreviations_lup = ., pkg_dss_tb = pkg_dss_tb)
+        url_1L_chr = url_1L_chr, abbreviations_lup = ., object_type_lup = object_type_lup, 
+        pkg_dss_tb = pkg_dss_tb)
     return(pkg_dss_tb)
 }
 #' Write all tibbles in tibbles ready4 S4 to comma separated variables files
@@ -175,6 +178,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param url_1L_chr Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @return NULL
@@ -184,18 +188,20 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @importFrom utils data
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    abbreviations_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
+    abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0))) 
 {
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
+    if (is.null(object_type_lup)) 
+        object_type_lup <- get_rds_from_dv("object_type_lup")
     fn_type_lup_tb %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
         db_1L_chr = "fn_type_lup_tb", title_1L_chr = "Function type lookup table", 
         desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
             pkg_nm_1L_chr, " package suite."), format_1L_chr = "A tibble", 
         url_1L_chr = url_1L_chr, abbreviations_lup = abbreviations_lup, 
-        pkg_dss_tb = pkg_dss_tb)
+        object_type_lup = object_type_lup, pkg_dss_tb = pkg_dss_tb)
 }
 #' Write documented functions
 #' @description write_documented_fns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented functions. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

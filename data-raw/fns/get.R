@@ -92,7 +92,10 @@ get_from_lup_obj <- function(data_lookup_tb,
 get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
                              fn_type_lup_tb,
                              fn_nms_ls = make_fn_nms(),
-                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr()){
+                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                             object_type_lup = NULL){
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_dv("object_type_lup")
   new_fn_types_chr <- purrr::map2(fn_nms_ls[c(1,3)],
                                   undmtd_fns_dir_chr[c(1,3)],
                                   ~stringr::str_remove(.x,paste0(.y,"/")) %>% stringr::str_sub(end=-3)) %>%
@@ -101,6 +104,7 @@ get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to r
     unique() %>%
     sort() %>%
     make_fn_title(abbreviations_lup = abbreviations_lup,
+                  object_type_lup = object_type_lup,
                   is_generic_lgl = T) %>%
     tools::toTitleCase() %>%
     setdiff(fn_type_lup_tb$fn_type_nm_chr)

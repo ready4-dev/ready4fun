@@ -8,7 +8,8 @@ get_new_fn_types(
   abbreviations_lup,
   fn_type_lup_tb,
   fn_nms_ls = make_fn_nms(),
-  undmtd_fns_dir_chr = make_undmtd_fns_dir_chr()
+  undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(),
+  object_type_lup = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ get_new_fn_types(
 \item{fn_nms_ls}{Function names (a list), Default: make_fn_nms()}
 
 \item{undmtd_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()}
+
+\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \value{
 New function types (a character vector)

@@ -137,6 +137,7 @@ pkg_dss_tb <- fns_dmt_tb %>%
 # 11. Write documented functions to R directory.
 ## Note files to be rewritten cannot be open in RStudio.
 usethis::use_build_ignore("initial_setup.R")
+usethis::use_package("rmarkdown", type = "Suggests")
 write_and_doc_fn_fls(fns_dmt_tb,
                      r_dir_1L_chr = "R",
                      path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",

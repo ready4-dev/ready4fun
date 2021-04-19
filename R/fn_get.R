@@ -169,12 +169,12 @@ get_new_fn_types <- function (abbreviations_lup, fn_type_lup_tb, fn_nms_ls = mak
         tools::toTitleCase() %>% setdiff(fn_type_lup_tb$fn_type_nm_chr)
     return(new_fn_types_chr)
 }
-#' Get object type lookup table new cses
-#' @description get_obj_type_lup_new_cses_tb() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cses tibble. Function argument updated_obj_type_lup_tb specifies the where to look for the required object. The function returns Object type lookup table new cses (a tibble).
+#' Get object type lookup table new cases
+#' @description get_obj_type_lup_new_cses_tb() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cases tibble. Function argument updated_obj_type_lup_tb specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
 #' @param updated_obj_type_lup_tb Updated object type lookup table (a tibble)
 #' @param old_obj_type_lup_tb Old object type lookup table (a tibble), Default: get_rds_from_dv("object_type_lup")
 #' @param excluded_chr Excluded (a character vector), Default: 'NA'
-#' @return Object type lookup table new cses (a tibble)
+#' @return Object type lookup table new cases (a tibble)
 #' @rdname get_obj_type_lup_new_cses_tb
 #' @export 
 #' @importFrom dplyr filter

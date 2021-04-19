@@ -19,8 +19,8 @@ fns_path_chr <- read_fns(fns_dir_1L_chr)
 # source("data-raw/MAKE_HOUSESTYLE_DV_DSS.R")
 # 6. Set-up package structure
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
-                             label_names_chr = c("authoring","modelling", "prediction"),
-                            colours_chr = c("maroon", "indigo", "forestgreen")) %>%
+                             label_names_chr = c("authoring","description","modelling", "prediction"),
+                            colours_chr = c("maroon", "navy","indigo", "forestgreen")) %>%
   dplyr::mutate(badges_chr = purrr::map2_chr(label_names_chr, colours_chr,
                                              ~badgr::get_badge(
                                                label = "ready4",

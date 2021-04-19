@@ -808,7 +808,7 @@ write_ws <- function(path_1L_chr){
   top_level_chr <- paste0(path_1L_chr,"/ready4/",c("Code", "Data","Documentation", "Insight"))
   top_level_chr %>%
     purrr::walk(~ dir.create(.x))
-  c("Application","Brochure","Prediction","Modelling","Authoring") %>%
+  c("Application","Brochure","Description","Prediction","Modelling","Authoring") %>%
     purrr::walk(~ {
       dir.create(paste0(top_level_chr[1],"/",.x))
     })
@@ -817,6 +817,11 @@ write_ws <- function(path_1L_chr){
     purrr::walk(~ {
       dir.create(paste0(top_level_chr[1],"/Authoring/",.x))
       dir.create(paste0(top_level_chr[1],"/Authoring/",.x,"/R"))
+    })
+  c("Datatypes") %>%
+    purrr::walk(~ {
+      dir.create(paste0(top_level_chr[1],"/Description/",.x))
+      dir.create(paste0(top_level_chr[1],"/Description/",.x,"/R"))
     })
   c("Templates") %>%
     purrr::walk(~ {

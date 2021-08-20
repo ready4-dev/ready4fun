@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make function types — make_fn_types • ready4fun</title>
+<title>Write to delete files — write_to_delete_fls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make function types — make_fn_types" />
-<meta property="og:description" content="make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function types. The function returns Functions type (a character vector)." />
+<meta property="og:title" content="Write to delete files — write_to_delete_fls" />
+<meta property="og:description" content="write_to_delete_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to delete files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,21 +119,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make function types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
-    <div class="hidden name"><code>make_fn_types.Rd</code></div>
+    <h1>Write to delete files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
+    <div class="hidden name"><code>write_to_delete_fls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make_fn_types() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function types. The function returns Functions type (a character vector).</p>
+    <p>write_to_delete_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to delete files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_fn_types</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_to_delete_fls</span><span class='op'>(</span><span class='va'>file_paths_chr</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file_paths_chr</th>
+      <td><p>File paths (a character vector)</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Functions type (a character vector)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

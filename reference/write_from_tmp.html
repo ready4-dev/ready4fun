@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9299</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9300</span>
       </span>
     </div>
 
@@ -129,31 +129,30 @@
     </div>
 
     <pre class="usage"><span class='fu'>write_from_tmp</span><span class='op'>(</span>
-  <span class='va'>temp_path_1L_chr</span>,
-  <span class='va'>dest_path_1L_chr</span>,
-  edit_fn <span class='op'>=</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>     <span class='va'>x</span> <span class='op'>}</span>,
-  args_ls <span class='op'>=</span> <span class='cn'>NULL</span>
+  <span class='va'>temp_paths_chr</span>,
+  <span class='va'>dest_paths_chr</span>,
+  edit_fn_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='cn'>NULL</span><span class='op'>)</span>,
+  args_ls_ls <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>temp_path_1L_chr</th>
-      <td><p>Temporary path (a character vector of length one)</p></td>
+      <th>temp_paths_chr</th>
+      <td><p>Temporary paths (a character vector)</p></td>
     </tr>
     <tr>
-      <th>dest_path_1L_chr</th>
-      <td><p>Dest path (a character vector of length one)</p></td>
+      <th>dest_paths_chr</th>
+      <td><p>Dest paths (a character vector)</p></td>
     </tr>
     <tr>
-      <th>edit_fn</th>
-      <td><p>Edit (a function), Default: function(x) 
-x</p></td>
+      <th>edit_fn_ls</th>
+      <td><p>Edit (a list of functions), Default: list(NULL)</p></td>
     </tr>
     <tr>
-      <th>args_ls</th>
-      <td><p>Arguments (a list), Default: NULL</p></td>
+      <th>args_ls_ls</th>
+      <td><p>Arguments (a list of lists), Default: NULL</p></td>
     </tr>
     </table>
 

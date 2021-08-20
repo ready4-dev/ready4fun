@@ -5,22 +5,20 @@
 \title{Write from temporary}
 \usage{
 write_from_tmp(
-  temp_path_1L_chr,
-  dest_path_1L_chr,
-  edit_fn = function(x) {     x },
-  args_ls = NULL
+  temp_paths_chr,
+  dest_paths_chr,
+  edit_fn_ls = list(NULL),
+  args_ls_ls = NULL
 )
 }
 \arguments{
-\item{temp_path_1L_chr}{Temporary path (a character vector of length one)}
+\item{temp_paths_chr}{Temporary paths (a character vector)}
 
-\item{dest_path_1L_chr}{Dest path (a character vector of length one)}
+\item{dest_paths_chr}{Dest paths (a character vector)}
 
-\item{edit_fn}{Edit (a function), Default: function(x) {
-x
-}}
+\item{edit_fn_ls}{Edit (a list of functions), Default: list(NULL)}
 
-\item{args_ls}{Arguments (a list), Default: NULL}
+\item{args_ls_ls}{Arguments (a list of lists), Default: NULL}
 }
 \description{
 write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

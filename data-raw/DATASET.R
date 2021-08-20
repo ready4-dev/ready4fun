@@ -104,9 +104,9 @@ pkg_dss_tb <- badges_lup %>%
 #
 # 10. Create a table of all undocumented functions
 fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
-                                 fns_dir_chr = fns_dir_1L_chr,
-                                 custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                      inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj","get_rds_from_dv",#"import_xls_sheets",
+                              fns_dir_chr = fns_dir_1L_chr,
+                              custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
+                                                   inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj","get_rds_from_dv",#"import_xls_sheets",
                                                                                               "make_dmt_for_all_fns",#"make_fn_dmt_tbl",
                                                                                               "make_fn_type_lup","make_lines_for_fn_dmt",#"read_fns","rowbind_all_tbs_in_r4_obj",
                                                                                               "write_abbr_lup",#"write_all_tbs_in_tbs_r4_to_csvs",
@@ -114,10 +114,10 @@ fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
                                                                                               "write_fn_type_dirs", "write_links_for_website", #"write_ns_imps_to_desc","write_pkg",
                                                                                               "write_pkg_setup_fls","write_pt_lup_db", #"write_std_imp", "write_tb_to_csv", "write_to_reset_pkg_files",
                                                                                               "write_ws"),
-                                                                       force_false_chr = NA_character_#c("add_indef_artl_to_item", "get_fn_args_chr")
-                                                                       ),
-                                                      args_ls_ls = NULL#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
-                                                      ),
+                                                                                   force_false_chr = NA_character_#c("add_indef_artl_to_item", "get_fn_args_chr")
+                                                                                   ),
+                                                   args_ls_ls = NULL#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
+                                                   ),
                                  append_1L_lgl = T,
                                  fn_type_lup_tb = fn_type_lup_tb,
                                  object_type_lup = object_type_lup,

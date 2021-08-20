@@ -682,7 +682,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
         fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
         fn_det_1L_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
-        args_ls = args_ls, fn, abbreviations_lup = abbreviations_lup, 
+        args_ls = args_ls, fn = fn, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup)
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 

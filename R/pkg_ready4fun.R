@@ -1,6 +1,6 @@
 #' ready4fun: Standardised Function Authoring and Documentation Tools for Use
 #' with the Ready4 Suite
-NA
+#'
 #' ready4fun is a collection of functions for authoring code
 #' libraries of functions and datasets for use in mental health
 #' simulations developed within the ready4 ecosystem.  This development
@@ -12,3 +12,8 @@ NA
 #' does and have created a sandpit area in which you can safely undertake
 #' testing. If you have any questions, please contact the authors
 #' (matthew.hamilton@orygen.org.au).
+#'
+#' To learn more about ready4fun, start with the vignettes:
+#' `browseVignettes(package = "ready4fun")`
+#'
+"_PACKAGE"

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make argument description spine — make_arg_desc_spine • ready4fun</title>
+<title>Make prompt — make_prompt • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make argument description spine — make_arg_desc_spine" />
-<meta property="og:description" content="make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function is called for its side effects and does not return a value." />
+<meta property="og:title" content="Make prompt — make_prompt" />
+<meta property="og:description" content="make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,46 +119,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make argument description spine</h1>
+    <h1>Make prompt</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
-    <div class="hidden name"><code>make_arg_desc_spine.Rd</code></div>
+    <div class="hidden name"><code>make_prompt.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function is called for its side effects and does not return a value.</p>
+    <p>make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_arg_desc_spine</span><span class='op'>(</span>
-  <span class='va'>argument_nm_1L_chr</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  master_object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_prompt</span><span class='op'>(</span><span class='va'>prompt_1L_chr</span>, options_chr <span class='op'>=</span> <span class='cn'>NULL</span>, force_from_opts_1l_chr <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>argument_nm_1L_chr</th>
-      <td><p>Argument name (a character vector of length one)</p></td>
+      <th>prompt_1L_chr</th>
+      <td><p>Prompt (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <th>options_chr</th>
+      <td><p>Options (a character vector), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>master_object_type_lup</th>
-      <td><p>Master object type (a lookup table), Default: NULL</p></td>
+      <th>force_from_opts_1l_chr</th>
+      <td><p>Force from opts 1l (a character vector), Default: F</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>NA ()</p>
+    <p>Response (a character vector of length one)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

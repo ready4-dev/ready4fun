@@ -952,6 +952,32 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
         URL = paste0(urls_chr, collapse = ", "))
     return(pkg_desc_ls)
 }
+#' Make prompt
+#' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).
+#' @param prompt_1L_chr Prompt (a character vector of length one)
+#' @param options_chr Options (a character vector), Default: NULL
+#' @param force_from_opts_1l_chr Force from opts 1l (a character vector), Default: F
+#' @return Response (a character vector of length one)
+#' @rdname make_prompt
+#' @export 
+
+#' @keywords internal
+make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) 
+{
+    acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
+    con_conn <- getOption("prompt_opts.con", stdin())
+    options_1L_chr <- paste(options_chr, collapse = "|")
+    prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", 
+        options_1L_chr, "]\n")
+    cat(prompt_with_options_1L_chr)
+    response_1L_chr <- readLines(con = con_conn, n = 1)
+    if (!is.null(options_chr) & !response_1L_chr %in% options_chr & 
+        force_from_opts_1l_chr) {
+        response_1L_chr <- make_prompt(prompt_1L_chr, options_chr, 
+            force_from_opts_1l_chr = T)
+    }
+    return(response_1L_chr)
+}
 #' Make return object description
 #' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make return object description. The function returns Return object description (a character vector of length one).
 #' @param fn Function (a function)

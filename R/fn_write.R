@@ -566,9 +566,10 @@ write_new_dirs <- function (new_dirs_chr)
         message(paste0("Are you sure that you want to write the following director", 
             ifelse(length(new_dirs_chr) > 1, "ies", "y"), " to your machine: \n", 
             new_dirs_chr %>% paste0(collapse = "\n"), "?"))
-        consent_1L_lgl <- readline(prompt = paste0("Type 'Y' to confirm you wish to write ", 
-            ifelse(length(new_dirs_chr) > 1, "these directories:", 
-                "this directory:")))
+        consent_1L_lgl <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
+            ifelse(length(new_dirs_chr) > 1, "these directories?", 
+                "this directory?")), options_chr = c("Y", "N"), 
+            force_from_opts_1l_chr = T)
         if (consent_1L_lgl == "Y") {
             paths_ls <- new_dirs_chr %>% purrr::walk(~{
                 dir.create(.x)

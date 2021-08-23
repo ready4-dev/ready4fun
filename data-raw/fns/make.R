@@ -827,6 +827,18 @@ make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),
     URL = paste0(urls_chr, collapse = ", "))
   return(pkg_desc_ls)
 }
+make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) {
+  acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
+  con_conn <- getOption("prompt_opts.con", stdin())
+  options_1L_chr <- paste(options_chr, collapse = "|")
+  prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", options_1L_chr, "]\n")
+  cat(prompt_with_options_1L_chr)
+  response_1L_chr <- readLines(con = con_conn, n = 1)
+  if (!is.null(options_chr) & !response_1L_chr %in% options_chr & force_from_opts_1l_chr) {
+    response_1L_chr  <- make_prompt(prompt_1L_chr, options_chr, force_from_opts_1l_chr = T)
+  }
+  return(response_1L_chr)
+}
 make_ret_obj_desc <- function(fn,
                               abbreviations_lup,
                               starts_sentence_1L_lgl = T){

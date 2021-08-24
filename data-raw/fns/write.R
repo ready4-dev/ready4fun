@@ -526,8 +526,12 @@ write_new_files <- function(paths_chr,
                           paste0("Files that will be overwritten: \n",
                                  overwritten_files_chr %>% paste0(collapse = "\n"))),
                    "?"))
-    consent_1L_lgl <- readline(prompt=paste0("Type 'Y' to confirm you wish to write ",
-                                             ifelse(length(new_files_chr)>1,"these files:","this file:")))
+    consent_1L_lgl <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
+                                                       ifelse(length(new_files_chr)>1,
+                                                              "these files:",
+                                                              "this file:")),
+                                  options_chr = c("Y", "N"),
+                                  force_from_opts_1l_chr = T)
     if(consent_1L_lgl == "Y"){
       if(!is.null(text_ls)){
         purrr::walk2(paths_chr,
@@ -794,16 +798,18 @@ write_to_delete_dirs <- function(dir_paths_chr){
                                  fls_to_be_purged_chr %>% paste0(collapse = "\n"))),
                    " from your machine: \n",
                    "?"))
-    consent_1L_lgl <- readline(prompt=paste0("Type 'Y' to confirm you wish to delete ",
-                                             ifelse(length(dir_paths_chr) > 1,
-                                                    "these directories",
-                                                    "this directory"),
-                                             ifelse(length(fls_to_be_purged_chr) > 0,
-                                                           ifelse(length(fls_to_be_purged_chr) > 0,
-                                                                  "and files",
-                                                                  "and file"),
-                                                           ""),
-                                             ":"))
+    consent_1L_lgl <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
+                                                       ifelse(length(dir_paths_chr) > 1,
+                                                              "these directories",
+                                                              "this directory"),
+                                                       ifelse(length(fls_to_be_purged_chr) > 0,
+                                                              ifelse(length(fls_to_be_purged_chr) > 0,
+                                                                     "and files",
+                                                                     "and file"),
+                                                              ""),
+                                                       ":"),
+                                  options_chr = c("Y", "N"),
+                                  force_from_opts_1l_chr = T)
     if(consent_1L_lgl == "Y"){
       dir_paths_chr %>%
         purrr::walk(~unlink(.x, recursive=TRUE))
@@ -820,8 +826,10 @@ write_to_delete_fls <- function(file_paths_chr){
                    " from your machine: \n",
                    file_paths_chr %>% paste0(collapse = "\n"),
                    "?"))
-    consent_1L_lgl <- readline(prompt=paste0("Type 'Y' to confirm you wish to delete ",
-                                             ifelse(length(file_paths_chr)>1,"these files:","this file:")))
+    consent_1L_lgl <-  make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
+                                                        ifelse(length(file_paths_chr)>1,"these files:","this file:")),
+                                   options_chr = c("Y", "N"),
+                                   force_from_opts_1l_chr = T)
     if(consent_1L_lgl == "Y"){
       paths_ls <- do.call(file.remove, list(file_paths_chr))
       #message(paste0("Files deleted:\n", file_paths_chr %>% paste0(collapse = "\n")))

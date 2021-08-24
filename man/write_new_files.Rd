@@ -4,14 +4,21 @@
 \alias{write_new_files}
 \title{Write new files}
 \usage{
-write_new_files(paths_chr, text_ls = NULL, source_paths_ls = NULL)
+write_new_files(
+  paths_chr,
+  source_paths_ls = NULL,
+  text_ls = NULL,
+  filename_1L_chr = NULL
+)
 }
 \arguments{
 \item{paths_chr}{Paths (a character vector)}
 
+\item{source_paths_ls}{Source paths (a list), Default: NULL}
+
 \item{text_ls}{Text (a list), Default: NULL}
 
-\item{source_paths_ls}{Source paths (a list), Default: NULL}
+\item{filename_1L_chr}{PARAM_DESCRIPTION, Default: NULL}
 }
 \description{
 write_new_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

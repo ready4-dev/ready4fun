@@ -1,3 +1,4 @@
+## Note files to be rewritten cannot be open in RStudio.
 # 1. Load magrittr package to that the pipe operator ("%>%") can be used in this script.
 library(magrittr)
 #
@@ -13,7 +14,7 @@ source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_path_chr <- read_fns(fns_dir_1L_chr)
 #
 # 5. Create code house-style datasets.
-# Every type the datasets that describe key features of the code house-style to be used require creation
+# Every time the datasets that describe key features of the code house-style to be used require creation
 # or updating, make the necessary changes in MAKE_HOUSESTYLE_DV_DSS.R and uncomment and run the following line.
 # source("data-raw/MAKE_HOUSESTYLE_DV_DSS.R")
 # 6. Set-up package structure
@@ -52,89 +53,38 @@ make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documen
                  urls_chr = c("https://ready4-dev.github.io/ready4fun/",
                               "https://github.com/ready4-dev/ready4fun",
                               "https://www.ready4-dev.com/")) %>%
-write_pkg_setup_fls(incr_ver_1L_lgl = F,
-                    delete_r_dir_cnts_1L_lgl = T,
-                    copyright_holders_chr = "Orygen",
-                    check_type_1L_chr = "gh",
-                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
-                    github_repo = "ready4-dev/ready4fun",
-                    lifecycle_stage_1L_chr = "experimental",
+write_pkg_setup_fls(addl_badges_ls = list(ready4 = "authoring"),
                     badges_lup = badges_lup,
-                    addl_badges_ls = list(ready4 = "authoring"))
-## INTERACTIVE INPUT
-# 7. Create a lookup table of abbreviations of R object types and their descriptions and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- get_rds_from_dv("object_type_lup") %>%
-  write_and_doc_ds(db_df = .,
-                   overwrite_1L_lgl = T,
-                   db_1L_chr = "object_type_lup",
-                   title_1L_chr = "Object abbreviations lookup table",
-                   desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
-                   format_1L_chr = "A tibble",
-                   url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                   abbreviations_lup = .,
-                   object_type_lup = .
-  )
-utils::data("object_type_lup")
-#
-# 8. Create a lookup table of abbreviations used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- write_abbr_lup(seed_lup = get_rds_from_dv("abbreviations_lup"),
-                             url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             object_type_lup = object_type_lup,
-                             pkg_dss_tb = pkg_dss_tb)
-utils::data("abbreviations_lup")
-#
-# 9. Create a lookup table of function types used in this package and save it as a package dataset (data gets saved in the data directory, documentation script is created in R directory).
-pkg_dss_tb <- get_rds_from_dv("fn_type_lup_tb") %>%
-write_dmtd_fn_type_lup(url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                       abbreviations_lup = abbreviations_lup,
-                       object_type_lup = object_type_lup,
-                       pkg_dss_tb = pkg_dss_tb)
-utils::data("fn_type_lup_tb")
-pkg_dss_tb <- badges_lup %>%
-  write_and_doc_ds(overwrite_1L_lgl = T,
-                   db_1L_chr = "badges_lup",
-                   title_1L_chr = "ready4 badges lookup table",
-                   desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
-                   format_1L_chr = "A tibble",
-                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
-                   abbreviations_lup = abbreviations_lup,
-                   object_type_lup = object_type_lup,
-                   pkg_dss_tb = pkg_dss_tb)
-#
-# 10. Create a table of all undocumented functions
-fns_dmt_tb <- make_fn_dmt_tbl(fns_path_chr,
-                              fns_dir_chr = fns_dir_1L_chr,
-                              custom_dmt_ls = list(details_ls = NULL,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                   inc_for_main_user_lgl_ls = list(force_true_chr = c("get_from_lup_obj","get_rds_from_dv",#"import_xls_sheets",
-                                                                                              "make_dmt_for_all_fns",#"make_fn_dmt_tbl",
-                                                                                              "make_fn_type_lup","make_lines_for_fn_dmt",#"read_fns","rowbind_all_tbs_in_r4_obj",
-                                                                                              "write_abbr_lup",#"write_all_tbs_in_tbs_r4_to_csvs",
-                                                                                              "write_and_doc_ds","write_and_doc_fn_fls","write_dmtd_fn_type_lup","write_documented_fns",
-                                                                                              "write_fn_type_dirs", "write_links_for_website", #"write_ns_imps_to_desc","write_pkg",
-                                                                                              "write_pkg_setup_fls","write_pt_lup_db", #"write_std_imp", "write_tb_to_csv", "write_to_reset_pkg_files",
-                                                                                              "write_ws"),
-                                                                                   force_false_chr = NA_character_#c("add_indef_artl_to_item", "get_fn_args_chr")
-                                                                                   ),
-                                                   args_ls_ls = NULL#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
-                                                   ),
-                                 append_1L_lgl = T,
-                                 fn_type_lup_tb = fn_type_lup_tb,
-                                 object_type_lup = object_type_lup,
-                                 abbreviations_lup = abbreviations_lup)
-pkg_dss_tb <- fns_dmt_tb %>%
-  write_and_doc_ds(overwrite_1L_lgl = T,
-                   db_1L_chr = "fns_dmt_tb",
-                   title_1L_chr = "ready4fun function documentation table",
-                   desc_1L_chr = "A table with the summary information on functions included in the ready4fun package.",
-                   format_1L_chr = "A tibble",
-                   url_1L_chr = "https://ready4-dev.github.io/ready4/",
-                   abbreviations_lup = abbreviations_lup,
-                   object_type_lup = object_type_lup,
-                   pkg_dss_tb = pkg_dss_tb)
-# NOTE: To update, make call to update_fns_dmt_tb
-#
-# 11. Write documented functions to R directory.
-## Note files to be rewritten cannot be open in RStudio.
+                    check_type_1L_chr = "standard",
+                    copyright_holders_chr = "Orygen",
+                    delete_r_dir_cnts_1L_lgl = T,
+                    incr_ver_1L_lgl = F,
+                    github_repo_1L_chr = "ready4-dev/ready4fun",
+                    lifecycle_stage_1L_chr = "experimental",
+                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png")
+pkg_ds_ls_ls <- list(get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH PKG DESC FILE
+                       make_pkg_ds_ls(db_df = .,
+                                      abbreviations_lup = .,
+                                      db_1L_chr = "object_type_lup",
+                                      desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
+                                      object_type_lup = .,
+                                      title_1L_chr = "Object abbreviations lookup table",
+                                      url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"),
+                     make_pkg_ds_ls(db_df = badges_lup,
+                                    db_1L_chr = "badges_lup",
+                                    desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
+                                    title_1L_chr = "ready4 badges lookup table",
+                                    url_1L_chr = "https://ready4-dev.github.io/ready4/"))
+pkg_dss_tb <- write_pkg_dss(pkg_ds_ls_ls,
+                            fns_to_incl_chr = c("get_from_lup_obj","get_rds_from_dv",
+                                                 "make_dmt_for_all_fns",
+                                                 "make_fn_type_lup","make_lines_for_fn_dmt",
+                                                 "write_abbr_lup",
+                                                 "write_and_doc_ds","write_and_doc_fn_fls","write_dmtd_fn_type_lup","write_documented_fns",
+                                                 "write_fn_type_dirs", "write_links_for_website",
+                                                 "write_pkg_setup_fls","write_pt_lup_db",
+                                                 "write_ws"),
+                            pkg_url_1L_chr = "https://ready4-dev.github.io/ready4/")
 usethis::use_build_ignore("initial_setup.R")
 usethis::use_package("rmarkdown", type = "Suggests")
 write_and_doc_fn_fls(fns_dmt_tb,

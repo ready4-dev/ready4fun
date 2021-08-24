@@ -6,46 +6,49 @@
 \usage{
 write_pkg_setup_fls(
   pkg_desc_ls,
-  path_to_pkg_rt_1L_chr = getwd(),
-  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-  incr_ver_1L_lgl = T,
-  delete_r_dir_cnts_1L_lgl = F,
-  copyright_holders_chr,
+  addl_badges_ls = NULL,
+  badges_lup = NULL,
   check_type_1L_chr = "none",
-  add_gh_site_1L_lgl = T,
-  path_to_pkg_logo_1L_chr = NA_character_,
+  copyright_holders_chr,
+  delete_r_dir_cnts_1L_lgl = F,
   github_repo_1L_chr,
   lifecycle_stage_1L_chr = "experimental",
-  badges_lup = NULL,
-  addl_badges_ls = NULL
+  incr_ver_1L_lgl = T,
+  on_cran_1L_lgl = F,
+  path_to_pkg_logo_1L_chr = NA_character_,
+  add_gh_site_1L_lgl = T,
+  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+  path_to_pkg_rt_1L_chr = getwd()
 )
 }
 \arguments{
 \item{pkg_desc_ls}{Package description (a list)}
 
-\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
+\item{addl_badges_ls}{Addl badges (a list), Default: NULL}
 
-\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
-
-\item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
-
-\item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
-
-\item{copyright_holders_chr}{Copyright holders (a character vector)}
+\item{badges_lup}{Badges (a lookup table), Default: NULL}
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'none'}
 
-\item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
+\item{copyright_holders_chr}{Copyright holders (a character vector)}
 
-\item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
+\item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
 
 \item{github_repo_1L_chr}{Github repo (a character vector of length one)}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
-\item{badges_lup}{Badges (a lookup table), Default: NULL}
+\item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 
-\item{addl_badges_ls}{Addl badges (a list), Default: NULL}
+\item{on_cran_1L_lgl}{PARAM_DESCRIPTION, Default: F}
+
+\item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
+
+\item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
+
+\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
+
+\item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 }
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

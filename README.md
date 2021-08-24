@@ -20,7 +20,7 @@ does and have created a sandpit area in which you can safely undertake
 testing. If you have any questions, please contact the authors
 (matthew.hamilton@orygen.org.au).
 
-If you plan on testing this software you can install it by running the following commands in your R console:
+To install a development version of this software, run the following commands in your R console:
 
 ```r
 utils::install.packages("devtools")

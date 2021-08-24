@@ -12,8 +12,3 @@
 #' does and have created a sandpit area in which you can safely undertake
 #' testing. If you have any questions, please contact the authors
 #' (matthew.hamilton@orygen.org.au).
-#'
-#' To learn more about ready4fun, start with the vignettes:
-#' `browseVignettes(package = "ready4fun")`
-#'
-"_PACKAGE"

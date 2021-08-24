@@ -14,7 +14,7 @@ write_abbr_lup <- function(seed_lup = NULL,
   if(is.null(seed_lup)){
     seed_lup <- get_rds_from_dv("object_type_lup")
   }
-  if(is.null(seed_lup)){
+  if(is.null(object_type_lup)){ # Was seed_lup
     object_type_lup <- get_rds_from_dv("object_type_lup")
   }
   pkg_dss_tb <- update_abbr_lup(seed_lup,
@@ -379,7 +379,7 @@ write_from_tmp <- function(temp_paths_chr,
                               args_ls_ls),
                          ~{
                            fileConn <- file(..1)
-                           txt_chr <- readLines(fileConn)
+                           txt_chr <- readLines(fileConn, warn=FALSE)
                            close(fileConn)
                            if(is.null(..2)){
                              edit_fn <- function(x){x}
@@ -490,7 +490,7 @@ write_new_dirs <- function(new_dirs_chr){
                                                               "this directory?")),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl == "Y"){
+    if(consent_1L_lgl %in% c("Y")){
       paths_ls <- new_dirs_chr %>% purrr::walk(~{
         dir.create(.x)
       })
@@ -501,15 +501,30 @@ write_new_dirs <- function(new_dirs_chr){
   }
 }
 write_new_files <- function(paths_chr,
+                            source_paths_ls = NULL,
                             text_ls = NULL,
-                            source_paths_ls = NULL){
+                            filename_1L_chr = NULL
+                            ){
   if(!is.null(source_paths_ls)){
     dest_dir_1L_chr <- paths_chr
-    paths_chr <- purrr::map(source_paths_ls, ~list.files(.x)) %>%
+    paths_chr <- purrr::map(source_paths_ls,
+                            ~{
+                              if(dir.exists(.x)){
+                                list.files(.x)
+                              }else{
+                                fs::path_file(.x)
+                              }
+                            }) %>%
       purrr::flatten_chr() %>%
       purrr::map_chr(~paste0(dest_dir_1L_chr,
                              "/",
-                             .x))
+                             ifelse(is.null(filename_1L_chr),
+                                    .x,
+                                    filename_1L_chr)
+                             ))
+    recursive_1L_lgl <- ifelse(paths_chr %>% purrr::map_lgl(~dir.exists(.x)) %>% any(),
+                               T,
+                               F)
   }
   new_files_chr <- paths_chr[paths_chr %>% purrr::map_lgl(~!file.exists(.x))]
   overwritten_files_chr <- setdiff(paths_chr, new_files_chr)
@@ -532,7 +547,7 @@ write_new_files <- function(paths_chr,
                                                               "this file:")),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl == "Y"){
+    if(consent_1L_lgl %in% c("Y")){
       if(!is.null(text_ls)){
         purrr::walk2(paths_chr,
                      text_ls,
@@ -545,7 +560,11 @@ write_new_files <- function(paths_chr,
         if(!is.null(source_paths_ls)){
           purrr::walk(source_paths_ls,
                        ~ file.copy(.x,
-                                   dest_dir_1L_chr, recursive=TRUE))
+                                   paste0(dest_dir_1L_chr,
+                                          ifelse(is.null(filename_1L_chr),
+                                                 "",
+                                                 paste0("/",filename_1L_chr))),
+                                   recursive = recursive_1L_lgl))
         }
       }
       #message(paste0("New directories created:\n", new_dirs_chr %>% paste0(collapse = "\n")))
@@ -600,21 +619,89 @@ write_pkg <- function(package_1L_chr,
                    }),
                    args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
+write_pkg_dss <- function(pkg_ds_ls_ls,
+                          abbreviations_lup = NULL,
+                          args_ls_ls = NULL,
+                          details_ls = NULL,
+                          dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+                          fns_to_incl_chr = NA_character_,
+                          fn_type_lup_tb = NULL,
+                          inc_all_mthds_1L_lgl = T,
+                          object_type_lup = NULL,
+                          paths_ls = make_fn_nms(),
+                          pkg_url_1L_chr,
+                          R_dir_1L_chr = "R",
+                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                          url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"){
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_dv("object_type_lup")
+  if(is.null(abbreviations_lup))
+    abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
+  if(is.null(fn_type_lup_tb))
+    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb")
+  pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup,
+                               url_1L_chr = url_1L_chr,
+                               object_type_lup = object_type_lup)
+  utils::data("abbreviations_lup", envir = environment())
+  pkg_dss_tb <- fn_type_lup_tb %>%
+    write_dmtd_fn_type_lup(url_1L_chr = url_1L_chr,
+                           abbreviations_lup = abbreviations_lup,
+                           object_type_lup = object_type_lup,
+                           pkg_dss_tb = pkg_dss_tb)
+  utils::data("fn_type_lup_tb", envir = environment())
+  pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls,
+                              .init = pkg_dss_tb,
+                              ~ {
+                                if(is.null(.y$abbreviations_lup))
+                                  .y$abbreviations_lup <- abbreviations_lup
+                                if(is.null(.y$object_type_lup))
+                                  .y$object_type_lup <- object_type_lup
+                                args_ls <- append(.y,
+                                                  list(overwrite_1L_lgl = T,
+                                                       pkg_dss_tb = .x,
+                                                       R_dir_1L_chr = R_dir_1L_chr))
+                                rlang::exec(write_and_doc_ds,!!!args_ls)
+                              })
+  fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
+                                     abbreviations_lup = abbreviations_lup,
+                                     custom_dmt_ls = list(details_ls = details_ls,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
+                                                     inc_for_main_user_lgl_ls = list(force_true_chr = fns_to_incl_chr,
+                                                                                     force_false_chr = NA_character_),
+                                                     args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
+                                                     ),
+                                     fn_type_lup_tb = fn_type_lup_tb,
+                                     inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
+                                     object_type_lup = object_type_lup,
+                                     undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+  pkg_dss_tb <- fns_dmt_tb %>%
+    write_and_doc_ds(overwrite_1L_lgl = T,
+                     db_1L_chr = "fns_dmt_tb",
+                     title_1L_chr = paste0(dev_pkg_nm_1L_chr," function documentation table"),
+                     desc_1L_chr = paste0("A table with the summary information on functions included in the ",dev_pkg_nm_1L_chr," package."),
+                     format_1L_chr = "A tibble",
+                     url_1L_chr = pkg_url_1L_chr,
+                     abbreviations_lup = abbreviations_lup,
+                     object_type_lup = object_type_lup,
+                     pkg_dss_tb = pkg_dss_tb)
+  return(pkg_dss_tb)
+}
 write_pkg_setup_fls <- function(pkg_desc_ls,
-                                path_to_pkg_rt_1L_chr = getwd(),
-                                dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                incr_ver_1L_lgl = T,
-                                delete_r_dir_cnts_1L_lgl = F,
-                                copyright_holders_chr,
+                                addl_badges_ls = NULL,
+                                badges_lup = NULL,
                                 check_type_1L_chr = "none",
-                                add_gh_site_1L_lgl = T,
-                                path_to_pkg_logo_1L_chr = NA_character_,
+                                copyright_holders_chr,
+                                delete_r_dir_cnts_1L_lgl = F,
                                 github_repo_1L_chr,
                                 lifecycle_stage_1L_chr = "experimental",
-                                badges_lup = NULL,
-                                addl_badges_ls = NULL){
+                                incr_ver_1L_lgl = T,
+                                on_cran_1L_lgl = F,
+                                path_to_pkg_logo_1L_chr = NA_character_,
+                                add_gh_site_1L_lgl = T,
+                                dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+                                path_to_pkg_rt_1L_chr = getwd()
+                                ){
   options(usethis.description = pkg_desc_ls)
-  use_gh_cmd_check_1L_lgl = (check_type_1L_chr == "gh")
+  use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh","full","release","standard"))
   if(is.null(badges_lup)){
     utils::data("badges_lup",envir = environment())
   }
@@ -642,15 +729,19 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   if(incr_ver_1L_lgl){
     usethis::use_version()
   }
-  write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)# PICK UP HERE
+  write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
   usethis::use_gpl3_license()
-  c(paste0(dev_pkg_nm_1L_chr," - ",desc::desc_get("Title") %>%
-      as.vector()),
+  license_1L_chr <- c(paste0(dev_pkg_nm_1L_chr,
+                          " - ",
+                          desc::desc_get("Title") %>%
+                            as.vector()),
     readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
     purrr::map_chr(~stringr::str_trim(.x) %>%
                      stringr::str_replace_all("<year>",as.character(Sys.Date() %>% lubridate::year())) %>%
                      stringr::str_replace_all("<name of author>",paste0(copyright_holders_chr,collapse = "and "))) %>%
-    writeLines(con = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"))
+    paste0(collapse = "\n")
+  write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"),
+                  text_ls = list(license_1L_chr))
   desc::desc_set("License", "GPL-3 + file LICENSE")
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
@@ -660,41 +751,78 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   usethis::use_build_ignore(paste0(paste0("data-raw/"),
                             list.files(paste0(path_to_pkg_rt_1L_chr,"/data-raw"), recursive = T)))
   if(!is.na(path_to_pkg_logo_1L_chr)){
-    if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
-      dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
-    file.copy(path_to_pkg_logo_1L_chr,
-              paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
+    write_new_dirs(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
+    # if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
+    #   dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
+    write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
+                    source_paths_ls = list(path_to_pkg_logo_1L_chr),
+                    filename_1L_chr = "logo.png")
+    # file.copy(path_to_pkg_logo_1L_chr,
+    #           paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
   }
-  writeLines(c(paste0("# ",dev_pkg_nm_1L_chr,ifelse(is.na(path_to_pkg_logo_1L_chr),
-                                                    "",
-                                                    " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
-               "",
-               paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Title") %>% stringr::str_replace_all("\n"," ")),
-               "",
-               "<!-- badges: start -->",
-               "<!-- badges: end -->" ,
-               "",
-               utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
-               "",
-               "If you plan on testing this software you can install it by running the following commands in your R console:",
-               "",
-               "```r",
-               "utils::install.packages(\"devtools\")",
-               "",
-               paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
-               "",
-               "```"),
-             con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
+  if(on_cran_1L_lgl){
+    cran_install_chr <- c("To install the latest production version of this software, run the following command in your R console:",
+                          "",
+                          "```r",
+                          "utils::install.packages(\"",
+                          dev_pkg_nm_1L_chr,
+                          "\")",
+                          "",
+                          "```",
+                          "")
+  }else{
+    cran_install_chr <- character(0)
+  }
+
+  readme_chr <- c(paste0("# ",
+                         dev_pkg_nm_1L_chr,
+                         ifelse(is.na(path_to_pkg_logo_1L_chr),
+                                "",
+                                " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
+                  "",
+                  paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,
+                                                         fields ="Title") %>%
+                           stringr::str_replace_all("\n"," ")),
+                  "",
+                  "<!-- badges: start -->",
+                  "<!-- badges: end -->" ,
+                  "",
+                  utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
+                  "",
+                  cran_install_chr,
+                  "To install a development version of this software, run the following commands in your R console:",
+                  "",
+                  "```r",
+                  "utils::install.packages(\"devtools\")",
+                  "",
+                  paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
+                  "",
+                  "```")
+  write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/README.md"),
+                  text_ls = list(readme_chr))
+  # writeLines(readme_chr,
+  #            con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
   if(add_gh_site_1L_lgl)
     usethis::use_github_action("pkgdown")
-  if(use_gh_cmd_check_1L_lgl){
-    usethis::use_github_action_check_standard()
+  if(check_type_1L_chr %in% c("gh","full","release","standard")){
+    if(check_type_1L_chr %in% c("gh","standard")){
+      usethis::use_github_action_check_standard()
+    }else{
+      if(check_type_1L_chr == "full"){
+        usethis::use_github_action_check_full()
+      }else{
+        usethis::use_github_action_check_release()
+      }
+    }
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()
   }
-  file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
-            paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
+  write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
+                  source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
+                  filename_1L_chr = "fav120.png")
+  # file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
+  #           paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
   if(!is.null(addl_badges_ls)){
@@ -708,9 +836,6 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                            target_var_nm_1L_chr = "badges_chr",
                                            evaluate_lgl = F)
                       }) %>% unname()
-
-      # purrr::map_chr(addl_badges_ls,
-      #                            ~ )
     purrr::walk2(badges_chr,
                  names(addl_badges_ls),
                 ~ {
@@ -726,12 +851,10 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 usethis::use_badge(badge_name = badge_nm_1L_chr,
                                                    src = src_1L_chr,
                                                    href = href_1L_chr)
-
                               })
                 })
 
   }
-
 }
 write_pt_lup_db <- function(R_dir_1L_chr = "R"){
   write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),
@@ -804,13 +927,13 @@ write_to_delete_dirs <- function(dir_paths_chr){
                                                               "this directory"),
                                                        ifelse(length(fls_to_be_purged_chr) > 0,
                                                               ifelse(length(fls_to_be_purged_chr) > 0,
-                                                                     "and files",
-                                                                     "and file"),
+                                                                     " and files",
+                                                                     " and file"),
                                                               ""),
                                                        ":"),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl == "Y"){
+    if(consent_1L_lgl %in% c("Y")){
       dir_paths_chr %>%
         purrr::walk(~unlink(.x, recursive=TRUE))
     }else{
@@ -830,7 +953,7 @@ write_to_delete_fls <- function(file_paths_chr){
                                                         ifelse(length(file_paths_chr)>1,"these files:","this file:")),
                                    options_chr = c("Y", "N"),
                                    force_from_opts_1l_chr = T)
-    if(consent_1L_lgl == "Y"){
+    if(consent_1L_lgl %in% c("Y")){
       paths_ls <- do.call(file.remove, list(file_paths_chr))
       #message(paste0("Files deleted:\n", file_paths_chr %>% paste0(collapse = "\n")))
     }else{

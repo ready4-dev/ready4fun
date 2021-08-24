@@ -827,6 +827,28 @@ make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),
     URL = paste0(urls_chr, collapse = ", "))
   return(pkg_desc_ls)
 }
+make_pkg_ds_ls <- function(db_df,
+                           db_1L_chr,
+                           title_1L_chr,
+                           desc_1L_chr,
+                           abbreviations_lup = NULL,
+                           format_1L_chr = "A tibble",
+                           object_type_lup = NULL,
+                           simple_lup_1L_lgl = F,
+                           url_1L_chr = NA_character_,
+                           vars_ls = NULL){
+  pkg_ds_ls <- list(db_df = db_df,
+                    db_1L_chr = db_1L_chr,
+                    title_1L_chr = title_1L_chr,
+                    desc_1L_chr = desc_1L_chr,
+                    abbreviations_lup = abbreviations_lup,
+                    format_1L_chr = format_1L_chr,
+                    object_type_lup = object_type_lup,
+                    simple_lup_1L_lgl = simple_lup_1L_lgl,
+                    url_1L_chr = url_1L_chr,
+                    vars_ls = vars_ls)
+  return(pkg_ds_ls)
+}
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) {
   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
   con_conn <- getOption("prompt_opts.con", stdin())

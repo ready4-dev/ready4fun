@@ -988,6 +988,47 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
         vars_ls = vars_ls)
     return(pkg_ds_ls)
 }
+#' Make package setup
+#' @description make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
+#' @param pkg_desc_ls Package description (a list)
+#' @param copyright_holders_chr Copyright holders (a character vector)
+#' @param github_repo_1L_chr Github repo (a character vector of length one)
+#' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
+#' @param addl_badges_ls Addl badges (a list), Default: NULL
+#' @param badges_lup Badges (a lookup table), Default: NULL
+#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
+#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
+#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
+#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: F
+#' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
+#' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
+#' @return Package setup (a list)
+#' @rdname make_pkg_setup_ls
+#' @export 
+
+#' @keywords internal
+make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
+    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, badges_lup = NULL, 
+    check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = F, 
+    dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
+    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = F, 
+    on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
+    path_to_pkg_rt_1L_chr = getwd(), user_manual_fns_chr = NA_character_) 
+{
+    pkg_setup_ls <- list(pkg_desc_ls = pkg_desc_ls, copyright_holders_chr = copyright_holders_chr, 
+        github_repo_1L_chr = github_repo_1L_chr, add_gh_site_1L_lgl = add_gh_site_1L_lgl, 
+        addl_badges_ls = addl_badges_ls, badges_lup = badges_lup, 
+        check_type_1L_chr = check_type_1L_chr, delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
+        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, dev_pkgs_chr = dev_pkgs_chr, 
+        lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, incr_ver_1L_lgl = incr_ver_1L_lgl, 
+        on_cran_1L_lgl = on_cran_1L_lgl, path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, 
+        path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr, user_manual_fns_chr = user_manual_fns_chr)
+    return(pkg_setup_ls)
+}
 #' Make prompt
 #' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).
 #' @param prompt_1L_chr Prompt (a character vector of length one)

@@ -862,6 +862,40 @@ make_pkg_ds_ls <- function(db_df,
                     vars_ls = vars_ls)
   return(pkg_ds_ls)
 }
+make_pkg_setup_ls <- function(pkg_desc_ls,
+                              copyright_holders_chr,
+                              github_repo_1L_chr,
+                              add_gh_site_1L_lgl = T,
+                              addl_badges_ls = NULL,
+                              badges_lup = NULL,
+                              check_type_1L_chr = "standard",
+                              delete_r_dir_cnts_1L_lgl = F,
+                              dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+                              dev_pkgs_chr = NA_character_,
+                              lifecycle_stage_1L_chr = "experimental",
+                              incr_ver_1L_lgl = F,
+                              on_cran_1L_lgl = F,
+                              path_to_pkg_logo_1L_chr = NA_character_,
+                              path_to_pkg_rt_1L_chr = getwd(),
+                              user_manual_fns_chr = NA_character_){
+  pkg_setup_ls <- list(pkg_desc_ls = pkg_desc_ls,
+                       copyright_holders_chr = copyright_holders_chr,
+                       github_repo_1L_chr = github_repo_1L_chr,
+                       add_gh_site_1L_lgl = add_gh_site_1L_lgl,
+                       addl_badges_ls = addl_badges_ls,
+                       badges_lup = badges_lup,
+                       check_type_1L_chr = check_type_1L_chr,
+                       delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl,
+                       dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
+                       dev_pkgs_chr = dev_pkgs_chr,
+                       lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
+                       incr_ver_1L_lgl = incr_ver_1L_lgl,
+                       on_cran_1L_lgl = on_cran_1L_lgl,
+                       path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
+                       path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr,
+                       user_manual_fns_chr = user_manual_fns_chr)
+  return(pkg_setup_ls)
+}
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) {
   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
   con_conn <- getOption("prompt_opts.con", stdin())

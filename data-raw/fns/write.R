@@ -654,7 +654,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           inc_all_mthds_1L_lgl = T,
                           object_type_lup = NULL,
                           paths_ls = make_fn_nms(),
-                          pkg_url_1L_chr,
+                          pkg_url_1L_chr = NA_character_,
                           R_dir_1L_chr = "R",
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"){
@@ -716,19 +716,21 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
   return(dss_records_ls)
 }
 write_pkg_setup_fls <- function(pkg_desc_ls,
+                                copyright_holders_chr,
+                                github_repo_1L_chr,
                                 addl_badges_ls = NULL,
                                 badges_lup = NULL,
                                 check_type_1L_chr = "none",
-                                copyright_holders_chr,
                                 delete_r_dir_cnts_1L_lgl = F,
-                                github_repo_1L_chr,
+                                dev_pkgs_chr = NA_character_,
                                 lifecycle_stage_1L_chr = "experimental",
                                 incr_ver_1L_lgl = T,
                                 on_cran_1L_lgl = F,
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 add_gh_site_1L_lgl = T,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                path_to_pkg_rt_1L_chr = getwd()
+                                path_to_pkg_rt_1L_chr = getwd(),
+                                user_manual_fns_chr = NA_character_
                                 ){
   options(usethis.description = pkg_desc_ls)
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh","full","release","standard"))

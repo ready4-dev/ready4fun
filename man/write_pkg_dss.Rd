@@ -15,7 +15,7 @@ write_pkg_dss(
   inc_all_mthds_1L_lgl = T,
   object_type_lup = NULL,
   paths_ls = make_fn_nms(),
-  pkg_url_1L_chr,
+  pkg_url_1L_chr = NA_character_,
   R_dir_1L_chr = "R",
   undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
   url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"
@@ -42,7 +42,7 @@ write_pkg_dss(
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
 
-\item{pkg_url_1L_chr}{Package url (a character vector of length one)}
+\item{pkg_url_1L_chr}{Package url (a character vector of length one), Default: 'NA'}
 
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 

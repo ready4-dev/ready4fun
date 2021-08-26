@@ -741,7 +741,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
-#' @param pkg_url_1L_chr Package url (a character vector of length one)
+#' @param pkg_url_1L_chr Package url (a character vector of length one), Default: 'NA'
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param url_1L_chr Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
@@ -755,7 +755,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_ls_ls = NULL, 
     details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     fns_to_incl_chr = NA_character_, fn_type_lup_tb = NULL, inc_all_mthds_1L_lgl = T, 
-    object_type_lup = NULL, paths_ls = make_fn_nms(), pkg_url_1L_chr, 
+    object_type_lup = NULL, paths_ls = make_fn_nms(), pkg_url_1L_chr = NA_character_, 
     R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9") 
 {
@@ -801,12 +801,13 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' Write package setup files
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_desc_ls Package description (a list)
+#' @param copyright_holders_chr Copyright holders (a character vector)
+#' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param addl_badges_ls Addl badges (a list), Default: NULL
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
-#' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
-#' @param github_repo_1L_chr Github repo (a character vector of length one)
+#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
@@ -814,6 +815,7 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
@@ -826,12 +828,13 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @importFrom lubridate year
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
-write_pkg_setup_fls <- function (pkg_desc_ls, addl_badges_ls = NULL, badges_lup = NULL, 
-    check_type_1L_chr = "none", copyright_holders_chr, delete_r_dir_cnts_1L_lgl = F, 
-    github_repo_1L_chr, lifecycle_stage_1L_chr = "experimental", 
-    incr_ver_1L_lgl = T, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
+write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
+    addl_badges_ls = NULL, badges_lup = NULL, check_type_1L_chr = "none", 
+    delete_r_dir_cnts_1L_lgl = F, dev_pkgs_chr = NA_character_, 
+    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = T, 
+    on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
     add_gh_site_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    path_to_pkg_rt_1L_chr = getwd()) 
+    path_to_pkg_rt_1L_chr = getwd(), user_manual_fns_chr = NA_character_) 
 {
     options(usethis.description = pkg_desc_ls)
     use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh", 

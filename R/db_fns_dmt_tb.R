@@ -16,5 +16,5 @@
 #'   \item{file_nm_chr}{File name (a character vector)}
 #'   \item{file_pfx_chr}{File prefix (a character vector)}
 #' }
-#' @source \url{https://ready4-dev.github.io/ready4/}
+#' @source \url{https://ready4-dev.github.io/ready4fun/}
 "fns_dmt_tb"

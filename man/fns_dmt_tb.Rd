@@ -5,10 +5,10 @@
 \alias{fns_dmt_tb}
 \title{ready4fun function documentation table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 100 rows and 10 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 101 rows and 10 columns.
 }
 \source{
-\url{https://ready4-dev.github.io/ready4/}
+\url{https://ready4-dev.github.io/ready4fun/}
 }
 \usage{
 fns_dmt_tb

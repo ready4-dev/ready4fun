@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update functions documentation tibble list variables — update_fns_dmt_tb_ls_vars • ready4fun</title>
+<title>Write package datasets — write_pkg_dss • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Update functions documentation tibble list variables — update_fns_dmt_tb_ls_vars" />
-<meta property="og:description" content="update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble list variables. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble)." />
+<meta property="og:title" content="Write package datasets — write_pkg_dss" />
+<meta property="og:description" content="write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,41 +119,96 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update functions documentation tibble list variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_update.R'><code>R/fn_update.R</code></a></small>
-    <div class="hidden name"><code>update_fns_dmt_tb_ls_vars.Rd</code></div>
+    <h1>Write package datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
+    <div class="hidden name"><code>write_pkg_dss.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble list variables. Function argument fns_dmt_tb specifies the object to be updated. Argument data_1L_chr provides the object to be updated. The function returns Functions documentation (a tibble).</p>
+    <p>write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_fns_dmt_tb_ls_vars</span><span class='op'>(</span><span class='va'>fns_dmt_tb</span>, <span class='va'>data_1L_chr</span>, <span class='va'>new_ls</span>, <span class='va'>append_1L_lgl</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_pkg_dss</span><span class='op'>(</span>
+  pkg_ds_ls_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  args_ls_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  details_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dev_pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  fns_to_incl_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  fn_type_lup_tb <span class='op'>=</span> <span class='cn'>NULL</span>,
+  inc_all_mthds_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
+  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  paths_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>pkg_url_1L_chr</span>,
+  R_dir_1L_chr <span class='op'>=</span> <span class='st'>"R"</span>,
+  undocumented_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span>drop_empty_1L_lgl <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,
+  url_1L_chr <span class='op'>=</span> <span class='st'>"https://doi.org/10.7910/DVN/2Y9VF9"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
+      <th>pkg_ds_ls_ls</th>
+      <td><p>Package dataset (a list of lists), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>data_1L_chr</th>
-      <td><p>Data (a character vector of length one)</p></td>
+      <th>abbreviations_lup</th>
+      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>new_ls</th>
-      <td><p>New (a list)</p></td>
+      <th>args_ls_ls</th>
+      <td><p>Arguments (a list of lists), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>append_1L_lgl</th>
-      <td><p>Append (a logical vector of length one)</p></td>
+      <th>details_ls</th>
+      <td><p>Details (a list), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>dev_pkg_nm_1L_chr</th>
+      <td><p>Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())</p></td>
+    </tr>
+    <tr>
+      <th>fns_to_incl_chr</th>
+      <td><p>Functions to incl (a character vector), Default: 'NA'</p></td>
+    </tr>
+    <tr>
+      <th>fn_type_lup_tb</th>
+      <td><p>Function type lookup table (a tibble), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>inc_all_mthds_1L_lgl</th>
+      <td><p>Include all methods (a logical vector of length one), Default: T</p></td>
+    </tr>
+    <tr>
+      <th>object_type_lup</th>
+      <td><p>Object type (a lookup table), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>paths_ls</th>
+      <td><p>Paths (a list), Default: make_fn_nms()</p></td>
+    </tr>
+    <tr>
+      <th>pkg_url_1L_chr</th>
+      <td><p>Package url (a character vector of length one)</p></td>
+    </tr>
+    <tr>
+      <th>R_dir_1L_chr</th>
+      <td><p>R directory (a character vector of length one), Default: 'R'</p></td>
+    </tr>
+    <tr>
+      <th>undocumented_fns_dir_chr</th>
+      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)</p></td>
+    </tr>
+    <tr>
+      <th>url_1L_chr</th>
+      <td><p>Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Functions documentation (a tibble)</p>
+    <p>Datasets records (a list)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

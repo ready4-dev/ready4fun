@@ -164,7 +164,7 @@ make_depnt_fns_ls <- function(arg_ls,
   return(arg_ls)
 }
 make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
-                                 undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                                 undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                                  custom_dmt_ls = list(details_ls = NULL,
                                                       inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
                                                                                       force_false_chr = NA_character_),
@@ -188,15 +188,17 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
     if(..3 == "mthds")
       tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
     fns_dmt_tb <- make_fn_dmt_tbl(..1,
-                    fns_dir_chr = ..2,
-                    custom_dmt_ls = custom_dmt_ls,
-                    append_1L_lgl = T,
-                    fn_type_lup_tb = tb,
-                    abbreviations_lup = abbreviations_lup,
-                    object_type_lup = object_type_lup)
+                                  fns_dir_chr = ..2,
+                                  custom_dmt_ls = custom_dmt_ls,
+                                  append_1L_lgl = T,
+                                  fn_type_lup_tb = tb,
+                                  abbreviations_lup = abbreviations_lup,
+                                  object_type_lup = object_type_lup)
     if(inc_all_mthds_1L_lgl)
-      fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% c("grp_","mthd_") ~ T,
-                                                                            TRUE ~ inc_for_main_user_lgl))
+      fns_dmt_tb <- fns_dmt_tb %>%
+      dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% c("grp_","mthd_") ~ T,
+                                                             TRUE ~ inc_for_main_user_lgl))
+    fns_dmt_tb
     # custom_dmt_ls$inc_for_main_user_lgl_ls$force_true_chr <- c(fns_dmt_tb %>%
     #     dplyr::filter(file_pfx_chr %in% c("grp_","mthd_")) %>%
     #     dplyr::pull(fns_chr),
@@ -360,7 +362,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
   return(fn_dmt_spine_chr_ls)
 }
 make_fn_dmt_tbl <- function(fns_path_chr,
-                            fns_dir_chr = make_undmtd_fns_dir_chr(),
+                            fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                             custom_dmt_ls = list(title_ls = NULL,
                                                  desc_ls = NULL,
                                                  details_ls = NULL,
@@ -391,7 +393,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
   return(fn_dmt_tbl_tb)
 }
 make_fn_dmt_tbl_tpl <- function(fns_path_chr,
-                                   fns_dir_chr = make_undmtd_fns_dir_chr(),
+                                   fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                                    fn_type_lup_tb = NULL,
                                    abbreviations_lup = NULL,
                                    object_type_lup = NULL,
@@ -477,9 +479,20 @@ make_fn_type_lup <- function(fn_type_nm_chr = character(0),
   return(fn_type_lup_tb)
 }
 make_fn_nms <- function(path_1L_chr = "data-raw"){
-  fns_1L_chr_ls <- make_undmtd_fns_dir_chr(path_1L_chr) %>%
+
+  undmtd_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr,
+                                                drop_empty_1L_lgl = T)
+  fn_types_chr <- make_fn_types()
+  fn_types_chr <- fn_types_chr[fn_types_chr %>%
+                                 purrr::map_lgl(~{
+                                   suffix_1L_lgl <- .x
+                                   undmtd_fns_dir_chr %>%
+                                                 purrr::map_lgl(~endsWith(.x,
+                                                                          suffix_1L_lgl))
+                                   })]
+  fns_1L_chr_ls <- undmtd_fns_dir_chr %>%
     purrr::map(~read_fns(.x)) %>%
-    stats::setNames(make_fn_types())
+    stats::setNames(fn_types_chr)
   fns_1L_chr_ls <- fns_1L_chr_ls %>% purrr::discard(~ identical(.x,character(0)))
   return(fns_1L_chr_ls)
 }
@@ -935,8 +948,16 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
                                   ref_slot_1L_chr = fn_name_1L_chr)
   return(std_fn_dmt_spine_chr_ls)
 }
-make_undmtd_fns_dir_chr <- function(path_1L_chr = "data-raw"){
+make_undmtd_fns_dir_chr <- function(path_1L_chr = "data-raw",
+                                    drop_empty_1L_lgl = F){
   undocumented_fns_dir_chr <- paste0(path_1L_chr,"/",make_fn_types())
+  if(drop_empty_1L_lgl)
+    undocumented_fns_dir_chr <- undocumented_fns_dir_chr[undocumented_fns_dir_chr %>% purrr::map_lgl(~{
+      exists_1L_lgl <- dir.exists(.x)
+      ifelse(exists_1L_lgl,
+             !identical(list.files(.x), character(0)),
+             exists_1L_lgl)
+      })]
   return(undocumented_fns_dir_chr)
 }
 

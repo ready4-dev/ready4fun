@@ -4,7 +4,12 @@
 \alias{write_fn_fl}
 \title{Write function file}
 \usage{
-write_fn_fl(fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
+write_fn_fl(
+  fns_dmt_tb,
+  r_dir_1L_chr = "R",
+  document_unexp_lgl = T,
+  consent_1L_chr = NULL
+)
 }
 \arguments{
 \item{fns_dmt_tb}{Functions documentation (a tibble)}
@@ -12,8 +17,9 @@ write_fn_fl(fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T)
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 
 \item{document_unexp_lgl}{Document unexported (a logical vector), Default: T}
+
+\item{consent_1L_chr}{Consent (a character vector of length one), Default: NULL}
 }
 \description{
 write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
-\keyword{internal}

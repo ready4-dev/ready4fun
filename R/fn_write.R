@@ -49,7 +49,6 @@ write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.79
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom methods getSlots
-#' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
     purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
@@ -108,7 +107,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 }
 #' Write and document function files
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble)
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: NULL
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code/Developer'
@@ -123,15 +122,20 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom devtools document load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
-write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
+write_and_doc_fn_fls <- function (fns_dmt_tb = NULL, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer", 
     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User", 
     make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
 {
+    if (is.null(fns_dmt_tb)) 
+        data("fns_dmt_tb", envir = environment())
     purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 
         c(T, F), ~{
-            write_fn_fl(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
-                document_unexp_lgl = .y)
+            write_new_files(paths_chr = paste0(r_dir_1L_chr, 
+                "/", fns_dmt_tb$file_pfx_chr[1], fns_dmt_tb$file_nm_chr %>% 
+                  unique()), custom_write_ls = list(fn = write_fn_fl, 
+                args_ls = list(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
+                  document_unexp_lgl = .y, consent_1L_chr = "Y")))
             devtools::document()
             devtools::load_all()
             write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, 
@@ -248,7 +252,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @importFrom utils data
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -291,57 +294,69 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param document_unexp_lgl Document unexported (a logical vector), Default: T
+#' @param consent_1L_chr Consent (a character vector of length one), Default: NULL
 #' @return NULL
 #' @rdname write_fn_fl
 #' @export 
+#' @importFrom stringi stri_replace_last
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
-#' @keywords internal
-write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T) 
+write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T, 
+    consent_1L_chr = NULL) 
 {
     file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
-    file_nms_chr %>% purrr::walk(~{
-        tb <- fns_dmt_tb %>% dplyr::filter(file_nm_chr == .x)
-        first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
-        dest_path_1L_chr <- paste0(r_dir_1L_chr, "/", tb$file_pfx_chr[1], 
-            .x)
-        purrr::walk(1:nrow(tb), ~{
-            fn <- eval(parse(text = tb[[.x, 1]]))
-            fn_chr <- deparse(fn)
-            fn_and_cls_chr <- tb[[.x, 1]] %>% strsplit("\\.") %>% 
-                purrr::pluck(1)
-            sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
-            make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x, 1]], 
-                fn_type_1L_chr = ifelse(tb$file_pfx_chr[1] == 
+    if (is.null(consent_1L_chr)) {
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write the files ", 
+            file_nms_chr %>% paste0(collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
+                " and"), " to the ", r_dir_1L_chr, " directory?"), 
+            options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+    }
+    if (consent_1L_chr == "Y") {
+        file_nms_chr %>% purrr::walk(~{
+            tb <- fns_dmt_tb %>% dplyr::filter(file_nm_chr == 
+                .x)
+            first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
+            dest_path_1L_chr <- paste0(r_dir_1L_chr, "/", tb$file_pfx_chr[1], 
+                .x)
+            purrr::walk(1:nrow(tb), ~{
+                fn <- eval(parse(text = tb[[.x, 1]]))
+                fn_chr <- deparse(fn)
+                fn_and_cls_chr <- tb[[.x, 1]] %>% strsplit("\\.") %>% 
+                  purrr::pluck(1)
+                sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
+                make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x, 
+                  1]], fn_type_1L_chr = ifelse(tb$file_pfx_chr[1] == 
                   "mthd_", "meth_std_s3_mthd", ifelse(tb$file_pfx_chr[1] == 
                   "grp_", "gen_std_s3_mthd", "fn")), fn = fn, 
-                fn_desc_1L_chr = tb[[.x, 3]], fn_out_type_1L_chr = tb[[.x, 
-                  6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
-                  7]], export_1L_lgl = T, class_name_1L_chr = "", 
-                details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
-                  as.list(), import_chr = NA_character_, doc_in_class_1L_lgl = F, 
-                abbreviations_lup = abbreviations_lup, object_type_lup = abbreviations_lup)
-            if (tb[[.x, 5]] + document_unexp_lgl == 0) {
-                writeLines(paste0("#' @keywords internal"))
-            }
-            writeLines(paste0(tb[[.x, 1]], " <- ", fn_chr[1]))
-            writeLines(fn_chr[2:length(fn_chr)])
-            if (tb$file_pfx_chr[1] == "grp_") {
-                writeLines(paste0("methods::setGeneric(\"", tb[[.x, 
-                  1]], "\")"))
-            }
-            if (tb$file_pfx_chr[1] == "mthd_") {
-                writeLines(paste0("#' @rdname ", fn_and_cls_chr[1], 
-                  "-methods"))
-                writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], 
-                  ",", fn_and_cls_chr[2], "-method"))
-                writeLines(paste0("methods::setMethod(\"", fn_and_cls_chr[1], 
-                  "\"", ", ", paste0("\"", fn_and_cls_chr[2], 
-                    "\""), ", ", tb[[.x, 1]], ")"))
-            }
-            close_open_sinks()
+                  fn_desc_1L_chr = tb[[.x, 3]], fn_out_type_1L_chr = tb[[.x, 
+                    6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
+                    7]], export_1L_lgl = T, class_name_1L_chr = "", 
+                  details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
+                    as.list(), import_chr = NA_character_, doc_in_class_1L_lgl = F, 
+                  abbreviations_lup = abbreviations_lup, object_type_lup = abbreviations_lup)
+                if (tb[[.x, 5]] + document_unexp_lgl == 0) {
+                  writeLines(paste0("#' @keywords internal"))
+                }
+                writeLines(paste0(tb[[.x, 1]], " <- ", fn_chr[1]))
+                writeLines(fn_chr[2:length(fn_chr)])
+                if (tb$file_pfx_chr[1] == "grp_") {
+                  writeLines(paste0("methods::setGeneric(\"", 
+                    tb[[.x, 1]], "\")"))
+                }
+                if (tb$file_pfx_chr[1] == "mthd_") {
+                  writeLines(paste0("#' @rdname ", fn_and_cls_chr[1], 
+                    "-methods"))
+                  writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], 
+                    ",", fn_and_cls_chr[2], "-method"))
+                  writeLines(paste0("methods::setMethod(\"", 
+                    fn_and_cls_chr[1], "\"", ", ", paste0("\"", 
+                      fn_and_cls_chr[2], "\""), ", ", tb[[.x, 
+                      1]], ")"))
+                }
+                close_open_sinks()
+            })
         })
-    })
+    }
 }
 #' Write function type directories
 #' @description write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function type directories. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -370,7 +385,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @importFrom utils data
 #' @importFrom purrr map_chr walk2 walk
 #' @importFrom dplyr filter select
-#' @keywords internal
 write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
     tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
@@ -425,7 +439,6 @@ write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, origina
 #' @export 
 #' @importFrom purrr pmap
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
     args_ls_ls = NULL) 
 {
@@ -454,7 +467,6 @@ write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NU
 #' @rdname write_inst_dir
 #' @export 
 
-#' @keywords internal
 write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
 {
     source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
@@ -520,7 +532,6 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manua
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -558,7 +569,6 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @rdname write_new_dirs
 #' @export 
 #' @importFrom purrr map_lgl walk
-#' @keywords internal
 write_new_dirs <- function (new_dirs_chr) 
 {
     new_dirs_chr <- new_dirs_chr[new_dirs_chr %>% purrr::map_lgl(~!dir.exists(.x))]
@@ -566,11 +576,11 @@ write_new_dirs <- function (new_dirs_chr)
         message(paste0("Are you sure that you want to write the following director", 
             ifelse(length(new_dirs_chr) > 1, "ies", "y"), " to your machine: \n", 
             new_dirs_chr %>% paste0(collapse = "\n"), "?"))
-        consent_1L_lgl <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
             ifelse(length(new_dirs_chr) > 1, "these directories?", 
                 "this directory?")), options_chr = c("Y", "N"), 
             force_from_opts_1l_chr = T)
-        if (consent_1L_lgl %in% c("Y")) {
+        if (consent_1L_chr %in% c("Y")) {
             paths_ls <- new_dirs_chr %>% purrr::walk(~{
                 dir.create(.x)
             })
@@ -585,17 +595,18 @@ write_new_dirs <- function (new_dirs_chr)
 #' Write new files
 #' @description write_new_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param paths_chr Paths (a character vector)
+#' @param custom_write_ls Custom write (a list), Default: NULL
 #' @param source_paths_ls Source paths (a list), Default: NULL
 #' @param text_ls Text (a list), Default: NULL
-#' @param filename_1L_chr PARAM_DESCRIPTION, Default: NULL
+#' @param filename_1L_chr Filename (a character vector of length one), Default: NULL
 #' @return NULL
 #' @rdname write_new_files
 #' @export 
 #' @importFrom purrr map flatten_chr map_chr map_lgl walk2 walk
 #' @importFrom fs path_file
-#' @keywords internal
-write_new_files <- function (paths_chr, source_paths_ls = NULL, text_ls = NULL, 
-    filename_1L_chr = NULL) 
+#' @importFrom rlang exec
+write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls = NULL, 
+    text_ls = NULL, filename_1L_chr = NULL) 
 {
     if (!is.null(source_paths_ls)) {
         dest_dir_1L_chr <- paths_chr
@@ -622,10 +633,10 @@ write_new_files <- function (paths_chr, source_paths_ls = NULL, text_ls = NULL,
                 character(0)), "", paste0("Files that will be overwritten: \n", 
                 overwritten_files_chr %>% paste0(collapse = "\n"))), 
             "?"))
-        consent_1L_lgl <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
             ifelse(length(new_files_chr) > 1, "these files:", 
                 "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
-        if (consent_1L_lgl %in% c("Y")) {
+        if (consent_1L_chr %in% c("Y")) {
             if (!is.null(text_ls)) {
                 purrr::walk2(paths_chr, text_ls, ~{
                   file_conn <- file(.x)
@@ -638,6 +649,9 @@ write_new_files <- function (paths_chr, source_paths_ls = NULL, text_ls = NULL,
                   purrr::walk(source_paths_ls, ~file.copy(.x, 
                     paste0(dest_dir_1L_chr, ifelse(is.null(filename_1L_chr), 
                       "", paste0("/", filename_1L_chr))), recursive = recursive_1L_lgl))
+                }
+                if (!is.null(custom_write_ls)) {
+                  rlang::exec(custom_write_ls$fn, !!!custom_write_ls$args_ls)
                 }
             }
         }
@@ -657,7 +671,6 @@ write_new_files <- function (paths_chr, source_paths_ls = NULL, text_ls = NULL,
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_replace str_sub str_locate
 #' @importFrom usethis use_dev_package use_package use_version
-#' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
     devtools::document()
@@ -690,7 +703,6 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     lifecycle::deprecate_soft("0.0.0.9298", what = "ready4fun::write_pkg()")
@@ -708,6 +720,74 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
             txt_chr
         }), args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
+#' Write package datasets
+#' @description write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param args_ls_ls Arguments (a list of lists), Default: NULL
+#' @param details_ls Details (a list), Default: NULL
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
+#' @param fns_to_incl_chr Functions to incl (a character vector), Default: 'NA'
+#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
+#' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @param paths_ls Paths (a list), Default: make_fn_nms()
+#' @param pkg_url_1L_chr Package url (a character vector of length one)
+#' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+#' @param url_1L_chr Url (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
+#' @return Datasets records (a list)
+#' @rdname write_pkg_dss
+#' @export 
+#' @importFrom utils data
+#' @importFrom purrr reduce
+#' @importFrom rlang exec
+write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_ls_ls = NULL, 
+    details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
+    fns_to_incl_chr = NA_character_, fn_type_lup_tb = NULL, inc_all_mthds_1L_lgl = T, 
+    object_type_lup = NULL, paths_ls = make_fn_nms(), pkg_url_1L_chr, 
+    R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+    url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9") 
+{
+    if (is.null(object_type_lup)) 
+        object_type_lup <- get_rds_from_dv("object_type_lup")
+    if (is.null(abbreviations_lup)) 
+        abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
+    if (is.null(fn_type_lup_tb)) 
+        fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb")
+    pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup, 
+        url_1L_chr = url_1L_chr, object_type_lup = object_type_lup)
+    utils::data("abbreviations_lup", envir = environment())
+    pkg_dss_tb <- fn_type_lup_tb %>% write_dmtd_fn_type_lup(url_1L_chr = url_1L_chr, 
+        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, 
+        pkg_dss_tb = pkg_dss_tb)
+    utils::data("fn_type_lup_tb", envir = environment())
+    if (!is.null(pkg_ds_ls_ls)) {
+        pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls, .init = pkg_dss_tb, 
+            ~{
+                if (is.null(.y$abbreviations_lup)) 
+                  .y$abbreviations_lup <- abbreviations_lup
+                if (is.null(.y$object_type_lup)) 
+                  .y$object_type_lup <- object_type_lup
+                args_ls <- append(.y, list(overwrite_1L_lgl = T, 
+                  pkg_dss_tb = .x, R_dir_1L_chr = R_dir_1L_chr))
+                rlang::exec(write_and_doc_ds, !!!args_ls)
+            })
+    }
+    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = abbreviations_lup, 
+        custom_dmt_ls = list(details_ls = details_ls, inc_for_main_user_lgl_ls = list(force_true_chr = fns_to_incl_chr, 
+            force_false_chr = NA_character_), args_ls_ls = args_ls_ls), 
+        fn_type_lup_tb = fn_type_lup_tb, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
+        object_type_lup = object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+    pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
+        db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(dev_pkg_nm_1L_chr, 
+            " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
+            dev_pkg_nm_1L_chr, " package."), format_1L_chr = "A tibble", 
+        url_1L_chr = pkg_url_1L_chr, abbreviations_lup = abbreviations_lup, 
+        object_type_lup = object_type_lup, pkg_dss_tb = pkg_dss_tb)
+    dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb, fns_dmt_tb = fns_dmt_tb)
+    return(dss_records_ls)
+}
 #' Write package setup files
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_desc_ls Package description (a list)
@@ -719,7 +799,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
-#' @param on_cran_1L_lgl PARAM_DESCRIPTION, Default: F
+#' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
@@ -886,7 +966,6 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr) 
 {
     write_from_tmp(c(system.file("pkg_ready_fun.R", package = "ready4fun"), 
@@ -922,7 +1001,6 @@ write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr)
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
 #' @importFrom utils write.csv
-#' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
@@ -938,7 +1016,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_delete_dirs
 #' @export 
 #' @importFrom purrr map_lgl map flatten_chr walk
-#' @keywords internal
 write_to_delete_dirs <- function (dir_paths_chr) 
 {
     dir_paths_chr <- dir_paths_chr[dir_paths_chr %>% purrr::map_lgl(~dir.exists(.x))]
@@ -952,13 +1029,13 @@ write_to_delete_dirs <- function (dir_paths_chr)
                 ifelse(length(fls_to_be_purged_chr) > 1, "s:\n", 
                   ":\n"), fls_to_be_purged_chr %>% paste0(collapse = "\n"))), 
             " from your machine: \n", "?"))
-        consent_1L_lgl <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to delete ", 
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to delete ", 
             ifelse(length(dir_paths_chr) > 1, "these directories", 
                 "this directory"), ifelse(length(fls_to_be_purged_chr) > 
                 0, ifelse(length(fls_to_be_purged_chr) > 0, " and files", 
                 " and file"), ""), ":"), options_chr = c("Y", 
             "N"), force_from_opts_1l_chr = T)
-        if (consent_1L_lgl %in% c("Y")) {
+        if (consent_1L_chr %in% c("Y")) {
             dir_paths_chr %>% purrr::walk(~unlink(.x, recursive = TRUE))
         }
         else {
@@ -973,7 +1050,6 @@ write_to_delete_dirs <- function (dir_paths_chr)
 #' @rdname write_to_delete_fls
 #' @export 
 #' @importFrom purrr map_lgl
-#' @keywords internal
 write_to_delete_fls <- function (file_paths_chr) 
 {
     file_paths_chr <- file_paths_chr[file_paths_chr %>% purrr::map_lgl(~file.exists(.x))]
@@ -981,10 +1057,10 @@ write_to_delete_fls <- function (file_paths_chr)
         message(paste0("Are you sure that you want to delete the following file", 
             ifelse(length(file_paths_chr) > 1, "s", ""), " from your machine: \n", 
             file_paths_chr %>% paste0(collapse = "\n"), "?"))
-        consent_1L_lgl <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to delete ", 
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to delete ", 
             ifelse(length(file_paths_chr) > 1, "these files:", 
                 "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
-        if (consent_1L_lgl %in% c("Y")) {
+        if (consent_1L_chr %in% c("Y")) {
             paths_ls <- do.call(file.remove, list(file_paths_chr))
         }
         else {
@@ -999,7 +1075,6 @@ write_to_delete_fls <- function (file_paths_chr)
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -1019,7 +1094,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -1050,7 +1124,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1078,7 +1151,6 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @importFrom devtools load_all document
 #' @importFrom utils packageDescription
 #' @importFrom usethis use_description
-#' @keywords internal
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {
@@ -1104,7 +1176,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1124,7 +1195,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     write_new_dirs(paste0(pkg_rt_dir_chr, "/vignettes"))

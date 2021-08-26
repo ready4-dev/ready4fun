@@ -31,28 +31,28 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                logo_path = "https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
-                 pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem.
-  This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. The tools contained in this package automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE.
-  You should only therefore only trial this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
-                 authors_prsn = c(utils::person(
-                   given = "Matthew",family = "Hamilton", email =
-                     "matthew.hamilton@orygen.org.au",role = c("aut",
-                                                               "cre"),comment = c(ORCID = "0000-0001-7407-9194")
-                 ),
-                 utils::person("Glen", "Wiesner", email = "Glen.Wiesner@vu.edu.au",
-                               role = c("aut"), comment = c(ORCID = "0000-0002-0071-130X")),
-                 #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
-                 #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
-                 #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
-                 #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
-                 utils::person("Orygen", role = c("cph", "fnd")),
-                 utils::person("VicHealth",role = c("fnd")),
-                 utils::person("Victoria University", role =c("fnd"))
-                 ),
-                 urls_chr = c("https://ready4-dev.github.io/ready4fun/",
-                              "https://github.com/ready4-dev/ready4fun",
-                              "https://www.ready4-dev.com/")) %>%
+pkg_desc_ls <- make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
+pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem. The tools contained in this package automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE. You should only therefore only trial this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+authors_prsn = c(utils::person(
+  given = "Matthew",family = "Hamilton",
+  email = "matthew.hamilton@orygen.org.au",
+  role = c("aut","cre"),
+  comment = c(ORCID = "0000-0001-7407-9194")),
+  utils::person("Glen", "Wiesner",
+                email = "Glen.Wiesner@vu.edu.au",
+                role = c("aut"),
+                comment = c(ORCID = "0000-0002-0071-130X")),
+  #person("Alexandra", "Parker", email =  "Alex.Parker@vu.edu.au", role = c("rev"), comment = c(ORCID ="0000-0002-2398-6306")),
+  #person("Cathrine", "Mihalopoulos",email = "cathy.mihalopoulos@deakin.edu.au", role = c("rev"), comment = c(ORCID = "0000-0002-7127-9462")),
+  #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
+  #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
+  utils::person("Orygen", role = c("cph", "fnd")),
+  utils::person("VicHealth",role = c("fnd")),
+  utils::person("Victoria University", role =c("fnd"))),
+urls_chr = c("https://ready4-dev.github.io/ready4fun/",
+             "https://github.com/ready4-dev/ready4fun",
+             "https://www.ready4-dev.com/"))
+pkg_desc_ls %>%
 write_pkg_setup_fls(addl_badges_ls = list(ready4 = "authoring"),
                     badges_lup = badges_lup,
                     check_type_1L_chr = "standard",
@@ -75,19 +75,19 @@ pkg_ds_ls_ls <- list(get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH P
                                     desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
                                     title_1L_chr = "ready4 badges lookup table",
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
-pkg_dss_tb <- write_pkg_dss(pkg_ds_ls_ls,
-                            fns_to_incl_chr = c("get_from_lup_obj","get_rds_from_dv",
-                                                 "make_dmt_for_all_fns",
-                                                 "make_fn_type_lup","make_lines_for_fn_dmt",
-                                                 "write_abbr_lup",
-                                                 "write_and_doc_ds","write_and_doc_fn_fls","write_dmtd_fn_type_lup","write_documented_fns",
-                                                 "write_fn_type_dirs", "write_links_for_website",
-                                                 "write_pkg_setup_fls","write_pt_lup_db",
-                                                 "write_ws"),
-                            pkg_url_1L_chr = "https://ready4-dev.github.io/ready4/")
+dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
+                                fns_to_incl_chr = c("get_from_lup_obj","get_rds_from_dv",
+                                                    "make_dmt_for_all_fns",
+                                                    "make_fn_type_lup", "make_lines_for_fn_dmt",
+                                                    "write_abbr_lup", "write_and_doc_ds",
+                                                    "write_and_doc_fn_fls","write_dmtd_fn_type_lup",
+                                                    "write_documented_fns", "write_fn_type_dirs",
+                                                    "write_links_for_website", "write_pkg_setup_fls",
+                                                    "write_pt_lup_db", "write_ws"),
+                                pkg_url_1L_chr = "https://ready4-dev.github.io/ready4/")
 usethis::use_build_ignore("initial_setup.R")
 usethis::use_package("rmarkdown", type = "Suggests")
-write_and_doc_fn_fls(fns_dmt_tb,
+write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
                      r_dir_1L_chr = "R",
                      path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
                      path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",

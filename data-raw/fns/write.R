@@ -103,9 +103,19 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                     path_to_user_dmt_dir_1L_chr),
                c(T,F),
                ~ {
-                 write_fn_fl(fns_dmt_tb,
-                               r_dir_1L_chr = r_dir_1L_chr,
-                               document_unexp_lgl = .y)
+                 # write_fn_fl(fns_dmt_tb,
+                 #             r_dir_1L_chr = r_dir_1L_chr,
+                 #             document_unexp_lgl = .y)
+                 write_new_files(paths_chr = paste0(r_dir_1L_chr,
+                                                    "/",
+                                                    fns_dmt_tb$file_pfx_chr[1],
+                                                    fns_dmt_tb$file_nm_chr %>%
+                                                      unique()),
+                                 custom_write_ls = list(fn = write_fn_fl,
+                                                        args_ls = list(fns_dmt_tb,
+                                                                       r_dir_1L_chr = r_dir_1L_chr,
+                                                                       document_unexp_lgl = .y,
+                                                                       consent_1L_chr = "Y")))
                  devtools::document()
                  devtools::load_all()
                  write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
@@ -147,8 +157,6 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                    }
                  }) %>% purrr::flatten_chr() %>% purrr::discard(~.x=="")),
                con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
-    #usethis::use_build_ignore(files = "_pkgdown.yml")
-    #pkgdown::build_site()
   }
 }
 write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
@@ -253,64 +261,78 @@ write_ds_dmt <- function(db_df,
                     "\"",db_1L_chr,"\""))
 }
 write_fn_fl <- function(fns_dmt_tb,
-                          r_dir_1L_chr = "R",
-                          document_unexp_lgl = T){
+                        r_dir_1L_chr = "R",
+                        document_unexp_lgl = T,
+                        consent_1L_chr = NULL){
   file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
-  file_nms_chr %>%
-    purrr::walk(~
-                  {
-                    tb <- fns_dmt_tb %>%
-                      dplyr::filter(file_nm_chr == .x)
-                    first_lgl_vec <- c(T,rep(F,nrow(tb)-1))
-                    dest_path_1L_chr <- paste0(r_dir_1L_chr,"/",tb$file_pfx_chr[1],.x)
-                    purrr::walk(1:nrow(tb),
-                                ~
-                                  {
-                                    fn <- eval(parse(text=tb[[.x,1]]))
-                                    fn_chr <- deparse(fn)
-                                    fn_and_cls_chr <- tb[[.x,1]] %>% strsplit("\\.") %>% purrr::pluck(1)
-                                    sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
-                                    make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
-                                                 fn_type_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
-                                                                         "meth_std_s3_mthd",
-                                                                         ifelse(tb$file_pfx_chr[1]=="grp_",
-                                                                                "gen_std_s3_mthd",
-                                                                                "fn")),
-                                                 fn = fn,
-                                                 fn_desc_1L_chr = tb[[.x,3]],
-                                                 fn_out_type_1L_chr = tb[[.x,6]],
-                                                 fn_title_1L_chr = tb[[.x,2]],
-                                                 example_1L_lgl = tb[[.x,7]],
-                                                 export_1L_lgl = T,
-                                                 class_name_1L_chr = "",
-                                                 details_1L_chr = tb[[.x,4]],
-                                                 args_ls = tb$args_ls[[.x]] %>% as.list(),
-                                                 import_chr = NA_character_,
-                                                 doc_in_class_1L_lgl = F,
-                                                 abbreviations_lup = abbreviations_lup,
-                                                 object_type_lup = abbreviations_lup)
-                                    if(tb[[.x,5]] + document_unexp_lgl == 0){
-                                      writeLines(paste0("#' @keywords internal"))
-                                    }
-                                    writeLines(paste0(tb[[.x,1]]," <- ",fn_chr[1]))
-                                    writeLines(fn_chr[2:length(fn_chr)])
-                                    if(tb$file_pfx_chr[1]=="grp_"){
-                                      writeLines(paste0("methods::setGeneric(\"",
-                                                        tb[[.x,1]],
-                                                        "\")"))
-                                    }
-                                    if(tb$file_pfx_chr[1]=="mthd_"){
-                                      writeLines(paste0("#' @rdname ",fn_and_cls_chr[1],"-methods"))
-                                      writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
-                                      writeLines(paste0('methods::setMethod(\"', fn_and_cls_chr[1], '\"',
-                                                        ', ',paste0('\"',fn_and_cls_chr[2],'\"'),
-                                                        ', ', tb[[.x,1]],
-                                                        ')'))
-                                    }
-                                    close_open_sinks()
-                                  })
-                  }
-    )
+  if(is.null(consent_1L_chr)){
+    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write the files ",
+                                                       file_nms_chr %>%
+                                                         paste0(collapse = ", ") %>%
+                                                         stringi::stri_replace_last(fixed = ",", " and"),
+                                                       " to the ",
+                                                       r_dir_1L_chr,
+                                                       " directory?"),
+                                  options_chr = c("Y", "N"),
+                                  force_from_opts_1l_chr = T)
+  }
+  if(consent_1L_chr == "Y"){
+    file_nms_chr %>%
+      purrr::walk(~
+                    {
+                      tb <- fns_dmt_tb %>%
+                        dplyr::filter(file_nm_chr == .x)
+                      first_lgl_vec <- c(T,rep(F,nrow(tb)-1))
+                      dest_path_1L_chr <- paste0(r_dir_1L_chr,"/",tb$file_pfx_chr[1],.x)
+                      purrr::walk(1:nrow(tb),
+                                  ~
+                                    {
+                                      fn <- eval(parse(text=tb[[.x,1]]))
+                                      fn_chr <- deparse(fn)
+                                      fn_and_cls_chr <- tb[[.x,1]] %>% strsplit("\\.") %>% purrr::pluck(1)
+                                      sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
+                                      make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
+                                                            fn_type_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
+                                                                                    "meth_std_s3_mthd",
+                                                                                    ifelse(tb$file_pfx_chr[1]=="grp_",
+                                                                                           "gen_std_s3_mthd",
+                                                                                           "fn")),
+                                                            fn = fn,
+                                                            fn_desc_1L_chr = tb[[.x,3]],
+                                                            fn_out_type_1L_chr = tb[[.x,6]],
+                                                            fn_title_1L_chr = tb[[.x,2]],
+                                                            example_1L_lgl = tb[[.x,7]],
+                                                            export_1L_lgl = T,
+                                                            class_name_1L_chr = "",
+                                                            details_1L_chr = tb[[.x,4]],
+                                                            args_ls = tb$args_ls[[.x]] %>% as.list(),
+                                                            import_chr = NA_character_,
+                                                            doc_in_class_1L_lgl = F,
+                                                            abbreviations_lup = abbreviations_lup,
+                                                            object_type_lup = abbreviations_lup)
+                                      if(tb[[.x,5]] + document_unexp_lgl == 0){
+                                        writeLines(paste0("#' @keywords internal"))
+                                      }
+                                      writeLines(paste0(tb[[.x,1]]," <- ",fn_chr[1]))
+                                      writeLines(fn_chr[2:length(fn_chr)])
+                                      if(tb$file_pfx_chr[1]=="grp_"){
+                                        writeLines(paste0("methods::setGeneric(\"",
+                                                          tb[[.x,1]],
+                                                          "\")"))
+                                      }
+                                      if(tb$file_pfx_chr[1]=="mthd_"){
+                                        writeLines(paste0("#' @rdname ",fn_and_cls_chr[1],"-methods"))
+                                        writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
+                                        writeLines(paste0('methods::setMethod(\"', fn_and_cls_chr[1], '\"',
+                                                          ', ',paste0('\"',fn_and_cls_chr[2],'\"'),
+                                                          ', ', tb[[.x,1]],
+                                                          ')'))
+                                      }
+                                      close_open_sinks()
+                                    })
+                    }
+      )
+  }
 }
 write_fn_type_dirs <- function(path_1L_chr = "data-raw"){
   undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
@@ -481,16 +503,15 @@ write_new_dirs <- function(new_dirs_chr){
   if(!identical(new_dirs_chr, character(0))){
     message(paste0("Are you sure that you want to write the following director",
                    ifelse(length(new_dirs_chr)>1,"ies","y"),
-                   " to your machine: \n",
-                   new_dirs_chr %>% paste0(collapse = "\n"),
-                   "?"))
-    consent_1L_lgl <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
+                   " to your machine? \n",
+                   new_dirs_chr %>% paste0(collapse = "\n")))
+    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
                                                        ifelse(length(new_dirs_chr)>1,
                                                               "these directories?",
                                                               "this directory?")),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl %in% c("Y")){
+    if(consent_1L_chr %in% c("Y")){
       paths_ls <- new_dirs_chr %>% purrr::walk(~{
         dir.create(.x)
       })
@@ -501,6 +522,7 @@ write_new_dirs <- function(new_dirs_chr){
   }
 }
 write_new_files <- function(paths_chr,
+                            custom_write_ls = NULL,
                             source_paths_ls = NULL,
                             text_ls = NULL,
                             filename_1L_chr = NULL
@@ -541,13 +563,13 @@ write_new_files <- function(paths_chr,
                           paste0("Files that will be overwritten: \n",
                                  overwritten_files_chr %>% paste0(collapse = "\n"))),
                    "?"))
-    consent_1L_lgl <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
+    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
                                                        ifelse(length(new_files_chr)>1,
                                                               "these files:",
                                                               "this file:")),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl %in% c("Y")){
+    if(consent_1L_chr %in% c("Y")){
       if(!is.null(text_ls)){
         purrr::walk2(paths_chr,
                      text_ls,
@@ -566,8 +588,11 @@ write_new_files <- function(paths_chr,
                                                  paste0("/",filename_1L_chr))),
                                    recursive = recursive_1L_lgl))
         }
+        if(!is.null(custom_write_ls)){
+          rlang::exec(custom_write_ls$fn,
+                      !!!custom_write_ls$args_ls)
+        }
       }
-      #message(paste0("New directories created:\n", new_dirs_chr %>% paste0(collapse = "\n")))
     }else{
       message("Write request cancelled - no new directories created")
     }
@@ -619,7 +644,7 @@ write_pkg <- function(package_1L_chr,
                    }),
                    args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
-write_pkg_dss <- function(pkg_ds_ls_ls,
+write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           abbreviations_lup = NULL,
                           args_ls_ls = NULL,
                           details_ls = NULL,
@@ -631,7 +656,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls,
                           paths_ls = make_fn_nms(),
                           pkg_url_1L_chr,
                           R_dir_1L_chr = "R",
-                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"){
   if(is.null(object_type_lup))
     object_type_lup <- get_rds_from_dv("object_type_lup")
@@ -649,25 +674,27 @@ write_pkg_dss <- function(pkg_ds_ls_ls,
                            object_type_lup = object_type_lup,
                            pkg_dss_tb = pkg_dss_tb)
   utils::data("fn_type_lup_tb", envir = environment())
-  pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls,
-                              .init = pkg_dss_tb,
-                              ~ {
-                                if(is.null(.y$abbreviations_lup))
-                                  .y$abbreviations_lup <- abbreviations_lup
-                                if(is.null(.y$object_type_lup))
-                                  .y$object_type_lup <- object_type_lup
-                                args_ls <- append(.y,
-                                                  list(overwrite_1L_lgl = T,
-                                                       pkg_dss_tb = .x,
-                                                       R_dir_1L_chr = R_dir_1L_chr))
-                                rlang::exec(write_and_doc_ds,!!!args_ls)
-                              })
+  if(!is.null(pkg_ds_ls_ls)){
+    pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls,
+                                .init = pkg_dss_tb,
+                                ~ {
+                                  if(is.null(.y$abbreviations_lup))
+                                    .y$abbreviations_lup <- abbreviations_lup
+                                  if(is.null(.y$object_type_lup))
+                                    .y$object_type_lup <- object_type_lup
+                                  args_ls <- append(.y,
+                                                    list(overwrite_1L_lgl = T,
+                                                         pkg_dss_tb = .x,
+                                                         R_dir_1L_chr = R_dir_1L_chr))
+                                  rlang::exec(write_and_doc_ds,!!!args_ls)
+                                })
+  }
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = details_ls,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                     inc_for_main_user_lgl_ls = list(force_true_chr = fns_to_incl_chr,
-                                                                                     force_false_chr = NA_character_),
-                                                     args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
+                                                          inc_for_main_user_lgl_ls = list(force_true_chr = fns_to_incl_chr,
+                                                                                          force_false_chr = NA_character_),
+                                                          args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
                                                      ),
                                      fn_type_lup_tb = fn_type_lup_tb,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
@@ -683,7 +710,10 @@ write_pkg_dss <- function(pkg_ds_ls_ls,
                      abbreviations_lup = abbreviations_lup,
                      object_type_lup = object_type_lup,
                      pkg_dss_tb = pkg_dss_tb)
-  return(pkg_dss_tb)
+  dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb,
+                         fns_dmt_tb = fns_dmt_tb)
+
+  return(dss_records_ls)
 }
 write_pkg_setup_fls <- function(pkg_desc_ls,
                                 addl_badges_ls = NULL,
@@ -921,7 +951,7 @@ write_to_delete_dirs <- function(dir_paths_chr){
                                  fls_to_be_purged_chr %>% paste0(collapse = "\n"))),
                    " from your machine: \n",
                    "?"))
-    consent_1L_lgl <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
+    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
                                                        ifelse(length(dir_paths_chr) > 1,
                                                               "these directories",
                                                               "this directory"),
@@ -933,7 +963,7 @@ write_to_delete_dirs <- function(dir_paths_chr){
                                                        ":"),
                                   options_chr = c("Y", "N"),
                                   force_from_opts_1l_chr = T)
-    if(consent_1L_lgl %in% c("Y")){
+    if(consent_1L_chr %in% c("Y")){
       dir_paths_chr %>%
         purrr::walk(~unlink(.x, recursive=TRUE))
     }else{
@@ -949,11 +979,11 @@ write_to_delete_fls <- function(file_paths_chr){
                    " from your machine: \n",
                    file_paths_chr %>% paste0(collapse = "\n"),
                    "?"))
-    consent_1L_lgl <-  make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
+    consent_1L_chr <-  make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
                                                         ifelse(length(file_paths_chr)>1,"these files:","this file:")),
                                    options_chr = c("Y", "N"),
                                    force_from_opts_1l_chr = T)
-    if(consent_1L_lgl %in% c("Y")){
+    if(consent_1L_chr %in% c("Y")){
       paths_ls <- do.call(file.remove, list(file_paths_chr))
       #message(paste0("Files deleted:\n", file_paths_chr %>% paste0(collapse = "\n")))
     }else{

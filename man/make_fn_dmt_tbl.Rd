@@ -6,7 +6,7 @@
 \usage{
 make_fn_dmt_tbl(
   fns_path_chr,
-  fns_dir_chr = make_undmtd_fns_dir_chr(),
+  fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
   custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL,
     inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls =
     NULL),
@@ -20,7 +20,7 @@ make_fn_dmt_tbl(
 \arguments{
 \item{fns_path_chr}{Functions path (a character vector)}
 
-\item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr()}
+\item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 
 \item{custom_dmt_ls}{Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL,
 output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
@@ -41,4 +41,3 @@ Function documentation table (a tibble)
 \description{
 make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table. The function returns Function documentation table (a tibble).
 }
-\keyword{internal}

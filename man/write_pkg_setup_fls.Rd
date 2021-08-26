@@ -40,7 +40,7 @@ write_pkg_setup_fls(
 
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
 
-\item{on_cran_1L_lgl}{PARAM_DESCRIPTION, Default: F}
+\item{on_cran_1L_lgl}{On cran (a logical vector of length one), Default: F}
 
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 

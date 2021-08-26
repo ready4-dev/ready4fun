@@ -5,7 +5,7 @@
 \title{Write and document function files}
 \usage{
 write_and_doc_fn_fls(
-  fns_dmt_tb = NULL,
+  fns_dmt_tb,
   r_dir_1L_chr = "R",
   path_to_pkg_rt_1L_chr = getwd(),
   path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
@@ -16,7 +16,7 @@ write_and_doc_fn_fls(
 )
 }
 \arguments{
-\item{fns_dmt_tb}{Functions documentation (a tibble), Default: NULL}
+\item{fns_dmt_tb}{Functions documentation (a tibble)}
 
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 

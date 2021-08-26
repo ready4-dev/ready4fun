@@ -12,3 +12,4 @@ write_to_delete_dirs(dir_paths_chr)
 \description{
 write_to_delete_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to delete directories. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
+\keyword{internal}

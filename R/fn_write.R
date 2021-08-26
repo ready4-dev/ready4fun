@@ -49,6 +49,7 @@ write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.79
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom methods getSlots
+#' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
     purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
@@ -107,7 +108,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 }
 #' Write and document function files
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble), Default: NULL
+#' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code/Developer'
@@ -122,13 +123,11 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom devtools document load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
-write_and_doc_fn_fls <- function (fns_dmt_tb = NULL, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
+write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
     path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer", 
     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User", 
     make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
 {
-    if (is.null(fns_dmt_tb)) 
-        data("fns_dmt_tb", envir = environment())
     purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 
         c(T, F), ~{
             write_new_files(paths_chr = paste0(r_dir_1L_chr, 
@@ -252,6 +251,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @importFrom utils data
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
+#' @keywords internal
 write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -301,6 +301,7 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
 #' @importFrom stringi stri_replace_last
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
+#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T, 
     consent_1L_chr = NULL) 
 {
@@ -385,6 +386,7 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @importFrom utils data
 #' @importFrom purrr map_chr walk2 walk
 #' @importFrom dplyr filter select
+#' @keywords internal
 write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
     tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
@@ -439,6 +441,7 @@ write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, origina
 #' @export 
 #' @importFrom purrr pmap
 #' @importFrom rlang exec
+#' @keywords internal
 write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
     args_ls_ls = NULL) 
 {
@@ -467,6 +470,7 @@ write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NU
 #' @rdname write_inst_dir
 #' @export 
 
+#' @keywords internal
 write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
 {
     source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
@@ -532,6 +536,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manua
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
+#' @keywords internal
 write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -569,13 +574,14 @@ write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @rdname write_new_dirs
 #' @export 
 #' @importFrom purrr map_lgl walk
+#' @keywords internal
 write_new_dirs <- function (new_dirs_chr) 
 {
     new_dirs_chr <- new_dirs_chr[new_dirs_chr %>% purrr::map_lgl(~!dir.exists(.x))]
     if (!identical(new_dirs_chr, character(0))) {
         message(paste0("Are you sure that you want to write the following director", 
-            ifelse(length(new_dirs_chr) > 1, "ies", "y"), " to your machine: \n", 
-            new_dirs_chr %>% paste0(collapse = "\n"), "?"))
+            ifelse(length(new_dirs_chr) > 1, "ies", "y"), " to your machine? \n", 
+            new_dirs_chr %>% paste0(collapse = "\n")))
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
             ifelse(length(new_dirs_chr) > 1, "these directories?", 
                 "this directory?")), options_chr = c("Y", "N"), 
@@ -605,6 +611,7 @@ write_new_dirs <- function (new_dirs_chr)
 #' @importFrom purrr map flatten_chr map_chr map_lgl walk2 walk
 #' @importFrom fs path_file
 #' @importFrom rlang exec
+#' @keywords internal
 write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls = NULL, 
     text_ls = NULL, filename_1L_chr = NULL) 
 {
@@ -671,6 +678,7 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls 
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_replace str_sub str_locate
 #' @importFrom usethis use_dev_package use_package use_version
+#' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
     devtools::document()
@@ -703,6 +711,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     lifecycle::deprecate_soft("0.0.0.9298", what = "ready4fun::write_pkg()")
@@ -742,6 +751,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom utils data
 #' @importFrom purrr reduce
 #' @importFrom rlang exec
+#' @keywords internal
 write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_ls_ls = NULL, 
     details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     fns_to_incl_chr = NA_character_, fn_type_lup_tb = NULL, inc_all_mthds_1L_lgl = T, 
@@ -966,6 +976,7 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @importFrom utils packageDescription
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr) 
 {
     write_from_tmp(c(system.file("pkg_ready_fun.R", package = "ready4fun"), 
@@ -1001,6 +1012,7 @@ write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr)
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
 #' @importFrom utils write.csv
+#' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
@@ -1016,6 +1028,7 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_delete_dirs
 #' @export 
 #' @importFrom purrr map_lgl map flatten_chr walk
+#' @keywords internal
 write_to_delete_dirs <- function (dir_paths_chr) 
 {
     dir_paths_chr <- dir_paths_chr[dir_paths_chr %>% purrr::map_lgl(~dir.exists(.x))]
@@ -1050,6 +1063,7 @@ write_to_delete_dirs <- function (dir_paths_chr)
 #' @rdname write_to_delete_fls
 #' @export 
 #' @importFrom purrr map_lgl
+#' @keywords internal
 write_to_delete_fls <- function (file_paths_chr) 
 {
     file_paths_chr <- file_paths_chr[file_paths_chr %>% purrr::map_lgl(~file.exists(.x))]
@@ -1075,6 +1089,7 @@ write_to_delete_fls <- function (file_paths_chr)
 #' @rdname write_to_remove_collate
 #' @export 
 
+#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -1094,6 +1109,7 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
+#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -1124,6 +1140,7 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
+#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1151,6 +1168,7 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, 
 #' @importFrom devtools load_all document
 #' @importFrom utils packageDescription
 #' @importFrom usethis use_description
+#' @keywords internal
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {
@@ -1176,6 +1194,7 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
+#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1195,6 +1214,7 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
+#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     write_new_dirs(paste0(pkg_rt_dir_chr, "/vignettes"))

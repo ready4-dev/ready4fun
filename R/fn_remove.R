@@ -5,6 +5,7 @@
 #' @rdname remove_lbls_from_df
 #' @export 
 #' @importFrom purrr reduce
+#' @keywords internal
 remove_lbls_from_df <- function (data_df) 
 {
     unlabelled_data_df <- purrr::reduce(1:ncol(data_df), .init = data_df, 
@@ -28,6 +29,7 @@ remove_lbls_from_df <- function (data_df)
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
 #' @importFrom stringi stri_replace_last_fixed
+#' @keywords internal
 remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     is_generic_lgl = F) 
 {

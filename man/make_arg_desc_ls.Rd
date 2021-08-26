@@ -19,3 +19,4 @@ Argument description (a list)
 \description{
 make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).
 }
+\keyword{internal}

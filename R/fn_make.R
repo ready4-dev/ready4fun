@@ -7,6 +7,7 @@
 #' @rdname make_arg_desc
 #' @export 
 #' @importFrom utils data
+#' @keywords internal
 make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
@@ -29,6 +30,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @importFrom utils data
 #' @importFrom purrr map
 #' @importFrom stats setNames
+#' @keywords internal
 make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
@@ -53,6 +55,7 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, object_type_
 #' @rdname make_arg_desc_spine
 #' @export 
 #' @importFrom utils data
+#' @keywords internal
 make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     master_object_type_lup = NULL) 
 {
@@ -92,6 +95,7 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
 #' @importFrom stringi stri_replace_last_fixed
 #' @importFrom stringr str_replace_all
 #' @importFrom Hmisc capitalize
+#' @keywords internal
 make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
@@ -123,6 +127,7 @@ make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbrevi
 #' @importFrom utils data
 #' @importFrom purrr map_chr discard pluck
 #' @importFrom rlang exec
+#' @keywords internal
 make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     fn) 
 {
@@ -159,6 +164,7 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @rdname make_arg_type_abbr
 #' @export 
 #' @importFrom utils data
+#' @keywords internal
 make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
@@ -178,6 +184,7 @@ make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviatio
 #' @rdname make_arg_type_abbr_spine
 #' @export 
 
+#' @keywords internal
 make_arg_type_abbr_spine <- function (argument_nm_1L_chr, lup_tb) 
 {
     arg_type_1L_chr <- lup_tb$short_name_chr[endsWith(argument_nm_1L_chr, 
@@ -194,6 +201,7 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, lup_tb)
 #' @export 
 #' @importFrom dplyr mutate filter
 #' @importFrom purrr map
+#' @keywords internal
 make_arg_type_lup_ls <- function (object_type_lup = NULL) 
 {
     if (is.null(object_type_lup)) 
@@ -212,6 +220,7 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
 #' @export 
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr filter bind_rows distinct
+#' @keywords internal
 make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls) 
 {
     lower_tb <- purrr::map_dfr(arg_ls$new_dbl, ~pkg_depcy_ls[["fromto"]] %>% 
@@ -284,6 +293,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @importFrom utils data
 #' @importFrom purrr pmap_chr
 #' @importFrom stringr str_extract
+#' @keywords internal
 make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_type_lup_tb = NULL, 
     abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL, 
     is_generic_lgl = F) 
@@ -326,6 +336,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_type_lup_tb = NULL,
 #' @importFrom utils data
 #' @importFrom purrr map_lgl map_chr
 #' @importFrom tools toTitleCase
+#' @keywords internal
 make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_type_lup_tb = NULL, 
     abbreviations_lup = NULL) 
 {
@@ -385,6 +396,7 @@ make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_type_lup_tb 
 #' @rdname make_fn_dmt_spine
 #' @export 
 
+#' @keywords internal
 make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr = NA_character_, 
     fn, details_1L_chr = NA_character_, example_1L_lgl = F, export_1L_lgl = T, 
     class_name_1L_chr, doc_in_class_1L_lgl) 
@@ -422,6 +434,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @importFrom utils data
 #' @importFrom purrr map_lgl discard
 #' @importFrom rlang exec
+#' @keywords internal
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
         inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, 
@@ -461,6 +474,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @importFrom tibble tibble
 #' @importFrom dplyr mutate filter
 #' @importFrom tools toTitleCase
+#' @keywords internal
 make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     fn_type_lup_tb = NULL, abbreviations_lup = NULL, object_type_lup = NULL, 
     test_for_write_R_warning_fn = NULL) 
@@ -504,6 +518,7 @@ make_fn_dmt_tbl_tpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir
 #' @export 
 #' @importFrom purrr map_lgl map discard
 #' @importFrom stats setNames
+#' @keywords internal
 make_fn_nms <- function (path_1L_chr = "data-raw") 
 {
     undmtd_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr, 
@@ -533,6 +548,7 @@ make_fn_nms <- function (path_1L_chr = "data-raw")
 #' @importFrom Hmisc capitalize
 #' @importFrom purrr map_chr
 #' @importFrom stringi stri_replace_last_fixed
+#' @keywords internal
 make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     is_generic_lgl = F) 
 {
@@ -578,6 +594,7 @@ make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = 
 #' @rdname make_fn_types
 #' @export 
 
+#' @keywords internal
 make_fn_types <- function () 
 {
     fns_type_chr <- c("fns", "gnrcs", "mthds")
@@ -594,6 +611,7 @@ make_fn_types <- function ()
 #' @rdname make_gtr_str_dmt_spine
 #' @export 
 #' @importFrom stringr str_replace
+#' @keywords internal
 make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1L_chr, 
     doc_in_class_1L_lgl, example_1L_lgl = F) 
 {
@@ -699,6 +717,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
 #' @importFrom stringi stri_locate_last_fixed
 #' @importFrom purrr flatten_chr
 #' @importFrom stats setNames
+#' @keywords internal
 make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA_character_, 
     fn_det_1L_chr = NA_character_, fn_out_type_1L_chr = NA_character_, 
     args_ls = NULL, fn = NULL, abbreviations_lup = NULL, object_type_lup = NULL) 
@@ -850,6 +869,7 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
 #' @importFrom purrr map2_chr map_chr
 #' @importFrom stringr str_sub str_replace
 #' @importFrom tibble tibble
+#' @keywords internal
 make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine()) 
 {
     obj_tb <- obj_lup_spine
@@ -886,6 +906,7 @@ make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine())
 #' @rdname make_obj_lup_spine
 #' @export 
 #' @importFrom tibble tibble
+#' @keywords internal
 make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_tb"), 
     new_entries_tb = NULL) 
 {
@@ -923,6 +944,7 @@ make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_
 #' @importFrom stringr str_detect str_sub str_locate str_trim
 #' @importFrom tools toTitleCase
 #' @importFrom usethis use_gpl3_license
+#' @keywords internal
 make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr, 
     pkg_desc_1L_chr, authors_prsn, urls_chr) 
 {
@@ -954,6 +976,7 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
 #' @rdname make_pkg_ds_ls
 #' @export 
 
+#' @keywords internal
 make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbreviations_lup = NULL, 
     format_1L_chr = "A tibble", object_type_lup = NULL, simple_lup_1L_lgl = F, 
     url_1L_chr = NA_character_, vars_ls = NULL) 
@@ -974,6 +997,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @rdname make_prompt
 #' @export 
 
+#' @keywords internal
 make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) 
 {
     acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
@@ -999,6 +1023,7 @@ make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1l_c
 #' @rdname make_ret_obj_desc
 #' @export 
 
+#' @keywords internal
 make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T) 
 {
     ret_obj_nm_1L_chr <- get_return_obj_nm(fn)
@@ -1025,6 +1050,7 @@ make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T
 #' @rdname make_short_long_nms_vec
 #' @export 
 
+#' @keywords internal
 make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_chr = character(0)) 
 {
     short_vecs_chr <- paste0(short_vecs_chr, "_vec")
@@ -1051,6 +1077,7 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
 #' @importFrom sinew makeOxygen
 #' @importFrom stringr str_replace
 #' @importFrom purrr discard
+#' @keywords internal
 make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr, fn, 
     details_1L_chr = NA_character_, example_1L_lgl = F, export_1L_lgl = T, 
     class_name_1L_chr = "", exclude_if_match_chr) 
@@ -1099,6 +1126,7 @@ make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_c
 #' @rdname make_undmtd_fns_dir_chr
 #' @export 
 #' @importFrom purrr map_lgl
+#' @keywords internal
 make_undmtd_fns_dir_chr <- function (path_1L_chr = "data-raw", drop_empty_1L_lgl = F) 
 {
     undocumented_fns_dir_chr <- paste0(path_1L_chr, "/", make_fn_types())

@@ -17,3 +17,4 @@ Functions to keep (a character vector)
 \description{
 get_all_depcys_of_fns() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get all dependencies of functions. Function argument pkg_depcy_ls specifies the where to look for the required object. The function returns Functions to keep (a character vector).
 }
+\keyword{internal}

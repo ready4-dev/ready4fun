@@ -5,6 +5,7 @@
 #' @rdname read_fns
 #' @export 
 #' @importFrom purrr walk
+#' @keywords internal
 read_fns <- function (fns_dir_1L_chr = "data-raw/fns/") 
 {
     fns_path_chr <- list.files(fns_dir_1L_chr, pattern = "*.R$", 

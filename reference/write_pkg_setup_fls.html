@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9306</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9307</span>
       </span>
     </div>
 
@@ -130,19 +130,21 @@
 
     <pre class="usage"><span class='fu'>write_pkg_setup_fls</span><span class='op'>(</span>
   <span class='va'>pkg_desc_ls</span>,
+  <span class='va'>copyright_holders_chr</span>,
+  <span class='va'>github_repo_1L_chr</span>,
   addl_badges_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   badges_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
   check_type_1L_chr <span class='op'>=</span> <span class='st'>"none"</span>,
-  <span class='va'>copyright_holders_chr</span>,
   delete_r_dir_cnts_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
-  <span class='va'>github_repo_1L_chr</span>,
+  dev_pkgs_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   lifecycle_stage_1L_chr <span class='op'>=</span> <span class='st'>"experimental"</span>,
   incr_ver_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   on_cran_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   path_to_pkg_logo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   add_gh_site_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   dev_pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
-  path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>
+  path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
+  user_manual_fns_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -151,6 +153,14 @@
     <tr>
       <th>pkg_desc_ls</th>
       <td><p>Package description (a list)</p></td>
+    </tr>
+    <tr>
+      <th>copyright_holders_chr</th>
+      <td><p>Copyright holders (a character vector)</p></td>
+    </tr>
+    <tr>
+      <th>github_repo_1L_chr</th>
+      <td><p>Github repo (a character vector of length one)</p></td>
     </tr>
     <tr>
       <th>addl_badges_ls</th>
@@ -165,16 +175,12 @@
       <td><p>Check type (a character vector of length one), Default: 'none'</p></td>
     </tr>
     <tr>
-      <th>copyright_holders_chr</th>
-      <td><p>Copyright holders (a character vector)</p></td>
-    </tr>
-    <tr>
       <th>delete_r_dir_cnts_1L_lgl</th>
       <td><p>Delete r directory contents (a logical vector of length one), Default: F</p></td>
     </tr>
     <tr>
-      <th>github_repo_1L_chr</th>
-      <td><p>Github repo (a character vector of length one)</p></td>
+      <th>dev_pkgs_chr</th>
+      <td><p>Development packages (a character vector), Default: 'NA'</p></td>
     </tr>
     <tr>
       <th>lifecycle_stage_1L_chr</th>
@@ -203,6 +209,10 @@
     <tr>
       <th>path_to_pkg_rt_1L_chr</th>
       <td><p>Path to package root (a character vector of length one), Default: getwd()</p></td>
+    </tr>
+    <tr>
+      <th>user_manual_fns_chr</th>
+      <td><p>User manual functions (a character vector), Default: 'NA'</p></td>
     </tr>
     </table>
 

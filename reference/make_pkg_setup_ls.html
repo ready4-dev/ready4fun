@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get new function types — get_new_fn_types • ready4fun</title>
+<title>Make package setup — make_pkg_setup_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get new function types — get_new_fn_types" />
-<meta property="og:description" content="get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector)." />
+<meta property="og:title" content="Make package setup — make_pkg_setup_ls" />
+<meta property="og:description" content="make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,51 +119,106 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get new function types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_get.R'><code>R/fn_get.R</code></a></small>
-    <div class="hidden name"><code>get_new_fn_types.Rd</code></div>
+    <h1>Make package setup</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
+    <div class="hidden name"><code>make_pkg_setup_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).</p>
+    <p>make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_new_fn_types</span><span class='op'>(</span>
-  <span class='va'>abbreviations_lup</span>,
-  <span class='va'>fn_type_lup_tb</span>,
-  fn_nms_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
-  undmtd_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>make_pkg_setup_ls</span><span class='op'>(</span>
+  <span class='va'>pkg_desc_ls</span>,
+  <span class='va'>copyright_holders_chr</span>,
+  <span class='va'>github_repo_1L_chr</span>,
+  add_gh_site_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
+  addl_badges_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  badges_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  check_type_1L_chr <span class='op'>=</span> <span class='st'>"standard"</span>,
+  delete_r_dir_cnts_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  dev_pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  dev_pkgs_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  lifecycle_stage_1L_chr <span class='op'>=</span> <span class='st'>"experimental"</span>,
+  incr_ver_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  on_cran_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  path_to_pkg_logo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
+  user_manual_fns_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table)</p></td>
+      <th>pkg_desc_ls</th>
+      <td><p>Package description (a list)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble)</p></td>
+      <th>copyright_holders_chr</th>
+      <td><p>Copyright holders (a character vector)</p></td>
     </tr>
     <tr>
-      <th>fn_nms_ls</th>
-      <td><p>Function names (a list), Default: make_fn_nms()</p></td>
+      <th>github_repo_1L_chr</th>
+      <td><p>Github repo (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>undmtd_fns_dir_chr</th>
-      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()</p></td>
+      <th>add_gh_site_1L_lgl</th>
+      <td><p>Add gh site (a logical vector of length one), Default: T</p></td>
     </tr>
     <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <th>addl_badges_ls</th>
+      <td><p>Addl badges (a list), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>badges_lup</th>
+      <td><p>Badges (a lookup table), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>check_type_1L_chr</th>
+      <td><p>Check type (a character vector of length one), Default: 'standard'</p></td>
+    </tr>
+    <tr>
+      <th>delete_r_dir_cnts_1L_lgl</th>
+      <td><p>Delete r directory contents (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>dev_pkg_nm_1L_chr</th>
+      <td><p>Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())</p></td>
+    </tr>
+    <tr>
+      <th>dev_pkgs_chr</th>
+      <td><p>Development packages (a character vector), Default: 'NA'</p></td>
+    </tr>
+    <tr>
+      <th>lifecycle_stage_1L_chr</th>
+      <td><p>Lifecycle stage (a character vector of length one), Default: 'experimental'</p></td>
+    </tr>
+    <tr>
+      <th>incr_ver_1L_lgl</th>
+      <td><p>Incr ver (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>on_cran_1L_lgl</th>
+      <td><p>On cran (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>path_to_pkg_logo_1L_chr</th>
+      <td><p>Path to package logo (a character vector of length one), Default: 'NA'</p></td>
+    </tr>
+    <tr>
+      <th>path_to_pkg_rt_1L_chr</th>
+      <td><p>Path to package root (a character vector of length one), Default: getwd()</p></td>
+    </tr>
+    <tr>
+      <th>user_manual_fns_chr</th>
+      <td><p>User manual functions (a character vector), Default: 'NA'</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>New function types (a character vector)</p>
+    <p>Package setup (a list)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

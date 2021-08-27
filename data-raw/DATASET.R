@@ -10,8 +10,12 @@ if(!dir.exists(fns_dir_1L_chr))
 # 3. MANUAL STEP. Write all your functions to R files in the new "fns" directory.
 #
 # 4. Read all undocumented functions in the temporary "fns" directory.
+#fns_env <- new.env(parent = baseenv())
+ee <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
-fns_path_chr <- read_fns(fns_dir_1L_chr)
+fns_env_ls <- read_fns(fns_dir_1L_chr,
+                       fns_env = ee)
+rm(read_fns)
 #
 # 5. Create code house-style datasets.
 # Every time the datasets that describe key features of the code house-style to be used require creation
@@ -32,7 +36,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                browser_preview = F,
                                                to_clipboard = F)))
 ###
-pkg_desc_ls <- make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
+pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
 pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem. The tools contained in this package automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE. You should only therefore only trial this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
 authors_prsn = c(utils::person(
   given = "Matthew",family = "Hamilton",
@@ -54,19 +58,14 @@ urls_chr = c("https://ready4-dev.github.io/ready4fun/",
              "https://github.com/ready4-dev/ready4fun",
              "https://www.ready4-dev.com/"))
 pkg_setup_ls <- pkg_desc_ls %>%
-  make_pkg_setup_ls(#addl_badges_ls = NULL, # simplify
-                    addl_pkgs_ls = make_addl_pkgs_ls(suggests_chr = "rmarkdown"), ##
+  fns_env_ls$fns_env$make_pkg_setup_ls(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
                     badges_lup = badges_lup,
-                    build_ignore_ls = make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
+                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                     check_type_1L_chr = "standard",
                     copyright_holders_chr = "Orygen",
-                    #delete_r_dir_cnts_1L_lgl = T,
-                    #dev_pkgs_chr = c("dataverse"),
-                    #incr_ver_1L_lgl = F,
-                    #github_repo_1L_chr = "ready4-dev/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
-                    ready4_type_1L_chr = "authoring", #
+                    ready4_type_1L_chr = "authoring",
                     user_manual_fns_chr = c("get_from_lup_obj","get_rds_from_dv",
                                             "make_dmt_for_all_fns",
                                             "make_fn_type_lup", "make_lines_for_fn_dmt",
@@ -75,35 +74,33 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                             "write_documented_fns", "write_fn_type_dirs",
                                             "write_links_for_website", "write_pkg_setup_fls",
                                             "write_pt_lup_db", "write_ws"))
-pkg_ds_ls_ls <- list(get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH PKG DESC FILE
-                       make_pkg_ds_ls(db_df = .,
+pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH PKG DESC FILE
+                       fns_env_ls$fns_env$make_pkg_ds_ls(db_df = .,
                                       abbreviations_lup = .,
                                       db_1L_chr = "object_type_lup",
                                       desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
                                       object_type_lup = .,
                                       title_1L_chr = "Object abbreviations lookup table",
                                       url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"),
-                     make_pkg_ds_ls(db_df = badges_lup,
+                     fns_env_ls$fns_env$make_pkg_ds_ls(db_df = badges_lup,
                                     db_1L_chr = "badges_lup",
                                     desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
                                     title_1L_chr = "ready4 badges lookup table",
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 ####
-rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
+rlang::exec(fns_env_ls$fns_env$write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
+dss_records_ls <- fns_env_ls$fns_env$write_pkg_dss(pkg_ds_ls_ls,
                                 fns_to_incl_chr = pkg_setup_ls$user_manual_fns_chr,
                                 pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                   strsplit(",") %>%
                                   unlist() %>%
                                   purrr::pluck(1))
-add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
-add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
+fns_env_ls$fns_env$add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
+fns_env_ls$fns_env$add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
 ## Add path to dmt dir and create user and dvpr subdirs
-write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
+fns_env_ls$fns_env$write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
                      dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr,
                      path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
-                     # path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/dfds",
-                     # path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/fsd",
                      r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                      update_pkgdown_1L_lgl = T)
 ## Add manuals to DV
@@ -113,7 +110,7 @@ project_url_1L_chr <- pkg_desc_ls$URL %>%
   purrr::pluck(3)
 if(is.null(project_url_1L_chr))
   project_url_1L_chr <-  NA_character_
-write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_user_0.0.0.9289.pdf",
+fns_env_ls$fns_env$write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_user_0.0.0.9289.pdf",
                         developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_developer_0.0.0.9289.pdf",
                         project_website_url_1L_chr = project_url_1L_chr)
 

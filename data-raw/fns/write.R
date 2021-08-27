@@ -649,14 +649,14 @@ write_pkg <- function(package_1L_chr,
                  edit_fn_ls = list(function(txt_chr,
                                     package_1L_chr){
                      pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-                     txt_chr <- purrr::map_chr(txt_chr,
-                                               ~ stringr::str_replace_all(.x,
-                                                                          "ready4fun",
-                                                                          package_1L_chr))
-                     txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title %>%
-                                            stringr::str_replace_all("\n","\n#' "))
-                     txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description %>%
-                                            stringr::str_replace_all("\n","\n#' "))
+                     # txt_chr <- purrr::map_chr(txt_chr,
+                     #                           ~ stringr::str_replace_all(.x,
+                     #                                                      "ready4fun",
+                     #                                                      package_1L_chr))
+                     # txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title %>%
+                     #                        stringr::str_replace_all("\n","\n#' "))
+                     # txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description %>%
+                     #                        stringr::str_replace_all("\n","\n#' "))
                      txt_chr
                    }),
                    args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
@@ -920,18 +920,18 @@ write_std_imp <- function(R_dir_1L_chr = "R",
                  edit_fn_ls = list(function(txt_chr,
                                             package_1L_chr){
                    pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-                   txt_chr <- purrr::map_chr(txt_chr,
-                                             ~ stringr::str_replace_all(.x,
-                                                                        "ready4fun",
-                                                                        package_1L_chr))
-                   txt_chr[1] <- paste0("#' ",
-                                        package_1L_chr,
-                                        ": ",
-                                        pkg_desc_ls$Title %>%
-                                          stringr::str_replace_all("\n","\n#' "))
-                   txt_chr[3] <- paste0("#' ",
-                                        pkg_desc_ls$Description %>%
-                                          stringr::str_replace_all("\n","\n#' "))
+                   # txt_chr <- purrr::map_chr(txt_chr,
+                   #                           ~ stringr::str_replace_all(.x,
+                   #                                                      "ready4fun",
+                   #                                                      package_1L_chr))
+                   # txt_chr[1] <- paste0("#' ",
+                   #                      package_1L_chr,
+                   #                      ": ",
+                   #                      pkg_desc_ls$Title %>%
+                   #                        stringr::str_replace_all("\n","\n#' "))
+                   # txt_chr[3] <- paste0("#' ",
+                   #                      pkg_desc_ls$Description %>%
+                   #                        stringr::str_replace_all("\n","\n#' "))
                    txt_chr
                    },
                    NULL,

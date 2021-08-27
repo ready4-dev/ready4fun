@@ -737,8 +737,6 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom lifecycle deprecate_soft
 #' @importFrom utils packageDescription
-#' @importFrom purrr map_chr
-#' @importFrom stringr str_replace_all
 #' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
@@ -747,13 +745,6 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
         dest_paths_chr = paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, 
             ".R"), edit_fn_ls = list(function(txt_chr, package_1L_chr) {
             pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-            txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
-                "ready4fun", package_1L_chr))
-            txt_chr[1] <- paste0("#' ", package_1L_chr, ": ", 
-                pkg_desc_ls$Title %>% stringr::str_replace_all("\n", 
-                  "\n#' "))
-            txt_chr[3] <- paste0("#' ", pkg_desc_ls$Description %>% 
-                stringr::str_replace_all("\n", "\n#' "))
             txt_chr
         }), args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
@@ -1004,8 +995,6 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @rdname write_std_imp
 #' @export 
 #' @importFrom utils packageDescription
-#' @importFrom purrr map_chr
-#' @importFrom stringr str_replace_all
 #' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr) 
 {
@@ -1017,13 +1006,6 @@ write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr)
             "/imp_mthds.R")), edit_fn_ls = list(function(txt_chr, 
             package_1L_chr) {
             pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-            txt_chr <- purrr::map_chr(txt_chr, ~stringr::str_replace_all(.x, 
-                "ready4fun", package_1L_chr))
-            txt_chr[1] <- paste0("#' ", package_1L_chr, ": ", 
-                pkg_desc_ls$Title %>% stringr::str_replace_all("\n", 
-                  "\n#' "))
-            txt_chr[3] <- paste0("#' ", pkg_desc_ls$Description %>% 
-                stringr::str_replace_all("\n", "\n#' "))
             txt_chr
         }, NULL, NULL), args_ls_ls = list(list(package_1L_chr = package_1L_chr), 
             NULL, NULL))

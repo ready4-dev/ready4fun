@@ -502,7 +502,6 @@ make_fn_type_lup <- function(fn_type_nm_chr = character(0),
   return(fn_type_lup_tb)
 }
 make_fn_nms <- function(path_1L_chr = "data-raw"){
-
   undmtd_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr,
                                                 drop_empty_1L_lgl = T)
   fn_types_chr <- make_fn_types()
@@ -514,7 +513,10 @@ make_fn_nms <- function(path_1L_chr = "data-raw"){
                                                                           suffix_1L_lgl))
                                    })]
   fns_1L_chr_ls <- undmtd_fns_dir_chr %>%
-    purrr::map(~read_fns(.x)) %>%
+    purrr::map(~list.files(.x,
+                           pattern = "*.R$",
+                           full.names = TRUE,
+                           ignore.case = TRUE) ) %>%
     stats::setNames(fn_types_chr)
   fns_1L_chr_ls <- fns_1L_chr_ls %>% purrr::discard(~ identical(.x,character(0)))
   return(fns_1L_chr_ls)

@@ -12,15 +12,13 @@ write_pkg_setup_fls(
   badges_lup = NULL,
   check_type_1L_chr = "none",
   delete_r_dir_cnts_1L_lgl = F,
-  dev_pkgs_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
   incr_ver_1L_lgl = T,
   on_cran_1L_lgl = F,
   path_to_pkg_logo_1L_chr = NA_character_,
   add_gh_site_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-  path_to_pkg_rt_1L_chr = getwd(),
-  user_manual_fns_chr = NA_character_
+  path_to_pkg_rt_1L_chr = getwd()
 )
 }
 \arguments{
@@ -38,8 +36,6 @@ write_pkg_setup_fls(
 
 \item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
 
-\item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
-
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
 \item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
@@ -53,9 +49,8 @@ write_pkg_setup_fls(
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
-
-\item{user_manual_fns_chr}{User manual functions (a character vector), Default: 'NA'}
 }
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 }
+\keyword{internal}

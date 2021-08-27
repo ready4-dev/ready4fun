@@ -54,16 +54,19 @@ urls_chr = c("https://ready4-dev.github.io/ready4fun/",
              "https://github.com/ready4-dev/ready4fun",
              "https://www.ready4-dev.com/"))
 pkg_setup_ls <- pkg_desc_ls %>%
-  make_pkg_setup_ls(addl_badges_ls = list(ready4 = "authoring"),
+  make_pkg_setup_ls(#addl_badges_ls = NULL, # simplify
+                    addl_pkgs_ls = make_addl_pkgs_ls(suggests_chr = "rmarkdown"), ##
                     badges_lup = badges_lup,
+                    build_ignore_ls = make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                     check_type_1L_chr = "standard",
                     copyright_holders_chr = "Orygen",
-                    delete_r_dir_cnts_1L_lgl = T,
+                    #delete_r_dir_cnts_1L_lgl = T,
                     #dev_pkgs_chr = c("dataverse"),
-                    incr_ver_1L_lgl = F,
-                    github_repo_1L_chr = "ready4-dev/ready4fun",
+                    #incr_ver_1L_lgl = F,
+                    #github_repo_1L_chr = "ready4-dev/ready4fun",
                     lifecycle_stage_1L_chr = "experimental",
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
+                    ready4_type_1L_chr = "authoring", #
                     user_manual_fns_chr = c("get_from_lup_obj","get_rds_from_dv",
                                             "make_dmt_for_all_fns",
                                             "make_fn_type_lup", "make_lines_for_fn_dmt",
@@ -86,21 +89,22 @@ pkg_ds_ls_ls <- list(get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH P
                                     title_1L_chr = "ready4 badges lookup table",
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 ####
-rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls)
+rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
 dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
                                 fns_to_incl_chr = pkg_setup_ls$user_manual_fns_chr,
                                 pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                   strsplit(",") %>%
                                   unlist() %>%
                                   purrr::pluck(1))
-usethis::use_build_ignore("initial_setup.R")
-usethis::use_package("rmarkdown", type = "Suggests")
+add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
+add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
 ## Add path to dmt dir and create user and dvpr subdirs
 write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
-                     dev_pkgs_chr = pkg_setup_ls$dev_pkgs_chr,
-                     path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
-                     path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",
-                     r_dir_1L_chr = paste0(pkg_setup_ls$path_to_pkg_rt_1L_chr,"/R"),
+                     dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr,
+                     path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
+                     # path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/dfds",
+                     # path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/fsd",
+                     r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                      update_pkgdown_1L_lgl = T)
 ## Add manuals to DV
 project_url_1L_chr <- pkg_desc_ls$URL %>%

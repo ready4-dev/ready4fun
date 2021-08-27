@@ -1,3 +1,26 @@
+#' Make addl packages
+#' @description make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make addl packages list. The function returns Addl packages (a list).
+#' @param depends_chr Depends (a character vector), Default: NULL
+#' @param enhances_chr Enhances (a character vector), Default: NULL
+#' @param imports_chr Imports (a character vector), Default: NULL
+#' @param linking_to_chr Linking to (a character vector), Default: NULL
+#' @param suggests_chr Suggests (a character vector), Default: NULL
+#' @param append_ls Append (a list), Default: NULL
+#' @return Addl packages (a list)
+#' @rdname make_addl_pkgs_ls
+#' @export 
+#' @importFrom purrr discard
+#' @keywords internal
+make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_chr = NULL, 
+    linking_to_chr = NULL, suggests_chr = NULL, append_ls = NULL) 
+{
+    addl_pkgs_ls <- append(list(Depends = depends_chr, Enhances = enhances_chr, 
+        Imports = imports_chr, LinkingTo = linking_to_chr, Suggests = suggests_chr), 
+        append_ls) %>% purrr::discard(is.null)
+    if (length(addl_pkgs_ls) == 0) 
+        addl_pkgs_ls <- NULL
+    return(addl_pkgs_ls)
+}
 #' Make argument description
 #' @description make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description. The function returns Argument description (a character vector).
 #' @param fn_args_chr Function arguments (a character vector)
@@ -211,6 +234,20 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL)
         purrr::map(~dplyr::filter(new_lup, nchar_int == .x))
     return(lup_ls)
 }
+#' Make build ignore
+#' @description make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).
+#' @param file_nms_chr File names (a character vector), Default: NULL
+#' @param regex_chr Regex (a character vector), Default: NULL
+#' @return Build ignore (a list)
+#' @rdname make_build_ignore_ls
+#' @export 
+
+#' @keywords internal
+make_build_ignore_ls <- function (file_nms_chr = NULL, regex_chr = NULL) 
+{
+    build_ignore_ls = list(file_nms_chr = file_nms_chr, regex_chr = regex_chr)
+    return(build_ignore_ls)
+}
 #' Make dependent functions
 #' @description make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make dependent functions list. The function returns Argument (a list).
 #' @param arg_ls Argument (a list)
@@ -249,6 +286,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @importFrom utils data
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter mutate case_when
+#' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
@@ -577,6 +615,7 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom dplyr arrange
+#' @keywords internal
 make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = character(0), 
     first_arg_desc_chr = character(0), second_arg_desc_chr = character(0), 
     is_generic_lgl = logical(0), is_method_lgl = logical(0)) 
@@ -671,6 +710,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @rdname make_lines_for_fn_dmt
 #' @export 
 #' @importFrom utils data
+#' @keywords internal
 make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
@@ -992,41 +1032,61 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @description make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
-#' @param github_repo_1L_chr Github repo (a character vector of length one)
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param addl_badges_ls Addl badges (a list), Default: NULL
+#' @param addl_pkgs_ls Addl packages (a list), Default: make_addl_pkgs_ls()
 #' @param badges_lup Badges (a lookup table), Default: NULL
+#' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
-#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
+#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param github_repo_1L_chr Github repo (a character vector of length one), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: F
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return Package setup (a list)
 #' @rdname make_pkg_setup_ls
 #' @export 
-
+#' @importFrom purrr pluck discard
+#' @importFrom stringr str_trim str_remove
 #' @keywords internal
-make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
-    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, badges_lup = NULL, 
-    check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = F, 
+make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, add_gh_site_1L_lgl = T, 
+    addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
+    badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
+    check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
-    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = F, 
-    on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
-    path_to_pkg_rt_1L_chr = getwd(), user_manual_fns_chr = NA_character_) 
+    github_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
+    incr_ver_1L_lgl = F, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
+    path_to_pkg_rt_1L_chr = getwd(), ready4_type_1L_chr, user_manual_fns_chr = NA_character_) 
 {
-    pkg_setup_ls <- list(pkg_desc_ls = pkg_desc_ls, copyright_holders_chr = copyright_holders_chr, 
-        github_repo_1L_chr = github_repo_1L_chr, add_gh_site_1L_lgl = add_gh_site_1L_lgl, 
-        addl_badges_ls = addl_badges_ls, badges_lup = badges_lup, 
-        check_type_1L_chr = check_type_1L_chr, delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
-        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, dev_pkgs_chr = dev_pkgs_chr, 
-        lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, incr_ver_1L_lgl = incr_ver_1L_lgl, 
-        on_cran_1L_lgl = on_cran_1L_lgl, path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, 
-        path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr, user_manual_fns_chr = user_manual_fns_chr)
+    if (!is.na(ready4_type_1L_chr)) {
+        append_ls <- list(ready4 = ready4_type_1L_chr)
+    }
+    else {
+        append_ls <- NULL
+    }
+    if (is.na(github_repo_1L_chr)) 
+        github_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
+            unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 
+            stringr::str_remove("https://github.com/")
+    addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
+    if (length(addl_badges_ls) == 0) 
+        addl_badges_ls <- NULL
+    pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
+        copyright_holders_chr = copyright_holders_chr, github_repo_1L_chr = github_repo_1L_chr, 
+        add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 
+        badges_lup = badges_lup, check_type_1L_chr = check_type_1L_chr, 
+        delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
+        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, 
+        incr_ver_1L_lgl = incr_ver_1L_lgl, on_cran_1L_lgl = on_cran_1L_lgl, 
+        path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr), 
+        subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
+            dev_pkgs_chr = dev_pkgs_chr, user_manual_fns_chr = user_manual_fns_chr))
     return(pkg_setup_ls)
 }
 #' Make prompt

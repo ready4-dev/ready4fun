@@ -15,6 +15,7 @@
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
+#' @keywords internal
 write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     pkg_nm_1L_chr = get_dev_pkg_nm(), short_name_chr = NA_character_, 
     long_name_chr = NA_character_, no_plural_chr = NA_character_, 
@@ -79,6 +80,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @importFrom tibble tibble add_case
 #' @importFrom utils data
 #' @importFrom devtools document load_all
+#' @keywords internal
 write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
@@ -111,38 +113,50 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code/Developer'
-#' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code/User'
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one)
+#' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: deprecated()
+#' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: deprecated()
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param update_pkgdown_1L_lgl Update pkgdown (a logical vector of length one), Default: T
 #' @return NULL
 #' @rdname write_and_doc_fn_fls
 #' @export 
+#' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom purrr walk2 map2 flatten_chr discard
 #' @importFrom devtools document load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
+#' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
-    path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer", 
-    path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User", 
-    make_pdfs_1L_lgl = T, dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
+    path_to_dmt_dir_1L_chr, path_to_dvpr_dmt_dir_1L_chr = deprecated(), 
+    path_to_user_dmt_dir_1L_chr = deprecated(), make_pdfs_1L_lgl = T, 
+    dev_pkgs_chr = NA_character_, update_pkgdown_1L_lgl = T) 
 {
-    purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr, path_to_user_dmt_dir_1L_chr), 
-        c(T, F), ~{
-            write_new_files(paths_chr = paste0(r_dir_1L_chr, 
-                "/", fns_dmt_tb$file_pfx_chr[1], fns_dmt_tb$file_nm_chr %>% 
-                  unique()), custom_write_ls = list(fn = write_fn_fl, 
-                args_ls = list(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
-                  document_unexp_lgl = .y, consent_1L_chr = "Y")))
-            devtools::document()
-            devtools::load_all()
-            write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, 
-                incr_ver_1L_lgl = .y)
-            devtools::load_all()
-            if (make_pdfs_1L_lgl) 
-                devtools::build_manual(path = .x)
-        })
+    if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9307", "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)", 
+            details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+    }
+    if (lifecycle::is_present(path_to_user_dmt_dir_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9307", "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)", 
+            details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+    }
+    write_new_dirs(c(path_to_dmt_dir_1L_chr, paste0(path_to_dmt_dir_1L_chr, 
+        "/Developer"), paste0(path_to_dmt_dir_1L_chr, "/User")))
+    purrr::walk2(list(paste0(path_to_dmt_dir_1L_chr, "/Developer"), 
+        paste0(path_to_dmt_dir_1L_chr, "/User")), c(T, F), ~{
+        write_new_files(paths_chr = paste0(r_dir_1L_chr, "/", 
+            fns_dmt_tb$file_pfx_chr[1], fns_dmt_tb$file_nm_chr %>% 
+                unique()), custom_write_ls = list(fn = write_fn_fl, 
+            args_ls = list(fns_dmt_tb, r_dir_1L_chr = r_dir_1L_chr, 
+                document_unexp_lgl = .y)))
+        devtools::document()
+        devtools::load_all()
+        write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, incr_ver_1L_lgl = .y)
+        devtools::load_all()
+        if (make_pdfs_1L_lgl) 
+            devtools::build_manual(path = .x)
+    })
     if (update_pkgdown_1L_lgl) {
         datasets_chr <- utils::data(package = get_dev_pkg_nm(path_to_pkg_rt_1L_chr), 
             envir = environment())$results[, 3]
@@ -189,6 +203,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom utils data
+#' @keywords internal
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
@@ -216,6 +231,7 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
 #' @importFrom sinew makeOxyFile
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_sub
+#' @keywords internal
 write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
     sinew::makeOxyFile(tmp_fn_dir_1L_chr, verbose = F)
@@ -366,6 +382,7 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T,
 #' @rdname write_fn_type_dirs
 #' @export 
 
+#' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
@@ -491,6 +508,7 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @rdname write_links_for_website
 #' @export 
 #' @importFrom stats na.omit
+#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), user_manual_url_1L_chr = NA_character_, 
     developer_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
 {
@@ -658,6 +676,7 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls 
                       "", paste0("/", filename_1L_chr))), recursive = recursive_1L_lgl))
                 }
                 if (!is.null(custom_write_ls)) {
+                  custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
                   rlang::exec(custom_write_ls$fn, !!!custom_write_ls$args_ls)
                 }
             }
@@ -807,7 +826,6 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
-#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
@@ -815,7 +833,6 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return NULL
 #' @rdname write_pkg_setup_fls
 #' @export 
@@ -828,13 +845,13 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @importFrom lubridate year
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
+#' @keywords internal
 write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
     addl_badges_ls = NULL, badges_lup = NULL, check_type_1L_chr = "none", 
-    delete_r_dir_cnts_1L_lgl = F, dev_pkgs_chr = NA_character_, 
-    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = T, 
-    on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
+    delete_r_dir_cnts_1L_lgl = F, lifecycle_stage_1L_chr = "experimental", 
+    incr_ver_1L_lgl = T, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
     add_gh_site_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    path_to_pkg_rt_1L_chr = getwd(), user_manual_fns_chr = NA_character_) 
+    path_to_pkg_rt_1L_chr = getwd()) 
 {
     options(usethis.description = pkg_desc_ls)
     use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh", 
@@ -964,6 +981,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo
 #' @rdname write_pt_lup_db
 #' @export 
 
+#' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 
@@ -1241,6 +1259,7 @@ write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".")
 #' @rdname write_ws
 #' @export 
 #' @importFrom purrr map_chr
+#' @keywords internal
 write_ws <- function (path_1L_chr) 
 {
     top_level_chr <- paste0(path_1L_chr, "/ready4/", c("Code", 

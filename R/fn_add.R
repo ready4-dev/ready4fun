@@ -1,3 +1,41 @@
+#' Add addl packages
+#' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add addl packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
+#' @param addl_pkgs_ls Addl packages (a list)
+#' @return NULL
+#' @rdname add_addl_pkgs
+#' @export 
+#' @importFrom purrr walk2 walk
+#' @importFrom usethis use_package
+#' @keywords internal
+add_addl_pkgs <- function (addl_pkgs_ls) 
+{
+    if (!is.null(addl_pkgs_ls)) 
+        addl_pkgs_ls %>% purrr::walk2(names(addl_pkgs_ls), ~{
+            pkgs_chr <- .x
+            type_1L_chr <- .y
+            pkgs_chr %>% purrr::walk(~usethis::use_package(.x, 
+                type = type_1L_chr))
+        })
+}
+#' Add build ignore
+#' @description add_build_ignore() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add build ignore. Function argument build_ignore_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
+#' @param build_ignore_ls Build ignore (a list)
+#' @return NULL
+#' @rdname add_build_ignore
+#' @export 
+#' @importFrom purrr walk
+#' @importFrom usethis use_build_ignore
+#' @keywords internal
+add_build_ignore <- function (build_ignore_ls) 
+{
+    if (!is.null(build_ignore_ls$file_nms_chr)) {
+        build_ignore_ls$file_nms_chr %>% purrr::walk(~usethis::use_build_ignore(.x))
+    }
+    if (!is.null(build_ignore_ls$regex_chr)) {
+        build_ignore_ls$regex_chr %>% purrr::walk(~usethis::use_build_ignore(.x, 
+            escape = FALSE))
+    }
+}
 #' Add indefinite article to item
 #' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated. The function returns Indefinite item (a character vector).
 #' @param phrase_chr Phrase (a character vector)

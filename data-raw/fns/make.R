@@ -1,3 +1,20 @@
+make_addl_pkgs_ls <- function(depends_chr = NULL,
+                              enhances_chr = NULL,
+                              imports_chr = NULL,
+                              linking_to_chr = NULL,
+                              suggests_chr = NULL,
+                              append_ls = NULL){
+  addl_pkgs_ls <- append(list(Depends = depends_chr,
+                              Enhances = enhances_chr,
+                              Imports = imports_chr,
+                              LinkingTo = linking_to_chr,
+                              Suggests = suggests_chr),
+                         append_ls) %>%
+    purrr::discard(is.null)
+  if(length(addl_pkgs_ls)==0)
+    addl_pkgs_ls <- NULL
+  return(addl_pkgs_ls)
+}
 make_arg_desc <- function(fn_args_chr,
                           object_type_lup = NULL,
                           abbreviations_lup = NULL){
@@ -150,6 +167,12 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL){
     sort(decreasing = T) %>%
     purrr::map(~dplyr::filter(new_lup,nchar_int==.x))
   return(lup_ls)
+}
+make_build_ignore_ls <- function(file_nms_chr = NULL,
+                                 regex_chr = NULL){
+  build_ignore_ls = list(file_nms_chr = file_nms_chr,
+                         regex_chr = regex_chr)
+  return(build_ignore_ls)
 }
 make_depnt_fns_ls <- function(arg_ls,
                               pkg_depcy_ls){
@@ -864,36 +887,57 @@ make_pkg_ds_ls <- function(db_df,
 }
 make_pkg_setup_ls <- function(pkg_desc_ls,
                               copyright_holders_chr,
-                              github_repo_1L_chr,
                               add_gh_site_1L_lgl = T,
                               addl_badges_ls = NULL,
+                              addl_pkgs_ls = make_addl_pkgs_ls(),#
                               badges_lup = NULL,
+                              build_ignore_ls = make_build_ignore_ls(),#
                               check_type_1L_chr = "standard",
-                              delete_r_dir_cnts_1L_lgl = F,
+                              delete_r_dir_cnts_1L_lgl = T,
                               dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                               dev_pkgs_chr = NA_character_,
+                              github_repo_1L_chr = NA_character_,
                               lifecycle_stage_1L_chr = "experimental",
                               incr_ver_1L_lgl = F,
                               on_cran_1L_lgl = F,
                               path_to_pkg_logo_1L_chr = NA_character_,
                               path_to_pkg_rt_1L_chr = getwd(),
+                              ready4_type_1L_chr, #
                               user_manual_fns_chr = NA_character_){
-  pkg_setup_ls <- list(pkg_desc_ls = pkg_desc_ls,
-                       copyright_holders_chr = copyright_holders_chr,
-                       github_repo_1L_chr = github_repo_1L_chr,
-                       add_gh_site_1L_lgl = add_gh_site_1L_lgl,
-                       addl_badges_ls = addl_badges_ls,
-                       badges_lup = badges_lup,
-                       check_type_1L_chr = check_type_1L_chr,
-                       delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl,
-                       dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
-                       dev_pkgs_chr = dev_pkgs_chr,
-                       lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
-                       incr_ver_1L_lgl = incr_ver_1L_lgl,
-                       on_cran_1L_lgl = on_cran_1L_lgl,
-                       path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
-                       path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr,
-                       user_manual_fns_chr = user_manual_fns_chr)
+  if(!is.na(ready4_type_1L_chr)){
+    append_ls <- list(ready4 = ready4_type_1L_chr)
+  }else{
+    append_ls <- NULL
+  }
+  if(is.na(github_repo_1L_chr))
+    github_repo_1L_chr <- pkg_desc_ls$URL %>%
+    strsplit(",") %>%
+    unlist() %>%
+    purrr::pluck(2) %>%
+      stringr::str_trim() %>%
+      stringr::str_remove("https://github.com/")
+  addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
+    purrr::discard(is.null)
+  if(length(addl_badges_ls)==0)
+    addl_badges_ls <- NULL
+  pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
+                                         copyright_holders_chr = copyright_holders_chr,
+                                         github_repo_1L_chr = github_repo_1L_chr,
+                                         add_gh_site_1L_lgl = add_gh_site_1L_lgl,
+                                         addl_badges_ls = addl_badges_ls,
+                                         badges_lup = badges_lup,
+                                         check_type_1L_chr = check_type_1L_chr,
+                                         delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl,
+                                         dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
+                                         lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
+                                         incr_ver_1L_lgl = incr_ver_1L_lgl,
+                                         on_cran_1L_lgl = on_cran_1L_lgl,
+                                         path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
+                                         path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr),
+                       subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls,
+                                            build_ignore_ls = build_ignore_ls,
+                                            dev_pkgs_chr = dev_pkgs_chr,
+                                            user_manual_fns_chr = user_manual_fns_chr))
   return(pkg_setup_ls)
 }
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) {

@@ -7,19 +7,22 @@
 make_pkg_setup_ls(
   pkg_desc_ls,
   copyright_holders_chr,
-  github_repo_1L_chr,
   add_gh_site_1L_lgl = T,
   addl_badges_ls = NULL,
+  addl_pkgs_ls = make_addl_pkgs_ls(),
   badges_lup = NULL,
+  build_ignore_ls = make_build_ignore_ls(),
   check_type_1L_chr = "standard",
-  delete_r_dir_cnts_1L_lgl = F,
+  delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
+  github_repo_1L_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
   incr_ver_1L_lgl = F,
   on_cran_1L_lgl = F,
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
+  ready4_type_1L_chr,
   user_manual_fns_chr = NA_character_
 )
 }
@@ -28,21 +31,25 @@ make_pkg_setup_ls(
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 
-\item{github_repo_1L_chr}{Github repo (a character vector of length one)}
-
 \item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
 
 \item{addl_badges_ls}{Addl badges (a list), Default: NULL}
 
+\item{addl_pkgs_ls}{Addl packages (a list), Default: make_addl_pkgs_ls()}
+
 \item{badges_lup}{Badges (a lookup table), Default: NULL}
+
+\item{build_ignore_ls}{Build ignore (a list), Default: make_build_ignore_ls()}
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'standard'}
 
-\item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
+\item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: T}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
+
+\item{github_repo_1L_chr}{Github repo (a character vector of length one), Default: 'NA'}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
@@ -53,6 +60,8 @@ make_pkg_setup_ls(
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
+
+\item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
 
 \item{user_manual_fns_chr}{User manual functions (a character vector), Default: 'NA'}
 }

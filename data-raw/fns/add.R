@@ -1,3 +1,24 @@
+add_addl_pkgs <- function(addl_pkgs_ls){
+  if(!is.null(addl_pkgs_ls))
+    addl_pkgs_ls %>%
+    purrr::walk2(names(addl_pkgs_ls),
+                 ~ {
+                   pkgs_chr <- .x
+                   type_1L_chr <- .y
+                   pkgs_chr %>%
+                     purrr::walk(~usethis::use_package(.x, type = type_1L_chr))
+                 })
+}
+add_build_ignore <- function(build_ignore_ls){
+  if(!is.null(build_ignore_ls$file_nms_chr)){
+    build_ignore_ls$file_nms_chr %>%
+      purrr::walk(~usethis::use_build_ignore(.x))
+  }
+  if(!is.null(build_ignore_ls$regex_chr)){
+    build_ignore_ls$regex_chr %>%
+      purrr::walk(~usethis::use_build_ignore(.x, escape = FALSE))
+  }
+}
 add_indef_artl_to_item <- function(phrase_chr,
                                            abbreviations_lup = NULL,
                                            ignore_phrs_not_in_lup_1L_lgl = T){

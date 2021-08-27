@@ -94,18 +94,29 @@ write_and_doc_ds <- function(db_df,
 write_and_doc_fn_fls <- function(fns_dmt_tb,
                                  r_dir_1L_chr = "R",
                                  path_to_pkg_rt_1L_chr = getwd(),
-                                 path_to_dvpr_dmt_dir_1L_chr = "../../../../../Documentation/Code/Developer",
-                                 path_to_user_dmt_dir_1L_chr = "../../../../../Documentation/Code/User",
+                                 path_to_dmt_dir_1L_chr,
+                                 path_to_dvpr_dmt_dir_1L_chr = deprecated(),
+                                 path_to_user_dmt_dir_1L_chr = deprecated(),
                                  make_pdfs_1L_lgl = T,
                                  dev_pkgs_chr = NA_character_,
                                  update_pkgdown_1L_lgl = T){
-  purrr::walk2(list(path_to_dvpr_dmt_dir_1L_chr,
-                    path_to_user_dmt_dir_1L_chr),
+  if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9307",
+                              "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)",
+                              details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+  }
+  if (lifecycle::is_present(path_to_user_dmt_dir_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9307",
+                              "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)",
+                              details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+  }
+  write_new_dirs(c(path_to_dmt_dir_1L_chr,
+                   paste0(path_to_dmt_dir_1L_chr,"/Developer"),
+                   paste0(path_to_dmt_dir_1L_chr,"/User")))
+  purrr::walk2(list(paste0(path_to_dmt_dir_1L_chr,"/Developer"),
+                    paste0(path_to_dmt_dir_1L_chr,"/User")),
                c(T,F),
                ~ {
-                 # write_fn_fl(fns_dmt_tb,
-                 #             r_dir_1L_chr = r_dir_1L_chr,
-                 #             document_unexp_lgl = .y)
                  write_new_files(paths_chr = paste0(r_dir_1L_chr,
                                                     "/",
                                                     fns_dmt_tb$file_pfx_chr[1],
@@ -114,8 +125,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                                  custom_write_ls = list(fn = write_fn_fl,
                                                         args_ls = list(fns_dmt_tb,
                                                                        r_dir_1L_chr = r_dir_1L_chr,
-                                                                       document_unexp_lgl = .y,
-                                                                       consent_1L_chr = "Y")))
+                                                                       document_unexp_lgl = .y)))
                  devtools::document()
                  devtools::load_all()
                  write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
@@ -125,7 +135,8 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
   if(update_pkgdown_1L_lgl){
-    datasets_chr <- utils::data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())$results[,3]
+    datasets_chr <- utils::data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr),
+                                envir = environment())$results[,3]
     writeLines(c("development:",
                  "  mode: auto",
                  "reference:",
@@ -589,6 +600,7 @@ write_new_files <- function(paths_chr,
                                    recursive = recursive_1L_lgl))
         }
         if(!is.null(custom_write_ls)){
+          custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
           rlang::exec(custom_write_ls$fn,
                       !!!custom_write_ls$args_ls)
         }
@@ -722,15 +734,15 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 badges_lup = NULL,
                                 check_type_1L_chr = "none",
                                 delete_r_dir_cnts_1L_lgl = F,
-                                dev_pkgs_chr = NA_character_,
+                                #dev_pkgs_chr = NA_character_,
                                 lifecycle_stage_1L_chr = "experimental",
                                 incr_ver_1L_lgl = T,
                                 on_cran_1L_lgl = F,
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 add_gh_site_1L_lgl = T,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                path_to_pkg_rt_1L_chr = getwd(),
-                                user_manual_fns_chr = NA_character_
+                                path_to_pkg_rt_1L_chr = getwd() #,
+                                #user_manual_fns_chr = NA_character_
                                 ){
   options(usethis.description = pkg_desc_ls)
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh","full","release","standard"))

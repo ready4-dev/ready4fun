@@ -5,7 +5,7 @@
 \alias{ready4fun}
 \alias{ready4fun-package}
 \title{ready4fun: Standardised Function Authoring and Documentation Tools for Use
-    with the Ready4 Suite}
+with the Ready4 Suite}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
@@ -44,4 +44,3 @@ Other contributors:
 }
 
 }
-\keyword{internal}

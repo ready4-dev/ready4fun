@@ -495,7 +495,7 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
         inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/inst")
         write_to_delete_dirs(inst_dir_1L_chr)
         write_new_dirs(inst_dir_1L_chr)
-        write_new_files(path_to_pkg_rt_1L_chr, source_paths_ls = list(source_inst_dir_1L_chr))
+        write_new_files(inst_dir_1L_chr, source_paths_ls = list(source_inst_dir_1L_chr))
     }
 }
 #' Write links for website
@@ -671,7 +671,16 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls 
             }
             else {
                 if (!is.null(source_paths_ls)) {
-                  purrr::walk(source_paths_ls, ~file.copy(.x, 
+                  source_paths_chr <- purrr::map(source_paths_ls, 
+                    ~{
+                      if (dir.exists(.x)) {
+                        list.files(.x, full.names = T)
+                      }
+                      else {
+                        fs::path_file(.x)
+                      }
+                    }) %>% purrr::flatten_chr()
+                  purrr::walk(source_paths_chr, ~file.copy(.x, 
                     paste0(dest_dir_1L_chr, ifelse(is.null(filename_1L_chr), 
                       "", paste0("/", filename_1L_chr))), recursive = recursive_1L_lgl))
                 }
@@ -734,7 +743,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     lifecycle::deprecate_soft("0.0.0.9298", what = "ready4fun::write_pkg()")
-    write_from_tmp(system.file("pkg_ready_fun.R", package = "ready4fun"), 
+    write_from_tmp(system.file("pkg_tmp.R", package = "ready4fun"), 
         dest_paths_chr = paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, 
             ".R"), edit_fn_ls = list(function(txt_chr, package_1L_chr) {
             pkg_desc_ls <- utils::packageDescription(package_1L_chr)
@@ -1000,11 +1009,11 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr) 
 {
-    write_from_tmp(c(system.file("pkg_ready_fun.R", package = "ready4fun"), 
-        system.file("imp_pipe_tmp.R", package = "ready4fun"), 
+    write_from_tmp(c(system.file("pkg_tmp.R", package = "ready4fun"), 
+        system.file("imp_fns_tmp.R", package = "ready4fun"), 
         system.file("imp_mthds_tmp.R", package = "ready4fun")), 
         dest_paths_chr = c(paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, 
-            ".R"), paste0(R_dir_1L_chr, "/imp_pipe.R"), paste0(R_dir_1L_chr, 
+            ".R"), paste0(R_dir_1L_chr, "/imp_fns.R"), paste0(R_dir_1L_chr, 
             "/imp_mthds.R")), edit_fn_ls = list(function(txt_chr, 
             package_1L_chr) {
             pkg_desc_ls <- utils::packageDescription(package_1L_chr)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make argument type — make_arg_type • ready4fun</title>
+<title>Make build ignore — make_build_ignore_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make argument type — make_arg_type" />
-<meta property="og:description" content="make_arg_type() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type. The function returns Argument description (a character vector)." />
+<meta property="og:title" content="Make build ignore — make_build_ignore_ls" />
+<meta property="og:description" content="make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,46 +119,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make argument type</h1>
+    <h1>Make build ignore</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
-    <div class="hidden name"><code>make_arg_type.Rd</code></div>
+    <div class="hidden name"><code>make_build_ignore_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>make_arg_type() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type. The function returns Argument description (a character vector).</p>
+    <p>make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_arg_type</span><span class='op'>(</span>
-  <span class='va'>fn_args_chr</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>fn</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_build_ignore_ls</span><span class='op'>(</span>file_nms_chr <span class='op'>=</span> <span class='cn'>NULL</span>, regex_chr <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fn_args_chr</th>
-      <td><p>Function arguments (a character vector)</p></td>
+      <th>file_nms_chr</th>
+      <td><p>File names (a character vector), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>fn</th>
-      <td><p>Function (a function)</p></td>
+      <th>regex_chr</th>
+      <td><p>Regex (a character vector), Default: NULL</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Argument description (a character vector)</p>
+    <p>Build ignore (a list)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

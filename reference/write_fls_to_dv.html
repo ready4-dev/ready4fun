@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get new function types — get_new_fn_types • ready4fun</title>
+<title>Write files to dataverse — write_fls_to_dv • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get new function types — get_new_fn_types" />
-<meta property="og:description" content="get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector)." />
+<meta property="og:title" content="Write files to dataverse — write_fls_to_dv" />
+<meta property="og:description" content="write_fls_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write files to dataverse. The function returns Identities (an integer vector)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,51 +119,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get new function types</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_get.R'><code>R/fn_get.R</code></a></small>
-    <div class="hidden name"><code>get_new_fn_types.Rd</code></div>
+    <h1>Write files to dataverse</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
+    <div class="hidden name"><code>write_fls_to_dv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).</p>
+    <p>write_fls_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write files to dataverse. The function returns Identities (an integer vector).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_new_fn_types</span><span class='op'>(</span>
-  <span class='va'>abbreviations_lup</span>,
-  <span class='va'>fn_type_lup_tb</span>,
-  fn_nms_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
-  undmtd_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>write_fls_to_dv</span><span class='op'>(</span>
+  <span class='va'>file_paths_chr</span>,
+  descriptions_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>ds_url_1L_chr</span>,
+  ds_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_KEY"</span><span class='op'>)</span>,
+  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table)</p></td>
+      <th>file_paths_chr</th>
+      <td><p>File paths (a character vector)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble)</p></td>
+      <th>descriptions_chr</th>
+      <td><p>Descriptions (a character vector), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>fn_nms_ls</th>
-      <td><p>Function names (a list), Default: make_fn_nms()</p></td>
+      <th>ds_url_1L_chr</th>
+      <td><p>Dataset url (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>undmtd_fns_dir_chr</th>
-      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()</p></td>
+      <th>ds_ls</th>
+      <td><p>Dataset (a list), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <th>key_1L_chr</th>
+      <td><p>Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")</p></td>
+    </tr>
+    <tr>
+      <th>server_1L_chr</th>
+      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>New function types (a character vector)</p>
+    <p>Identities (an integer vector)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

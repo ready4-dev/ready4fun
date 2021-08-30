@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get new function types — get_new_fn_types • ready4fun</title>
+<title>Get file identity from dataverse — get_fl_id_from_dv_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get new function types — get_new_fn_types" />
-<meta property="og:description" content="get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector)." />
+<meta property="og:title" content="Get file identity from dataverse — get_fl_id_from_dv_ls" />
+<meta property="og:description" content="get_fl_id_from_dv_ls() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get file identity from dataverse list. Function argument ds_ls specifies the where to look for the required object. The function returns Identity (a character vector of length one)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,51 +119,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get new function types</h1>
+    <h1>Get file identity from dataverse</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_get.R'><code>R/fn_get.R</code></a></small>
-    <div class="hidden name"><code>get_new_fn_types.Rd</code></div>
+    <div class="hidden name"><code>get_fl_id_from_dv_ls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).</p>
+    <p>get_fl_id_from_dv_ls() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get file identity from dataverse list. Function argument ds_ls specifies the where to look for the required object. The function returns Identity (a character vector of length one).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_new_fn_types</span><span class='op'>(</span>
-  <span class='va'>abbreviations_lup</span>,
-  <span class='va'>fn_type_lup_tb</span>,
-  fn_nms_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
-  undmtd_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_fl_id_from_dv_ls</span><span class='op'>(</span><span class='va'>ds_ls</span>, <span class='va'>fl_nm_1L_chr</span>, nms_chr <span class='op'>=</span> <span class='cn'>NA_character_</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table)</p></td>
+      <th>ds_ls</th>
+      <td><p>Dataset (a list)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble)</p></td>
+      <th>fl_nm_1L_chr</th>
+      <td><p>File name (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>fn_nms_ls</th>
-      <td><p>Function names (a list), Default: make_fn_nms()</p></td>
-    </tr>
-    <tr>
-      <th>undmtd_fns_dir_chr</th>
-      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()</p></td>
-    </tr>
-    <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <th>nms_chr</th>
+      <td><p>Names (a character vector), Default: 'NA'</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>New function types (a character vector)</p>
+    <p>Identity (a character vector of length one)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

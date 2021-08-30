@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9312</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9317</span>
       </span>
     </div>
 
@@ -130,6 +130,7 @@
 
     <pre class="usage"><span class='fu'>write_manuals_to_dv</span><span class='op'>(</span>
   package_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>path_to_dmt_dir_1L_chr</span>,
   <span class='va'>pkg_dmt_dv_url_1L_chr</span>,
   publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>
 <span class='op'>)</span></pre>
@@ -140,6 +141,10 @@
     <tr>
       <th>package_1L_chr</th>
       <td><p>Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())</p></td>
+    </tr>
+    <tr>
+      <th>path_to_dmt_dir_1L_chr</th>
+      <td><p>Path to documentation directory (a character vector of length one)</p></td>
     </tr>
     <tr>
       <th>pkg_dmt_dv_url_1L_chr</th>

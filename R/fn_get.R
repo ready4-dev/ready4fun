@@ -62,6 +62,27 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
         "/DESCRIPTION"))[1] %>% stringr::str_sub(start = 10)
     return(dev_pkg_nm_1L_chr)
 }
+#' Get dataverse files urls
+#' @description get_dv_fls_urls() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get dataverse files urls. Function argument file_nms_chr specifies the where to look for the required object. The function returns Urls (a character vector).
+#' @param file_nms_chr File names (a character vector)
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'
+#' @return Urls (a character vector)
+#' @rdname get_dv_fls_urls
+#' @export 
+#' @importFrom dataverse dataset_files
+#' @importFrom purrr map_chr
+#' @keywords internal
+get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/") 
+{
+    ds_ls <- dataverse::dataset_files(pkg_dmt_dv_url_1L_chr)
+    all_items_chr <- purrr::map_chr(ds_ls, ~.x$label)
+    urls_chr <- file_nms_chr %>% purrr::map_chr(~{
+        idx_1L_int <- which(all_items_chr == .x)
+        paste0(dv_url_pfx_1L_chr, ds_ls[[idx_1L_int]]$dataFile$id)
+    })
+    return(urls_chr)
+}
 #' Get function arguments
 #' @description get_fn_args() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get function arguments. Function argument fn specifies the where to look for the required object. The function returns Function arguments (a character vector).
 #' @param fn Function (a function)
@@ -228,28 +249,29 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
     return(slots_chr)
 }
 #' Get rds from dataverse
-#' @description get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns Model (a model).
+#' @description get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns R object (an output object of multiple potential types).
 #' @param file_nm_1L_chr File name (a character vector of length one)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'
 #' @param server_1L_chr Server (a character vector of length one), Default: 'dataverse.harvard.edu'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @return Model (a model)
+#' @return R object (an output object of multiple potential types)
 #' @rdname get_rds_from_dv
 #' @export 
 #' @importFrom dataverse dataset_files
 #' @importFrom purrr map_chr
 #' @keywords internal
 get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+    dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/", 
     server_1L_chr = "dataverse.harvard.edu", key_1L_chr = NULL) 
 {
     ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr, server = server_1L_chr, 
         key = key_1L_chr)
-    all_mdls_chr <- purrr::map_chr(ds_ls, ~.x$label)
-    idx_1L_int <- which(all_mdls_chr == paste0(file_nm_1L_chr, 
+    all_items_chr <- purrr::map_chr(ds_ls, ~.x$label)
+    idx_1L_int <- which(all_items_chr == paste0(file_nm_1L_chr, 
         ".RDS"))
-    model_mdl <- readRDS(url(paste0("https://dataverse.harvard.edu/api/access/datafile/", 
-        ds_ls[[idx_1L_int]]$dataFile$id)))
-    return(model_mdl)
+    r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr, ds_ls[[idx_1L_int]]$dataFile$id)))
+    return(r_object_xx)
 }
 #' Get return object name
 #' @description get_return_obj_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return object name. Function argument fn specifies the where to look for the required object. The function returns Return (a character vector of length one).

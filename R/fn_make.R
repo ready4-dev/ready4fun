@@ -1033,6 +1033,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @description make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
+#' @param pkg_dmt_dv_url_1L_chr Package documentation dataverse url (a character vector of length one)
 #' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
 #' @param addl_badges_ls Addl badges (a list), Default: NULL
 #' @param addl_pkgs_ls Addl packages (a list), Default: make_addl_pkgs_ls()
@@ -1056,8 +1057,8 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 #' @keywords internal
-make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, add_gh_site_1L_lgl = T, 
-    addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
+make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_url_1L_chr, 
+    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
     check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
@@ -1087,7 +1088,8 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, add_gh_site_1
         incr_ver_1L_lgl = incr_ver_1L_lgl, on_cran_1L_lgl = on_cran_1L_lgl, 
         path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr), 
         subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
-            dev_pkgs_chr = dev_pkgs_chr, user_manual_fns_chr = user_manual_fns_chr))
+            dev_pkgs_chr = dev_pkgs_chr, pkg_dmt_dv_url_1L_chr = pkg_dmt_dv_url_1L_chr, 
+            user_manual_fns_chr = user_manual_fns_chr))
     return(pkg_setup_ls)
 }
 #' Make prompt

@@ -440,8 +440,8 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
   }
 }
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
-                                    user_manual_url_1L_chr = NA_character_,
                                     developer_manual_url_1L_chr = NA_character_,
+                                    user_manual_url_1L_chr = NA_character_,
                                     project_website_url_1L_chr = NA_character_){
   write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                         "/_pkgdown.yml"),
@@ -471,6 +471,48 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                  args_ls_ls = list(list(user_manual_url_1L_chr = user_manual_url_1L_chr,
                                         developer_manual_url_1L_chr = developer_manual_url_1L_chr,
                                         project_website_url_1L_chr = project_website_url_1L_chr)))
+}
+write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
+                                pkg_dmt_dv_url_1L_chr,
+                                publish_dv_1L_lgl = F){
+  version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
+  purrr::walk(c("Developer","User"),
+              ~{
+                original_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
+                                          "/",
+                                          .x,
+                                          "/",
+                                          package_1L_chr,
+                                          "_",
+                                          version_1L_chr,
+                                          ".pdf")
+                copy_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
+                                      "/",
+                                      .x,
+                                      "/",
+                                      package_1L_chr,
+                                      "_",
+                                      .x,
+                                      ".pdf")
+                if(file.exists(original_1L_chr)){
+                  file.copy(original_1L_chr,
+                            copy_1L_chr,
+                            overwrite = T)
+                }
+                dataverse::add_dataset_file(file = copy_1L_chr,
+                                            dataset = pkg_dmt_dv_url_1L_chr,
+                                            description = paste0("Manual (",
+                                                                 .x %>% tolower(),
+                                                                 " version)",
+                                                                 " describing the contents of the ",
+                                                                 package_1L_chr,
+                                                                 " R package."))
+
+              })
+  if(publish_dv_1L_lgl)
+    dataverse::publish_dataset(pkg_dmt_dv_url_1L_chr,
+                               minor = F)
+
 }
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
@@ -640,6 +682,45 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
   if(incr_ver_1L_lgl)
     usethis::use_version()
 }
+write_package <- function(pkg_desc_ls,
+                          pkg_ds_ls_ls,
+                          pkg_setup_ls,
+                          dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
+                          path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
+                          publish_dv_1L_lgl = F){
+  rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
+  dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
+                                  fns_to_incl_chr = pkg_setup_ls$user_manual_fns_chr,
+                                  pkg_url_1L_chr = pkg_desc_ls$URL %>%
+                                    strsplit(",") %>%
+                                    unlist() %>%
+                                    purrr::pluck(1))
+  add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
+  add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
+  write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
+                       dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr,
+                       path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
+                       r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
+                       update_pkgdown_1L_lgl = T)
+  write_manuals_to_dv(package_1L_chr = get_dev_pkg_nm(getwd()),
+                      pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
+                      publish_dv_1L_lgl = publish_dv_1L_lgl)
+  dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(package_1L_chr,
+                                                        "_",
+                                                        c("Developer","User"),
+                                                        ".pdf"),
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
+                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr)
+  project_url_1L_chr <- pkg_desc_ls$URL %>%
+    strsplit(",") %>%
+    unlist() %>%
+    purrr::pluck(3)
+  if(is.null(project_url_1L_chr))
+    project_url_1L_chr <-  NA_character_
+  write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2],
+                          developer_manual_url_1L_chr = dmt_urls_chr[1],
+                          project_website_url_1L_chr = project_url_1L_chr)
+}
 write_pkg <- function(package_1L_chr,
                         R_dir_1L_chr = "R"){
   lifecycle::deprecate_soft("0.0.0.9298",
@@ -739,16 +820,13 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 badges_lup = NULL,
                                 check_type_1L_chr = "none",
                                 delete_r_dir_cnts_1L_lgl = F,
-                                #dev_pkgs_chr = NA_character_,
                                 lifecycle_stage_1L_chr = "experimental",
                                 incr_ver_1L_lgl = T,
                                 on_cran_1L_lgl = F,
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 add_gh_site_1L_lgl = T,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                path_to_pkg_rt_1L_chr = getwd() #,
-                                #user_manual_fns_chr = NA_character_
-                                ){
+                                path_to_pkg_rt_1L_chr = getwd()){
   options(usethis.description = pkg_desc_ls)
   use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh","full","release","standard"))
   if(is.null(badges_lup)){
@@ -801,13 +879,9 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                             list.files(paste0(path_to_pkg_rt_1L_chr,"/data-raw"), recursive = T)))
   if(!is.na(path_to_pkg_logo_1L_chr)){
     write_new_dirs(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
-    # if(!dir.exists(paste0(path_to_pkg_rt_1L_chr,"/man/figures/")))
-    #   dir.create(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
     write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
                     source_paths_ls = list(path_to_pkg_logo_1L_chr),
                     filename_1L_chr = "logo.png")
-    # file.copy(path_to_pkg_logo_1L_chr,
-    #           paste0(path_to_pkg_rt_1L_chr,"/man/figures/logo.png"))
   }
   if(on_cran_1L_lgl){
     cran_install_chr <- c("To install the latest production version of this software, run the following command in your R console:",
@@ -849,8 +923,6 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                   "```")
   write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/README.md"),
                   text_ls = list(readme_chr))
-  # writeLines(readme_chr,
-  #            con = paste0(path_to_pkg_rt_1L_chr,"/README.md"))
   if(add_gh_site_1L_lgl)
     usethis::use_github_action("pkgdown")
   if(check_type_1L_chr %in% c("gh","full","release","standard")){
@@ -870,8 +942,6 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
                   source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
                   filename_1L_chr = "fav120.png")
-  # file.copy(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"),
-  #           paste0(path_to_pkg_rt_1L_chr,"/man/figures/fav120.png"))
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
   if(!is.null(addl_badges_ls)){

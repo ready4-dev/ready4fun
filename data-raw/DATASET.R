@@ -11,10 +11,10 @@ if(!dir.exists(fns_dir_1L_chr))
 #
 # 4. Read all undocumented functions in the temporary "fns" directory.
 #fns_env <- new.env(parent = baseenv())
-ee <- new.env(parent = globalenv())
+fns_env <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
-                       fns_env = ee)
+                       fns_env = fns_env)
 rm(read_fns)
 #
 # 5. Create code house-style datasets.
@@ -65,6 +65,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                     copyright_holders_chr = "Orygen",
                     lifecycle_stage_1L_chr = "experimental",
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
+                    pkg_dmt_dv_url_1L_chr <- "https://doi.org/10.7910/DVN/HLLXZN",
                     ready4_type_1L_chr = "authoring",
                     user_manual_fns_chr = c("get_from_lup_obj","get_rds_from_dv",
                                             "make_dmt_for_all_fns",
@@ -88,31 +89,15 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>% #
                                     title_1L_chr = "ready4 badges lookup table",
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 ####
-rlang::exec(fns_env_ls$fns_env$write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-dss_records_ls <- fns_env_ls$fns_env$write_pkg_dss(pkg_ds_ls_ls,
-                                fns_to_incl_chr = pkg_setup_ls$user_manual_fns_chr,
-                                pkg_url_1L_chr = pkg_desc_ls$URL %>%
-                                  strsplit(",") %>%
-                                  unlist() %>%
-                                  purrr::pluck(1))
-fns_env_ls$fns_env$add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
-fns_env_ls$fns_env$add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
-## Add path to dmt dir and create user and dvpr subdirs
-fns_env_ls$fns_env$write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
-                     dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr,
-                     path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
-                     r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
-                     update_pkgdown_1L_lgl = T)
 ## Add manuals to DV
-project_url_1L_chr <- pkg_desc_ls$URL %>%
-  strsplit(",") %>%
-  unlist() %>%
-  purrr::pluck(3)
-if(is.null(project_url_1L_chr))
-  project_url_1L_chr <-  NA_character_
-fns_env_ls$fns_env$write_links_for_website(user_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_user_0.0.0.9289.pdf",
-                        developer_manual_url_1L_chr = "https://github.com/ready4-dev/ready4fun/releases/download/v0.0.0.9289/ready4fun_developer_0.0.0.9289.pdf",
-                        project_website_url_1L_chr = project_url_1L_chr)
+fns_env_ls$fns_env$write_package(pkg_desc_ls,
+                                 pkg_ds_ls_ls,
+                                 pkg_setup_ls,
+                                 dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
+                                 path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
+                                 publish_dv_1L_lgl = F)
+
+
 
 # 12. Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.

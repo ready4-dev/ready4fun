@@ -6,17 +6,17 @@
 \usage{
 write_links_for_website(
   path_to_pkg_rt_1L_chr = getwd(),
-  user_manual_url_1L_chr = NA_character_,
   developer_manual_url_1L_chr = NA_character_,
+  user_manual_url_1L_chr = NA_character_,
   project_website_url_1L_chr = NA_character_
 )
 }
 \arguments{
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
-\item{user_manual_url_1L_chr}{User manual url (a character vector of length one), Default: 'NA'}
-
 \item{developer_manual_url_1L_chr}{Developer manual url (a character vector of length one), Default: 'NA'}
+
+\item{user_manual_url_1L_chr}{User manual url (a character vector of length one), Default: 'NA'}
 
 \item{project_website_url_1L_chr}{Project website url (a character vector of length one), Default: 'NA'}
 }

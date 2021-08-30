@@ -889,6 +889,7 @@ make_pkg_ds_ls <- function(db_df,
 }
 make_pkg_setup_ls <- function(pkg_desc_ls,
                               copyright_holders_chr,
+                              pkg_dmt_dv_url_1L_chr,
                               add_gh_site_1L_lgl = T,
                               addl_badges_ls = NULL,
                               addl_pkgs_ls = make_addl_pkgs_ls(),#
@@ -939,6 +940,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                        subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls,
                                             build_ignore_ls = build_ignore_ls,
                                             dev_pkgs_chr = dev_pkgs_chr,
+                                            pkg_dmt_dv_url_1L_chr = pkg_dmt_dv_url_1L_chr,
                                             user_manual_fns_chr = user_manual_fns_chr))
   return(pkg_setup_ls)
 }

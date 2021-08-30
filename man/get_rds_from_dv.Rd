@@ -7,6 +7,7 @@
 get_rds_from_dv(
   file_nm_1L_chr,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+  dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
   server_1L_chr = "dataverse.harvard.edu",
   key_1L_chr = NULL
 )
@@ -16,14 +17,16 @@ get_rds_from_dv(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'}
+
 \item{server_1L_chr}{Server (a character vector of length one), Default: 'dataverse.harvard.edu'}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 }
 \value{
-Model (a model)
+R object (an output object of multiple potential types)
 }
 \description{
-get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns Model (a model).
+get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns R object (an output object of multiple potential types).
 }
 \keyword{internal}

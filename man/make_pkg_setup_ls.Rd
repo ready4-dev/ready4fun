@@ -7,6 +7,7 @@
 make_pkg_setup_ls(
   pkg_desc_ls,
   copyright_holders_chr,
+  pkg_dmt_dv_url_1L_chr,
   add_gh_site_1L_lgl = T,
   addl_badges_ls = NULL,
   addl_pkgs_ls = make_addl_pkgs_ls(),
@@ -30,6 +31,8 @@ make_pkg_setup_ls(
 \item{pkg_desc_ls}{Package description (a list)}
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
+
+\item{pkg_dmt_dv_url_1L_chr}{Package documentation dataverse url (a character vector of length one)}
 
 \item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
 

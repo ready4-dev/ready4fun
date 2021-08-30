@@ -35,6 +35,18 @@ get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){
   dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr,"/DESCRIPTION"))[1] %>% stringr::str_sub(start=10)
   return(dev_pkg_nm_1L_chr)
 }
+get_dv_fls_urls <- function(file_nms_chr,
+                            dv_ds_nm_1L_chr,
+                            dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/"){
+  ds_ls <- dataverse::dataset_files(pkg_dmt_dv_url_1L_chr)
+  all_items_chr <- purrr::map_chr(ds_ls,~.x$label)
+  urls_chr <- file_nms_chr %>%
+    purrr::map_chr(~{
+      idx_1L_int <- which(all_items_chr == .x)
+      paste0(dv_url_pfx_1L_chr,ds_ls[[idx_1L_int]]$dataFile$id)
+    })
+  return(urls_chr)
+}
 get_fn_args <- function(fn){
   fn_args_chr <- as.list(args(fn)) %>%
     names() %>%
@@ -140,15 +152,17 @@ get_r4_obj_slots <- function(fn_name_1L_chr,
 }
 get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                            dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
                             server_1L_chr = "dataverse.harvard.edu",
                             key_1L_chr = NULL){
   ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr,
                                     server = server_1L_chr,
                                     key = key_1L_chr)
-  all_mdls_chr <- purrr::map_chr(ds_ls,~.x$label)
-  idx_1L_int <- which(all_mdls_chr == paste0(file_nm_1L_chr,".RDS"))
-  model_mdl <- readRDS(url(paste0("https://dataverse.harvard.edu/api/access/datafile/",ds_ls[[idx_1L_int]]$dataFile$id)))
-  return(model_mdl)
+  all_items_chr <- purrr::map_chr(ds_ls,~.x$label)
+  idx_1L_int <- which(all_items_chr == paste0(file_nm_1L_chr,".RDS"))
+  r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr,
+                                    ds_ls[[idx_1L_int]]$dataFile$id)))
+  return(r_object_xx)
 }
 get_return_obj_nm <- function(fn){
   fn_chr <- deparse(fn)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write namespace imports to description — write_ns_imps_to_desc • ready4fun</title>
+<title>Write manuals to dataverse — write_manuals_to_dv • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Write namespace imports to description — write_ns_imps_to_desc" />
-<meta property="og:description" content="write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write namespace imports to description. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
+<meta property="og:title" content="Write manuals to dataverse — write_manuals_to_dv" />
+<meta property="og:description" content="write_manuals_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,27 +119,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write namespace imports to description</h1>
+    <h1>Write manuals to dataverse</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_write.R'><code>R/fn_write.R</code></a></small>
-    <div class="hidden name"><code>write_ns_imps_to_desc.Rd</code></div>
+    <div class="hidden name"><code>write_manuals_to_dv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write namespace imports to description. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
+    <p>write_manuals_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_ns_imps_to_desc</span><span class='op'>(</span>dev_pkgs_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>, incr_ver_1L_lgl <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>write_manuals_to_dv</span><span class='op'>(</span>
+  package_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='va'>pkg_dmt_dv_url_1L_chr</span>,
+  publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dev_pkgs_chr</th>
-      <td><p>Development packages (a character vector), Default: 'NA'</p></td>
+      <th>package_1L_chr</th>
+      <td><p>Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())</p></td>
     </tr>
     <tr>
-      <th>incr_ver_1L_lgl</th>
-      <td><p>Incr ver (a logical vector of length one), Default: T</p></td>
+      <th>pkg_dmt_dv_url_1L_chr</th>
+      <td><p>Package documentation dataverse url (a character vector of length one)</p></td>
+    </tr>
+    <tr>
+      <th>publish_dv_1L_lgl</th>
+      <td><p>Publish dataverse (a logical vector of length one), Default: F</p></td>
     </tr>
     </table>
 

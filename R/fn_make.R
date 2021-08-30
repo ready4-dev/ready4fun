@@ -286,7 +286,6 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @importFrom utils data
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter mutate case_when
-#' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
@@ -616,7 +615,6 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom dplyr arrange
-#' @keywords internal
 make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = character(0), 
     first_arg_desc_chr = character(0), second_arg_desc_chr = character(0), 
     is_generic_lgl = logical(0), is_method_lgl = logical(0)) 
@@ -711,7 +709,6 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @rdname make_lines_for_fn_dmt
 #' @export 
 #' @importFrom utils data
-#' @keywords internal
 make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 

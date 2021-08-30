@@ -24,7 +24,7 @@ rm(read_fns)
 # 6. Set-up package structure
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                              label_names_chr = c("authoring","description","modelling", "prediction"),
-                            colours_chr = c("maroon", "navy","indigo", "forestgreen")) %>%
+                             colours_chr = c("maroon", "navy","indigo", "forestgreen")) %>%
   dplyr::mutate(badges_chr = purrr::map2_chr(label_names_chr, colours_chr,
                                              ~badgr::get_badge(
                                                label = "ready4",

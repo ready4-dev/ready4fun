@@ -7,9 +7,9 @@
 write_new_files(
   paths_chr,
   custom_write_ls = NULL,
+  filename_1L_chr = NULL,
   source_paths_ls = NULL,
-  text_ls = NULL,
-  filename_1L_chr = NULL
+  text_ls = NULL
 )
 }
 \arguments{
@@ -17,11 +17,11 @@ write_new_files(
 
 \item{custom_write_ls}{Custom write (a list), Default: NULL}
 
+\item{filename_1L_chr}{Filename (a character vector of length one), Default: NULL}
+
 \item{source_paths_ls}{Source paths (a list), Default: NULL}
 
 \item{text_ls}{Text (a list), Default: NULL}
-
-\item{filename_1L_chr}{Filename (a character vector of length one), Default: NULL}
 }
 \description{
 write_new_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

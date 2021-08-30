@@ -10,7 +10,6 @@ write_pkg_dss(
   args_ls_ls = NULL,
   details_ls = NULL,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-  fns_to_incl_chr = NA_character_,
   fn_type_lup_tb = NULL,
   inc_all_mthds_1L_lgl = T,
   object_type_lup = NULL,
@@ -31,8 +30,6 @@ write_pkg_dss(
 \item{details_ls}{Details (a list), Default: NULL}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
-
-\item{fns_to_incl_chr}{Functions to incl (a character vector), Default: 'NA'}
 
 \item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
 

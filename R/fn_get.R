@@ -155,7 +155,6 @@ get_fn_nms_in_file <- function (path_1L_chr)
 #' @importFrom dplyr filter select pull
 #' @importFrom rlang sym
 #' @importFrom stringr str_detect str_locate str_sub
-#' @keywords internal
 get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_chr, 
     target_var_nm_1L_chr, evaluate_lgl = TRUE) 
 {
@@ -289,7 +288,6 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @export 
 #' @importFrom dataverse dataset_files
 #' @importFrom purrr map_chr
-#' @keywords internal
 get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/", 
     server_1L_chr = "dataverse.harvard.edu", key_1L_chr = NULL) 

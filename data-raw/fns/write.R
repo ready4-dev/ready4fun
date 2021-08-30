@@ -667,10 +667,9 @@ write_new_dirs <- function(new_dirs_chr){
 }
 write_new_files <- function(paths_chr,
                             custom_write_ls = NULL,
+                            filename_1L_chr = NULL,
                             source_paths_ls = NULL,
-                            text_ls = NULL,
-                            filename_1L_chr = NULL
-                            ){
+                            text_ls = NULL){
   if(!is.null(source_paths_ls)){
     dest_dir_1L_chr <- paths_chr
     paths_chr <- purrr::map(source_paths_ls,
@@ -729,7 +728,7 @@ write_new_files <- function(paths_chr,
                           if(dir.exists(.x)){
                             list.files(.x, full.names = T)
                           }else{
-                            fs::path_file(.x)
+                            .x
                           }
                         }) %>%
           purrr::flatten_chr()
@@ -786,7 +785,7 @@ write_package <- function(pkg_desc_ls,
                           publish_dv_1L_lgl = F){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
   dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
-                                  fns_to_incl_chr = pkg_setup_ls$user_manual_fns_chr,
+                                  #fns_to_incl_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                   pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                     strsplit(",") %>%
                                     unlist() %>%
@@ -844,7 +843,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           args_ls_ls = NULL,
                           details_ls = NULL,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                          fns_to_incl_chr = NA_character_,
+                          #fns_to_incl_chr = NA_character_,
                           fn_type_lup_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
                           object_type_lup = NULL,
@@ -887,7 +886,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = details_ls,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-                                                          inc_for_main_user_lgl_ls = list(force_true_chr = fns_to_incl_chr,
+                                                          inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
                                                      ),

@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring and Documentation Tools for Use
     with the Ready4 Suite
-Version: 0.0.0.9316
+Version: 0.0.0.9317
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",

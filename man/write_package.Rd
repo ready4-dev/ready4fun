@@ -9,7 +9,7 @@ write_package(
   pkg_ds_ls_ls,
   pkg_setup_ls,
   dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-  path_to_dmt_dir_1L_chr = "../../../../../Documentation/Code",
+  path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   publish_dv_1L_lgl = F
 )
 }
@@ -22,7 +22,7 @@ write_package(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'}
 
-\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code'}
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")}
 
 \item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: F}
 }

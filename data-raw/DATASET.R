@@ -94,8 +94,8 @@ fns_env_ls$fns_env$write_package(pkg_desc_ls,
                                  pkg_ds_ls_ls,
                                  pkg_setup_ls,
                                  dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-                                 path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
-                                 publish_dv_1L_lgl = F)
+                                 path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
+                                 publish_dv_1L_lgl = T)
 
 
 

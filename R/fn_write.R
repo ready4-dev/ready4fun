@@ -305,6 +305,73 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
         ifelse(is.na(url_1L_chr), "", paste0("#' @source \\url{", 
             url_1L_chr, "}\n")), "\"", db_1L_chr, "\""))
 }
+#' Write files to dataverse
+#' @description write_fls_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write files to dataverse. The function returns Identities (an integer vector).
+#' @param file_paths_chr File paths (a character vector)
+#' @param descriptions_chr Descriptions (a character vector), Default: NULL
+#' @param ds_url_1L_chr Dataset url (a character vector of length one)
+#' @param ds_ls Dataset (a list), Default: NULL
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @return Identities (an integer vector)
+#' @rdname write_fls_to_dv
+#' @export 
+#' @importFrom purrr map_chr map map2_int
+#' @importFrom fs path_file
+#' @importFrom dataverse get_dataset delete_file add_dataset_file update_dataset_file
+#' @keywords internal
+write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_chr, 
+    ds_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+{
+    if (!identical(file_paths_chr, character(0))) {
+        message(paste0("Are you sure that you want to upload the following file", 
+            ifelse(length(file_paths_chr) > 1, "s", ""), " to dataverse ", 
+            ds_url_1L_chr, ": \n", file_paths_chr %>% purrr::map_chr(~fs::path_file(.x)) %>% 
+                paste0(collapse = "\n"), "?"))
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Type 'Y' to confirm that you want to upload ", 
+            ifelse(length(file_paths_chr) > 1, "these files:", 
+                "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+        if (consent_1L_chr == "Y") {
+            if (is.null(ds_ls)) 
+                ds_ls <- dataverse::get_dataset(ds_url_1L_chr)
+            is_draft_1L_lgl <- ds_ls$versionState == "DRAFT"
+            nms_chr <- ds_ls$files$filename
+            if (is.null(descriptions_chr)) 
+                descriptions_chr <- purrr::map(file_paths_chr, 
+                  ~NULL)
+            ids_int <- file_paths_chr %>% purrr::map2_int(descriptions_chr, 
+                ~{
+                  fl_nm_1L_chr <- fs::path_file(.x)
+                  if (fl_nm_1L_chr %in% nms_chr) {
+                    id_1L_int <- get_fl_id_from_dv_ls(ds_ls, 
+                      fl_nm_1L_chr = fl_nm_1L_chr, nms_chr = nms_chr)
+                    if (is_draft_1L_lgl) {
+                      id_1L_int %>% dataverse::delete_file()
+                      id_1L_int <- dataverse::add_dataset_file(file = .x, 
+                        dataset = ds_url_1L_chr, description = .y, 
+                        key = key_1L_chr, server = server_1L_chr)
+                    }
+                    else {
+                      dataverse::update_dataset_file(file = .x, 
+                        dataset = ds_url_1L_chr, id = id_1L_int, 
+                        force = T, description = .y, key = key_1L_chr, 
+                        server = server_1L_chr)
+                    }
+                  }
+                  else {
+                    id_1L_int <- dataverse::add_dataset_file(file = .x, 
+                      dataset = ds_url_1L_chr, description = .y, 
+                      key = key_1L_chr, server = server_1L_chr)
+                  }
+                  id_1L_int
+                })
+        }
+    }
+    else {
+        ids_int <- NULL
+    }
+    return(ids_int)
+}
 #' Write function file
 #' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fns_dmt_tb Functions documentation (a tibble)
@@ -543,6 +610,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' Write manuals to dataverse
 #' @description write_manuals_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param package_1L_chr Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one)
 #' @param pkg_dmt_dv_url_1L_chr Package documentation dataverse url (a character vector of length one)
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
 #' @return NULL
@@ -550,27 +618,35 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @export 
 #' @importFrom utils packageDescription
 #' @importFrom purrr walk
-#' @importFrom dataverse add_dataset_file publish_dataset
+#' @importFrom dataverse publish_dataset
 #' @keywords internal
-write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), pkg_dmt_dv_url_1L_chr, 
-    publish_dv_1L_lgl = F) 
+write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_to_dmt_dir_1L_chr, 
+    pkg_dmt_dv_url_1L_chr, publish_dv_1L_lgl = F) 
 {
     version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
     purrr::walk(c("Developer", "User"), ~{
-        original_1L_chr <- paste0(path_to_dmt_dir_1L_chr, "/", 
-            .x, "/", package_1L_chr, "_", version_1L_chr, ".pdf")
-        copy_1L_chr <- paste0(path_to_dmt_dir_1L_chr, "/", .x, 
-            "/", package_1L_chr, "_", .x, ".pdf")
+        dir_1L_chr <- paste0(path_to_dmt_dir_1L_chr, "/", .x)
+        original_1L_chr <- paste0(dir_1L_chr, "/", package_1L_chr, 
+            "_", version_1L_chr, ".pdf")
+        fl_nm_1L_chr <- paste0(package_1L_chr, "_", .x, ".pdf")
+        copy_1L_chr <- paste0(dir_1L_chr, "/", fl_nm_1L_chr)
         if (file.exists(original_1L_chr)) {
-            file.copy(original_1L_chr, copy_1L_chr, overwrite = T)
+            write_new_files(dir_1L_chr, source_paths_ls = list(original_1L_chr), 
+                filename_1L_chr = fl_nm_1L_chr)
         }
-        dataverse::add_dataset_file(file = copy_1L_chr, dataset = pkg_dmt_dv_url_1L_chr, 
-            description = paste0("Manual (", .x %>% tolower(), 
-                " version)", " describing the contents of the ", 
-                package_1L_chr, " R package."))
+        write_fls_to_dv(copy_1L_chr, descriptions_chr = paste0("Manual (", 
+            .x %>% tolower(), " version)", " describing the contents of the ", 
+            package_1L_chr, " R package."), ds_url_1L_chr = pkg_dmt_dv_url_1L_chr)
     })
-    if (publish_dv_1L_lgl) 
-        dataverse::publish_dataset(pkg_dmt_dv_url_1L_chr, minor = F)
+    if (publish_dv_1L_lgl) {
+        consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ", 
+            pkg_dmt_dv_url_1L_chr, "?"), options_chr = c("Y", 
+            "N"), force_from_opts_1l_chr = T)
+        if (consent_1L_chr == "Y") {
+            dataverse::publish_dataset(pkg_dmt_dv_url_1L_chr, 
+                minor = F)
+        }
+    }
 }
 #' Write new argument sfxs
 #' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
@@ -691,8 +767,9 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls 
                 overwritten_files_chr %>% paste0(collapse = "\n"))), 
             "?"))
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
-            ifelse(length(new_files_chr) > 1, "these files:", 
-                "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+            ifelse((length(new_files_chr) + length(overwritten_files_chr)) > 
+                1, "these files:", "this file:")), options_chr = c("Y", 
+            "N"), force_from_opts_1l_chr = T)
         if (consent_1L_chr %in% c("Y")) {
             if (!is.null(text_ls)) {
                 purrr::walk2(paths_chr, text_ls, ~{
@@ -714,7 +791,8 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, source_paths_ls 
                     }) %>% purrr::flatten_chr()
                   purrr::walk(source_paths_chr, ~file.copy(.x, 
                     paste0(dest_dir_1L_chr, ifelse(is.null(filename_1L_chr), 
-                      "", paste0("/", filename_1L_chr))), recursive = recursive_1L_lgl))
+                      "", paste0("/", filename_1L_chr))), overwrite = T, 
+                    recursive = recursive_1L_lgl))
                 }
                 if (!is.null(custom_write_ls)) {
                   custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
@@ -766,7 +844,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @param pkg_ds_ls_ls Package dataset (a list of lists)
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: '../../../../../Documentation/Code'
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
 #' @return NULL
 #' @rdname write_package
@@ -775,7 +853,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom purrr pluck
 #' @keywords internal
 write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/", 
-    path_to_dmt_dir_1L_chr = "../../../../../Documentation/Code", 
+    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     publish_dv_1L_lgl = F) 
 {
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
@@ -789,7 +867,7 @@ write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, dv_url_pfx_1
         path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/R"), update_pkgdown_1L_lgl = T)
     write_manuals_to_dv(package_1L_chr = get_dev_pkg_nm(getwd()), 
-        pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr, 
+        path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr, 
         publish_dv_1L_lgl = publish_dv_1L_lgl)
     dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(package_1L_chr, 
         "_", c("Developer", "User"), ".pdf"), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr, 
@@ -927,7 +1005,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo
     path_to_pkg_rt_1L_chr = getwd()) 
 {
     options(usethis.description = pkg_desc_ls)
-    use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh", 
+    use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh", 
         "full", "release", "standard"))
     if (is.null(badges_lup)) {
         utils::data("badges_lup", envir = environment())

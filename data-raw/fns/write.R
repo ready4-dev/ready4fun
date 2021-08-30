@@ -271,6 +271,75 @@ write_ds_dmt <- function(db_df,
                            paste0("#' @source \\url{",url_1L_chr,"}\n")),
                     "\"",db_1L_chr,"\""))
 }
+write_fls_to_dv <- function(file_paths_chr,
+                            descriptions_chr = NULL,
+                            ds_url_1L_chr,
+                            ds_ls = NULL,
+                            key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(!identical(file_paths_chr, character(0))){
+    message(paste0("Are you sure that you want to upload the following file",
+                   ifelse(length(file_paths_chr)>1,"s",""),
+                   " to dataverse ",
+                   ds_url_1L_chr,
+                   ": \n",
+                   file_paths_chr %>%
+                     purrr::map_chr(~fs::path_file(.x)) %>%
+                     paste0(collapse = "\n"),
+                   "?"))
+    consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Type 'Y' to confirm that you want to upload ",
+                                                       ifelse(length(file_paths_chr)>1,
+                                                              "these files:",
+                                                              "this file:")),
+                                  options_chr = c("Y", "N"),
+                                  force_from_opts_1l_chr = T)
+    if(consent_1L_chr == "Y"){
+      if(is.null(ds_ls))
+        ds_ls <- dataverse::get_dataset(ds_url_1L_chr)
+      is_draft_1L_lgl <- ds_ls$versionState == "DRAFT"
+      nms_chr <- ds_ls$files$filename
+      if(is.null(descriptions_chr))
+        descriptions_chr <- purrr::map(file_paths_chr,
+                                       ~ NULL)
+      ids_int <- file_paths_chr %>%
+        purrr::map2_int(descriptions_chr,
+                        ~{
+                          fl_nm_1L_chr <- fs::path_file(.x)
+                          if (fl_nm_1L_chr %in% nms_chr) {
+                            id_1L_int <- get_fl_id_from_dv_ls(ds_ls,
+                                                              fl_nm_1L_chr = fl_nm_1L_chr,
+                                                              nms_chr = nms_chr)
+                            if (is_draft_1L_lgl) {
+                              id_1L_int %>% dataverse::delete_file()
+                              id_1L_int <- dataverse::add_dataset_file(file = .x,
+                                                                       dataset = ds_url_1L_chr,
+                                                                       description = .y,
+                                                                       key = key_1L_chr,
+                                                                       server = server_1L_chr)
+                            }else {
+                              dataverse::update_dataset_file(file = .x,
+                                                             dataset = ds_url_1L_chr,
+                                                             id = id_1L_int,
+                                                             force = T,
+                                                             description = .y,
+                                                             key = key_1L_chr,
+                                                             server = server_1L_chr)
+                            }
+                          }else {
+                            id_1L_int <- dataverse::add_dataset_file(file = .x,
+                                                                     dataset = ds_url_1L_chr,
+                                                                     description = .y,
+                                                                     key = key_1L_chr,
+                                                                     server = server_1L_chr)
+                          }
+                          id_1L_int
+                        })
+    }
+  }else{
+    ids_int <- NULL
+  }
+  return(ids_int)
+}
 write_fn_fl <- function(fns_dmt_tb,
                         r_dir_1L_chr = "R",
                         document_unexp_lgl = T,
@@ -473,46 +542,72 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                                         project_website_url_1L_chr = project_website_url_1L_chr)))
 }
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
+                                path_to_dmt_dir_1L_chr,
                                 pkg_dmt_dv_url_1L_chr,
                                 publish_dv_1L_lgl = F){
   version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
   purrr::walk(c("Developer","User"),
               ~{
-                original_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
-                                          "/",
-                                          .x,
+                dir_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
+                                     "/",
+                                     .x)
+                original_1L_chr <- paste0(dir_1L_chr,
                                           "/",
                                           package_1L_chr,
                                           "_",
                                           version_1L_chr,
                                           ".pdf")
-                copy_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
+                fl_nm_1L_chr <- paste0(package_1L_chr,
+                                       "_",
+                                       .x,
+                                       ".pdf")
+                copy_1L_chr <- paste0(dir_1L_chr,
                                       "/",
-                                      .x,
-                                      "/",
-                                      package_1L_chr,
-                                      "_",
-                                      .x,
-                                      ".pdf")
+                                      fl_nm_1L_chr)
                 if(file.exists(original_1L_chr)){
-                  file.copy(original_1L_chr,
-                            copy_1L_chr,
-                            overwrite = T)
+                  write_new_files(dir_1L_chr,
+                                  source_paths_ls = list(original_1L_chr),
+                                  filename_1L_chr = fl_nm_1L_chr)
                 }
-                dataverse::add_dataset_file(file = copy_1L_chr,
-                                            dataset = pkg_dmt_dv_url_1L_chr,
-                                            description = paste0("Manual (",
-                                                                 .x %>% tolower(),
-                                                                 " version)",
-                                                                 " describing the contents of the ",
-                                                                 package_1L_chr,
-                                                                 " R package."))
+                # consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to add a copy of ",
+                #                                      copy_1L_chr,
+                #                                      " to a draft version of dataverse ",
+                #                                      pkg_dmt_dv_url_1L_chr,
+                #                                      "?"),
+                #                               options_chr = c("Y", "N"),
+                #                               force_from_opts_1l_chr = T)
+  # if(consent_1L_chr == "Y"){
+                write_fls_to_dv(copy_1L_chr,
+                                descriptions_chr = paste0("Manual (",
+                                                          .x %>% tolower(),
+                                                          " version)",
+                                                          " describing the contents of the ",
+                                                          package_1L_chr,
+                                                          " R package."),
+                                ds_url_1L_chr = pkg_dmt_dv_url_1L_chr)
+      # dataverse::add_dataset_file(file = copy_1L_chr,
+      #                             dataset = pkg_dmt_dv_url_1L_chr,
+      #                             description = paste0("Manual (",
+      #                                                  .x %>% tolower(),
+      #                                                  " version)",
+      #                                                  " describing the contents of the ",
+      #                                                  package_1L_chr,
+      #                                                  " R package."))
 
+
+  # }
               })
-  if(publish_dv_1L_lgl)
+  if(publish_dv_1L_lgl){
+    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ",
+                                                       pkg_dmt_dv_url_1L_chr,
+                                                       "?"),
+                                  options_chr = c("Y", "N"),
+                                  force_from_opts_1l_chr = T)
+    if(consent_1L_chr == "Y"){
     dataverse::publish_dataset(pkg_dmt_dv_url_1L_chr,
                                minor = F)
-
+    }
+    }
 }
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
@@ -613,7 +708,7 @@ write_new_files <- function(paths_chr,
                                  overwritten_files_chr %>% paste0(collapse = "\n"))),
                    "?"))
     consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write ",
-                                                       ifelse(length(new_files_chr)>1,
+                                                       ifelse((length(new_files_chr) + length(overwritten_files_chr))>1,
                                                               "these files:",
                                                               "this file:")),
                                   options_chr = c("Y", "N"),
@@ -644,6 +739,7 @@ write_new_files <- function(paths_chr,
                                           ifelse(is.null(filename_1L_chr),
                                                  "",
                                                  paste0("/",filename_1L_chr))),
+                                   overwrite = T,
                                    recursive = recursive_1L_lgl))
         }
         if(!is.null(custom_write_ls)){
@@ -686,7 +782,7 @@ write_package <- function(pkg_desc_ls,
                           pkg_ds_ls_ls,
                           pkg_setup_ls,
                           dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-                          path_to_dmt_dir_1L_chr =  "../../../../../Documentation/Code",
+                          path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           publish_dv_1L_lgl = F){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
   dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
@@ -703,6 +799,7 @@ write_package <- function(pkg_desc_ls,
                        r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                        update_pkgdown_1L_lgl = T)
   write_manuals_to_dv(package_1L_chr = get_dev_pkg_nm(getwd()),
+                      path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
                       pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
                       publish_dv_1L_lgl = publish_dv_1L_lgl)
   dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(package_1L_chr,
@@ -828,7 +925,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_pkg_rt_1L_chr = getwd()){
   options(usethis.description = pkg_desc_ls)
-  use_gh_cmd_check_1L_lgl = (check_type_1L_chr %in% c("gh","full","release","standard"))
+  use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh","full","release","standard"))
   if(is.null(badges_lup)){
     utils::data("badges_lup",envir = environment())
   }

@@ -83,6 +83,35 @@ get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = 
     })
     return(urls_chr)
 }
+#' Get file identity from dataverse
+#' @description get_fl_id_from_dv_ls() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get file identity from dataverse list. Function argument ds_ls specifies the where to look for the required object. The function returns Identity (a character vector of length one).
+#' @param ds_ls Dataset (a list)
+#' @param fl_nm_1L_chr File name (a character vector of length one)
+#' @param nms_chr Names (a character vector), Default: 'NA'
+#' @return Identity (a character vector of length one)
+#' @rdname get_fl_id_from_dv_ls
+#' @export 
+#' @importFrom purrr map2_chr
+#' @importFrom tibble as_tibble
+#' @keywords internal
+get_fl_id_from_dv_ls <- function (ds_ls, fl_nm_1L_chr, nms_chr = NA_character_) 
+{
+    if (is.na(nms_chr[1])) {
+        nms_chr <- purrr::map2_chr(ds_ls$files$originalFileName, 
+            ds_ls$files$filename, ~ifelse(is.na(.x), .y, .x))
+    }
+    if (fl_nm_1L_chr %in% nms_chr) {
+        id_1L_chr <- get_from_lup_obj(ds_ls$files[, names(ds_ls$files) %>% 
+            unique()] %>% tibble::as_tibble(), match_var_nm_1L_chr = ifelse(fl_nm_1L_chr %in% 
+            ds_ls$files$originalFileName, "originalFileName", 
+            "filename"), match_value_xx = fl_nm_1L_chr, target_var_nm_1L_chr = "id", 
+            evaluate_lgl = F)
+    }
+    else {
+        id_1L_chr <- NA_character_
+    }
+    return(id_1L_chr)
+}
 #' Get function arguments
 #' @description get_fn_args() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get function arguments. Function argument fn specifies the where to look for the required object. The function returns Function arguments (a character vector).
 #' @param fn Function (a function)

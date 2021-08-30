@@ -6,12 +6,15 @@
 \usage{
 write_manuals_to_dv(
   package_1L_chr = get_dev_pkg_nm(getwd()),
+  path_to_dmt_dir_1L_chr,
   pkg_dmt_dv_url_1L_chr,
   publish_dv_1L_lgl = F
 )
 }
 \arguments{
 \item{package_1L_chr}{Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
+
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one)}
 
 \item{pkg_dmt_dv_url_1L_chr}{Package documentation dataverse url (a character vector of length one)}
 

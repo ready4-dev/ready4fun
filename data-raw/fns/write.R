@@ -776,7 +776,10 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
 write_package <- function(pkg_desc_ls,
                           pkg_ds_ls_ls,
                           pkg_setup_ls,
+                          abbreviations_lup = NULL,
                           dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
+                          fn_type_lup_tb = NULL,
+                          object_type_lup = NULL,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           publish_dv_1L_lgl = F){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
@@ -784,7 +787,10 @@ write_package <- function(pkg_desc_ls,
                                   pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                     strsplit(",") %>%
                                     unlist() %>%
-                                    purrr::pluck(1))
+                                    purrr::pluck(1),
+                                  abbreviations_lup = abbreviations_lup,
+                                  fn_type_lup_tb = fn_type_lup_tb,
+                                  object_type_lup = object_type_lup)
   add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
   add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
   write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,

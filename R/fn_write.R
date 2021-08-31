@@ -15,6 +15,7 @@
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
+#' @keywords internal
 write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     pkg_nm_1L_chr = get_dev_pkg_nm(), short_name_chr = NA_character_, 
     long_name_chr = NA_character_, no_plural_chr = NA_character_, 
@@ -79,6 +80,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @importFrom tibble tibble add_case
 #' @importFrom utils data
 #' @importFrom devtools document load_all
+#' @keywords internal
 write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
@@ -125,6 +127,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom devtools document load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
+#' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt_1L_chr = getwd(), 
     path_to_dmt_dir_1L_chr, path_to_dvpr_dmt_dir_1L_chr = deprecated(), 
     path_to_user_dmt_dir_1L_chr = deprecated(), make_pdfs_1L_lgl = T, 
@@ -200,6 +203,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom utils data
+#' @keywords internal
 write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
@@ -227,6 +231,7 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
 #' @importFrom sinew makeOxyFile
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_sub
+#' @keywords internal
 write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
     sinew::makeOxyFile(tmp_fn_dir_1L_chr, verbose = F)
@@ -444,6 +449,7 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T,
 #' @rdname write_fn_type_dirs
 #' @export 
 
+#' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
@@ -569,6 +575,7 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @rdname write_links_for_website
 #' @export 
 #' @importFrom stats na.omit
+#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_manual_url_1L_chr = NA_character_, 
     user_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
 {
@@ -585,17 +592,16 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
                   T]) * 2))]
             }
             c("home:", "  links:", ifelse(!is.na(user_manual_url_1L_chr), 
-                "  - text: User manual (PDF)", NA_character_), 
+                "  - text: Manual - User (PDF)", NA_character_), 
                 ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", 
                   user_manual_url_1L_chr), NA_character_), ifelse(!is.na(developer_manual_url_1L_chr), 
-                  "  - text: Developer version of usual manual (PDF)", 
-                  NA_character_), ifelse(!is.na(developer_manual_url_1L_chr), 
-                  paste0("    href: ", developer_manual_url_1L_chr), 
+                  "  - text: Manual - Developer (PDF)", NA_character_), 
+                ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", 
+                  developer_manual_url_1L_chr), NA_character_), 
+                ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", 
                   NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
-                  "  - text: Project website", NA_character_), 
-                ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", 
-                  project_website_url_1L_chr), NA_character_), 
-                txt_chr) %>% stats::na.omit()
+                  paste0("    href: ", project_website_url_1L_chr), 
+                  NA_character_), txt_chr) %>% stats::na.omit()
         }), args_ls_ls = list(list(user_manual_url_1L_chr = user_manual_url_1L_chr, 
             developer_manual_url_1L_chr = developer_manual_url_1L_chr, 
             project_website_url_1L_chr = project_website_url_1L_chr)))
@@ -858,10 +864,10 @@ write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, dv_url_pfx_1
         dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr, 
         path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/R"), update_pkgdown_1L_lgl = T)
-    write_manuals_to_dv(package_1L_chr = get_dev_pkg_nm(getwd()), 
+    write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package, 
         path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr, 
         publish_dv_1L_lgl = publish_dv_1L_lgl)
-    dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(package_1L_chr, 
+    dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package, 
         "_", c("Developer", "User"), ".pdf"), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr)
     project_url_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
@@ -987,6 +993,7 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @importFrom lubridate year
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
+#' @keywords internal
 write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
     addl_badges_ls = NULL, badges_lup = NULL, check_type_1L_chr = "none", 
     delete_r_dir_cnts_1L_lgl = F, lifecycle_stage_1L_chr = "experimental", 
@@ -1122,6 +1129,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo
 #' @rdname write_pt_lup_db
 #' @export 
 
+#' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 

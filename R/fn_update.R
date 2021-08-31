@@ -13,7 +13,6 @@
 #' @importFrom purrr map_chr
 #' @importFrom stringi stri_replace_first_regex
 #' @importFrom tibble tibble
-#' @keywords internal
 update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
     custom_plural_ls = NULL, pfx_rgx = NA_character_) 
 {

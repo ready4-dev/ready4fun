@@ -38,7 +38,7 @@ get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){
 get_dv_fls_urls <- function(file_nms_chr,
                             dv_ds_nm_1L_chr,
                             dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/"){
-  ds_ls <- dataverse::dataset_files(pkg_dmt_dv_url_1L_chr)
+  ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr)
   all_items_chr <- purrr::map_chr(ds_ls,~.x$label)
   urls_chr <- file_nms_chr %>%
     purrr::map_chr(~{

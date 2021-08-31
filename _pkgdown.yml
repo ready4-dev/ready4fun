@@ -1,9 +1,9 @@
 home:
   links:
-  - text: User manual (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5021043
-  - text: Developer version of usual manual (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5021034
+  - text: Manual - User (PDF)
+    href: https://dataverse.harvard.edu/api/access/datafile/5023589
+  - text: Manual - Developer (PDF)
+    href: https://dataverse.harvard.edu/api/access/datafile/5023588
   - text: Project website
     href:  https://www.ready4-dev.com/
 development:
@@ -18,18 +18,11 @@ reference:
   - object_type_lup
 - title: "Functions"
 - contents:
+  - get_dv_fls_urls
   - get_from_lup_obj
   - get_rds_from_dv
-  - make_dmt_for_all_fns
-  - make_fn_type_lup
-  - make_lines_for_fn_dmt
-  - write_abbr_lup
-  - write_and_doc_ds
-  - write_and_doc_fn_fls
-  - write_dmtd_fn_type_lup
-  - write_documented_fns
-  - write_fn_type_dirs
-  - write_links_for_website
-  - write_pkg_setup_fls
-  - write_pt_lup_db
+  - make_pkg_desc_ls
+  - make_pkg_ds_ls
+  - make_pkg_setup_ls
+  - update_abbr_lup
   - write_ws

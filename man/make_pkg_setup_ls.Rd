@@ -74,4 +74,3 @@ Package setup (a list)
 \description{
 make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
 }
-\keyword{internal}

@@ -67,15 +67,11 @@ pkg_setup_ls <- pkg_desc_ls %>%
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
                     pkg_dmt_dv_url_1L_chr <- "https://doi.org/10.7910/DVN/HLLXZN",
                     ready4_type_1L_chr = "authoring",
-                    user_manual_fns_chr = c("get_from_lup_obj","get_rds_from_dv",
-                                            "make_dmt_for_all_fns",
-                                            "make_fn_type_lup", "make_lines_for_fn_dmt",
-                                            "write_abbr_lup", "write_and_doc_ds",
-                                            "write_and_doc_fn_fls","write_dmtd_fn_type_lup",
-                                            "write_documented_fns", "write_fn_type_dirs",
-                                            "write_links_for_website", "write_pkg_setup_fls",
-                                            "write_pt_lup_db", "write_ws"))
-pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>% # NB: PROBLEM WITH PKG DESC FILE
+                    user_manual_fns_chr = c("get_dv_fls_urls", "get_from_lup_obj", "get_rds_from_dv",
+                                            "make_pkg_desc_ls", "make_pkg_ds_ls","make_pkg_setup_ls",
+                                            "update_abbr_lup",
+                                           " write_package", "write_ws"))
+pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                        fns_env_ls$fns_env$make_pkg_ds_ls(db_df = .,
                                       abbreviations_lup = .,
                                       db_1L_chr = "object_type_lup",
@@ -88,18 +84,13 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>% #
                                     desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
                                     title_1L_chr = "ready4 badges lookup table",
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
-####
-## Add manuals to DV
 fns_env_ls$fns_env$write_package(pkg_desc_ls,
                                  pkg_ds_ls_ls,
                                  pkg_setup_ls,
                                  dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
                                  path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
                                  publish_dv_1L_lgl = T)
-
-
-
-# 12. Create vignettes
+# Create vignettes
 # NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814

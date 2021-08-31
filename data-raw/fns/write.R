@@ -490,13 +490,9 @@ write_from_tmp <- function(temp_paths_chr,
                                }
                 rlang::exec(edit_fn, txt_chr, !!!..3)
               })
-  # if(temp_path_1L_chr == dest_path_1L_chr)
   write_to_delete_fls(intersect(temp_paths_chr,dest_paths_chr))
   write_new_files(dest_paths_chr,
                   text_ls = text_ls)
-  # fileConn <- file(dest_path_1L_chr)
-  # writeLines(txt_chr, fileConn)
-  # close(fileConn)
 }
 write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
   source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr,"/data-raw/inst")
@@ -508,7 +504,7 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
                     source_paths_ls = list(source_inst_dir_1L_chr))
   }
 }
-write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs duplicates to be removed.
+write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                                     developer_manual_url_1L_chr = NA_character_,
                                     user_manual_url_1L_chr = NA_character_,
                                     project_website_url_1L_chr = NA_character_){
@@ -529,9 +525,9 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(), # Needs dup
                    }
                    c("home:",
                      "  links:",
-                     ifelse(!is.na(user_manual_url_1L_chr), "  - text: User manual (PDF)", NA_character_),
+                     ifelse(!is.na(user_manual_url_1L_chr), "  - text: Manual - User (PDF)", NA_character_),
                      ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Developer version of usual manual (PDF)", NA_character_),
+                     ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
@@ -785,7 +781,6 @@ write_package <- function(pkg_desc_ls,
                           publish_dv_1L_lgl = F){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
   dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
-                                  #fns_to_incl_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                   pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                     strsplit(",") %>%
                                     unlist() %>%
@@ -797,11 +792,11 @@ write_package <- function(pkg_desc_ls,
                        path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
                        r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                        update_pkgdown_1L_lgl = T)
-  write_manuals_to_dv(package_1L_chr = get_dev_pkg_nm(getwd()),
+  write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package,
                       path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
                       pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
                       publish_dv_1L_lgl = publish_dv_1L_lgl)
-  dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(package_1L_chr,
+  dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package,
                                                         "_",
                                                         c("Developer","User"),
                                                         ".pdf"),
@@ -992,7 +987,6 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   }else{
     cran_install_chr <- character(0)
   }
-
   readme_chr <- c(paste0("# ",
                          dev_pkg_nm_1L_chr,
                          ifelse(is.na(path_to_pkg_logo_1L_chr),

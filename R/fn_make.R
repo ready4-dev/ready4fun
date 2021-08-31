@@ -286,6 +286,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @importFrom utils data
 #' @importFrom purrr pmap_dfr
 #' @importFrom dplyr filter mutate case_when
+#' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
@@ -615,6 +616,7 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom dplyr arrange
+#' @keywords internal
 make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = character(0), 
     first_arg_desc_chr = character(0), second_arg_desc_chr = character(0), 
     is_generic_lgl = logical(0), is_method_lgl = logical(0)) 
@@ -709,6 +711,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @rdname make_lines_for_fn_dmt
 #' @export 
 #' @importFrom utils data
+#' @keywords internal
 make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
@@ -982,7 +985,6 @@ make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_
 #' @importFrom stringr str_detect str_sub str_locate str_trim
 #' @importFrom tools toTitleCase
 #' @importFrom usethis use_gpl3_license
-#' @keywords internal
 make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr, 
     pkg_desc_1L_chr, authors_prsn, urls_chr) 
 {
@@ -1014,7 +1016,6 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
 #' @rdname make_pkg_ds_ls
 #' @export 
 
-#' @keywords internal
 make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbreviations_lup = NULL, 
     format_1L_chr = "A tibble", object_type_lup = NULL, simple_lup_1L_lgl = F, 
     url_1L_chr = NA_character_, vars_ls = NULL) 
@@ -1053,7 +1054,6 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @export 
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
-#' @keywords internal
 make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_url_1L_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 

@@ -17,11 +17,20 @@ make_addl_pkgs_ls <- function(depends_chr = NULL,
 }
 make_arg_desc <- function(fn_args_chr,
                           object_type_lup = NULL,
-                          abbreviations_lup = NULL){
+                          abbreviations_lup = NULL,
+                          dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                          dv_url_pfx_1L_chr = NULL,
+                          key_1L_chr = NULL,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   arg_desc_chr <- make_arg_type(fn_args_chr,
                                 object_type_lup = object_type_lup,
                                 abbreviations_lup = abbreviations_lup,
@@ -30,11 +39,19 @@ make_arg_desc <- function(fn_args_chr,
 }
 make_arg_desc_ls <- function(fn_nms_chr,
                              abbreviations_lup = NULL,
-                             object_type_lup = NULL){
+                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             dv_url_pfx_1L_chr = NULL,
+                             key_1L_chr = NULL,
+                             object_type_lup = NULL,
+                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   arg_desc_ls <- purrr::map(fn_nms_chr,
                             ~ {
                               eval(parse(text = paste0("fn <- ",.x)))
@@ -48,13 +65,26 @@ make_arg_desc_ls <- function(fn_nms_chr,
 make_arg_desc_spine <- function(argument_nm_1L_chr,
                                 object_type_lup = NULL,
                                 abbreviations_lup = NULL,
-                                master_object_type_lup = NULL){
+                                dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                dv_url_pfx_1L_chr = NULL,
+                                key_1L_chr = NULL,
+                                master_object_type_lup = NULL,
+                                server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(master_object_type_lup))
-    master_object_type_lup <- get_rds_from_dv("object_type_lup")
+    master_object_type_lup <- get_rds_from_dv("object_type_lup",
+                                              dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                              key_1L_chr = key_1L_chr,
+                                              server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup", package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.na(argument_nm_1L_chr)){
     match_1L_chr <- character(0)
   }else{
@@ -76,9 +106,17 @@ make_arg_desc_spine <- function(argument_nm_1L_chr,
 make_arg_title <- function(args_chr,
                            match_chr,
                            object_type_lup = NULL,
-                           abbreviations_lup = NULL){
+                           abbreviations_lup = NULL,
+                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                           dv_url_pfx_1L_chr = NULL,
+                           key_1L_chr = NULL,
+                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   suffices_chr <- match_chr %>% purrr::map_chr(~{
@@ -107,11 +145,20 @@ make_arg_title <- function(args_chr,
 }
 make_arg_type_abbr <- function(fn_args_chr,
                                object_type_lup = NULL,
-                               abbreviations_lup = NULL){#
+                               abbreviations_lup = NULL,
+                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                               dv_url_pfx_1L_chr = NULL,
+                               key_1L_chr = NULL,
+                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){#
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   arg_type_abbr_chr <- make_arg_type(fn_args_chr,
                                      object_type_lup = object_type_lup,
                                      fn = make_arg_type_abbr_spine,
@@ -129,11 +176,20 @@ make_arg_type_abbr_spine <- function(argument_nm_1L_chr,
 make_arg_type <- function(fn_args_chr,
                           object_type_lup = NULL,
                           abbreviations_lup = NULL,
-                          fn){
+                          dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                          dv_url_pfx_1L_chr = NULL,
+                          fn,
+                          key_1L_chr = NULL,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_dv_from_rds ?
+                package="ready4fun",envir = environment())
   lup_ls <- make_arg_type_lup_ls(object_type_lup)
   append_1L_lgl <- "abbreviations_lup" %in% get_fn_args(fn)
   append_master_1L_lgl <- "master_object_type_lup" %in% get_fn_args(fn)
@@ -158,9 +214,17 @@ make_arg_type <- function(fn_args_chr,
     })
   return(arg_desc_chr)
 }
-make_arg_type_lup_ls <- function(object_type_lup = NULL){
+make_arg_type_lup_ls <- function(object_type_lup = NULL,
+                                 dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                 dv_url_pfx_1L_chr = NULL,
+                                 key_1L_chr = NULL,
+                                 server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   new_lup <- object_type_lup %>%
     dplyr::mutate(nchar_int = nchar(short_name_chr))
   lup_ls <- new_lup$nchar_int %>% unique() %>%
@@ -194,7 +258,11 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                                       args_ls_ls = NULL),
                                  fn_type_lup_tb,
                                  abbreviations_lup = NULL,
-                                 object_type_lup = get_rds_from_dv("object_type_lup"),
+                                 object_type_lup = get_rds_from_dv("object_type_lup",
+                                                                   dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                   key_1L_chr = key_1L_chr,
+                                                                   server_1L_chr = server_1L_chr),
                                  inc_all_mthds_1L_lgl = T){
   # add assert - same length inputs to purrr
   if (is.null(abbreviations_lup))
@@ -396,12 +464,21 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                             append_1L_lgl = T,
                             fn_type_lup_tb = NULL,
                             abbreviations_lup = NULL,
+                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                            dv_url_pfx_1L_chr = NULL,
+                            key_1L_chr = NULL,
                             object_type_lup = NULL,
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                             test_for_write_R_warning_fn = NULL){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl(fns_path_chr,
                                        fns_dir_chr = fns_dir_chr,
                                        fn_type_lup_tb = fn_type_lup_tb,
@@ -416,15 +493,24 @@ make_fn_dmt_tbl <- function(fns_path_chr,
   return(fn_dmt_tbl_tb)
 }
 make_fn_dmt_tbl_tpl <- function(fns_path_chr,
-                                   fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                                   fn_type_lup_tb = NULL,
-                                   abbreviations_lup = NULL,
-                                   object_type_lup = NULL,
+                                fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
+                                fn_type_lup_tb = NULL,
+                                abbreviations_lup = NULL,
+                                dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                dv_url_pfx_1L_chr = NULL,
+                                key_1L_chr = NULL,
+                                object_type_lup = NULL,
+                                server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                                 test_for_write_R_warning_fn = NULL){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   file_pfx_chr <- fns_dir_chr %>% stringr::str_replace("data-raw/","") %>%
     switch("fns"="fn_", "s3" = "C3_","gnrcs"="grp_", "mthds"="mthd_","s4 = C4_")
   fn_dmt_tbl_tb <- fns_path_chr %>%
@@ -468,13 +554,22 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
   return(fn_dmt_tbl_tb)
 }
 make_fn_title <- function(fns_chr,
-                                  object_type_lup = NULL,
-                                  abbreviations_lup = NULL,
-                                  is_generic_lgl = F){
+                          object_type_lup = NULL,
+                          abbreviations_lup = NULL,
+                          dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                          dv_url_pfx_1L_chr = NULL,
+                          is_generic_lgl = F,
+                          key_1L_chr = NULL,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_dv_from_rds ?
+                package="ready4fun",envir = environment())
   title_chr <- remove_obj_type_from_nm(fns_chr,
                                   object_type_lup = object_type_lup,
                                   abbreviations_lup = abbreviations_lup,
@@ -615,11 +710,20 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                   import_chr = NA_character_,
                                   doc_in_class_1L_lgl = F,
                                   abbreviations_lup = NULL,
-                                  object_type_lup = NULL){
+                                  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                  dv_url_pfx_1L_chr = NULL,
+                                  key_1L_chr = NULL,
+                                  object_type_lup = NULL,
+                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_dv_from_rds ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   fn_tags_spine_ls <- make_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr,
                                         fn_type_1L_chr = fn_type_1L_chr,
                                         fn_title_1L_chr = fn_title_1L_chr,
@@ -654,11 +758,20 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
                             args_ls = NULL,
                             fn = NULL,
                             abbreviations_lup = NULL,
-                            object_type_lup = NULL){
+                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                            dv_url_pfx_1L_chr = NULL,
+                            key_1L_chr = NULL,
+                            object_type_lup = NULL,
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Change to get_rds_from_dv
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   s3_class_main_1L_chr <- x_param_desc_1L_chr <- NULL
   if(!is.null(fn)){
     fn_args_chr <- get_fn_args(fn)
@@ -889,7 +1002,7 @@ make_pkg_ds_ls <- function(db_df,
 }
 make_pkg_setup_ls <- function(pkg_desc_ls,
                               copyright_holders_chr,
-                              pkg_dmt_dv_url_1L_chr,
+                              pkg_dmt_dv_dss_chr,
                               add_gh_site_1L_lgl = T,
                               addl_badges_ls = NULL,
                               addl_pkgs_ls = make_addl_pkgs_ls(),#
@@ -907,6 +1020,9 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               path_to_pkg_rt_1L_chr = getwd(),
                               ready4_type_1L_chr, #
                               user_manual_fns_chr = NA_character_){
+  if(length(pkg_dmt_dv_dss_chr)<2){
+    pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
+  }
   if(!is.na(ready4_type_1L_chr)){
     append_ls <- list(ready4 = ready4_type_1L_chr)
   }else{
@@ -940,7 +1056,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                        subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls,
                                             build_ignore_ls = build_ignore_ls,
                                             dev_pkgs_chr = dev_pkgs_chr,
-                                            pkg_dmt_dv_url_1L_chr = pkg_dmt_dv_url_1L_chr,
+                                            pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
                                             user_manual_fns_chr = user_manual_fns_chr))
   return(pkg_setup_ls)
 }

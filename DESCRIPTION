@@ -28,7 +28,7 @@ Description: ready4fun is a collection of functions for authoring code
     have created a sandpit area in which you can safely undertake testing.
     If you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 URL: https://ready4-dev.github.io/ready4fun/,
     https://github.com/ready4-dev/ready4fun, https://www.ready4-dev.com/
 Encoding: UTF-8
@@ -36,34 +36,9 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    dataverse,
-    desc,
-    devtools,
-    dplyr,
-    fs,
-    Hmisc,
     knitr,
     lifecycle,
-    lubridate,
-    magrittr,
-    methods,
-    pkgdown,
-    purrr,
-    readxl,
-    rlang,
-    sinew,
-    stats,
-    stringi,
-    stringr,
-    testit,
-    testthat,
-    tibble,
-    tools,
-    usethis,
-    utils,
-    xfun
+    testthat
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
-Suggests: 
-    rmarkdown

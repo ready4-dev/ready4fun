@@ -10,12 +10,24 @@ write_abbr_lup <- function(seed_lup = NULL,
                            pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
                                                        title_chr = character(0),
                                                        desc_chr = character(0),
-                                                       url_chr = character(0))){
+                                                       url_chr = character(0)),
+                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                           dv_url_pfx_1L_chr = NULL,
+                           key_1L_chr = NULL,
+                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(seed_lup)){
-    seed_lup <- get_rds_from_dv("object_type_lup")
+    seed_lup <- get_rds_from_dv("object_type_lup",
+                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                key_1L_chr = key_1L_chr,
+                                server_1L_chr = server_1L_chr)
   }
   if(is.null(object_type_lup)){ # Was seed_lup
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   }
   pkg_dss_tb <- update_abbr_lup(seed_lup,
                   short_name_chr = short_name_chr,
@@ -60,11 +72,19 @@ write_and_doc_ds <- function(db_df,
                              pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
                                                          title_chr = character(0),
                                                          desc_chr = character(0),
-                                                         url_chr = character(0))){
+                                                         url_chr = character(0)),
+                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             dv_url_pfx_1L_chr = NULL,
+                             key_1L_chr = NULL,
+                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
@@ -179,11 +199,20 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
                                                                title_chr = character(0),
                                                                desc_chr = character(0),
-                                                               url_chr = character(0))){
+                                                               url_chr = character(0)),
+                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                   dv_url_pfx_1L_chr = NULL,
+                                   key_1L_chr = NULL,
+                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Replace with get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   fn_type_lup_tb %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
                      db_1L_chr = "fn_type_lup_tb",
@@ -224,11 +253,19 @@ write_ds_dmt <- function(db_df,
                          R_dir_1L_chr = "R",
                          simple_lup_1L_lgl = F,
                          abbreviations_lup = NULL,
-                         object_type_lup = NULL){
+                         object_type_lup = NULL,
+                         dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                         dv_url_pfx_1L_chr = NULL,
+                         key_1L_chr = NULL,
+                         server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
                         get_from_lup_obj(abbreviations_lup,
@@ -539,7 +576,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
 }
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_dmt_dir_1L_chr,
-                                pkg_dmt_dv_url_1L_chr,
+                                pkg_dmt_dv_ds_1L_chr,
                                 publish_dv_1L_lgl = F){
   version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
   purrr::walk(c("Developer","User"),
@@ -568,7 +605,7 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                 # consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to add a copy of ",
                 #                                      copy_1L_chr,
                 #                                      " to a draft version of dataverse ",
-                #                                      pkg_dmt_dv_url_1L_chr,
+                #                                      pkg_dmt_dv_ds_1L_chr,
                 #                                      "?"),
                 #                               options_chr = c("Y", "N"),
                 #                               force_from_opts_1l_chr = T)
@@ -580,9 +617,9 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                                           " describing the contents of the ",
                                                           package_1L_chr,
                                                           " R package."),
-                                ds_url_1L_chr = pkg_dmt_dv_url_1L_chr)
+                                ds_url_1L_chr = pkg_dmt_dv_ds_1L_chr)
       # dataverse::add_dataset_file(file = copy_1L_chr,
-      #                             dataset = pkg_dmt_dv_url_1L_chr,
+      #                             dataset = pkg_dmt_dv_ds_1L_chr,
       #                             description = paste0("Manual (",
       #                                                  .x %>% tolower(),
       #                                                  " version)",
@@ -594,16 +631,8 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
   # }
               })
   if(publish_dv_1L_lgl){
-    consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ",
-                                                       pkg_dmt_dv_url_1L_chr,
-                                                       "?"),
-                                  options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
-    if(consent_1L_chr == "Y"){
-    dataverse::publish_dataset(pkg_dmt_dv_url_1L_chr,
-                               minor = F)
-    }
-    }
+    write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
+  }
 }
 write_new_arg_sfxs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
@@ -789,6 +818,7 @@ write_package <- function(pkg_desc_ls,
                                     unlist() %>%
                                     purrr::pluck(1),
                                   abbreviations_lup = abbreviations_lup,
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
                                   fn_type_lup_tb = fn_type_lup_tb,
                                   object_type_lup = object_type_lup)
   add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
@@ -800,13 +830,13 @@ write_package <- function(pkg_desc_ls,
                        update_pkgdown_1L_lgl = T)
   write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package,
                       path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
-                      pkg_dmt_dv_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
+                      pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
                       publish_dv_1L_lgl = publish_dv_1L_lgl)
   dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package,
                                                         "_",
                                                         c("Developer","User"),
                                                         ".pdf"),
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_url_1L_chr,
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr)
   project_url_1L_chr <- pkg_desc_ls$URL %>%
     strsplit(",") %>%
@@ -844,7 +874,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           args_ls_ls = NULL,
                           details_ls = NULL,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                          #fns_to_incl_chr = NA_character_,
+                          dv_ds_nm_1L_chr,
                           fn_type_lup_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
                           object_type_lup = NULL,
@@ -852,13 +882,28 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           pkg_url_1L_chr = NA_character_,
                           R_dir_1L_chr = "R",
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                          url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"){
+                          url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                          dv_url_pfx_1L_chr = NULL,
+                          key_1L_chr = NULL,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_dv("abbreviations_lup")
+    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
+                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                         key_1L_chr = key_1L_chr,
+                                         server_1L_chr = server_1L_chr)
   if(is.null(fn_type_lup_tb))
-    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb")
+    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
+                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                      key_1L_chr = key_1L_chr,
+                                      server_1L_chr = server_1L_chr)
   pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup,
                                url_1L_chr = url_1L_chr,
                                object_type_lup = object_type_lup)
@@ -1174,6 +1219,17 @@ write_to_delete_fls <- function(file_paths_chr){
     }else{
       message("Delete files request cancelled - no files deleted")
     }
+  }
+}
+write_to_publish_dv_ds <- function(dv_ds_1L_chr){
+  consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ",
+                                                     dv_ds_1L_chr,
+                                                     "?"),
+                                options_chr = c("Y", "N"),
+                                force_from_opts_1l_chr = T)
+  if(consent_1L_chr == "Y"){
+    dataverse::publish_dataset(dv_ds_1L_chr,
+                               minor = F)
   }
 }
 write_to_remove_collate <- function(description_chr){

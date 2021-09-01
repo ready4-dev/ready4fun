@@ -1,11 +1,20 @@
 remove_obj_type_from_nm <- function(nms_chr,
-                                            object_type_lup = NULL,
-                                            abbreviations_lup = NULL,
-                                            is_generic_lgl = F){
+                                    object_type_lup = NULL,
+                                    abbreviations_lup = NULL,
+                                    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                    dv_url_pfx_1L_chr = NULL,
+                                    is_generic_lgl = F,
+                                    key_1L_chr = NULL,
+                                    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    utils::data("abbreviations_lup", # Replace with get_rds_from_dv ?
+                package="ready4fun",envir = environment())
   output_chr <- make_arg_type_abbr(nms_chr,
                                    abbreviations_lup = abbreviations_lup,
                                    object_type_lup = object_type_lup)

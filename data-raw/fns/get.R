@@ -13,9 +13,17 @@ get_all_depcys_of_fns <- function(pkg_depcy_ls,
   return(fns_to_keep_chr)
 }
 get_arg_obj_type <- function(argument_nm_1L_chr,
-                             object_type_lup = NULL){
+                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             dv_url_pfx_1L_chr = NULL,
+                             key_1L_chr = NULL,
+                             object_type_lup = NULL,
+                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   nchar_int <- nchar(object_type_lup$short_name_chr)
   match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr,
                                                       paste0(ifelse(nchar(argument_nm_1L_chr)==nchar_int,"","_"),
@@ -37,8 +45,16 @@ get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){
 }
 get_dv_fls_urls <- function(file_nms_chr,
                             dv_ds_nm_1L_chr,
-                            dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/"){
-  ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr)
+                            dv_url_pfx_1L_chr = NULL,
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                            key_1L_chr = NULL){
+  if(is.null(dv_url_pfx_1L_chr))
+    dv_url_pfx_1L_chr <- paste0("https://",
+                                server_1L_chr,
+                                "/api/access/datafile/")
+  ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr,
+                                    server = server_1L_chr,
+                                    key = key_1L_chr)
   all_items_chr <- purrr::map_chr(ds_ls,~.x$label)
   urls_chr <- file_nms_chr %>%
     purrr::map_chr(~{
@@ -122,18 +138,110 @@ get_from_lup_obj <- function(data_lookup_tb,
   }
   return(return_object_xx)
 }
+get_new_abbrvs <- function(pkg_ds_ls_ls,
+                           pkg_setup_ls,
+                           abbreviations_lup = NULL,
+                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                           dv_url_pfx_1L_chr = NULL,
+                           fn_type_lup_tb = NULL,
+                           inc_all_mthds_1L_lgl = T,
+                           key_1L_chr = NULL,
+                           object_type_lup = NULL,
+                           paths_ls = make_fn_nms(),
+                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
+  if(is.null(abbreviations_lup))
+    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
+                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                         key_1L_chr = key_1L_chr,
+                                         server_1L_chr = server_1L_chr)
+  if(is.null(fn_type_lup_tb))
+    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
+                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                      key_1L_chr = key_1L_chr,
+                                      server_1L_chr = server_1L_chr)
+
+  fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
+                                     abbreviations_lup = abbreviations_lup,
+                                     custom_dmt_ls = list(details_ls = NULL,
+                                                          inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
+                                                                                          force_false_chr = NA_character_),
+                                                          args_ls_ls = NULL),
+                                       fn_type_lup_tb = fn_type_lup_tb,
+                                       inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
+                                       object_type_lup = object_type_lup,
+                                       undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+  new_fn_abbrvs_chr <- fns_dmt_tb$fns_chr %>%
+    get_new_abbrvs_cndts(drop_first_1L_lgl = T)
+  new_arg_abbrvs_chr <- fns_dmt_tb$args_ls %>%
+    purrr::map(~names(.x) %>%
+                 get_new_abbrvs_cndts()) %>%
+    purrr::flatten_chr() %>%
+    unique()
+  new_ds_abbrvs_chr <- pkg_ds_ls_ls %>%
+    purrr::map(~c(names(.x$db_df)),
+               .x$db_1L_chr) %>%
+    purrr::flatten_chr() %>%
+    get_new_abbrvs_cndts()
+  new_abbrvs_chr <- c(new_fn_abbrvs_chr,
+                        new_arg_abbrvs_chr,
+                        new_ds_abbrvs_chr) %>%
+    unique() %>%
+    sort()
+  return(new_abbrvs_chr)
+}
+get_new_abbrvs_cndts <- function(text_chr,
+                                 drop_first_1L_lgl = F){
+  new_abbrvs_cndts_chr <- text_chr %>%
+    purrr::map(~{
+      candidates_chr <- strsplit(.x,"_")[[1]]
+      if(drop_first_1L_lgl)
+        candidates_chr <- candidates_chr[-1]
+      candidates_chr
+    }) %>%
+    purrr::flatten_chr() %>%
+    unique() %>%
+    sort() %>%
+    setdiff(abbreviations_lup$short_name_chr)
+  new_abbrvs_cndts_chr <- setdiff(new_abbrvs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrvs_cndts_chr)))],
+                                  qdapDictionaries::GradyAugmented)
+  return(new_abbrvs_cndts_chr)
+}
 get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
+                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             dv_url_pfx_1L_chr = NULL,
+                             key_1L_chr = NULL,
                              fn_type_lup_tb,
                              fn_nms_ls = make_fn_nms(),
-                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(),
+                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                              object_type_lup = NULL){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
-  new_fn_types_chr <- purrr::map2(fn_nms_ls[c(1,3)],
-                                  undmtd_fns_dir_chr[c(1,3)],
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
+  new_fn_types_chr <- purrr::map2(fn_nms_ls[names(fn_nms_ls)!="gnrcs"],
+                                  undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
+                                                       purrr::map_lgl(~!endsWith(.x,"gnrcs"))],
                                   ~stringr::str_remove(.x,paste0(.y,"/")) %>% stringr::str_sub(end=-3)) %>%
-    purrr::flatten_chr() %>%
-    c(get_fn_nms_in_file(paste0(undmtd_fns_dir_chr[2],"/generics.R"))) %>%
+    purrr::flatten_chr()
+  generics_dir_1L_chr <- undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
+                                              purrr::map_lgl(~endsWith(.x,"gnrcs"))]
+  if(!identical(generics_dir_1L_chr,
+                character(0)))
+  new_fn_types_chr <- new_fn_types_chr %>%
+    c(get_fn_nms_in_file(paste0(generics_dir_1L_chr,"/generics.R")))
+  new_fn_types_chr <- new_fn_types_chr %>%
     unique() %>%
     sort() %>%
     make_fn_title(abbreviations_lup = abbreviations_lup,
@@ -144,8 +252,18 @@ get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to r
   return(new_fn_types_chr)
 }
 get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,
-                                         old_obj_type_lup_tb = get_rds_from_dv("object_type_lup"),
-                                         excluded_chr = NA_character_){
+                                         dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                         dv_url_pfx_1L_chr = NULL,
+                                         excluded_chr = NA_character_,
+                                         key_1L_chr = NULL,
+                                         old_obj_type_lup_tb = NULL,
+                                         server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(is.null(old_obj_type_lup_tb))
+    old_obj_type_lup_tb <- get_rds_from_dv("object_type_lup",
+                                           dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                           key_1L_chr = key_1L_chr,
+                                           server_1L_chr = server_1L_chr)
   obj_type_lup_new_cses_tb <- updated_obj_type_lup_tb %>%
     dplyr::filter(!short_name_chr %in% old_obj_type_lup_tb$short_name_chr)
   if(!is.na(excluded_chr[1]))
@@ -154,9 +272,17 @@ get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,
   return(obj_type_lup_new_cses_tb)
 }
 get_outp_obj_type <- function(fns_chr,
-                              object_type_lup = NULL){
+                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                              dv_url_pfx_1L_chr = NULL,
+                              key_1L_chr = NULL,
+                              object_type_lup = NULL,
+                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup")
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             return_obj_chr <- get_return_obj_nm(eval(parse(text=.x))) %>%
@@ -173,9 +299,13 @@ get_r4_obj_slots <- function(fn_name_1L_chr,
 }
 get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                            dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-                            server_1L_chr = "dataverse.harvard.edu",
-                            key_1L_chr = NULL){
+                            dv_url_pfx_1L_chr = NULL,
+                            key_1L_chr = NULL,
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(is.null(dv_url_pfx_1L_chr))
+    dv_url_pfx_1L_chr <- paste0("https://",
+                                server_1L_chr,
+                                "/api/access/datafile/")
   ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr,
                                     server = server_1L_chr,
                                     key = key_1L_chr)

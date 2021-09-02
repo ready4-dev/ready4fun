@@ -34,7 +34,11 @@ make_arg_desc <- function(fn_args_chr,
   arg_desc_chr <- make_arg_type(fn_args_chr,
                                 object_type_lup = object_type_lup,
                                 abbreviations_lup = abbreviations_lup,
-                                fn = make_arg_desc_spine)
+                                fn = make_arg_desc_spine,
+                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                key_1L_chr = key_1L_chr,
+                                server_1L_chr = server_1L_chr)
   return(arg_desc_chr)
 }
 make_arg_desc_ls <- function(fn_nms_chr,
@@ -56,7 +60,11 @@ make_arg_desc_ls <- function(fn_nms_chr,
                             ~ {
                               eval(parse(text = paste0("fn <- ",.x)))
                               get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup,
-                                                                object_type_lup = object_type_lup) %>%
+                                                                object_type_lup = object_type_lup,
+                                                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                key_1L_chr = key_1L_chr,
+                                                                server_1L_chr = server_1L_chr) %>%
                                 stats::setNames(get_fn_args(fn))
                             }
   )
@@ -162,13 +170,19 @@ make_arg_type_abbr <- function(fn_args_chr,
   arg_type_abbr_chr <- make_arg_type(fn_args_chr,
                                      object_type_lup = object_type_lup,
                                      fn = make_arg_type_abbr_spine,
-                                     abbreviations_lup = abbreviations_lup)
+                                     abbreviations_lup = abbreviations_lup,
+                                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                     key_1L_chr = key_1L_chr,
+                                     server_1L_chr = server_1L_chr)
   return(arg_type_abbr_chr)
 }
 make_arg_type_abbr_spine <- function(argument_nm_1L_chr,
-                                    lup_tb){
-  arg_type_1L_chr <- lup_tb$short_name_chr[endsWith(argument_nm_1L_chr,lup_tb$short_name_chr)]
-  arg_type_abbr_spine_1L_chr <- ifelse(identical(character(0),arg_type_1L_chr),
+                                     object_type_lup){
+  arg_type_1L_chr <- object_type_lup$short_name_chr[endsWith(argument_nm_1L_chr,
+                                                    object_type_lup$short_name_chr)]
+  arg_type_abbr_spine_1L_chr <- ifelse(identical(character(0),
+                                                 arg_type_1L_chr),
                          NA_character_,
                          arg_type_1L_chr)
   return(arg_type_abbr_spine_1L_chr)
@@ -189,7 +203,8 @@ make_arg_type <- function(fn_args_chr,
                                        server_1L_chr = server_1L_chr)
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup", # Change to get_dv_from_rds ?
-                package="ready4fun",envir = environment())
+                package="ready4fun",
+                envir = environment())
   lup_ls <- make_arg_type_lup_ls(object_type_lup)
   append_1L_lgl <- "abbreviations_lup" %in% get_fn_args(fn)
   append_master_1L_lgl <- "master_object_type_lup" %in% get_fn_args(fn)
@@ -199,11 +214,18 @@ make_arg_type <- function(fn_args_chr,
       arg_desc_1L_chr <- purrr::map_chr(lup_ls,
                                      ~ {
                                        args_ls <- list(argument_nm_1L_chr,
-                                                       .x)
+                                                       .x) %>%
+                                         stats::setNames(c("argument_nm_1L_chr",
+                                                           "object_type_lup"))
                                        if(append_1L_lgl)
-                                         args_ls <- append(args_ls, list(abbreviations_lup))
+                                         args_ls <- append(args_ls, list(abbreviations_lup = abbreviations_lup))
                                        if(append_master_1L_lgl)
-                                         args_ls <- append(args_ls, list(object_type_lup))
+                                         args_ls <- append(args_ls,
+                                                           list(dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                key_1L_chr = key_1L_chr,
+                                                                master_object_type_lup = object_type_lup,
+                                                                server_1L_chr = server_1L_chr))
                                        rlang::exec(fn,!!!args_ls)
                                      }) %>%
         purrr::discard(is.na) %>%
@@ -872,7 +894,11 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     if(any(!is.na(fn_args_chr)) & !is.null(object_type_lup)){
       arg_desc_chr <- make_arg_desc(fn_args_chr,
                                     abbreviations_lup = abbreviations_lup,
-                                    object_type_lup = object_type_lup)
+                                    object_type_lup = object_type_lup,
+                                    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                    key_1L_chr = key_1L_chr,
+                                    server_1L_chr = server_1L_chr)
       if(!is.null(arg_desc_chr)){
         names(arg_desc_chr) <- fn_args_chr
       }

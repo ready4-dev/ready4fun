@@ -17,7 +17,11 @@ remove_obj_type_from_nm <- function(nms_chr,
                 package="ready4fun",envir = environment())
   output_chr <- make_arg_type_abbr(nms_chr,
                                    abbreviations_lup = abbreviations_lup,
-                                   object_type_lup = object_type_lup)
+                                   object_type_lup = object_type_lup,
+                                   dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                   key_1L_chr = key_1L_chr,
+                                   server_1L_chr = server_1L_chr)
   suffices_chr <- output_chr %>% purrr::map2_chr(is_generic_lgl,~{
     ifelse(.x=="NO MATCH"|.y,
            "",

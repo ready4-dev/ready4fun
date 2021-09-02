@@ -1,5 +1,5 @@
 write_abbr_lup <- function(seed_lup = NULL,
-                           url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                           url_1L_chr = deprecated(),#"https://doi.org/10.7910/DVN/2Y9VF9",
                            pkg_nm_1L_chr = get_dev_pkg_nm(),
                            short_name_chr = NA_character_,
                            long_name_chr = NA_character_,
@@ -15,6 +15,11 @@ write_abbr_lup <- function(seed_lup = NULL,
                            dv_url_pfx_1L_chr = NULL,
                            key_1L_chr = NULL,
                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if (lifecycle::is_present(url_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9323",
+                              "ready4fun::write_abbr_lup(url_1L_chr)",
+                              details = "Please use `ready4fun::write_abbr_lup(dv_ds_nm_1L_chr)` instead.")
+  }
   if(is.null(seed_lup)){
     seed_lup <- get_rds_from_dv("object_type_lup",
                                 dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -40,10 +45,14 @@ write_abbr_lup <- function(seed_lup = NULL,
                      title_1L_chr = "Common abbreviations lookup table",
                      desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ",pkg_nm_1L_chr,"package."),
                      format_1L_chr = "A tibble",
-                     url_1L_chr = url_1L_chr,
+                     url_1L_chr = dv_ds_nm_1L_chr,
                      abbreviations_lup = .,
                      object_type_lup = object_type_lup,
-                     pkg_dss_tb = pkg_dss_tb)
+                     pkg_dss_tb = pkg_dss_tb,
+                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                     key_1L_chr = key_1L_chr,
+                     server_1L_chr = server_1L_chr)
   return(pkg_dss_tb)
 }
 write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
@@ -100,7 +109,11 @@ write_and_doc_ds <- function(db_df,
                R_dir_1L_chr = R_dir_1L_chr,
                simple_lup_1L_lgl = simple_lup_1L_lgl,
                abbreviations_lup = abbreviations_lup,
-               object_type_lup = object_type_lup)
+               object_type_lup = object_type_lup,
+               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+               key_1L_chr = key_1L_chr,
+               server_1L_chr = server_1L_chr)
   close_open_sinks()
   devtools::document()
   devtools::load_all()
@@ -193,7 +206,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
 write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    overwrite_1L_lgl = T,
                                    pkg_nm_1L_chr = get_dev_pkg_nm(),
-                                   url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                   url_1L_chr = deprecated(),
                                    abbreviations_lup = NULL,
                                    object_type_lup = NULL,
                                    pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
@@ -204,6 +217,11 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                    dv_url_pfx_1L_chr = NULL,
                                    key_1L_chr = NULL,
                                    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if (lifecycle::is_present(url_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9323",
+                              "ready4fun::write_dmtd_fn_type_lup(url_1L_chr)",
+                              details = "Please use `ready4fun::write_dmtd_fn_type_lup(dv_ds_nm_1L_chr)` instead.")
+  }
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup", # Replace with get_rds_from_dv ?
                 package="ready4fun",envir = environment())
@@ -219,10 +237,14 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                      title_1L_chr = "Function type lookup table",
                      desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
                      format_1L_chr = "A tibble",
-                     url_1L_chr = url_1L_chr,
+                     url_1L_chr = dv_ds_nm_1L_chr,
                      abbreviations_lup = abbreviations_lup,
                      object_type_lup = object_type_lup,
-                     pkg_dss_tb = pkg_dss_tb)
+                     pkg_dss_tb = pkg_dss_tb,
+                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                     key_1L_chr = key_1L_chr,
+                     server_1L_chr = server_1L_chr)
 }
 write_documented_fns <- function(tmp_fn_dir_1L_chr,
                                    R_dir_1L_chr){
@@ -274,8 +296,12 @@ write_ds_dmt <- function(db_df,
                                          match_value_xx = .x,
                                          evaluate_lgl = F),
                         make_arg_desc(.x,
-                               object_type_lup = object_type_lup,
-                               abbreviations_lup = abbreviations_lup))) %>%
+                                      object_type_lup = object_type_lup,
+                                      abbreviations_lup = abbreviations_lup,
+                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                      key_1L_chr = key_1L_chr,
+                                      server_1L_chr = server_1L_chr))) %>%
     stats::setNames(names(db_df))
   if(is.null(vars_ls)){
     vars_ls <- auto_vars_ls
@@ -882,7 +908,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           pkg_url_1L_chr = NA_character_,
                           R_dir_1L_chr = "R",
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                          url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                          #url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                           dv_url_pfx_1L_chr = NULL,
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -905,14 +931,18 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                       key_1L_chr = key_1L_chr,
                                       server_1L_chr = server_1L_chr)
   pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup,
-                               url_1L_chr = url_1L_chr,
+                               pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
+                               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,#url_1L_chr,
                                object_type_lup = object_type_lup)
   utils::data("abbreviations_lup", envir = environment())
   pkg_dss_tb <- fn_type_lup_tb %>%
-    write_dmtd_fn_type_lup(url_1L_chr = url_1L_chr,
-                           abbreviations_lup = abbreviations_lup,
+    write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup,
                            object_type_lup = object_type_lup,
-                           pkg_dss_tb = pkg_dss_tb)
+                           pkg_dss_tb = pkg_dss_tb,
+                           dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,#url_1L_chr,
+                           dv_url_pfx_1L_chr = NULL,
+                           key_1L_chr = NULL,
+                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
   utils::data("fn_type_lup_tb", envir = environment())
   if(!is.null(pkg_ds_ls_ls)){
     pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls,
@@ -925,7 +955,11 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                   args_ls <- append(.y,
                                                     list(overwrite_1L_lgl = T,
                                                          pkg_dss_tb = .x,
-                                                         R_dir_1L_chr = R_dir_1L_chr))
+                                                         R_dir_1L_chr = R_dir_1L_chr,
+                                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                         key_1L_chr = key_1L_chr,
+                                                         server_1L_chr = server_1L_chr))
                                   rlang::exec(write_and_doc_ds,!!!args_ls)
                                 })
   }
@@ -949,7 +983,11 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                      url_1L_chr = pkg_url_1L_chr,
                      abbreviations_lup = abbreviations_lup,
                      object_type_lup = object_type_lup,
-                     pkg_dss_tb = pkg_dss_tb)
+                     pkg_dss_tb = pkg_dss_tb,
+                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                     key_1L_chr = key_1L_chr,
+                     server_1L_chr = server_1L_chr)
   dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb,
                          fns_dmt_tb = fns_dmt_tb)
 
@@ -1115,6 +1153,8 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                 })
 
   }
+  devtools::document()
+  devtools::load_all()
 }
 write_pt_lup_db <- function(R_dir_1L_chr = "R"){
   write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),

@@ -211,8 +211,9 @@ get_new_abbrvs_cndts <- function(text_chr,
     unique() %>%
     sort() %>%
     setdiff(abbreviations_lup$short_name_chr)
+  data("GradyAugmented", package = "qdapDictionaries", envir = environment())
   new_abbrvs_cndts_chr <- setdiff(new_abbrvs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrvs_cndts_chr)))],
-                                  qdapDictionaries::GradyAugmented)
+                                  GradyAugmented)
   return(new_abbrvs_cndts_chr)
 }
 get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
@@ -286,7 +287,11 @@ get_outp_obj_type <- function(fns_chr,
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             return_obj_chr <- get_return_obj_nm(eval(parse(text=.x))) %>%
-                                              make_arg_desc(object_type_lup = object_type_lup)
+                                              make_arg_desc(object_type_lup = object_type_lup,
+                                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                            key_1L_chr = key_1L_chr,
+                                                            server_1L_chr = server_1L_chr)
                                             ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                           })
   return(outp_obj_type_chr)

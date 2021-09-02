@@ -138,69 +138,81 @@ get_from_lup_obj <- function(data_lookup_tb,
   }
   return(return_object_xx)
 }
-get_new_abbrvs <- function(pkg_ds_ls_ls,
-                           pkg_setup_ls,
-                           abbreviations_lup = NULL,
-                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                           dv_url_pfx_1L_chr = NULL,
-                           fn_type_lup_tb = NULL,
-                           inc_all_mthds_1L_lgl = T,
-                           key_1L_chr = NULL,
-                           object_type_lup = NULL,
-                           paths_ls = make_fn_nms(),
-                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
-  if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
-                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                         key_1L_chr = key_1L_chr,
-                                         server_1L_chr = server_1L_chr)
-  if(is.null(fn_type_lup_tb))
-    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
-                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                      key_1L_chr = key_1L_chr,
-                                      server_1L_chr = server_1L_chr)
-
+get_new_abbrs <- function(pkg_setup_ls,
+                          classes_to_make_tb = NULL,
+                          # fn_type_lup_tb = NULL,
+                          inc_all_mthds_1L_lgl = T,
+                          paths_ls = make_fn_nms(),
+                          pkg_ds_ls_ls = NULL,
+                          transformations_chr = NULL,
+                          treat_as_words_chr = character(0),
+                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
+  # if(is.null(fn_type_lup_tb))
+  #   fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
+  #                                     dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+  #                                     dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr,
+  #                                     key_1L_chr = pkg_setup_ls$subsequent_ls$key_1L_chr,
+  #                                     server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
-                                     abbreviations_lup = abbreviations_lup,
+                                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
                                                           inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = NULL),
-                                       fn_type_lup_tb = fn_type_lup_tb,
-                                       inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
-                                       object_type_lup = object_type_lup,
-                                       undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-  new_fn_abbrvs_chr <- fns_dmt_tb$fns_chr %>%
-    get_new_abbrvs_cndts(drop_first_1L_lgl = T)
-  new_arg_abbrvs_chr <- fns_dmt_tb$args_ls %>%
+                                     fn_type_lup_tb = pkg_setup_ls$subsequent_ls$fn_type_lup_tb,
+                                     inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
+                                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+                                     undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+  new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>%
+    get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                        drop_first_1L_lgl = T,
+                        treat_as_words_chr = treat_as_words_chr)
+  new_arg_abbrs_chr <- fns_dmt_tb$args_ls %>%
     purrr::map(~names(.x) %>%
-                 get_new_abbrvs_cndts()) %>%
+                 get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                                     treat_as_words_chr = treat_as_words_chr)) %>%
     purrr::flatten_chr() %>%
     unique()
-  new_ds_abbrvs_chr <- pkg_ds_ls_ls %>%
-    purrr::map(~c(names(.x$db_df)),
-               .x$db_1L_chr) %>%
-    purrr::flatten_chr() %>%
-    get_new_abbrvs_cndts()
-  new_abbrvs_chr <- c(new_fn_abbrvs_chr,
-                        new_arg_abbrvs_chr,
-                        new_ds_abbrvs_chr) %>%
+  if(!is.null(pkg_ds_ls_ls)){
+    new_ds_abbrs_chr <- pkg_ds_ls_ls %>%
+      purrr::map(~c(names(.x$db_df)),
+                 .x$db_1L_chr) %>%
+      purrr::flatten_chr() %>%
+      get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                          treat_as_words_chr = treat_as_words_chr)
+  }else{
+    new_ds_abbrs_chr <- character(0)
+  }
+  if(!is.null(classes_to_make_tb)){
+    new_clss_abbrs_chr <- classes_to_make_tb$vals_ls %>%
+      purrr::discard(is.null) %>%
+      purrr::map(~names(.x)) %>%
+      purrr::flatten_chr() %>%
+      unique() %>%
+      get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                          treat_as_words_chr = treat_as_words_chr)
+  }else{
+    new_clss_abbrs_chr <- character(0)
+  }
+  new_abbrs_chr <- c(new_fn_abbrs_chr,
+                     new_arg_abbrs_chr,
+                     new_clss_abbrs_chr,
+                     new_ds_abbrs_chr) %>%
     unique() %>%
     sort()
-  return(new_abbrvs_chr)
+  if(!is.null(transformations_chr)){
+    new_abbrs_chr <- c(setdiff(new_abbrs_chr,
+                               transformations_chr),
+                       names(transformations_chr)) %>%
+      sort()
+  }
+  return(new_abbrs_chr)
 }
-get_new_abbrvs_cndts <- function(text_chr,
-                                 drop_first_1L_lgl = F){
-  new_abbrvs_cndts_chr <- text_chr %>%
+get_new_abbrs_cndts <- function(text_chr,
+                                abbreviations_lup,
+                                drop_first_1L_lgl = F,
+                                treat_as_words_chr = character(0)){
+  new_abbrs_cndts_chr <- text_chr %>%
     purrr::map(~{
       candidates_chr <- strsplit(.x,"_")[[1]]
       if(drop_first_1L_lgl)
@@ -212,25 +224,23 @@ get_new_abbrvs_cndts <- function(text_chr,
     sort() %>%
     setdiff(abbreviations_lup$short_name_chr)
   data("GradyAugmented", package = "qdapDictionaries", envir = environment())
-  new_abbrvs_cndts_chr <- setdiff(new_abbrvs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrvs_cndts_chr)))],
-                                  GradyAugmented)
-  return(new_abbrvs_cndts_chr)
+  new_abbrs_cndts_chr <- setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))],
+                                  c(GradyAugmented, treat_as_words_chr))
+  return(new_abbrs_cndts_chr)
 }
-get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
-                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = NULL,
-                             key_1L_chr = NULL,
-                             fn_type_lup_tb,
+get_new_fn_types <- function(pkg_setup_ls,
+                             #abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
+                             #dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                             #dv_url_pfx_1L_chr = NULL,
+                             #key_1L_chr = NULL,
+                             #fn_type_lup_tb = NULL,
                              fn_nms_ls = make_fn_nms(),
-                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                             object_type_lup = NULL){
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+                             #server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+                             #,
+                             #object_type_lup = NULL
+                             ){
+
   new_fn_types_chr <- purrr::map2(fn_nms_ls[names(fn_nms_ls)!="gnrcs"],
                                   undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
                                                        purrr::map_lgl(~!endsWith(.x,"gnrcs"))],
@@ -245,11 +255,13 @@ get_new_fn_types <- function(abbreviations_lup, # NOTE: Needs to be updated to r
   new_fn_types_chr <- new_fn_types_chr %>%
     unique() %>%
     sort() %>%
-    make_fn_title(abbreviations_lup = abbreviations_lup,
-                  object_type_lup = object_type_lup,
+    make_fn_title(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                  object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                   is_generic_lgl = T) %>%
-    tools::toTitleCase() %>%
-    setdiff(fn_type_lup_tb$fn_type_nm_chr)
+    tools::toTitleCase()
+  if(!is.null(pkg_setup_ls$subsequent_ls$fn_type_lup_tb))
+    new_fn_types_chr <- new_fn_types_chr %>%
+    setdiff(pkg_setup_ls$subsequent_ls$fn_type_lup_tb$fn_type_nm_chr)
   return(new_fn_types_chr)
 }
 get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,

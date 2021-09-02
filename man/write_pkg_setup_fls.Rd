@@ -7,7 +7,7 @@
 write_pkg_setup_fls(
   pkg_desc_ls,
   copyright_holders_chr,
-  github_repo_1L_chr,
+  gh_repo_1L_chr,
   addl_badges_ls = NULL,
   badges_lup = NULL,
   check_type_1L_chr = "none",
@@ -26,7 +26,7 @@ write_pkg_setup_fls(
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 
-\item{github_repo_1L_chr}{Github repo (a character vector of length one)}
+\item{gh_repo_1L_chr}{Github repo (a character vector of length one)}
 
 \item{addl_badges_ls}{Addl badges (a list), Default: NULL}
 

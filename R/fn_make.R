@@ -302,15 +302,15 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "htt
 #' Make build ignore
 #' @description make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).
 #' @param file_nms_chr File names (a character vector), Default: NULL
-#' @param regex_chr Regex (a character vector), Default: NULL
+#' @param regulars_rgx Regex (a character vector), Default: NULL
 #' @return Build ignore (a list)
 #' @rdname make_build_ignore_ls
 #' @export 
 
 #' @keywords internal
-make_build_ignore_ls <- function (file_nms_chr = NULL, regex_chr = NULL) 
+make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL) 
 {
-    build_ignore_ls = list(file_nms_chr = file_nms_chr, regex_chr = regex_chr)
+    build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)
     return(build_ignore_ls)
 }
 #' Make dependent functions
@@ -1150,7 +1150,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
-#' @param github_repo_1L_chr Github repo (a character vector of length one), Default: 'NA'
+#' @param gh_repo_1L_chr Github repo (a character vector of length one), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: F
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
@@ -1168,7 +1168,7 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
     check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
-    github_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
+    gh_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
     incr_ver_1L_lgl = F, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
     path_to_pkg_rt_1L_chr = getwd(), ready4_type_1L_chr, user_manual_fns_chr = NA_character_) 
 {
@@ -1181,15 +1181,15 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
     else {
         append_ls <- NULL
     }
-    if (is.na(github_repo_1L_chr)) 
-        github_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
+    if (is.na(gh_repo_1L_chr)) 
+        gh_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
             unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 
             stringr::str_remove("https://github.com/")
     addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
     if (length(addl_badges_ls) == 0) 
         addl_badges_ls <- NULL
     pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
-        copyright_holders_chr = copyright_holders_chr, github_repo_1L_chr = github_repo_1L_chr, 
+        copyright_holders_chr = copyright_holders_chr, gh_repo_1L_chr = gh_repo_1L_chr, 
         add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 
         badges_lup = badges_lup, check_type_1L_chr = check_type_1L_chr, 
         delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
@@ -1205,13 +1205,13 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
 #' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).
 #' @param prompt_1L_chr Prompt (a character vector of length one)
 #' @param options_chr Options (a character vector), Default: NULL
-#' @param force_from_opts_1l_chr Force from opts 1l (a character vector), Default: F
+#' @param force_from_opts_1L_chr Force from opts 1L (a character vector), Default: F
 #' @return Response (a character vector of length one)
 #' @rdname make_prompt
 #' @export 
 
 #' @keywords internal
-make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) 
+make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) 
 {
     acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
     con_conn <- getOption("prompt_opts.con", stdin())
@@ -1221,9 +1221,9 @@ make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1l_c
     cat(prompt_with_options_1L_chr)
     response_1L_chr <- readLines(con = con_conn, n = 1)
     if (!is.null(options_chr) & !response_1L_chr %in% options_chr & 
-        force_from_opts_1l_chr) {
+        force_from_opts_1L_chr) {
         response_1L_chr <- make_prompt(prompt_1L_chr, options_chr, 
-            force_from_opts_1l_chr = T)
+            force_from_opts_1L_chr = T)
     }
     return(response_1L_chr)
 }

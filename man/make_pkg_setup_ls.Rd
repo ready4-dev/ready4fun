@@ -17,7 +17,7 @@ make_pkg_setup_ls(
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
-  github_repo_1L_chr = NA_character_,
+  gh_repo_1L_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
   incr_ver_1L_lgl = F,
   on_cran_1L_lgl = F,
@@ -52,7 +52,7 @@ make_pkg_setup_ls(
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
 
-\item{github_repo_1L_chr}{Github repo (a character vector of length one), Default: 'NA'}
+\item{gh_repo_1L_chr}{Github repo (a character vector of length one), Default: 'NA'}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 

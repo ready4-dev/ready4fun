@@ -1,4 +1,5 @@
 ## Note files to be rewritten cannot be open in RStudio.
+## Dataverse dataset with seed object_type and abbreviations look-ups must be established first.
 # 1. Set-up workspace.
 library(magrittr)
 fns_dir_1L_chr <-"data-raw/fns"
@@ -114,7 +115,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                               parent_class_chr = NA_character_),
   ready4class::make_pt_ready4_constructor_tbl(make_s3_lgl = FALSE,
                                               name_stub_chr = "pkg_setup_one",
-                                              slots_ls = c("pkg_desc_ls","copyright_holders_chr","github_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
+                                              slots_ls = c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
                                                            "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
                                                            "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr") %>% list(),
                                               pt_ls = c("list", "character", "character", "character", "list",
@@ -145,7 +146,22 @@ classes_to_make_tb <- dplyr::bind_rows(
 
 ) %>%
   ready4class::ready4_constructor_tbl()
-## Update abbreviations and fn_types lups
+## Add as validation step to make pkg_setup_ls??
+new_fn_types_chr <- fns_env_ls$fns_env$get_new_fn_types(pkg_setup_ls)
+pkg_setup_ls$subsequent_ls$fn_type_lup_tb <- pkg_setup_ls$subsequent_ls$fn_type_lup_tb %>%
+  fns_env_ls$fns_env$add_rows_to_fn_type_lup(fn_type_nm_chr = new_fn_types_chr,
+                                             fn_type_desc_chr = NA_character_,
+                                             first_arg_desc_chr = NA_character_,
+                                             second_arg_desc_chr = NA_character_,
+                                             is_generic_lgl = logical(0),
+                                             is_method_lgl = logical(0))
+##
+new_abbrs_chr <- fns_env_ls$fns_env$get_new_abbrs(pkg_setup_ls,
+                                                  classes_to_make_tb = classes_to_make_tb,
+                                                  pkg_ds_ls_ls = pkg_ds_ls_ls,
+                                                  treat_as_words_chr = c("dests","lifecycle","pdfs","pkgdown",
+                                                                         "R","ready4","url","urls"))
+## Add abbreviations to dv - Pick up here.
 ## Create classes (using rlang::exec and fn passed as arg.)
 # 5. Add content to and document the package
 ##

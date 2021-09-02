@@ -355,7 +355,7 @@ write_fls_to_dv <- function(file_paths_chr,
                                                               "these files:",
                                                               "this file:")),
                                   options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
+                                  force_from_opts_1L_chr = T)
     if(consent_1L_chr == "Y"){
       if(is.null(ds_ls))
         ds_ls <- dataverse::get_dataset(ds_url_1L_chr)
@@ -417,7 +417,7 @@ write_fn_fl <- function(fns_dmt_tb,
                                                        r_dir_1L_chr,
                                                        " directory?"),
                                   options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
+                                  force_from_opts_1L_chr = T)
   }
   if(consent_1L_chr == "Y"){
     file_nms_chr %>%
@@ -481,7 +481,7 @@ write_fn_type_dirs <- function(path_1L_chr = "data-raw"){
   undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
   write_new_dirs(undocumented_fns_dir_chr)
 }
-write_fns_to_split_destns <- function(pkg_depcy_ls,
+write_fns_to_split_dests <- function(pkg_depcy_ls,
                                       pkg_1_core_fns_chr,
                                       original_pkg_nm_1L_chr = get_dev_pkg_nm(),
                                       pkg_1_nm_1L_chr = "package_1",
@@ -626,7 +626,7 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                 if(file.exists(original_1L_chr)){
                   write_new_files(dir_1L_chr,
                                   source_paths_ls = list(original_1L_chr),
-                                  filename_1L_chr = fl_nm_1L_chr)
+                                  fl_nm_1L_chr = fl_nm_1L_chr)
                 }
                 # consent_1L_chr <- make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to add a copy of ",
                 #                                      copy_1L_chr,
@@ -634,7 +634,7 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                 #                                      pkg_dmt_dv_ds_1L_chr,
                 #                                      "?"),
                 #                               options_chr = c("Y", "N"),
-                #                               force_from_opts_1l_chr = T)
+                #                               force_from_opts_1L_chr = T)
   # if(consent_1L_chr == "Y"){
                 write_fls_to_dv(copy_1L_chr,
                                 descriptions_chr = paste0("Manual (",
@@ -660,7 +660,7 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
     write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
   }
 }
-write_new_arg_sfxs <- function(arg_nms_chr,
+write_new_arg_sfcs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
                                  dir_path_chr,
                                  rt_dev_dir_path_1L_chr = normalizePath("../../../"),
@@ -672,8 +672,8 @@ write_new_arg_sfxs <- function(arg_nms_chr,
               ~ write_to_rpl_1L_and_indefL_sfcs(.x,
                                              file_path_chr = paste0(dir_path_chr,"/",fn_type_1L_chr,".R")))
   updated_fns_chr <- ls(paste0("package:",pkg_nm_1L_chr))[ls(paste0("package:",pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)][inc_fns_idx_dbl]
-  updated_sfxs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% stringr::str_sub(start=-8) %>% unique()
-  fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% stringr::str_sub(start=-8) %in% updated_sfxs_chr]
+  updated_sfcs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% stringr::str_sub(start=-8) %>% unique()
+  fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% stringr::str_sub(start=-8) %in% updated_sfcs_chr]
   if(ifelse(identical(fn_nms_to_upd_chr, character(0)),
             F,
             !is.na(fn_nms_to_upd_chr)
@@ -705,7 +705,7 @@ write_new_dirs <- function(new_dirs_chr){
                                                               "these directories?",
                                                               "this directory?")),
                                   options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
+                                  force_from_opts_1L_chr = T)
     if(consent_1L_chr %in% c("Y")){
       paths_ls <- new_dirs_chr %>% purrr::walk(~{
         dir.create(.x)
@@ -718,7 +718,7 @@ write_new_dirs <- function(new_dirs_chr){
 }
 write_new_files <- function(paths_chr,
                             custom_write_ls = NULL,
-                            filename_1L_chr = NULL,
+                            fl_nm_1L_chr = NULL,
                             source_paths_ls = NULL,
                             text_ls = NULL){
   if(!is.null(source_paths_ls)){
@@ -734,9 +734,9 @@ write_new_files <- function(paths_chr,
       purrr::flatten_chr() %>%
       purrr::map_chr(~paste0(dest_dir_1L_chr,
                              "/",
-                             ifelse(is.null(filename_1L_chr),
+                             ifelse(is.null(fl_nm_1L_chr),
                                     .x,
-                                    filename_1L_chr)
+                                    fl_nm_1L_chr)
                              ))
     recursive_1L_lgl <- ifelse(paths_chr %>% purrr::map_lgl(~dir.exists(.x)) %>% any(),
                                T,
@@ -762,7 +762,7 @@ write_new_files <- function(paths_chr,
                                                               "these files:",
                                                               "this file:")),
                                   options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
+                                  force_from_opts_1L_chr = T)
     if(consent_1L_chr %in% c("Y")){
       if(!is.null(text_ls)){
         purrr::walk2(paths_chr,
@@ -786,9 +786,9 @@ write_new_files <- function(paths_chr,
           purrr::walk(source_paths_chr,
                        ~ file.copy(.x,
                                    paste0(dest_dir_1L_chr,
-                                          ifelse(is.null(filename_1L_chr),
+                                          ifelse(is.null(fl_nm_1L_chr),
                                                  "",
-                                                 paste0("/",filename_1L_chr))),
+                                                 paste0("/",fl_nm_1L_chr))),
                                    overwrite = T,
                                    recursive = recursive_1L_lgl))
         }
@@ -995,7 +995,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
 }
 write_pkg_setup_fls <- function(pkg_desc_ls,
                                 copyright_holders_chr,
-                                github_repo_1L_chr,
+                                gh_repo_1L_chr,
                                 addl_badges_ls = NULL,
                                 badges_lup = NULL,
                                 check_type_1L_chr = "none",
@@ -1061,7 +1061,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
     write_new_dirs(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
     write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
                     source_paths_ls = list(path_to_pkg_logo_1L_chr),
-                    filename_1L_chr = "logo.png")
+                    fl_nm_1L_chr = "logo.png")
   }
   if(on_cran_1L_lgl){
     cran_install_chr <- c("To install the latest production version of this software, run the following command in your R console:",
@@ -1097,7 +1097,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                   "```r",
                   "utils::install.packages(\"devtools\")",
                   "",
-                  paste0("devtools::install_github(\"",github_repo_1L_chr,"\")"),
+                  paste0("devtools::install_github(\"",gh_repo_1L_chr,"\")"),
                   "",
                   "```")
   write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/README.md"),
@@ -1120,7 +1120,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   }
   write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
                   source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
-                  filename_1L_chr = "fav120.png")
+                  fl_nm_1L_chr = "fav120.png")
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
   if(!is.null(addl_badges_ls)){
@@ -1232,7 +1232,7 @@ write_to_delete_dirs <- function(dir_paths_chr){
                                                               ""),
                                                        ":"),
                                   options_chr = c("Y", "N"),
-                                  force_from_opts_1l_chr = T)
+                                  force_from_opts_1L_chr = T)
     if(consent_1L_chr %in% c("Y")){
       dir_paths_chr %>%
         purrr::walk(~unlink(.x, recursive=TRUE))
@@ -1252,7 +1252,7 @@ write_to_delete_fls <- function(file_paths_chr){
     consent_1L_chr <-  make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to delete ",
                                                         ifelse(length(file_paths_chr)>1,"these files:","this file:")),
                                    options_chr = c("Y", "N"),
-                                   force_from_opts_1l_chr = T)
+                                   force_from_opts_1L_chr = T)
     if(consent_1L_chr %in% c("Y")){
       paths_ls <- do.call(file.remove, list(file_paths_chr))
       #message(paste0("Files deleted:\n", file_paths_chr %>% paste0(collapse = "\n")))
@@ -1266,7 +1266,7 @@ write_to_publish_dv_ds <- function(dv_ds_1L_chr){
                                                      dv_ds_1L_chr,
                                                      "?"),
                                 options_chr = c("Y", "N"),
-                                force_from_opts_1l_chr = T)
+                                force_from_opts_1L_chr = T)
   if(consent_1L_chr == "Y"){
     dataverse::publish_dataset(dv_ds_1L_chr,
                                minor = F)
@@ -1301,7 +1301,7 @@ write_to_replace_fn_nms <- function(rename_tb,
   })
 }
 write_to_replace_sfx_pair <- function(args_nm_chr,
-                                      sfxs_chr,
+                                      sfcs_chr,
                                       replacements_chr,
                                       file_path_1L_chr = NA_character_,
                                       dir_path_1L_chr = NA_character_){
@@ -1309,17 +1309,17 @@ write_to_replace_sfx_pair <- function(args_nm_chr,
   path_chr <- ifelse(is.na(file_path_1L_chr),dir_path_1L_chr,file_path_1L_chr)
   args_ls <- list(pattern = paste0(args_nm_chr[1],
                                    "(?!",
-                                   stringr::str_remove(sfxs_chr[2],
-                                                       sfxs_chr[1]),
+                                   stringr::str_remove(sfcs_chr[2],
+                                                       sfcs_chr[1]),
                                    ")"),
                   replacement = paste0(stringr::str_remove(args_nm_chr[1],
-                                                           sfxs_chr[1]),
+                                                           sfcs_chr[1]),
                                        replacements_chr[1]),
                   perl=T)
   rlang::exec(fn, path_chr, !!!args_ls)
   args_ls <- list(pattern = args_nm_chr[2],
                   replacement = paste0(stringr::str_remove(args_nm_chr[2],
-                                                           sfxs_chr[2]),
+                                                           sfcs_chr[2]),
                                        replacements_chr[2]),
                   perl=T)
   rlang::exec(fn, path_chr, !!!args_ls)
@@ -1327,12 +1327,12 @@ write_to_replace_sfx_pair <- function(args_nm_chr,
 write_to_rpl_1L_and_indefL_sfcs <- function(indefL_arg_nm_1L_chr,
                                             file_path_1L_chr = NA_character_,
                                             dir_path_1L_chr = NA_character_){
-  sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end=-5),
+  sfcs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end=-5),
                 indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
   write_to_replace_sfx_pair(args_nm_chr =   paste0(indefL_arg_nm_1L_chr %>% stringr::str_sub(end=-9),
-                                                   sfxs_chr),
-                            sfxs_chr = sfxs_chr,
-                            replacements_chr = paste0(c("_1L",""),sfxs_chr[1]),
+                                                   sfcs_chr),
+                            sfcs_chr = sfcs_chr,
+                            replacements_chr = paste0(c("_1L",""),sfcs_chr[1]),
                             file_path_1L_chr = file_path_1L_chr,
                             dir_path_1L_chr = dir_path_1L_chr)
 

@@ -31,8 +31,8 @@ add_build_ignore <- function (build_ignore_ls)
     if (!is.null(build_ignore_ls$file_nms_chr)) {
         build_ignore_ls$file_nms_chr %>% purrr::walk(~usethis::use_build_ignore(.x))
     }
-    if (!is.null(build_ignore_ls$regex_chr)) {
-        build_ignore_ls$regex_chr %>% purrr::walk(~usethis::use_build_ignore(.x, 
+    if (!is.null(build_ignore_ls$regulars_rgx)) {
+        build_ignore_ls$regulars_rgx %>% purrr::walk(~usethis::use_build_ignore(.x, 
             escape = FALSE))
     }
 }

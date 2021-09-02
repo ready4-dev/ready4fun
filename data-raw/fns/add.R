@@ -14,8 +14,8 @@ add_build_ignore <- function(build_ignore_ls){
     build_ignore_ls$file_nms_chr %>%
       purrr::walk(~usethis::use_build_ignore(.x))
   }
-  if(!is.null(build_ignore_ls$regex_chr)){
-    build_ignore_ls$regex_chr %>%
+  if(!is.null(build_ignore_ls$regulars_rgx)){
+    build_ignore_ls$regulars_rgx %>%
       purrr::walk(~usethis::use_build_ignore(.x, escape = FALSE))
   }
 }
@@ -139,20 +139,24 @@ add_plurals_to_abbr_lup <- function(abbr_tb,
   return(abbr_tb)
 }
 add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
-                                       fn_type_nm_chr = NA_character_,
-                                       fn_type_desc_chr = NA_character_,
-                                       first_arg_desc_chr = NA_character_,
-                                       second_arg_desc_chr = NA_character_,
-                                       is_generic_lgl = F,
-                                       is_method_lgl = F){
-  updated_fn_type_lup_tb <- add_lups(fn_type_lup_tb,
-                                     new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
-                                                              fn_type_desc_chr = fn_type_desc_chr,
-                                                              first_arg_desc_chr = first_arg_desc_chr,
-                                                              second_arg_desc_chr = second_arg_desc_chr,
-                                                              is_generic_lgl = is_generic_lgl,
-                                                              is_method_lgl = is_method_lgl),
-                                     key_var_nm_1L_chr = "fn_type_nm_chr")
+                                    fn_type_nm_chr = NA_character_,
+                                    fn_type_desc_chr = NA_character_,
+                                    first_arg_desc_chr = NA_character_,
+                                    second_arg_desc_chr = NA_character_,
+                                    is_generic_lgl = F,
+                                    is_method_lgl = F){
+  if(length(fn_type_nm_chr)>0){
+    updated_fn_type_lup_tb <- add_lups(fn_type_lup_tb,
+                                       new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+                                                                fn_type_desc_chr = fn_type_desc_chr,
+                                                                first_arg_desc_chr = first_arg_desc_chr,
+                                                                second_arg_desc_chr = second_arg_desc_chr,
+                                                                is_generic_lgl = is_generic_lgl,
+                                                                is_method_lgl = is_method_lgl),
+                                       key_var_nm_1L_chr = "fn_type_nm_chr")
+  }else{
+    updated_fn_type_lup_tb <- fn_type_lup_tb
+  }
   return(updated_fn_type_lup_tb)
 }
 add_lups <- function(template_lup,

@@ -255,9 +255,9 @@ make_arg_type_lup_ls <- function(object_type_lup = NULL,
   return(lup_ls)
 }
 make_build_ignore_ls <- function(file_nms_chr = NULL,
-                                 regex_chr = NULL){
+                                 regulars_rgx = NULL){
   build_ignore_ls = list(file_nms_chr = file_nms_chr,
-                         regex_chr = regex_chr)
+                         regulars_rgx = regulars_rgx)
   return(build_ignore_ls)
 }
 make_depnt_fns_ls <- function(arg_ls,
@@ -1038,13 +1038,16 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               delete_r_dir_cnts_1L_lgl = T,
                               dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                               dev_pkgs_chr = NA_character_,
-                              github_repo_1L_chr = NA_character_,
+                              dv_url_pfx_1L_chr = NULL,
+                              gh_repo_1L_chr = NA_character_,
                               lifecycle_stage_1L_chr = "experimental",
                               incr_ver_1L_lgl = F,
+                              key_1L_chr = NULL,
                               on_cran_1L_lgl = F,
                               path_to_pkg_logo_1L_chr = NA_character_,
                               path_to_pkg_rt_1L_chr = getwd(),
                               ready4_type_1L_chr, #
+                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                               user_manual_fns_chr = NA_character_){
   if(length(pkg_dmt_dv_dss_chr)<2){
     pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
@@ -1054,8 +1057,8 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
   }else{
     append_ls <- NULL
   }
-  if(is.na(github_repo_1L_chr))
-    github_repo_1L_chr <- pkg_desc_ls$URL %>%
+  if(is.na(gh_repo_1L_chr))
+    gh_repo_1L_chr <- pkg_desc_ls$URL %>%
     strsplit(",") %>%
     unlist() %>%
     purrr::pluck(2) %>%
@@ -1067,7 +1070,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
     addl_badges_ls <- NULL
   pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
                                          copyright_holders_chr = copyright_holders_chr,
-                                         github_repo_1L_chr = github_repo_1L_chr,
+                                         gh_repo_1L_chr = gh_repo_1L_chr,
                                          add_gh_site_1L_lgl = add_gh_site_1L_lgl,
                                          addl_badges_ls = addl_badges_ls,
                                          badges_lup = badges_lup,
@@ -1079,22 +1082,41 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                          on_cran_1L_lgl = on_cran_1L_lgl,
                                          path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
                                          path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr),
-                       subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls,
+                       subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup",
+                                                                                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                                key_1L_chr = key_1L_chr,
+                                                                                server_1L_chr = server_1L_chr),
+                                            addl_pkgs_ls = addl_pkgs_ls,
                                             build_ignore_ls = build_ignore_ls,
                                             dev_pkgs_chr = dev_pkgs_chr,
+                                            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                            fn_type_lup_tb = get_rds_from_dv("fn_type_lup_tb",
+                                                                             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                             key_1L_chr = key_1L_chr,
+                                                                             server_1L_chr = server_1L_chr),
+                                            key_1L_chr = key_1L_chr,
+                                            object_type_lup = get_rds_from_dv("object_type_lup",
+                                                                              dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                              key_1L_chr = key_1L_chr,
+                                                                              server_1L_chr = server_1L_chr),
                                             pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
+                                            server_1L_chr = server_1L_chr,
                                             user_manual_fns_chr = user_manual_fns_chr))
   return(pkg_setup_ls)
 }
-make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1l_chr = F) {
+make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {
   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
   con_conn <- getOption("prompt_opts.con", stdin())
   options_1L_chr <- paste(options_chr, collapse = "|")
   prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", options_1L_chr, "]\n")
   cat(prompt_with_options_1L_chr)
   response_1L_chr <- readLines(con = con_conn, n = 1)
-  if (!is.null(options_chr) & !response_1L_chr %in% options_chr & force_from_opts_1l_chr) {
-    response_1L_chr  <- make_prompt(prompt_1L_chr, options_chr, force_from_opts_1l_chr = T)
+  if (!is.null(options_chr) & !response_1L_chr %in% options_chr & force_from_opts_1L_chr) {
+    response_1L_chr  <- make_prompt(prompt_1L_chr, options_chr, force_from_opts_1L_chr = T)
   }
   return(response_1L_chr)
 }

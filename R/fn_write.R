@@ -381,7 +381,7 @@ write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_
                 paste0(collapse = "\n"), "?"))
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Type 'Y' to confirm that you want to upload ", 
             ifelse(length(file_paths_chr) > 1, "these files:", 
-                "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+                "this file:")), options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
         if (consent_1L_chr == "Y") {
             if (is.null(ds_ls)) 
                 ds_ls <- dataverse::get_dataset(ds_url_1L_chr)
@@ -444,7 +444,7 @@ write_fn_fl <- function (fns_dmt_tb, r_dir_1L_chr = "R", document_unexp_lgl = T,
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write the files ", 
             file_nms_chr %>% paste0(collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
                 " and"), " to the ", r_dir_1L_chr, " directory?"), 
-            options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+            options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
     }
     if (consent_1L_chr == "Y") {
         file_nms_chr %>% purrr::walk(~{
@@ -506,8 +506,8 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
     write_new_dirs(undocumented_fns_dir_chr)
 }
-#' Write functions to split destns
-#' @description write_fns_to_split_destns() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split destns. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' Write functions to split dests
+#' @description write_fns_to_split_dests() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split dests. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @param pkg_1_core_fns_chr Package 1 core functions (a character vector)
 #' @param original_pkg_nm_1L_chr Original package name (a character vector of length one), Default: get_dev_pkg_nm()
@@ -516,13 +516,13 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @param tmp_dir_path_1L_chr Temporary directory path (a character vector of length one), Default: 'data-raw/pkg_migration'
 #' @param path_to_fns_dir_1L_chr Path to functions directory (a character vector of length one), Default: 'data-raw/fns'
 #' @return NULL
-#' @rdname write_fns_to_split_destns
+#' @rdname write_fns_to_split_dests
 #' @export 
 #' @importFrom utils data
 #' @importFrom purrr map_chr walk2 walk
 #' @importFrom dplyr filter select
 #' @keywords internal
-write_fns_to_split_destns <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
+write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
     tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
 {
@@ -692,7 +692,7 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
     }
 }
 #' Write new argument sfxs
-#' @description write_new_arg_sfxs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
+#' @description write_new_arg_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
 #' @param arg_nms_chr Argument names (a character vector)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param dir_path_chr Directory path (a character vector)
@@ -700,13 +700,13 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' @param pkg_nm_1L_chr Package name (a character vector of length one)
 #' @param inc_fns_idx_dbl Include functions index (a double vector), Default: NA
 #' @return Function arguments to rnm (a list)
-#' @rdname write_new_arg_sfxs
+#' @rdname write_new_arg_sfcs
 #' @export 
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
 #' @keywords internal
-write_new_arg_sfxs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
+write_new_arg_sfcs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
     if (is.na(inc_fns_idx_dbl)) 
@@ -754,7 +754,7 @@ write_new_dirs <- function (new_dirs_chr)
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
             ifelse(length(new_dirs_chr) > 1, "these directories?", 
                 "this directory?")), options_chr = c("Y", "N"), 
-            force_from_opts_1l_chr = T)
+            force_from_opts_1L_chr = T)
         if (consent_1L_chr %in% c("Y")) {
             paths_ls <- new_dirs_chr %>% purrr::walk(~{
                 dir.create(.x)
@@ -812,7 +812,7 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, filename_1L_chr 
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write ", 
             ifelse((length(new_files_chr) + length(overwritten_files_chr)) > 
                 1, "these files:", "this file:")), options_chr = c("Y", 
-            "N"), force_from_opts_1l_chr = T)
+            "N"), force_from_opts_1L_chr = T)
         if (consent_1L_chr %in% c("Y")) {
             if (!is.null(text_ls)) {
                 purrr::walk2(paths_chr, text_ls, ~{
@@ -1034,7 +1034,7 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
-#' @param github_repo_1L_chr Github repo (a character vector of length one)
+#' @param gh_repo_1L_chr Github repo (a character vector of length one)
 #' @param addl_badges_ls Addl badges (a list), Default: NULL
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
@@ -1059,7 +1059,7 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
 #' @keywords internal
-write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo_1L_chr, 
+write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_chr, 
     addl_badges_ls = NULL, badges_lup = NULL, check_type_1L_chr = "none", 
     delete_r_dir_cnts_1L_lgl = F, lifecycle_stage_1L_chr = "experimental", 
     incr_ver_1L_lgl = T, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
@@ -1134,7 +1134,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, github_repo
         "", utils::packageDescription(dev_pkg_nm_1L_chr, fields = "Description"), 
         "", cran_install_chr, "To install a development version of this software, run the following commands in your R console:", 
         "", "```r", "utils::install.packages(\"devtools\")", 
-        "", paste0("devtools::install_github(\"", github_repo_1L_chr, 
+        "", paste0("devtools::install_github(\"", gh_repo_1L_chr, 
             "\")"), "", "```")
     write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr, 
         "/README.md"), text_ls = list(readme_chr))
@@ -1274,7 +1274,7 @@ write_to_delete_dirs <- function (dir_paths_chr)
                 "this directory"), ifelse(length(fls_to_be_purged_chr) > 
                 0, ifelse(length(fls_to_be_purged_chr) > 0, " and files", 
                 " and file"), ""), ":"), options_chr = c("Y", 
-            "N"), force_from_opts_1l_chr = T)
+            "N"), force_from_opts_1L_chr = T)
         if (consent_1L_chr %in% c("Y")) {
             dir_paths_chr %>% purrr::walk(~unlink(.x, recursive = TRUE))
         }
@@ -1300,7 +1300,7 @@ write_to_delete_fls <- function (file_paths_chr)
             file_paths_chr %>% paste0(collapse = "\n"), "?"))
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to delete ", 
             ifelse(length(file_paths_chr) > 1, "these files:", 
-                "this file:")), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+                "this file:")), options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
         if (consent_1L_chr %in% c("Y")) {
             paths_ls <- do.call(file.remove, list(file_paths_chr))
         }
@@ -1320,7 +1320,7 @@ write_to_delete_fls <- function (file_paths_chr)
 write_to_publish_dv_ds <- function (dv_ds_1L_chr) 
 {
     consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ", 
-        dv_ds_1L_chr, "?"), options_chr = c("Y", "N"), force_from_opts_1l_chr = T)
+        dv_ds_1L_chr, "?"), options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
     if (consent_1L_chr == "Y") {
         dataverse::publish_dataset(dv_ds_1L_chr, minor = F)
     }

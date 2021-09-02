@@ -4,12 +4,12 @@
 \alias{make_build_ignore_ls}
 \title{Make build ignore}
 \usage{
-make_build_ignore_ls(file_nms_chr = NULL, regex_chr = NULL)
+make_build_ignore_ls(file_nms_chr = NULL, regulars_rgx = NULL)
 }
 \arguments{
 \item{file_nms_chr}{File names (a character vector), Default: NULL}
 
-\item{regex_chr}{Regex (a character vector), Default: NULL}
+\item{regulars_rgx}{Regex (a character vector), Default: NULL}
 }
 \value{
 Build ignore (a list)

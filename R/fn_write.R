@@ -216,7 +216,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 }
 #' Write documented function type
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: make_fn_type_lup()
+#' @param fn_types_lup Function type lookup table (a tibble), Default: make_fn_type_lup()
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
@@ -235,7 +235,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom utils data
 #' @keywords internal
-write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwrite_1L_lgl = T, 
+write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = deprecated(), 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
@@ -253,8 +253,8 @@ write_dmtd_fn_type_lup <- function (fn_type_lup_tb = make_fn_type_lup(), overwri
         object_type_lup <- get_rds_from_dv("object_type_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    fn_type_lup_tb %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
-        db_1L_chr = "fn_type_lup_tb", title_1L_chr = "Function type lookup table", 
+    fn_types_lup %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
+        db_1L_chr = "fn_types_lup", title_1L_chr = "Function type lookup table", 
         desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
             pkg_nm_1L_chr, " package suite."), format_1L_chr = "A tibble", 
         url_1L_chr = dv_ds_nm_1L_chr, abbreviations_lup = abbreviations_lup, 
@@ -567,7 +567,7 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original
 }
 #' Write from temporary
 #' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param temp_paths_chr Temporary paths (a character vector)
+#' @param tmp_paths_chr Temporary paths (a character vector)
 #' @param dest_paths_chr Dest paths (a character vector)
 #' @param edit_fn_ls Edit (a list of functions), Default: list(NULL)
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL
@@ -577,10 +577,10 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original
 #' @importFrom purrr pmap
 #' @importFrom rlang exec
 #' @keywords internal
-write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
+write_from_tmp <- function (tmp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
     args_ls_ls = NULL) 
 {
-    text_ls <- purrr::pmap(list(temp_paths_chr, edit_fn_ls, args_ls_ls), 
+    text_ls <- purrr::pmap(list(tmp_paths_chr, edit_fn_ls, args_ls_ls), 
         ~{
             fileConn <- file(..1)
             txt_chr <- readLines(fileConn, warn = FALSE)
@@ -595,7 +595,7 @@ write_from_tmp <- function (temp_paths_chr, dest_paths_chr, edit_fn_ls = list(NU
             }
             rlang::exec(edit_fn, txt_chr, !!!..3)
         })
-    write_to_delete_fls(intersect(temp_paths_chr, dest_paths_chr))
+    write_to_delete_fls(intersect(tmp_paths_chr, dest_paths_chr))
     write_new_files(dest_paths_chr, text_ls = text_ls)
 }
 #' Write instance directory
@@ -888,7 +888,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @param pkg_setup_ls Package setup (a list)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'
-#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
@@ -900,14 +900,14 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @keywords internal
 write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, abbreviations_lup = NULL, 
     dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/", 
-    fn_type_lup_tb = NULL, object_type_lup = NULL, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    fn_types_lup = NULL, object_type_lup = NULL, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     publish_dv_1L_lgl = F) 
 {
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
     dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls, pkg_url_1L_chr = pkg_desc_ls$URL %>% 
         strsplit(",") %>% unlist() %>% purrr::pluck(1), abbreviations_lup = abbreviations_lup, 
         dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-        fn_type_lup_tb = fn_type_lup_tb, object_type_lup = object_type_lup)
+        fn_types_lup = fn_types_lup, object_type_lup = object_type_lup)
     add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
     add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
     write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
@@ -955,7 +955,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param details_ls Details (a list), Default: NULL
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
-#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
@@ -974,7 +974,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @keywords internal
 write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_ls_ls = NULL, 
     details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    dv_ds_nm_1L_chr, fn_type_lup_tb = NULL, inc_all_mthds_1L_lgl = T, 
+    dv_ds_nm_1L_chr, fn_types_lup = NULL, inc_all_mthds_1L_lgl = T, 
     object_type_lup = NULL, paths_ls = make_fn_nms(), pkg_url_1L_chr = NA_character_, 
     R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
@@ -987,19 +987,19 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
         abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(fn_type_lup_tb)) 
-        fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
             server_1L_chr = server_1L_chr)
     pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup, 
         pkg_nm_1L_chr = dev_pkg_nm_1L_chr, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
         object_type_lup = object_type_lup)
     utils::data("abbreviations_lup", envir = environment())
-    pkg_dss_tb <- fn_type_lup_tb %>% write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup, 
+    pkg_dss_tb <- fn_types_lup %>% write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup, pkg_dss_tb = pkg_dss_tb, 
         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = NULL, 
         key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
-    utils::data("fn_type_lup_tb", envir = environment())
+    utils::data("fn_types_lup", envir = environment())
     if (!is.null(pkg_ds_ls_ls)) {
         pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls, .init = pkg_dss_tb, 
             ~{
@@ -1017,7 +1017,7 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
     fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = abbreviations_lup, 
         custom_dmt_ls = list(details_ls = details_ls, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
             force_false_chr = NA_character_), args_ls_ls = args_ls_ls), 
-        fn_type_lup_tb = fn_type_lup_tb, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
+        fn_types_lup = fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
         object_type_lup = object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
         db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(dev_pkg_nm_1L_chr, 

@@ -9,7 +9,7 @@ get_new_fn_types(
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
-  fn_type_lup_tb,
+  fn_types_lup,
   fn_nms_ls = make_fn_nms(),
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
@@ -25,7 +25,7 @@ get_new_fn_types(
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble)}
+\item{fn_types_lup}{Function type lookup table (a tibble)}
 
 \item{fn_nms_ls}{Function names (a list), Default: make_fn_nms()}
 

@@ -98,6 +98,33 @@ add_indefartls_to_phrases <- function(abbreviated_phrase_1L_chr,
     })
   return(phrases_chr)
 }
+add_lups <- function(template_lup,
+                     new_lup,
+                     key_var_nm_1L_chr,
+                     priority_lup_for_dupls_1L_chr = "template"){
+  testit::assert("Look up tables must have same column names", names(template_lup)==names(new_lup))
+  if(priority_lup_for_dupls_1L_chr == "template"){
+    new_lup <- new_lup %>%
+      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+    labels_chr <- Hmisc::label(template_lup) %>% unname()
+  }else{
+    template_lup <- template_lup %>%
+      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (new_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
+    labels_chr <- Hmisc::label(new_lup) %>% unname()
+  }
+  if(!all(labels_chr %>% unique() =="")){
+    template_lup <- template_lup %>% remove_lbls_from_df()
+    new_lup <- new_lup %>% remove_lbls_from_df()
+    Hmisc::label(template_lup) <-  as.list(labels_chr %>% unname())
+    Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())
+  }
+  combined_lups <- dplyr::bind_rows(template_lup,
+                                    new_lup) %>%
+    dplyr::arrange(!!rlang::sym(key_var_nm_1L_chr))
+  combined_lups <- combined_lups[rowSums(is.na(combined_lups)) != ncol(combined_lups), ]
+  return(combined_lups)
+}
+
 add_plurals_to_abbr_lup <- function(abbr_tb,
                                        no_plural_chr = NA_character_,
                                        custom_plural_ls = NULL){
@@ -138,7 +165,7 @@ add_plurals_to_abbr_lup <- function(abbr_tb,
     dplyr::arrange(short_name_chr)
   return(abbr_tb)
 }
-add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
+add_rows_to_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                     fn_type_nm_chr = NA_character_,
                                     fn_type_desc_chr = NA_character_,
                                     first_arg_desc_chr = NA_character_,
@@ -146,7 +173,7 @@ add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                     is_generic_lgl = F,
                                     is_method_lgl = F){
   if(length(fn_type_nm_chr)>0){
-    updated_fn_type_lup_tb <- add_lups(fn_type_lup_tb,
+    updated_fn_types_lup <- add_lups(fn_types_lup,
                                        new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
                                                                 fn_type_desc_chr = fn_type_desc_chr,
                                                                 first_arg_desc_chr = first_arg_desc_chr,
@@ -155,33 +182,8 @@ add_rows_to_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                                                 is_method_lgl = is_method_lgl),
                                        key_var_nm_1L_chr = "fn_type_nm_chr")
   }else{
-    updated_fn_type_lup_tb <- fn_type_lup_tb
+    updated_fn_types_lup <- fn_types_lup
   }
-  return(updated_fn_type_lup_tb)
+  return(updated_fn_types_lup)
 }
-add_lups <- function(template_lup,
-                     new_lup,
-                     key_var_nm_1L_chr,
-                     priority_lup_for_dupls_1L_chr = "template"){
-  testit::assert("Look up tables must have same column names", names(template_lup)==names(new_lup))
-  if(priority_lup_for_dupls_1L_chr == "template"){
-    new_lup <- new_lup %>%
-      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (template_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
-    labels_chr <- Hmisc::label(template_lup) %>% unname()
-    }else{
-    template_lup <- template_lup %>%
-      dplyr::filter(!(!!rlang::sym(key_var_nm_1L_chr) %in% (new_lup %>% dplyr::pull(!!rlang::sym(key_var_nm_1L_chr)))))
-    labels_chr <- Hmisc::label(new_lup) %>% unname()
-    }
-  if(!all(labels_chr %>% unique() =="")){
-    template_lup <- template_lup %>% remove_lbls_from_df()
-    new_lup <- new_lup %>% remove_lbls_from_df()
-    Hmisc::label(template_lup) <-  as.list(labels_chr %>% unname())
-    Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())
-  }
-  combined_lups <- dplyr::bind_rows(template_lup,
-                   new_lup) %>%
-    dplyr::arrange(!!rlang::sym(key_var_nm_1L_chr))
-  combined_lups <- combined_lups[rowSums(is.na(combined_lups)) != ncol(combined_lups), ]
-  return(combined_lups)
-}
+

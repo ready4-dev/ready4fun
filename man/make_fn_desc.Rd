@@ -8,7 +8,7 @@ make_fn_desc(
   fns_chr,
   title_chr,
   output_chr,
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   abbreviations_lup = NULL,
   test_for_write_R_warning_fn = NULL,
   is_generic_lgl = F
@@ -21,7 +21,7 @@ make_fn_desc(
 
 \item{output_chr}{Output (a character vector)}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

@@ -10,7 +10,7 @@ write_package(
   pkg_setup_ls,
   abbreviations_lup = NULL,
   dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   object_type_lup = NULL,
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   publish_dv_1L_lgl = F
@@ -27,7 +27,7 @@ write_package(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 

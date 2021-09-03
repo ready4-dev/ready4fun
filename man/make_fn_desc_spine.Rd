@@ -7,7 +7,7 @@
 make_fn_desc_spine(
   fn_name_1L_chr,
   fn_title_1L_chr,
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   abbreviations_lup = NULL
 )
 }
@@ -16,7 +16,7 @@ make_fn_desc_spine(
 
 \item{fn_title_1L_chr}{Function title (a character vector of length one)}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 }

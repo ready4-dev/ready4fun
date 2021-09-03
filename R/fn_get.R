@@ -213,7 +213,7 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
-#' @param fn_type_lup_tb Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -227,7 +227,7 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @keywords internal
 get_new_abbrvs <- function (pkg_ds_ls_ls, pkg_setup_ls, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
-    fn_type_lup_tb = NULL, inc_all_mthds_1L_lgl = T, key_1L_chr = NULL, 
+    fn_types_lup = NULL, inc_all_mthds_1L_lgl = T, key_1L_chr = NULL, 
     object_type_lup = NULL, paths_ls = make_fn_nms(), server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) 
 {
@@ -239,14 +239,14 @@ get_new_abbrvs <- function (pkg_ds_ls_ls, pkg_setup_ls, abbreviations_lup = NULL
         abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(fn_type_lup_tb)) 
-        fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
             server_1L_chr = server_1L_chr)
     fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = abbreviations_lup, 
         custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
             force_false_chr = NA_character_), args_ls_ls = NULL), 
-        fn_type_lup_tb = fn_type_lup_tb, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
+        fn_types_lup = fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
         object_type_lup = object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     new_fn_abbrvs_chr <- fns_dmt_tb$fns_chr %>% get_new_abbrvs_cndts(drop_first_1L_lgl = T)
     new_arg_abbrvs_chr <- fns_dmt_tb$args_ls %>% purrr::map(~names(.x) %>% 
@@ -286,7 +286,7 @@ get_new_abbrvs_cndts <- function (text_chr, drop_first_1L_lgl = F)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param fn_type_lup_tb Function type lookup table (a tibble)
+#' @param fn_types_lup Function type lookup table (a tibble)
 #' @param fn_nms_ls Function names (a list), Default: make_fn_nms()
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param undmtd_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
@@ -299,7 +299,7 @@ get_new_abbrvs_cndts <- function (text_chr, drop_first_1L_lgl = F)
 #' @importFrom tools toTitleCase
 #' @keywords internal
 get_new_fn_types <- function (abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, fn_type_lup_tb, 
+    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, fn_types_lup, 
     fn_nms_ls = make_fn_nms(), server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     object_type_lup = NULL) 
@@ -320,7 +320,7 @@ get_new_fn_types <- function (abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.
     new_fn_types_chr <- new_fn_types_chr %>% unique() %>% sort() %>% 
         make_fn_title(abbreviations_lup = abbreviations_lup, 
             object_type_lup = object_type_lup, is_generic_lgl = T) %>% 
-        tools::toTitleCase() %>% setdiff(fn_type_lup_tb$fn_type_nm_chr)
+        tools::toTitleCase() %>% setdiff(fn_types_lup$fn_type_nm_chr)
     return(new_fn_types_chr)
 }
 #' Get object type lookup table new cases

@@ -13,7 +13,7 @@ reference:
 - contents:
   - abbreviations_lup
   - badges_lup
-  - fn_type_lup_tb
+  - fn_types_lup
   - fns_dmt_tb
   - object_type_lup
 - title: "Functions"

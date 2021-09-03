@@ -15,10 +15,10 @@ if(!dir.exists(fns_dir_1L_chr))
 # source("data-raw/MAKE_HOUSESTYLE_DV_DSS.R")
 #
 # 2.3. Read all undocumented functions in the temporary "fns" directory.
-fns_env <- new.env(parent = globalenv())
+fns_env_ls <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
-                       fns_env = fns_env)
+                       fns_env = fns_env_ls)
 rm(read_fns)
 #
 # 3. Add package metadata
@@ -86,7 +86,7 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                                     url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 ##
 # 4. Specify the new classes to be created
-name_pfx_1L_chr <- "ready4_"
+name_pfx_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
 classes_to_make_tb <- dplyr::bind_rows(
   ready4class::make_pt_ready4_constructor_tbl(make_s3_lgl = TRUE,
                                               name_stub_chr = "badges",
@@ -146,21 +146,24 @@ classes_to_make_tb <- dplyr::bind_rows(
 
 ) %>%
   ready4class::ready4_constructor_tbl()
-## Add as validation step to make pkg_setup_ls??
-new_fn_types_chr <- fns_env_ls$fns_env$get_new_fn_types(pkg_setup_ls)
-pkg_setup_ls$subsequent_ls$fn_type_lup_tb <- pkg_setup_ls$subsequent_ls$fn_type_lup_tb %>%
-  fns_env_ls$fns_env$add_rows_to_fn_type_lup(fn_type_nm_chr = new_fn_types_chr,
-                                             fn_type_desc_chr = NA_character_,
-                                             first_arg_desc_chr = NA_character_,
-                                             second_arg_desc_chr = NA_character_,
-                                             is_generic_lgl = logical(0),
-                                             is_method_lgl = logical(0))
-##
-new_abbrs_chr <- fns_env_ls$fns_env$get_new_abbrs(pkg_setup_ls,
-                                                  classes_to_make_tb = classes_to_make_tb,
-                                                  pkg_ds_ls_ls = pkg_ds_ls_ls,
-                                                  treat_as_words_chr = c("dests","lifecycle","pdfs","pkgdown",
-                                                                         "R","ready4","url","urls"))
+pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls,
+                                                      classes_to_make_tb = classes_to_make_tb,
+                                                      pkg_ds_ls_ls = pkg_ds_ls_ls)
+# pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
+#                                                       fn_type_desc_chr = "Validates that an object conforms to required criteria.",
+#                                                       is_generic_lgl = F,
+#                                                       is_method_lgl = F,
+#                                                       publish_dv_1L_lgl = T)
+# pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
+#                                                    are_plurals_chr = c("dests"), # rework as list
+#                                                    are_words_chr = c("cran", "lifecycle", "pdfs","pkgdown",
+#                                                                      "R", "rds", "ready4", "url", "urls"),
+#                                                    classes_to_make_tb = classes_to_make_tb,
+#                                                    long_name_chr = c("additional","destination","detail","duplicates","github",
+#                                                                      "increment","lookup tables", "messages", "repository", "version"),
+#                                                    custom_plural_ls = list(repository = "repositories"),
+#                                                    no_plural_chr = c("duplicates","lookup tables","messages"),
+#                                                    publish_dv_1L_lgl = T)
 ## Add abbreviations to dv - Pick up here.
 ## Create classes (using rlang::exec and fn passed as arg.)
 # 5. Add content to and document the package

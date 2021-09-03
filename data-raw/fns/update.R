@@ -1,19 +1,27 @@
 update_abbr_lup <- function(abbr_tb,
-                               short_name_chr,
-                               long_name_chr,
-                               no_plural_chr = NA_character_,
-                               custom_plural_ls = NULL,
-                               pfx_rgx = NA_character_){
+                            short_name_chr,
+                            long_name_chr,
+                            no_plural_chr = NA_character_,
+                            custom_plural_ls = NULL,
+                            pfx_rgx = NA_character_){
+  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. The following duplicates are in the short_name_chr column:\n",
+                        abbr_tb$short_name_chr[duplicated(abbr_tb$short_name_chr)] %>% make_list_phrase()),
+                 !any(duplicated(abbr_tb$short_name_chr)))
+  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. The following duplicates are in the long_name_chr column:\n",
+                        abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% make_list_phrase()),
+                 !any(duplicated(abbr_tb$long_name_chr)))
   if(!"plural_lgl" %in% names(abbr_tb))
     abbr_tb <- dplyr::mutate(abbr_tb, plural_lgl = NA)
   if(!is.na(pfx_rgx))
     abbr_tb <- abbr_tb %>%
       dplyr::mutate(long_name_chr = purrr::map_chr(long_name_chr,
-                                               ~ stringi::stri_replace_first_regex(.x,pfx_rgx,"")))
+                                                   ~ stringi::stri_replace_first_regex(.x,
+                                                                                       pfx_rgx,
+                                                                                       "")))
   new_tb <- tibble::tibble(short_name_chr = short_name_chr,
                            long_name_chr = long_name_chr) %>%
     add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr,
-                               custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
+                            custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
   abbr_tb <- add_lups(abbr_tb,
                       new_lup = new_tb,
                       key_var_nm_1L_chr = "short_name_chr")
@@ -251,4 +259,11 @@ update_fns_dmt_tb_chr_vars <- function(fns_dmt_tb,
 update_ns <- function(package_1L_chr){
   package_nm_chr <- ifelse(package_1L_chr=="",".GlobalEnv",package_1L_chr)
   return(package_nm_chr)
+}
+update_pkg_setup_msgs <- function(pkg_setup_ls,
+                                  list_element_1L_chr){
+  pkg_setup_ls$problems_ls[[which(names(pkg_setup_ls$problems_ls)==list_element_1L_chr)]] <- NULL
+  if(length(pkg_setup_ls$problems_ls)==0)
+    pkg_setup_ls[[which(names(pkg_setup_ls)=="problems_ls")]] <- NULL
+  return(pkg_setup_ls)
 }

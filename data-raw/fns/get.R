@@ -59,7 +59,11 @@ get_dv_fls_urls <- function(file_nms_chr,
   urls_chr <- file_nms_chr %>%
     purrr::map_chr(~{
       idx_1L_int <- which(all_items_chr == .x)
-      paste0(dv_url_pfx_1L_chr,ds_ls[[idx_1L_int]]$dataFile$id)
+      if(identical(idx_1L_int, integer(0))){
+        NA_character_
+      }else{
+        paste0(dv_url_pfx_1L_chr,ds_ls[[idx_1L_int]]$dataFile$id)
+      }
     })
   return(urls_chr)
 }
@@ -140,26 +144,19 @@ get_from_lup_obj <- function(data_lookup_tb,
 }
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
-                          # fn_type_lup_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           treat_as_words_chr = character(0),
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
-  # if(is.null(fn_type_lup_tb))
-  #   fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
-  #                                     dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-  #                                     dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr,
-  #                                     key_1L_chr = pkg_setup_ls$subsequent_ls$key_1L_chr,
-  #                                     server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
                                                           inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = NULL),
-                                     fn_type_lup_tb = pkg_setup_ls$subsequent_ls$fn_type_lup_tb,
+                                     fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                      undocumented_fns_dir_chr = undocumented_fns_dir_chr)
@@ -233,7 +230,7 @@ get_new_fn_types <- function(pkg_setup_ls,
                              #dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                              #dv_url_pfx_1L_chr = NULL,
                              #key_1L_chr = NULL,
-                             #fn_type_lup_tb = NULL,
+                             #fn_types_lup = NULL,
                              fn_nms_ls = make_fn_nms(),
                              #server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                              undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
@@ -259,9 +256,9 @@ get_new_fn_types <- function(pkg_setup_ls,
                   object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                   is_generic_lgl = T) %>%
     tools::toTitleCase()
-  if(!is.null(pkg_setup_ls$subsequent_ls$fn_type_lup_tb))
+  if(!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup))
     new_fn_types_chr <- new_fn_types_chr %>%
-    setdiff(pkg_setup_ls$subsequent_ls$fn_type_lup_tb$fn_type_nm_chr)
+    setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)
   return(new_fn_types_chr)
 }
 get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,
@@ -328,8 +325,12 @@ get_rds_from_dv <- function(file_nm_1L_chr,
                                     key = key_1L_chr)
   all_items_chr <- purrr::map_chr(ds_ls,~.x$label)
   idx_1L_int <- which(all_items_chr == paste0(file_nm_1L_chr,".RDS"))
-  r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr,
-                                    ds_ls[[idx_1L_int]]$dataFile$id)))
+  if(identical(idx_1L_int, integer(0))){
+    r_object_xx <- NULL
+  }else{
+    r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr,
+                                      ds_ls[[idx_1L_int]]$dataFile$id)))
+  }
   return(r_object_xx)
 }
 get_return_obj_nm <- function(fn){

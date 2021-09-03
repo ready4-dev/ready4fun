@@ -79,7 +79,7 @@ make_fn_type_lup(fn_type_nm_chr = c("Add", "Assert", "Close", "Force",
                                          NA_character_),
                  is_generic_lgl = F,
                  is_method_lgl = F) %>%
-  write_paired_ds_fls_to_dv(fl_nm_1L_chr = "fn_type_lup_tb",
+  write_paired_ds_fls_to_dv(fl_nm_1L_chr = "fn_types_lup",
                             desc_1L_chr = "Function type lookup table")
 # ADDITIONAL NOTES
 ##

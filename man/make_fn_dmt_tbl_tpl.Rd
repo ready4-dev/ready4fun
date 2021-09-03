@@ -7,7 +7,7 @@
 make_fn_dmt_tbl_tpl(
   fns_path_chr,
   fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
@@ -22,7 +22,7 @@ make_fn_dmt_tbl_tpl(
 
 \item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

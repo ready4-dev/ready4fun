@@ -161,7 +161,7 @@ library(ready4fun)
 #                                                                     "r4_name_chr",
 #                                                                     "r_dir_chr","R_dir_chr",
 #                                                                     "slot_nm_chr",
-#                                                                     "temp_path_chr","title_chr","tmp_fn_dir_chr",
+#                                                                     "tmp_path_chr","title_chr","tmp_fn_dir_chr",
 #                                                                     "url_chr")
 # ) %>%
 #   write_new_arg_sfcs(fn_type_1L_chr = fn_type_1L_chr,

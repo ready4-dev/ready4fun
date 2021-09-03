@@ -11,7 +11,7 @@ write_pkg_dss(
   details_ls = NULL,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dv_ds_nm_1L_chr,
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   inc_all_mthds_1L_lgl = T,
   object_type_lup = NULL,
   paths_ls = make_fn_nms(),
@@ -36,7 +36,7 @@ write_pkg_dss(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one)}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 

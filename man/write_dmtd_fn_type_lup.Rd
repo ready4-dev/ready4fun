@@ -5,7 +5,7 @@
 \title{Write documented function type}
 \usage{
 write_dmtd_fn_type_lup(
-  fn_type_lup_tb = make_fn_type_lup(),
+  fn_types_lup = make_fn_type_lup(),
   overwrite_1L_lgl = T,
   pkg_nm_1L_chr = get_dev_pkg_nm(),
   url_1L_chr = deprecated(),
@@ -20,7 +20,7 @@ write_dmtd_fn_type_lup(
 )
 }
 \arguments{
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
 
 \item{overwrite_1L_lgl}{Overwrite (a logical vector of length one), Default: T}
 

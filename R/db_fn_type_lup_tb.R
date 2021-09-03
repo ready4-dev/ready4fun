@@ -13,4 +13,4 @@
 #'   \item{is_method_lgl}{Is method (a logical vector)}
 #' }
 #' @source \url{https://doi.org/10.7910/DVN/2Y9VF9}
-"fn_type_lup_tb"
+"fn_types_lup"

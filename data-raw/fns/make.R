@@ -278,7 +278,7 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                                       inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
                                                                                       force_false_chr = NA_character_),
                                                       args_ls_ls = NULL),
-                                 fn_type_lup_tb,
+                                 fn_types_lup,
                                  abbreviations_lup = NULL,
                                  object_type_lup = get_rds_from_dv("object_type_lup",
                                                                    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -295,16 +295,16 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                          names(paths_ls)),
   ~ {
     if(..3 == "fns")
-      tb <- fn_type_lup_tb %>% dplyr::filter(!is_generic_lgl & !is_method_lgl)
+      tb <- fn_types_lup %>% dplyr::filter(!is_generic_lgl & !is_method_lgl)
     if(..3 == "gnrcs")
-      tb <- fn_type_lup_tb %>% dplyr::filter(is_generic_lgl)
+      tb <- fn_types_lup %>% dplyr::filter(is_generic_lgl)
     if(..3 == "mthds")
-      tb <- fn_type_lup_tb %>% dplyr::filter(is_method_lgl)
+      tb <- fn_types_lup %>% dplyr::filter(is_method_lgl)
     fns_dmt_tb <- make_fn_dmt_tbl(..1,
                                   fns_dir_chr = ..2,
                                   custom_dmt_ls = custom_dmt_ls,
                                   append_1L_lgl = T,
-                                  fn_type_lup_tb = tb,
+                                  fn_types_lup = tb,
                                   abbreviations_lup = abbreviations_lup,
                                   object_type_lup = object_type_lup)
     if(inc_all_mthds_1L_lgl)
@@ -329,7 +329,7 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
     #                 fns_dir_chr = ..2,
     #                 custom_dmt_ls = custom_dmt_ls,
     #                 append_1L_lgl = T,
-    #                 fn_type_lup_tb = tb,
+    #                 fn_types_lup = tb,
     #                 abbreviations_lup = abbreviations_lup)
   })
   return(all_fns_dmt_tb)
@@ -337,7 +337,7 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
 make_fn_desc <-  function(fns_chr,
                           title_chr,
                           output_chr,
-                          fn_type_lup_tb = NULL,
+                          fn_types_lup = NULL,
                           abbreviations_lup = NULL,
                           test_for_write_R_warning_fn = NULL,
                           is_generic_lgl = F){
@@ -357,7 +357,7 @@ make_fn_desc <-  function(fns_chr,
                                    is_generic_1L_lgl <- ..4
                                    paste0(make_fn_desc_spine(fn_name_1L_chr = fn_name_1L_chr,
                                                              fn_title_1L_chr = fn_title_1L_chr,
-                                                             fn_type_lup_tb = fn_type_lup_tb,
+                                                             fn_types_lup = fn_types_lup,
                                                              abbreviations_lup = abbreviations_lup),
                                           ifelse(fn_output_1L_chr=="NULL",
                                                  ifelse(is_generic_1L_lgl,
@@ -379,22 +379,22 @@ make_fn_desc <-  function(fns_chr,
 }
 make_fn_desc_spine <- function(fn_name_1L_chr,
                                        fn_title_1L_chr,
-                                       fn_type_lup_tb = NULL,
+                                       fn_types_lup = NULL,
                                        abbreviations_lup = NULL){
-  if(is.null(fn_type_lup_tb))
-    utils::data("fn_type_lup_tb", package="ready4fun", envir = environment())
+  if(is.null(fn_types_lup))
+    utils::data("fn_types_lup", package="ready4fun", envir = environment())
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   fn_args_chr <- get_fn_args(eval(parse(text = fn_name_1L_chr)))
-  pfx_matches_chr <- fn_type_lup_tb$fn_type_nm_chr[purrr::map_lgl(fn_type_lup_tb$fn_type_nm_chr, ~ startsWith(fn_title_1L_chr %>% tools::toTitleCase(),.x))]
+  pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(fn_types_lup$fn_type_nm_chr, ~ startsWith(fn_title_1L_chr %>% tools::toTitleCase(),.x))]
   fn_type_chr <- pfx_matches_chr[nchar(pfx_matches_chr) == max(nchar(pfx_matches_chr))]
-  text_elements_chr <- names(fn_type_lup_tb)[2:4] %>%
-    purrr::map_chr(~ get_from_lup_obj(fn_type_lup_tb,
+  text_elements_chr <- names(fn_types_lup)[2:4] %>%
+    purrr::map_chr(~ get_from_lup_obj(fn_types_lup,
                                       match_var_nm_1L_chr = "fn_type_nm_chr",
                                       match_value_xx = fn_type_chr[1],
                                       target_var_nm_1L_chr = .x,
                                       evaluate_lgl = F))
-  is_generic_1L_lgl <- get_from_lup_obj(fn_type_lup_tb,
+  is_generic_1L_lgl <- get_from_lup_obj(fn_types_lup,
                                      match_var_nm_1L_chr = "fn_type_nm_chr",
                                      match_value_xx = fn_type_chr[1],
                                      target_var_nm_1L_chr = "is_generic_lgl",
@@ -484,7 +484,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                                                  example_ls = NULL,
                                                  args_ls_ls = NULL),
                             append_1L_lgl = T,
-                            fn_type_lup_tb = NULL,
+                            fn_types_lup = NULL,
                             abbreviations_lup = NULL,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                             dv_url_pfx_1L_chr = NULL,
@@ -501,9 +501,9 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
                                        server_1L_chr = server_1L_chr)
-  fn_dmt_tbl_tb <- make_fn_dmt_tbl_tpl(fns_path_chr,
+  fn_dmt_tbl_tb <- make_fn_dmt_tbl_tmpl(fns_path_chr,
                                        fns_dir_chr = fns_dir_chr,
-                                       fn_type_lup_tb = fn_type_lup_tb,
+                                       fn_types_lup = fn_types_lup,
                                        abbreviations_lup = abbreviations_lup,
                                        object_type_lup = object_type_lup,
                                        test_for_write_R_warning_fn = test_for_write_R_warning_fn)
@@ -514,9 +514,9 @@ make_fn_dmt_tbl <- function(fns_path_chr,
   }
   return(fn_dmt_tbl_tb)
 }
-make_fn_dmt_tbl_tpl <- function(fns_path_chr,
+make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
                                 fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                                fn_type_lup_tb = NULL,
+                                fn_types_lup = NULL,
                                 abbreviations_lup = NULL,
                                 dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                                 dv_url_pfx_1L_chr = NULL,
@@ -556,7 +556,7 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
     dplyr::filter(title_chr %>%
       tools::toTitleCase() %>%
       purrr::map_lgl(~{
-        startsWith(.x, fn_type_lup_tb$fn_type_nm_chr) %>% any()
+        startsWith(.x, fn_types_lup$fn_type_nm_chr) %>% any()
       }))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(output_chr = get_outp_obj_type(fns_chr,
@@ -565,7 +565,7 @@ make_fn_dmt_tbl_tpl <- function(fns_path_chr,
     dplyr::mutate(desc_chr = make_fn_desc(fns_chr,
                                                   title_chr = title_chr,
                                                   output_chr = output_chr,
-                                                  fn_type_lup_tb = fn_type_lup_tb,
+                                                  fn_types_lup = fn_types_lup,
                                                   abbreviations_lup = abbreviations_lup,
                                           test_for_write_R_warning_fn = test_for_write_R_warning_fn,
                                           is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R")))
@@ -609,14 +609,14 @@ make_fn_type_lup <- function(fn_type_nm_chr = character(0),
                                 second_arg_desc_chr = character(0),
                                 is_generic_lgl = logical(0),
                                 is_method_lgl = logical(0)){
-  fn_type_lup_tb <- tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
+  fn_types_lup <- tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
                   fn_type_desc_chr = fn_type_desc_chr,
                   first_arg_desc_chr = first_arg_desc_chr,
                   second_arg_desc_chr = second_arg_desc_chr,
                   is_generic_lgl = is_generic_lgl,
                   is_method_lgl = is_method_lgl) %>%
     dplyr::arrange(fn_type_nm_chr)
-  return(fn_type_lup_tb)
+  return(fn_types_lup)
 }
 make_fn_nms <- function(path_1L_chr = "data-raw"){
   undmtd_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr,
@@ -771,6 +771,12 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                import_chr = import_chr,
                                abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
+}
+make_list_phrase <- function(items_chr){
+  list_phrase_1L_chr <- items_chr %>%
+    stringr::str_c(sep="",collapse=", ") %>%
+    stringi::stri_replace_last(fixed=",", replacement = " and")
+  return(list_phrase_1L_chr)
 }
 make_new_fn_dmt <- function(fn_type_1L_chr,
                             fn_name_1L_chr,
@@ -1092,7 +1098,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                             dev_pkgs_chr = dev_pkgs_chr,
                                             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                            fn_type_lup_tb = get_rds_from_dv("fn_type_lup_tb",
+                                            fn_types_lup = get_rds_from_dv("fn_types_lup",
                                                                              dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                                              key_1L_chr = key_1L_chr,
@@ -1105,6 +1111,11 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                               server_1L_chr = server_1L_chr),
                                             pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
                                             server_1L_chr = server_1L_chr,
+                                            treat_as_words_chr = get_rds_from_dv("treat_as_words_chr",
+                                                                                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                                 dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                                 key_1L_chr = key_1L_chr,
+                                                                                 server_1L_chr = server_1L_chr),
                                             user_manual_fns_chr = user_manual_fns_chr))
   return(pkg_setup_ls)
 }

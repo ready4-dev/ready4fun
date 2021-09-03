@@ -10,7 +10,7 @@ get_new_abbrvs(
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
-  fn_type_lup_tb = NULL,
+  fn_types_lup = NULL,
   inc_all_mthds_1L_lgl = T,
   key_1L_chr = NULL,
   object_type_lup = NULL,
@@ -30,7 +30,7 @@ get_new_abbrvs(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 

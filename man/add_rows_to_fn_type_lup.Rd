@@ -5,7 +5,7 @@
 \title{Add rows to function type}
 \usage{
 add_rows_to_fn_type_lup(
-  fn_type_lup_tb = make_fn_type_lup(),
+  fn_types_lup = make_fn_type_lup(),
   fn_type_nm_chr = NA_character_,
   fn_type_desc_chr = NA_character_,
   first_arg_desc_chr = NA_character_,
@@ -15,7 +15,7 @@ add_rows_to_fn_type_lup(
 )
 }
 \arguments{
-\item{fn_type_lup_tb}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
+\item{fn_types_lup}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
 
 \item{fn_type_nm_chr}{Function type name (a character vector), Default: 'NA'}
 
@@ -33,6 +33,6 @@ add_rows_to_fn_type_lup(
 Updated function type lookup table (a tibble)
 }
 \description{
-add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_type_lup_tb specifies the object to be updated. The function returns Updated function type lookup table (a tibble).
+add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function type lookup table (a tibble).
 }
 \keyword{internal}

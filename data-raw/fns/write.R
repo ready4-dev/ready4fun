@@ -203,7 +203,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
   }
 }
-write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
+write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                    overwrite_1L_lgl = T,
                                    pkg_nm_1L_chr = get_dev_pkg_nm(),
                                    url_1L_chr = deprecated(),
@@ -231,9 +231,9 @@ write_dmtd_fn_type_lup <- function(fn_type_lup_tb = make_fn_type_lup(),
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
                                        server_1L_chr = server_1L_chr)
-  fn_type_lup_tb %>%
+  fn_types_lup %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
-                     db_1L_chr = "fn_type_lup_tb",
+                     db_1L_chr = "fn_types_lup",
                      title_1L_chr = "Function type lookup table",
                      desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
                      format_1L_chr = "A tibble",
@@ -334,6 +334,34 @@ write_ds_dmt <- function(db_df,
                            paste0("#' @source \\url{",url_1L_chr,"}\n")),
                     "\"",db_1L_chr,"\""))
 }
+write_env_objs_to_dv <- function(env_objects_ls,
+                                 descriptions_chr,
+                                 ds_url_1L_chr,
+                                 key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                                 publish_dv_1L_lgl = F,
+                                 server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  tmp_dir <- tempdir()
+  paths_chr <- env_objects_ls %>%
+    purrr::map2_chr(names(env_objects_ls),
+                    ~{
+                      path_1L_chr <- paste0(tmp_dir,"/",.y,".RDS")
+                      saveRDS(object = .x,
+                              file = path_1L_chr)
+                      path_1L_chr
+                    })
+  file_ids_int <- write_fls_to_dv(paths_chr,
+                                  descriptions_chr = descriptions_chr,
+                                  ds_url_1L_chr = ds_url_1L_chr,
+                                  ds_ls = dataverse::get_dataset(ds_url_1L_chr),
+                                  key_1L_chr = key_1L_chr,
+                                  server_1L_chr = server_1L_chr)
+  do.call(file.remove, list(paths_chr))
+  unlink(tmp_dir)
+  if(publish_dv_1L_lgl){
+    write_to_publish_dv_ds(dv_ds_1L_chr = ds_url_1L_chr)
+  }
+  return(file_ids_int)
+}
 write_fls_to_dv <- function(file_paths_chr,
                             descriptions_chr = NULL,
                             ds_url_1L_chr,
@@ -397,6 +425,8 @@ write_fls_to_dv <- function(file_paths_chr,
                           }
                           id_1L_int
                         })
+    }else{
+      ids_int <- NULL
     }
   }else{
     ids_int <- NULL
@@ -535,11 +565,11 @@ write_fns_to_split_dests <- function(pkg_depcy_ls,
                      )
                  })
 }
-write_from_tmp <- function(temp_paths_chr,
+write_from_tmp <- function(tmp_paths_chr,
                            dest_paths_chr,
                            edit_fn_ls = list(NULL),
                            args_ls_ls = NULL){
-  text_ls <- purrr::pmap(list(temp_paths_chr,
+  text_ls <- purrr::pmap(list(tmp_paths_chr,
                               edit_fn_ls,
                               args_ls_ls),
                          ~{
@@ -553,7 +583,7 @@ write_from_tmp <- function(temp_paths_chr,
                                }
                 rlang::exec(edit_fn, txt_chr, !!!..3)
               })
-  write_to_delete_fls(intersect(temp_paths_chr,dest_paths_chr))
+  write_to_delete_fls(intersect(tmp_paths_chr,dest_paths_chr))
   write_new_files(dest_paths_chr,
                   text_ls = text_ls)
 }
@@ -659,6 +689,83 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
   if(publish_dv_1L_lgl){
     write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
   }
+}
+write_new_abbrs <- function(pkg_setup_ls,
+                            are_plurals_chr = NULL,
+                            are_words_chr = NULL,
+                            classes_to_make_tb = NULL,
+                            long_name_chr,
+                            custom_plural_ls = NULL,
+                            key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                            no_plural_chr = NA_character_,
+                            publish_dv_1L_lgl = F,
+                            pfx_rgx = NA_character_,
+                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr)){
+    new_abbrs_chr <- setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr,
+                             c(are_words_chr, are_plurals_chr))
+    short_dupls_chr <- intersect(new_abbrs_chr,
+                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
+    long_dupls_chr <- intersect(long_name_chr,
+                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
+                          short_dupls_chr %>% make_list_phrase()),
+                   identical(short_dupls_chr, character(0)))
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
+                          long_dupls_chr %>% make_list_phrase()),
+                   identical(long_dupls_chr, character(0)))
+    pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
+      update_abbr_lup(short_name_chr = new_abbrs_chr,
+                      long_name_chr = long_name_chr,
+                      no_plural_chr = no_plural_chr,
+                      custom_plural_ls = custom_plural_ls,
+                      pfx_rgx = pfx_rgx)
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                          list_element_1L_chr = "missing_abbrs_chr")
+  }
+  if(!is.null(pkg_setup_ls$problems_ls$missing_class_abbrs_chr)){
+    class_desc_chr <- pkg_setup_ls$problems_ls$missing_class_abbrs_chr %>%
+      purrr::map_chr(~ get_from_lup_obj(classes_to_make_tb,
+                                        match_value_xx = stringr::str_remove(.x,
+                                                                             paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_")),
+                                        match_var_nm_1L_chr = "name_stub_chr",
+                                        target_var_nm_1L_chr = "class_desc_chr",
+                                        evaluate_lgl = F))
+    short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
+                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
+    long_dupls_chr <- intersect(class_desc_chr,
+                                pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class name values from 'classes_to_make_tb' to the short_name_chr column:\n",
+                          short_dupls_chr %>% make_list_phrase()),
+                   identical(short_dupls_chr, character(0)))
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class description values from 'classes_to_make_tb' to the long_name_chr column:\n",
+                          long_dupls_chr %>% make_list_phrase()),
+                   identical(long_dupls_chr, character(0)))
+    pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
+      update_abbr_lup(short_name_chr = pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
+                      long_name_chr = class_desc_chr,
+                      no_plural_chr = class_desc_chr,
+                      custom_plural_ls = NULL,
+                      pfx_rgx = NA_character_)
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                          list_element_1L_chr = "missing_class_abbrs_chr")
+  }
+  if(!is.null(are_words_chr)){
+   append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+                                            are_words_chr))
+   words_desc_1L_chr <- "Additional words for dictionary"
+  }else{
+    append_ls <- words_desc_1L_chr <- NULL
+  }
+  file_ids_int <- write_env_objs_to_dv(append(list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup),
+                                              append_ls),
+                                       descriptions_chr = c("Abbreviations lookup table", words_desc_1L_chr),
+                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr,
+                                       publish_dv_1L_lgl = publish_dv_1L_lgl)
+  return(pkg_setup_ls)
+
 }
 write_new_arg_sfcs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
@@ -793,7 +900,8 @@ write_new_files <- function(paths_chr,
                                    recursive = recursive_1L_lgl))
         }
         if(!is.null(custom_write_ls)){
-          custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
+          if("consent_1L_chr" %in% formalArgs(custom_write_ls$fn))
+            custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
           rlang::exec(custom_write_ls$fn,
                       !!!custom_write_ls$args_ls)
         }
@@ -802,6 +910,32 @@ write_new_files <- function(paths_chr,
       message("Write request cancelled - no new directories created")
     }
   }
+}
+write_new_fn_types <- function(pkg_setup_ls,
+                               fn_type_desc_chr = NA_character_,
+                               first_arg_desc_chr = NA_character_,
+                               is_generic_lgl = F,
+                               is_method_lgl = F,
+                               key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                               second_arg_desc_chr = NA_character_,
+                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                               publish_dv_1L_lgl = F){
+  pkg_setup_ls$subsequent_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup %>%
+    add_rows_to_fn_type_lup(fn_type_nm_chr = pkg_setup_ls$problems_ls$missing_fn_types_chr,
+                            fn_type_desc_chr = fn_type_desc_chr,
+                            first_arg_desc_chr = first_arg_desc_chr,
+                            second_arg_desc_chr = second_arg_desc_chr,
+                            is_generic_lgl = is_generic_lgl,
+                            is_method_lgl = is_method_lgl)
+  file_ids_int <- write_env_objs_to_dv(list(fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup),
+                                       descriptions_chr = c("Function types lookup table"),
+                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr,
+                                       publish_dv_1L_lgl = publish_dv_1L_lgl)
+  pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                        list_element_1L_chr = "missing_fn_types_chr")
+  return(pkg_setup_ls)
 }
 write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
                                   incr_ver_1L_lgl = T){
@@ -832,8 +966,8 @@ write_package <- function(pkg_desc_ls,
                           pkg_ds_ls_ls,
                           pkg_setup_ls,
                           abbreviations_lup = NULL,
-                          dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-                          fn_type_lup_tb = NULL,
+                          dv_url_pfx_1L_chr = NULL,
+                          fn_types_lup = NULL,
                           object_type_lup = NULL,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           publish_dv_1L_lgl = F){
@@ -845,7 +979,7 @@ write_package <- function(pkg_desc_ls,
                                     purrr::pluck(1),
                                   abbreviations_lup = abbreviations_lup,
                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                                  fn_type_lup_tb = fn_type_lup_tb,
+                                  fn_types_lup = fn_types_lup,
                                   object_type_lup = object_type_lup)
   add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
   add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
@@ -901,7 +1035,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           details_ls = NULL,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                           dv_ds_nm_1L_chr,
-                          fn_type_lup_tb = NULL,
+                          fn_types_lup = NULL,
                           inc_all_mthds_1L_lgl = T,
                           object_type_lup = NULL,
                           paths_ls = make_fn_nms(),
@@ -924,8 +1058,8 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                          dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                          key_1L_chr = key_1L_chr,
                                          server_1L_chr = server_1L_chr)
-  if(is.null(fn_type_lup_tb))
-    fn_type_lup_tb <- get_rds_from_dv("fn_type_lup_tb",
+  if(is.null(fn_types_lup))
+    fn_types_lup <- get_rds_from_dv("fn_types_lup",
                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                       key_1L_chr = key_1L_chr,
@@ -935,7 +1069,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,#url_1L_chr,
                                object_type_lup = object_type_lup)
   utils::data("abbreviations_lup", envir = environment())
-  pkg_dss_tb <- fn_type_lup_tb %>%
+  pkg_dss_tb <- fn_types_lup %>%
     write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup,
                            object_type_lup = object_type_lup,
                            pkg_dss_tb = pkg_dss_tb,
@@ -943,7 +1077,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                            dv_url_pfx_1L_chr = NULL,
                            key_1L_chr = NULL,
                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
-  utils::data("fn_type_lup_tb", envir = environment())
+  utils::data("fn_types_lup", envir = environment())
   if(!is.null(pkg_ds_ls_ls)){
     pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls,
                                 .init = pkg_dss_tb,
@@ -970,7 +1104,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
                                                      ),
-                                     fn_type_lup_tb = fn_type_lup_tb,
+                                     fn_types_lup = fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = object_type_lup,
                                      undocumented_fns_dir_chr = undocumented_fns_dir_chr)
@@ -1255,7 +1389,6 @@ write_to_delete_fls <- function(file_paths_chr){
                                    force_from_opts_1L_chr = T)
     if(consent_1L_chr %in% c("Y")){
       paths_ls <- do.call(file.remove, list(file_paths_chr))
-      #message(paste0("Files deleted:\n", file_paths_chr %>% paste0(collapse = "\n")))
     }else{
       message("Delete files request cancelled - no files deleted")
     }

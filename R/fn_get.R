@@ -324,29 +324,29 @@ get_new_fn_types <- function (abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.
     return(new_fn_types_chr)
 }
 #' Get object type lookup table new cases
-#' @description get_obj_type_lup_new_cses_tb() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cases tibble. Function argument updated_obj_type_lup_tb specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
-#' @param updated_obj_type_lup_tb Updated object type lookup table (a tibble)
+#' @description get_obj_type_new_cses() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cases tibble. Function argument updated_obj_type_lup specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
+#' @param updated_obj_type_lup Updated object type lookup table (a tibble)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param excluded_chr Excluded (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param old_obj_type_lup_tb Old object type lookup table (a tibble), Default: NULL
+#' @param old_obj_type_lup Old object type lookup table (a tibble), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Object type lookup table new cases (a tibble)
-#' @rdname get_obj_type_lup_new_cses_tb
+#' @rdname get_obj_type_new_cses
 #' @export 
 #' @importFrom dplyr filter
 #' @keywords internal
-get_obj_type_lup_new_cses_tb <- function (updated_obj_type_lup_tb, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, excluded_chr = NA_character_, key_1L_chr = NULL, 
-    old_obj_type_lup_tb = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    old_obj_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
-    if (is.null(old_obj_type_lup_tb)) 
-        old_obj_type_lup_tb <- get_rds_from_dv("object_type_lup", 
+    if (is.null(old_obj_type_lup)) 
+        old_obj_type_lup <- get_rds_from_dv("object_type_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    obj_type_lup_new_cses_tb <- updated_obj_type_lup_tb %>% dplyr::filter(!short_name_chr %in% 
-        old_obj_type_lup_tb$short_name_chr)
+    obj_type_lup_new_cses_tb <- updated_obj_type_lup %>% dplyr::filter(!short_name_chr %in% 
+        old_obj_type_lup$short_name_chr)
     if (!is.na(excluded_chr[1])) 
         obj_type_lup_new_cses_tb <- obj_type_lup_new_cses_tb %>% 
             dplyr::filter(!short_name_chr %in% excluded_chr)

@@ -149,7 +149,8 @@ get_new_abbrs <- function(pkg_setup_ls,
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           treat_as_words_chr = character(0),
-                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
+                          undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
+                          use_last_1L_int = NULL){
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
@@ -163,11 +164,13 @@ get_new_abbrs <- function(pkg_setup_ls,
   new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>%
     get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                         drop_first_1L_lgl = T,
-                        treat_as_words_chr = treat_as_words_chr)
+                        treat_as_words_chr = treat_as_words_chr,
+                        use_last_1L_int = use_last_1L_int)
   new_arg_abbrs_chr <- fns_dmt_tb$args_ls %>%
     purrr::map(~names(.x) %>%
                  get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                     treat_as_words_chr = treat_as_words_chr)) %>%
+                                     treat_as_words_chr = treat_as_words_chr,
+                                     use_last_1L_int = use_last_1L_int)) %>%
     purrr::flatten_chr() %>%
     unique()
   if(!is.null(pkg_ds_ls_ls)){
@@ -176,7 +179,8 @@ get_new_abbrs <- function(pkg_setup_ls,
                  .x$db_1L_chr) %>%
       purrr::flatten_chr() %>%
       get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                          treat_as_words_chr = treat_as_words_chr)
+                          treat_as_words_chr = treat_as_words_chr,
+                          use_last_1L_int = use_last_1L_int)
   }else{
     new_ds_abbrs_chr <- character(0)
   }
@@ -187,7 +191,8 @@ get_new_abbrs <- function(pkg_setup_ls,
       purrr::flatten_chr() %>%
       unique() %>%
       get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                          treat_as_words_chr = treat_as_words_chr)
+                          treat_as_words_chr = treat_as_words_chr,
+                          use_last_1L_int = use_last_1L_int)
   }else{
     new_clss_abbrs_chr <- character(0)
   }
@@ -208,12 +213,16 @@ get_new_abbrs <- function(pkg_setup_ls,
 get_new_abbrs_cndts <- function(text_chr,
                                 abbreviations_lup,
                                 drop_first_1L_lgl = F,
+                                use_last_1L_int = NULL,
                                 treat_as_words_chr = character(0)){
   new_abbrs_cndts_chr <- text_chr %>%
     purrr::map(~{
       candidates_chr <- strsplit(.x,"_")[[1]]
       if(drop_first_1L_lgl)
         candidates_chr <- candidates_chr[-1]
+      if(!is.null(use_last_1L_int))
+        candidates_chr %>%
+          tail(use_last_1L_int)
       candidates_chr
     }) %>%
     purrr::flatten_chr() %>%
@@ -261,21 +270,21 @@ get_new_fn_types <- function(pkg_setup_ls,
     setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)
   return(new_fn_types_chr)
 }
-get_obj_type_lup_new_cses_tb <- function(updated_obj_type_lup_tb,
-                                         dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                         dv_url_pfx_1L_chr = NULL,
-                                         excluded_chr = NA_character_,
-                                         key_1L_chr = NULL,
-                                         old_obj_type_lup_tb = NULL,
-                                         server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(is.null(old_obj_type_lup_tb))
-    old_obj_type_lup_tb <- get_rds_from_dv("object_type_lup",
+get_obj_type_new_cses <- function(updated_obj_type_lup,
+                                  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
+                                  dv_url_pfx_1L_chr = NULL,
+                                  excluded_chr = NA_character_,
+                                  key_1L_chr = NULL,
+                                  old_obj_type_lup = NULL,
+                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(is.null(old_obj_type_lup))
+    old_obj_type_lup <- get_rds_from_dv("object_type_lup",
                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                            key_1L_chr = key_1L_chr,
                                            server_1L_chr = server_1L_chr)
-  obj_type_lup_new_cses_tb <- updated_obj_type_lup_tb %>%
-    dplyr::filter(!short_name_chr %in% old_obj_type_lup_tb$short_name_chr)
+  obj_type_lup_new_cses_tb <- updated_obj_type_lup %>%
+    dplyr::filter(!short_name_chr %in% old_obj_type_lup$short_name_chr)
   if(!is.na(excluded_chr[1]))
     obj_type_lup_new_cses_tb <- obj_type_lup_new_cses_tb %>%
       dplyr::filter(!short_name_chr %in% excluded_chr)

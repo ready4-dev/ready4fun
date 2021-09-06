@@ -126,8 +126,8 @@ add_lups <- function(template_lup,
 }
 
 add_plurals_to_abbr_lup <- function(abbr_tb,
-                                       no_plural_chr = NA_character_,
-                                       custom_plural_ls = NULL){
+                                    no_plural_chr = NA_character_,
+                                    custom_plural_ls = NULL){
   non_standard_1L_chr <- no_plural_chr
   if(!is.null(custom_plural_ls)){
     non_standard_1L_chr <- c(non_standard_1L_chr,names(custom_plural_ls))

@@ -9,12 +9,7 @@ if(!dir.exists(fns_dir_1L_chr))
 # 2. Add functions.
 # 2.1 MANUAL STEP. Write all your functions to R files in the new "fns" directory.
 #
-# 2.2 Update code house-style datasets.
-# Ensure all abbreviations used in function names, arguments and return values are described in abbreviation look-up tables.
-# Make the necessary changes in MAKE_HOUSESTYLE_DV_DSS.R and uncomment and run the following line.
-# source("data-raw/MAKE_HOUSESTYLE_DV_DSS.R")
-#
-# 2.3. Read all undocumented functions in the temporary "fns" directory.
+# 2.2. Read all undocumented functions in the temporary "fns" directory.
 fns_env_ls <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
@@ -149,11 +144,18 @@ classes_to_make_tb <- dplyr::bind_rows(
 pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls,
                                                       classes_to_make_tb = classes_to_make_tb,
                                                       pkg_ds_ls_ls = pkg_ds_ls_ls)
+
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
 #                                                       fn_type_desc_chr = "Validates that an object conforms to required criteria.",
 #                                                       is_generic_lgl = F,
 #                                                       is_method_lgl = F,
 #                                                       publish_dv_1L_lgl = T)
+pkg_setup_ls <- fns_env_ls$fns_env$update_msng_abbrs(pkg_setup_ls,
+                                                     are_words_chr = c("cran", "lifecycle", "pdf", "pdfs","pkgdown",
+                                                                       "R", "rds", "ready4", "url", "urls"),
+                                                     tf_to_singular_chr = c(dest = "dests",
+                                                                            dupl = "dupls",
+                                                                            msg = "msgs"))
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
 #                                                    are_plurals_chr = c("dests"), # rework as list
 #                                                    are_words_chr = c("cran", "lifecycle", "pdfs","pkgdown",

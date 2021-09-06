@@ -1,6 +1,4 @@
 write_abbr_lup <- function(seed_lup = NULL,
-                           url_1L_chr = deprecated(),#"https://doi.org/10.7910/DVN/2Y9VF9",
-                           pkg_nm_1L_chr = get_dev_pkg_nm(),
                            short_name_chr = NA_character_,
                            long_name_chr = NA_character_,
                            no_plural_chr = NA_character_,
@@ -11,10 +9,12 @@ write_abbr_lup <- function(seed_lup = NULL,
                                                        title_chr = character(0),
                                                        desc_chr = character(0),
                                                        url_chr = character(0)),
+                           pkg_nm_1L_chr = get_dev_pkg_nm(),
                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                            dv_url_pfx_1L_chr = NULL,
                            key_1L_chr = NULL,
-                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                           url_1L_chr = deprecated()){
   if (lifecycle::is_present(url_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9323",
                               "ready4fun::write_abbr_lup(url_1L_chr)",
@@ -691,35 +691,25 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
   }
 }
 write_new_abbrs <- function(pkg_setup_ls,
-                            are_plurals_chr = NULL,
-                            are_words_chr = NULL,
                             classes_to_make_tb = NULL,
-                            long_name_chr,
+                            long_name_chr = NULL,
                             custom_plural_ls = NULL,
                             key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                             no_plural_chr = NA_character_,
                             publish_dv_1L_lgl = F,
                             pfx_rgx = NA_character_,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr)){
-    new_abbrs_chr <- setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr,
-                             c(are_words_chr, are_plurals_chr))
-    short_dupls_chr <- intersect(new_abbrs_chr,
-                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
-    long_dupls_chr <- intersect(long_name_chr,
-                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
-    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
-                          short_dupls_chr %>% make_list_phrase()),
-                   identical(short_dupls_chr, character(0)))
-    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
-                          long_dupls_chr %>% make_list_phrase()),
-                   identical(long_dupls_chr, character(0)))
-    pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
-      update_abbr_lup(short_name_chr = new_abbrs_chr,
-                      long_name_chr = long_name_chr,
-                      no_plural_chr = no_plural_chr,
-                      custom_plural_ls = custom_plural_ls,
-                      pfx_rgx = pfx_rgx)
+  if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
+    pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+    was_null_abbrs_1L_lgl <- T
+  }
+  if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr) & !is.null(long_name_chr)){
+    pkg_setup_ls <- update_abbrs(pkg_setup_ls,
+                                 short_name_chr = pkg_setup_ls$problems_ls$missing_abbrs_chr,
+                                 long_name_chr = long_name_chr,
+                                 no_plural_chr = no_plural_chr,
+                                 custom_plural_ls = custom_plural_ls,
+                                 pfx_rgx = pfx_rgx)
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
                                           list_element_1L_chr = "missing_abbrs_chr")
   }
@@ -750,10 +740,12 @@ write_new_abbrs <- function(pkg_setup_ls,
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
                                           list_element_1L_chr = "missing_class_abbrs_chr")
   }
-  if(!is.null(are_words_chr)){
+  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
    append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
-                                            are_words_chr))
+                                            pkg_setup_ls$problems_ls$missing_words_chr))
    words_desc_1L_chr <- "Additional words for dictionary"
+   pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                         list_element_1L_chr = "missing_words_chr")
   }else{
     append_ls <- words_desc_1L_chr <- NULL
   }
@@ -765,7 +757,6 @@ write_new_abbrs <- function(pkg_setup_ls,
                                        server_1L_chr = server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
   return(pkg_setup_ls)
-
 }
 write_new_arg_sfcs <- function(arg_nms_chr,
                                  fn_type_1L_chr,
@@ -961,6 +952,105 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
   devtools::document()
   if(incr_ver_1L_lgl)
     usethis::use_version()
+}
+write_new_obj_types <- function(pkg_setup_ls,
+                                long_name_chr = NULL,
+                                atomic_element_lgl = F,
+                                key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                                no_plural_chr = NA_character_,
+                                publish_dv_1L_lgl = F,
+                                pfx_rgx = NA_character_,
+                                r3_element_lgl = F,
+                                server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
+  if(is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)){
+    pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine()
+    was_null_seed_1L_lgl <- update_abbrs_1L_lgl <- T
+  }
+  if(is.null(pkg_setup_ls$subsequent_ls$object_type_lup)){
+    pkg_setup_ls$subsequent_ls$object_type_lup <- make_obj_lup(obj_lup_spine = pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
+    was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- T
+  }
+  if(!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr)){
+    short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_obj_types_chr,
+                                 pkg_setup_ls$subsequent_ls$object_type_lup$short_name_chr)
+    long_dupls_chr <- intersect(long_name_chr,
+                                pkg_setup_ls$subsequent_ls$object_type_lup$long_name_chr)
+    testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
+                          short_dupls_chr %>% make_list_phrase()),
+                   identical(short_dupls_chr, character(0)))
+    testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
+                          long_dupls_chr %>% make_list_phrase()),
+                   identical(long_dupls_chr, character(0)))
+    pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine(pkg_setup_ls$subsequent_ls$seed_obj_type_lup,
+                                                                       new_entries_tb = tibble::tibble(short_name_chr = pkg_setup_ls$problems_ls$missing_obj_types_chr,
+                                                                                                       long_name_chr = long_name_chr,
+                                                                                                       atomic_element_lgl = atomic_element_lgl,
+                                                                                                       r3_element_lgl = r3_element_lgl))
+
+    updated_obj_type_lup <- make_obj_lup(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
+    obj_type_new_cses_tb <- get_obj_type_new_cses(updated_obj_type_lup = updated_obj_type_lup,
+                                                  old_obj_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
+
+
+    pkg_setup_ls$subsequent_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup %>%
+      update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr,
+                      long_name_chr = obj_type_new_cses_tb$long_name_chr,
+                      no_plural_chr = obj_type_new_cses_tb$long_name_chr,
+                      custom_plural_ls = custom_plural_ls,
+                      pfx_rgx = pfx_rgx)
+    update_abbrs_1L_lgl <- T
+  }
+  if(update_abbrs_1L_lgl){
+    if(was_null_obj_type_1L_lgl){
+      obj_type_new_cses_tb <- pkg_setup_ls$subsequent_ls$object_type_lup
+    }
+    if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
+      pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+    }else{
+      pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
+        update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr,
+                        long_name_chr = obj_type_new_cses_tb$long_name_chr,
+                        no_plural_chr = obj_type_new_cses_tb$long_name_chr,
+                        custom_plural_ls = custom_plural_ls,
+                        pfx_rgx = pfx_rgx)
+    }
+    if(!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr))
+      pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                            list_element_1L_chr = "missing_obj_types_chr")
+  }
+  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
+    append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+                                             pkg_setup_ls$problems_ls$missing_words_chr))
+    words_desc_1L_chr <- "Additional words for dictionary"
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                          list_element_1L_chr = "missing_words_chr")
+  }else{
+    append_ls <- words_desc_1L_chr <- NULL
+  }
+  if(was_null_seed_1L_lgl){
+    append_ls <- append(append_ls,
+                        list(seed_obj_type_lup = pkg_setup_ls$subsequent_ls$seed_obj_type_lup))
+    seed_desc_1L_chr <- "Seed object type lookup table"
+  }else{
+    seed_desc_1L_chr <- NULL
+  }
+  if(update_abbrs_1L_lgl){
+    append_ls <- append(append_ls,
+                        list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup))
+    abbrs_desc_1L_chr <- "Abbreviations lookup table"
+  }else{
+    abbrs_desc_1L_chr <- NULL
+  }
+  file_ids_int <- write_env_objs_to_dv(append(list(object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup),
+                                              append_ls),
+                                       descriptions_chr = c("Object type lookup table",
+                                                            words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr),
+                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr,
+                                       publish_dv_1L_lgl = publish_dv_1L_lgl)
+  return(pkg_setup_ls)
 }
 write_package <- function(pkg_desc_ls,
                           pkg_ds_ls_ls,

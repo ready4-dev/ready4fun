@@ -3,7 +3,7 @@ pkg_dv_dir_1L_chr <- "data-raw/dataverse"
 if(!dir.exists(pkg_dv_dir_1L_chr))
   dir.create(pkg_dv_dir_1L_chr)
 make_obj_lup_spine() %>%
-  ready4use::write_paired_ds_fls_to_dv(fl_nm_1L_chr = "seed_obj_lup_tb",
+  ready4use::write_paired_ds_fls_to_dv(fl_nm_1L_chr = "seed_obj_type_lup",
                                        desc_1L_chr = "Seed object type lookup table")
 make_obj_lup() %>%
   write_paired_ds_fls_to_dv(fl_nm_1L_chr = "object_type_lup",

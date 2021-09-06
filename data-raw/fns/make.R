@@ -927,16 +927,27 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
                             arg_desc_chr = arg_desc_chr)
   return(new_fn_dmt_chr_ls)
 }
-make_obj_lup_spine <- function(seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_tb"),
+make_new_entries_tb <- function(short_name_chr,
+                                long_name_chr,
+                                atomic_element_lgl = F,
+                                r3_element_lgl = F){
+  new_entries_tb <- tibble::tibble(short_name_chr,
+                                  long_name_chr,
+                                  atomic_element_lgl = atomic_element_lgl,
+                                  r3_element_lgl = r3_element_lgl)
+  return(new_entries_tb)
+
+  }
+make_obj_lup_spine <- function(seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup"),
                                new_entries_tb = NULL){
-  if(is.null(seed_obj_lup_tb)){
-    seed_obj_lup_tb <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsn","rgx"),
+  if(is.null(seed_obj_type_lup)){
+    seed_obj_type_lup <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsn","rgx"),
                                       long_name_chr = c("data.frame","function","list","ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
                                                         "tibble","array","character","double", "date","factor","integer","logical","lookup table","matrix","model","person","regular expression"),
                                       atomic_element_lgl = c(rep(F,10),rep(T,6),rep(F,4),T),
                                       r3_element_lgl = c(T,F,T,rep(F,4),rep(T,14)))
   }
-  obj_lup_spine <- seed_obj_lup_tb
+  obj_lup_spine <- seed_obj_type_lup
   if(!is.null(new_entries_tb)){
     obj_lup_spine <- add_lups(obj_lup_spine,
                               new_lup = new_entries_tb,
@@ -1110,6 +1121,11 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                               key_1L_chr = key_1L_chr,
                                                                               server_1L_chr = server_1L_chr),
                                             pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
+                                            seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup",
+                                                                                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                                key_1L_chr = key_1L_chr,
+                                                                                server_1L_chr = server_1L_chr),
                                             server_1L_chr = server_1L_chr,
                                             treat_as_words_chr = get_rds_from_dv("treat_as_words_chr",
                                                                                  dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],

@@ -1050,18 +1050,18 @@ make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine())
 }
 #' Make object lookup table spine
 #' @description make_obj_lup_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
-#' @param seed_obj_lup_tb Seed object lookup table (a tibble), Default: get_rds_from_dv("seed_obj_lup_tb")
+#' @param seed_obj_type_lup Seed object lookup table (a tibble), Default: get_rds_from_dv("seed_obj_type_lup")
 #' @param new_entries_tb New entries (a tibble), Default: NULL
 #' @return NA ()
 #' @rdname make_obj_lup_spine
 #' @export 
 #' @importFrom tibble tibble
 #' @keywords internal
-make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_tb"), 
+make_obj_lup_spine <- function (seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup"), 
     new_entries_tb = NULL) 
 {
-    if (is.null(seed_obj_lup_tb)) {
-        seed_obj_lup_tb <- tibble::tibble(short_name_chr = c("df", 
+    if (is.null(seed_obj_type_lup)) {
+        seed_obj_type_lup <- tibble::tibble(short_name_chr = c("df", 
             "fn", "ls", "r3", "r4", "s3", "s4", "sf", "tb", "arr", 
             "chr", "dbl", "dtm", "fct", "int", "lgl", "lup", 
             "mat", "mdl", "prsn", "rgx"), long_name_chr = c("data.frame", 
@@ -1073,7 +1073,7 @@ make_obj_lup_spine <- function (seed_obj_lup_tb = get_rds_from_dv("seed_obj_lup_
             10), rep(T, 6), rep(F, 4), T), r3_element_lgl = c(T, 
             F, T, rep(F, 4), rep(T, 14)))
     }
-    obj_lup_spine <- seed_obj_lup_tb
+    obj_lup_spine <- seed_obj_type_lup
     if (!is.null(new_entries_tb)) {
         obj_lup_spine <- add_lups(obj_lup_spine, new_lup = new_entries_tb, 
             key_var_nm_1L_chr = "short_name_chr")

@@ -4,10 +4,10 @@ update_abbr_lup <- function(abbr_tb,
                             no_plural_chr = NA_character_,
                             custom_plural_ls = NULL,
                             pfx_rgx = NA_character_){
-  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. The following duplicates are in the short_name_chr column:\n",
+  testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the short_name_chr column:\n",
                         abbr_tb$short_name_chr[duplicated(abbr_tb$short_name_chr)] %>% make_list_phrase()),
                  !any(duplicated(abbr_tb$short_name_chr)))
-  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. The following duplicates are in the long_name_chr column:\n",
+  testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the long_name_chr column:\n",
                         abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% make_list_phrase()),
                  !any(duplicated(abbr_tb$long_name_chr)))
   if(!"plural_lgl" %in% names(abbr_tb))
@@ -31,6 +31,33 @@ update_abbr_lup <- function(abbr_tb,
     # dplyr::arrange(short_name_chr) %>%
     # dplyr::distinct()
   return(abbr_tb)
+}
+update_abbrs <- function(pkg_setup_ls,
+                         short_name_chr,
+                         long_name_chr,
+                         no_plural_chr = NA_character_,
+                         custom_plural_ls = NULL,
+                         pfx_rgx = NA_character_){
+  short_dupls_chr <- intersect(short_name_chr,
+                               pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
+  long_dupls_chr <- intersect(long_name_chr,
+                              pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
+  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
+                        short_dupls_chr %>% make_list_phrase()),
+                 identical(short_dupls_chr, character(0)))
+  testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
+                        long_dupls_chr %>% make_list_phrase()),
+                 identical(long_dupls_chr, character(0)))
+  if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup))
+    pkg_setup_ls$subsequent_ls$abbreviations_lup <- make_obj_lup(obj_lup_spine = make_obj_lup_spine(NULL)) %>%
+    dplyr::filter(F)
+  pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
+    update_abbr_lup(short_name_chr = short_name_chr,
+                    long_name_chr = long_name_chr,
+                    no_plural_chr = no_plural_chr,
+                    custom_plural_ls = custom_plural_ls,
+                    pfx_rgx = pfx_rgx)
+  return(pkg_setup_ls)
 }
 update_first_word_case <- function(phrase_1L_chr,
                                        fn = tolower){
@@ -255,6 +282,28 @@ update_fns_dmt_tb_chr_vars <- function(fns_dmt_tb,
     )
   }
   return(fns_dmt_tb)
+}
+update_msng_abbrs <- function(pkg_setup_ls,
+                              are_words_chr = NA_character_,
+                              tf_to_singular_chr = NA_character_,
+                              not_obj_type_chr = NA_character_){
+  if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr)){
+    if(!is.na(tf_to_singular_chr[1])){
+      testit::assert("'tf_to_singular_chr' needs to be a named vector. The name of each vector element should be the desired new name for that element.",
+                     length(names(tf_to_singular_chr) %>%
+                              purrr::discard(~.x==""))== length(tf_to_singular_chr %>%
+                                                                  purrr::discard(is.na)))
+      pkg_setup_ls$problems_ls$missing_abbrs_chr <- c(setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr,
+                                                              tf_to_singular_chr),
+                                                      names(tf_to_singular_chr)) %>%
+        unique() %>%
+        sort()
+    }
+    pkg_setup_ls$problems_ls$missing_abbrs_chr <- setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr,
+                                                          are_words_chr)
+    pkg_setup_ls$problems_ls$missing_words_chr <- are_words_chr
+  }
+  return(pkg_setup_ls)
 }
 update_ns <- function(package_1L_chr){
   package_nm_chr <- ifelse(package_1L_chr=="",".GlobalEnv",package_1L_chr)

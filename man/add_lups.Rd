@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_lups}
 \alias{add_lups}
-\title{Add lups}
+\title{Add lookup tables}
 \usage{
 add_lups(
   template_lup,
@@ -18,12 +18,12 @@ add_lups(
 
 \item{key_var_nm_1L_chr}{Key variable name (a character vector of length one)}
 
-\item{priority_lup_for_dupls_1L_chr}{Priority lookup table for dupls (a character vector of length one), Default: 'template'}
+\item{priority_lup_for_dupls_1L_chr}{Priority lookup table for duplicates (a character vector of length one), Default: 'template'}
 }
 \value{
-NA ()
+Combined (lookup tables)
 }
 \description{
-add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lups. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.
+add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lookup tables. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

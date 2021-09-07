@@ -287,6 +287,7 @@ update_msng_abbrs <- function(pkg_setup_ls,
                               are_words_chr = NA_character_,
                               tf_to_singular_chr = NA_character_,
                               not_obj_type_chr = NA_character_){
+  # Note: This works as part of current workflow as only one missing message for object type and abbrs lookup is generated at a time.
   if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr)){
     if(!is.na(tf_to_singular_chr[1])){
       testit::assert("'tf_to_singular_chr' needs to be a named vector. The name of each vector element should be the desired new name for that element.",
@@ -301,6 +302,13 @@ update_msng_abbrs <- function(pkg_setup_ls,
     }
     pkg_setup_ls$problems_ls$missing_abbrs_chr <- setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr,
                                                           are_words_chr)
+    pkg_setup_ls$problems_ls$missing_words_chr <- are_words_chr
+  }
+  if(!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr)){
+      pkg_setup_ls$problems_ls$missing_obj_types_chr <- setdiff(pkg_setup_ls$problems_ls$missing_obj_types_chr,
+                                                                  c(not_obj_type_chr, are_words_chr)) %>%
+        unique() %>%
+        sort()
     pkg_setup_ls$problems_ls$missing_words_chr <- are_words_chr
   }
   return(pkg_setup_ls)

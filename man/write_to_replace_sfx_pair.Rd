@@ -6,7 +6,7 @@
 \usage{
 write_to_replace_sfx_pair(
   args_nm_chr,
-  sfxs_chr,
+  sfcs_chr,
   replacements_chr,
   file_path_1L_chr = NA_character_,
   dir_path_1L_chr = NA_character_
@@ -15,7 +15,7 @@ write_to_replace_sfx_pair(
 \arguments{
 \item{args_nm_chr}{Arguments name (a character vector)}
 
-\item{sfxs_chr}{Sfxs (a character vector)}
+\item{sfcs_chr}{Suffices (a character vector)}
 
 \item{replacements_chr}{Replacements (a character vector)}
 

@@ -124,7 +124,6 @@ add_lups <- function(template_lup,
   combined_lups <- combined_lups[rowSums(is.na(combined_lups)) != ncol(combined_lups), ]
   return(combined_lups)
 }
-
 add_plurals_to_abbr_lup <- function(abbr_tb,
                                     no_plural_chr = NA_character_,
                                     custom_plural_ls = NULL){

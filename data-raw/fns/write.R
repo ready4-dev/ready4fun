@@ -696,7 +696,7 @@ write_new_abbrs <- function(pkg_setup_ls,
                             custom_plural_ls = NULL,
                             key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                             no_plural_chr = NA_character_,
-                            publish_dv_1L_lgl = F,
+                            publish_dv_1L_lgl = T,
                             pfx_rgx = NA_character_,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
@@ -958,14 +958,14 @@ write_new_obj_types <- function(pkg_setup_ls,
                                 atomic_element_lgl = F,
                                 key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                                 no_plural_chr = NA_character_,
-                                publish_dv_1L_lgl = F,
+                                publish_dv_1L_lgl = T,
                                 pfx_rgx = NA_character_,
-                                r3_element_lgl = F,
+                                r3_can_extend_lgl = F,
                                 server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
   if(is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)){
     pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine()
-    was_null_seed_1L_lgl <- update_abbrs_1L_lgl <- T
+    was_null_seed_1L_lgl <- T
   }
   if(is.null(pkg_setup_ls$subsequent_ls$object_type_lup)){
     pkg_setup_ls$subsequent_ls$object_type_lup <- make_obj_lup(obj_lup_spine = pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
@@ -986,7 +986,7 @@ write_new_obj_types <- function(pkg_setup_ls,
                                                                        new_entries_tb = tibble::tibble(short_name_chr = pkg_setup_ls$problems_ls$missing_obj_types_chr,
                                                                                                        long_name_chr = long_name_chr,
                                                                                                        atomic_element_lgl = atomic_element_lgl,
-                                                                                                       r3_element_lgl = r3_element_lgl))
+                                                                                                       r3_can_extend_lgl = r3_can_extend_lgl))
 
     updated_obj_type_lup <- make_obj_lup(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
     obj_type_new_cses_tb <- get_obj_type_new_cses(updated_obj_type_lup = updated_obj_type_lup,
@@ -1055,22 +1055,51 @@ write_new_obj_types <- function(pkg_setup_ls,
 write_package <- function(pkg_desc_ls,
                           pkg_ds_ls_ls,
                           pkg_setup_ls,
-                          abbreviations_lup = NULL,
+                          cls_fn_ls = NULL,
                           dv_url_pfx_1L_chr = NULL,
-                          fn_types_lup = NULL,
-                          object_type_lup = NULL,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
-                          publish_dv_1L_lgl = F){
+                          publish_dv_1L_lgl = T,
+                          self_serve_1L_lgl = F){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
   dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
+                                  pkg_setup_ls = pkg_setup_ls,
                                   pkg_url_1L_chr = pkg_desc_ls$URL %>%
                                     strsplit(",") %>%
                                     unlist() %>%
                                     purrr::pluck(1),
-                                  abbreviations_lup = abbreviations_lup,
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                                  fn_types_lup = fn_types_lup,
-                                  object_type_lup = object_type_lup)
+                                  #cls_fn_ls = cls_fn_ls,
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
+
+  if(self_serve_1L_lgl){
+    write_new_files(paths_chr = paste0(r_dir_1L_chr,
+                                       "/",
+                                       dss_records_ls$fns_dmt_tb$file_pfx_chr[1],
+                                       dss_records_ls$fns_dmt_tb$file_nm_chr %>%
+                                         unique()),
+                    custom_write_ls = list(fn = write_fn_fl,
+                                           args_ls = list(dss_records_ls$fns_dmt_tb,
+                                                          r_dir_1L_chr = r_dir_1L_chr,
+                                                          document_unexp_lgl = F)))
+    devtools::document()
+    devtools::load_all()
+  }
+  if(!is.null(cls_fn_ls)){
+    args_ls <- rlang::exec(cls_fn_ls$fn, !!!cls_fn_ls$args_ls) %>%
+      make_pkg_ds_ls(db_1L_chr = "prototype_lup",
+                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+                     title_1L_chr = "Class prototype lookup table",
+                     desc_1L_chr = "Metadata on classes used in ready4 suite")
+    args_ls <- append(args_ls,
+                      list(overwrite_1L_lgl = T,
+                           pkg_dss_tb = dss_records_ls$pkg_dss_tb,
+                           R_dir_1L_chr = "R",
+                           dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                           key_1L_chr = key_1L_chr,
+                           server_1L_chr = server_1L_chr))
+    dss_records_ls$pkg_dss_tb <- rlang::exec(write_and_doc_ds,!!!args_ls)
+  }
   add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
   add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
   write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
@@ -1120,14 +1149,16 @@ write_pkg <- function(package_1L_chr,
                    args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
 write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
-                          abbreviations_lup = NULL,
+                          pkg_setup_ls,
+                          #abbreviations_lup = NULL,
                           args_ls_ls = NULL,
+                          #cls_fn_ls = NULL,
                           details_ls = NULL,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                           dv_ds_nm_1L_chr,
-                          fn_types_lup = NULL,
+                          #fn_types_lup = NULL,
                           inc_all_mthds_1L_lgl = T,
-                          object_type_lup = NULL,
+                          #object_type_lup = NULL,
                           paths_ls = make_fn_nms(),
                           pkg_url_1L_chr = NA_character_,
                           R_dir_1L_chr = "R",
@@ -1136,32 +1167,14 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                           dv_url_pfx_1L_chr = NULL,
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
-  if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
-                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                         key_1L_chr = key_1L_chr,
-                                         server_1L_chr = server_1L_chr)
-  if(is.null(fn_types_lup))
-    fn_types_lup <- get_rds_from_dv("fn_types_lup",
-                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                      key_1L_chr = key_1L_chr,
-                                      server_1L_chr = server_1L_chr)
-  pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup,
+  pkg_dss_tb <- write_abbr_lup(seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,#url_1L_chr,
-                               object_type_lup = object_type_lup)
+                               object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
   utils::data("abbreviations_lup", envir = environment())
-  pkg_dss_tb <- fn_types_lup %>%
+  pkg_dss_tb <- pkg_setup_ls$subsequent_ls$fn_types_lup %>%
     write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup,
-                           object_type_lup = object_type_lup,
+                           object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                            pkg_dss_tb = pkg_dss_tb,
                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,#url_1L_chr,
                            dv_url_pfx_1L_chr = NULL,
@@ -1175,7 +1188,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                   if(is.null(.y$abbreviations_lup))
                                     .y$abbreviations_lup <- abbreviations_lup
                                   if(is.null(.y$object_type_lup))
-                                    .y$object_type_lup <- object_type_lup
+                                    .y$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
                                   args_ls <- append(.y,
                                                     list(overwrite_1L_lgl = T,
                                                          pkg_dss_tb = .x,
@@ -1196,7 +1209,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                                                      ),
                                      fn_types_lup = fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
-                                     object_type_lup = object_type_lup,
+                                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                      undocumented_fns_dir_chr = undocumented_fns_dir_chr)
   pkg_dss_tb <- fns_dmt_tb %>%
     write_and_doc_ds(overwrite_1L_lgl = T,
@@ -1206,7 +1219,7 @@ write_pkg_dss <- function(pkg_ds_ls_ls = NULL,
                      format_1L_chr = "A tibble",
                      url_1L_chr = pkg_url_1L_chr,
                      abbreviations_lup = abbreviations_lup,
-                     object_type_lup = object_type_lup,
+                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                      pkg_dss_tb = pkg_dss_tb,
                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,

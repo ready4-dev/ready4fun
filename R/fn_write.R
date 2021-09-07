@@ -1,8 +1,6 @@
 #' Write abbreviation
 #' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
 #' @param seed_lup Seed (a lookup table), Default: NULL
-#' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
-#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
 #' @param long_name_chr Long name (a character vector), Default: 'NA'
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
@@ -11,23 +9,25 @@
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
 #' @return Package datasets (a tibble)
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom lifecycle is_present deprecate_warn
 #' @keywords internal
-write_abbr_lup <- function (seed_lup = NULL, url_1L_chr = deprecated(), pkg_nm_1L_chr = get_dev_pkg_nm(), 
-    short_name_chr = NA_character_, long_name_chr = NA_character_, 
+write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
     object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
-    key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    pkg_nm_1L_chr = get_dev_pkg_nm(), dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    url_1L_chr = deprecated()) 
 {
     if (lifecycle::is_present(url_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9323", "ready4fun::write_abbr_lup(url_1L_chr)", 
@@ -216,7 +216,7 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, r_dir_1L_chr = "R", path_to_pkg_rt
 }
 #' Write documented function type
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fn_types_lup Function type lookup table (a tibble), Default: make_fn_type_lup()
+#' @param fn_types_lup Function types (a lookup table), Default: make_fn_type_lup()
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
@@ -356,6 +356,40 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
         ifelse(is.na(url_1L_chr), "", paste0("#' @source \\url{", 
             url_1L_chr, "}\n")), "\"", db_1L_chr, "\""))
 }
+#' Write environment objects to dataverse
+#' @description write_env_objs_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write environment objects to dataverse. The function returns File identities (an integer vector).
+#' @param env_objects_ls Environment objects (a list)
+#' @param descriptions_chr Descriptions (a character vector)
+#' @param ds_url_1L_chr Dataset url (a character vector of length one)
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @return File identities (an integer vector)
+#' @rdname write_env_objs_to_dv
+#' @export 
+#' @importFrom purrr map2_chr
+#' @importFrom dataverse get_dataset
+#' @keywords internal
+write_env_objs_to_dv <- function (env_objects_ls, descriptions_chr, ds_url_1L_chr, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    publish_dv_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+{
+    tmp_dir <- tempdir()
+    paths_chr <- env_objects_ls %>% purrr::map2_chr(names(env_objects_ls), 
+        ~{
+            path_1L_chr <- paste0(tmp_dir, "/", .y, ".RDS")
+            saveRDS(object = .x, file = path_1L_chr)
+            path_1L_chr
+        })
+    file_ids_int <- write_fls_to_dv(paths_chr, descriptions_chr = descriptions_chr, 
+        ds_url_1L_chr = ds_url_1L_chr, ds_ls = dataverse::get_dataset(ds_url_1L_chr), 
+        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    do.call(file.remove, list(paths_chr))
+    unlink(tmp_dir)
+    if (publish_dv_1L_lgl) {
+        write_to_publish_dv_ds(dv_ds_1L_chr = ds_url_1L_chr)
+    }
+    return(file_ids_int)
+}
 #' Write files to dataverse
 #' @description write_fls_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write files to dataverse. The function returns Identities (an integer vector).
 #' @param file_paths_chr File paths (a character vector)
@@ -416,6 +450,9 @@ write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_
                   }
                   id_1L_int
                 })
+        }
+        else {
+            ids_int <- NULL
         }
     }
     else {
@@ -506,8 +543,8 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
     write_new_dirs(undocumented_fns_dir_chr)
 }
-#' Write functions to split dests
-#' @description write_fns_to_split_dests() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split dests. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' Write functions to split destinations
+#' @description write_fns_to_split_dests() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split destinations. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @param pkg_1_core_fns_chr Package 1 core functions (a character vector)
 #' @param original_pkg_nm_1L_chr Original package name (a character vector of length one), Default: get_dev_pkg_nm()
@@ -568,7 +605,7 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original
 #' Write from temporary
 #' @description write_from_tmp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write from temporary. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param tmp_paths_chr Temporary paths (a character vector)
-#' @param dest_paths_chr Dest paths (a character vector)
+#' @param dest_paths_chr Destination paths (a character vector)
 #' @param edit_fn_ls Edit (a list of functions), Default: list(NULL)
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL
 #' @return NULL
@@ -681,7 +718,7 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
         copy_1L_chr <- paste0(dir_1L_chr, "/", fl_nm_1L_chr)
         if (file.exists(original_1L_chr)) {
             write_new_files(dir_1L_chr, source_paths_ls = list(original_1L_chr), 
-                filename_1L_chr = fl_nm_1L_chr)
+                fl_nm_1L_chr = fl_nm_1L_chr)
         }
         write_fls_to_dv(copy_1L_chr, descriptions_chr = paste0("Manual (", 
             .x %>% tolower(), " version)", " describing the contents of the ", 
@@ -691,8 +728,79 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
         write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
     }
 }
-#' Write new argument sfxs
-#' @description write_new_arg_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
+#' Write new abbreviations
+#' @description write_new_abbrs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new abbreviations. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
+#' @param long_name_chr Long name (a character vector), Default: NULL
+#' @param custom_plural_ls Custom plural (a list), Default: NULL
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param no_plural_chr No plural (a character vector), Default: 'NA'
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
+#' @param pfx_rgx Prefix (a regular expression vector), Default: 'NA'
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @return Package setup (a list)
+#' @rdname write_new_abbrs
+#' @export 
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_remove
+#' @importFrom testit assert
+#' @keywords internal
+write_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, long_name_chr = NULL, 
+    custom_plural_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    no_plural_chr = NA_character_, publish_dv_1L_lgl = T, pfx_rgx = NA_character_, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+{
+    if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
+        pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+        was_null_abbrs_1L_lgl <- T
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr) & 
+        !is.null(long_name_chr)) {
+        pkg_setup_ls <- update_abbrs(pkg_setup_ls, short_name_chr = pkg_setup_ls$problems_ls$missing_abbrs_chr, 
+            long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
+            custom_plural_ls = custom_plural_ls, pfx_rgx = pfx_rgx)
+        pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_abbrs_chr")
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_class_abbrs_chr)) {
+        class_desc_chr <- pkg_setup_ls$problems_ls$missing_class_abbrs_chr %>% 
+            purrr::map_chr(~get_from_lup_obj(classes_to_make_tb, 
+                match_value_xx = stringr::str_remove(.x, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                  "_")), match_var_nm_1L_chr = "name_stub_chr", 
+                target_var_nm_1L_chr = "class_desc_chr", evaluate_lgl = F))
+        short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_class_abbrs_chr, 
+            pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
+        long_dupls_chr <- intersect(class_desc_chr, pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
+        testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class name values from 'classes_to_make_tb' to the short_name_chr column:\n", 
+            short_dupls_chr %>% make_list_phrase()), identical(short_dupls_chr, 
+            character(0)))
+        testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class description values from 'classes_to_make_tb' to the long_name_chr column:\n", 
+            long_dupls_chr %>% make_list_phrase()), identical(long_dupls_chr, 
+            character(0)))
+        pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>% 
+            update_abbr_lup(short_name_chr = pkg_setup_ls$problems_ls$missing_class_abbrs_chr, 
+                long_name_chr = class_desc_chr, no_plural_chr = class_desc_chr, 
+                custom_plural_ls = NULL, pfx_rgx = NA_character_)
+        pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_class_abbrs_chr")
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+        append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            pkg_setup_ls$problems_ls$missing_words_chr))
+        words_desc_1L_chr <- "Additional words for dictionary"
+        pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_words_chr")
+    }
+    else {
+        append_ls <- words_desc_1L_chr <- NULL
+    }
+    file_ids_int <- write_env_objs_to_dv(append(list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup), 
+        append_ls), descriptions_chr = c("Abbreviations lookup table", 
+        words_desc_1L_chr), ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
+        publish_dv_1L_lgl = publish_dv_1L_lgl)
+    return(pkg_setup_ls)
+}
+#' Write new argument suffices
+#' @description write_new_arg_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument suffices. The function returns Function arguments to rnm (a list).
 #' @param arg_nms_chr Argument names (a character vector)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param dir_path_chr Directory path (a character vector)
@@ -718,10 +826,10 @@ write_new_arg_sfcs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
             ".R")))
     updated_fns_chr <- ls(paste0("package:", pkg_nm_1L_chr))[ls(paste0("package:", 
         pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)][inc_fns_idx_dbl]
-    updated_sfxs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% 
+    updated_sfcs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% 
         stringr::str_sub(start = -8) %>% unique()
     fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% 
-        stringr::str_sub(start = -8) %in% updated_sfxs_chr]
+        stringr::str_sub(start = -8) %in% updated_sfcs_chr]
     if (ifelse(identical(fn_nms_to_upd_chr, character(0)), F, 
         !is.na(fn_nms_to_upd_chr))) {
         purrr::walk(fn_nms_to_upd_chr, ~write_to_rpl_1L_and_indefL_sfcs(.x, 
@@ -771,7 +879,7 @@ write_new_dirs <- function (new_dirs_chr)
 #' @description write_new_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param paths_chr Paths (a character vector)
 #' @param custom_write_ls Custom write (a list), Default: NULL
-#' @param filename_1L_chr Filename (a character vector of length one), Default: NULL
+#' @param fl_nm_1L_chr File name (a character vector of length one), Default: NULL
 #' @param source_paths_ls Source paths (a list), Default: NULL
 #' @param text_ls Text (a list), Default: NULL
 #' @return NULL
@@ -781,7 +889,7 @@ write_new_dirs <- function (new_dirs_chr)
 #' @importFrom fs path_file
 #' @importFrom rlang exec
 #' @keywords internal
-write_new_files <- function (paths_chr, custom_write_ls = NULL, filename_1L_chr = NULL, 
+write_new_files <- function (paths_chr, custom_write_ls = NULL, fl_nm_1L_chr = NULL, 
     source_paths_ls = NULL, text_ls = NULL) 
 {
     if (!is.null(source_paths_ls)) {
@@ -794,7 +902,7 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, filename_1L_chr 
                 fs::path_file(.x)
             }
         }) %>% purrr::flatten_chr() %>% purrr::map_chr(~paste0(dest_dir_1L_chr, 
-            "/", ifelse(is.null(filename_1L_chr), .x, filename_1L_chr)))
+            "/", ifelse(is.null(fl_nm_1L_chr), .x, fl_nm_1L_chr)))
         recursive_1L_lgl <- ifelse(paths_chr %>% purrr::map_lgl(~dir.exists(.x)) %>% 
             any(), T, F)
     }
@@ -833,12 +941,13 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, filename_1L_chr 
                       }
                     }) %>% purrr::flatten_chr()
                   purrr::walk(source_paths_chr, ~file.copy(.x, 
-                    paste0(dest_dir_1L_chr, ifelse(is.null(filename_1L_chr), 
-                      "", paste0("/", filename_1L_chr))), overwrite = T, 
+                    paste0(dest_dir_1L_chr, ifelse(is.null(fl_nm_1L_chr), 
+                      "", paste0("/", fl_nm_1L_chr))), overwrite = T, 
                     recursive = recursive_1L_lgl))
                 }
                 if (!is.null(custom_write_ls)) {
-                  custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
+                  if ("consent_1L_chr" %in% formalArgs(custom_write_ls$fn)) 
+                    custom_write_ls$args_ls$consent_1L_chr <- consent_1L_chr
                   rlang::exec(custom_write_ls$fn, !!!custom_write_ls$args_ls)
                 }
             }
@@ -848,10 +957,150 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, filename_1L_chr 
         }
     }
 }
+#' Write new function types
+#' @description write_new_fn_types() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new function types. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param fn_type_desc_chr Function type description (a character vector), Default: 'NA'
+#' @param first_arg_desc_chr First argument description (a character vector), Default: 'NA'
+#' @param is_generic_lgl Is generic (a logical vector), Default: F
+#' @param is_method_lgl Is method (a logical vector), Default: F
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param second_arg_desc_chr Second argument description (a character vector), Default: 'NA'
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
+#' @return Package setup (a list)
+#' @rdname write_new_fn_types
+#' @export 
+
+#' @keywords internal
+write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
+    is_generic_lgl = F, is_method_lgl = F, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    second_arg_desc_chr = NA_character_, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    publish_dv_1L_lgl = F) 
+{
+    pkg_setup_ls$subsequent_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup %>% 
+        add_rows_to_fn_type_lup(fn_type_nm_chr = pkg_setup_ls$problems_ls$missing_fn_types_chr, 
+            fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
+            second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
+            is_method_lgl = is_method_lgl)
+    file_ids_int <- write_env_objs_to_dv(list(fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup), 
+        descriptions_chr = c("Function types lookup table"), 
+        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
+        publish_dv_1L_lgl = publish_dv_1L_lgl)
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_fn_types_chr")
+    return(pkg_setup_ls)
+}
+#' Write new object types
+#' @description write_new_obj_types() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new object types. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param long_name_chr Long name (a character vector), Default: NULL
+#' @param atomic_element_lgl Atomic element (a logical vector), Default: F
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param no_plural_chr No plural (a character vector), Default: 'NA'
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
+#' @param pfx_rgx Prefix (a regular expression vector), Default: 'NA'
+#' @param r3_can_extend_lgl Ready4 S3 can extend (a logical vector), Default: F
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @return Package setup (a list)
+#' @rdname write_new_obj_types
+#' @export 
+#' @importFrom testit assert
+#' @importFrom tibble tibble
+#' @keywords internal
+write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_element_lgl = F, 
+    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), no_plural_chr = NA_character_, 
+    publish_dv_1L_lgl = T, pfx_rgx = NA_character_, r3_can_extend_lgl = F, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+{
+    was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
+    if (is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)) {
+        pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine()
+        was_null_seed_1L_lgl <- T
+    }
+    if (is.null(pkg_setup_ls$subsequent_ls$object_type_lup)) {
+        pkg_setup_ls$subsequent_ls$object_type_lup <- make_obj_lup(obj_lup_spine = pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
+        was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- T
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & 
+        !is.null(long_name_chr)) {
+        short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_obj_types_chr, 
+            pkg_setup_ls$subsequent_ls$object_type_lup$short_name_chr)
+        long_dupls_chr <- intersect(long_name_chr, pkg_setup_ls$subsequent_ls$object_type_lup$long_name_chr)
+        testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n", 
+            short_dupls_chr %>% make_list_phrase()), identical(short_dupls_chr, 
+            character(0)))
+        testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n", 
+            long_dupls_chr %>% make_list_phrase()), identical(long_dupls_chr, 
+            character(0)))
+        pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine(pkg_setup_ls$subsequent_ls$seed_obj_type_lup, 
+            new_entries_tb = tibble::tibble(short_name_chr = pkg_setup_ls$problems_ls$missing_obj_types_chr, 
+                long_name_chr = long_name_chr, atomic_element_lgl = atomic_element_lgl, 
+                r3_can_extend_lgl = r3_can_extend_lgl))
+        updated_obj_type_lup <- make_obj_lup(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
+        obj_type_new_cses_tb <- get_obj_type_new_cses(updated_obj_type_lup = updated_obj_type_lup, 
+            old_obj_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
+        pkg_setup_ls$subsequent_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup %>% 
+            update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr, 
+                long_name_chr = obj_type_new_cses_tb$long_name_chr, 
+                no_plural_chr = obj_type_new_cses_tb$long_name_chr, 
+                custom_plural_ls = custom_plural_ls, pfx_rgx = pfx_rgx)
+        update_abbrs_1L_lgl <- T
+    }
+    if (update_abbrs_1L_lgl) {
+        if (was_null_obj_type_1L_lgl) {
+            obj_type_new_cses_tb <- pkg_setup_ls$subsequent_ls$object_type_lup
+        }
+        if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
+            pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+        }
+        else {
+            pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>% 
+                update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr, 
+                  long_name_chr = obj_type_new_cses_tb$long_name_chr, 
+                  no_plural_chr = obj_type_new_cses_tb$long_name_chr, 
+                  custom_plural_ls = custom_plural_ls, pfx_rgx = pfx_rgx)
+        }
+        if (!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & 
+            !is.null(long_name_chr)) 
+            pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, 
+                list_element_1L_chr = "missing_obj_types_chr")
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+        append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            pkg_setup_ls$problems_ls$missing_words_chr))
+        words_desc_1L_chr <- "Additional words for dictionary"
+        pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_words_chr")
+    }
+    else {
+        append_ls <- words_desc_1L_chr <- NULL
+    }
+    if (was_null_seed_1L_lgl) {
+        append_ls <- append(append_ls, list(seed_obj_type_lup = pkg_setup_ls$subsequent_ls$seed_obj_type_lup))
+        seed_desc_1L_chr <- "Seed object type lookup table"
+    }
+    else {
+        seed_desc_1L_chr <- NULL
+    }
+    if (update_abbrs_1L_lgl) {
+        append_ls <- append(append_ls, list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup))
+        abbrs_desc_1L_chr <- "Abbreviations lookup table"
+    }
+    else {
+        abbrs_desc_1L_chr <- NULL
+    }
+    file_ids_int <- write_env_objs_to_dv(append(list(object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup), 
+        append_ls), descriptions_chr = c("Object type lookup table", 
+        words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr), 
+        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
+        publish_dv_1L_lgl = publish_dv_1L_lgl)
+    return(pkg_setup_ls)
+}
 #' Write namespace imports to description
 #' @description write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write namespace imports to description. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
-#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
+#' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: T
 #' @return NULL
 #' @rdname write_ns_imps_to_desc
 #' @export 
@@ -886,28 +1135,25 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @param pkg_desc_ls Package description (a list)
 #' @param pkg_ds_ls_ls Package dataset (a list of lists)
 #' @param pkg_setup_ls Package setup (a list)
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
-#' @param object_type_lup Object type (a lookup table), Default: NULL
+#' @param cls_fn_ls Class (a list of functions), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
-#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @return NULL
 #' @rdname write_package
 #' @export 
 #' @importFrom rlang exec
 #' @importFrom purrr pluck
 #' @keywords internal
-write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, abbreviations_lup = NULL, 
-    dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/", 
-    fn_types_lup = NULL, object_type_lup = NULL, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
-    publish_dv_1L_lgl = F) 
+write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, cls_fn_ls = NULL, 
+    dv_url_pfx_1L_chr = NULL, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    publish_dv_1L_lgl = T) 
 {
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-    dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls, pkg_url_1L_chr = pkg_desc_ls$URL %>% 
-        strsplit(",") %>% unlist() %>% purrr::pluck(1), abbreviations_lup = abbreviations_lup, 
-        dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-        fn_types_lup = fn_types_lup, object_type_lup = object_type_lup)
+    dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls, pkg_setup_ls = pkg_setup_ls, 
+        pkg_url_1L_chr = pkg_desc_ls$URL %>% strsplit(",") %>% 
+            unlist() %>% purrr::pluck(1), cls_fn_ls = cls_fn_ls, 
+        dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
     add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
     add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
     write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
@@ -950,14 +1196,13 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' Write package datasets
 #' @description write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param pkg_setup_ls Package setup (a list)
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL
+#' @param cls_fn_ls Class (a list of functions), Default: NULL
 #' @param details_ls Details (a list), Default: NULL
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
-#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
 #' @param pkg_url_1L_chr Package url (a character vector of length one), Default: 'NA'
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
@@ -969,44 +1214,41 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @rdname write_pkg_dss
 #' @export 
 #' @importFrom utils data
-#' @importFrom purrr reduce
 #' @importFrom rlang exec
+#' @importFrom purrr reduce
 #' @keywords internal
-write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_ls_ls = NULL, 
-    details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    dv_ds_nm_1L_chr, fn_types_lup = NULL, inc_all_mthds_1L_lgl = T, 
-    object_type_lup = NULL, paths_ls = make_fn_nms(), pkg_url_1L_chr = NA_character_, 
-    R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+write_pkg_dss <- function (pkg_ds_ls_ls = NULL, pkg_setup_ls, args_ls_ls = NULL, 
+    cls_fn_ls = NULL, details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
+    dv_ds_nm_1L_chr, inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), 
+    pkg_url_1L_chr = NA_character_, R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
-    if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(abbreviations_lup)) 
-        abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(fn_types_lup)) 
-        fn_types_lup <- get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-            server_1L_chr = server_1L_chr)
-    pkg_dss_tb <- write_abbr_lup(seed_lup = abbreviations_lup, 
+    pkg_dss_tb <- write_abbr_lup(seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
         pkg_nm_1L_chr = dev_pkg_nm_1L_chr, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-        object_type_lup = object_type_lup)
+        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
     utils::data("abbreviations_lup", envir = environment())
-    pkg_dss_tb <- fn_types_lup %>% write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup, pkg_dss_tb = pkg_dss_tb, 
-        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = NULL, 
-        key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
+    pkg_dss_tb <- pkg_setup_ls$subsequent_ls$fn_types_lup %>% 
+        write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup, 
+            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+            pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+            dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
     utils::data("fn_types_lup", envir = environment())
+    if (!is.null(cls_fn_ls)) {
+        append_1L_lgl <- ("pkg_dss_tb" %in% get_fn_args(cls_fn_ls$fn)) & 
+            (!"pkg_dss_tb" %in% names(cls_fn_ls$args_ls))
+        if (append_1L_lgl) 
+            cls_fn_ls$args_ls <- append(cls_fn_ls$args_ls, list(pkg_dss_tb = pkg_dss_tb))
+        pkg_ds_ls_ls <- append(pkg_ds_ls_ls, rlang::exec(cls_fn_ls$fn, 
+            !!!cls_fn_ls$args_ls) %>% make_pkg_ds_ls(db_1L_chr = "prototype_lup", 
+            title_1L_chr = "Class prototype lookup table", desc_1L_chr = "Metadata on classes used in ready4 suite"))
+    }
     if (!is.null(pkg_ds_ls_ls)) {
         pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls, .init = pkg_dss_tb, 
             ~{
                 if (is.null(.y$abbreviations_lup)) 
                   .y$abbreviations_lup <- abbreviations_lup
                 if (is.null(.y$object_type_lup)) 
-                  .y$object_type_lup <- object_type_lup
+                  .y$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
                 args_ls <- append(.y, list(overwrite_1L_lgl = T, 
                   pkg_dss_tb = .x, R_dir_1L_chr = R_dir_1L_chr, 
                   dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
@@ -1018,15 +1260,17 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
         custom_dmt_ls = list(details_ls = details_ls, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
             force_false_chr = NA_character_), args_ls_ls = args_ls_ls), 
         fn_types_lup = fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
-        object_type_lup = object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+        undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
         db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(dev_pkg_nm_1L_chr, 
             " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
             dev_pkg_nm_1L_chr, " package."), format_1L_chr = "A tibble", 
         url_1L_chr = pkg_url_1L_chr, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup, pkg_dss_tb = pkg_dss_tb, 
-        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+        pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+        server_1L_chr = server_1L_chr)
     dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb, fns_dmt_tb = fns_dmt_tb)
     return(dss_records_ls)
 }
@@ -1034,16 +1278,16 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, abbreviations_lup = NULL, args_l
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
-#' @param gh_repo_1L_chr Github repo (a character vector of length one)
-#' @param addl_badges_ls Addl badges (a list), Default: NULL
+#' @param gh_repo_1L_chr Github repository (a character vector of length one)
+#' @param addl_badges_ls Additional badges (a list), Default: NULL
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'none'
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: F
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
-#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: T
+#' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: T
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
-#' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
+#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @return NULL
@@ -1116,7 +1360,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
         write_new_dirs(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))
         write_new_files(paste0(path_to_pkg_rt_1L_chr, "/man/figures"), 
             source_paths_ls = list(path_to_pkg_logo_1L_chr), 
-            filename_1L_chr = "logo.png")
+            fl_nm_1L_chr = "logo.png")
     }
     if (on_cran_1L_lgl) {
         cran_install_chr <- c("To install the latest production version of this software, run the following command in your R console:", 
@@ -1160,7 +1404,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
     write_new_files(paste0(path_to_pkg_rt_1L_chr, "/man/figures"), 
         source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr, 
             "/pkgdown/favicon/apple-touch-icon-120x120.png")), 
-        filename_1L_chr = "fav120.png")
+        fl_nm_1L_chr = "fav120.png")
     usethis::use_lifecycle()
     usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
     if (!is.null(addl_badges_ls)) {
@@ -1373,7 +1617,7 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' Write to replace suffix pair
 #' @description write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace suffix pair. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param args_nm_chr Arguments name (a character vector)
-#' @param sfxs_chr Sfxs (a character vector)
+#' @param sfcs_chr Suffices (a character vector)
 #' @param replacements_chr Replacements (a character vector)
 #' @param file_path_1L_chr File path (a character vector of length one), Default: 'NA'
 #' @param dir_path_1L_chr Directory path (a character vector of length one), Default: 'NA'
@@ -1384,18 +1628,18 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
 #' @keywords internal
-write_to_replace_sfx_pair <- function (args_nm_chr, sfxs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
+write_to_replace_sfx_pair <- function (args_nm_chr, sfcs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
     fn <- ifelse(is.na(file_path_1L_chr), xfun::gsub_dir, xfun::gsub_file)
     path_chr <- ifelse(is.na(file_path_1L_chr), dir_path_1L_chr, 
         file_path_1L_chr)
-    args_ls <- list(pattern = paste0(args_nm_chr[1], "(?!", stringr::str_remove(sfxs_chr[2], 
-        sfxs_chr[1]), ")"), replacement = paste0(stringr::str_remove(args_nm_chr[1], 
-        sfxs_chr[1]), replacements_chr[1]), perl = T)
+    args_ls <- list(pattern = paste0(args_nm_chr[1], "(?!", stringr::str_remove(sfcs_chr[2], 
+        sfcs_chr[1]), ")"), replacement = paste0(stringr::str_remove(args_nm_chr[1], 
+        sfcs_chr[1]), replacements_chr[1]), perl = T)
     rlang::exec(fn, path_chr, !!!args_ls)
     args_ls <- list(pattern = args_nm_chr[2], replacement = paste0(stringr::str_remove(args_nm_chr[2], 
-        sfxs_chr[2]), replacements_chr[2]), perl = T)
+        sfcs_chr[2]), replacements_chr[2]), perl = T)
     rlang::exec(fn, path_chr, !!!args_ls)
 }
 #' Write to reset package files
@@ -1441,11 +1685,11 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
-    sfxs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, 
+    sfcs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, 
         end = -5), indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
     write_to_replace_sfx_pair(args_nm_chr = paste0(indefL_arg_nm_1L_chr %>% 
-        stringr::str_sub(end = -9), sfxs_chr), sfxs_chr = sfxs_chr, 
-        replacements_chr = paste0(c("_1L", ""), sfxs_chr[1]), 
+        stringr::str_sub(end = -9), sfcs_chr), sfcs_chr = sfcs_chr, 
+        replacements_chr = paste0(c("_1L", ""), sfcs_chr[1]), 
         file_path_1L_chr = file_path_1L_chr, dir_path_1L_chr = dir_path_1L_chr)
 }
 #' Write vignette

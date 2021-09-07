@@ -1,6 +1,6 @@
-#' Add addl packages
-#' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add addl packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
-#' @param addl_pkgs_ls Addl packages (a list)
+#' Add additional packages
+#' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
+#' @param addl_pkgs_ls Additional packages (a list)
 #' @return NULL
 #' @rdname add_addl_pkgs
 #' @export 
@@ -119,13 +119,13 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
     })
     return(phrases_chr)
 }
-#' Add lups
-#' @description add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lups. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.
+#' Add lookup tables
+#' @description add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lookup tables. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.
 #' @param template_lup Template (a lookup table)
 #' @param new_lup New (a lookup table)
 #' @param key_var_nm_1L_chr Key variable name (a character vector of length one)
-#' @param priority_lup_for_dupls_1L_chr Priority lookup table for dupls (a character vector of length one), Default: 'template'
-#' @return NA ()
+#' @param priority_lup_for_dupls_1L_chr Priority lookup table for duplicates (a character vector of length one), Default: 'template'
+#' @return Combined (lookup tables)
 #' @rdname add_lups
 #' @export 
 #' @importFrom testit assert
@@ -204,15 +204,15 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
     return(abbr_tb)
 }
 #' Add rows to function type
-#' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function type lookup table (a tibble).
-#' @param fn_types_lup Function type lookup table (a tibble), Default: make_fn_type_lup()
+#' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function types (a lookup table).
+#' @param fn_types_lup Function types (a lookup table), Default: make_fn_type_lup()
 #' @param fn_type_nm_chr Function type name (a character vector), Default: 'NA'
 #' @param fn_type_desc_chr Function type description (a character vector), Default: 'NA'
 #' @param first_arg_desc_chr First argument description (a character vector), Default: 'NA'
 #' @param second_arg_desc_chr Second argument description (a character vector), Default: 'NA'
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
 #' @param is_method_lgl Is method (a logical vector), Default: F
-#' @return Updated function type lookup table (a tibble)
+#' @return Updated function types (a lookup table)
 #' @rdname add_rows_to_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
@@ -222,9 +222,14 @@ add_rows_to_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), fn_type_
     second_arg_desc_chr = NA_character_, is_generic_lgl = F, 
     is_method_lgl = F) 
 {
-    updated_fn_types_lup <- add_lups(fn_types_lup, new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
-        fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
-        second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
-        is_method_lgl = is_method_lgl), key_var_nm_1L_chr = "fn_type_nm_chr")
+    if (length(fn_type_nm_chr) > 0) {
+        updated_fn_types_lup <- add_lups(fn_types_lup, new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
+            fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
+            second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
+            is_method_lgl = is_method_lgl), key_var_nm_1L_chr = "fn_type_nm_chr")
+    }
+    else {
+        updated_fn_types_lup <- fn_types_lup
+    }
     return(updated_fn_types_lup)
 }

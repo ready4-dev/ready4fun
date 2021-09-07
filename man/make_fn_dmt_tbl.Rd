@@ -31,7 +31,7 @@ output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 
 \item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
 
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

@@ -6,8 +6,6 @@
 \usage{
 write_abbr_lup(
   seed_lup = NULL,
-  url_1L_chr = deprecated(),
-  pkg_nm_1L_chr = get_dev_pkg_nm(),
   short_name_chr = NA_character_,
   long_name_chr = NA_character_,
   no_plural_chr = NA_character_,
@@ -16,18 +14,16 @@ write_abbr_lup(
   object_type_lup = NULL,
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0)),
+  pkg_nm_1L_chr = get_dev_pkg_nm(),
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+  url_1L_chr = deprecated()
 )
 }
 \arguments{
 \item{seed_lup}{Seed (a lookup table), Default: NULL}
-
-\item{url_1L_chr}{Url (a character vector of length one), Default: deprecated()}
-
-\item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
 
 \item{short_name_chr}{Short name (a character vector), Default: 'NA'}
 
@@ -44,6 +40,8 @@ write_abbr_lup(
 \item{pkg_dss_tb}{Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
 desc_chr = character(0), url_chr = character(0))}
 
+\item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
+
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
@@ -51,6 +49,8 @@ desc_chr = character(0), url_chr = character(0))}
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+
+\item{url_1L_chr}{Url (a character vector of length one), Default: deprecated()}
 }
 \value{
 Package datasets (a tibble)

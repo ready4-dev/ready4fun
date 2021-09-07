@@ -20,7 +20,7 @@ write_dmtd_fn_type_lup(
 )
 }
 \arguments{
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
+\item{fn_types_lup}{Function types (a lookup table), Default: make_fn_type_lup()}
 
 \item{overwrite_1L_lgl}{Overwrite (a logical vector of length one), Default: T}
 

@@ -8,12 +8,10 @@ write_package(
   pkg_desc_ls,
   pkg_ds_ls_ls,
   pkg_setup_ls,
-  abbreviations_lup = NULL,
-  dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
-  fn_types_lup = NULL,
-  object_type_lup = NULL,
+  cls_fn_ls = NULL,
+  dv_url_pfx_1L_chr = NULL,
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-  publish_dv_1L_lgl = F
+  publish_dv_1L_lgl = T
 )
 }
 \arguments{
@@ -23,17 +21,13 @@ write_package(
 
 \item{pkg_setup_ls}{Package setup (a list)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{cls_fn_ls}{Class (a list of functions), Default: NULL}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: 'https://dataverse.harvard.edu/api/access/datafile/'}
-
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
-
-\item{object_type_lup}{Object type (a lookup table), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")}
 
-\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: F}
+\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: T}
 }
 \description{
 write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

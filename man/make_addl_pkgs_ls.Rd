@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_addl_pkgs_ls}
 \alias{make_addl_pkgs_ls}
-\title{Make addl packages}
+\title{Make additional packages}
 \usage{
 make_addl_pkgs_ls(
   depends_chr = NULL,
@@ -27,9 +27,9 @@ make_addl_pkgs_ls(
 \item{append_ls}{Append (a list), Default: NULL}
 }
 \value{
-Addl packages (a list)
+Additional packages (a list)
 }
 \description{
-make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make addl packages list. The function returns Addl packages (a list).
+make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make additional packages list. The function returns Additional packages (a list).
 }
 \keyword{internal}

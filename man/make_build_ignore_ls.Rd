@@ -9,7 +9,7 @@ make_build_ignore_ls(file_nms_chr = NULL, regulars_rgx = NULL)
 \arguments{
 \item{file_nms_chr}{File names (a character vector), Default: NULL}
 
-\item{regulars_rgx}{Regex (a character vector), Default: NULL}
+\item{regulars_rgx}{Regulars (a regular expression vector), Default: NULL}
 }
 \value{
 Build ignore (a list)

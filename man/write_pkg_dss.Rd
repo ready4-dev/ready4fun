@@ -6,14 +6,13 @@
 \usage{
 write_pkg_dss(
   pkg_ds_ls_ls = NULL,
-  abbreviations_lup = NULL,
+  pkg_setup_ls,
   args_ls_ls = NULL,
+  cls_fn_ls = NULL,
   details_ls = NULL,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dv_ds_nm_1L_chr,
-  fn_types_lup = NULL,
   inc_all_mthds_1L_lgl = T,
-  object_type_lup = NULL,
   paths_ls = make_fn_nms(),
   pkg_url_1L_chr = NA_character_,
   R_dir_1L_chr = "R",
@@ -26,9 +25,11 @@ write_pkg_dss(
 \arguments{
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: NULL}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{pkg_setup_ls}{Package setup (a list)}
 
 \item{args_ls_ls}{Arguments (a list of lists), Default: NULL}
+
+\item{cls_fn_ls}{Class (a list of functions), Default: NULL}
 
 \item{details_ls}{Details (a list), Default: NULL}
 
@@ -36,11 +37,7 @@ write_pkg_dss(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one)}
 
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
-
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
-
-\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
 

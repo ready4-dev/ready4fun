@@ -148,7 +148,6 @@ get_new_abbrs <- function(pkg_setup_ls,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
-                          treat_as_words_chr = character(0),
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           use_last_1L_int = NULL){
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
@@ -161,15 +160,19 @@ get_new_abbrs <- function(pkg_setup_ls,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                      undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-  new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>%
-    get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                        drop_first_1L_lgl = T,
-                        treat_as_words_chr = treat_as_words_chr,
-                        use_last_1L_int = use_last_1L_int)
+  if(is.null(use_last_1L_int)){
+    new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>%
+      get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                          drop_first_1L_lgl = T,
+                          treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+                          use_last_1L_int = use_last_1L_int)
+  }else{
+    new_fn_abbrs_chr <- character(0)
+  }
   new_arg_abbrs_chr <- fns_dmt_tb$args_ls %>%
     purrr::map(~names(.x) %>%
                  get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                     treat_as_words_chr = treat_as_words_chr,
+                                     treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
                                      use_last_1L_int = use_last_1L_int)) %>%
     purrr::flatten_chr() %>%
     unique()
@@ -179,7 +182,7 @@ get_new_abbrs <- function(pkg_setup_ls,
                  .x$db_1L_chr) %>%
       purrr::flatten_chr() %>%
       get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                          treat_as_words_chr = treat_as_words_chr,
+                          treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
                           use_last_1L_int = use_last_1L_int)
   }else{
     new_ds_abbrs_chr <- character(0)
@@ -191,7 +194,7 @@ get_new_abbrs <- function(pkg_setup_ls,
       purrr::flatten_chr() %>%
       unique() %>%
       get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                          treat_as_words_chr = treat_as_words_chr,
+                          treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
                           use_last_1L_int = use_last_1L_int)
   }else{
     new_clss_abbrs_chr <- character(0)
@@ -221,7 +224,7 @@ get_new_abbrs_cndts <- function(text_chr,
       if(drop_first_1L_lgl)
         candidates_chr <- candidates_chr[-1]
       if(!is.null(use_last_1L_int))
-        candidates_chr %>%
+        candidates_chr <- candidates_chr %>%
           tail(use_last_1L_int)
       candidates_chr
     }) %>%
@@ -231,7 +234,9 @@ get_new_abbrs_cndts <- function(text_chr,
     setdiff(abbreviations_lup$short_name_chr)
   data("GradyAugmented", package = "qdapDictionaries", envir = environment())
   new_abbrs_cndts_chr <- setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))],
-                                  c(GradyAugmented, treat_as_words_chr))
+                                  c(c(GradyAugmented, treat_as_words_chr),
+                                    c(GradyAugmented, treat_as_words_chr) %>% toupper(),
+                                    c(GradyAugmented, treat_as_words_chr) %>% Hmisc::capitalize()))
   return(new_abbrs_cndts_chr)
 }
 get_new_fn_types <- function(pkg_setup_ls,

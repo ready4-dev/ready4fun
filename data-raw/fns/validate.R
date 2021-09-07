@@ -23,7 +23,6 @@ validate_pkg_setup <- function(pkg_setup_ls,
     missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls,
                                            classes_to_make_tb = classes_to_make_tb,
                                            pkg_ds_ls_ls = pkg_ds_ls_ls,
-                                           treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
                                            use_last_1L_int = 1)
     if(!identical(missing_obj_types_chr, character(0))){
       message(paste0("The following potential object type",
@@ -37,8 +36,7 @@ validate_pkg_setup <- function(pkg_setup_ls,
     }else{
       missing_abbrs_chr <- get_new_abbrs(pkg_setup_ls,
                                          classes_to_make_tb = classes_to_make_tb,
-                                         pkg_ds_ls_ls = pkg_ds_ls_ls,
-                                         treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr)
+                                         pkg_ds_ls_ls = pkg_ds_ls_ls)
       if(!identical(missing_abbrs_chr, character(0))){
         message(paste0("The following potential abbreviation",
                        ifelse(length(missing_abbrs_chr) >1,"s are"," is"),

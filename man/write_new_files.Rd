@@ -7,7 +7,7 @@
 write_new_files(
   paths_chr,
   custom_write_ls = NULL,
-  filename_1L_chr = NULL,
+  fl_nm_1L_chr = NULL,
   source_paths_ls = NULL,
   text_ls = NULL
 )
@@ -17,7 +17,7 @@ write_new_files(
 
 \item{custom_write_ls}{Custom write (a list), Default: NULL}
 
-\item{filename_1L_chr}{Filename (a character vector of length one), Default: NULL}
+\item{fl_nm_1L_chr}{File name (a character vector of length one), Default: NULL}
 
 \item{source_paths_ls}{Source paths (a list), Default: NULL}
 

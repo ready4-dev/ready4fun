@@ -26,9 +26,9 @@ write_pkg_setup_fls(
 
 \item{copyright_holders_chr}{Copyright holders (a character vector)}
 
-\item{gh_repo_1L_chr}{Github repo (a character vector of length one)}
+\item{gh_repo_1L_chr}{Github repository (a character vector of length one)}
 
-\item{addl_badges_ls}{Addl badges (a list), Default: NULL}
+\item{addl_badges_ls}{Additional badges (a list), Default: NULL}
 
 \item{badges_lup}{Badges (a lookup table), Default: NULL}
 
@@ -38,13 +38,13 @@ write_pkg_setup_fls(
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
-\item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: T}
+\item{incr_ver_1L_lgl}{Increment version (a logical vector of length one), Default: T}
 
 \item{on_cran_1L_lgl}{On cran (a logical vector of length one), Default: F}
 
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
-\item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
+\item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: T}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 

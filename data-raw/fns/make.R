@@ -930,22 +930,23 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
 make_new_entries_tb <- function(short_name_chr,
                                 long_name_chr,
                                 atomic_element_lgl = F,
-                                r3_element_lgl = F){
+                                r3_can_extend_lgl = F){
   new_entries_tb <- tibble::tibble(short_name_chr,
                                   long_name_chr,
                                   atomic_element_lgl = atomic_element_lgl,
-                                  r3_element_lgl = r3_element_lgl)
+                                  r3_can_extend_lgl = r3_can_extend_lgl)
   return(new_entries_tb)
 
   }
 make_obj_lup_spine <- function(seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup"),
                                new_entries_tb = NULL){
   if(is.null(seed_obj_type_lup)){
-    seed_obj_type_lup <- tibble::tibble(short_name_chr = c("df","fn","ls","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsn","rgx"),
-                                      long_name_chr = c("data.frame","function","list","ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
+    seed_obj_type_lup <- tibble::tibble(short_name_chr = c("df","env","fn","ls","plt","r3","r4","s3","s4","sf","tb","arr","chr","dbl","dtm","fct","int","lgl","lup","mat","mdl","prsn","rgx"),
+                                      long_name_chr = c("data.frame","environment","function","list","plot","ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
                                                         "tibble","array","character","double", "date","factor","integer","logical","lookup table","matrix","model","person","regular expression"),
-                                      atomic_element_lgl = c(rep(F,10),rep(T,6),rep(F,4),T),
-                                      r3_element_lgl = c(T,F,T,rep(F,4),rep(T,14)))
+                                      atomic_element_lgl = c(rep(F,12),rep(T,6),rep(F,4),T),
+                                      r3_can_extend_lgl = c(T,F,F,T,F,rep(F,4),rep(T,14))) %>%
+      dplyr::arrange(short_name_chr)
   }
   obj_lup_spine <- seed_obj_type_lup
   if(!is.null(new_entries_tb)){
@@ -967,7 +968,7 @@ make_obj_lup <- function(obj_lup_spine = make_obj_lup_spine()){
                                                                                                         stringr::str_sub(.x,start=-4))),
                                              long_name_chr = paste0(long_name_chr," vector of length one")),
                              obj_tb %>%
-                               dplyr::filter(r3_element_lgl) %>%
+                               dplyr::filter(r3_can_extend_lgl) %>%
                                dplyr::mutate(short_name_chr = paste0(short_name_chr,
                                                                  purrr::map_chr(atomic_element_lgl,
                                                                                 ~ ""#ifelse(.x,"_vec","")

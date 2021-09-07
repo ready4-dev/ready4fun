@@ -17,13 +17,16 @@ make_pkg_setup_ls(
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
+  dv_url_pfx_1L_chr = NULL,
   gh_repo_1L_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
   incr_ver_1L_lgl = F,
+  key_1L_chr = NULL,
   on_cran_1L_lgl = F,
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
   ready4_type_1L_chr,
+  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   user_manual_fns_chr = NA_character_
 )
 }
@@ -34,11 +37,11 @@ make_pkg_setup_ls(
 
 \item{pkg_dmt_dv_dss_chr}{Package documentation dataverse datasets (a character vector)}
 
-\item{add_gh_site_1L_lgl}{Add gh site (a logical vector of length one), Default: T}
+\item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: T}
 
-\item{addl_badges_ls}{Addl badges (a list), Default: NULL}
+\item{addl_badges_ls}{Additional badges (a list), Default: NULL}
 
-\item{addl_pkgs_ls}{Addl packages (a list), Default: make_addl_pkgs_ls()}
+\item{addl_pkgs_ls}{Additional packages (a list), Default: make_addl_pkgs_ls()}
 
 \item{badges_lup}{Badges (a lookup table), Default: NULL}
 
@@ -52,11 +55,15 @@ make_pkg_setup_ls(
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
 
-\item{gh_repo_1L_chr}{Github repo (a character vector of length one), Default: 'NA'}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+
+\item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: 'NA'}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
-\item{incr_ver_1L_lgl}{Incr ver (a logical vector of length one), Default: F}
+\item{incr_ver_1L_lgl}{Increment version (a logical vector of length one), Default: F}
+
+\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{on_cran_1L_lgl}{On cran (a logical vector of length one), Default: F}
 
@@ -65,6 +72,8 @@ make_pkg_setup_ls(
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
 \item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
+
+\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 
 \item{user_manual_fns_chr}{User manual functions (a character vector), Default: 'NA'}
 }

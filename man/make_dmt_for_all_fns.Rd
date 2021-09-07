@@ -26,7 +26,7 @@ make_dmt_for_all_fns(
 \item{custom_dmt_ls}{Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
 force_false_chr = NA_character_), args_ls_ls = NULL)}
 
-\item{fn_types_lup}{Function type lookup table (a tibble)}
+\item{fn_types_lup}{Function types (a lookup table)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

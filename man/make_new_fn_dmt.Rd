@@ -27,7 +27,7 @@ make_new_fn_dmt(
 
 \item{fn_desc_1L_chr}{Function description (a character vector of length one), Default: 'NA'}
 
-\item{fn_det_1L_chr}{Function det (a character vector of length one), Default: 'NA'}
+\item{fn_det_1L_chr}{Function detail (a character vector of length one), Default: 'NA'}
 
 \item{fn_out_type_1L_chr}{Function out type (a character vector of length one), Default: 'NA'}
 

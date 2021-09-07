@@ -15,7 +15,7 @@ add_rows_to_fn_type_lup(
 )
 }
 \arguments{
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: make_fn_type_lup()}
+\item{fn_types_lup}{Function types (a lookup table), Default: make_fn_type_lup()}
 
 \item{fn_type_nm_chr}{Function type name (a character vector), Default: 'NA'}
 
@@ -30,9 +30,9 @@ add_rows_to_fn_type_lup(
 \item{is_method_lgl}{Is method (a logical vector), Default: F}
 }
 \value{
-Updated function type lookup table (a tibble)
+Updated function types (a lookup table)
 }
 \description{
-add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function type lookup table (a tibble).
+add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function types (a lookup table).
 }
 \keyword{internal}

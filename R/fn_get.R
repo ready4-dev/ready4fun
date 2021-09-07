@@ -93,7 +93,12 @@ get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = 
     all_items_chr <- purrr::map_chr(ds_ls, ~.x$label)
     urls_chr <- file_nms_chr %>% purrr::map_chr(~{
         idx_1L_int <- which(all_items_chr == .x)
-        paste0(dv_url_pfx_1L_chr, ds_ls[[idx_1L_int]]$dataFile$id)
+        if (identical(idx_1L_int, integer(0))) {
+            NA_character_
+        }
+        else {
+            paste0(dv_url_pfx_1L_chr, ds_ls[[idx_1L_int]]$dataFile$id)
+        }
     })
     return(urls_chr)
 }
@@ -206,91 +211,105 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
     }
     return(return_object_xx)
 }
-#' Get new abbrvs
-#' @description get_new_abbrvs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbrvs. Function argument pkg_ds_ls_ls specifies the where to look for the required object. The function returns New abbrvs (a character vector).
-#' @param pkg_ds_ls_ls Package dataset (a list of lists)
+#' Get new abbreviations
+#' @description get_new_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New abbreviations (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
+#' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
+#' @param transformations_chr Transformations (a character vector), Default: NULL
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @return New abbrvs (a character vector)
-#' @rdname get_new_abbrvs
+#' @param use_last_1L_int Use last (an integer vector of length one), Default: NULL
+#' @return New abbreviations (a character vector)
+#' @rdname get_new_abbrs
 #' @export 
-#' @importFrom purrr map flatten_chr
+#' @importFrom purrr map flatten_chr discard
 #' @keywords internal
-get_new_abbrvs <- function (pkg_ds_ls_ls, pkg_setup_ls, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
-    fn_types_lup = NULL, inc_all_mthds_1L_lgl = T, key_1L_chr = NULL, 
-    object_type_lup = NULL, paths_ls = make_fn_nms(), server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) 
+get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthds_1L_lgl = T, 
+    paths_ls = make_fn_nms(), pkg_ds_ls_ls = NULL, transformations_chr = NULL, 
+    undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+    use_last_1L_int = NULL) 
 {
-    if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(abbreviations_lup)) 
-        abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    if (is.null(fn_types_lup)) 
-        fn_types_lup <- get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-            server_1L_chr = server_1L_chr)
-    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = abbreviations_lup, 
+    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
         custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
             force_false_chr = NA_character_), args_ls_ls = NULL), 
-        fn_types_lup = fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
-        object_type_lup = object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-    new_fn_abbrvs_chr <- fns_dmt_tb$fns_chr %>% get_new_abbrvs_cndts(drop_first_1L_lgl = T)
-    new_arg_abbrvs_chr <- fns_dmt_tb$args_ls %>% purrr::map(~names(.x) %>% 
-        get_new_abbrvs_cndts()) %>% purrr::flatten_chr() %>% 
+        fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
+        inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+        undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+    if (is.null(use_last_1L_int)) {
+        new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>% get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            drop_first_1L_lgl = T, treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            use_last_1L_int = use_last_1L_int)
+    }
+    else {
+        new_fn_abbrs_chr <- character(0)
+    }
+    new_arg_abbrs_chr <- fns_dmt_tb$args_ls %>% purrr::map(~names(.x) %>% 
+        get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            use_last_1L_int = use_last_1L_int)) %>% purrr::flatten_chr() %>% 
         unique()
-    new_ds_abbrvs_chr <- pkg_ds_ls_ls %>% purrr::map(~c(names(.x$db_df)), 
-        .x$db_1L_chr) %>% purrr::flatten_chr() %>% get_new_abbrvs_cndts()
-    new_abbrvs_chr <- c(new_fn_abbrvs_chr, new_arg_abbrvs_chr, 
-        new_ds_abbrvs_chr) %>% unique() %>% sort()
-    return(new_abbrvs_chr)
+    if (!is.null(pkg_ds_ls_ls)) {
+        new_ds_abbrs_chr <- pkg_ds_ls_ls %>% purrr::map(~c(names(.x$db_df)), 
+            .x$db_1L_chr) %>% purrr::flatten_chr() %>% get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            use_last_1L_int = use_last_1L_int)
+    }
+    else {
+        new_ds_abbrs_chr <- character(0)
+    }
+    if (!is.null(classes_to_make_tb)) {
+        new_clss_abbrs_chr <- classes_to_make_tb$vals_ls %>% 
+            purrr::discard(is.null) %>% purrr::map(~names(.x)) %>% 
+            purrr::flatten_chr() %>% unique() %>% get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            use_last_1L_int = use_last_1L_int)
+    }
+    else {
+        new_clss_abbrs_chr <- character(0)
+    }
+    new_abbrs_chr <- c(new_fn_abbrs_chr, new_arg_abbrs_chr, new_clss_abbrs_chr, 
+        new_ds_abbrs_chr) %>% unique() %>% sort()
+    if (!is.null(transformations_chr)) {
+        new_abbrs_chr <- c(setdiff(new_abbrs_chr, transformations_chr), 
+            names(transformations_chr)) %>% sort()
+    }
+    return(new_abbrs_chr)
 }
-#' Get new abbrvs candidates
-#' @description get_new_abbrvs_cndts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbrvs candidates. Function argument text_chr specifies the where to look for the required object. The function returns New abbrvs candidates (a character vector).
+#' Get new abbreviations candidates
+#' @description get_new_abbrs_cndts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations candidates. Function argument text_chr specifies the where to look for the required object. The function returns New abbreviations candidates (a character vector).
 #' @param text_chr Text (a character vector)
+#' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param drop_first_1L_lgl Drop first (a logical vector of length one), Default: F
-#' @return New abbrvs candidates (a character vector)
-#' @rdname get_new_abbrvs_cndts
+#' @param use_last_1L_int Use last (an integer vector of length one), Default: NULL
+#' @param treat_as_words_chr Treat as words (a character vector), Default: character(0)
+#' @return New abbreviations candidates (a character vector)
+#' @rdname get_new_abbrs_cndts
 #' @export 
 #' @importFrom purrr map flatten_chr
 #' @keywords internal
-get_new_abbrvs_cndts <- function (text_chr, drop_first_1L_lgl = F) 
+get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl = F, 
+    use_last_1L_int = NULL, treat_as_words_chr = character(0)) 
 {
-    new_abbrvs_cndts_chr <- text_chr %>% purrr::map(~{
+    new_abbrs_cndts_chr <- text_chr %>% purrr::map(~{
         candidates_chr <- strsplit(.x, "_")[[1]]
         if (drop_first_1L_lgl) 
             candidates_chr <- candidates_chr[-1]
+        if (!is.null(use_last_1L_int)) 
+            candidates_chr <- candidates_chr %>% tail(use_last_1L_int)
         candidates_chr
     }) %>% purrr::flatten_chr() %>% unique() %>% sort() %>% setdiff(abbreviations_lup$short_name_chr)
     data("GradyAugmented", package = "qdapDictionaries", envir = environment())
-    new_abbrvs_cndts_chr <- setdiff(new_abbrvs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrvs_cndts_chr)))], 
-        GradyAugmented)
-    return(new_abbrvs_cndts_chr)
+    new_abbrs_cndts_chr <- setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))], 
+        c(GradyAugmented, treat_as_words_chr))
+    return(new_abbrs_cndts_chr)
 }
 #' Get new function types
-#' @description get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).
-#' @param abbreviations_lup Abbreviations (a lookup table)
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param fn_types_lup Function type lookup table (a tibble)
+#' @description get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).
+#' @param pkg_setup_ls Package setup (a list)
 #' @param fn_nms_ls Function names (a list), Default: make_fn_nms()
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param undmtd_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @return New function types (a character vector)
 #' @rdname get_new_fn_types
 #' @export 
@@ -298,16 +317,8 @@ get_new_abbrvs_cndts <- function (text_chr, drop_first_1L_lgl = F)
 #' @importFrom stringr str_remove str_sub
 #' @importFrom tools toTitleCase
 #' @keywords internal
-get_new_fn_types <- function (abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, fn_types_lup, 
-    fn_nms_ls = make_fn_nms(), server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    object_type_lup = NULL) 
+get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) 
 {
-    if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     new_fn_types_chr <- purrr::map2(fn_nms_ls[names(fn_nms_ls) != 
         "gnrcs"], undmtd_fns_dir_chr[undmtd_fns_dir_chr %>% purrr::map_lgl(~!endsWith(.x, 
         "gnrcs"))], ~stringr::str_remove(.x, paste0(.y, "/")) %>% 
@@ -318,19 +329,21 @@ get_new_fn_types <- function (abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.
         new_fn_types_chr <- new_fn_types_chr %>% c(get_fn_nms_in_file(paste0(generics_dir_1L_chr, 
             "/generics.R")))
     new_fn_types_chr <- new_fn_types_chr %>% unique() %>% sort() %>% 
-        make_fn_title(abbreviations_lup = abbreviations_lup, 
-            object_type_lup = object_type_lup, is_generic_lgl = T) %>% 
-        tools::toTitleCase() %>% setdiff(fn_types_lup$fn_type_nm_chr)
+        make_fn_title(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+            is_generic_lgl = T) %>% tools::toTitleCase()
+    if (!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup)) 
+        new_fn_types_chr <- new_fn_types_chr %>% setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)
     return(new_fn_types_chr)
 }
-#' Get object type lookup table new cases
-#' @description get_obj_type_new_cses() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type lookup table new cases tibble. Function argument updated_obj_type_lup specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
-#' @param updated_obj_type_lup Updated object type lookup table (a tibble)
+#' Get object type new cases
+#' @description get_obj_type_new_cses() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type new cases. Function argument updated_obj_type_lup specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
+#' @param updated_obj_type_lup Updated object type (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param excluded_chr Excluded (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param old_obj_type_lup Old object type lookup table (a tibble), Default: NULL
+#' @param old_obj_type_lup Old object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Object type lookup table new cases (a tibble)
 #' @rdname get_obj_type_new_cses
@@ -422,7 +435,13 @@ get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/
     all_items_chr <- purrr::map_chr(ds_ls, ~.x$label)
     idx_1L_int <- which(all_items_chr == paste0(file_nm_1L_chr, 
         ".RDS"))
-    r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr, ds_ls[[idx_1L_int]]$dataFile$id)))
+    if (identical(idx_1L_int, integer(0))) {
+        r_object_xx <- NULL
+    }
+    else {
+        r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr, 
+            ds_ls[[idx_1L_int]]$dataFile$id)))
+    }
     return(r_object_xx)
 }
 #' Get return object name

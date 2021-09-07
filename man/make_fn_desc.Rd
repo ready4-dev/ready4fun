@@ -21,7 +21,7 @@ make_fn_desc(
 
 \item{output_chr}{Output (a character vector)}
 
-\item{fn_types_lup}{Function type lookup table (a tibble), Default: NULL}
+\item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_new_arg_sfcs}
 \alias{write_new_arg_sfcs}
-\title{Write new argument sfxs}
+\title{Write new argument suffices}
 \usage{
 write_new_arg_sfcs(
   arg_nms_chr,
@@ -30,6 +30,6 @@ write_new_arg_sfcs(
 Function arguments to rnm (a list)
 }
 \description{
-write_new_arg_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument sfxs. The function returns Function arguments to rnm (a list).
+write_new_arg_sfcs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new argument suffices. The function returns Function arguments to rnm (a list).
 }
 \keyword{internal}

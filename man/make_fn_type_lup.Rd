@@ -27,9 +27,9 @@ make_fn_type_lup(
 \item{is_method_lgl}{Is method (a logical vector), Default: logical(0)}
 }
 \value{
-Function type lookup table (a tibble)
+Function types (a lookup table)
 }
 \description{
-make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table. The function returns Function type lookup table (a tibble).
+make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table. The function returns Function types (a lookup table).
 }
 \keyword{internal}

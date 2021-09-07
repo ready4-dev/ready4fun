@@ -1,12 +1,12 @@
-#' Make addl packages
-#' @description make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make addl packages list. The function returns Addl packages (a list).
+#' Make additional packages
+#' @description make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make additional packages list. The function returns Additional packages (a list).
 #' @param depends_chr Depends (a character vector), Default: NULL
 #' @param enhances_chr Enhances (a character vector), Default: NULL
 #' @param imports_chr Imports (a character vector), Default: NULL
 #' @param linking_to_chr Linking to (a character vector), Default: NULL
 #' @param suggests_chr Suggests (a character vector), Default: NULL
 #' @param append_ls Append (a list), Default: NULL
-#' @return Addl packages (a list)
+#' @return Additional packages (a list)
 #' @rdname make_addl_pkgs_ls
 #' @export 
 #' @importFrom purrr discard
@@ -302,7 +302,7 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "htt
 #' Make build ignore
 #' @description make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).
 #' @param file_nms_chr File names (a character vector), Default: NULL
-#' @param regulars_rgx Regex (a character vector), Default: NULL
+#' @param regulars_rgx Regulars (a regular expression vector), Default: NULL
 #' @return Build ignore (a list)
 #' @rdname make_build_ignore_ls
 #' @export 
@@ -341,7 +341,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
-#' @param fn_types_lup Function type lookup table (a tibble)
+#' @param fn_types_lup Function types (a lookup table)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
 #'    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
@@ -390,7 +390,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @param fns_chr Functions (a character vector)
 #' @param title_chr Title (a character vector)
 #' @param output_chr Output (a character vector)
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
@@ -435,7 +435,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_types_lup = NULL,
 #' @description make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description spine. The function returns Function description spine (a character vector of length one).
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one)
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @return Function description spine (a character vector of length one)
 #' @rdname make_fn_desc_spine
@@ -448,8 +448,7 @@ make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_types_lup = 
     abbreviations_lup = NULL) 
 {
     if (is.null(fn_types_lup)) 
-        utils::data("fn_types_lup", package = "ready4fun", 
-            envir = environment())
+        utils::data("fn_types_lup", package = "ready4fun", envir = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -531,7 +530,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL, 
 #'    output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)
 #' @param append_1L_lgl Append (a logical vector of length one), Default: T
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
@@ -576,7 +575,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @description make_fn_dmt_tbl_tmpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table template. The function returns Function documentation table (a tibble).
 #' @param fns_path_chr Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @param fn_types_lup Function type lookup table (a tibble), Default: NULL
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
@@ -695,14 +694,14 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
     return(title_chr)
 }
 #' Make function type
-#' @description make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table. The function returns Function type lookup table (a tibble).
+#' @description make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table. The function returns Function types (a lookup table).
 #' @param fn_type_nm_chr Function type name (a character vector), Default: character(0)
 #' @param fn_type_desc_chr Function type description (a character vector), Default: character(0)
 #' @param first_arg_desc_chr First argument description (a character vector), Default: character(0)
 #' @param second_arg_desc_chr Second argument description (a character vector), Default: character(0)
 #' @param is_generic_lgl Is generic (a logical vector), Default: logical(0)
 #' @param is_method_lgl Is method (a logical vector), Default: logical(0)
-#' @return Function type lookup table (a tibble)
+#' @return Function types (a lookup table)
 #' @rdname make_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
@@ -838,12 +837,46 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
         abbreviations_lup = abbreviations_lup)
     writeLines(fn_tags_chr)
 }
+#' Make list phrase
+#' @description make_list_phrase() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make list phrase. The function returns List phrase (a character vector of length one).
+#' @param items_chr Items (a character vector)
+#' @return List phrase (a character vector of length one)
+#' @rdname make_list_phrase
+#' @export 
+#' @importFrom stringr str_c
+#' @importFrom stringi stri_replace_last
+#' @keywords internal
+make_list_phrase <- function (items_chr) 
+{
+    list_phrase_1L_chr <- items_chr %>% stringr::str_c(sep = "", 
+        collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
+        replacement = " and")
+    return(list_phrase_1L_chr)
+}
+#' Make new entries
+#' @description make_new_entries_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
+#' @param short_name_chr Short name (a character vector)
+#' @param long_name_chr Long name (a character vector)
+#' @param atomic_element_lgl Atomic element (a logical vector), Default: F
+#' @param r3_can_extend_lgl Ready4 S3 can extend (a logical vector), Default: F
+#' @return New entries (a tibble)
+#' @rdname make_new_entries_tb
+#' @export 
+#' @importFrom tibble tibble
+#' @keywords internal
+make_new_entries_tb <- function (short_name_chr, long_name_chr, atomic_element_lgl = F, 
+    r3_can_extend_lgl = F) 
+{
+    new_entries_tb <- tibble::tibble(short_name_chr, long_name_chr, 
+        atomic_element_lgl = atomic_element_lgl, r3_can_extend_lgl = r3_can_extend_lgl)
+    return(new_entries_tb)
+}
 #' Make new function documentation
 #' @description make_new_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new function documentation. The function returns New function documentation (a list of character vectors).
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_desc_1L_chr Function description (a character vector of length one), Default: 'NA'
-#' @param fn_det_1L_chr Function det (a character vector of length one), Default: 'NA'
+#' @param fn_det_1L_chr Function detail (a character vector of length one), Default: 'NA'
 #' @param fn_out_type_1L_chr Function out type (a character vector of length one), Default: 'NA'
 #' @param args_ls Arguments (a list), Default: NULL
 #' @param fn Function (a function), Default: NULL
@@ -1029,7 +1062,7 @@ make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine())
         dplyr::mutate(short_name_chr = short_name_chr %>% purrr::map_chr(~paste0(stringr::str_sub(.x, 
             end = -5), "1L_", stringr::str_sub(.x, start = -4))), 
             long_name_chr = paste0(long_name_chr, " vector of length one")), 
-        obj_tb %>% dplyr::filter(r3_element_lgl) %>% dplyr::mutate(short_name_chr = paste0(short_name_chr, 
+        obj_tb %>% dplyr::filter(r3_can_extend_lgl) %>% dplyr::mutate(short_name_chr = paste0(short_name_chr, 
             purrr::map_chr(atomic_element_lgl, ~""), "_r3"), 
             long_name_chr = paste0("ready4 S3 extension of ", 
                 long_name_chr, purrr::map_chr(atomic_element_lgl, 
@@ -1050,28 +1083,29 @@ make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine())
 }
 #' Make object lookup table spine
 #' @description make_obj_lup_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
-#' @param seed_obj_type_lup Seed object lookup table (a tibble), Default: get_rds_from_dv("seed_obj_type_lup")
+#' @param seed_obj_type_lup Seed object type (a lookup table), Default: get_rds_from_dv("seed_obj_type_lup")
 #' @param new_entries_tb New entries (a tibble), Default: NULL
 #' @return NA ()
 #' @rdname make_obj_lup_spine
 #' @export 
 #' @importFrom tibble tibble
+#' @importFrom dplyr arrange
 #' @keywords internal
 make_obj_lup_spine <- function (seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup"), 
     new_entries_tb = NULL) 
 {
     if (is.null(seed_obj_type_lup)) {
         seed_obj_type_lup <- tibble::tibble(short_name_chr = c("df", 
-            "fn", "ls", "r3", "r4", "s3", "s4", "sf", "tb", "arr", 
-            "chr", "dbl", "dtm", "fct", "int", "lgl", "lup", 
-            "mat", "mdl", "prsn", "rgx"), long_name_chr = c("data.frame", 
-            "function", "list", "ready4 S3", "ready4 S4", "S3", 
-            "S4", "simple features object", "tibble", "array", 
-            "character", "double", "date", "factor", "integer", 
-            "logical", "lookup table", "matrix", "model", "person", 
-            "regular expression"), atomic_element_lgl = c(rep(F, 
-            10), rep(T, 6), rep(F, 4), T), r3_element_lgl = c(T, 
-            F, T, rep(F, 4), rep(T, 14)))
+            "env", "fn", "ls", "plt", "r3", "r4", "s3", "s4", 
+            "sf", "tb", "arr", "chr", "dbl", "dtm", "fct", "int", 
+            "lgl", "lup", "mat", "mdl", "prsn", "rgx"), long_name_chr = c("data.frame", 
+            "environment", "function", "list", "plot", "ready4 S3", 
+            "ready4 S4", "S3", "S4", "simple features object", 
+            "tibble", "array", "character", "double", "date", 
+            "factor", "integer", "logical", "lookup table", "matrix", 
+            "model", "person", "regular expression"), atomic_element_lgl = c(rep(F, 
+            12), rep(T, 6), rep(F, 4), T), r3_can_extend_lgl = c(T, 
+            F, F, T, F, rep(F, 4), rep(T, 14))) %>% dplyr::arrange(short_name_chr)
     }
     obj_lup_spine <- seed_obj_type_lup
     if (!is.null(new_entries_tb)) {
@@ -1141,22 +1175,25 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector)
-#' @param add_gh_site_1L_lgl Add gh site (a logical vector of length one), Default: T
-#' @param addl_badges_ls Addl badges (a list), Default: NULL
-#' @param addl_pkgs_ls Addl packages (a list), Default: make_addl_pkgs_ls()
+#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: T
+#' @param addl_badges_ls Additional badges (a list), Default: NULL
+#' @param addl_pkgs_ls Additional packages (a list), Default: make_addl_pkgs_ls()
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
-#' @param gh_repo_1L_chr Github repo (a character vector of length one), Default: 'NA'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
-#' @param incr_ver_1L_lgl Incr ver (a logical vector of length one), Default: F
+#' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
+#' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return Package setup (a list)
 #' @rdname make_pkg_setup_ls
@@ -1168,9 +1205,11 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
     check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
-    gh_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
-    incr_ver_1L_lgl = F, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
-    path_to_pkg_rt_1L_chr = getwd(), ready4_type_1L_chr, user_manual_fns_chr = NA_character_) 
+    dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
+    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = F, 
+    key_1L_chr = NULL, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
+    path_to_pkg_rt_1L_chr = getwd(), ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    user_manual_fns_chr = NA_character_) 
 {
     if (length(pkg_dmt_dv_dss_chr) < 2) {
         pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
@@ -1196,8 +1235,23 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
         dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, 
         incr_ver_1L_lgl = incr_ver_1L_lgl, on_cran_1L_lgl = on_cran_1L_lgl, 
         path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr), 
-        subsequent_ls = list(addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
-            dev_pkgs_chr = dev_pkgs_chr, pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, 
+        subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup", 
+            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
+            dev_pkgs_chr = dev_pkgs_chr, dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], 
+            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, fn_types_lup = get_rds_from_dv("fn_types_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            key_1L_chr = key_1L_chr, object_type_lup = get_rds_from_dv("object_type_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            server_1L_chr = server_1L_chr, treat_as_words_chr = get_rds_from_dv("treat_as_words_chr", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             user_manual_fns_chr = user_manual_fns_chr))
     return(pkg_setup_ls)
 }
@@ -1205,7 +1259,7 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
 #' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).
 #' @param prompt_1L_chr Prompt (a character vector of length one)
 #' @param options_chr Options (a character vector), Default: NULL
-#' @param force_from_opts_1L_chr Force from opts 1L (a character vector), Default: F
+#' @param force_from_opts_1L_chr Force from opts (a character vector of length one), Default: F
 #' @return Response (a character vector of length one)
 #' @rdname make_prompt
 #' @export 

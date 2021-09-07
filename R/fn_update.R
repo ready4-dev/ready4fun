@@ -9,6 +9,7 @@
 #' @return Abbreviation (a tibble)
 #' @rdname update_abbr_lup
 #' @export 
+#' @importFrom testit assert
 #' @importFrom dplyr mutate
 #' @importFrom purrr map_chr
 #' @importFrom stringi stri_replace_first_regex
@@ -16,6 +17,12 @@
 update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
     custom_plural_ls = NULL, pfx_rgx = NA_character_) 
 {
+    testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the short_name_chr column:\n", 
+        abbr_tb$short_name_chr[duplicated(abbr_tb$short_name_chr)] %>% 
+            make_list_phrase()), !any(duplicated(abbr_tb$short_name_chr)))
+    testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the long_name_chr column:\n", 
+        abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% 
+            make_list_phrase()), !any(duplicated(abbr_tb$long_name_chr)))
     if (!"plural_lgl" %in% names(abbr_tb)) 
         abbr_tb <- dplyr::mutate(abbr_tb, plural_lgl = NA)
     if (!is.na(pfx_rgx)) 
@@ -26,6 +33,40 @@ update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_c
         custom_plural_ls = custom_plural_ls)
     abbr_tb <- add_lups(abbr_tb, new_lup = new_tb, key_var_nm_1L_chr = "short_name_chr")
     return(abbr_tb)
+}
+#' Update abbreviations
+#' @description update_abbrs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update abbreviations. Function argument pkg_setup_ls specifies the object to be updated. Argument short_name_chr provides the object to be updated. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param short_name_chr Short name (a character vector)
+#' @param long_name_chr Long name (a character vector)
+#' @param no_plural_chr No plural (a character vector), Default: 'NA'
+#' @param custom_plural_ls Custom plural (a list), Default: NULL
+#' @param pfx_rgx Prefix (a regular expression vector), Default: 'NA'
+#' @return Package setup (a list)
+#' @rdname update_abbrs
+#' @export 
+#' @importFrom testit assert
+#' @importFrom dplyr filter
+#' @keywords internal
+update_abbrs <- function (pkg_setup_ls, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
+    custom_plural_ls = NULL, pfx_rgx = NA_character_) 
+{
+    short_dupls_chr <- intersect(short_name_chr, pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
+    long_dupls_chr <- intersect(long_name_chr, pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n", 
+        short_dupls_chr %>% make_list_phrase()), identical(short_dupls_chr, 
+        character(0)))
+    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n", 
+        long_dupls_chr %>% make_list_phrase()), identical(long_dupls_chr, 
+        character(0)))
+    if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) 
+        pkg_setup_ls$subsequent_ls$abbreviations_lup <- make_obj_lup(obj_lup_spine = make_obj_lup_spine(NULL)) %>% 
+            dplyr::filter(F)
+    pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>% 
+        update_abbr_lup(short_name_chr = short_name_chr, long_name_chr = long_name_chr, 
+            no_plural_chr = no_plural_chr, custom_plural_ls = custom_plural_ls, 
+            pfx_rgx = pfx_rgx)
+    return(pkg_setup_ls)
 }
 #' Update first word case
 #' @description update_first_word_case() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update first word case. Function argument phrase_1L_chr specifies the object to be updated. Argument fn provides the object to be updated. The function returns Phrase (a character vector of length one).
@@ -293,6 +334,42 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
     }
     return(fns_dmt_tb)
 }
+#' Update missing abbreviations
+#' @description update_msng_abbrs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update missing abbreviations. Function argument pkg_setup_ls specifies the object to be updated. Argument are_words_chr provides the object to be updated. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param are_words_chr Are words (a character vector), Default: 'NA'
+#' @param tf_to_singular_chr Transform to singular (a character vector), Default: 'NA'
+#' @param not_obj_type_chr Not object type (a character vector), Default: 'NA'
+#' @return Package setup (a list)
+#' @rdname update_msng_abbrs
+#' @export 
+#' @importFrom testit assert
+#' @importFrom purrr discard
+#' @keywords internal
+update_msng_abbrs <- function (pkg_setup_ls, are_words_chr = NA_character_, tf_to_singular_chr = NA_character_, 
+    not_obj_type_chr = NA_character_) 
+{
+    if (!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr)) {
+        if (!is.na(tf_to_singular_chr[1])) {
+            testit::assert("'tf_to_singular_chr' needs to be a named vector. The name of each vector element should be the desired new name for that element.", 
+                length(names(tf_to_singular_chr) %>% purrr::discard(~.x == 
+                  "")) == length(tf_to_singular_chr %>% purrr::discard(is.na)))
+            pkg_setup_ls$problems_ls$missing_abbrs_chr <- c(setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr, 
+                tf_to_singular_chr), names(tf_to_singular_chr)) %>% 
+                unique() %>% sort()
+        }
+        pkg_setup_ls$problems_ls$missing_abbrs_chr <- setdiff(pkg_setup_ls$problems_ls$missing_abbrs_chr, 
+            are_words_chr)
+        pkg_setup_ls$problems_ls$missing_words_chr <- are_words_chr
+    }
+    if (!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr)) {
+        pkg_setup_ls$problems_ls$missing_obj_types_chr <- setdiff(pkg_setup_ls$problems_ls$missing_obj_types_chr, 
+            c(not_obj_type_chr, are_words_chr)) %>% unique() %>% 
+            sort()
+        pkg_setup_ls$problems_ls$missing_words_chr <- are_words_chr
+    }
+    return(pkg_setup_ls)
+}
 #' Update namespace
 #' @description update_ns() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update namespace. Function argument package_1L_chr specifies the object to be updated. The function returns Package name (a character vector).
 #' @param package_1L_chr Package (a character vector of length one)
@@ -306,4 +383,21 @@ update_ns <- function (package_1L_chr)
     package_nm_chr <- ifelse(package_1L_chr == "", ".GlobalEnv", 
         package_1L_chr)
     return(package_nm_chr)
+}
+#' Update package setup messages
+#' @description update_pkg_setup_msgs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update package setup messages. Function argument pkg_setup_ls specifies the object to be updated. Argument list_element_1L_chr provides the object to be updated. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param list_element_1L_chr List element (a character vector of length one)
+#' @return Package setup (a list)
+#' @rdname update_pkg_setup_msgs
+#' @export 
+
+#' @keywords internal
+update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr) 
+{
+    pkg_setup_ls$problems_ls[[which(names(pkg_setup_ls$problems_ls) == 
+        list_element_1L_chr)]] <- NULL
+    if (length(pkg_setup_ls$problems_ls) == 0) 
+        pkg_setup_ls[[which(names(pkg_setup_ls) == "problems_ls")]] <- NULL
+    return(pkg_setup_ls)
 }

@@ -5,40 +5,22 @@
 \title{Get new function types}
 \usage{
 get_new_fn_types(
-  abbreviations_lup,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
-  key_1L_chr = NULL,
-  fn_types_lup,
+  pkg_setup_ls,
   fn_nms_ls = make_fn_nms(),
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-  undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-  object_type_lup = NULL
+  undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 )
 }
 \arguments{
-\item{abbreviations_lup}{Abbreviations (a lookup table)}
-
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
-
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
-
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
-
-\item{fn_types_lup}{Function type lookup table (a tibble)}
+\item{pkg_setup_ls}{Package setup (a list)}
 
 \item{fn_nms_ls}{Function names (a list), Default: make_fn_nms()}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
-
 \item{undmtd_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
-
-\item{object_type_lup}{Object type (a lookup table), Default: NULL}
 }
 \value{
 New function types (a character vector)
 }
 \description{
-get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).
+get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).
 }
 \keyword{internal}

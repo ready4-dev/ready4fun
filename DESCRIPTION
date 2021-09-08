@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Standardised Function Authoring and Documentation Tools for Use
     with the Ready4 Suite
-Version: 0.0.0.9327
+Version: 0.0.0.9328
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",
@@ -28,7 +28,7 @@ Description: ready4fun is a collection of functions for authoring code
     have created a sandpit area in which you can safely undertake testing.
     If you have any questions, please contact the authors
     (matthew.hamilton@orygen.org.au).
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 URL: https://ready4-dev.github.io/ready4fun/,
     https://github.com/ready4-dev/ready4fun, https://www.ready4-dev.com/
 Encoding: UTF-8
@@ -50,6 +50,7 @@ Imports:
     pkgdown,
     purrr,
     readxl,
+    ready4class,
     rlang,
     sinew,
     stats,
@@ -58,6 +59,7 @@ Imports:
     testit,
     testthat,
     tibble,
+    tidyr,
     tools,
     usethis,
     utils,

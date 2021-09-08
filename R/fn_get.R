@@ -288,6 +288,7 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
 #' @rdname get_new_abbrs_cndts
 #' @export 
 #' @importFrom purrr map flatten_chr
+#' @importFrom Hmisc capitalize
 #' @keywords internal
 get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl = F, 
     use_last_1L_int = NULL, treat_as_words_chr = character(0)) 
@@ -302,7 +303,9 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
     }) %>% purrr::flatten_chr() %>% unique() %>% sort() %>% setdiff(abbreviations_lup$short_name_chr)
     data("GradyAugmented", package = "qdapDictionaries", envir = environment())
     new_abbrs_cndts_chr <- setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))], 
-        c(GradyAugmented, treat_as_words_chr))
+        c(c(GradyAugmented, treat_as_words_chr), c(GradyAugmented, 
+            treat_as_words_chr) %>% toupper(), c(GradyAugmented, 
+            treat_as_words_chr) %>% Hmisc::capitalize()))
     return(new_abbrs_cndts_chr)
 }
 #' Get new function types

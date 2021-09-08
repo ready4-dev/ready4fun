@@ -125,14 +125,16 @@ write_and_doc_ds <- function(db_df,
   return(pkg_dss_tb)
 }
 write_and_doc_fn_fls <- function(fns_dmt_tb,
-                                 r_dir_1L_chr = "R",
-                                 path_to_pkg_rt_1L_chr = getwd(),
-                                 path_to_dmt_dir_1L_chr,
-                                 path_to_dvpr_dmt_dir_1L_chr = deprecated(),
-                                 path_to_user_dmt_dir_1L_chr = deprecated(),
+                                 pkg_setup_ls,
                                  make_pdfs_1L_lgl = T,
-                                 dev_pkgs_chr = NA_character_,
-                                 update_pkgdown_1L_lgl = T){
+                                 update_pkgdown_1L_lgl = T,
+                                 path_to_dmt_dir_1L_chr,
+                                 dev_pkgs_chr = deprecated(),
+                                 path_to_dvpr_dmt_dir_1L_chr = deprecated(),
+                                 path_to_pkg_rt_1L_chr = deprecated(),
+                                 path_to_user_dmt_dir_1L_chr = deprecated(),
+                                 r_dir_1L_chr = deprecated()
+                                 ){
   if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9307",
                               "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)",
@@ -143,6 +145,25 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                               "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)",
                               details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
   }
+  if (lifecycle::is_present(dev_pkgs_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9327",
+                              "ready4fun::write_and_doc_fn_fls(dev_pkgs_chr)",
+                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+  }
+  if (lifecycle::is_present(r_dir_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9327",
+                              "ready4fun::write_and_doc_fn_fls(r_dir_1L_chr)",
+                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+  }
+  if (lifecycle::is_present(path_to_pkg_rt_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9327",
+                              "ready4fun::write_and_doc_fn_fls(path_to_pkg_rt_1L_chr)",
+                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+  }
+  add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
+  add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
+  dev_pkgs_chr <- pkg_setup_ls$subsequent_ls$dev_pkgs_chr
+  r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R")
   write_new_dirs(c(path_to_dmt_dir_1L_chr,
                    paste0(path_to_dmt_dir_1L_chr,"/Developer"),
                    paste0(path_to_dmt_dir_1L_chr,"/User")))
@@ -168,7 +189,7 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  devtools::build_manual(path = .x)
                })
   if(update_pkgdown_1L_lgl){
-    datasets_chr <- utils::data(package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr),
+    datasets_chr <- utils::data(package=get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr),
                                 envir = environment())$results[,3]
     writeLines(c("development:",
                  "  mode: auto",
@@ -178,8 +199,8 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                  paste0("  - ",datasets_chr),
                  {
                    if("prototype_lup" %in% datasets_chr){
-                     utils::data("prototype_lup",package=get_dev_pkg_nm(path_to_pkg_rt_1L_chr), envir = environment())
-                     fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm(path_to_pkg_rt_1L_chr)) %>%
+                     utils::data("prototype_lup",package=get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr), envir = environment())
+                     fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr)) %>%
                        dplyr::pull(fn_to_call_chr)
                      if(length(fns_chr)>0){
                        c( paste0("- title: \"","Classes","\""),
@@ -200,7 +221,45 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                      txt_chr  <- ""
                    }
                  }) %>% purrr::flatten_chr() %>% purrr::discard(~.x=="")),
-               con = paste0(path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
+               con = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
+  }
+}
+write_clss <- function(cls_fn_ls,
+                       dss_records_ls,
+                       pkg_setup_ls,
+                       dv_url_pfx_1L_chr = NULL,
+                       key_1L_chr = NULL,
+                       self_serve_1L_lgl = F,
+                       server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(self_serve_1L_lgl){
+    write_new_files(paths_chr = paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
+                                       "/",
+                                       dss_records_ls$fns_dmt_tb$file_pfx_chr[1],
+                                       dss_records_ls$fns_dmt_tb$file_nm_chr %>%
+                                         unique()),
+                    custom_write_ls = list(fn = write_fn_fl,
+                                           args_ls = list(dss_records_ls$fns_dmt_tb,
+                                                          r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
+                                                          document_unexp_lgl = F)))
+    devtools::document()
+    devtools::load_all()
+  }
+  if(!is.null(cls_fn_ls)){
+    args_ls <- rlang::exec(cls_fn_ls$fn, !!!cls_fn_ls$args_ls) %>%
+      make_pkg_ds_ls(db_1L_chr = "prototype_lup",
+                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+                     title_1L_chr = "Class prototype lookup table",
+                     desc_1L_chr = "Metadata on classes used in ready4 suite")
+    args_ls <- append(args_ls,
+                      list(overwrite_1L_lgl = T,
+                           pkg_dss_tb = dss_records_ls$pkg_dss_tb,
+                           R_dir_1L_chr = "R",
+                           dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                           key_1L_chr = key_1L_chr,
+                           server_1L_chr = server_1L_chr))
+    dss_records_ls$pkg_dss_tb <- rlang::exec(write_and_doc_ds,!!!args_ls)
   }
 }
 write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
@@ -630,6 +689,35 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                                         developer_manual_url_1L_chr = developer_manual_url_1L_chr,
                                         project_website_url_1L_chr = project_website_url_1L_chr)))
 }
+write_manuals <- function(pkg_desc_ls,
+                          pkg_setup_ls,
+                          path_to_dmt_dir_1L_chr,
+                          dv_url_pfx_1L_chr = NULL,
+                          key_1L_chr = NULL,
+                          publish_dv_1L_lgl = T,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package,
+                      path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
+                      pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
+                      publish_dv_1L_lgl = publish_dv_1L_lgl)
+  dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package,
+                                                        "_",
+                                                        c("Developer","User"),
+                                                        ".pdf"),
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
+                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                  key_1L_chr = key_1L_chr,
+                                  server_1L_chr = server_1L_chr)
+  project_url_1L_chr <- pkg_desc_ls$URL %>%
+    strsplit(",") %>%
+    unlist() %>%
+    purrr::pluck(3)
+  if(is.null(project_url_1L_chr))
+    project_url_1L_chr <-  NA_character_
+  write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2],
+                          developer_manual_url_1L_chr = dmt_urls_chr[1],
+                          project_website_url_1L_chr = project_url_1L_chr)
+}
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_dmt_dir_1L_chr,
                                 pkg_dmt_dv_ds_1L_chr,
@@ -1057,9 +1145,11 @@ write_package <- function(pkg_desc_ls,
                           pkg_setup_ls,
                           cls_fn_ls = NULL,
                           dv_url_pfx_1L_chr = NULL,
+                          key_1L_chr = NULL,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           publish_dv_1L_lgl = T,
-                          self_serve_1L_lgl = F){
+                          self_serve_1L_lgl = F,
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
   dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls,
                                   pkg_setup_ls = pkg_setup_ls,
@@ -1067,65 +1157,24 @@ write_package <- function(pkg_desc_ls,
                                     strsplit(",") %>%
                                     unlist() %>%
                                     purrr::pluck(1),
-                                  #cls_fn_ls = cls_fn_ls,
                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
-
-  if(self_serve_1L_lgl){
-    write_new_files(paths_chr = paste0(r_dir_1L_chr,
-                                       "/",
-                                       dss_records_ls$fns_dmt_tb$file_pfx_chr[1],
-                                       dss_records_ls$fns_dmt_tb$file_nm_chr %>%
-                                         unique()),
-                    custom_write_ls = list(fn = write_fn_fl,
-                                           args_ls = list(dss_records_ls$fns_dmt_tb,
-                                                          r_dir_1L_chr = r_dir_1L_chr,
-                                                          document_unexp_lgl = F)))
-    devtools::document()
-    devtools::load_all()
-  }
-  if(!is.null(cls_fn_ls)){
-    args_ls <- rlang::exec(cls_fn_ls$fn, !!!cls_fn_ls$args_ls) %>%
-      make_pkg_ds_ls(db_1L_chr = "prototype_lup",
-                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-                     title_1L_chr = "Class prototype lookup table",
-                     desc_1L_chr = "Metadata on classes used in ready4 suite")
-    args_ls <- append(args_ls,
-                      list(overwrite_1L_lgl = T,
-                           pkg_dss_tb = dss_records_ls$pkg_dss_tb,
-                           R_dir_1L_chr = "R",
-                           dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                           key_1L_chr = key_1L_chr,
-                           server_1L_chr = server_1L_chr))
-    dss_records_ls$pkg_dss_tb <- rlang::exec(write_and_doc_ds,!!!args_ls)
-  }
-  add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
-  add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
+  write_clss(cls_fn_ls = cls_fn_ls,
+             dss_records_ls = dss_records_ls,
+             pkg_setup_ls = pkg_setup_ls,
+             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+             key_1L_chr = key_1L_chr,
+             self_serve_1L_lgl = self_serve_1L_lgl,
+             server_1L_chr = server_1L_chr)
   write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
-                       dev_pkgs_chr = pkg_setup_ls$subsequent_ls$dev_pkgs_chr,
+                       pkg_setup_ls = pkg_setup_ls,
                        path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
-                       r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                        update_pkgdown_1L_lgl = T)
-  write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package,
-                      path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
-                      pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                      publish_dv_1L_lgl = publish_dv_1L_lgl)
-  dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package,
-                                                        "_",
-                                                        c("Developer","User"),
-                                                        ".pdf"),
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr)
-  project_url_1L_chr <- pkg_desc_ls$URL %>%
-    strsplit(",") %>%
-    unlist() %>%
-    purrr::pluck(3)
-  if(is.null(project_url_1L_chr))
-    project_url_1L_chr <-  NA_character_
-  write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2],
-                          developer_manual_url_1L_chr = dmt_urls_chr[1],
-                          project_website_url_1L_chr = project_url_1L_chr)
+  write_manuals(pkg_desc_ls,
+                pkg_setup_ls = pkg_setup_ls,
+                path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
+                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                key_1L_chr = key_1L_chr,
+                server_1L_chr = server_1L_chr)
 }
 write_pkg <- function(package_1L_chr,
                         R_dir_1L_chr = "R"){

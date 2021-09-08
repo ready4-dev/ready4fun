@@ -8,7 +8,6 @@ write_pkg_dss(
   pkg_ds_ls_ls = NULL,
   pkg_setup_ls,
   args_ls_ls = NULL,
-  cls_fn_ls = NULL,
   details_ls = NULL,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dv_ds_nm_1L_chr,
@@ -28,8 +27,6 @@ write_pkg_dss(
 \item{pkg_setup_ls}{Package setup (a list)}
 
 \item{args_ls_ls}{Arguments (a list of lists), Default: NULL}
-
-\item{cls_fn_ls}{Class (a list of functions), Default: NULL}
 
 \item{details_ls}{Details (a list), Default: NULL}
 

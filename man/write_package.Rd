@@ -10,8 +10,11 @@ write_package(
   pkg_setup_ls,
   cls_fn_ls = NULL,
   dv_url_pfx_1L_chr = NULL,
+  key_1L_chr = NULL,
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-  publish_dv_1L_lgl = T
+  publish_dv_1L_lgl = T,
+  self_serve_1L_lgl = F,
+  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
 }
 \arguments{
@@ -25,9 +28,15 @@ write_package(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
+\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+
 \item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")}
 
 \item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: T}
+
+\item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
+
+\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 }
 \description{
 write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

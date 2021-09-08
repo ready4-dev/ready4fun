@@ -197,10 +197,37 @@ pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls,
 #                                                    no_plural_chr = c("lookup tables"))
 ##
 # 6. Add content to and document the package
+# rlang::exec(fns_env_ls$fns_env$write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
+# dss_records_ls <- fns_env_ls$fns_env$write_pkg_dss(pkg_ds_ls_ls,
+#                                 pkg_setup_ls = pkg_setup_ls,
+#                                 pkg_url_1L_chr = pkg_desc_ls$URL %>%
+#                                   strsplit(",") %>%
+#                                   unlist() %>%
+#                                   purrr::pluck(1),
+#                                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
+# fns_env_ls$fns_env$write_clss(cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup,
+#                                                args_ls = list(x = classes_to_make_tb,
+#                                                               dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+#                                                               name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
+#                                                               output_dir_1L_chr = "R",
+#                                                               file_exists_cdn_1L_chr = "overwrite",
+#                                                               abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+#                                                               init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
+#                                                               object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
+#                               dss_records_ls = dss_records_ls,
+#                               pkg_setup_ls = pkg_setup_ls,
+#                               self_serve_1L_lgl = T)
+# fns_env_ls$fns_env$write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
+#                      pkg_setup_ls = pkg_setup_ls,
+#                      path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
+#                      update_pkgdown_1L_lgl = T)
+# fns_env_ls$fns_env$write_manuals(pkg_desc_ls,
+#               pkg_setup_ls = pkg_setup_ls,
+#               path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"))
 fns_env_ls$fns_env$write_package(pkg_desc_ls,
                                  pkg_ds_ls_ls,
                                  pkg_setup_ls,
-                                 cls_fn_ls = list(fn = write_classes_and_make_lup,
+                                 cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup,
                                                   args_ls = list(x = classes_to_make_tb,
                                                                  dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                                                                  name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
@@ -211,7 +238,7 @@ fns_env_ls$fns_env$write_package(pkg_desc_ls,
                                                                  object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
                                  #dv_url_pfx_1L_chr = "https://dataverse.harvard.edu/api/access/datafile/",
                                  path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-                                 publish_dv_1L_lgl = T,
+                                 #publish_dv_1L_lgl = T,
                                  self_serve_1L_lgl = T)
 # pkg_dss_tb <- classes_to_make_tb %>%
 #   ready4class::write_classes_and_make_lup(dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,

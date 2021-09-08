@@ -7,6 +7,7 @@
 get_new_abbrs(
   pkg_setup_ls,
   classes_to_make_tb = NULL,
+  fns_env_ls = NULL,
   inc_all_mthds_1L_lgl = T,
   paths_ls = make_fn_nms(),
   pkg_ds_ls_ls = NULL,
@@ -19,6 +20,8 @@ get_new_abbrs(
 \item{pkg_setup_ls}{Package setup (a list)}
 
 \item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 

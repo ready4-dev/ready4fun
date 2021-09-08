@@ -10,6 +10,7 @@ make_dmt_for_all_fns(
   custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls =
     list(force_true_chr = NA_character_, force_false_chr = NA_character_), args_ls_ls =
     NULL),
+  fns_env_ls = NULL,
   fn_types_lup,
   abbreviations_lup = NULL,
   object_type_lup = get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr =
@@ -25,6 +26,8 @@ make_dmt_for_all_fns(
 
 \item{custom_dmt_ls}{Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
 force_false_chr = NA_character_), args_ls_ls = NULL)}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{fn_types_lup}{Function types (a lookup table)}
 

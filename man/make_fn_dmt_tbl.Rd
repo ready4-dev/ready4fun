@@ -11,6 +11,7 @@ make_fn_dmt_tbl(
     inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls =
     NULL),
   append_1L_lgl = T,
+  fns_env_ls = NULL,
   fn_types_lup = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
@@ -30,6 +31,8 @@ make_fn_dmt_tbl(
 output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
 
 \item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 

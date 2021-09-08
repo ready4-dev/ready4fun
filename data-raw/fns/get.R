@@ -144,18 +144,22 @@ get_from_lup_obj <- function(data_lookup_tb,
 }
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
+                          fns_env_ls = NULL,
                           inc_all_mthds_1L_lgl = T,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           use_last_1L_int = NULL){
+  if(is.null(fns_env_ls))
+    fns_env_ls <- read_fns()
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
                                                           inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = NULL),
+                                     fns_env_ls = fns_env_ls,
                                      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
@@ -298,9 +302,12 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
 get_outp_obj_type <- function(fns_chr,
                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                               dv_url_pfx_1L_chr = NULL,
+                              fns_env_ls = NULL,
                               key_1L_chr = NULL,
                               object_type_lup = NULL,
                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  if(is.null(fns_env_ls))
+    fns_env_ls <- read_fns(fns_env = environment())
   if(is.null(object_type_lup))
     object_type_lup <- get_rds_from_dv("object_type_lup",
                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -309,7 +316,12 @@ get_outp_obj_type <- function(fns_chr,
                                        server_1L_chr = server_1L_chr)
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
-                                            return_obj_chr <- get_return_obj_nm(eval(parse(text=.x))) %>%
+                                            if(!exists(.x)){
+                                              fn <- fns_env_ls$fns_env[[.x]]
+                                            }else{
+                                              fn <- eval(parse(text=.x))
+                                            }
+                                            return_obj_chr <- get_return_obj_nm(fn) %>%
                                               make_arg_desc(object_type_lup = object_type_lup,
                                                             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,

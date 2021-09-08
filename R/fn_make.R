@@ -55,6 +55,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' Make argument description
 #' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).
 #' @param fn_nms_chr Function names (a character vector)
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
@@ -68,10 +69,12 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @importFrom purrr map
 #' @importFrom stats setNames
 #' @keywords internal
-make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls = NULL, abbreviations_lup = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -80,7 +83,12 @@ make_arg_desc_ls <- function (fn_nms_chr, abbreviations_lup = NULL, dv_ds_nm_1L_
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     arg_desc_ls <- purrr::map(fn_nms_chr, ~{
-        eval(parse(text = paste0("fn <- ", .x)))
+        if (!exists(.x)) {
+            fn <- fns_env_ls$fns_env[[.x]]
+        }
+        else {
+            fn <- eval(parse(text = .x))
+        }
         get_fn_args(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup, 
             object_type_lup = object_type_lup, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
@@ -341,6 +349,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
@@ -357,11 +366,13 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
-    fn_types_lup, abbreviations_lup = NULL, object_type_lup = get_rds_from_dv("object_type_lup", 
-        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-    inc_all_mthds_1L_lgl = T) 
+    fns_env_ls = NULL, fn_types_lup, abbreviations_lup = NULL, 
+    object_type_lup = get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+        server_1L_chr = server_1L_chr), inc_all_mthds_1L_lgl = T) 
 {
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -376,7 +387,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
             tb <- fn_types_lup %>% dplyr::filter(is_method_lgl)
         fns_dmt_tb <- make_fn_dmt_tbl(..1, fns_dir_chr = ..2, 
             custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
-            fn_types_lup = tb, abbreviations_lup = abbreviations_lup, 
+            fns_env_ls = fns_env_ls, fn_types_lup = tb, abbreviations_lup = abbreviations_lup, 
             object_type_lup = object_type_lup)
         if (inc_all_mthds_1L_lgl) 
             fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% 
@@ -390,6 +401,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @param fns_chr Functions (a character vector)
 #' @param title_chr Title (a character vector)
 #' @param output_chr Output (a character vector)
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
@@ -401,10 +413,12 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @importFrom purrr pmap_chr
 #' @importFrom stringr str_extract
 #' @keywords internal
-make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_types_lup = NULL, 
-    abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL, 
+make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls = NULL, 
+    fn_types_lup = NULL, abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL, 
     is_generic_lgl = F) 
 {
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(test_for_write_R_warning_fn)) 
         test_for_write_R_warning_fn <- function(x) {
             startsWith(x, "write")
@@ -419,13 +433,19 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_types_lup = NULL,
         fn_title_1L_chr <- ..2
         fn_output_1L_chr <- ..3
         is_generic_1L_lgl <- ..4
-        paste0(make_fn_desc_spine(fn_name_1L_chr = fn_name_1L_chr, 
+        if (!exists(fn_name_1L_chr)) {
+            fn <- fns_env_ls$fns_env[[fn_name_1L_chr]]
+        }
+        else {
+            fn <- eval(parse(text = fn_name_1L_chr))
+        }
+        paste0(make_fn_desc_spine(fn, fn_name_1L_chr = fn_name_1L_chr, 
             fn_title_1L_chr = fn_title_1L_chr, fn_types_lup = fn_types_lup, 
             abbreviations_lup = abbreviations_lup), ifelse(fn_output_1L_chr == 
             "NULL", ifelse(is_generic_1L_lgl, "", paste0(" The function is called for its side effects and does not return a value.", 
             ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn, 
                 " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
-                ""))), paste0(" The function returns ", make_ret_obj_desc(eval(parse(text = fn_name_1L_chr)), 
+                ""))), paste0(" The function returns ", make_ret_obj_desc(fn, 
             abbreviations_lup = abbreviations_lup, starts_sentence_1L_lgl = T), 
             ".")))
     })
@@ -433,6 +453,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_types_lup = NULL,
 }
 #' Make function description spine
 #' @description make_fn_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description spine. The function returns Function description spine (a character vector of length one).
+#' @param fn Function (a function)
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one)
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
@@ -444,7 +465,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fn_types_lup = NULL,
 #' @importFrom purrr map_lgl map_chr
 #' @importFrom tools toTitleCase
 #' @keywords internal
-make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_types_lup = NULL, 
+make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lup = NULL, 
     abbreviations_lup = NULL) 
 {
     if (is.null(fn_types_lup)) 
@@ -452,7 +473,7 @@ make_fn_desc_spine <- function (fn_name_1L_chr, fn_title_1L_chr, fn_types_lup = 
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
-    fn_args_chr <- get_fn_args(eval(parse(text = fn_name_1L_chr)))
+    fn_args_chr <- get_fn_args(fn)
     pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(fn_types_lup$fn_type_nm_chr, 
         ~startsWith(fn_title_1L_chr %>% tools::toTitleCase(), 
             .x))]
@@ -530,6 +551,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL, 
 #'    output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)
 #' @param append_1L_lgl Append (a logical vector of length one), Default: T
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
@@ -548,11 +570,13 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
         inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, 
-        args_ls_ls = NULL), append_1L_lgl = T, fn_types_lup = NULL, 
-    abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+        args_ls_ls = NULL), append_1L_lgl = T, fns_env_ls = NULL, 
+    fn_types_lup = NULL, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), test_for_write_R_warning_fn = NULL) 
 {
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -561,8 +585,9 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     fn_dmt_tbl_tb <- make_fn_dmt_tbl_tmpl(fns_path_chr, fns_dir_chr = fns_dir_chr, 
-        fn_types_lup = fn_types_lup, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn)
+        fns_env_ls = fns_env_ls, fn_types_lup = fn_types_lup, 
+        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, 
+        test_for_write_R_warning_fn = test_for_write_R_warning_fn)
     if (purrr::map_lgl(custom_dmt_ls, ~!is.null(.x)) %>% any()) {
         args_ls <- append(custom_dmt_ls, list(append_1L_lgl = append_1L_lgl)) %>% 
             purrr::discard(is.null)
@@ -575,6 +600,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @description make_fn_dmt_tbl_tmpl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table template. The function returns Function documentation table (a tibble).
 #' @param fns_path_chr Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
@@ -594,10 +620,13 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @importFrom tools toTitleCase
 #' @keywords internal
 make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    fn_types_lup = NULL, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), test_for_write_R_warning_fn = NULL) 
+    fns_env_ls = NULL, fn_types_lup = NULL, abbreviations_lup = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    test_for_write_R_warning_fn = NULL) 
 {
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -622,13 +651,15 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
         startsWith(.x, fn_types_lup$fn_type_nm_chr) %>% any()
     }))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr, 
-        object_type_lup = object_type_lup))
+        fns_env_ls = fns_env_ls, object_type_lup = object_type_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
-        title_chr = title_chr, output_chr = output_chr, fn_types_lup = fn_types_lup, 
-        abbreviations_lup = abbreviations_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
+        title_chr = title_chr, output_chr = output_chr, fns_env_ls = fns_env_ls, 
+        fn_types_lup = fn_types_lup, abbreviations_lup = abbreviations_lup, 
+        test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
         is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R")))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
-        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup))
+        fns_env_ls = fns_env_ls, abbreviations_lup = abbreviations_lup, 
+        object_type_lup = object_type_lup))
     return(fn_dmt_tbl_tb)
 }
 #' Make function names

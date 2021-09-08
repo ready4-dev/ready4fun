@@ -7,6 +7,7 @@
 make_fn_dmt_tbl_tmpl(
   fns_path_chr,
   fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
+  fns_env_ls = NULL,
   fn_types_lup = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
@@ -21,6 +22,8 @@ make_fn_dmt_tbl_tmpl(
 \item{fns_path_chr}{Functions path (a character vector)}
 
 \item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 

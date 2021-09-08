@@ -5,6 +5,7 @@
 \title{Make function description spine}
 \usage{
 make_fn_desc_spine(
+  fn,
   fn_name_1L_chr,
   fn_title_1L_chr,
   fn_types_lup = NULL,
@@ -12,6 +13,8 @@ make_fn_desc_spine(
 )
 }
 \arguments{
+\item{fn}{Function (a function)}
+
 \item{fn_name_1L_chr}{Function name (a character vector of length one)}
 
 \item{fn_title_1L_chr}{Function title (a character vector of length one)}

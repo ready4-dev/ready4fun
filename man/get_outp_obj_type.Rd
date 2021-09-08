@@ -8,6 +8,7 @@ get_outp_obj_type(
   fns_chr,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
+  fns_env_ls = NULL,
   key_1L_chr = NULL,
   object_type_lup = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
@@ -19,6 +20,8 @@ get_outp_obj_type(
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

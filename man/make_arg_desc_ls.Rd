@@ -6,6 +6,7 @@
 \usage{
 make_arg_desc_ls(
   fn_nms_chr,
+  fns_env_ls = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
@@ -16,6 +17,8 @@ make_arg_desc_ls(
 }
 \arguments{
 \item{fn_nms_chr}{Function names (a character vector)}
+
+\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 

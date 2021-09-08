@@ -647,7 +647,8 @@ make_fn_nms <- function (path_1L_chr = "data-raw")
     fn_types_chr <- make_fn_types()
     fn_types_chr <- fn_types_chr[fn_types_chr %>% purrr::map_lgl(~{
         suffix_1L_lgl <- .x
-        undmtd_fns_dir_chr %>% purrr::map_lgl(~endsWith(.x, suffix_1L_lgl))
+        undmtd_fns_dir_chr %>% purrr::map_lgl(~endsWith(.x, suffix_1L_lgl)) %>% 
+            any()
     })]
     fns_1L_chr_ls <- undmtd_fns_dir_chr %>% purrr::map(~list.files(.x, 
         pattern = "*.R$", full.names = TRUE, ignore.case = TRUE)) %>% 

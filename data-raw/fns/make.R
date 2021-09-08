@@ -627,7 +627,7 @@ make_fn_nms <- function(path_1L_chr = "data-raw"){
                                    suffix_1L_lgl <- .x
                                    undmtd_fns_dir_chr %>%
                                                  purrr::map_lgl(~endsWith(.x,
-                                                                          suffix_1L_lgl))
+                                                                          suffix_1L_lgl)) %>% any()
                                    })]
   fns_1L_chr_ls <- undmtd_fns_dir_chr %>%
     purrr::map(~list.files(.x,

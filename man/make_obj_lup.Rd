@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_obj_lup}
 \alias{make_obj_lup}
-\title{Make object}
+\title{Make object lookup table}
 \usage{
 make_obj_lup(obj_lup_spine = make_obj_lup_spine())
 }

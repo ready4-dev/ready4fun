@@ -160,7 +160,7 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
         ncol(combined_lups), ]
     return(combined_lups)
 }
-#' Add plurals to abbreviation
+#' Add plurals to abbreviation lookup table
 #' @description add_plurals_to_abbr_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. The function returns Abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
@@ -203,7 +203,7 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
         dplyr::arrange(short_name_chr)
     return(abbr_tb)
 }
-#' Add rows to function type
+#' Add rows to function type lookup table
 #' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function types (a lookup table).
 #' @param fn_types_lup Function types (a lookup table), Default: make_fn_type_lup()
 #' @param fn_type_nm_chr Function type name (a character vector), Default: 'NA'

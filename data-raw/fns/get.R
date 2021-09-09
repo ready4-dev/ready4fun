@@ -144,22 +144,18 @@ get_from_lup_obj <- function(data_lookup_tb,
 }
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
-                          fns_env_ls = NULL,
                           inc_all_mthds_1L_lgl = T,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           use_last_1L_int = NULL){
-  if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns()
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
                                                           inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
                                                                                           force_false_chr = NA_character_),
                                                           args_ls_ls = NULL),
-                                     fns_env_ls = fns_env_ls,
                                      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
@@ -243,18 +239,9 @@ get_new_abbrs_cndts <- function(text_chr,
                                     c(GradyAugmented, treat_as_words_chr) %>% Hmisc::capitalize()))
   return(new_abbrs_cndts_chr)
 }
-get_new_fn_types <- function(pkg_setup_ls,
-                             #abbreviations_lup, # NOTE: Needs to be updated to read S4 generics and methods
-                             #dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             #dv_url_pfx_1L_chr = NULL,
-                             #key_1L_chr = NULL,
-                             #fn_types_lup = NULL,
+get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S4 generics and methods
                              fn_nms_ls = make_fn_nms(),
-                             #server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-                             #,
-                             #object_type_lup = NULL
-                             ){
+                             undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){
 
   new_fn_types_chr <- purrr::map2(fn_nms_ls[names(fn_nms_ls)!="gnrcs"],
                                   undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
@@ -302,12 +289,10 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
 get_outp_obj_type <- function(fns_chr,
                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                               dv_url_pfx_1L_chr = NULL,
-                              fns_env_ls = NULL,
+                              fns_env_ls,
                               key_1L_chr = NULL,
                               object_type_lup = NULL,
                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
   if(is.null(object_type_lup))
     object_type_lup <- get_rds_from_dv("object_type_lup",
                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,

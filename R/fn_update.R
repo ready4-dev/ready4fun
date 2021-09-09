@@ -1,4 +1,4 @@
-#' Update abbreviation
+#' Update abbreviation lookup table
 #' @description update_abbr_lup() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. Argument short_name_chr provides the object to be updated. The function returns Abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param short_name_chr Short name (a character vector)
@@ -178,7 +178,7 @@ update_fn_dmt_with_slots <- function (fn_name_1L_chr, fn_dmt_1L_chr)
             " ", slots_chr[.y])))
     return(fn_dmt_1L_chr)
 }
-#' Update functions documentation
+#' Update functions documentation tibble
 #' @description update_fns_dmt_tb() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble. Function argument fns_dmt_tb specifies the object to be updated. Argument title_ls provides the object to be updated. The function returns Functions documentation (a tibble).
 #' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param title_ls Title (a list), Default: NULL
@@ -401,7 +401,7 @@ update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr)
         pkg_setup_ls[[which(names(pkg_setup_ls) == "problems_ls")]] <- NULL
     return(pkg_setup_ls)
 }
-#' Update prototype function arguments
+#' Update prototype function arguments list
 #' @description update_pt_fn_args_ls() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update prototype function arguments list. Function argument args_ls specifies the object to be updated. The function returns Updated arguments (a list).
 #' @param args_ls Arguments (a list)
 #' @return Updated arguments (a list)

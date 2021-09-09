@@ -1,4 +1,4 @@
-#' Make additional packages
+#' Make additional packages list
 #' @description make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make additional packages list. The function returns Additional packages (a list).
 #' @param depends_chr Depends (a character vector), Default: NULL
 #' @param enhances_chr Enhances (a character vector), Default: NULL
@@ -52,10 +52,10 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
         key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     return(arg_desc_chr)
 }
-#' Make argument description
+#' Make argument description list
 #' @description make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).
 #' @param fn_nms_chr Function names (a character vector)
-#' @param fns_env_ls Functions (a list of environments), Default: NULL
+#' @param fns_env_ls Functions (a list of environments)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
@@ -69,12 +69,10 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @importFrom purrr map
 #' @importFrom stats setNames
 #' @keywords internal
-make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
-    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
-    if (is.null(fns_env_ls)) 
-        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -282,7 +280,7 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, object_type_lup)
         arg_type_1L_chr), NA_character_, arg_type_1L_chr)
     return(arg_type_abbr_spine_1L_chr)
 }
-#' Make argument type
+#' Make argument type lookup table list
 #' @description make_arg_type_lup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type lookup table list. The function returns Lookup table list (a list of lookup tables).
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
@@ -307,7 +305,7 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "htt
         purrr::map(~dplyr::filter(new_lup, nchar_int == .x))
     return(lup_ls)
 }
-#' Make build ignore
+#' Make build ignore list
 #' @description make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).
 #' @param file_nms_chr File names (a character vector), Default: NULL
 #' @param regulars_rgx Regulars (a regular expression vector), Default: NULL
@@ -321,7 +319,7 @@ make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL)
     build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)
     return(build_ignore_ls)
 }
-#' Make dependent functions
+#' Make dependent functions list
 #' @description make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make dependent functions list. The function returns Argument (a list).
 #' @param arg_ls Argument (a list)
 #' @param pkg_depcy_ls Package dependency (a list)
@@ -349,12 +347,9 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
-#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table)
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param object_type_lup Object type (a lookup table), Default: get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-#'    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-#'    server_1L_chr = server_1L_chr)
+#' @param abbreviations_lup Abbreviations (a lookup table)
+#' @param object_type_lup Object type (a lookup table)
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @return All functions documentation (a tibble)
 #' @rdname make_dmt_for_all_fns
@@ -366,13 +361,8 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
-    fns_env_ls = NULL, fn_types_lup, abbreviations_lup = NULL, 
-    object_type_lup = get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-        server_1L_chr = server_1L_chr), inc_all_mthds_1L_lgl = T) 
+    fn_types_lup, abbreviations_lup, object_type_lup, inc_all_mthds_1L_lgl = T) 
 {
-    if (is.null(fns_env_ls)) 
-        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -387,7 +377,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
             tb <- fn_types_lup %>% dplyr::filter(is_method_lgl)
         fns_dmt_tb <- make_fn_dmt_tbl(..1, fns_dir_chr = ..2, 
             custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
-            fns_env_ls = fns_env_ls, fn_types_lup = tb, abbreviations_lup = abbreviations_lup, 
+            fn_types_lup = tb, abbreviations_lup = abbreviations_lup, 
             object_type_lup = object_type_lup)
         if (inc_all_mthds_1L_lgl) 
             fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% 
@@ -401,7 +391,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @param fns_chr Functions (a character vector)
 #' @param title_chr Title (a character vector)
 #' @param output_chr Output (a character vector)
-#' @param fns_env_ls Functions (a list of environments), Default: NULL
+#' @param fns_env_ls Functions (a list of environments)
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param test_for_write_R_warning_fn Test for write warning (a function), Default: NULL
@@ -413,12 +403,10 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
 #' @importFrom purrr pmap_chr
 #' @importFrom stringr str_extract
 #' @keywords internal
-make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls = NULL, 
-    fn_types_lup = NULL, abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL, 
+make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_lup = NULL, 
+    abbreviations_lup = NULL, test_for_write_R_warning_fn = NULL, 
     is_generic_lgl = F) 
 {
-    if (is.null(fns_env_ls)) 
-        fns_env_ls <- read_fns(fns_env = environment())
     if (is.null(test_for_write_R_warning_fn)) 
         test_for_write_R_warning_fn <- function(x) {
             startsWith(x, "write")
@@ -576,7 +564,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), test_for_write_R_warning_fn = NULL) 
 {
     if (is.null(fns_env_ls)) 
-        fns_env_ls <- read_fns(fns_env = environment())
+        fns_env_ls <- read_fns(fns_dir_chr)
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -626,7 +614,7 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
     test_for_write_R_warning_fn = NULL) 
 {
     if (is.null(fns_env_ls)) 
-        fns_env_ls <- read_fns(fns_env = environment())
+        fns_env_ls <- read_fns(fns_dir_chr)
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
@@ -645,7 +633,7 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
             "/"), ""), file_pfx_chr = file_pfx_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title(fns_chr, 
         abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, 
-        is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R")))
+        is_generic_lgl = T))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::filter(title_chr %>% 
         tools::toTitleCase() %>% purrr::map_lgl(~{
         startsWith(.x, fn_types_lup$fn_type_nm_chr) %>% any()
@@ -653,13 +641,11 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr, 
         fns_env_ls = fns_env_ls, object_type_lup = object_type_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
-        title_chr = title_chr, output_chr = output_chr, fns_env_ls = fns_env_ls, 
-        fn_types_lup = fn_types_lup, abbreviations_lup = abbreviations_lup, 
-        test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
+        title_chr = title_chr, output_chr = output_chr, fn_types_lup = fn_types_lup, 
+        abbreviations_lup = abbreviations_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
         is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R")))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
-        fns_env_ls = fns_env_ls, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup))
+        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup))
     return(fn_dmt_tbl_tb)
 }
 #' Make function names
@@ -719,13 +705,13 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     title_chr <- remove_obj_type_from_nm(fns_chr, object_type_lup = object_type_lup, 
-        abbreviations_lup = abbreviations_lup, is_generic_lgl = is_generic_lgl) %>% 
+        abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
         stringr::str_replace_all("_", " ") %>% Hmisc::capitalize() %>% 
         purrr::map_chr(~replace_abbr(.x, abbreviations_lup = abbreviations_lup) %>% 
             stringi::stri_replace_last_fixed(" R", ""))
     return(title_chr)
 }
-#' Make function type
+#' Make function type lookup table
 #' @description make_fn_type_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function type lookup table. The function returns Function types (a lookup table).
 #' @param fn_type_nm_chr Function type name (a character vector), Default: character(0)
 #' @param fn_type_desc_chr Function type description (a character vector), Default: character(0)
@@ -885,7 +871,7 @@ make_list_phrase <- function (items_chr)
         replacement = " and")
     return(list_phrase_1L_chr)
 }
-#' Make new entries
+#' Make new entries tibble
 #' @description make_new_entries_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
 #' @param short_name_chr Short name (a character vector)
 #' @param long_name_chr Long name (a character vector)
@@ -1074,7 +1060,7 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
         fn_det_1L_chr = fn_det_1L_chr, arg_desc_chr = arg_desc_chr)
     return(new_fn_dmt_chr_ls)
 }
-#' Make object
+#' Make object lookup table
 #' @description make_obj_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table. The function returns Object (a tibble).
 #' @param obj_lup_spine PARAM_DESCRIPTION, Default: make_obj_lup_spine()
 #' @return Object (a tibble)
@@ -1146,7 +1132,7 @@ make_obj_lup_spine <- function (seed_obj_type_lup = get_rds_from_dv("seed_obj_ty
     }
     return(obj_lup_spine)
 }
-#' Make package description
+#' Make package description list
 #' @description make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param pkg_title_1L_chr Package title (a character vector of length one)
@@ -1175,7 +1161,7 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
         URL = paste0(urls_chr, collapse = ", "))
     return(pkg_desc_ls)
 }
-#' Make package dataset
+#' Make package dataset list
 #' @description make_pkg_ds_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package dataset list. The function returns Package dataset (a list).
 #' @param db_df Database (a data.frame)
 #' @param db_1L_chr Database (a character vector of length one)
@@ -1202,7 +1188,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
         vars_ls = vars_ls)
     return(pkg_ds_ls)
 }
-#' Make package setup
+#' Make package setup list
 #' @description make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
@@ -1417,7 +1403,7 @@ make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_c
         ref_slot_1L_chr = fn_name_1L_chr)
     return(std_fn_dmt_spine_chr_ls)
 }
-#' Make undocumented functions directory
+#' Make undocumented functions directory character vector
 #' @description make_undmtd_fns_dir_chr() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make undocumented functions directory character vector. The function returns Undocumented functions directory (a character vector).
 #' @param path_1L_chr Path (a character vector of length one), Default: 'data-raw'
 #' @param drop_empty_1L_lgl Drop empty (a logical vector of length one), Default: F

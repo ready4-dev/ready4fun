@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_abbr_lup}
 \alias{write_abbr_lup}
-\title{Write abbreviation}
+\title{Write abbreviation lookup table}
 \usage{
 write_abbr_lup(
   seed_lup = NULL,

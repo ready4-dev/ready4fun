@@ -8,7 +8,7 @@ make_fn_desc(
   fns_chr,
   title_chr,
   output_chr,
-  fns_env_ls = NULL,
+  fns_env_ls,
   fn_types_lup = NULL,
   abbreviations_lup = NULL,
   test_for_write_R_warning_fn = NULL,
@@ -22,7 +22,7 @@ make_fn_desc(
 
 \item{output_chr}{Output (a character vector)}
 
-\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
+\item{fns_env_ls}{Functions (a list of environments)}
 
 \item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 

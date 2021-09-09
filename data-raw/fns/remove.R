@@ -29,7 +29,7 @@ remove_obj_type_from_nm <- function(nms_chr,
 
   })
   names_chr <- purrr::map2_chr(nms_chr,
-                                   suffices_chr,
+                               suffices_chr,
                                    ~ {
                                      name_1L_chr <- .x
                                      ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr,

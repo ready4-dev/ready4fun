@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_addl_pkgs_ls}
 \alias{make_addl_pkgs_ls}
-\title{Make additional packages}
+\title{Make additional packages list}
 \usage{
 make_addl_pkgs_ls(
   depends_chr = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_pkg_setup_ls}
 \alias{make_pkg_setup_ls}
-\title{Make package setup}
+\title{Make package setup list}
 \usage{
 make_pkg_setup_ls(
   pkg_desc_ls,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_rows_to_fn_type_lup}
 \alias{add_rows_to_fn_type_lup}
-\title{Add rows to function type}
+\title{Add rows to function type lookup table}
 \usage{
 add_rows_to_fn_type_lup(
   fn_types_lup = make_fn_type_lup(),

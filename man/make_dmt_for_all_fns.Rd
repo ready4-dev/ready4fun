@@ -10,12 +10,9 @@ make_dmt_for_all_fns(
   custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls =
     list(force_true_chr = NA_character_, force_false_chr = NA_character_), args_ls_ls =
     NULL),
-  fns_env_ls = NULL,
   fn_types_lup,
-  abbreviations_lup = NULL,
-  object_type_lup = get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr =
-    dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr,
-    server_1L_chr = server_1L_chr),
+  abbreviations_lup,
+  object_type_lup,
   inc_all_mthds_1L_lgl = T
 )
 }
@@ -27,15 +24,11 @@ make_dmt_for_all_fns(
 \item{custom_dmt_ls}{Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
 force_false_chr = NA_character_), args_ls_ls = NULL)}
 
-\item{fns_env_ls}{Functions (a list of environments), Default: NULL}
-
 \item{fn_types_lup}{Function types (a lookup table)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
-\item{object_type_lup}{Object type (a lookup table), Default: get_rds_from_dv("object_type_lup", dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr,
-server_1L_chr = server_1L_chr)}
+\item{object_type_lup}{Object type (a lookup table)}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_remove.R
 \name{remove_lbls_from_df}
 \alias{remove_lbls_from_df}
-\title{Remove labels from}
+\title{Remove labels from data.frame}
 \usage{
 remove_lbls_from_df(data_df)
 }

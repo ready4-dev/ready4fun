@@ -42,15 +42,13 @@ make_arg_desc <- function(fn_args_chr,
   return(arg_desc_chr)
 }
 make_arg_desc_ls <- function(fn_nms_chr,
-                             fns_env_ls = NULL,
+                             fns_env_ls,
                              abbreviations_lup = NULL,
                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                              dv_url_pfx_1L_chr = NULL,
                              key_1L_chr = NULL,
                              object_type_lup = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
@@ -286,18 +284,11 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                                       inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
                                                                                       force_false_chr = NA_character_),
                                                       args_ls_ls = NULL),
-                                 fns_env_ls = NULL,
                                  fn_types_lup,
-                                 abbreviations_lup = NULL,
-                                 object_type_lup = get_rds_from_dv("object_type_lup",
-                                                                   dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                   key_1L_chr = key_1L_chr,
-                                                                   server_1L_chr = server_1L_chr),
+                                 abbreviations_lup,
+                                 object_type_lup,
                                  inc_all_mthds_1L_lgl = T){
   # add assert - same length inputs to purrr
-  if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
   if (is.null(abbreviations_lup))
     utils::data("abbreviations_lup", package = "ready4fun",
          envir = environment())
@@ -315,7 +306,6 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                   fns_dir_chr = ..2,
                                   custom_dmt_ls = custom_dmt_ls,
                                   append_1L_lgl = T,
-                                  fns_env_ls = fns_env_ls,
                                   fn_types_lup = tb,
                                   abbreviations_lup = abbreviations_lup,
                                   object_type_lup = object_type_lup)
@@ -349,13 +339,11 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
 make_fn_desc <-  function(fns_chr,
                           title_chr,
                           output_chr,
-                          fns_env_ls = NULL,
+                          fns_env_ls,
                           fn_types_lup = NULL,
                           abbreviations_lup = NULL,
                           test_for_write_R_warning_fn = NULL,
                           is_generic_lgl = F){
-  if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
   if(is.null(test_for_write_R_warning_fn))
     test_for_write_R_warning_fn <- function(x){startsWith(x,"write")}
   if(is.null(abbreviations_lup))
@@ -516,7 +504,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                             test_for_write_R_warning_fn = NULL){
   if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
+    fns_env_ls <- read_fns(fns_dir_chr)
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
                 package="ready4fun",envir = environment())
@@ -552,7 +540,7 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                                  test_for_write_R_warning_fn = NULL){
   if(is.null(fns_env_ls))
-    fns_env_ls <- read_fns(fns_env = environment())
+    fns_env_ls <- read_fns(fns_dir_chr)
   if(is.null(abbreviations_lup))
     utils::data("abbreviations_lup", # Change to get_rds_from_dv ?
                 package="ready4fun",envir = environment())
@@ -579,7 +567,7 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
     dplyr::mutate(title_chr = make_fn_title(fns_chr,
                                             abbreviations_lup = abbreviations_lup,
                                             object_type_lup = object_type_lup,
-                                            is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
+                                            is_generic_lgl = T#purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
     ))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::filter(title_chr %>%
@@ -595,14 +583,12 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
     dplyr::mutate(desc_chr = make_fn_desc(fns_chr,
                                           title_chr = title_chr,
                                           output_chr = output_chr,
-                                          fns_env_ls = fns_env_ls,
                                           fn_types_lup = fn_types_lup,
                                           abbreviations_lup = abbreviations_lup,
                                           test_for_write_R_warning_fn = test_for_write_R_warning_fn,
                                           is_generic_lgl = purrr::map_lgl(file_nm_chr, ~ .x == "generics.R")))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr,
-                                             fns_env_ls = fns_env_ls,
                                              abbreviations_lup = abbreviations_lup,
                                              object_type_lup = object_type_lup))
   return(fn_dmt_tbl_tb)
@@ -625,13 +611,13 @@ make_fn_title <- function(fns_chr,
     utils::data("abbreviations_lup", # Change to get_dv_from_rds ?
                 package="ready4fun",envir = environment())
   title_chr <- remove_obj_type_from_nm(fns_chr,
-                                  object_type_lup = object_type_lup,
-                                  abbreviations_lup = abbreviations_lup,
-                                  is_generic_lgl = is_generic_lgl) %>%
+                                       object_type_lup = object_type_lup,
+                                       abbreviations_lup = abbreviations_lup,
+                                       is_generic_lgl = T) %>% # is_generic_lgl
     stringr::str_replace_all("_"," ") %>%
     Hmisc::capitalize() %>%
     purrr::map_chr(~replace_abbr(.x,
-                                     abbreviations_lup = abbreviations_lup) %>%
+                                 abbreviations_lup = abbreviations_lup) %>%
                      stringi::stri_replace_last_fixed(" R",""))
   return(title_chr)
 }

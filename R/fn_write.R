@@ -1,4 +1,4 @@
-#' Write abbreviation
+#' Write abbreviation lookup table
 #' @description write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
 #' @param seed_lup Seed (a lookup table), Default: NULL
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
@@ -276,7 +276,7 @@ write_clss <- function (cls_fn_ls, dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_c
             !!!args_ls)
     }
 }
-#' Write documented function type
+#' Write documented function type lookup table
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param fn_types_lup Function types (a lookup table), Default: make_fn_type_lup()
 #' @param overwrite_1L_lgl Overwrite (a logical vector of length one), Default: T

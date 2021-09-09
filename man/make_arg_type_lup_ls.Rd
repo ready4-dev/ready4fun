@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_type_lup_ls}
 \alias{make_arg_type_lup_ls}
-\title{Make argument type}
+\title{Make argument type lookup table list}
 \usage{
 make_arg_type_lup_ls(
   object_type_lup = NULL,

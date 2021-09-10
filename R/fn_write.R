@@ -140,7 +140,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @param pkg_setup_ls Package setup (a list)
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
 #' @param update_pkgdown_1L_lgl Update pkgdown (a logical vector of length one), Default: T
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one)
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
 #' @param dev_pkgs_chr Development packages (a character vector), Default: deprecated()
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: deprecated()
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: deprecated()
@@ -156,17 +156,17 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom dplyr filter pull
 #' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkgdown_1L_lgl = T, 
-    path_to_dmt_dir_1L_chr, dev_pkgs_chr = deprecated(), path_to_dvpr_dmt_dir_1L_chr = deprecated(), 
-    path_to_pkg_rt_1L_chr = deprecated(), path_to_user_dmt_dir_1L_chr = deprecated(), 
-    r_dir_1L_chr = deprecated()) 
+    path_to_dmt_dir_1L_chr = deprecated(), dev_pkgs_chr = deprecated(), 
+    path_to_dvpr_dmt_dir_1L_chr = deprecated(), path_to_pkg_rt_1L_chr = deprecated(), 
+    path_to_user_dmt_dir_1L_chr = deprecated(), r_dir_1L_chr = deprecated()) 
 {
     if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9307", "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)", 
-            details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+            details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
     }
     if (lifecycle::is_present(path_to_user_dmt_dir_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9307", "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)", 
-            details = "Please use `ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+            details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
     }
     if (lifecycle::is_present(dev_pkgs_chr)) {
         lifecycle::deprecate_warn("0.0.0.9327", "ready4fun::write_and_doc_fn_fls(dev_pkgs_chr)", 
@@ -180,15 +180,22 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
         lifecycle::deprecate_warn("0.0.0.9327", "ready4fun::write_and_doc_fn_fls(path_to_pkg_rt_1L_chr)", 
             details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
     }
+    if (lifecycle::is_present(path_to_dmt_dir_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)", 
+            details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
+    }
     add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
     add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
     dev_pkgs_chr <- pkg_setup_ls$subsequent_ls$dev_pkgs_chr
     r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/R")
-    write_new_dirs(c(path_to_dmt_dir_1L_chr, paste0(path_to_dmt_dir_1L_chr, 
-        "/Developer"), paste0(path_to_dmt_dir_1L_chr, "/User")))
-    purrr::walk2(list(paste0(path_to_dmt_dir_1L_chr, "/Developer"), 
-        paste0(path_to_dmt_dir_1L_chr, "/User")), c(T, F), ~{
+    write_new_dirs(c(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+        paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+            "/Developer"), paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+            "/User")))
+    purrr::walk2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+        "/Developer"), paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+        "/User")), c(T, F), ~{
         write_new_files(paths_chr = paste0(r_dir_1L_chr, "/", 
             fns_dmt_tb$file_pfx_chr[1], fns_dmt_tb$file_nm_chr %>% 
                 unique()), custom_write_ls = list(fn = write_fn_fl, 
@@ -235,22 +242,28 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
 }
 #' Write classes
 #' @description write_clss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param cls_fn_ls Class (a list of functions)
 #' @param dss_records_ls Datasets records (a list)
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param cls_fn_ls Class (a list of functions), Default: deprecated()
 #' @return NULL
 #' @rdname write_clss
 #' @export 
+#' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom devtools document load_all
 #' @importFrom rlang exec
 #' @keywords internal
-write_clss <- function (cls_fn_ls, dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL, 
-    key_1L_chr = NULL, self_serve_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL, 
+    key_1L_chr = NULL, self_serve_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    cls_fn_ls = deprecated()) 
 {
+    if (lifecycle::is_present(cls_fn_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_clss(cls_fn_ls)", 
+            details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the cls_fn_ls object to this function.")
+    }
     if (self_serve_1L_lgl) {
         write_new_files(paths_chr = paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/R"), "/", dss_records_ls$fns_dmt_tb$file_pfx_chr[1], 
@@ -261,8 +274,9 @@ write_clss <- function (cls_fn_ls, dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_c
         devtools::document()
         devtools::load_all()
     }
-    if (!is.null(cls_fn_ls)) {
-        args_ls <- rlang::exec(cls_fn_ls$fn, !!!cls_fn_ls$args_ls) %>% 
+    if (!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)) {
+        args_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn, 
+            !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls) %>% 
             make_pkg_ds_ls(db_1L_chr = "prototype_lup", abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
                 title_1L_chr = "Class prototype lookup table", 
@@ -609,6 +623,7 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @description write_fns_to_split_dests() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split destinations. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @param pkg_1_core_fns_chr Package 1 core functions (a character vector)
+#' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param original_pkg_nm_1L_chr Original package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param pkg_1_nm_1L_chr Package 1 name (a character vector of length one), Default: 'package_1'
 #' @param pkg_2_nm_1L_chr Package 2 name (a character vector of length one), Default: 'package_2'
@@ -617,16 +632,13 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @return NULL
 #' @rdname write_fns_to_split_dests
 #' @export 
-#' @importFrom utils data
 #' @importFrom purrr map_chr walk2 walk
 #' @importFrom dplyr filter select
 #' @keywords internal
-write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
+write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, fns_dmt_tb, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
     tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
 {
-    utils::data("fns_dmt_tb", package = original_pkg_nm_1L_chr, 
-        envir = environment())
     read_fns(path_to_fns_dir_1L_chr)
     fns_for_pkg_1_chr <- get_all_depcys_of_fns(pkg_depcy_ls = pkg_depcy_ls, 
         fns_chr = pkg_1_core_fns_chr)
@@ -758,31 +770,37 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 }
 #' Write manuals
 #' @description write_manuals() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param pkg_desc_ls Package description (a list)
 #' @param pkg_setup_ls Package setup (a list)
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one)
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param pkg_desc_ls Package description (a list), Default: deprecated()
 #' @return NULL
 #' @rdname write_manuals
 #' @export 
+#' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom purrr pluck
 #' @keywords internal
-write_manuals <- function (pkg_desc_ls, pkg_setup_ls, path_to_dmt_dir_1L_chr, 
+write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(), 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, publish_dv_1L_lgl = T, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), pkg_desc_ls = deprecated()) 
 {
-    write_manuals_to_dv(package_1L_chr = pkg_desc_ls$Package, 
-        path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1], 
+    if (lifecycle::is_present(pkg_desc_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_manuals(pkg_desc_ls)", 
+            details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+    }
+    write_manuals_to_dv(package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+        path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+        pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1], 
         publish_dv_1L_lgl = publish_dv_1L_lgl)
-    dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_desc_ls$Package, 
+    dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
         "_", c("Developer", "User"), ".pdf"), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1], 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
         server_1L_chr = server_1L_chr)
-    project_url_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
-        unlist() %>% purrr::pluck(3)
+    project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+        strsplit(",") %>% unlist() %>% purrr::pluck(3)
     if (is.null(project_url_1L_chr)) 
         project_url_1L_chr <- NA_character_
     write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2], 
@@ -825,7 +843,6 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' Write new abbreviations
 #' @description write_new_abbrs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new abbreviations. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
-#' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
 #' @param long_name_chr Long name (a character vector), Default: NULL
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
@@ -840,10 +857,9 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' @importFrom stringr str_remove
 #' @importFrom testit assert
 #' @keywords internal
-write_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, long_name_chr = NULL, 
-    custom_plural_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    no_plural_chr = NA_character_, publish_dv_1L_lgl = T, pfx_rgx = NA_character_, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_ls = NULL, 
+    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), no_plural_chr = NA_character_, 
+    publish_dv_1L_lgl = T, pfx_rgx = NA_character_, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
         pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
@@ -858,7 +874,7 @@ write_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, long_name_
     }
     if (!is.null(pkg_setup_ls$problems_ls$missing_class_abbrs_chr)) {
         class_desc_chr <- pkg_setup_ls$problems_ls$missing_class_abbrs_chr %>% 
-            purrr::map_chr(~get_from_lup_obj(classes_to_make_tb, 
+            purrr::map_chr(~get_from_lup_obj(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
                 match_value_xx = stringr::str_remove(.x, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
                   "_")), match_var_nm_1L_chr = "name_stub_chr", 
                 target_var_nm_1L_chr = "class_desc_chr", evaluate_lgl = F))
@@ -1226,40 +1242,55 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 }
 #' Write package
 #' @description write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param pkg_desc_ls Package description (a list)
-#' @param pkg_ds_ls_ls Package dataset (a list of lists)
 #' @param pkg_setup_ls Package setup (a list)
-#' @param cls_fn_ls Class (a list of functions), Default: NULL
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param cls_fn_ls Class (a list of functions), Default: deprecated()
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
+#' @param pkg_desc_ls Package description (a list), Default: deprecated()
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: deprecated()
 #' @return NULL
 #' @rdname write_package
 #' @export 
+#' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
 #' @importFrom purrr pluck
 #' @keywords internal
-write_package <- function (pkg_desc_ls, pkg_ds_ls_ls, pkg_setup_ls, cls_fn_ls = NULL, 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
-    publish_dv_1L_lgl = T, self_serve_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+    publish_dv_1L_lgl = T, self_serve_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    cls_fn_ls = deprecated(), path_to_dmt_dir_1L_chr = deprecated(), 
+    pkg_desc_ls = deprecated(), pkg_ds_ls_ls = deprecated()) 
 {
+    if (lifecycle::is_present(pkg_desc_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(pkg_desc_ls)", 
+            details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+    }
+    if (lifecycle::is_present(pkg_ds_ls_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(pkg_ds_ls_ls)", 
+            details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_ds_ls_ls object to this function.")
+    }
+    if (lifecycle::is_present(cls_fn_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(cls_fn_ls)", 
+            details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the cls_fn_ls object to this function.")
+    }
+    if (lifecycle::is_present(path_to_dmt_dir_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(path_to_dmt_dir_1L_chr)", 
+            details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
+    }
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-    dss_records_ls <- write_pkg_dss(pkg_ds_ls_ls, pkg_setup_ls = pkg_setup_ls, 
-        pkg_url_1L_chr = pkg_desc_ls$URL %>% strsplit(",") %>% 
-            unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
-    write_clss(cls_fn_ls = cls_fn_ls, dss_records_ls = dss_records_ls, 
-        pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-        key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
-        server_1L_chr = server_1L_chr)
-    write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
-        pkg_setup_ls = pkg_setup_ls, path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
-        update_pkgdown_1L_lgl = T)
-    write_manuals(pkg_desc_ls, pkg_setup_ls = pkg_setup_ls, path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
+    dss_records_ls <- write_pkg_dss(pkg_setup_ls, pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+        strsplit(",") %>% unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
+        inc_pkg_meta_data_1L_lgl = )
+    write_clss(dss_records_ls = dss_records_ls, pkg_setup_ls = pkg_setup_ls, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-        server_1L_chr = server_1L_chr)
+        self_serve_1L_lgl = self_serve_1L_lgl, server_1L_chr = server_1L_chr)
+    write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
+        pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T)
+    write_manuals(pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
 }
 #' Write package
 #' @description write_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -1283,13 +1314,13 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 }
 #' Write package datasets
 #' @description write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).
-#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
 #' @param pkg_setup_ls Package setup (a list)
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL
 #' @param details_ls Details (a list), Default: NULL
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
+#' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
 #' @param pkg_url_1L_chr Package url (a character vector of length one), Default: 'NA'
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
@@ -1297,34 +1328,39 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: deprecated()
 #' @return Datasets records (a list)
 #' @rdname write_pkg_dss
 #' @export 
-#' @importFrom utils data
+#' @importFrom tibble tibble
 #' @importFrom purrr reduce
 #' @importFrom rlang exec
 #' @keywords internal
-write_pkg_dss <- function (pkg_ds_ls_ls = NULL, pkg_setup_ls, args_ls_ls = NULL, 
-    details_ls = NULL, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    dv_ds_nm_1L_chr, inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), 
+write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL, 
+    dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dv_ds_nm_1L_chr, 
+    inc_all_mthds_1L_lgl = T, inc_pkg_meta_data_1L_lgl = F, paths_ls = make_fn_nms(), 
     pkg_url_1L_chr = NA_character_, R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    pkg_ds_ls_ls = deprecated()) 
 {
-    pkg_dss_tb <- write_abbr_lup(seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
-        pkg_nm_1L_chr = dev_pkg_nm_1L_chr, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
-    utils::data("abbreviations_lup", envir = environment())
-    pkg_dss_tb <- pkg_setup_ls$subsequent_ls$fn_types_lup %>% 
-        write_dmtd_fn_type_lup(abbreviations_lup = abbreviations_lup, 
-            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
-            pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-            dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
-    utils::data("fn_types_lup", envir = environment())
-    if (!is.null(pkg_ds_ls_ls)) {
-        pkg_dss_tb <- purrr::reduce(pkg_ds_ls_ls, .init = pkg_dss_tb, 
-            ~{
+    pkg_dss_tb <- tibble::tibble(ds_obj_nm_chr = character(0), 
+        title_chr = character(0), desc_chr = character(0), url_chr = character(0))
+    if (inc_pkg_meta_data_1L_lgl) {
+        pkg_dss_tb <- write_abbr_lup(seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            pkg_dss_tb = pkg_dss_tb, pkg_nm_1L_chr = dev_pkg_nm_1L_chr, 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
+        pkg_dss_tb <- pkg_setup_ls$subsequent_ls$fn_types_lup %>% 
+            write_dmtd_fn_type_lup(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+                object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+                pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+                dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+                server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
+    }
+    if (!is.null(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)) {
+        pkg_dss_tb <- purrr::reduce(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls, 
+            .init = pkg_dss_tb, ~{
                 if (is.null(.y$abbreviations_lup)) 
-                  .y$abbreviations_lup <- abbreviations_lup
+                  .y$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
                 if (is.null(.y$object_type_lup)) 
                   .y$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
                 args_ls <- append(.y, list(overwrite_1L_lgl = T, 
@@ -1334,21 +1370,23 @@ write_pkg_dss <- function (pkg_ds_ls_ls = NULL, pkg_setup_ls, args_ls_ls = NULL,
                 rlang::exec(write_and_doc_ds, !!!args_ls)
             })
     }
-    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = abbreviations_lup, 
+    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
         custom_dmt_ls = list(details_ls = details_ls, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
             force_false_chr = NA_character_), args_ls_ls = args_ls_ls), 
-        fn_types_lup = fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, 
-        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+        fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
+        inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
         undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-    pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
-        db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(dev_pkg_nm_1L_chr, 
-            " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
-            dev_pkg_nm_1L_chr, " package."), format_1L_chr = "A tibble", 
-        url_1L_chr = pkg_url_1L_chr, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
-        pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
-        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-        server_1L_chr = server_1L_chr)
+    if (inc_pkg_meta_data_1L_lgl) {
+        pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
+            db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(dev_pkg_nm_1L_chr, 
+                " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
+                dev_pkg_nm_1L_chr, " package."), format_1L_chr = "A tibble", 
+            url_1L_chr = pkg_url_1L_chr, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+            pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+            server_1L_chr = server_1L_chr)
+    }
     dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb, fns_dmt_tb = fns_dmt_tb)
     return(dss_records_ls)
 }

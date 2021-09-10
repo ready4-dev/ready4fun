@@ -2,6 +2,7 @@
 ## Dataverse dataset with seed object_type and abbreviations look-ups must be established first.
 # 1. Set-up workspace.
 library(magrittr)
+library(lifecycle)
 fns_dir_1L_chr <-"data-raw/fns"
 if(!dir.exists(fns_dir_1L_chr))
   dir.create(fns_dir_1L_chr)
@@ -51,35 +52,20 @@ authors_prsn = c(utils::person(
 urls_chr = c("https://ready4-dev.github.io/ready4fun/",
              "https://github.com/ready4-dev/ready4fun",
              "https://www.ready4-dev.com/"))
-pkg_setup_ls <- pkg_desc_ls %>%
-  fns_env_ls$fns_env$make_pkg_setup_ls(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
-                    badges_lup = badges_lup,
-                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
-                    check_type_1L_chr = "standard",
-                    copyright_holders_chr = "Orygen",
-                    lifecycle_stage_1L_chr = "experimental",
-                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
-                    pkg_dmt_dv_dss_chr = c("https://doi.org/10.7910/DVN/HLLXZN",
-                                           "https://doi.org/10.7910/DVN/2Y9VF9"),
-                    ready4_type_1L_chr = "authoring",
-                    user_manual_fns_chr = c("get_dv_fls_urls", "get_from_lup_obj", "get_rds_from_dv",
-                                            "make_pkg_desc_ls", "make_pkg_ds_ls","make_pkg_setup_ls",
-                                            "update_abbr_lup",
-                                           " write_package", "write_ws"))
 pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                        fns_env_ls$fns_env$make_pkg_ds_ls(db_df = .,
-                                      abbreviations_lup = .,
-                                      db_1L_chr = "object_type_lup",
-                                      desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
-                                      object_type_lup = .,
-                                      title_1L_chr = "Object abbreviations lookup table",
-                                      url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"),
+                                                         abbreviations_lup = .,
+                                                         db_1L_chr = "object_type_lup",
+                                                         desc_1L_chr = "A lookup table to identify R object types from an abbreviation that can be used as object name suffices.",
+                                                         object_type_lup = .,
+                                                         title_1L_chr = "Object abbreviations lookup table",
+                                                         url_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9"),
                      fns_env_ls$fns_env$make_pkg_ds_ls(db_df = badges_lup,
-                                    db_1L_chr = "badges_lup",
-                                    desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
-                                    title_1L_chr = "ready4 badges lookup table",
-                                    url_1L_chr = "https://ready4-dev.github.io/ready4/"))
-##
+                                                       db_1L_chr = "badges_lup",
+                                                       desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
+                                                       title_1L_chr = "ready4 badges lookup table",
+                                                       url_1L_chr = "https://ready4-dev.github.io/ready4/"))
+#
 # 4. Specify the new classes to be created
 # name_pfx_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
 classes_to_make_tb <- dplyr::bind_rows(
@@ -102,20 +88,20 @@ classes_to_make_tb <- dplyr::bind_rows(
                                               vals_ls = list(list(short_name_chr = "character(0)",
                                                                   long_name_chr = "character(0)",
                                                                   plural_lgl = "logical(0)"))),
-   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
-                                               make_s3_lgl = T,#F
-                                               name_stub_chr = "pkg_desc",
-                                               #slots_ls = c("Package","Title","Description","Authors", "License", "URL") %>% list(),
-                                               pt_chkr_pfx_ls = list(list("is.")),
-                                               pt_ls = list(list("list")),#c("character","character","character","list", "logical","character") %>% list(),
-                                               pt_ns_ls = list(list("base")),
-                                               #parent_class_chr = NA_character_
-                                               vals_ls = list(list(Package = "character(0)",
-                                                                   Title = "character(0)",
-                                                                   Description = "character(0)",
-                                                                   License = "logical(0)",
-                                                                   URL = "character(0)"))
-                                              ),
+  ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
+                                              make_s3_lgl = T,#F
+                                              name_stub_chr = "pkg_desc",
+                                              #slots_ls = c("Package","Title","Description","Authors", "License", "URL") %>% list(),
+                                              pt_chkr_pfx_ls = list(list("is.")),
+                                              pt_ls = list(list("list")),#c("character","character","character","list", "logical","character") %>% list(),
+                                              pt_ns_ls = list(list("base")),
+                                              #parent_class_chr = NA_character_
+                                              vals_ls = list(list(Package = "character(0)",
+                                                                  Title = "character(0)",
+                                                                  Description = "character(0)",
+                                                                  License = "logical(0)",
+                                                                  URL = "character(0)"))
+  ),
   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for initial package set-up step.",#S3
                                               make_s3_lgl = T,#FALSE,
                                               name_stub_chr = "pkg_setup_one",
@@ -132,9 +118,9 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                                   "ready4_badges()", "character(0)", "logical(0)", "character(0)", "character(0)",
                                                                   "logical(0)", "logical(0)", "character(0)", "character(0)") %>%
                                                                stats::setNames(c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
-                                                                                          "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
-                                                                                          "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr")))
-                                              ),
+                                                                                 "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
+                                                                                 "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr")))
+  ),
   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for second package set-up step.", # S3
                                               make_s3_lgl = T,#F
                                               name_stub_chr = "pkg_setup_two",
@@ -145,7 +131,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                               # parent_class_chr = NA_character_
                                               vals_ls = list("list()", "list()", "character(0)", "character(0)", "character(0)") %>%
                                                 stats::setNames(c("addl_pkgs_ls","build_ignore_ls","dev_pkgs_chr","pkg_dmt_dv_dss_chr", "user_manual_fns_chr")) %>% list(),
-                                              ),
+  ),
   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for package set-up.", #S3
                                               make_s3_lgl = T, #F
                                               name_stub_chr = "pkg_setup",
@@ -156,7 +142,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                               # parent_class_chr = NA_character_
                                               vals_ls = list("ready4fun_pkg_setup_one", "ready4fun_pkg_setup_two") %>%
                                                 stats::setNames(c("initial_ls","subsequent_ls")) %>% list()
-                                              ),
+  ),
   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",#S3
                                               make_s3_lgl = T,#F
                                               name_stub_chr = "pkg_ds",
@@ -168,15 +154,43 @@ classes_to_make_tb <- dplyr::bind_rows(
                                               pt_ns_ls = list(list("base")),
                                               # parent_class_chr = NA_character_
                                               vals_ls = list("data.frame()","character(0)","character(0)","character(0)", "ready4fun_abbreviations()",
-                                                     "character(0)","ready4fun_abbreviations()","logical(0)","character(0)","list()") %>%
+                                                             "character(0)","ready4fun_abbreviations()","logical(0)","character(0)","list()") %>%
                                                 stats::setNames(c("db_df","db_1L_chr","title_1L_chr","desc_1L_chr", "abbreviations_lup",
                                                                   "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
   ready4class::ready4_constructor_tbl()
+#
+pkg_setup_ls <- pkg_desc_ls %>%
+  fns_env_ls$fns_env$make_pkg_setup_ls(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
+                    badges_lup = badges_lup,
+                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
+                    check_type_1L_chr = "standard",
+                    # cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup,
+                    #                  args_ls = list(x = classes_to_make_tb,
+                    #                                 dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+                    #                                 name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
+                    #                                 output_dir_1L_chr = "R",
+                    #                                 file_exists_cdn_1L_chr = "overwrite",
+                    #                                 abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                    #                                 init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
+                    #                                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
+                    copyright_holders_chr = "Orygen",
+                    lifecycle_stage_1L_chr = "experimental",
+                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
+                    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
+                    pkg_dmt_dv_dss_chr = c("https://doi.org/10.7910/DVN/HLLXZN",
+                                           "https://doi.org/10.7910/DVN/2Y9VF9"),
+                    pkg_ds_ls_ls = pkg_ds_ls_ls,
+                    ready4_type_1L_chr = "authoring",
+                    user_manual_fns_chr = c("get_dv_fls_urls", "get_from_lup_obj", "get_rds_from_dv",
+                                            "make_pkg_desc_ls", "make_pkg_ds_ls","make_pkg_setup_ls",
+                                            "update_abbr_lup",
+                                           " write_package", "write_ws"))
+
+##
+
 ##
 # 5. Validate package set-up
-pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls,
-                                                      classes_to_make_tb = classes_to_make_tb,
-                                                      pkg_ds_ls_ls = pkg_ds_ls_ls)
+pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
 #                                                       fn_type_desc_chr = "Validates that an object conforms to required criteria.",
 #                                                       is_generic_lgl = F,
@@ -197,46 +211,7 @@ pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls,
 #                                                    no_plural_chr = c("lookup tables"))
 ##
 # 6. Add content to and document the package
-# rlang::exec(fns_env_ls$fns_env$write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-# dss_records_ls <- fns_env_ls$fns_env$write_pkg_dss(pkg_ds_ls_ls,
-#                                 pkg_setup_ls = pkg_setup_ls,
-#                                 pkg_url_1L_chr = pkg_desc_ls$URL %>%
-#                                   strsplit(",") %>%
-#                                   unlist() %>%
-#                                   purrr::pluck(1),
-#                                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
-# fns_env_ls$fns_env$write_clss(cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup,
-#                                                args_ls = list(x = classes_to_make_tb,
-#                                                               dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-#                                                               name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
-#                                                               output_dir_1L_chr = "R",
-#                                                               file_exists_cdn_1L_chr = "overwrite",
-#                                                               abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-#                                                               init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
-#                                                               object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
-#                               dss_records_ls = dss_records_ls,
-#                               pkg_setup_ls = pkg_setup_ls,
-#                               self_serve_1L_lgl = T)
-# fns_env_ls$fns_env$write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
-#                      pkg_setup_ls = pkg_setup_ls,
-#                      path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-#                      update_pkgdown_1L_lgl = T)
-# fns_env_ls$fns_env$write_manuals(pkg_desc_ls,
-#               pkg_setup_ls = pkg_setup_ls,
-#               path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"))
-fns_env_ls$fns_env$write_package(pkg_desc_ls,
-                                 pkg_ds_ls_ls,
-                                 pkg_setup_ls,
-                                 # cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup,
-                                 #                  args_ls = list(x = classes_to_make_tb,
-                                 #                                 dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                                 #                                 name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
-                                 #                                 output_dir_1L_chr = "R",
-                                 #                                 file_exists_cdn_1L_chr = "overwrite",
-                                 #                                 abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                 #                                 init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
-                                 #                                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
-                                 path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
+fns_env_ls$fns_env$write_package(pkg_setup_ls,
                                  self_serve_1L_lgl = T)
 # pkg_dss_tb <- classes_to_make_tb %>%
 #   ready4class::write_classes_and_make_lup(dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,

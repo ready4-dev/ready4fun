@@ -4,18 +4,10 @@
 \alias{validate_pkg_setup}
 \title{Validate package setup}
 \usage{
-validate_pkg_setup(
-  pkg_setup_ls,
-  classes_to_make_tb = NULL,
-  pkg_ds_ls_ls = NULL
-)
+validate_pkg_setup(pkg_setup_ls)
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
-
-\item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
-
-\item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: NULL}
 }
 \value{
 Package setup (a list)

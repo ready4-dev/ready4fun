@@ -7,6 +7,7 @@
 write_fns_to_split_dests(
   pkg_depcy_ls,
   pkg_1_core_fns_chr,
+  fns_dmt_tb,
   original_pkg_nm_1L_chr = get_dev_pkg_nm(),
   pkg_1_nm_1L_chr = "package_1",
   pkg_2_nm_1L_chr = "package_2",
@@ -18,6 +19,8 @@ write_fns_to_split_dests(
 \item{pkg_depcy_ls}{Package dependency (a list)}
 
 \item{pkg_1_core_fns_chr}{Package 1 core functions (a character vector)}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble)}
 
 \item{original_pkg_nm_1L_chr}{Original package name (a character vector of length one), Default: get_dev_pkg_nm()}
 

@@ -9,7 +9,7 @@ write_and_doc_fn_fls(
   pkg_setup_ls,
   make_pdfs_1L_lgl = T,
   update_pkgdown_1L_lgl = T,
-  path_to_dmt_dir_1L_chr,
+  path_to_dmt_dir_1L_chr = deprecated(),
   dev_pkgs_chr = deprecated(),
   path_to_dvpr_dmt_dir_1L_chr = deprecated(),
   path_to_pkg_rt_1L_chr = deprecated(),
@@ -26,7 +26,7 @@ write_and_doc_fn_fls(
 
 \item{update_pkgdown_1L_lgl}{Update pkgdown (a logical vector of length one), Default: T}
 
-\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one)}
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: deprecated()}
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: deprecated()}
 

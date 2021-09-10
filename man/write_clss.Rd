@@ -5,18 +5,16 @@
 \title{Write classes}
 \usage{
 write_clss(
-  cls_fn_ls,
   dss_records_ls,
   pkg_setup_ls,
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
   self_serve_1L_lgl = F,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+  cls_fn_ls = deprecated()
 )
 }
 \arguments{
-\item{cls_fn_ls}{Class (a list of functions)}
-
 \item{dss_records_ls}{Datasets records (a list)}
 
 \item{pkg_setup_ls}{Package setup (a list)}
@@ -28,6 +26,8 @@ write_clss(
 \item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+
+\item{cls_fn_ls}{Class (a list of functions), Default: deprecated()}
 }
 \description{
 write_clss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

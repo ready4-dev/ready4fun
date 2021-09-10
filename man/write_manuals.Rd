@@ -5,21 +5,19 @@
 \title{Write manuals}
 \usage{
 write_manuals(
-  pkg_desc_ls,
   pkg_setup_ls,
-  path_to_dmt_dir_1L_chr,
+  path_to_dmt_dir_1L_chr = deprecated(),
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
   publish_dv_1L_lgl = T,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+  pkg_desc_ls = deprecated()
 )
 }
 \arguments{
-\item{pkg_desc_ls}{Package description (a list)}
-
 \item{pkg_setup_ls}{Package setup (a list)}
 
-\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one)}
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: deprecated()}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
@@ -28,6 +26,8 @@ write_manuals(
 \item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: T}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+
+\item{pkg_desc_ls}{Package description (a list), Default: deprecated()}
 }
 \description{
 write_manuals() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

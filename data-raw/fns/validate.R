@@ -1,6 +1,4 @@
-validate_pkg_setup <- function(pkg_setup_ls,
-                               classes_to_make_tb = NULL,
-                               pkg_ds_ls_ls = NULL){
+validate_pkg_setup <- function(pkg_setup_ls){
   pkg_setup_ls$problems_ls <- NULL
   missing_fn_types_chr <- get_new_fn_types(pkg_setup_ls)
   if(!identical(missing_fn_types_chr, character(0))){
@@ -21,8 +19,8 @@ validate_pkg_setup <- function(pkg_setup_ls,
       }
     }
     missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls,
-                                           classes_to_make_tb = classes_to_make_tb,
-                                           pkg_ds_ls_ls = pkg_ds_ls_ls,
+                                           classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
+                                           pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls,
                                            use_last_1L_int = 1)
     if(!identical(missing_obj_types_chr, character(0))){
       message(paste0("The following potential object type",
@@ -35,8 +33,8 @@ validate_pkg_setup <- function(pkg_setup_ls,
       pkg_setup_ls$problems_ls$missing_obj_types_chr <- missing_obj_types_chr
     }else{
       missing_abbrs_chr <- get_new_abbrs(pkg_setup_ls,
-                                         classes_to_make_tb = classes_to_make_tb,
-                                         pkg_ds_ls_ls = pkg_ds_ls_ls)
+                                         classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
+                                         pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)
       if(!identical(missing_abbrs_chr, character(0))){
         message(paste0("The following potential abbreviation",
                        ifelse(length(missing_abbrs_chr) >1,"s are"," is"),
@@ -47,10 +45,10 @@ validate_pkg_setup <- function(pkg_setup_ls,
                        " and/or update the 'treat_as_words_chr' by using the 'write_new_abbrs' function"))
         pkg_setup_ls$problems_ls$missing_abbrs_chr <- missing_abbrs_chr
       }
-      if(!is.null(classes_to_make_tb)){
+      if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x)){
         missing_class_abbrs_chr <- setdiff(paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                                                   "_",
-                                                  classes_to_make_tb$name_stub_chr),
+                                                  pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr),
                                            pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
         if(!identical(missing_class_abbrs_chr, character(0))){
           message(paste0("The following class name",

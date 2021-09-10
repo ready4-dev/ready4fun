@@ -14,17 +14,21 @@ make_pkg_setup_ls(
   badges_lup = NULL,
   build_ignore_ls = make_build_ignore_ls(),
   check_type_1L_chr = "standard",
+  cls_fn_ls = NULL,
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
   dv_url_pfx_1L_chr = NULL,
   gh_repo_1L_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
+  inc_pkg_meta_data_1L_lgl = F,
   incr_ver_1L_lgl = F,
   key_1L_chr = NULL,
   on_cran_1L_lgl = F,
+  path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
+  pkg_ds_ls_ls = NULL,
   ready4_type_1L_chr,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   user_manual_fns_chr = NA_character_
@@ -49,6 +53,8 @@ make_pkg_setup_ls(
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'standard'}
 
+\item{cls_fn_ls}{Class (a list of functions), Default: NULL}
+
 \item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: T}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
@@ -61,15 +67,21 @@ make_pkg_setup_ls(
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
+\item{inc_pkg_meta_data_1L_lgl}{Include package meta data (a logical vector of length one), Default: F}
+
 \item{incr_ver_1L_lgl}{Increment version (a logical vector of length one), Default: F}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{on_cran_1L_lgl}{On cran (a logical vector of length one), Default: F}
 
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")}
+
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
+
+\item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: NULL}
 
 \item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
 

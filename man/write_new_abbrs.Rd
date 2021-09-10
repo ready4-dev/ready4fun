@@ -6,7 +6,6 @@
 \usage{
 write_new_abbrs(
   pkg_setup_ls,
-  classes_to_make_tb = NULL,
   long_name_chr = NULL,
   custom_plural_ls = NULL,
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
@@ -18,8 +17,6 @@ write_new_abbrs(
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
-
-\item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
 
 \item{long_name_chr}{Long name (a character vector), Default: NULL}
 

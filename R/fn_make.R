@@ -641,11 +641,13 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr, 
         fns_env_ls = fns_env_ls, object_type_lup = object_type_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
-        title_chr = title_chr, output_chr = output_chr, fn_types_lup = fn_types_lup, 
-        abbreviations_lup = abbreviations_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
+        title_chr = title_chr, output_chr = output_chr, fns_env_ls = fns_env_ls, 
+        fn_types_lup = fn_types_lup, abbreviations_lup = abbreviations_lup, 
+        test_for_write_R_warning_fn = test_for_write_R_warning_fn, 
         is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R")))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(args_ls = make_arg_desc_ls(fns_chr, 
-        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup))
+        fns_env_ls = fns_env_ls, abbreviations_lup = abbreviations_lup, 
+        object_type_lup = object_type_lup))
     return(fn_dmt_tbl_tb)
 }
 #' Make function names
@@ -1199,17 +1201,21 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
+#' @param cls_fn_ls Class (a list of functions), Default: NULL
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
+#' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
 #' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
 #' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
@@ -1221,12 +1227,14 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-    check_type_1L_chr = "standard", delete_r_dir_cnts_1L_lgl = T, 
+    check_type_1L_chr = "standard", cls_fn_ls = NULL, delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
     dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
-    lifecycle_stage_1L_chr = "experimental", incr_ver_1L_lgl = F, 
-    key_1L_chr = NULL, on_cran_1L_lgl = F, path_to_pkg_logo_1L_chr = NA_character_, 
-    path_to_pkg_rt_1L_chr = getwd(), ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
+    incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
+    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
+    pkg_ds_ls_ls = NULL, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     user_manual_fns_chr = NA_character_) 
 {
     if (length(pkg_dmt_dv_dss_chr) < 2) {
@@ -1257,11 +1265,14 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
-            dev_pkgs_chr = dev_pkgs_chr, dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], 
-            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, fn_types_lup = get_rds_from_dv("fn_types_lup", 
-                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            key_1L_chr = key_1L_chr, object_type_lup = get_rds_from_dv("object_type_lup", 
+            cls_fn_ls = cls_fn_ls, inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl, 
+            path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
+            pkg_ds_ls_ls = pkg_ds_ls_ls, dev_pkgs_chr = dev_pkgs_chr, 
+            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            fn_types_lup = get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], 
+                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+                server_1L_chr = server_1L_chr), key_1L_chr = key_1L_chr, 
+            object_type_lup = get_rds_from_dv("object_type_lup", 
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup", 

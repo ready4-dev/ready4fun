@@ -235,10 +235,10 @@ get_new_abbrs_cndts <- function(text_chr,
     sort() %>%
     setdiff(abbreviations_lup$short_name_chr)
   data("GradyAugmented", package = "qdapDictionaries", envir = environment())
-  new_abbrs_cndts_chr <- setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))],
+  new_abbrs_cndts_chr <- setdiff(setdiff(new_abbrs_cndts_chr[suppressWarnings(is.na(as.numeric(new_abbrs_cndts_chr)))],
                                   c(c(GradyAugmented, treat_as_words_chr),
                                     c(GradyAugmented, treat_as_words_chr) %>% toupper(),
-                                    c(GradyAugmented, treat_as_words_chr) %>% Hmisc::capitalize()))
+                                    c(GradyAugmented, treat_as_words_chr) %>% Hmisc::capitalize())),"")
   return(new_abbrs_cndts_chr)
 }
 get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S4 generics and methods

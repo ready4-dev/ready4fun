@@ -294,7 +294,8 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
     use_last_1L_int = NULL, treat_as_words_chr = character(0)) 
 {
     new_abbrs_cndts_chr <- text_chr %>% purrr::map(~{
-        candidates_chr <- strsplit(.x, "_")[[1]]
+        candidates_chr <- strsplit(.x, "_")[[1]] %>% purrr::map(~strsplit(.x, 
+            "\\.")[[1]]) %>% purrr::flatten_chr()
         if (drop_first_1L_lgl) 
             candidates_chr <- candidates_chr[-1]
         if (!is.null(use_last_1L_int)) 

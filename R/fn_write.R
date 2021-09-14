@@ -1106,6 +1106,7 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
 #' @param pkg_setup_ls Package setup (a list)
 #' @param long_name_chr Long name (a character vector), Default: NULL
 #' @param atomic_element_lgl Atomic element (a logical vector), Default: F
+#' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
@@ -1119,9 +1120,9 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
 #' @importFrom tibble tibble
 #' @keywords internal
 write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_element_lgl = F, 
-    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), no_plural_chr = NA_character_, 
-    publish_dv_1L_lgl = T, pfx_rgx = NA_character_, r3_can_extend_lgl = F, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    custom_plural_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    no_plural_chr = NA_character_, publish_dv_1L_lgl = T, pfx_rgx = NA_character_, 
+    r3_can_extend_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
     if (is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)) {
@@ -1282,8 +1283,7 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = 
     }
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
     dss_records_ls <- write_pkg_dss(pkg_setup_ls, pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
-        strsplit(",") %>% unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-        inc_pkg_meta_data_1L_lgl = )
+        strsplit(",") %>% unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
     write_clss(dss_records_ls = dss_records_ls, pkg_setup_ls = pkg_setup_ls, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
         self_serve_1L_lgl = self_serve_1L_lgl, server_1L_chr = server_1L_chr)

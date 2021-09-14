@@ -5,7 +5,7 @@
 \alias{object_type_lup}
 \title{Object abbreviations lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 139 rows and 3 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 142 rows and 3 columns.
 }
 \source{
 \url{https://doi.org/10.7910/DVN/2Y9VF9}

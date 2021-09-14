@@ -8,6 +8,7 @@ write_new_obj_types(
   pkg_setup_ls,
   long_name_chr = NULL,
   atomic_element_lgl = F,
+  custom_plural_ls = NULL,
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   no_plural_chr = NA_character_,
   publish_dv_1L_lgl = T,
@@ -22,6 +23,8 @@ write_new_obj_types(
 \item{long_name_chr}{Long name (a character vector), Default: NULL}
 
 \item{atomic_element_lgl}{Atomic element (a logical vector), Default: F}
+
+\item{custom_plural_ls}{Custom plural (a list), Default: NULL}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 

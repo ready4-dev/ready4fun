@@ -4,12 +4,14 @@
 \alias{read_fns}
 \title{Read functions}
 \usage{
-read_fns(fns_dir_1L_chr = "data-raw/fns/", fns_env = NULL)
+read_fns(fns_dir_1L_chr = "data-raw/fns/", fns_env = NULL, use_env_1L_lgl = T)
 }
 \arguments{
 \item{fns_dir_1L_chr}{Functions directory (a character vector of length one), Default: 'data-raw/fns/'}
 
 \item{fns_env}{Functions (an environment), Default: NULL}
+
+\item{use_env_1L_lgl}{Use environment (a logical vector of length one), Default: T}
 }
 \value{
 Functions (a list of environments)

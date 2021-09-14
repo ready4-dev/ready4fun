@@ -1061,6 +1061,7 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
 write_new_obj_types <- function(pkg_setup_ls,
                                 long_name_chr = NULL,
                                 atomic_element_lgl = F,
+                                custom_plural_ls = NULL,
                                 key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                                 no_plural_chr = NA_character_,
                                 publish_dv_1L_lgl = T,
@@ -1188,16 +1189,13 @@ write_package <- function(pkg_setup_ls,
                               details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
   }
   rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-  dss_records_ls <- write_pkg_dss(#pkg_ds_ls_ls,
-                                  pkg_setup_ls,
+  dss_records_ls <- write_pkg_dss(pkg_setup_ls,
                                   pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
                                     strsplit(",") %>%
                                     unlist() %>%
                                     purrr::pluck(1),
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                                  inc_pkg_meta_data_1L_lgl = )
-  write_clss(#cls_fn_ls = pkg_setup_ls$initial_ls$cls_fn_ls,
-             dss_records_ls = dss_records_ls,
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
+  write_clss(dss_records_ls = dss_records_ls,
              pkg_setup_ls = pkg_setup_ls,
              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
              key_1L_chr = key_1L_chr,
@@ -1205,10 +1203,8 @@ write_package <- function(pkg_setup_ls,
              server_1L_chr = server_1L_chr)
   write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
                        pkg_setup_ls = pkg_setup_ls,
-                       #path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
                        update_pkgdown_1L_lgl = T)
   write_manuals(pkg_setup_ls = pkg_setup_ls,
-                #path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
                 dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                 key_1L_chr = key_1L_chr,
                 server_1L_chr = server_1L_chr)
@@ -1239,11 +1235,11 @@ write_pkg_dss <- function(pkg_setup_ls,
                           args_ls_ls = NULL,
                           #cls_fn_ls = NULL,
                           details_ls = NULL,
-                          dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                          dv_ds_nm_1L_chr,
+                          dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), # Deprecate
+                          dv_ds_nm_1L_chr, # Deprecate
                           #fn_types_lup = NULL,
                           inc_all_mthds_1L_lgl = T,
-                          inc_pkg_meta_data_1L_lgl = F,
+                          inc_pkg_meta_data_1L_lgl = F, # Deprecate
                           #object_type_lup = NULL,
                           paths_ls = make_fn_nms(),
                           pkg_url_1L_chr = NA_character_,

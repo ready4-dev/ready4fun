@@ -1,5 +1,6 @@
 ## Note files to be rewritten cannot be open in RStudio.
-## Dataverse dataset with seed object_type and abbreviations look-ups must be established first.
+## Empty dataverse dataset must be published first.
+#
 # 1. Set-up workspace.
 library(magrittr)
 library(lifecycle)
@@ -67,7 +68,6 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                                                        url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 #
 # 4. Specify the new classes to be created
-# name_pfx_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
 classes_to_make_tb <- dplyr::bind_rows(
   ready4class::make_pt_ready4_constructor_tbl(class_desc_chr = "ready4 S3 class for tibble object lookup table of badges metadata.",
                                               make_s3_lgl = TRUE,
@@ -158,7 +158,6 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                 stats::setNames(c("db_df","db_1L_chr","title_1L_chr","desc_1L_chr", "abbreviations_lup",
                                                                   "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
   ready4class::ready4_constructor_tbl()
-#
 pkg_setup_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_pkg_setup_ls(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
                     badges_lup = badges_lup,
@@ -174,6 +173,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                     #                                 init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
                     #                                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)),
                     copyright_holders_chr = "Orygen",
+                    inc_pkg_meta_data_1L_lgl = T, ###
                     lifecycle_stage_1L_chr = "experimental",
                     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
                     path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
@@ -185,10 +185,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                             "make_pkg_desc_ls", "make_pkg_ds_ls","make_pkg_setup_ls",
                                             "update_abbr_lup",
                                            " write_package", "write_ws"))
-
-##
-
-##
+#
 # 5. Validate package set-up
 pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
@@ -213,25 +210,9 @@ pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
 # 6. Add content to and document the package
 fns_env_ls$fns_env$write_package(pkg_setup_ls,
                                  self_serve_1L_lgl = T)
-# pkg_dss_tb <- classes_to_make_tb %>%
-#   ready4class::write_classes_and_make_lup(dev_pkg_ns_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-#                                           name_pfx_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"),
-#                                           output_dir_1L_chr = "R",
-#                                           file_exists_cdn_1L_chr = "overwrite",
-#                                           abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-#                                           init_class_pt_lup = fns_env_ls$fns_env$get_rds_from_dv("prototype_lup"),
-#                                           object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup) %>%
-#   ready4fun::write_and_doc_ds(db_1L_chr = "prototype_lup",
-#                               title_1L_chr = "Class prototype lookup table",
-#                               desc_1L_chr = "Metadata on classes used in ready4 suite",
-#                               abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-#                               object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-#                               pkg_dss_tb = NULL)
 # Create vignettes
-# NOTE TO SELF: Currently Vignettes are overwritten by this last step. Need to implement more sophisticated workflow.
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814
-# NOTE TO SELF: IDEALLY SHOULD ADD OPTION TO INCREMENT PACKAGE VERSION NUMBER WHEN DESCRIPTION FILE GETS UPDATED. See: https://stackoverflow.com/questions/24209336/automating-version-increase-of-r-packages
 # NOTE TO SELF: IN WORKFOW VIGNETTE, INCLUDE LINK TO: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
 # and https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
 # and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/

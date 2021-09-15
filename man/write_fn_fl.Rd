@@ -6,6 +6,7 @@
 \usage{
 write_fn_fl(
   fns_dmt_tb,
+  fns_env_ls,
   r_dir_1L_chr = "R",
   document_unexp_lgl = T,
   consent_1L_chr = NULL
@@ -13,6 +14,8 @@ write_fn_fl(
 }
 \arguments{
 \item{fns_dmt_tb}{Functions documentation (a tibble)}
+
+\item{fns_env_ls}{Functions (a list of environments)}
 
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 

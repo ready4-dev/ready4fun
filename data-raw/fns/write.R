@@ -172,6 +172,9 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
   write_new_dirs(c(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
                    paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
                    paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")))
+  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+                                                        "/data-raw"),
+                                                 drop_empty_1L_lgl = T))
   purrr::walk2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
                     paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")),
                c(T,F),
@@ -182,7 +185,8 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                                                     fns_dmt_tb$file_nm_chr %>%
                                                       unique()),
                                  custom_write_ls = list(fn = write_fn_fl,
-                                                        args_ls = list(fns_dmt_tb,
+                                                        args_ls = list(fns_dmt_tb = fns_dmt_tb,
+                                                                       fns_env_ls = fns_env_ls,
                                                                        r_dir_1L_chr = r_dir_1L_chr,
                                                                        document_unexp_lgl = .y)))
                  devtools::document()
@@ -242,34 +246,55 @@ write_clss <- function(dss_records_ls,
                               details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the cls_fn_ls object to this function.")
   }
   if(self_serve_1L_lgl){
+    fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+                                                          "/data-raw"),
+                                                   drop_empty_1L_lgl = T))
     write_new_files(paths_chr = paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                                        "/",
-                                       dss_records_ls$fns_dmt_tb$file_pfx_chr[1],
-                                       dss_records_ls$fns_dmt_tb$file_nm_chr %>%
-                                         unique()),
+                                       dss_records_ls$fns_dmt_tb$file_pfx_chr,
+                                       dss_records_ls$fns_dmt_tb$file_nm_chr) %>%
+                      unique(),
                     custom_write_ls = list(fn = write_fn_fl,
-                                           args_ls = list(dss_records_ls$fns_dmt_tb,
+                                           args_ls = list(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
+                                                          fns_env_ls = fns_env_ls,
                                                           r_dir_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                                                           document_unexp_lgl = F)))
     devtools::document()
     devtools::load_all()
   }
   if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)){
-    args_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn, !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls) %>%
-      make_pkg_ds_ls(db_1L_chr = "prototype_lup",
-                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                     object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-                     title_1L_chr = "Class prototype lookup table",
-                     desc_1L_chr = "Metadata on classes used in ready4 suite")
-    args_ls <- append(args_ls,
-                      list(overwrite_1L_lgl = T,
-                           pkg_dss_tb = dss_records_ls$pkg_dss_tb,
-                           R_dir_1L_chr = "R",
-                           dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                           key_1L_chr = key_1L_chr,
-                           server_1L_chr = server_1L_chr))
-    dss_records_ls$pkg_dss_tb <- rlang::exec(write_and_doc_ds,!!!args_ls)
+    if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$dev_pkg_ns_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
+    if("name_pfx_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "name_pfx_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_")
+    if("output_dir_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "output_dir_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$output_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R")
+    if("abbreviations_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "abbreviations_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
+    if("object_type_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "object_type_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+    prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
+                                 !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls) #%>%
+    if(!identical(pkg_setup_ls$subsequent_ls$prototype_lup, prototype_lup)){
+      write_env_objs_to_dv(list(prototype_lup = prototype_lup),
+                           descriptions_chr = "Class prototype lookup table",
+                           ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+                           publish_dv_1L_lgl = T)
+    }
+    # args_ls <-  make_pkg_ds_ls(prototype_lup, db_1L_chr = "prototype_lup",
+    #                  abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+    #                  object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+    #                  title_1L_chr = "Class prototype lookup table",
+    #                  desc_1L_chr = "Metadata on classes used in ready4 suite")
+    # args_ls <- append(args_ls,
+    #                   list(overwrite_1L_lgl = T,
+    #                        pkg_dss_tb = dss_records_ls$pkg_dss_tb,
+    #                        R_dir_1L_chr = "R",
+    #                        dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+    #                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+    #                        key_1L_chr = key_1L_chr,
+    #                        server_1L_chr = server_1L_chr))
+    # dss_records_ls$pkg_dss_tb <- rlang::exec(write_and_doc_ds,!!!args_ls)
   }
 }
 write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
@@ -503,6 +528,7 @@ write_fls_to_dv <- function(file_paths_chr,
   return(ids_int)
 }
 write_fn_fl <- function(fns_dmt_tb,
+                        fns_env_ls,
                         r_dir_1L_chr = "R",
                         document_unexp_lgl = T,
                         consent_1L_chr = NULL){
@@ -529,7 +555,12 @@ write_fn_fl <- function(fns_dmt_tb,
                       purrr::walk(1:nrow(tb),
                                   ~
                                     {
-                                      fn <- eval(parse(text=tb[[.x,1]]))
+                                      if(!exists(tb[[.x,1]])){
+                                        fn <- fns_env_ls$fns_env[[tb[[.x,1]]]]
+                                      }else{
+                                        fn <- eval(parse(text=tb[[.x,1]]))
+                                      }
+                                      # fn <- eval(parse(text=tb[[.x,1]]))
                                       fn_chr <- deparse(fn)
                                       fn_and_cls_chr <- tb[[.x,1]] %>% strsplit("\\.") %>% purrr::pluck(1)
                                       sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])

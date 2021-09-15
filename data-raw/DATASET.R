@@ -201,7 +201,7 @@ pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
 #                                                                             dupl = "dupls",
 #                                                                             msg = "msgs"))
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
-#                                                    classes_to_make_tb = classes_to_make_tb,
+#                                                    #classes_to_make_tb = classes_to_make_tb,
 #                                                    long_name_chr = c("additional","destination","detail","duplicate","github",
 #                                                                      "increment","lookup tables", "message", "repository", "version"),
 #                                                    custom_plural_ls = list(repository = "repositories"),

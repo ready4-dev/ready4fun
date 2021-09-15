@@ -36,34 +36,9 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
-    dataverse,
-    desc,
-    devtools,
-    dplyr,
-    fs,
-    Hmisc,
     knitr,
     lifecycle,
-    lubridate,
-    magrittr,
-    methods,
-    pkgdown,
-    purrr,
-    readxl,
-    rlang,
-    sinew,
-    stats,
-    stringi,
-    stringr,
-    testit,
-    testthat,
-    tibble,
-    tools,
-    usethis,
-    utils,
-    xfun
+    testthat
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10)
-Suggests: 
-    rmarkdown

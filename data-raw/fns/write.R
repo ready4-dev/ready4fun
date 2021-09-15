@@ -238,6 +238,7 @@ write_clss <- function(dss_records_ls,
                        dv_url_pfx_1L_chr = NULL,
                        key_1L_chr = NULL,
                        self_serve_1L_lgl = F,
+                       self_serve_fn_ls = NULL,
                        server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                        cls_fn_ls = deprecated()){
   if (lifecycle::is_present(cls_fn_ls)) {
@@ -249,6 +250,14 @@ write_clss <- function(dss_records_ls,
     fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
                                                           "/data-raw"),
                                                    drop_empty_1L_lgl = T))
+    if(!is.null(self_serve_fn_ls)){
+      if("pkg_setup_ls" %in% formalArgs(self_serve_fn_ls$fn) & ! "pkg_setup_ls" %in% names(self_serve_fn_ls$args_ls))
+        self_serve_fn_ls$args_ls <- append(list(pkg_setup_ls = pkg_setup_ls),
+                                           self_serve_fn_ls$args_ls)
+      pkg_setup_ls <- rlang::exec(self_serve_fn_ls$fn,
+                                  !!!self_serve_fn_ls$args_ls)
+
+    }
     write_new_files(paths_chr = paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
                                        "/",
                                        dss_records_ls$fns_dmt_tb$file_pfx_chr,
@@ -273,6 +282,8 @@ write_clss <- function(dss_records_ls,
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
     if("object_type_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "object_type_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+    if("init_class_pt_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "init_class_pt_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$init_class_pt_lup <- pkg_setup_ls$subsequent_ls$prototype_lup
     prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
                                  !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls) #%>%
     if(!identical(pkg_setup_ls$subsequent_ls$prototype_lup, prototype_lup)){
@@ -1194,6 +1205,7 @@ write_package <- function(pkg_setup_ls,
                           key_1L_chr = NULL,
                           publish_dv_1L_lgl = T,
                           self_serve_1L_lgl = F,
+                          self_serve_fn_ls = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                           cls_fn_ls = deprecated(),
                           path_to_dmt_dir_1L_chr = deprecated(),
@@ -1231,6 +1243,7 @@ write_package <- function(pkg_setup_ls,
              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
              key_1L_chr = key_1L_chr,
              self_serve_1L_lgl = self_serve_1L_lgl,
+             self_serve_fn_ls = self_serve_fn_ls,
              server_1L_chr = server_1L_chr)
   write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb,
                        pkg_setup_ls = pkg_setup_ls,

@@ -6,14 +6,12 @@
 #' @return Title (a character vector)
 #' @rdname replace_abbr
 #' @export 
-#' @importFrom utils data
 #' @importFrom purrr flatten_chr map_chr
 #' @keywords internal
 replace_abbr <- function (title_chr, abbreviations_lup = NULL, collapse_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
-        utils::data("abbreviations_lup", package = "ready4fun", 
-            envir = environment())
+        stop("NULL value passed to abbreviations_lup")
     title_chr <- title_chr %>% strsplit(" ") %>% purrr::flatten_chr() %>% 
         purrr::map_chr(~{
             match_lgl_vec <- .x == abbreviations_lup$short_name_chr

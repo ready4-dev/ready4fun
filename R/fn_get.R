@@ -39,9 +39,7 @@ get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        stop("NULL value passed to object_type_lup")
     nchar_int <- nchar(object_type_lup$short_name_chr)
     match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr, 
         paste0(ifelse(nchar(argument_nm_1L_chr) == nchar_int, 
@@ -359,9 +357,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
     old_obj_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(old_obj_type_lup)) 
-        old_obj_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        stop("NULL value passed to object_type_lup")
     obj_type_lup_new_cses_tb <- updated_obj_type_lup %>% dplyr::filter(!short_name_chr %in% 
         old_obj_type_lup$short_name_chr)
     if (!is.na(excluded_chr[1])) 
@@ -372,6 +368,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
 #' Get output object type
 #' @description get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).
 #' @param fns_chr Functions (a character vector)
+#' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param fns_env_ls Functions (a list of environments)
@@ -383,14 +380,12 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
 #' @export 
 #' @importFrom purrr map_chr
 #' @keywords internal
-get_outp_obj_type <- function (fns_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
+get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, fns_env_ls, key_1L_chr = NULL, 
     object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        stop("NULL value passed to object_type_lup")
     outp_obj_type_chr <- purrr::map_chr(fns_chr, ~{
         if (!exists(.x)) {
             fn <- fns_env_ls$fns_env[[.x]]
@@ -398,9 +393,10 @@ get_outp_obj_type <- function (fns_chr, dv_ds_nm_1L_chr = "https://doi.org/10.79
         else {
             fn <- eval(parse(text = .x))
         }
-        return_obj_chr <- get_return_obj_nm(fn) %>% make_arg_desc(object_type_lup = object_type_lup, 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        return_obj_chr <- get_return_obj_nm(fn) %>% make_arg_desc(abbreviations_lup = abbreviations_lup, 
+            object_type_lup = object_type_lup, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+            server_1L_chr = server_1L_chr)
         ifelse(return_obj_chr == "NO MATCH", "NULL", return_obj_chr)
     })
     return(outp_obj_type_chr)

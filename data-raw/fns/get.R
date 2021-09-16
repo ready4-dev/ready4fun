@@ -19,11 +19,12 @@ get_arg_obj_type <- function(argument_nm_1L_chr,
                              object_type_lup = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    stop("NULL value passed to object_type_lup")#
+    # object_type_lup <- get_rds_from_dv("object_type_lup",
+    #                                    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+    #                                    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+    #                                    key_1L_chr = key_1L_chr,
+    #                                    server_1L_chr = server_1L_chr)
   nchar_int <- nchar(object_type_lup$short_name_chr)
   match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr,
                                                       paste0(ifelse(nchar(argument_nm_1L_chr)==nchar_int,"","_"),
@@ -276,11 +277,12 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
                                   old_obj_type_lup = NULL,
                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(old_obj_type_lup))
-    old_obj_type_lup <- get_rds_from_dv("object_type_lup",
-                                           dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                           key_1L_chr = key_1L_chr,
-                                           server_1L_chr = server_1L_chr)
+    stop("NULL value passed to object_type_lup")#
+    # old_obj_type_lup <- get_rds_from_dv("object_type_lup",
+    #                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+    #                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+    #                                        key_1L_chr = key_1L_chr,
+    #                                        server_1L_chr = server_1L_chr)
   obj_type_lup_new_cses_tb <- updated_obj_type_lup %>%
     dplyr::filter(!short_name_chr %in% old_obj_type_lup$short_name_chr)
   if(!is.na(excluded_chr[1]))
@@ -289,6 +291,7 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
   return(obj_type_lup_new_cses_tb)
 }
 get_outp_obj_type <- function(fns_chr,
+                              abbreviations_lup,
                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                               dv_url_pfx_1L_chr = NULL,
                               fns_env_ls,
@@ -296,11 +299,12 @@ get_outp_obj_type <- function(fns_chr,
                               object_type_lup = NULL,
                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    stop("NULL value passed to object_type_lup")#
+    # object_type_lup <- get_rds_from_dv("object_type_lup",
+    #                                    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+    #                                    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+    #                                    key_1L_chr = key_1L_chr,
+    #                                    server_1L_chr = server_1L_chr)
   outp_obj_type_chr <- purrr::map_chr(fns_chr,
                                           ~ {
                                             if(!exists(.x)){
@@ -309,7 +313,8 @@ get_outp_obj_type <- function(fns_chr,
                                               fn <- eval(parse(text=.x))
                                             }
                                             return_obj_chr <- get_return_obj_nm(fn) %>%
-                                              make_arg_desc(object_type_lup = object_type_lup,
+                                              make_arg_desc(abbreviations_lup = abbreviations_lup,
+                                                            object_type_lup = object_type_lup,
                                                             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                             key_1L_chr = key_1L_chr,

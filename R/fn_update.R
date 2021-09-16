@@ -94,7 +94,6 @@ update_first_word_case <- function (phrase_1L_chr, fn = tolower)
 #' @return Function documentation (a character vector of length one)
 #' @rdname update_fn_dmt
 #' @export 
-#' @importFrom utils data
 #' @importFrom stringr str_replace str_c str_sub str_locate
 #' @importFrom purrr reduce
 #' @keywords internal
@@ -102,8 +101,7 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
     import_chr, abbreviations_lup = NULL) 
 {
     if (is.null(abbreviations_lup)) 
-        utils::data("abbreviations_lup", package = "ready4fun", 
-            envir = environment())
+        stop("NULL value passed to abbreviations_lup")
     fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
     fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("FUNCTION_TITLE", 
         fn_name_1L_chr) %>% stringr::str_replace("FUNCTION_DESCRIPTION", 

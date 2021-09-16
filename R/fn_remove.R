@@ -29,7 +29,6 @@ remove_lbls_from_df <- function (data_df)
 #' @return Names (a character vector)
 #' @rdname remove_obj_type_from_nm
 #' @export 
-#' @importFrom utils data
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
 #' @importFrom stringi stri_replace_last_fixed
@@ -39,12 +38,9 @@ remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviati
     is_generic_lgl = F, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
-        object_type_lup <- get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        stop("NULL value passed to object_type_lup")
     if (is.null(abbreviations_lup)) 
-        utils::data("abbreviations_lup", package = "ready4fun", 
-            envir = environment())
+        stop("NULL value passed to abbreviations_lup")
     output_chr <- make_arg_type_abbr(nms_chr, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 

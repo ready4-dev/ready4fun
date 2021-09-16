@@ -7,9 +7,10 @@
 write_fn_fl(
   fns_dmt_tb,
   fns_env_ls,
-  r_dir_1L_chr = "R",
+  pkg_setup_ls,
   document_unexp_lgl = T,
-  consent_1L_chr = NULL
+  consent_1L_chr = NULL,
+  r_dir_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -17,11 +18,13 @@ write_fn_fl(
 
 \item{fns_env_ls}{Functions (a list of environments)}
 
-\item{r_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
+\item{pkg_setup_ls}{Package setup (a list)}
 
 \item{document_unexp_lgl}{Document unexported (a logical vector), Default: T}
 
 \item{consent_1L_chr}{Consent (a character vector of length one), Default: NULL}
+
+\item{r_dir_1L_chr}{R directory (a character vector of length one), Default: deprecated()}
 }
 \description{
 write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

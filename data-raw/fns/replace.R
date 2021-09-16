@@ -2,7 +2,8 @@ replace_abbr <- function(title_chr,
                              abbreviations_lup = NULL,
                              collapse_lgl = T){
   if(is.null(abbreviations_lup))
-    utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    stop("NULL value passed to abbreviations_lup")#
+    # utils::data("abbreviations_lup",package="ready4fun",envir = environment())
   title_chr <- title_chr %>%
     strsplit(" ") %>%
     purrr::flatten_chr() %>%

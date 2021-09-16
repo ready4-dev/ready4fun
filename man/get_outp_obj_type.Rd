@@ -6,6 +6,7 @@
 \usage{
 get_outp_obj_type(
   fns_chr,
+  abbreviations_lup,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
   fns_env_ls,
@@ -16,6 +17,8 @@ get_outp_obj_type(
 }
 \arguments{
 \item{fns_chr}{Functions (a character vector)}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 

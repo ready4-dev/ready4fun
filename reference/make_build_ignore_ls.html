@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make build ignore — make_build_ignore_ls • ready4fun</title>
+<title>Make build ignore list — make_build_ignore_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Make build ignore — make_build_ignore_ls" />
+<meta property="og:title" content="Make build ignore list — make_build_ignore_ls" />
 <meta property="og:description" content="make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list)." />
 <meta property="og:image" content="/logo.png" />
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make build ignore</h1>
+    <h1>Make build ignore list</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
     <div class="hidden name"><code>make_build_ignore_ls.Rd</code></div>
     </div>
@@ -128,7 +128,7 @@
     <p>make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_build_ignore_ls</span><span class='op'>(</span>file_nms_chr <span class='op'>=</span> <span class='cn'>NULL</span>, regex_chr <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_build_ignore_ls</span><span class='op'>(</span>file_nms_chr <span class='op'>=</span> <span class='cn'>NULL</span>, regulars_rgx <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,8 +138,8 @@
       <td><p>File names (a character vector), Default: NULL</p></td>
     </tr>
     <tr>
-      <th>regex_chr</th>
-      <td><p>Regex (a character vector), Default: NULL</p></td>
+      <th>regulars_rgx</th>
+      <td><p>Regulars (a regular expression vector), Default: NULL</p></td>
     </tr>
     </table>
 

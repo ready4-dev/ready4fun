@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Get new function types — get_new_fn_types" />
-<meta property="og:description" content="get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector)." />
+<meta property="og:description" content="get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -125,27 +125,21 @@
     </div>
 
     <div class="ref-description">
-    <p>get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument abbreviations_lup specifies the where to look for the required object. The function returns New function types (a character vector).</p>
+    <p>get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_new_fn_types</span><span class='op'>(</span>
-  <span class='va'>abbreviations_lup</span>,
-  <span class='va'>fn_type_lup_tb</span>,
+  <span class='va'>pkg_setup_ls</span>,
   fn_nms_ls <span class='op'>=</span> <span class='fu'><a href='make_fn_nms.html'>make_fn_nms</a></span><span class='op'>(</span><span class='op'>)</span>,
-  undmtd_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span><span class='op'>)</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
+  undmtd_fns_dir_chr <span class='op'>=</span> <span class='fu'><a href='make_undmtd_fns_dir_chr.html'>make_undmtd_fns_dir_chr</a></span><span class='op'>(</span>drop_empty_1L_lgl <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table)</p></td>
-    </tr>
-    <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble)</p></td>
+      <th>pkg_setup_ls</th>
+      <td><p>Package setup (a list)</p></td>
     </tr>
     <tr>
       <th>fn_nms_ls</th>
@@ -153,11 +147,7 @@
     </tr>
     <tr>
       <th>undmtd_fns_dir_chr</th>
-      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr()</p></td>
-    </tr>
-    <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
+      <td><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)</p></td>
     </tr>
     </table>
 

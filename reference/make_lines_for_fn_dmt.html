@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -143,7 +143,11 @@
   import_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   doc_in_class_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>
+  dv_ds_nm_1L_chr <span class='op'>=</span> <span class='st'>"https://doi.org/10.7910/DVN/2Y9VF9"</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,8 +210,24 @@
       <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
     </tr>
     <tr>
+      <th>dv_ds_nm_1L_chr</th>
+      <td><p>Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'</p></td>
+    </tr>
+    <tr>
+      <th>dv_url_pfx_1L_chr</th>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>key_1L_chr</th>
+      <td><p>Key (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
       <th>object_type_lup</th>
       <td><p>Object type (a lookup table), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>server_1L_chr</th>
+      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
     </tr>
     </table>
 

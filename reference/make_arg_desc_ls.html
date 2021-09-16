@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make argument description — make_arg_desc_ls • ready4fun</title>
+<title>Make argument description list — make_arg_desc_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Make argument description — make_arg_desc_ls" />
+<meta property="og:title" content="Make argument description list — make_arg_desc_ls" />
 <meta property="og:description" content="make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list)." />
 <meta property="og:image" content="/logo.png" />
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make argument description</h1>
+    <h1>Make argument description list</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
     <div class="hidden name"><code>make_arg_desc_ls.Rd</code></div>
     </div>
@@ -128,7 +128,16 @@
     <p>make_arg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description list. The function returns Argument description (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_arg_desc_ls</span><span class='op'>(</span><span class='va'>fn_nms_chr</span>, abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>, object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_arg_desc_ls</span><span class='op'>(</span>
+  <span class='va'>fn_nms_chr</span>,
+  <span class='va'>fns_env_ls</span>,
+  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dv_ds_nm_1L_chr <span class='op'>=</span> <span class='st'>"https://doi.org/10.7910/DVN/2Y9VF9"</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,12 +147,32 @@
       <td><p>Function names (a character vector)</p></td>
     </tr>
     <tr>
+      <th>fns_env_ls</th>
+      <td><p>Functions (a list of environments)</p></td>
+    </tr>
+    <tr>
       <th>abbreviations_lup</th>
       <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
     </tr>
     <tr>
+      <th>dv_ds_nm_1L_chr</th>
+      <td><p>Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'</p></td>
+    </tr>
+    <tr>
+      <th>dv_url_pfx_1L_chr</th>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>key_1L_chr</th>
+      <td><p>Key (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
       <th>object_type_lup</th>
       <td><p>Object type (a lookup table), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>server_1L_chr</th>
+      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
     </tr>
     </table>
 

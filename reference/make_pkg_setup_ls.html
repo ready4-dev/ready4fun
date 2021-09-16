@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make package setup — make_pkg_setup_ls • ready4fun</title>
+<title>Make package setup list — make_pkg_setup_ls • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Make package setup — make_pkg_setup_ls" />
+<meta property="og:title" content="Make package setup list — make_pkg_setup_ls" />
 <meta property="og:description" content="make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list)." />
 <meta property="og:image" content="/logo.png" />
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make package setup</h1>
+    <h1>Make package setup list</h1>
     <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
     <div class="hidden name"><code>make_pkg_setup_ls.Rd</code></div>
     </div>
@@ -131,23 +131,30 @@
     <pre class="usage"><span class='fu'>make_pkg_setup_ls</span><span class='op'>(</span>
   <span class='va'>pkg_desc_ls</span>,
   <span class='va'>copyright_holders_chr</span>,
-  <span class='va'>pkg_dmt_dv_url_1L_chr</span>,
+  <span class='va'>pkg_dmt_dv_dss_chr</span>,
   add_gh_site_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   addl_badges_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   addl_pkgs_ls <span class='op'>=</span> <span class='fu'><a href='make_addl_pkgs_ls.html'>make_addl_pkgs_ls</a></span><span class='op'>(</span><span class='op'>)</span>,
   badges_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
   build_ignore_ls <span class='op'>=</span> <span class='fu'><a href='make_build_ignore_ls.html'>make_build_ignore_ls</a></span><span class='op'>(</span><span class='op'>)</span>,
   check_type_1L_chr <span class='op'>=</span> <span class='st'>"standard"</span>,
+  cls_fn_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   delete_r_dir_cnts_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   dev_pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
   dev_pkgs_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  github_repo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  gh_repo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   lifecycle_stage_1L_chr <span class='op'>=</span> <span class='st'>"experimental"</span>,
+  inc_pkg_meta_data_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   incr_ver_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
   on_cran_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  path_to_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></span><span class='op'>(</span><span class='st'>"../../../../../Documentation/Code"</span><span class='op'>)</span>,
   path_to_pkg_logo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
+  pkg_ds_ls_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>ready4_type_1L_chr</span>,
+  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>,
   user_manual_fns_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>
 <span class='op'>)</span></pre>
 
@@ -163,20 +170,20 @@
       <td><p>Copyright holders (a character vector)</p></td>
     </tr>
     <tr>
-      <th>pkg_dmt_dv_url_1L_chr</th>
-      <td><p>Package documentation dataverse url (a character vector of length one)</p></td>
+      <th>pkg_dmt_dv_dss_chr</th>
+      <td><p>Package documentation dataverse datasets (a character vector)</p></td>
     </tr>
     <tr>
       <th>add_gh_site_1L_lgl</th>
-      <td><p>Add gh site (a logical vector of length one), Default: T</p></td>
+      <td><p>Add github site (a logical vector of length one), Default: T</p></td>
     </tr>
     <tr>
       <th>addl_badges_ls</th>
-      <td><p>Addl badges (a list), Default: NULL</p></td>
+      <td><p>Additional badges (a list), Default: NULL</p></td>
     </tr>
     <tr>
       <th>addl_pkgs_ls</th>
-      <td><p>Addl packages (a list), Default: make_addl_pkgs_ls()</p></td>
+      <td><p>Additional packages (a list), Default: make_addl_pkgs_ls()</p></td>
     </tr>
     <tr>
       <th>badges_lup</th>
@@ -191,6 +198,10 @@
       <td><p>Check type (a character vector of length one), Default: 'standard'</p></td>
     </tr>
     <tr>
+      <th>cls_fn_ls</th>
+      <td><p>Class (a list of functions), Default: NULL</p></td>
+    </tr>
+    <tr>
       <th>delete_r_dir_cnts_1L_lgl</th>
       <td><p>Delete r directory contents (a logical vector of length one), Default: T</p></td>
     </tr>
@@ -203,20 +214,36 @@
       <td><p>Development packages (a character vector), Default: 'NA'</p></td>
     </tr>
     <tr>
-      <th>github_repo_1L_chr</th>
-      <td><p>Github repo (a character vector of length one), Default: 'NA'</p></td>
+      <th>dv_url_pfx_1L_chr</th>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>gh_repo_1L_chr</th>
+      <td><p>Github repository (a character vector of length one), Default: 'NA'</p></td>
     </tr>
     <tr>
       <th>lifecycle_stage_1L_chr</th>
       <td><p>Lifecycle stage (a character vector of length one), Default: 'experimental'</p></td>
     </tr>
     <tr>
+      <th>inc_pkg_meta_data_1L_lgl</th>
+      <td><p>Include package meta data (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
       <th>incr_ver_1L_lgl</th>
-      <td><p>Incr ver (a logical vector of length one), Default: F</p></td>
+      <td><p>Increment version (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>key_1L_chr</th>
+      <td><p>Key (a character vector of length one), Default: NULL</p></td>
     </tr>
     <tr>
       <th>on_cran_1L_lgl</th>
       <td><p>On cran (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>path_to_dmt_dir_1L_chr</th>
+      <td><p>Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")</p></td>
     </tr>
     <tr>
       <th>path_to_pkg_logo_1L_chr</th>
@@ -227,8 +254,16 @@
       <td><p>Path to package root (a character vector of length one), Default: getwd()</p></td>
     </tr>
     <tr>
+      <th>pkg_ds_ls_ls</th>
+      <td><p>Package dataset (a list of lists), Default: NULL</p></td>
+    </tr>
+    <tr>
       <th>ready4_type_1L_chr</th>
       <td><p>Ready4 type (a character vector of length one)</p></td>
+    </tr>
+    <tr>
+      <th>server_1L_chr</th>
+      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
     </tr>
     <tr>
       <th>user_manual_fns_chr</th>

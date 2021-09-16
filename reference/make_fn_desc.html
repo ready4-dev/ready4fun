@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -132,8 +132,9 @@
   <span class='va'>fns_chr</span>,
   <span class='va'>title_chr</span>,
   <span class='va'>output_chr</span>,
-  fn_type_lup_tb <span class='op'>=</span> <span class='cn'>NULL</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>fns_env_ls</span>,
+  fn_types_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>abbreviations_lup</span>,
   test_for_write_R_warning_fn <span class='op'>=</span> <span class='cn'>NULL</span>,
   is_generic_lgl <span class='op'>=</span> <span class='cn'>F</span>
 <span class='op'>)</span></pre>
@@ -154,12 +155,16 @@
       <td><p>Output (a character vector)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble), Default: NULL</p></td>
+      <th>fns_env_ls</th>
+      <td><p>Functions (a list of environments)</p></td>
+    </tr>
+    <tr>
+      <th>fn_types_lup</th>
+      <td><p>Function types (a lookup table), Default: NULL</p></td>
     </tr>
     <tr>
       <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
+      <td><p>Abbreviations (a lookup table)</p></td>
     </tr>
     <tr>
       <th>test_for_write_R_warning_fn</th>

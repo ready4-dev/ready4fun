@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9323</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9341</span>
       </span>
     </div>
 
@@ -134,9 +134,9 @@
   custom_dmt_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>details_ls <span class='op'>=</span> <span class='cn'>NULL</span>, inc_for_main_user_lgl_ls <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>force_true_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>, force_false_chr <span class='op'>=</span> <span class='cn'>NA_character_</span><span class='op'>)</span>, args_ls_ls <span class='op'>=</span>
     <span class='cn'>NULL</span><span class='op'>)</span>,
-  <span class='va'>fn_type_lup_tb</span>,
-  abbreviations_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  object_type_lup <span class='op'>=</span> <span class='fu'><a href='get_rds_from_dv.html'>get_rds_from_dv</a></span><span class='op'>(</span><span class='st'>"object_type_lup"</span><span class='op'>)</span>,
+  <span class='va'>fn_types_lup</span>,
+  <span class='va'>abbreviations_lup</span>,
+  <span class='va'>object_type_lup</span>,
   inc_all_mthds_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>
 <span class='op'>)</span></pre>
 
@@ -157,16 +157,16 @@
 force_false_chr = NA_character_), args_ls_ls = NULL)</p></td>
     </tr>
     <tr>
-      <th>fn_type_lup_tb</th>
-      <td><p>Function type lookup table (a tibble)</p></td>
+      <th>fn_types_lup</th>
+      <td><p>Function types (a lookup table)</p></td>
     </tr>
     <tr>
       <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table), Default: NULL</p></td>
+      <td><p>Abbreviations (a lookup table)</p></td>
     </tr>
     <tr>
       <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: get_rds_from_dv("object_type_lup")</p></td>
+      <td><p>Object type (a lookup table)</p></td>
     </tr>
     <tr>
       <th>inc_all_mthds_1L_lgl</th>

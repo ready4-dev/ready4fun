@@ -4,12 +4,12 @@
 \alias{replace_abbr}
 \title{Replace abbreviation}
 \usage{
-replace_abbr(title_chr, abbreviations_lup = NULL, collapse_lgl = T)
+replace_abbr(title_chr, abbreviations_lup, collapse_lgl = T)
 }
 \arguments{
 \item{title_chr}{Title (a character vector)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
 \item{collapse_lgl}{Collapse (a logical vector), Default: T}
 }

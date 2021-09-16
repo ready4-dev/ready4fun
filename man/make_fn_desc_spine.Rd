@@ -8,8 +8,8 @@ make_fn_desc_spine(
   fn,
   fn_name_1L_chr,
   fn_title_1L_chr,
-  fn_types_lup = NULL,
-  abbreviations_lup = NULL
+  fn_types_lup,
+  abbreviations_lup
 )
 }
 \arguments{
@@ -19,9 +19,9 @@ make_fn_desc_spine(
 
 \item{fn_title_1L_chr}{Function title (a character vector of length one)}
 
-\item{fn_types_lup}{Function types (a lookup table), Default: NULL}
+\item{fn_types_lup}{Function types (a lookup table)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 }
 \value{
 Function description spine (a character vector of length one)

@@ -110,15 +110,17 @@ write_and_doc_ds <- function(db_df,
                              key_1L_chr = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    stop("NULL value passed to abbreviations_lup")#
-    #utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
+                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                         key_1L_chr = key_1L_chr,
+                                         server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
-    stop("NULL value passed to object_type_lup")#
-    # object_type_lup <- get_rds_from_dv("object_type_lup",
-    #                                    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-    #                                    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-    #                                    key_1L_chr = key_1L_chr,
-    #                                    server_1L_chr = server_1L_chr)
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
@@ -414,14 +416,17 @@ write_ds_dmt <- function(db_df,
                          key_1L_chr = NULL,
                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    stop("NULL value passed to abbreviations_lup")#utils::data("abbreviations_lup",package="ready4fun",envir = environment())
+    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
+                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                         key_1L_chr = key_1L_chr,
+                                         server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
-    stop("NULL value passed to object_type_lup")#
-  # object_type_lup <- get_rds_from_dv("object_type_lup",
-  #                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-  #                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-  #                                      key_1L_chr = key_1L_chr,
-  #                                      server_1L_chr = server_1L_chr)
+    object_type_lup <- get_rds_from_dv("object_type_lup",
+                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                       key_1L_chr = key_1L_chr,
+                                       server_1L_chr = server_1L_chr)
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
                         get_from_lup_obj(abbreviations_lup,

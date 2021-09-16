@@ -10,7 +10,7 @@ make_fn_desc(
   output_chr,
   fns_env_ls,
   fn_types_lup = NULL,
-  abbreviations_lup = NULL,
+  abbreviations_lup,
   test_for_write_R_warning_fn = NULL,
   is_generic_lgl = F
 )
@@ -26,7 +26,7 @@ make_fn_desc(
 
 \item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
 \item{test_for_write_R_warning_fn}{Test for write warning (a function), Default: NULL}
 

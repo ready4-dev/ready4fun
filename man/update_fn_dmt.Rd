@@ -10,7 +10,7 @@ update_fn_dmt(
   fn_name_1L_chr,
   fn_type_1L_chr,
   import_chr,
-  abbreviations_lup = NULL
+  abbreviations_lup
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ update_fn_dmt(
 
 \item{import_chr}{Import (a character vector)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 }
 \value{
 Function documentation (a character vector of length one)

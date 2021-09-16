@@ -39,7 +39,7 @@ add_build_ignore <- function (build_ignore_ls)
 #' Add indefinite article to item
 #' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated. The function returns Indefinite item (a character vector).
 #' @param phrase_chr Phrase (a character vector)
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param ignore_phrs_not_in_lup_1L_lgl Ignore phrases not in lookup table (a logical vector of length one), Default: T
 #' @return Indefinite item (a character vector)
 #' @rdname add_indef_artl_to_item
@@ -47,10 +47,8 @@ add_build_ignore <- function (build_ignore_ls)
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
 #' @keywords internal
-add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore_phrs_not_in_lup_1L_lgl = T) 
+add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
-    if (is.null(abbreviations_lup)) 
-        stop("NULL value passed to abbreviations_lup")
     indefinite_item_chr <- purrr::map_chr(phrase_chr, ~{
         phrase_1L_chr <- .x
         matching_prefix_chr <- abbreviations_lup$long_name_chr[phrase_1L_chr %>% 
@@ -77,18 +75,15 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup = NULL, ignore
 #' Add indefinite articles to phrases
 #' @description add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated. The function returns Phrases (a character vector).
 #' @param abbreviated_phrase_1L_chr Abbreviated phrase (a character vector of length one)
-#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param ignore_phrs_not_in_lup_1L_lgl Ignore phrases not in lookup table (a logical vector of length one), Default: T
 #' @return Phrases (a character vector)
 #' @rdname add_indefartls_to_phrases
 #' @export 
 #' @importFrom purrr map_chr discard
 #' @keywords internal
-add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup = NULL, 
-    ignore_phrs_not_in_lup_1L_lgl = T) 
+add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
-    if (is.null(abbreviations_lup)) 
-        stop("NULL value passed to abbreviations_lup")
     phrases_chr <- abbreviated_phrase_1L_chr %>% purrr::map_chr(~{
         words_chr_ls <- strsplit(.x, "_")
         words_chr_ls %>% purrr::map_chr(~{

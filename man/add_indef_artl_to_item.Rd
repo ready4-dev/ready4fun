@@ -6,14 +6,14 @@
 \usage{
 add_indef_artl_to_item(
   phrase_chr,
-  abbreviations_lup = NULL,
+  abbreviations_lup,
   ignore_phrs_not_in_lup_1L_lgl = T
 )
 }
 \arguments{
 \item{phrase_chr}{Phrase (a character vector)}
 
-\item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
 \item{ignore_phrs_not_in_lup_1L_lgl}{Ignore phrases not in lookup table (a logical vector of length one), Default: T}
 }

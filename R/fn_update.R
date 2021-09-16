@@ -341,7 +341,6 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
 #' @export 
 #' @importFrom testit assert
 #' @importFrom purrr discard
-#' @keywords internal
 update_msng_abbrs <- function (pkg_setup_ls, are_words_chr = NA_character_, tf_to_singular_chr = NA_character_, 
     not_obj_type_chr = NA_character_) 
 {

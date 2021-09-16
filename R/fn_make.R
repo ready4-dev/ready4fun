@@ -10,7 +10,6 @@
 #' @rdname make_addl_pkgs_ls
 #' @export 
 #' @importFrom purrr discard
-#' @keywords internal
 make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_chr = NULL, 
     linking_to_chr = NULL, suggests_chr = NULL, append_ls = NULL) 
 {
@@ -316,7 +315,6 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "htt
 #' @rdname make_build_ignore_ls
 #' @export 
 
-#' @keywords internal
 make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL) 
 {
     build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)

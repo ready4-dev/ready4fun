@@ -241,6 +241,20 @@ get_new_abbrs_cndts <- function(text_chr,
                                     c(GradyAugmented, treat_as_words_chr) %>% Hmisc::capitalize())),"")
   return(new_abbrs_cndts_chr)
 }
+get_new_cls_pts <- function(pkg_setup_ls){
+  incdd_clss_chr <- c(pkg_setup_ls$subsequent_ls$prototype_lup$type_chr,
+                      pkg_setup_ls$subsequent_ls$prototype_lup$fn_to_call_chr) %>%
+    unique()
+  incdd_clss_chr <- incdd_clss_chr[incdd_clss_chr != ""]
+  new_cls_pts_chr <- setdiff(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$pt_ls %>%
+                                   purrr::flatten() %>%
+                                   purrr::flatten_chr() %>%
+                                   unique(),
+                                 c(incdd_clss_chr,
+                                   paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_",
+                                          pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr)))
+  return(new_cls_pts_chr)
+}
 get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S4 generics and methods
                              fn_nms_ls = make_fn_nms(),
                              undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)){

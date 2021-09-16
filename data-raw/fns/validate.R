@@ -18,6 +18,22 @@ validate_pkg_setup <- function(pkg_setup_ls){
         pkg_setup_ls <- write_new_abbrs(pkg_setup_ls)
       }
     }
+    if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)){
+      if(is.null(pkg_setup_ls$subsequent_ls$prototype_lup)){
+        pkg_setup_ls <- add_new_cls_pts(pkg_setup_ls)
+      }
+      missing_cls_pts_chr <- get_new_cls_pts(pkg_setup_ls)
+      if(!identical(missing_cls_pts_chr, character(0))){
+        message(paste0("The following potential class prototype",
+                       ifelse(length(missing_cls_pts_chr) >1,"s are"," is"),
+                       " not defined in the prototype_lup object: \n",
+                       missing_cls_pts_chr %>% make_list_phrase(),
+                       ".\nAdd the missing object type definition",
+                       ifelse(length(missing_cls_pts_chr) >1,"s",""),
+                       " by using the 'add_new_cls_pts' function."))
+        pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
+      }
+      }
     missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls,
                                            classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
                                            pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls,

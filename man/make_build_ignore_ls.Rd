@@ -17,4 +17,3 @@ Build ignore (a list)
 \description{
 make_build_ignore_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make build ignore list. The function returns Build ignore (a list).
 }
-\keyword{internal}

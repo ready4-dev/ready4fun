@@ -160,6 +160,25 @@ add_plurals_to_abbr_lup <- function(abbr_tb,
     dplyr::arrange(short_name_chr)
   return(abbr_tb)
 }
+add_new_cls_pts <- function(pkg_setup_ls,
+                            addl_cls_pts_tb = NULL){
+  if(is.null(pkg_setup_ls$subsequent_ls$prototype_lup)){
+    pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup",
+                                                                dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                                                dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr)
+    if(is.null(pkg_setup_ls$subsequent_ls$prototype_lup))
+    pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup")
+  }
+  if(!is.null(addl_cls_pts_tb)){
+    pkg_setup_ls$subsequent_ls$prototype_lup <- add_lups(pkg_setup_ls$subsequent_ls$prototype_lup,
+                                                         new_lup = addl_cls_pts_tb,
+                                                         key_var_nm_1L_chr = "type_chr")
+    if(!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr))
+      pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                            list_element_1L_chr = "missing_cls_pts_chr")
+  }
+  return(pkg_setup_ls)
+}
 add_rows_to_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                     fn_type_nm_chr = NA_character_,
                                     fn_type_desc_chr = NA_character_,

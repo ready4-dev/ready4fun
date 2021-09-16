@@ -309,6 +309,26 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
             treat_as_words_chr) %>% Hmisc::capitalize())), "")
     return(new_abbrs_cndts_chr)
 }
+#' Get new class prototypes
+#' @description get_new_cls_pts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new class prototypes. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New class prototypes (a character vector).
+#' @param pkg_setup_ls Package setup (a list)
+#' @return New class prototypes (a character vector)
+#' @rdname get_new_cls_pts
+#' @export 
+#' @importFrom purrr flatten flatten_chr
+#' @keywords internal
+get_new_cls_pts <- function (pkg_setup_ls) 
+{
+    incdd_clss_chr <- c(pkg_setup_ls$subsequent_ls$prototype_lup$type_chr, 
+        pkg_setup_ls$subsequent_ls$prototype_lup$fn_to_call_chr) %>% 
+        unique()
+    incdd_clss_chr <- incdd_clss_chr[incdd_clss_chr != ""]
+    new_cls_pts_chr <- setdiff(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$pt_ls %>% 
+        purrr::flatten() %>% purrr::flatten_chr() %>% unique(), 
+        c(incdd_clss_chr, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+            "_", pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr)))
+    return(new_cls_pts_chr)
+}
 #' Get new function types
 #' @description get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).
 #' @param pkg_setup_ls Package setup (a list)

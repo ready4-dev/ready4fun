@@ -8,10 +8,7 @@ write_pkg_dss(
   pkg_setup_ls,
   args_ls_ls = NULL,
   details_ls = NULL,
-  dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-  dv_ds_nm_1L_chr,
   inc_all_mthds_1L_lgl = T,
-  inc_pkg_meta_data_1L_lgl = F,
   paths_ls = make_fn_nms(),
   pkg_url_1L_chr = NA_character_,
   R_dir_1L_chr = "R",
@@ -19,6 +16,9 @@ write_pkg_dss(
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+  dev_pkg_nm_1L_chr = deprecated(),
+  dv_ds_nm_1L_chr = deprecated(),
+  inc_pkg_meta_data_1L_lgl = deprecated(),
   pkg_ds_ls_ls = deprecated()
 )
 }
@@ -29,13 +29,7 @@ write_pkg_dss(
 
 \item{details_ls}{Details (a list), Default: NULL}
 
-\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
-
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one)}
-
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
-
-\item{inc_pkg_meta_data_1L_lgl}{Include package meta data (a logical vector of length one), Default: F}
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
 
@@ -50,6 +44,12 @@ write_pkg_dss(
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+
+\item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: deprecated()}
+
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: deprecated()}
+
+\item{inc_pkg_meta_data_1L_lgl}{Include package meta data (a logical vector of length one), Default: deprecated()}
 
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: deprecated()}
 }

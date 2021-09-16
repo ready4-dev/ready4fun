@@ -151,6 +151,32 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
         ncol(combined_lups), ]
     return(combined_lups)
 }
+#' Add new class prototypes
+#' @description add_new_cls_pts() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add new class prototypes. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param addl_cls_pts_tb Additional class prototypes (a tibble), Default: NULL
+#' @return Package setup (a list)
+#' @rdname add_new_cls_pts
+#' @export 
+
+add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL) 
+{
+    if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {
+        pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup", 
+            dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+            dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr)
+        if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) 
+            pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup")
+    }
+    if (!is.null(addl_cls_pts_tb)) {
+        pkg_setup_ls$subsequent_ls$prototype_lup <- add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 
+            new_lup = addl_cls_pts_tb, key_var_nm_1L_chr = "type_chr")
+        if (!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr)) 
+            pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, 
+                list_element_1L_chr = "missing_cls_pts_chr")
+    }
+    return(pkg_setup_ls)
+}
 #' Add plurals to abbreviation lookup table
 #' @description add_plurals_to_abbr_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. The function returns Abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)

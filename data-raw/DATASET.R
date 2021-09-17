@@ -89,6 +89,15 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                                        long_name_chr = "character(0)",
                                                                        plural_lgl = "logical(0)"))),
   ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
+                                                   make_s3_lgl = T,
+                                                   name_stub_chr = "fn_ls",
+                                                   pt_chkr_pfx_ls = list(list("is.")),
+                                                   pt_ls = list(list("list")),
+                                                   pt_ns_ls = list(list("base")),
+                                                   vals_ls = list(list(args_ls = "list()",
+                                                                       fn = "identity"))
+  ),
+  ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
                                                    make_s3_lgl = T,#F
                                                    name_stub_chr = "pkg_desc",
                                                    #slots_ls = c("Package","Title","Description","Authors", "License", "URL") %>% list(),
@@ -163,8 +172,8 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                        badges_lup = badges_lup,
                                        build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                        check_type_1L_chr = "standard",
-                                       cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
-                                                        args_ls = list(x = classes_to_make_tb)),
+                                       # cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
+                                       #                  args_ls = list(x = classes_to_make_tb)),
                                        copyright_holders_chr = "Orygen",
                                        inc_pkg_meta_data_1L_lgl = T, ###
                                        lifecycle_stage_1L_chr = "experimental",

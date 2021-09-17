@@ -239,11 +239,9 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
         writeLines(c("development:", "  mode: auto", "reference:", 
             "- title: \"Datasets\"", "- contents:", paste0("  - ", 
                 datasets_chr), {
-                if ("prototype_lup" %in% datasets_chr) {
-                  utils::data("prototype_lup", package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr), 
-                    envir = environment())
-                  fns_chr <- prototype_lup %>% dplyr::filter(pt_ns_chr == 
-                    get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr)) %>% 
+                if (!is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {
+                  fns_chr <- pkg_setup_ls$subsequent_ls$prototype_lup %>% 
+                    dplyr::filter(pt_ns_chr == pkg_setup_ls$initial_ls$pkg_desc_ls$Package) %>% 
                     dplyr::pull(fn_to_call_chr)
                   if (length(fns_chr) > 0) {
                     c(paste0("- title: \"", "Classes", "\""), 

@@ -123,7 +123,7 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
                     "x", "PARAM_DESCRIPTION", "An object"), new_tag_chr_ls$arg_desc_chr[.y])))
             })
     }
-    fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("@param ... PARAM_DESCRIPTION", 
+    fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("@param \\... PARAM_DESCRIPTION", 
         paste0("@param ... ", "Additional arguments"))
     if (!is.null(new_tag_chr_ls$s3_class_main_1L_chr)) {
         if (fn_type_1L_chr == "s3_valid_instance") {

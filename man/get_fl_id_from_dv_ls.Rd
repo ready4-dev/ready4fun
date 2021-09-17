@@ -19,4 +19,3 @@ Identity (a character vector of length one)
 \description{
 get_fl_id_from_dv_ls() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get file identity from dataverse list. Function argument ds_ls specifies the where to look for the required object. The function returns Identity (a character vector of length one).
 }
-\keyword{internal}

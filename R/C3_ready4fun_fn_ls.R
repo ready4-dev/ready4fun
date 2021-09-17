@@ -3,7 +3,7 @@
 #' @description Create a new valid instance of the ready4 S3 class for declaring package description file data.
 #' @param x A prototype for the ready4 S3 class for declaring package description file data., Default: make_pt_ready4fun_fn_ls()
 #' @return A validated instance of the ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname ready4fun_fn_ls
 #' @export 
 
@@ -14,7 +14,7 @@ validate_ready4fun_fn_ls(make_new_ready4fun_fn_ls(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for declaring package description file data.
 #' @param x A prototype for the ready4 S3 class for declaring package description file data.
 #' @return An unvalidated instance of the ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname make_new_ready4fun_fn_ls
 #' @export 
 
@@ -29,7 +29,7 @@ x
 #' @param args_ls Arguments (a list), Default: list()
 #' @param fn Function (a function), Default: identity
 #' @return A prototype for ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname make_pt_ready4fun_fn_ls
 #' @export 
 #' @importFrom rlang exec
@@ -43,7 +43,7 @@ rlang::exec(list,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for declaring package description file data.
 #' @param x An unvalidated instance of the ready4 S3 class for declaring package description file data.
 #' @return A prototpe for ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname validate_ready4fun_fn_ls
 #' @export 
 #' @importFrom stringr str_detect str_c
@@ -86,7 +86,7 @@ x}
 #' @description Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname is_ready4fun_fn_ls
 #' @export 
 

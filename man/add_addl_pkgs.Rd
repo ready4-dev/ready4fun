@@ -12,4 +12,3 @@ add_addl_pkgs(addl_pkgs_ls)
 \description{
 add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
 }
-\keyword{internal}

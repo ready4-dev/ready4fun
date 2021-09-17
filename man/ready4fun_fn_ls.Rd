@@ -16,5 +16,5 @@ A validated instance of the ready4 S3 class for declaring package description fi
 Create a new valid instance of the ready4 S3 class for declaring package description file data.
 }
 \details{
-ready4 S3 class for declaring package description file data.
+ready4 S3 class for list object specifying function arguments and function.
 }

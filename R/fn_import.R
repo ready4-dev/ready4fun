@@ -9,7 +9,6 @@
 #' @importFrom purrr map
 #' @importFrom readxl read_excel
 #' @importFrom stats setNames
-#' @keywords internal
 import_xls_sheets <- function (range_1L_chr, sheet_names_chr, path_1L_chr) 
 {
     tb_ls <- purrr::map(sheet_names_chr, ~readxl::read_excel(path = path_1L_chr, 

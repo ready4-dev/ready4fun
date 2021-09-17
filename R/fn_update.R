@@ -47,7 +47,6 @@ update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_c
 #' @export 
 #' @importFrom testit assert
 #' @importFrom dplyr filter
-#' @keywords internal
 update_abbrs <- function (pkg_setup_ls, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
     custom_plural_ls = NULL, pfx_rgx = NA_character_) 
 {
@@ -76,7 +75,6 @@ update_abbrs <- function (pkg_setup_ls, short_name_chr, long_name_chr, no_plural
 #' @rdname update_first_word_case
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 update_first_word_case <- function (phrase_1L_chr, fn = tolower) 
 {
     phrase_1L_chr <- paste0(phrase_1L_chr %>% stringr::str_sub(end = 1) %>% 
@@ -96,7 +94,6 @@ update_first_word_case <- function (phrase_1L_chr, fn = tolower)
 #' @export 
 #' @importFrom stringr str_replace str_c str_sub str_locate
 #' @importFrom purrr reduce
-#' @keywords internal
 update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
     import_chr, abbreviations_lup) 
 {
@@ -164,7 +161,6 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
 #' @export 
 #' @importFrom purrr reduce
 #' @importFrom stringr str_replace
-#' @keywords internal
 update_fn_dmt_with_slots <- function (fn_name_1L_chr, fn_dmt_1L_chr) 
 {
     slots_chr <- get_r4_obj_slots(fn_name_1L_chr)
@@ -190,7 +186,6 @@ update_fn_dmt_with_slots <- function (fn_name_1L_chr, fn_dmt_1L_chr)
 #' @export 
 #' @importFrom purrr map_lgl reduce map
 #' @importFrom rlang exec
-#' @keywords internal
 update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
     inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, 
     args_ls_ls = NULL, append_1L_lgl = T) 
@@ -238,7 +233,6 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
 #' @importFrom dplyr mutate case_when
 #' @importFrom rlang sym
 #' @importFrom purrr map_chr
-#' @keywords internal
 update_fns_dmt_tb_chr_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
 {
     if (is.na(data_1L_chr)) {
@@ -266,7 +260,6 @@ update_fns_dmt_tb_chr_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_
 #' @export 
 #' @importFrom dplyr mutate case_when
 #' @importFrom rlang sym
-#' @keywords internal
 update_fns_dmt_tb_lgl_vars <- function (fns_dmt_tb, data_1L_chr, new_ls) 
 {
     if (is.na(data_1L_chr)) {
@@ -294,7 +287,6 @@ update_fns_dmt_tb_lgl_vars <- function (fns_dmt_tb, data_1L_chr, new_ls)
 #' @importFrom purrr map2 map2_chr map_chr
 #' @importFrom testit assert
 #' @importFrom stats setNames
-#' @keywords internal
 update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
 {
     if (is.na(data_1L_chr)) {
@@ -372,7 +364,6 @@ update_msng_abbrs <- function (pkg_setup_ls, are_words_chr = NA_character_, tf_t
 #' @rdname update_ns
 #' @export 
 
-#' @keywords internal
 update_ns <- function (package_1L_chr) 
 {
     package_nm_chr <- ifelse(package_1L_chr == "", ".GlobalEnv", 
@@ -387,7 +378,6 @@ update_ns <- function (package_1L_chr)
 #' @rdname update_pkg_setup_msgs
 #' @export 
 
-#' @keywords internal
 update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr) 
 {
     pkg_setup_ls$problems_ls[[which(names(pkg_setup_ls$problems_ls) == 
@@ -404,7 +394,6 @@ update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr)
 #' @export 
 #' @importFrom purrr map_dbl map2
 #' @importFrom stats setNames
-#' @keywords internal
 update_pt_fn_args_ls <- function (args_ls) 
 {
     arg_lgths_dbl <- args_ls %>% purrr::map_dbl(~length(.x))

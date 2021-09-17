@@ -88,7 +88,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                    vals_ls = list(list(short_name_chr = "character(0)",
                                                                        long_name_chr = "character(0)",
                                                                        plural_lgl = "logical(0)"))),
-  ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
+  ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for list object specifying function arguments and function.",# S4
                                                    make_s3_lgl = T,
                                                    name_stub_chr = "fn_ls",
                                                    pt_chkr_pfx_ls = list(list("is.")),

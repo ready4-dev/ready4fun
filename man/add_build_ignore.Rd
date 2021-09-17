@@ -12,4 +12,3 @@ add_build_ignore(build_ignore_ls)
 \description{
 add_build_ignore() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add build ignore. Function argument build_ignore_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
 }
-\keyword{internal}

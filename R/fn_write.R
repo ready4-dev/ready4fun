@@ -20,7 +20,6 @@
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom lifecycle is_present deprecate_warn
-#' @keywords internal
 write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
     object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
@@ -66,7 +65,6 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
 #' @export 
 #' @importFrom dplyr filter
 #' @importFrom devtools document load_all
-#' @keywords internal
 write_all_fn_dmt <- function (pkg_setup_ls, fns_dmt_tb, fns_env_ls, document_unexp_lgl = F) 
 {
     if (file.exists(paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
@@ -94,7 +92,6 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_dmt_tb, fns_env_ls, document_une
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom methods getSlots
-#' @keywords internal
 write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
 {
     purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
@@ -127,7 +124,6 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @export 
 #' @importFrom tibble tibble add_case
 #' @importFrom devtools document load_all
-#' @keywords internal
 write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
     desc_1L_chr, format_1L_chr = "A tibble", url_1L_chr = NA_character_, 
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
@@ -182,7 +178,6 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom devtools load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
-#' @keywords internal
 write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkgdown_1L_lgl = T, 
     path_to_dmt_dir_1L_chr = deprecated(), dev_pkgs_chr = deprecated(), 
     path_to_dvpr_dmt_dir_1L_chr = deprecated(), path_to_pkg_rt_1L_chr = deprecated(), 
@@ -278,7 +273,6 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-#' @keywords internal
 write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL, 
     key_1L_chr = NULL, self_serve_1L_lgl = F, self_serve_fn_ls = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), cls_fn_ls = deprecated()) 
@@ -353,7 +347,6 @@ write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL,
 #' @importFrom tibble tibble
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom utils data
-#' @keywords internal
 write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = deprecated(), 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
@@ -391,7 +384,6 @@ write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite
 #' @importFrom sinew makeOxyFile
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr) 
 {
     sinew::makeOxyFile(tmp_fn_dir_1L_chr, verbose = F)
@@ -430,7 +422,6 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @export 
 #' @importFrom purrr map map2 pluck map2_chr
 #' @importFrom stats setNames
-#' @keywords internal
 write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL, 
@@ -488,7 +479,6 @@ write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L
 #' @export 
 #' @importFrom purrr map2_chr
 #' @importFrom dataverse get_dataset
-#' @keywords internal
 write_env_objs_to_dv <- function (env_objects_ls, descriptions_chr, ds_url_1L_chr, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
     publish_dv_1L_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
@@ -523,7 +513,6 @@ write_env_objs_to_dv <- function (env_objects_ls, descriptions_chr, ds_url_1L_ch
 #' @importFrom purrr map_chr map map2_int
 #' @importFrom fs path_file
 #' @importFrom dataverse get_dataset delete_file add_dataset_file update_dataset_file
-#' @keywords internal
 write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_chr, 
     ds_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
@@ -594,7 +583,6 @@ write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_
 #' @importFrom stringi stri_replace_last
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
-#' @keywords internal
 write_fn_fl <- function (fns_dmt_tb, fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, 
     consent_1L_chr = NULL, r_dir_1L_chr = deprecated()) 
 {
@@ -671,7 +659,6 @@ write_fn_fl <- function (fns_dmt_tb, fns_env_ls, pkg_setup_ls, document_unexp_lg
 #' @rdname write_fn_type_dirs
 #' @export 
 
-#' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
@@ -692,7 +679,6 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
 #' @export 
 #' @importFrom purrr map_chr walk2 walk
 #' @importFrom dplyr filter select
-#' @keywords internal
 write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, fns_dmt_tb, original_pkg_nm_1L_chr = get_dev_pkg_nm(), 
     pkg_1_nm_1L_chr = "package_1", pkg_2_nm_1L_chr = "package_2", 
     tmp_dir_path_1L_chr = "data-raw/pkg_migration", path_to_fns_dir_1L_chr = "data-raw/fns") 
@@ -745,7 +731,6 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, fns_dmt_
 #' @export 
 #' @importFrom purrr pmap
 #' @importFrom rlang exec
-#' @keywords internal
 write_from_tmp <- function (tmp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
     args_ls_ls = NULL) 
 {
@@ -774,7 +759,6 @@ write_from_tmp <- function (tmp_paths_chr, dest_paths_chr, edit_fn_ls = list(NUL
 #' @rdname write_inst_dir
 #' @export 
 
-#' @keywords internal
 write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
 {
     source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
@@ -795,7 +779,6 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' @rdname write_links_for_website
 #' @export 
 #' @importFrom stats na.omit
-#' @keywords internal
 write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_manual_url_1L_chr = NA_character_, 
     user_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
 {
@@ -840,7 +823,6 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom purrr pluck
-#' @keywords internal
 write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(), 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, publish_dv_1L_lgl = T, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), pkg_desc_ls = deprecated()) 
@@ -875,7 +857,6 @@ write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(),
 #' @export 
 #' @importFrom utils packageDescription
 #' @importFrom purrr walk
-#' @keywords internal
 write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_to_dmt_dir_1L_chr, 
     pkg_dmt_dv_ds_1L_chr, publish_dv_1L_lgl = F) 
 {
@@ -980,7 +961,6 @@ write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_l
 #' @importFrom purrr walk map map_lgl
 #' @importFrom stringr str_sub
 #' @importFrom stats setNames
-#' @keywords internal
 write_new_arg_sfcs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_dev_dir_path_1L_chr = normalizePath("../../../"), 
     pkg_nm_1L_chr, inc_fns_idx_dbl = NA_real_) 
 {
@@ -1018,7 +998,6 @@ write_new_arg_sfcs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @rdname write_new_dirs
 #' @export 
 #' @importFrom purrr map_lgl walk
-#' @keywords internal
 write_new_dirs <- function (new_dirs_chr) 
 {
     new_dirs_chr <- new_dirs_chr[new_dirs_chr %>% purrr::map_lgl(~!dir.exists(.x))]
@@ -1055,7 +1034,6 @@ write_new_dirs <- function (new_dirs_chr)
 #' @importFrom purrr map flatten_chr map_chr map_lgl walk2 walk
 #' @importFrom fs path_file
 #' @importFrom rlang exec
-#' @keywords internal
 write_new_files <- function (paths_chr, custom_write_ls = NULL, fl_nm_1L_chr = NULL, 
     source_paths_ls = NULL, text_ls = NULL) 
 {
@@ -1274,7 +1252,6 @@ write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_elem
 #' @importFrom purrr map_chr discard walk
 #' @importFrom stringr str_replace str_sub str_locate
 #' @importFrom usethis use_dev_package use_package use_version
-#' @keywords internal
 write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T) 
 {
     devtools::document()
@@ -1366,7 +1343,6 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = 
 #' @export 
 #' @importFrom lifecycle deprecate_soft
 #' @importFrom utils packageDescription
-#' @keywords internal
 write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R") 
 {
     lifecycle::deprecate_soft("0.0.0.9298", what = "ready4fun::write_pkg()")
@@ -1400,7 +1376,6 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom tibble tibble
 #' @importFrom purrr reduce
 #' @importFrom rlang exec
-#' @keywords internal
 write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL, 
     inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), pkg_url_1L_chr = NA_character_, 
     R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
@@ -1491,7 +1466,6 @@ write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL,
 #' @importFrom lubridate year
 #' @importFrom pkgdown build_favicons
 #' @importFrom dplyr filter
-#' @keywords internal
 write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_chr, 
     addl_badges_ls = NULL, badges_lup = NULL, check_type_1L_chr = "none", 
     delete_r_dir_cnts_1L_lgl = F, lifecycle_stage_1L_chr = "experimental", 
@@ -1629,7 +1603,6 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
 #' @rdname write_pt_lup_db
 #' @export 
 
-#' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
     write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"), 
@@ -1643,7 +1616,6 @@ write_pt_lup_db <- function (R_dir_1L_chr = "R")
 #' @rdname write_std_imp
 #' @export 
 #' @importFrom utils packageDescription
-#' @keywords internal
 write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr) 
 {
     write_from_tmp(c(system.file("pkg_tmp.R", package = "ready4fun"), 
@@ -1672,7 +1644,6 @@ write_std_imp <- function (R_dir_1L_chr = "R", package_1L_chr)
 #' @importFrom dplyr mutate_if funs
 #' @importFrom stringr str_c
 #' @importFrom utils write.csv
-#' @keywords internal
 write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_chr, 
     pfx_1L_chr) 
 {
@@ -1688,7 +1659,6 @@ write_tb_to_csv <- function (tbs_r4, slot_nm_1L_chr, r4_name_1L_chr, lup_dir_1L_
 #' @rdname write_to_delete_dirs
 #' @export 
 #' @importFrom purrr map_lgl map flatten_chr walk
-#' @keywords internal
 write_to_delete_dirs <- function (dir_paths_chr) 
 {
     dir_paths_chr <- dir_paths_chr[dir_paths_chr %>% purrr::map_lgl(~dir.exists(.x))]
@@ -1723,7 +1693,6 @@ write_to_delete_dirs <- function (dir_paths_chr)
 #' @rdname write_to_delete_fls
 #' @export 
 #' @importFrom purrr map_lgl
-#' @keywords internal
 write_to_delete_fls <- function (file_paths_chr) 
 {
     file_paths_chr <- file_paths_chr[file_paths_chr %>% purrr::map_lgl(~file.exists(.x))]
@@ -1749,7 +1718,6 @@ write_to_delete_fls <- function (file_paths_chr)
 #' @rdname write_to_publish_dv_ds
 #' @export 
 #' @importFrom dataverse publish_dataset
-#' @keywords internal
 write_to_publish_dv_ds <- function (dv_ds_1L_chr) 
 {
     consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you wish to publish the current draft of dataverse ", 
@@ -1765,7 +1733,6 @@ write_to_publish_dv_ds <- function (dv_ds_1L_chr)
 #' @rdname write_to_remove_collate
 #' @export 
 
-#' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {
     if (!identical(which(description_chr == "Collate: "), integer(0))) 
@@ -1785,7 +1752,6 @@ write_to_remove_collate <- function (description_chr)
 #' @importFrom dplyr filter select
 #' @importFrom purrr pwalk walk
 #' @importFrom xfun gsub_dir
-#' @keywords internal
 write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(), 
     rt_dev_dir_path_1L_chr = normalizePath("../../../"), dev_pkg_nm_1L_chr = get_dev_pkg_nm()) 
 {
@@ -1816,7 +1782,6 @@ write_to_replace_fn_nms <- function (rename_tb, undocumented_fns_dir_chr = make_
 #' @importFrom xfun gsub_dir gsub_file
 #' @importFrom stringr str_remove
 #' @importFrom rlang exec
-#' @keywords internal
 write_to_replace_sfx_pair <- function (args_nm_chr, sfcs_chr, replacements_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1844,7 +1809,6 @@ write_to_replace_sfx_pair <- function (args_nm_chr, sfcs_chr, replacements_chr, 
 #' @importFrom devtools load_all document
 #' @importFrom utils packageDescription
 #' @importFrom usethis use_description
-#' @keywords internal
 write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr = get_dev_pkg_nm(getwd()), 
     package_dir_1L_chr = getwd(), description_ls = NULL, keep_version_lgl = T) 
 {
@@ -1870,7 +1834,6 @@ write_to_reset_pkg_files <- function (delete_contents_of_1L_chr, package_1L_chr 
 #' @rdname write_to_rpl_1L_and_indefL_sfcs
 #' @export 
 #' @importFrom stringr str_sub
-#' @keywords internal
 write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_chr = NA_character_, 
     dir_path_1L_chr = NA_character_) 
 {
@@ -1890,7 +1853,6 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_replace_all
-#' @keywords internal
 write_vignette <- function (package_1L_chr, pkg_rt_dir_chr = ".") 
 {
     write_new_dirs(paste0(pkg_rt_dir_chr, "/vignettes"))

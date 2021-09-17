@@ -17,4 +17,3 @@ Argument (a list)
 \description{
 make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make dependent functions list. The function returns Argument (a list).
 }
-\keyword{internal}

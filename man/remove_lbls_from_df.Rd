@@ -15,4 +15,3 @@ Unlabelled data (a data.frame)
 \description{
 remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove labels from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).
 }
-\keyword{internal}

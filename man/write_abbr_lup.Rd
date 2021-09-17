@@ -58,4 +58,3 @@ Package datasets (a tibble)
 \description{
 write_abbr_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write abbreviation lookup table. The function returns Package datasets (a tibble).
 }
-\keyword{internal}

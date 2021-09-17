@@ -19,4 +19,3 @@ Functions (a list of environments)
 \description{
 read_fns() is a Read function that reads an R script into memory. Specifically, this function implements an algorithm to read functions. Function argument fns_dir_1L_chr specifies the path to object. The function returns Functions (a list of environments).
 }
-\keyword{internal}

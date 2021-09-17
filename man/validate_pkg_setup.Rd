@@ -15,4 +15,3 @@ Package setup (a list)
 \description{
 validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
 }
-\keyword{internal}

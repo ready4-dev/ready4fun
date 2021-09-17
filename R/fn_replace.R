@@ -7,7 +7,6 @@
 #' @rdname replace_abbr
 #' @export 
 #' @importFrom purrr flatten_chr map_chr
-#' @keywords internal
 replace_abbr <- function (title_chr, abbreviations_lup, collapse_lgl = T) 
 {
     title_chr <- title_chr %>% strsplit(" ") %>% purrr::flatten_chr() %>% 

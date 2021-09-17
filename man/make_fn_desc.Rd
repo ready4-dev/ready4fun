@@ -38,4 +38,3 @@ Function description (a character vector)
 \description{
 make_fn_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function description. The function returns Function description (a character vector).
 }
-\keyword{internal}

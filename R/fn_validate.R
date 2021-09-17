@@ -5,7 +5,6 @@
 #' @rdname validate_pkg_setup
 #' @export 
 
-#' @keywords internal
 validate_pkg_setup <- function (pkg_setup_ls) 
 {
     pkg_setup_ls$problems_ls <- NULL

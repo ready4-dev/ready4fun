@@ -16,5 +16,5 @@ A logical value, TRUE if a valid instance of the ready4 S3 class for declaring p
 Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data.
 }
 \details{
-ready4 S3 class for declaring package description file data.
+ready4 S3 class for list object specifying function arguments and function.
 }

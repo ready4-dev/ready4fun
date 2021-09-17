@@ -172,8 +172,8 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                        badges_lup = badges_lup,
                                        build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                        check_type_1L_chr = "standard",
-                                       # cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
-                                       #                  args_ls = list(x = classes_to_make_tb)),
+                                       cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
+                                                        args_ls = list(x = classes_to_make_tb)),
                                        copyright_holders_chr = "Orygen",
                                        inc_pkg_meta_data_1L_lgl = T, ###
                                        lifecycle_stage_1L_chr = "experimental",

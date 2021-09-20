@@ -35,3 +35,4 @@ Updated function types (a lookup table)
 \description{
 add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function types (a lookup table).
 }
+\keyword{internal}

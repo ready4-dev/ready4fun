@@ -255,14 +255,20 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
                    }
                    }
                  },
-                 purrr::map2(c("fn_","grp_","mthd_"),c("Functions","Generics","Methods"),
+                 purrr::map2(c("fn_",
+                               #"grp_",
+                               "mthd_"),
+                             c("Functions",
+                               #"Generics",
+                               "Methods"),
                              ~{
                    fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
                      dplyr::pull(fns_chr)
                    if(length(fns_chr)>0){
                     txt_chr  <- c( paste0("- title: \"",.y,"\""),
                         "- contents:",
-                        paste0("  - ",fns_chr))
+                        paste0("  - ",
+                               fns_chr))
                    }else{
                      txt_chr  <- ""
                    }
@@ -1285,7 +1291,7 @@ write_package <- function(pkg_setup_ls,
                   key_1L_chr = key_1L_chr,
                   server_1L_chr = server_1L_chr)
   }
-
+  return(pkg_setup_ls)
 }
 write_pkg <- function(package_1L_chr,
                         R_dir_1L_chr = "R"){

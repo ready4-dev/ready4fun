@@ -38,3 +38,4 @@ New abbreviations (a character vector)
 \description{
 get_new_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New abbreviations (a character vector).
 }
+\keyword{internal}

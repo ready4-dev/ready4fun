@@ -6,6 +6,7 @@
 #' @export 
 #' @importFrom purrr walk2 walk
 #' @importFrom usethis use_package
+#' @keywords internal
 add_addl_pkgs <- function (addl_pkgs_ls) 
 {
     if (!is.null(addl_pkgs_ls)) 
@@ -24,6 +25,7 @@ add_addl_pkgs <- function (addl_pkgs_ls)
 #' @export 
 #' @importFrom purrr walk
 #' @importFrom usethis use_build_ignore
+#' @keywords internal
 add_build_ignore <- function (build_ignore_ls) 
 {
     if (!is.null(build_ignore_ls$file_nms_chr)) {
@@ -44,6 +46,7 @@ add_build_ignore <- function (build_ignore_ls)
 #' @export 
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
+#' @keywords internal
 add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     indefinite_item_chr <- purrr::map_chr(phrase_chr, ~{
@@ -78,6 +81,7 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_n
 #' @rdname add_indefartls_to_phrases
 #' @export 
 #' @importFrom purrr map_chr discard
+#' @keywords internal
 add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = T) 
 {
     phrases_chr <- abbreviated_phrase_1L_chr %>% purrr::map_chr(~{
@@ -119,6 +123,7 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @importFrom dplyr filter pull bind_rows arrange
 #' @importFrom rlang sym
 #' @importFrom Hmisc label
+#' @keywords internal
 add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls_1L_chr = "template") 
 {
     testit::assert("Look up tables must have same column names", 
@@ -183,6 +188,7 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL)
 #' @importFrom dplyr filter mutate_all mutate bind_rows arrange
 #' @importFrom purrr map_dfr map2_lgl
 #' @importFrom tibble tibble
+#' @keywords internal
 add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, custom_plural_ls = NULL) 
 {
     non_standard_1L_chr <- no_plural_chr
@@ -227,6 +233,7 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
 #' @rdname add_rows_to_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
+#' @keywords internal
 add_rows_to_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), fn_type_nm_chr = NA_character_, 
     fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     second_arg_desc_chr = NA_character_, is_generic_lgl = F, 

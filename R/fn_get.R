@@ -6,6 +6,7 @@
 #' @rdname get_all_depcys_of_fns
 #' @export 
 #' @importFrom dplyr filter pull
+#' @keywords internal
 get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr) 
 {
     arg_ls <- list(new_dbl = pkg_depcy_ls$Nomfun %>% dplyr::filter(label %in% 
@@ -32,6 +33,7 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
 #' @rdname get_arg_obj_type
 #' @export 
 #' @importFrom dplyr filter mutate pull
+#' @keywords internal
 get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
@@ -61,6 +63,7 @@ get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi
 #' @rdname get_dev_pkg_nm
 #' @export 
 #' @importFrom stringr str_sub
+#' @keywords internal
 get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".") 
 {
     dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, 
@@ -109,6 +112,7 @@ get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = 
 #' @export 
 #' @importFrom purrr map2_chr
 #' @importFrom tibble as_tibble
+#' @keywords internal
 get_fl_id_from_dv_ls <- function (ds_ls, fl_nm_1L_chr, nms_chr = NA_character_) 
 {
     if (is.na(nms_chr[1])) {
@@ -134,6 +138,7 @@ get_fl_id_from_dv_ls <- function (ds_ls, fl_nm_1L_chr, nms_chr = NA_character_)
 #' @rdname get_fn_args
 #' @export 
 #' @importFrom purrr discard
+#' @keywords internal
 get_fn_args <- function (fn) 
 {
     fn_args_chr <- as.list(args(fn)) %>% names() %>% purrr::discard({
@@ -148,6 +153,7 @@ get_fn_args <- function (fn)
 #' @rdname get_fn_nms_in_file
 #' @export 
 #' @importFrom purrr map_lgl
+#' @keywords internal
 get_fn_nms_in_file <- function (path_1L_chr) 
 {
     source(path_1L_chr, local = T)
@@ -219,6 +225,7 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @rdname get_new_abbrs
 #' @export 
 #' @importFrom purrr map flatten_chr discard
+#' @keywords internal
 get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthds_1L_lgl = T, 
     paths_ls = make_fn_nms(), pkg_ds_ls_ls = NULL, transformations_chr = NULL, 
     undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
@@ -282,6 +289,7 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
 #' @export 
 #' @importFrom purrr map flatten_chr
 #' @importFrom Hmisc capitalize
+#' @keywords internal
 get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl = F, 
     use_last_1L_int = NULL, treat_as_words_chr = character(0)) 
 {
@@ -308,6 +316,7 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
 #' @rdname get_new_cls_pts
 #' @export 
 #' @importFrom purrr flatten flatten_chr
+#' @keywords internal
 get_new_cls_pts <- function (pkg_setup_ls) 
 {
     incdd_clss_chr <- c(pkg_setup_ls$subsequent_ls$prototype_lup$type_chr, 
@@ -331,6 +340,7 @@ get_new_cls_pts <- function (pkg_setup_ls)
 #' @importFrom purrr map2 map_lgl flatten_chr
 #' @importFrom stringr str_remove str_sub
 #' @importFrom tools toTitleCase
+#' @keywords internal
 get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) 
 {
     new_fn_types_chr <- purrr::map2(fn_nms_ls[names(fn_nms_ls) != 
@@ -363,6 +373,7 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
 #' @rdname get_obj_type_new_cses
 #' @export 
 #' @importFrom dplyr filter
+#' @keywords internal
 get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, excluded_chr = NA_character_, key_1L_chr = NULL, 
     old_obj_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
@@ -392,6 +403,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
 #' @rdname get_outp_obj_type
 #' @export 
 #' @importFrom purrr map_chr
+#' @keywords internal
 get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, fns_env_ls, key_1L_chr = NULL, 
     object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
@@ -424,6 +436,7 @@ get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "ht
 #' @export 
 #' @importFrom methods getSlots
 #' @importFrom purrr map_chr
+#' @keywords internal
 get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "") 
 {
     slots_ls <- className(fn_name_1L_chr, update_ns(package_1L_chr)) %>% 
@@ -470,6 +483,7 @@ get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/
 #' @rdname get_return_obj_nm
 #' @export 
 #' @importFrom stringr str_replace str_sub
+#' @keywords internal
 get_return_obj_nm <- function (fn) 
 {
     fn_chr <- deparse(fn)

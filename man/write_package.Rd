@@ -41,6 +41,9 @@ write_package(
 
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: deprecated()}
 }
+\value{
+Package setup (a list)
+}
 \description{
-write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
 }

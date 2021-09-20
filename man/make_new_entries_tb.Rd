@@ -26,3 +26,4 @@ New entries (a tibble)
 \description{
 make_new_entries_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
 }
+\keyword{internal}

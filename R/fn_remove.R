@@ -5,6 +5,7 @@
 #' @rdname remove_lbls_from_df
 #' @export 
 #' @importFrom purrr reduce
+#' @keywords internal
 remove_lbls_from_df <- function (data_df) 
 {
     unlabelled_data_df <- purrr::reduce(1:ncol(data_df), .init = data_df, 
@@ -31,6 +32,7 @@ remove_lbls_from_df <- function (data_df)
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
 #' @importFrom stringi stri_replace_last_fixed
+#' @keywords internal
 remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
     is_generic_lgl = F, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 

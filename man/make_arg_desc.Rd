@@ -35,3 +35,4 @@ Argument description (a character vector)
 \description{
 make_arg_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description. The function returns Argument description (a character vector).
 }
+\keyword{internal}

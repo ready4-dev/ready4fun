@@ -722,7 +722,7 @@ write_fns_to_split_dests <- function(pkg_depcy_ls,
 write_from_tmp <- function(tmp_paths_chr,
                            dest_paths_chr,
                            edit_fn_ls = list(NULL),
-                           args_ls_ls = NULL){
+                           args_ls_ls = list(NULL)){
   text_ls <- purrr::pmap(list(tmp_paths_chr,
                               edit_fn_ls,
                               args_ls_ls),
@@ -1427,7 +1427,9 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_pkg_rt_1L_chr = getwd()){
   options(usethis.description = pkg_desc_ls)
-  use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh","full","release","standard"))
+  use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh","full",
+                                                       "ready4",
+                                                       "release","standard"))
   if(is.null(badges_lup)){
     utils::data("badges_lup",envir = environment())
   }
@@ -1533,6 +1535,13 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
         usethis::use_github_action_check_release()
       }
     }
+  }else{
+    if(check_type_1L_chr == "ready4"){
+      write_from_tmp(system.file("R-CMD-check.yaml", package="ready4fun"),
+                     dest_paths_chr = paste0(path_to_pkg_rt_1L_chr,
+                                             "/.github/workflows/R-CMD-check.yaml"))
+
+    }
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()
@@ -1590,18 +1599,6 @@ write_std_imp <- function(R_dir_1L_chr = "R",
                  edit_fn_ls = list(function(txt_chr,
                                             package_1L_chr){
                    pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-                   # txt_chr <- purrr::map_chr(txt_chr,
-                   #                           ~ stringr::str_replace_all(.x,
-                   #                                                      "ready4fun",
-                   #                                                      package_1L_chr))
-                   # txt_chr[1] <- paste0("#' ",
-                   #                      package_1L_chr,
-                   #                      ": ",
-                   #                      pkg_desc_ls$Title %>%
-                   #                        stringr::str_replace_all("\n","\n#' "))
-                   # txt_chr[3] <- paste0("#' ",
-                   #                      pkg_desc_ls$Description %>%
-                   #                        stringr::str_replace_all("\n","\n#' "))
                    txt_chr
                    },
                    NULL,
@@ -1778,25 +1775,6 @@ write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
 write_vignette <- function(package_1L_chr,
                            pkg_rt_dir_chr = "."){
   write_new_dirs(paste0(pkg_rt_dir_chr,"/vignettes"))
-  # if(!dir.exists(paste0(pkg_rt_dir_chr,"/vignettes")))
-  #   dir.create(paste0(pkg_rt_dir_chr,"/vignettes"))
-  # write_from_tmp(system.file("ready4fun.Rmd",package="ready4fun"),
-  #                dest_paths_chr = paste0(pkg_rt_dir_chr,"/vignettes/",package_1L_chr,".Rmd"),
-  #                edit_fn_ls = list(function(txt_chr,
-  #                                           package_1L_chr){
-  #                  txt_chr <- purrr::map_chr(txt_chr,
-  #                                            ~ stringr::str_replace_all(.x,
-  #                                                                         "ready4fun",
-  #                                                                         package_1L_chr))
-  #                    txt_chr
-  #                  },
-  #                  args_ls_ls = list(list(package_1L_chr = package_1L_chr))))
-  # write_from_tmp(system.file(".gitignore",package="ready4fun"),
-  #                dest_paths_chr = paste0(pkg_rt_dir_chr,"/vignettes/",".gitignore"),
-  #                  edit_fn_ls = list(function(txt_chr, package_1L_chr){
-  #                    txt_chr
-  #                  }),
-  #                  args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
   write_from_tmp(c(system.file("ready4fun.Rmd",package="ready4fun"),
                    system.file(".gitignore",package="ready4fun")),
                  dest_paths_chr = c(paste0(pkg_rt_dir_chr,"/vignettes/",package_1L_chr,".Rmd"),

@@ -743,7 +743,7 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, fns_dmt_
 #' @param tmp_paths_chr Temporary paths (a character vector)
 #' @param dest_paths_chr Destination paths (a character vector)
 #' @param edit_fn_ls Edit (a list of functions), Default: list(NULL)
-#' @param args_ls_ls Arguments (a list of lists), Default: NULL
+#' @param args_ls_ls Arguments (a list of lists), Default: list(NULL)
 #' @return NULL
 #' @rdname write_from_tmp
 #' @export 
@@ -751,7 +751,7 @@ write_fns_to_split_dests <- function (pkg_depcy_ls, pkg_1_core_fns_chr, fns_dmt_
 #' @importFrom rlang exec
 #' @keywords internal
 write_from_tmp <- function (tmp_paths_chr, dest_paths_chr, edit_fn_ls = list(NULL), 
-    args_ls_ls = NULL) 
+    args_ls_ls = list(NULL)) 
 {
     text_ls <- purrr::pmap(list(tmp_paths_chr, edit_fn_ls, args_ls_ls), 
         ~{
@@ -1506,7 +1506,7 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
 {
     options(usethis.description = pkg_desc_ls)
     use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh", 
-        "full", "release", "standard"))
+        "full", "ready4", "release", "standard"))
     if (is.null(badges_lup)) {
         utils::data("badges_lup", envir = environment())
     }
@@ -1589,6 +1589,13 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
             else {
                 usethis::use_github_action_check_release()
             }
+        }
+    }
+    else {
+        if (check_type_1L_chr == "ready4") {
+            write_from_tmp(system.file("R-CMD-check.yaml", package = "ready4fun"), 
+                dest_paths_chr = paste0(path_to_pkg_rt_1L_chr, 
+                  "/.github/workflows/R-CMD-check.yaml"))
         }
     }
     if (!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr, 

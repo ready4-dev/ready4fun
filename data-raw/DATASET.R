@@ -212,7 +212,6 @@ pkg_setup_ls<- fns_env_ls$fns_env$write_package(pkg_setup_ls,
 #                                                    custom_plural_ls = list(repository = "repositories"),
 #                                                    no_plural_chr = c("lookup tables"))
 ##
-
 # Create vignettes
 # NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
 # NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814
@@ -222,5 +221,3 @@ pkg_setup_ls<- fns_env_ls$fns_env$write_package(pkg_setup_ls,
 # NOTE TO SELF: In vignette, include: https://docs.github.com/en/github/using-git/setting-your-username-in-git
 # (plus user.email)
 # Note to self - Ensure gitignore in default package bundle does not include docs/
-# ready4fun::write_from_tmp(system.file("pkg_tmp.R", package="ready4fun"),
-#                dest_paths_chr = paste0(R_dir_1L_chr,"/pkg_",package_1L_chr,".R")

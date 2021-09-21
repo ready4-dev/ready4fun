@@ -47,3 +47,4 @@
 ^data-raw/dataverse/fn_type_lup_tb/fn_type_lup_tb\.csv$
 ^data-raw/dataverse/fn_type_lup_tb/fn_type_lup_tb\.RDS$
 ^data-raw/fns/validate\.R$
+^data-raw/inst/R-CMD-check\.yaml$

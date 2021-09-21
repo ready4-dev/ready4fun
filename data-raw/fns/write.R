@@ -241,17 +241,25 @@ write_and_doc_fn_fls <- function(fns_dmt_tb,
     writeLines(c("development:",
                  "  mode: auto",
                  "reference:",
-                 "- title: \"Datasets\"",
-                 "- contents:",
-                 paste0("  - ",datasets_chr),
+                 {
+                   if(length(datasets_chr)>0){
+                   c(paste0("- title: \"",
+                            "Datasets",
+                            "\""),
+                            "- contents:",
+                          paste0("  - ", datasets_chr))
+                     }
+                   },
                  {
                    if(!is.null(pkg_setup_ls$subsequent_ls$prototype_lup)){
                      fns_chr <- pkg_setup_ls$subsequent_ls$prototype_lup %>% dplyr::filter(pt_ns_chr == pkg_setup_ls$initial_ls$pkg_desc_ls$Package) %>%
                        dplyr::pull(fn_to_call_chr)
                      if(length(fns_chr)>0){
-                       c( paste0("- title: \"","Classes","\""),
-                                      "- contents:",
-                                      paste0("  - ",fns_chr))
+                       c(paste0("- title: \"",
+                                 "Classes",
+                                "\""),
+                         "- contents:",
+                         paste0("  - ", fns_chr))
                    }
                    }
                  },

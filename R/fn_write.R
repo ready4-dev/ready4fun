@@ -237,8 +237,12 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
         datasets_chr <- utils::data(package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr), 
             envir = environment())$results[, 3]
         writeLines(c("development:", "  mode: auto", "reference:", 
-            "- title: \"Datasets\"", "- contents:", paste0("  - ", 
-                datasets_chr), {
+            {
+                if (length(datasets_chr) > 0) {
+                  c(paste0("- title: \"", "Datasets", "\""), 
+                    "- contents:", paste0("  - ", datasets_chr))
+                }
+            }, {
                 if (!is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {
                   fns_chr <- pkg_setup_ls$subsequent_ls$prototype_lup %>% 
                     dplyr::filter(pt_ns_chr == pkg_setup_ls$initial_ls$pkg_desc_ls$Package) %>% 

@@ -17,6 +17,7 @@ source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
                        fns_env = fns_env_ls)
 rm(read_fns)
+fns_env_ls$fns_env$write_fn_type_dirs()
 #
 # 3. Add package metadata
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
@@ -191,7 +192,12 @@ pkg_setup_ls <- pkg_desc_ls %>%
 #
 # 5. Add content to and document the package
 pkg_setup_ls<- fns_env_ls$fns_env$write_package(pkg_setup_ls,
+                                                list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)
+# pkg_setup_ls<- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
+#                                                      fn_type_desc_chr = "Writes files to local or remote locations.",
+#                                       is_generic_lgl = T,
+#                                       publish_dv_1L_lgl = T)
 # pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
 #                                                       fn_type_desc_chr = "Validates that an object conforms to required criteria.",

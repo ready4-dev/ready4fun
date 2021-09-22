@@ -10,6 +10,7 @@ get_outp_obj_type(
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = NULL,
   fns_env_ls,
+  is_generic_lgl = F,
   key_1L_chr = NULL,
   object_type_lup = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
@@ -25,6 +26,8 @@ get_outp_obj_type(
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{fns_env_ls}{Functions (a list of environments)}
+
+\item{is_generic_lgl}{Is generic (a logical vector), Default: F}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

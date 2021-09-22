@@ -8,6 +8,7 @@ get_new_abbrs(
   pkg_setup_ls,
   classes_to_make_tb = NULL,
   inc_all_mthds_1L_lgl = T,
+  fns_dmt_tb = NULL,
   paths_ls = make_fn_nms(),
   pkg_ds_ls_ls = NULL,
   transformations_chr = NULL,
@@ -21,6 +22,8 @@ get_new_abbrs(
 \item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: NULL}
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
 

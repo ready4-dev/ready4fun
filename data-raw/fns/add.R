@@ -185,7 +185,8 @@ add_rows_to_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                     first_arg_desc_chr = NA_character_,
                                     second_arg_desc_chr = NA_character_,
                                     is_generic_lgl = F,
-                                    is_method_lgl = F){
+                                    is_method_lgl = F#,is_type_lgl = F
+                                    ){
   if(length(fn_type_nm_chr)>0){
     updated_fn_types_lup <- add_lups(fn_types_lup,
                                        new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
@@ -193,7 +194,8 @@ add_rows_to_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                                                 first_arg_desc_chr = first_arg_desc_chr,
                                                                 second_arg_desc_chr = second_arg_desc_chr,
                                                                 is_generic_lgl = is_generic_lgl,
-                                                                is_method_lgl = is_method_lgl),
+                                                                is_method_lgl = is_method_lgl#,is_type_lgl = is_type_lgl
+                                                                ),
                                        key_var_nm_1L_chr = "fn_type_nm_chr")
   }else{
     updated_fn_types_lup <- fn_types_lup

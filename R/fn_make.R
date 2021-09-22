@@ -348,6 +348,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
 #'    force_false_chr = NA_character_), args_ls_ls = NULL)
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param object_type_lup Object type (a lookup table)
@@ -356,35 +357,31 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @rdname make_dmt_for_all_fns
 #' @export 
 #' @importFrom utils data
-#' @importFrom purrr pmap_dfr
-#' @importFrom dplyr filter mutate case_when
+#' @importFrom purrr map2_dfr
+#' @importFrom dplyr mutate case_when
 #' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
         force_false_chr = NA_character_), args_ls_ls = NULL), 
-    fn_types_lup, abbreviations_lup, object_type_lup, inc_all_mthds_1L_lgl = T) 
+    fns_env_ls = NULL, fn_types_lup, abbreviations_lup, object_type_lup, 
+    inc_all_mthds_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
-    all_fns_dmt_tb <- purrr::pmap_dfr(list(paths_ls, undocumented_fns_dir_chr, 
-        names(paths_ls)), ~{
-        if (..3 == "fns") 
-            tb <- fn_types_lup %>% dplyr::filter(!is_generic_lgl & 
-                !is_method_lgl)
-        if (..3 == "gnrcs") 
-            tb <- fn_types_lup %>% dplyr::filter(is_generic_lgl)
-        if (..3 == "mthds") 
-            tb <- fn_types_lup %>% dplyr::filter(is_method_lgl)
-        fns_dmt_tb <- make_fn_dmt_tbl(..1, fns_dir_chr = ..2, 
-            custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
-            fn_types_lup = tb, abbreviations_lup = abbreviations_lup, 
-            object_type_lup = object_type_lup)
-        if (inc_all_mthds_1L_lgl) 
-            fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% 
-                c("grp_", "mthd_") ~ T, TRUE ~ inc_for_main_user_lgl))
-        fns_dmt_tb
-    })
+    if (is.null(fns_env_ls)) 
+        fns_env_ls <- read_fns(undocumented_fns_dir_chr)
+    all_fns_dmt_tb <- purrr::map2_dfr(paths_ls, undocumented_fns_dir_chr, 
+        ~{
+            fns_dmt_tb <- make_fn_dmt_tbl(.x, fns_dir_chr = .y, 
+                custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
+                fns_env_ls = fns_env_ls, fn_types_lup = fn_types_lup, 
+                abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
+            if (inc_all_mthds_1L_lgl) 
+                fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(inc_for_main_user_lgl = dplyr::case_when(file_pfx_chr %in% 
+                  c("grp_", "mthd_") ~ T, TRUE ~ inc_for_main_user_lgl))
+            fns_dmt_tb
+        })
     return(all_fns_dmt_tb)
 }
 #' Make function description
@@ -630,6 +627,7 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
     }))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(output_chr = get_outp_obj_type(fns_chr, 
         abbreviations_lup = abbreviations_lup, fns_env_ls = fns_env_ls, 
+        is_generic_lgl = purrr::map_lgl(file_nm_chr, ~.x == "generics.R"), 
         object_type_lup = object_type_lup))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(desc_chr = make_fn_desc(fns_chr, 
         title_chr = title_chr, output_chr = output_chr, fns_env_ls = fns_env_ls, 

@@ -145,11 +145,13 @@ get_from_lup_obj <- function(data_lookup_tb,
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
+                          fns_dmt_tb = NULL,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           use_last_1L_int = NULL){
+  if(is.null(fns_dmt_tb))
   fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      custom_dmt_ls = list(details_ls = NULL,
@@ -307,6 +309,7 @@ get_outp_obj_type <- function(fns_chr,
                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                               dv_url_pfx_1L_chr = NULL,
                               fns_env_ls,
+                              is_generic_lgl = F,
                               key_1L_chr = NULL,
                               object_type_lup = NULL,
                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -316,21 +319,27 @@ get_outp_obj_type <- function(fns_chr,
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
                                        server_1L_chr = server_1L_chr)
-  outp_obj_type_chr <- purrr::map_chr(fns_chr,
+  outp_obj_type_chr <- purrr::map2_chr(fns_chr,
+                                       is_generic_lgl,
                                           ~ {
-                                            if(!exists(.x)){
-                                              fn <- fns_env_ls$fns_env[[.x]]
+                                            if(.y){
+                                              "NULL"
                                             }else{
-                                              fn <- eval(parse(text=.x))
+                                              if(!exists(.x)){
+                                                fn <- fns_env_ls$fns_env[[.x]]
+                                              }else{
+                                                fn <- eval(parse(text=.x))
+                                              }
+                                              return_obj_chr <- get_return_obj_nm(fn) %>%
+                                                make_arg_desc(abbreviations_lup = abbreviations_lup,
+                                                              object_type_lup = object_type_lup,
+                                                              dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                              key_1L_chr = key_1L_chr,
+                                                              server_1L_chr = server_1L_chr)
+                                              ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
                                             }
-                                            return_obj_chr <- get_return_obj_nm(fn) %>%
-                                              make_arg_desc(abbreviations_lup = abbreviations_lup,
-                                                            object_type_lup = object_type_lup,
-                                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                            key_1L_chr = key_1L_chr,
-                                                            server_1L_chr = server_1L_chr)
-                                            ifelse(return_obj_chr  == "NO MATCH","NULL", return_obj_chr)
+
                                           })
   return(outp_obj_type_chr)
 }

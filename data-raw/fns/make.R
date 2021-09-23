@@ -1185,9 +1185,14 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                                  key_1L_chr = key_1L_chr,
                                                                                  server_1L_chr = server_1L_chr),
                                             user_manual_fns_chr = user_manual_fns_chr))
-  if(classify_1L_lgl)
+  if(classify_1L_lgl){
+    pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% ready4fun_pkg_desc()
+    pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% ready4fun_pkg_setup_one()
+    pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% ready4fun_pkg_setup_two()
     pkg_setup_ls <- pkg_setup_ls %>%
-    ready4fun_pkg_setup()
+      ready4fun_pkg_setup()
+  }
+
   return(pkg_setup_ls)
 }
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {

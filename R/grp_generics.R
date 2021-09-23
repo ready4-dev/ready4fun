@@ -46,16 +46,6 @@ procure <- function (x, ...)
     UseMethod("procure", x)
 }
 methods::setGeneric("procure")
-#' Update
-#' @rdname update-methods
-#' @description update() is an Update generic that edits an object, while preserving core object attributes. Function argument object specifies the object to be updated. Argument ... provides the object to be updated.
-#' @param object PARAM_DESCRIPTION
-#' @param ... Additional arguments (an additional arguments)
-#' @export 
-
-update <- function (object, ...) 
-UseMethod("update")
-methods::setGeneric("update")
 #' Validate
 #' @rdname validate-methods
 #' @description validate() is a Validate generic that validates that an object conforms to required criteria.

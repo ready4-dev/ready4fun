@@ -1275,8 +1275,15 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             user_manual_fns_chr = user_manual_fns_chr))
-    if (classify_1L_lgl) 
+    if (classify_1L_lgl) {
+        pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% 
+            ready4fun_pkg_desc()
+        pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% 
+            ready4fun_pkg_setup_one()
+        pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% 
+            ready4fun_pkg_setup_two()
         pkg_setup_ls <- pkg_setup_ls %>% ready4fun_pkg_setup()
+    }
     return(pkg_setup_ls)
 }
 #' Make prompt

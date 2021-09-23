@@ -14,10 +14,10 @@ procure <- function(x,
                          ...){
   UseMethod("procure",x)
 }
-update <- function(x,
-                  ...){
-  UseMethod("update",x)
-}
+# update <- function(x,
+#                   ...){
+#   UseMethod("update",x)
+# }
 validate <- function(x,
                      ...){
   UseMethod("validate",x)

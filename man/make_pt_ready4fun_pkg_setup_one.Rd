@@ -5,7 +5,7 @@
 \title{Make prototype ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.}
 \usage{
 make_pt_ready4fun_pkg_setup_one(
-  pkg_desc_ls = list(),
+  pkg_desc_ls = ready4fun_pkg_desc_ls(),
   copyright_holders_chr = character(0),
   gh_repo_1L_chr = character(0),
   add_gh_site_1L_lgl = character(0),
@@ -22,7 +22,7 @@ make_pt_ready4fun_pkg_setup_one(
 )
 }
 \arguments{
-\item{pkg_desc_ls}{Package description (a list), Default: list()}
+\item{pkg_desc_ls}{Package description (a list), Default: ready4fun_pkg_desc_ls()}
 
 \item{copyright_holders_chr}{Copyright holders (a character vector), Default: character(0)}
 

@@ -26,7 +26,7 @@ x
 }
 #' Make prototype ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.
 #' @description Create a new prototype for the ready4 S4 class for package metadata required for initial package set-up step.
-#' @param pkg_desc_ls Package description (a list), Default: list()
+#' @param pkg_desc_ls Package description (a list), Default: ready4fun_pkg_desc_ls()
 #' @param copyright_holders_chr Copyright holders (a character vector), Default: character(0)
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: character(0)
 #' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: character(0)
@@ -45,7 +45,7 @@ x
 #' @rdname make_pt_ready4fun_pkg_setup_one
 #' @export 
 #' @importFrom rlang exec
-make_pt_ready4fun_pkg_setup_one <- function(pkg_desc_ls = list(),
+make_pt_ready4fun_pkg_setup_one <- function(pkg_desc_ls = ready4fun_pkg_desc_ls(),
 copyright_holders_chr = character(0),
 gh_repo_1L_chr = character(0),
 add_gh_site_1L_lgl = character(0),

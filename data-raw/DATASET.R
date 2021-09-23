@@ -124,7 +124,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                    #         "logical", "logical", "character", "character") %>% list(),
                                                    pt_ns_ls = list(list("base")),
                                                    # parent_class_chr = NA_character_
-                                                   vals_ls = list(list("list()", "character(0)", "character(0)", "character(0)", "list()",
+                                                   vals_ls = list(list("ready4fun_pkg_desc_ls()", "character(0)", "character(0)", "character(0)", "list()",
                                                                        "ready4fun_badges()", "character(0)", "logical(0)", "character(0)", "character(0)",
                                                                        "logical(0)", "logical(0)", "character(0)", "character(0)") %>%
                                                                     stats::setNames(c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",

@@ -170,7 +170,7 @@ classes_to_make_tb <- dplyr::bind_rows(
   ready4class::ready4class_constructor_tbl()
 pkg_setup_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_pkg_setup_ls(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
-                                       badges_lup = badges_lup,
+                                       #badges_lup = badges_lup,
                                        build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                        check_type_1L_chr = "standard",
                                        cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,

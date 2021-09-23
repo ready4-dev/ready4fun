@@ -1436,7 +1436,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                                        "ready4",
                                                        "release","standard"))
   if(is.null(badges_lup)){
-    utils::data("badges_lup",envir = environment())
+    utils::data("badges_lup", package = "ready4fun", envir = environment())
   }
   if(delete_r_dir_cnts_1L_lgl)
     write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",

@@ -1192,7 +1192,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param addl_pkgs_ls Additional packages (a list), Default: make_addl_pkgs_ls()
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
-#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
+#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'ready4'
 #' @param classify_1L_lgl Classify (a logical vector of length one), Default: T
 #' @param cls_fn_ls Class (a list of functions), Default: NULL
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
@@ -1215,12 +1215,13 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @return Package setup (a list)
 #' @rdname make_pkg_setup_ls
 #' @export 
+#' @importFrom utils data
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-    check_type_1L_chr = "standard", classify_1L_lgl = T, cls_fn_ls = NULL, 
+    check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
     delete_r_dir_cnts_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
     dev_pkgs_chr = NA_character_, dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
     lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
@@ -1238,6 +1239,9 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
     }
     else {
         append_ls <- NULL
+    }
+    if (is.null(badges_lup)) {
+        utils::data("badges_lup", package = "ready4fun", envir = environment())
     }
     if (is.na(gh_repo_1L_chr)) 
         gh_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
@@ -1276,6 +1280,8 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             user_manual_fns_chr = user_manual_fns_chr))
     if (classify_1L_lgl) {
+        pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% 
+            ready4fun_badges()
         pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% 
             ready4fun_pkg_desc()
         pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% 

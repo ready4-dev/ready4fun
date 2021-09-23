@@ -1093,7 +1093,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               addl_pkgs_ls = make_addl_pkgs_ls(),#
                               badges_lup = NULL,
                               build_ignore_ls = make_build_ignore_ls(),#
-                              check_type_1L_chr = "standard",
+                              check_type_1L_chr = "ready4",
                               classify_1L_lgl = T,
                               cls_fn_ls = NULL,
                               delete_r_dir_cnts_1L_lgl = T,
@@ -1120,6 +1120,9 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
     append_ls <- list(ready4 = ready4_type_1L_chr)
   }else{
     append_ls <- NULL
+  }
+  if(is.null(badges_lup)){
+    utils::data("badges_lup", package = "ready4fun", envir = environment())
   }
   if(is.na(gh_repo_1L_chr))
     gh_repo_1L_chr <- pkg_desc_ls$URL %>%
@@ -1186,6 +1189,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                                  server_1L_chr = server_1L_chr),
                                             user_manual_fns_chr = user_manual_fns_chr))
   if(classify_1L_lgl){
+    pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% ready4fun_badges()
     pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% ready4fun_pkg_desc()
     pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% ready4fun_pkg_setup_one()
     pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% ready4fun_pkg_setup_two()

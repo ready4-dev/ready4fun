@@ -49,7 +49,17 @@ validate_pkg_setup <- function(pkg_setup_ls){
     if(is.null(fns_env_ls))
       fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw"),
                                                      drop_empty_1L_lgl = T))
-    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = make_fn_nms(),
+    paths_ls <- make_fn_nms()
+    undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+    if("mthds" %in% names(paths_ls)){
+      method_nms_chr <- paths_ls$mthds %>% purrr::map_chr(~basename(.x) %>% stringr::str_sub(end = -3))
+      paths_ls$mthds <- NULL
+      undocumented_fns_dir_chr <- undocumented_fns_dir_chr[undocumented_fns_dir_chr %>%
+                                                             purrr::map_lgl(~!endsWith(.x,"mthds"))]
+    }else{
+      method_nms_chr <- character(0)
+    }
+    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                        abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                        custom_dmt_ls = list(details_ls = NULL,
                                                             inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
@@ -59,7 +69,13 @@ validate_pkg_setup <- function(pkg_setup_ls){
                                        fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                        inc_all_mthds_1L_lgl = T,
                                        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-                                       undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T))
+                                       undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+    new_nms_chr <- setdiff(method_nms_chr, fns_dmt_tb$fns_chr)
+    if(!identical(character(0), new_nms_chr)){
+      fns_dmt_tb <- tibble::add_case(fns_dmt_tb,
+                                     fns_chr = new_nms_chr,
+                                     args_ls = list(character(0)))
+    }
     missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls,
                                            classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
                                            fns_dmt_tb = fns_dmt_tb,

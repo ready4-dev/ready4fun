@@ -50,3 +50,4 @@
 ^data-raw/inst/R-CMD-check\.yaml$
 ^data-raw/gnrcs/generics\.R$
 ^data-raw/author\.R$
+^data-raw/mthds/author\.R$

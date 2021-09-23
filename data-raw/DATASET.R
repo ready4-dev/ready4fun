@@ -34,7 +34,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                browser_preview = F,
                                                to_clipboard = F)))
 pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Standardised Function Authoring And Documentation Tools For Use With The ready4 Suite",
-                                                   pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring code libraries of functions and datasets for use in mental health simulations developed within the ready4 ecosystem. The tools contained in this package automate a number of tasks which MODIFY THE DIRECTORY STRUCTURE OF YOUR LOCAL MACHINE. You should only therefore only trial this software if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+                                                   pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health simulations. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
                                                    authors_prsn = c(utils::person(
                                                      given = "Matthew",family = "Hamilton",
                                                      email = "matthew.hamilton@orygen.org.au",
@@ -124,7 +124,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                    #         "logical", "logical", "character", "character") %>% list(),
                                                    pt_ns_ls = list(list("base")),
                                                    # parent_class_chr = NA_character_
-                                                   vals_ls = list(list("ready4fun_pkg_desc_ls()", "character(0)", "character(0)", "character(0)", "list()",
+                                                   vals_ls = list(list("ready4fun_pkg_desc()", "character(0)", "character(0)", "character(0)", "list()",
                                                                        "ready4fun_badges()", "character(0)", "logical(0)", "character(0)", "character(0)",
                                                                        "logical(0)", "logical(0)", "character(0)", "character(0)") %>%
                                                                     stats::setNames(c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",

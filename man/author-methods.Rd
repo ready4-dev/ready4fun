@@ -46,10 +46,10 @@ author.ready4fun_pkg_setup(
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 }
 \value{
-Ready4fun package package setup (a ready4 S3)
+Instance (ready4 S4 class for package metadata required for package set-up.)
 }
 \description{
-author() is an Author function that writes files to local or remote locations. Specifically, this function implements an algorithm to author.
+author() is an Author generic that writes files to local or remote locations.
 
-author.ready4fun_pkg_setup() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S4 class for package metadata required for package set-up.. The function returns Ready4fun package package setup (a ready4 S3).
+author.ready4fun_pkg_setup() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S4 class for package metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

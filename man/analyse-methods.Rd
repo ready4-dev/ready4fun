@@ -12,5 +12,5 @@ analyse(x, ...)
 \item{...}{Additional arguments (an additional arguments)}
 }
 \description{
-analyse() is an Analyse function that runs an analysis or analyses using specified data and parameters. Specifically, this function implements an algorithm to analyse.
+analyse() is an Analyse generic that runs an analysis or analyses using specified data and parameters.
 }

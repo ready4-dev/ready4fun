@@ -9,7 +9,8 @@ make_fn_desc_spine(
   fn_name_1L_chr,
   fn_title_1L_chr,
   fn_types_lup,
-  abbreviations_lup
+  abbreviations_lup,
+  is_generic_1L_lgl = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ make_fn_desc_spine(
 \item{fn_types_lup}{Function types (a lookup table)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table)}
+
+\item{is_generic_1L_lgl}{Is generic (a logical vector of length one), Default: NULL}
 }
 \value{
 Function description spine (a character vector of length one)

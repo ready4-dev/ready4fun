@@ -10,7 +10,7 @@ make_pt_ready4fun_pkg_setup_one(
   gh_repo_1L_chr = character(0),
   add_gh_site_1L_lgl = character(0),
   addl_badges_ls = list(),
-  badges_lup = ready4_badges(),
+  badges_lup = ready4fun_badges(),
   check_type_1L_chr = character(0),
   delete_r_dir_cnts_1L_lgl = logical(0),
   dev_pkg_nm_1L_chr = character(0),
@@ -32,7 +32,7 @@ make_pt_ready4fun_pkg_setup_one(
 
 \item{addl_badges_ls}{Additional badges (a list), Default: list()}
 
-\item{badges_lup}{Badges (a lookup table), Default: ready4_badges()}
+\item{badges_lup}{Badges (a lookup table), Default: ready4fun_badges()}
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: character(0)}
 

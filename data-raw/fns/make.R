@@ -369,7 +369,8 @@ make_fn_desc <-  function(fns_chr,
                                                              fn_name_1L_chr = fn_name_1L_chr,
                                                              fn_title_1L_chr = fn_title_1L_chr,
                                                              fn_types_lup = fn_types_lup,
-                                                             abbreviations_lup = abbreviations_lup),
+                                                             abbreviations_lup = abbreviations_lup,
+                                                             is_generic_1L_lgl = is_generic_1L_lgl),
                                           ifelse(fn_output_1L_chr=="NULL",
                                                  ifelse(is_generic_1L_lgl,
                                                         "",
@@ -392,7 +393,8 @@ make_fn_desc_spine <- function(fn,
                                fn_name_1L_chr,
                                fn_title_1L_chr,
                                fn_types_lup,
-                               abbreviations_lup){
+                               abbreviations_lup,
+                               is_generic_1L_lgl = NULL){
   fn_args_chr <- get_fn_args(fn)
   pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(fn_types_lup$fn_type_nm_chr, ~ startsWith(fn_title_1L_chr %>% tools::toTitleCase(),.x))]
   fn_type_chr <- pfx_matches_chr[nchar(pfx_matches_chr) == max(nchar(pfx_matches_chr))]
@@ -402,7 +404,9 @@ make_fn_desc_spine <- function(fn,
                                       match_value_xx = fn_type_chr[1],
                                       target_var_nm_1L_chr = .x,
                                       evaluate_lgl = F))
-  is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+  if(is.null(is_generic_1L_lgl)){
+    is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+  }
   # get_from_lup_obj(fn_types_lup,
   #                                    match_var_nm_1L_chr = "fn_type_nm_chr",
   #                                    match_value_xx = fn_type_chr[1],
@@ -428,8 +432,7 @@ make_fn_desc_spine <- function(fn,
                                          ifelse(treat_as_1L_chr == "Method",
                                                 paste0(" This method is implemented for the ",
                                                        abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr,
-                                                                      ~ endsWith(fn_name_1L_chr,paste0(".",.x)))],
-                                                       "."),
+                                                                      ~ endsWith(fn_name_1L_chr,paste0(".",.x)))]),
                                                 paste0( " Specifically, this function implements an algorithm to ",
                                                         make_fn_title(fn_name_1L_chr,
                                                                       object_type_lup = abbreviations_lup,

@@ -12,5 +12,5 @@ update(object, ...)
 \item{...}{Additional arguments (an additional arguments)}
 }
 \description{
-update() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update. Function argument object specifies the object to be updated. Argument ... provides the object to be updated.
+update() is an Update generic that edits an object, while preserving core object attributes. Function argument object specifies the object to be updated. Argument ... provides the object to be updated.
 }

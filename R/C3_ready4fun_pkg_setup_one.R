@@ -31,7 +31,7 @@ x
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: character(0)
 #' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: character(0)
 #' @param addl_badges_ls Additional badges (a list), Default: list()
-#' @param badges_lup Badges (a lookup table), Default: ready4_badges()
+#' @param badges_lup Badges (a lookup table), Default: ready4fun_badges()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: character(0)
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: logical(0)
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: character(0)
@@ -50,7 +50,7 @@ copyright_holders_chr = character(0),
 gh_repo_1L_chr = character(0),
 add_gh_site_1L_lgl = character(0),
 addl_badges_ls = list(),
-badges_lup = ready4_badges(),
+badges_lup = ready4fun_badges(),
 check_type_1L_chr = character(0),
 delete_r_dir_cnts_1L_lgl = logical(0),
 dev_pkg_nm_1L_chr = character(0),

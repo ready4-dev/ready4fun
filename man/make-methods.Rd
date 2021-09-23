@@ -12,5 +12,5 @@ make(x, ...)
 \item{...}{Additional arguments (an additional arguments)}
 }
 \description{
-make() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make.
+make() is a Make generic that creates a new R object.
 }

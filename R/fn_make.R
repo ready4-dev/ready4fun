@@ -422,13 +422,14 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_l
         }
         paste0(make_fn_desc_spine(fn, fn_name_1L_chr = fn_name_1L_chr, 
             fn_title_1L_chr = fn_title_1L_chr, fn_types_lup = fn_types_lup, 
-            abbreviations_lup = abbreviations_lup), ifelse(fn_output_1L_chr == 
-            "NULL", ifelse(is_generic_1L_lgl, "", paste0(" The function is called for its side effects and does not return a value.", 
-            ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn, 
-                " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
-                ""))), paste0(" The function returns ", make_ret_obj_desc(fn, 
-            abbreviations_lup = abbreviations_lup, starts_sentence_1L_lgl = T), 
-            ".")))
+            abbreviations_lup = abbreviations_lup, is_generic_1L_lgl = is_generic_1L_lgl), 
+            ifelse(fn_output_1L_chr == "NULL", ifelse(is_generic_1L_lgl, 
+                "", paste0(" The function is called for its side effects and does not return a value.", 
+                  ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn, 
+                    " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
+                    ""))), paste0(" The function returns ", make_ret_obj_desc(fn, 
+                abbreviations_lup = abbreviations_lup, starts_sentence_1L_lgl = T), 
+                ".")))
     })
     return(fn_desc_chr)
 }
@@ -439,6 +440,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_l
 #' @param fn_title_1L_chr Function title (a character vector of length one)
 #' @param fn_types_lup Function types (a lookup table)
 #' @param abbreviations_lup Abbreviations (a lookup table)
+#' @param is_generic_1L_lgl Is generic (a logical vector of length one), Default: NULL
 #' @return Function description spine (a character vector of length one)
 #' @rdname make_fn_desc_spine
 #' @export 
@@ -446,7 +448,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_l
 #' @importFrom tools toTitleCase
 #' @keywords internal
 make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lup, 
-    abbreviations_lup) 
+    abbreviations_lup, is_generic_1L_lgl = NULL) 
 {
     fn_args_chr <- get_fn_args(fn)
     pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(fn_types_lup$fn_type_nm_chr, 
@@ -457,7 +459,9 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
     text_elements_chr <- names(fn_types_lup)[2:4] %>% purrr::map_chr(~get_from_lup_obj(fn_types_lup, 
         match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = fn_type_chr[1], 
         target_var_nm_1L_chr = .x, evaluate_lgl = F))
-    is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+    if (is.null(is_generic_1L_lgl)) {
+        is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+    }
     treat_as_1L_chr <- ifelse(is_generic_1L_lgl, "Generic", ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
         ~endsWith(fn_name_1L_chr, paste0(".", .x))) %>% any(), 
         "Method", "Function"))
@@ -468,11 +472,11 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
         ifelse(treat_as_1L_chr == "Generic", "", ifelse(treat_as_1L_chr == 
             "Method", paste0(" This method is implemented for the ", 
             abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
-                ~endsWith(fn_name_1L_chr, paste0(".", .x)))], 
-            "."), paste0(" Specifically, this function implements an algorithm to ", 
-            make_fn_title(fn_name_1L_chr, object_type_lup = abbreviations_lup, 
-                abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
-                tolower(), "."))), ifelse(ifelse(is.null(fn_args_chr) | 
+                ~endsWith(fn_name_1L_chr, paste0(".", .x)))]), 
+            paste0(" Specifically, this function implements an algorithm to ", 
+                make_fn_title(fn_name_1L_chr, object_type_lup = abbreviations_lup, 
+                  abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
+                  tolower(), "."))), ifelse(ifelse(is.null(fn_args_chr) | 
             is.na(text_elements_chr[2]), F, T), paste0(" Function argument ", 
             fn_args_chr[1], " specifies the ", update_first_word_case(text_elements_chr[2])), 
             ""), ifelse(ifelse(is.null(fn_args_chr) | is.na(text_elements_chr[3]), 

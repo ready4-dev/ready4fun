@@ -12,5 +12,5 @@ validate(x, ...)
 \item{...}{Additional arguments (an additional arguments)}
 }
 \description{
-validate() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate.
+validate() is a Validate generic that validates that an object conforms to required criteria.
 }

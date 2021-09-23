@@ -5,7 +5,7 @@ author.ready4fun_pkg_setup <- function(x,
                                        self_serve_1L_lgl = F,
                                        self_serve_fn_ls = NULL,
                                        server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  ready4fun_pkg_setup_r3 <- write_package(x,
+  inst_ready4fun_pkg_setup <- write_package(x,
                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                           key_1L_chr = key_1L_chr,
                                           list_generics_1L_lgl = list_generics_1L_lgl,
@@ -13,5 +13,5 @@ author.ready4fun_pkg_setup <- function(x,
                                           self_serve_1L_lgl = self_serve_1L_lgl,
                                           self_serve_fn_ls = self_serve_fn_ls,
                                           server_1L_chr = server_1L_chr)
-  return(ready4fun_pkg_setup_r3)
+  return(inst_ready4fun_pkg_setup)
 }

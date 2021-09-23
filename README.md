@@ -1,6 +1,6 @@
 # ready4fun <img src="man/figures/fav120.png" align="right" />
 
-## Standardised Function Authoring and Documentation Tools for Use with the Ready4 Suite
+## Author and Document Functions for Open and Modular Mental Health Simulations
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/ready4-dev/ready4fun/actions)

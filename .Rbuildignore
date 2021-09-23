@@ -51,3 +51,4 @@
 ^data-raw/gnrcs/generics\.R$
 ^data-raw/author\.R$
 ^data-raw/mthds/author\.R$
+^data-raw/fns/transform\.R$

@@ -47,7 +47,6 @@ rlang::exec(list,!!!args_ls)
 #' @rdname validate_ready4fun_pkg_setup
 #' @export 
 #' @importFrom stringr str_detect str_c
-#' @importFrom ready4class transform_cls_type_ls
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
 #' @importFrom dplyr arrange filter pull
@@ -61,20 +60,20 @@ call. = FALSE)
 }
 
  if(!identical(make_pt_ready4fun_pkg_setup() %>% 
-lapply(class) %>% ready4class::transform_cls_type_ls() %>%tibble::as_tibble() %>% 
+lapply(class) %>% transform_cls_type_ls() %>%tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
 dplyr::arrange(variable),
 x %>% 
-lapply(class) %>% ready4class::transform_cls_type_ls() %>%tibble::as_tibble() %>% 
+lapply(class) %>% transform_cls_type_ls() %>%tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
 dplyr::filter(variable %in% names(make_pt_ready4fun_pkg_setup())) %>% dplyr::arrange(variable))){
 stop(paste0("LIST elements should be of the following classes: ",
 purrr::map2_chr(make_pt_ready4fun_pkg_setup() %>% 
-lapply(class) %>% ready4class::transform_cls_type_ls() %>%tibble::as_tibble() %>% 
+lapply(class) %>% transform_cls_type_ls() %>%tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
 dplyr::pull(1),
  make_pt_ready4fun_pkg_setup() %>% 
-lapply(class) %>% ready4class::transform_cls_type_ls() %>%tibble::as_tibble() %>% 
+lapply(class) %>% transform_cls_type_ls() %>%tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
 dplyr::pull(2),
  ~ paste0(.x,": ",.y)) %>% 

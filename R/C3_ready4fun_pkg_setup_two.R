@@ -10,7 +10,7 @@
 ready4fun_pkg_setup_two <- function(x = make_pt_ready4fun_pkg_setup_two()){ 
 validate_ready4fun_pkg_setup_two(make_new_ready4fun_pkg_setup_two(x))
 }
-#' Make new ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.
+#' Make new ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.
 #' @description Create a new unvalidated instance of the ready4 S4 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S4 class for package metadata required for second package set-up step.
 #' @return An unvalidated instance of the ready4 S4 class for package metadata required for second package set-up step.
@@ -24,7 +24,7 @@ class(x) <- append(c("ready4fun_pkg_setup_two",setdiff(make_pt_ready4fun_pkg_set
 class(x))
 x
 }
-#' Make prototype ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.
+#' Make prototype ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.
 #' @description Create a new prototype for the ready4 S4 class for package metadata required for second package set-up step.
 #' @param addl_pkgs_ls Additional packages (a list), Default: list()
 #' @param build_ignore_ls Build ignore (a list), Default: list()
@@ -48,7 +48,7 @@ pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
 user_manual_fns_chr = user_manual_fns_chr) %>% update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' Validate ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.
+#' Validate ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.
 #' @description Validate an instance of the ready4 S4 class for package metadata required for second package set-up step.
 #' @param x An unvalidated instance of the ready4 S4 class for package metadata required for second package set-up step.
 #' @return A prototpe for ready4 S4 class for package metadata required for second package set-up step.
@@ -91,7 +91,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.
+#' Is ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.
 #' @description Check whether an object is a valid instance of the ready4 S4 class for package metadata required for second package set-up step.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S4 class for package metadata required for second package set-up step.

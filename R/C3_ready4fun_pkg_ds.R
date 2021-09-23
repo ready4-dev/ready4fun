@@ -10,7 +10,7 @@
 ready4fun_pkg_ds <- function(x = make_pt_ready4fun_pkg_ds()){ 
 validate_ready4fun_pkg_ds(make_new_ready4fun_pkg_ds(x))
 }
-#' Make new ready4fun package dataset ready4 S4 class for declaring package description file data..1
+#' Make new ready4fun package package dataset ready4 S4 class for declaring package description file data..1
 #' @description Create a new unvalidated instance of the ready4 S4 class for declaring package description file data..1
 #' @param x A prototype for the ready4 S4 class for declaring package description file data..1
 #' @return An unvalidated instance of the ready4 S4 class for declaring package description file data..1
@@ -24,7 +24,7 @@ class(x) <- append(c("ready4fun_pkg_ds",setdiff(make_pt_ready4fun_pkg_ds() %>% c
 class(x))
 x
 }
-#' Make prototype ready4fun package dataset ready4 S4 class for declaring package description file data..1
+#' Make prototype ready4fun package package dataset ready4 S4 class for declaring package description file data..1
 #' @description Create a new prototype for the ready4 S4 class for declaring package description file data..1
 #' @param db_df Database (a data.frame), Default: data.frame()
 #' @param db_1L_chr Database (a character vector of length one), Default: character(0)
@@ -63,7 +63,7 @@ url_1L_chr = url_1L_chr,
 vars_ls = vars_ls) %>% update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' Validate ready4fun package dataset ready4 S4 class for declaring package description file data..1
+#' Validate ready4fun package package dataset ready4 S4 class for declaring package description file data..1
 #' @description Validate an instance of the ready4 S4 class for declaring package description file data..1
 #' @param x An unvalidated instance of the ready4 S4 class for declaring package description file data..1
 #' @return A prototpe for ready4 S4 class for declaring package description file data..1
@@ -106,7 +106,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package dataset ready4 S4 class for declaring package description file data..1
+#' Is ready4fun package package dataset ready4 S4 class for declaring package description file data..1
 #' @description Check whether an object is a valid instance of the ready4 S4 class for declaring package description file data..1
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S4 class for declaring package description file data..1

@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_fn_ls.R
 \name{make_new_ready4fun_fn_ls}
 \alias{make_new_ready4fun_fn_ls}
-\title{Make new ready4fun function list ready4 S3 class for declaring package description file data.}
+\title{Make new ready4fun package function list ready4 S3 class for declaring package description file data.}
 \usage{
 make_new_ready4fun_fn_ls(x)
 }

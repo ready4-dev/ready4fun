@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_pkg_setup_two.R
 \name{make_pt_ready4fun_pkg_setup_two}
 \alias{make_pt_ready4fun_pkg_setup_two}
-\title{Make prototype ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.}
+\title{Make prototype ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.}
 \usage{
 make_pt_ready4fun_pkg_setup_two(
   addl_pkgs_ls = list(),

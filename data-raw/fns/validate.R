@@ -44,12 +44,11 @@ validate_pkg_setup <- function(pkg_setup_ls){
         pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
       }
     }
+    # if(file.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw/gnrcs/generics.R")))
+    #   source(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw/gnrcs/generics.R"))
     if(is.null(fns_env_ls))
-      fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T))
-    # if(file.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-    #                       "/data-raw/gnrcs/generics.R")))
-    # sys.source(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-    #                   "/data-raw/gnrcs/generics.R"))
+      fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw"),
+                                                     drop_empty_1L_lgl = T))
     fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = make_fn_nms(),
                                        abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                        custom_dmt_ls = list(details_ls = NULL,

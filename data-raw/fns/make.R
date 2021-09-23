@@ -402,17 +402,18 @@ make_fn_desc_spine <- function(fn,
                                       match_value_xx = fn_type_chr[1],
                                       target_var_nm_1L_chr = .x,
                                       evaluate_lgl = F))
-  is_generic_1L_lgl <- get_from_lup_obj(fn_types_lup,
-                                     match_var_nm_1L_chr = "fn_type_nm_chr",
-                                     match_value_xx = fn_type_chr[1],
-                                     target_var_nm_1L_chr = "is_generic_lgl",
-                                     evaluate_lgl = F)
+  is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+  # get_from_lup_obj(fn_types_lup,
+  #                                    match_var_nm_1L_chr = "fn_type_nm_chr",
+  #                                    match_value_xx = fn_type_chr[1],
+  #                                    target_var_nm_1L_chr = "is_generic_lgl",
+  #                                    evaluate_lgl = F)
   treat_as_1L_chr <- ifelse(is_generic_1L_lgl,
-                         ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr,
+                            "Generic",#
+                            ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr,
                                                ~ endsWith(fn_name_1L_chr,paste0(".",.x))) %>% any(),
-                                "Method",
-                                "Generic"),
-                         "Function")
+                                   "Method",
+                                   "Function"))#
   fn_desc_spine_1L_chr <- paste0(fn_name_1L_chr,
                                   "() is ",
                                   add_indef_artl_to_item(fn_type_chr[1],
@@ -1090,6 +1091,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               badges_lup = NULL,
                               build_ignore_ls = make_build_ignore_ls(),#
                               check_type_1L_chr = "standard",
+                              classify_1L_lgl = T,
                               cls_fn_ls = NULL,
                               delete_r_dir_cnts_1L_lgl = T,
                               dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
@@ -1180,6 +1182,9 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                                  key_1L_chr = key_1L_chr,
                                                                                  server_1L_chr = server_1L_chr),
                                             user_manual_fns_chr = user_manual_fns_chr))
+  if(classify_1L_lgl)
+    pkg_setup_ls <- pkg_setup_ls %>%
+    ready4fun_pkg_setup()
   return(pkg_setup_ls)
 }
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {

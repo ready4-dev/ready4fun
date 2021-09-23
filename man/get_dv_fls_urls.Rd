@@ -27,5 +27,5 @@ get_dv_fls_urls(
 Urls (a character vector)
 }
 \description{
-get_dv_fls_urls() is a Get Data generic that retrieves data from R objects loaded in memory. The function returns Urls (a character vector).
+get_dv_fls_urls() is a Get Data function that retrieves data from R objects loaded in memory. Specifically, this function implements an algorithm to get dataverse files urls. The function returns Urls (a character vector).
 }

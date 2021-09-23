@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{make_new_ready4fun_badges}
 \alias{make_new_ready4fun_badges}
-\title{Make new ready4fun badges ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{Make new ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
 \usage{
 make_new_ready4fun_badges(x)
 }

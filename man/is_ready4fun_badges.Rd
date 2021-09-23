@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{is_ready4fun_badges}
 \alias{is_ready4fun_badges}
-\title{Is ready4fun badges ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{Is ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
 \usage{
 is_ready4fun_badges(x)
 }

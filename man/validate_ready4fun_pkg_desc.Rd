@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_pkg_desc.R
 \name{validate_ready4fun_pkg_desc}
 \alias{validate_ready4fun_pkg_desc}
-\title{Validate ready4fun package description ready4 S4 class for declaring package description file data.}
+\title{Validate ready4fun package package description ready4 S4 class for declaring package description file data.}
 \usage{
 validate_ready4fun_pkg_desc(x)
 }

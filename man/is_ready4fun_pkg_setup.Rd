@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_pkg_setup.R
 \name{is_ready4fun_pkg_setup}
 \alias{is_ready4fun_pkg_setup}
-\title{Is ready4fun package setup ready4 S4 class for package metadata required for package set-up.}
+\title{Is ready4fun package package setup ready4 S4 class for package metadata required for package set-up.}
 \usage{
 is_ready4fun_pkg_setup(x)
 }

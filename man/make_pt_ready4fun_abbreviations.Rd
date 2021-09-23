@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_abbreviations.R
 \name{make_pt_ready4fun_abbreviations}
 \alias{make_pt_ready4fun_abbreviations}
-\title{Make prototype ready4fun abbreviations ready4 S3 class for tibble object lookup table of abbreviations.}
+\title{Make prototype ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.}
 \usage{
 make_pt_ready4fun_abbreviations(
   short_name_chr = character(0),

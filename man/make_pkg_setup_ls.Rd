@@ -14,6 +14,7 @@ make_pkg_setup_ls(
   badges_lup = NULL,
   build_ignore_ls = make_build_ignore_ls(),
   check_type_1L_chr = "standard",
+  classify_1L_lgl = T,
   cls_fn_ls = NULL,
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
@@ -52,6 +53,8 @@ make_pkg_setup_ls(
 \item{build_ignore_ls}{Build ignore (a list), Default: make_build_ignore_ls()}
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'standard'}
+
+\item{classify_1L_lgl}{Classify (a logical vector of length one), Default: T}
 
 \item{cls_fn_ls}{Class (a list of functions), Default: NULL}
 

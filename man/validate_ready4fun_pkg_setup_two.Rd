@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_pkg_setup_two.R
 \name{validate_ready4fun_pkg_setup_two}
 \alias{validate_ready4fun_pkg_setup_two}
-\title{Validate ready4fun package setup two ready4 S4 class for package metadata required for second package set-up step.}
+\title{Validate ready4fun package package setup two ready4 S4 class for package metadata required for second package set-up step.}
 \usage{
 validate_ready4fun_pkg_setup_two(x)
 }

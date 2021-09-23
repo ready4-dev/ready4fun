@@ -457,12 +457,10 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
     text_elements_chr <- names(fn_types_lup)[2:4] %>% purrr::map_chr(~get_from_lup_obj(fn_types_lup, 
         match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = fn_type_chr[1], 
         target_var_nm_1L_chr = .x, evaluate_lgl = F))
-    is_generic_1L_lgl <- get_from_lup_obj(fn_types_lup, match_var_nm_1L_chr = "fn_type_nm_chr", 
-        match_value_xx = fn_type_chr[1], target_var_nm_1L_chr = "is_generic_lgl", 
-        evaluate_lgl = F)
-    treat_as_1L_chr <- ifelse(is_generic_1L_lgl, ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
+    is_generic_1L_lgl <- fn_type_chr[1] == fn_name_1L_chr
+    treat_as_1L_chr <- ifelse(is_generic_1L_lgl, "Generic", ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
         ~endsWith(fn_name_1L_chr, paste0(".", .x))) %>% any(), 
-        "Method", "Generic"), "Function")
+        "Method", "Function"))
     fn_desc_spine_1L_chr <- paste0(fn_name_1L_chr, "() is ", 
         add_indef_artl_to_item(fn_type_chr[1], ignore_phrs_not_in_lup = F, 
             abbreviations_lup = abbreviations_lup), " ", tolower(treat_as_1L_chr), 
@@ -1191,6 +1189,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'standard'
+#' @param classify_1L_lgl Classify (a logical vector of length one), Default: T
 #' @param cls_fn_ls Class (a list of functions), Default: NULL
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
@@ -1217,9 +1216,9 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-    check_type_1L_chr = "standard", cls_fn_ls = NULL, delete_r_dir_cnts_1L_lgl = T, 
-    dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
-    dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
+    check_type_1L_chr = "standard", classify_1L_lgl = T, cls_fn_ls = NULL, 
+    delete_r_dir_cnts_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
+    dev_pkgs_chr = NA_character_, dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
     lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
     incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
     path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
@@ -1272,6 +1271,8 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             user_manual_fns_chr = user_manual_fns_chr))
+    if (classify_1L_lgl) 
+        pkg_setup_ls <- pkg_setup_ls %>% ready4fun_pkg_setup()
     return(pkg_setup_ls)
 }
 #' Make prompt

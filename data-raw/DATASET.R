@@ -150,7 +150,7 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                    pt_ls = list(list("list")), #c("ready4fun_pkg_setup_one", "ready4fun_pkg_setup_two") %>% list(),
                                                    pt_ns_ls = list(list("base")),
                                                    # parent_class_chr = NA_character_
-                                                   vals_ls = list("ready4fun_pkg_setup_one", "ready4fun_pkg_setup_two") %>%
+                                                   vals_ls = list("ready4fun_pkg_setup_one()", "ready4fun_pkg_setup_two()") %>%
                                                      stats::setNames(c("initial_ls","subsequent_ls")) %>% list()
   ),
   ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",#S3
@@ -175,6 +175,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                        check_type_1L_chr = "standard",
                                        cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
                                                         args_ls = list(x = classes_to_make_tb)),
+                                       classify_1L_lgl = F, ###
                                        copyright_holders_chr = "Orygen",
                                        inc_pkg_meta_data_1L_lgl = T, ###
                                        lifecycle_stage_1L_chr = "experimental",
@@ -194,16 +195,16 @@ pkg_setup_ls <- pkg_desc_ls %>%
 pkg_setup_ls<- fns_env_ls$fns_env$write_package(pkg_setup_ls,
                                                 list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)
+# pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
+#                                                    #classes_to_make_tb = classes_to_make_tb,
+#                                                    long_name_chr = c("ready4fun R package"),
+#                                                    #custom_plural_ls = list(repository = "repositories"),
+#                                                    no_plural_chr = c("ready4fun R package"))
 # pkg_setup_ls<- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
-#                                                      fn_type_desc_chr = "Writes files to local or remote locations.",
+#                                                      fn_type_desc_chr = c("Runs an analysis or analyses using specified data and parameters.",
+#                                                                           "Searches and retrieves requested data from a specified source."),
 #                                       is_generic_lgl = T,
 #                                       publish_dv_1L_lgl = T)
-# pkg_setup_ls <- fns_env_ls$fns_env$validate_pkg_setup(pkg_setup_ls)
-# pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
-#                                                       fn_type_desc_chr = "Validates that an object conforms to required criteria.",
-#                                                       is_generic_lgl = F,
-#                                                       is_method_lgl = F,
-#                                                       publish_dv_1L_lgl = T)
 # pkg_setup_ls <- fns_env_ls$fns_env$update_msng_abbrs(pkg_setup_ls,
 #                                                      are_words_chr = c("cran", "lifecycle", "pdf",
 #                                                                        "pdfs","pkgdown",

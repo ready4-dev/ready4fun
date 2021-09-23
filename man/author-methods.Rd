@@ -12,5 +12,5 @@ author(x, ...)
 \item{...}{Additional arguments (an additional arguments)}
 }
 \description{
-author() is an Author generic that writes files to local or remote locations.
+author() is an Author function that writes files to local or remote locations. Specifically, this function implements an algorithm to author.
 }

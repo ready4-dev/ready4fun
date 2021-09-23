@@ -1,15 +1,18 @@
+analyse <- function(x,
+                   ...){
+  UseMethod("analyse",x)
+}
 author <- function(x,
                     ...){
   UseMethod("author",x)
 }
-# methods::setGeneric("author")
-# extract <- function(x,
-#                 ...){
-#   UseMethod("extract",x)
-# }
 make <- function(x,
                  ...){
   UseMethod("make",x)
+}
+procure <- function(x,
+                         ...){
+  UseMethod("procure",x)
 }
 update <- function(x,
                   ...){

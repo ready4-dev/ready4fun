@@ -10,7 +10,7 @@
 ready4fun_pkg_setup_one <- function(x = make_pt_ready4fun_pkg_setup_one()){ 
 validate_ready4fun_pkg_setup_one(make_new_ready4fun_pkg_setup_one(x))
 }
-#' Make new ready4fun package setup one ready4 S4 class for package metadata required for initial package set-up step.
+#' Make new ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.
 #' @description Create a new unvalidated instance of the ready4 S4 class for package metadata required for initial package set-up step.
 #' @param x A prototype for the ready4 S4 class for package metadata required for initial package set-up step.
 #' @return An unvalidated instance of the ready4 S4 class for package metadata required for initial package set-up step.
@@ -24,7 +24,7 @@ class(x) <- append(c("ready4fun_pkg_setup_one",setdiff(make_pt_ready4fun_pkg_set
 class(x))
 x
 }
-#' Make prototype ready4fun package setup one ready4 S4 class for package metadata required for initial package set-up step.
+#' Make prototype ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.
 #' @description Create a new prototype for the ready4 S4 class for package metadata required for initial package set-up step.
 #' @param pkg_desc_ls Package description (a list), Default: list()
 #' @param copyright_holders_chr Copyright holders (a character vector), Default: character(0)
@@ -75,7 +75,7 @@ path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
 path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr) %>% update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' Validate ready4fun package setup one ready4 S4 class for package metadata required for initial package set-up step.
+#' Validate ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.
 #' @description Validate an instance of the ready4 S4 class for package metadata required for initial package set-up step.
 #' @param x An unvalidated instance of the ready4 S4 class for package metadata required for initial package set-up step.
 #' @return A prototpe for ready4 S4 class for package metadata required for initial package set-up step.
@@ -118,7 +118,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package setup one ready4 S4 class for package metadata required for initial package set-up step.
+#' Is ready4fun package package setup one ready4 S4 class for package metadata required for initial package set-up step.
 #' @description Check whether an object is a valid instance of the ready4 S4 class for package metadata required for initial package set-up step.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S4 class for package metadata required for initial package set-up step.

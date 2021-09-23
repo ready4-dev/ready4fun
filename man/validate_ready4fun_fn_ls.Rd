@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_fn_ls.R
 \name{validate_ready4fun_fn_ls}
 \alias{validate_ready4fun_fn_ls}
-\title{Validate ready4fun function list ready4 S3 class for declaring package description file data.}
+\title{Validate ready4fun package function list ready4 S3 class for declaring package description file data.}
 \usage{
 validate_ready4fun_fn_ls(x)
 }

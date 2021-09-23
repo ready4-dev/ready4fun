@@ -71,7 +71,7 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
     return(dev_pkg_nm_1L_chr)
 }
 #' Get dataverse files urls
-#' @description get_dv_fls_urls() is a Get Data generic that retrieves data from R objects loaded in memory. The function returns Urls (a character vector).
+#' @description get_dv_fls_urls() is a Get Data function that retrieves data from R objects loaded in memory. Specifically, this function implements an algorithm to get dataverse files urls. The function returns Urls (a character vector).
 #' @param file_nms_chr File names (a character vector)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL

@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{make_pt_ready4fun_badges}
 \alias{make_pt_ready4fun_badges}
-\title{Make prototype ready4fun badges ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{Make prototype ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
 \usage{
 make_pt_ready4fun_badges(
   badge_names_chr = character(0),

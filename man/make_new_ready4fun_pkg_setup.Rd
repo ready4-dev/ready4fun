@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_pkg_setup.R
 \name{make_new_ready4fun_pkg_setup}
 \alias{make_new_ready4fun_pkg_setup}
-\title{Make new ready4fun package setup ready4 S4 class for package metadata required for package set-up.}
+\title{Make new ready4fun package package setup ready4 S4 class for package metadata required for package set-up.}
 \usage{
 make_new_ready4fun_pkg_setup(x)
 }

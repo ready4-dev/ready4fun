@@ -2,17 +2,17 @@
 % Please edit documentation in R/C3_ready4fun_pkg_setup.R
 \name{make_pt_ready4fun_pkg_setup}
 \alias{make_pt_ready4fun_pkg_setup}
-\title{Make prototype ready4fun package setup ready4 S4 class for package metadata required for package set-up.}
+\title{Make prototype ready4fun package package setup ready4 S4 class for package metadata required for package set-up.}
 \usage{
 make_pt_ready4fun_pkg_setup(
-  initial_ls = ready4fun_pkg_setup_one,
-  subsequent_ls = ready4fun_pkg_setup_two
+  initial_ls = ready4fun_pkg_setup_one(),
+  subsequent_ls = ready4fun_pkg_setup_two()
 )
 }
 \arguments{
-\item{initial_ls}{Initial (a list), Default: ready4fun_pkg_setup_one}
+\item{initial_ls}{Initial (a list), Default: ready4fun_pkg_setup_one()}
 
-\item{subsequent_ls}{Subsequent (a list), Default: ready4fun_pkg_setup_two}
+\item{subsequent_ls}{Subsequent (a list), Default: ready4fun_pkg_setup_two()}
 }
 \value{
 A prototype for ready4 S4 class for package metadata required for package set-up.

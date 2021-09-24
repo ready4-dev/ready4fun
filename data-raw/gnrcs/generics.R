@@ -10,13 +10,17 @@ make <- function(x,
                  ...){
   UseMethod("make",x)
 }
+# metamorphose <- function(x,
+#                  ...){
+#   UseMethod("metamorphose",x)
+# }
 procure <- function(x,
                          ...){
   UseMethod("procure",x)
 }
-# update <- function(x,
+# rearrange <- function(x,
 #                   ...){
-#   UseMethod("update",x)
+#   UseMethod("rearrange",x)
 # }
 validate <- function(x,
                      ...){

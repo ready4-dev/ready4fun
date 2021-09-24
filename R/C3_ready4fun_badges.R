@@ -74,6 +74,7 @@ dplyr::arrange(variable),
 x %>% 
 dplyr::summarise_all(class) %>% 
  tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class)) %>% 
 dplyr::filter(variable %in% names(make_pt_ready4fun_badges())) %>% dplyr::arrange(variable))){
 stop(paste0("TIBBLE columns should be of the following classes: ",
 "",

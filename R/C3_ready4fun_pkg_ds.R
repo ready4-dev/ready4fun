@@ -91,6 +91,7 @@ dplyr::arrange(variable),
 x %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class)) %>% 
 dplyr::filter(variable %in% names(make_pt_ready4fun_pkg_ds())) %>% dplyr::arrange(variable))){
 stop(paste0("LIST elements should be of the following classes: ",
 "",

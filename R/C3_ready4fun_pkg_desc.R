@@ -58,7 +58,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom stringr str_detect str_c
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
-#' @importFrom dplyr arrange filter pull
+#' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
 validate_ready4fun_pkg_desc <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_pkg_desc())],
@@ -71,6 +71,7 @@ call. = FALSE)
  if(!identical(make_pt_ready4fun_pkg_desc() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class)) %>% 
 dplyr::arrange(variable),
 x %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
@@ -81,7 +82,8 @@ stop(paste0("LIST elements should be of the following classes: ",
 {
 class_lup <- make_pt_ready4fun_pkg_desc() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
- tidyr::gather(variable,class)
+ tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class))
   vars_chr <- class_lup %>% dplyr::pull(1) %>% unique()
   classes_chr <- vars_chr %>%  purrr::map_chr(~dplyr::filter(class_lup, variable == .x) %>%  dplyr::pull(2) %>% paste0(collapse = ", "))
 purrr::map2_chr(vars_chr,

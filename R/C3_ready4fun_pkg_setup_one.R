@@ -29,7 +29,7 @@ x
 #' @param pkg_desc_ls Package description (a list), Default: ready4fun_pkg_desc()
 #' @param copyright_holders_chr Copyright holders (a character vector), Default: character(0)
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: character(0)
-#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: character(0)
+#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: logical(0)
 #' @param addl_badges_ls Additional badges (a list), Default: list()
 #' @param badges_lup Badges (a lookup table), Default: ready4fun_badges()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: character(0)
@@ -48,7 +48,7 @@ x
 make_pt_ready4fun_pkg_setup_one <- function(pkg_desc_ls = ready4fun_pkg_desc(),
 copyright_holders_chr = character(0),
 gh_repo_1L_chr = character(0),
-add_gh_site_1L_lgl = character(0),
+add_gh_site_1L_lgl = logical(0),
 addl_badges_ls = list(),
 badges_lup = ready4fun_badges(),
 check_type_1L_chr = character(0),
@@ -85,7 +85,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom stringr str_detect str_c
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
-#' @importFrom dplyr arrange filter pull
+#' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
 validate_ready4fun_pkg_setup_one <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_pkg_setup_one())],
@@ -98,6 +98,7 @@ call. = FALSE)
  if(!identical(make_pt_ready4fun_pkg_setup_one() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class)) %>% 
 dplyr::arrange(variable),
 x %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
@@ -108,7 +109,8 @@ stop(paste0("LIST elements should be of the following classes: ",
 {
 class_lup <- make_pt_ready4fun_pkg_setup_one() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
- tidyr::gather(variable,class)
+ tidyr::gather(variable,class) %>% 
+ dplyr::filter(!is.na(class))
   vars_chr <- class_lup %>% dplyr::pull(1) %>% unique()
   classes_chr <- vars_chr %>%  purrr::map_chr(~dplyr::filter(class_lup, variable == .x) %>%  dplyr::pull(2) %>% paste0(collapse = ", "))
 purrr::map2_chr(vars_chr,

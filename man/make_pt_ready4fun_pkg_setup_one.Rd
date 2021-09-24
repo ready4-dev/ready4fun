@@ -8,7 +8,7 @@ make_pt_ready4fun_pkg_setup_one(
   pkg_desc_ls = ready4fun_pkg_desc(),
   copyright_holders_chr = character(0),
   gh_repo_1L_chr = character(0),
-  add_gh_site_1L_lgl = character(0),
+  add_gh_site_1L_lgl = logical(0),
   addl_badges_ls = list(),
   badges_lup = ready4fun_badges(),
   check_type_1L_chr = character(0),
@@ -28,7 +28,7 @@ make_pt_ready4fun_pkg_setup_one(
 
 \item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: character(0)}
 
-\item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: character(0)}
+\item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: logical(0)}
 
 \item{addl_badges_ls}{Additional badges (a list), Default: list()}
 

@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Author and Document Functions for Open and Modular Mental Health
     Simulations
-Version: 0.0.0.9419
+Version: 0.0.0.9420
 Authors@R: 
     c(person(given = "Matthew",
              family = "Hamilton",

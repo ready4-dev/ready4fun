@@ -192,7 +192,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                                                "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package", "write_ws"))
 #
 # 5. Add content to and document the package
-pkg_setup_ls<- fns_env_ls$fns_env$write_package(pkg_setup_ls,
+pkg_setup_ls <- fns_env_ls$fns_env$write_package(pkg_setup_ls,
                                                 list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,

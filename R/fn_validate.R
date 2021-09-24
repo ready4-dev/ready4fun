@@ -55,9 +55,8 @@ validate_pkg_setup <- function (pkg_setup_ls)
                 pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
             }
         }
-        if (is.null(fns_env_ls)) 
-            fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
-                "/data-raw"), drop_empty_1L_lgl = T))
+        fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+            "/data-raw"), drop_empty_1L_lgl = T))
         paths_ls <- make_fn_nms()
         undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
         if ("mthds" %in% names(paths_ls)) {

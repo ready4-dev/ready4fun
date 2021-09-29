@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9421</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9423</span>
       </span>
     </div>
 
@@ -129,21 +129,17 @@
     </div>
 
     <pre class="usage"><span class='fu'>write_fn_fl</span><span class='op'>(</span>
-  <span class='va'>fns_dmt_tb</span>,
   <span class='va'>fns_env_ls</span>,
   <span class='va'>pkg_setup_ls</span>,
   document_unexp_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   consent_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fns_dmt_tb <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   r_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
-    </tr>
     <tr>
       <th>fns_env_ls</th>
       <td><p>Functions (a list of environments)</p></td>
@@ -159,6 +155,10 @@
     <tr>
       <th>consent_1L_chr</th>
       <td><p>Consent (a character vector of length one), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>fns_dmt_tb</th>
+      <td><p>Functions documentation (a tibble), Default: deprecated()</p></td>
     </tr>
     <tr>
       <th>r_dir_1L_chr</th>

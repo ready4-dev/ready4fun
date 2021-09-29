@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9421</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9423</span>
       </span>
     </div>
 
@@ -129,13 +129,13 @@
     </div>
 
     <pre class="usage"><span class='fu'>write_and_doc_fn_fls</span><span class='op'>(</span>
-  <span class='va'>fns_dmt_tb</span>,
   <span class='va'>pkg_setup_ls</span>,
   make_pdfs_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   update_pkgdown_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   list_generics_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
-  path_to_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   dev_pkgs_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  fns_dmt_tb <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  path_to_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   path_to_dvpr_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   path_to_user_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
@@ -145,10 +145,6 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fns_dmt_tb</th>
-      <td><p>Functions documentation (a tibble)</p></td>
-    </tr>
     <tr>
       <th>pkg_setup_ls</th>
       <td><p>Package setup (a list)</p></td>
@@ -166,12 +162,16 @@
       <td><p>List generics (a logical vector of length one), Default: F</p></td>
     </tr>
     <tr>
-      <th>path_to_dmt_dir_1L_chr</th>
-      <td><p>Path to documentation directory (a character vector of length one), Default: deprecated()</p></td>
-    </tr>
-    <tr>
       <th>dev_pkgs_chr</th>
       <td><p>Development packages (a character vector), Default: deprecated()</p></td>
+    </tr>
+    <tr>
+      <th>fns_dmt_tb</th>
+      <td><p>Functions documentation (a tibble), Default: deprecated()</p></td>
+    </tr>
+    <tr>
+      <th>path_to_dmt_dir_1L_chr</th>
+      <td><p>Path to documentation directory (a character vector of length one), Default: deprecated()</p></td>
     </tr>
     <tr>
       <th>path_to_dvpr_dmt_dir_1L_chr</th>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9421</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9423</span>
       </span>
     </div>
 
@@ -129,23 +129,19 @@
     </div>
 
     <pre class="usage"><span class='fu'>write_clss</span><span class='op'>(</span>
-  <span class='va'>dss_records_ls</span>,
   <span class='va'>pkg_setup_ls</span>,
   dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
   key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
   self_serve_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   self_serve_fn_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>,
-  cls_fn_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
+  cls_fn_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  dss_records_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dss_records_ls</th>
-      <td><p>Datasets records (a list)</p></td>
-    </tr>
     <tr>
       <th>pkg_setup_ls</th>
       <td><p>Package setup (a list)</p></td>
@@ -173,6 +169,10 @@
     <tr>
       <th>cls_fn_ls</th>
       <td><p>Class (a list of functions), Default: deprecated()</p></td>
+    </tr>
+    <tr>
+      <th>dss_records_ls</th>
+      <td><p>Datasets records (a list), Default: deprecated()</p></td>
     </tr>
     </table>
 

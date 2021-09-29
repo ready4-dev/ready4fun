@@ -5,7 +5,7 @@
 \alias{fn_types_lup}
 \title{Function type lookup table}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 50 rows and 6 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 52 rows and 6 columns.
 }
 \source{
 \url{https://doi.org/10.7910/DVN/2Y9VF9}

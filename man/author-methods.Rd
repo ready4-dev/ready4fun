@@ -49,7 +49,7 @@ author.ready4fun_pkg_setup(
 Instance (ready4 S4 class for package metadata required for package set-up.)
 }
 \description{
-author() is an Author generic that writes files to local or remote locations.
+author() is an Author function that writes files to local or remote locations. Specifically, this function implements an algorithm to author. The function is called for its side effects and does not return a value.
 
 author.ready4fun_pkg_setup() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S4 class for package metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

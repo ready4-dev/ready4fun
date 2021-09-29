@@ -1099,6 +1099,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               delete_r_dir_cnts_1L_lgl = T,
                               dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                               dev_pkgs_chr = NA_character_,
+                              dss_records_ls = NULL,
                               dv_url_pfx_1L_chr = NULL,
                               gh_repo_1L_chr = NA_character_,
                               lifecycle_stage_1L_chr = "experimental",
@@ -1158,12 +1159,14 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                             addl_pkgs_ls = addl_pkgs_ls,
                                             build_ignore_ls = build_ignore_ls,
                                             cls_fn_ls = cls_fn_ls,#
+                                            dss_records_ls = dss_records_ls,
                                             inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,#
                                             path_to_dmt_dir_1L_chr =  path_to_dmt_dir_1L_chr,#
                                             pkg_ds_ls_ls = pkg_ds_ls_ls,#
                                             dev_pkgs_chr = dev_pkgs_chr,
                                             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                            fns_dmt_tb = NULL,
                                             fn_types_lup = get_rds_from_dv("fn_types_lup",
                                                                              dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,

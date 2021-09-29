@@ -3,6 +3,7 @@
 export("%>%")
 export(add_addl_pkgs)
 export(add_build_ignore)
+export(add_fns_dmt_tb)
 export(add_indef_artl_to_item)
 export(add_indefartls_to_phrases)
 export(add_lups)

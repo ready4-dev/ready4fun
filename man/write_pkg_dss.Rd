@@ -54,9 +54,9 @@ write_pkg_dss(
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: deprecated()}
 }
 \value{
-Datasets records (a list)
+Package setup (a list)
 }
 \description{
-write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).
+write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Package setup (a list).
 }
 \keyword{internal}

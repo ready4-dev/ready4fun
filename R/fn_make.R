@@ -1198,6 +1198,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param dss_records_ls Datasets records (a list), Default: NULL
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
@@ -1223,10 +1224,10 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
     check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
     delete_r_dir_cnts_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    dev_pkgs_chr = NA_character_, dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
-    lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
-    incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
-    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    dev_pkgs_chr = NA_character_, dss_records_ls = NULL, dv_url_pfx_1L_chr = NULL, 
+    gh_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
+    inc_pkg_meta_data_1L_lgl = F, incr_ver_1L_lgl = F, key_1L_chr = NULL, 
+    on_cran_1L_lgl = F, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
     pkg_ds_ls_ls = NULL, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     user_manual_fns_chr = NA_character_) 
@@ -1262,14 +1263,15 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
-            cls_fn_ls = cls_fn_ls, inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl, 
+            cls_fn_ls = cls_fn_ls, dss_records_ls = dss_records_ls, 
+            inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl, 
             path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
             pkg_ds_ls_ls = pkg_ds_ls_ls, dev_pkgs_chr = dev_pkgs_chr, 
             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            fn_types_lup = get_rds_from_dv("fn_types_lup", dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], 
-                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-                server_1L_chr = server_1L_chr), key_1L_chr = key_1L_chr, 
-            object_type_lup = get_rds_from_dv("object_type_lup", 
+            fns_dmt_tb = NULL, fn_types_lup = get_rds_from_dv("fn_types_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            key_1L_chr = key_1L_chr, object_type_lup = get_rds_from_dv("object_type_lup", 
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
             pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup", 

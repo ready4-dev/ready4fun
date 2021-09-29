@@ -8,12 +8,12 @@ get_new_abbrs(
   pkg_setup_ls,
   classes_to_make_tb = NULL,
   inc_all_mthds_1L_lgl = T,
-  fns_dmt_tb = NULL,
   paths_ls = make_fn_nms(),
   pkg_ds_ls_ls = NULL,
   transformations_chr = NULL,
   undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-  use_last_1L_int = NULL
+  use_last_1L_int = NULL,
+  fns_dmt_tb = deprecated()
 )
 }
 \arguments{
@@ -22,8 +22,6 @@ get_new_abbrs(
 \item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
 
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
-
-\item{fns_dmt_tb}{Functions documentation (a tibble), Default: NULL}
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
 
@@ -34,6 +32,8 @@ get_new_abbrs(
 \item{undocumented_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 
 \item{use_last_1L_int}{Use last (an integer vector of length one), Default: NULL}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: deprecated()}
 }
 \value{
 New abbreviations (a character vector)

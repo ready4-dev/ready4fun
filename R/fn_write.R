@@ -58,28 +58,39 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
 #' Write all function documentation
 #' @description write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
-#' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param fns_env_ls Functions (a list of environments)
 #' @param document_unexp_lgl Document unexported (a logical vector), Default: F
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: deprecated()
 #' @return NULL
 #' @rdname write_all_fn_dmt
 #' @export 
+#' @importFrom lifecycle is_present deprecate_warn
+#' @importFrom stringr str_replace_all
 #' @importFrom dplyr filter
 #' @importFrom devtools document load_all
 #' @keywords internal
-write_all_fn_dmt <- function (pkg_setup_ls, fns_dmt_tb, fns_env_ls, document_unexp_lgl = F) 
+write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, fns_dmt_tb = deprecated()) 
 {
+    if (lifecycle::is_present(fns_dmt_tb)) {
+        lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_all_fn_dmt(fns_dmt_tb)", 
+            details = "Please use `ready4fun::write_all_fn_dmt(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+    }
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% 
+        stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+            "/"), "")
     if (file.exists(paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/R"), "/grp_generics.R"))) {
-        fns_dmt_tb <- fns_dmt_tb %>% dplyr::filter(file_nm_chr != 
-            "generics.R")
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% 
+            dplyr::filter(file_nm_chr != "generics.R")
     }
     paths_chr <- paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
-        "/R"), "/", fns_dmt_tb$file_pfx_chr, fns_dmt_tb$file_nm_chr) %>% 
-        unique()
+        "/R"), "/", pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_pfx_chr, 
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% 
+            stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+                "/"), "")) %>% unique()
     write_new_files(paths_chr = paths_chr, custom_write_ls = list(fn = write_fn_fl, 
-        args_ls = list(fns_dmt_tb = fns_dmt_tb, fns_env_ls = fns_env_ls, 
-            pkg_setup_ls = pkg_setup_ls, document_unexp_lgl = document_unexp_lgl)))
+        args_ls = list(fns_env_ls = fns_env_ls, pkg_setup_ls = pkg_setup_ls, 
+            document_unexp_lgl = document_unexp_lgl)))
     devtools::document()
     devtools::load_all()
 }
@@ -164,13 +175,13 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 }
 #' Write and document function files
 #' @description write_and_doc_fn_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document function files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param pkg_setup_ls Package setup (a list)
 #' @param make_pdfs_1L_lgl Make pdfs (a logical vector of length one), Default: T
 #' @param update_pkgdown_1L_lgl Update pkgdown (a logical vector of length one), Default: T
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: F
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
 #' @param dev_pkgs_chr Development packages (a character vector), Default: deprecated()
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: deprecated()
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
 #' @param path_to_dvpr_dmt_dir_1L_chr Path to developer documentation directory (a character vector of length one), Default: deprecated()
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: deprecated()
 #' @param path_to_user_dmt_dir_1L_chr Path to user documentation directory (a character vector of length one), Default: deprecated()
@@ -184,12 +195,16 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
 #' @keywords internal
-write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkgdown_1L_lgl = T, 
-    list_generics_1L_lgl = F, path_to_dmt_dir_1L_chr = deprecated(), 
-    dev_pkgs_chr = deprecated(), path_to_dvpr_dmt_dir_1L_chr = deprecated(), 
+write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkgdown_1L_lgl = T, 
+    list_generics_1L_lgl = F, dev_pkgs_chr = deprecated(), fns_dmt_tb = deprecated(), 
+    path_to_dmt_dir_1L_chr = deprecated(), path_to_dvpr_dmt_dir_1L_chr = deprecated(), 
     path_to_pkg_rt_1L_chr = deprecated(), path_to_user_dmt_dir_1L_chr = deprecated(), 
     r_dir_1L_chr = deprecated()) 
 {
+    if (lifecycle::is_present(fns_dmt_tb)) {
+        lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_and_doc_fn_fls(fns_dmt_tb)", 
+            details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+    }
     if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9307", "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)", 
             details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
@@ -228,8 +243,8 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
     purrr::walk2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
         "/Developer"), paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
         "/User")), c(T, F), ~{
-        write_all_fn_dmt(pkg_setup_ls, fns_dmt_tb = fns_dmt_tb, 
-            fns_env_ls = fns_env_ls, document_unexp_lgl = .y)
+        write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
+            document_unexp_lgl = .y)
         write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, incr_ver_1L_lgl = .y)
         devtools::load_all()
         if (make_pdfs_1L_lgl) 
@@ -259,8 +274,9 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
                 c("Functions", ifelse(!list_generics_1L_lgl, 
                   NA_character_, "Generics"), "Methods") %>% 
                   purrr::discard(is.na), ~{
-                  fns_chr <- dplyr::filter(fns_dmt_tb, inc_for_main_user_lgl & 
-                    file_pfx_chr == .x) %>% dplyr::pull(fns_chr)
+                  fns_chr <- dplyr::filter(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
+                    inc_for_main_user_lgl & file_pfx_chr == .x) %>% 
+                    dplyr::pull(fns_chr)
                   if (length(fns_chr) > 0) {
                     txt_chr <- c(paste0("- title: \"", .y, "\""), 
                       "- contents:", paste0("  - ", fns_chr))
@@ -274,7 +290,6 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
 }
 #' Write classes
 #' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param dss_records_ls Datasets records (a list)
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
@@ -282,19 +297,25 @@ write_and_doc_fn_fls <- function (fns_dmt_tb, pkg_setup_ls, make_pdfs_1L_lgl = T
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param cls_fn_ls Class (a list of functions), Default: deprecated()
+#' @param dss_records_ls Datasets records (a list), Default: deprecated()
 #' @return NULL
 #' @rdname write_clss
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
+#' @importFrom devtools document load_all
 #' @keywords internal
-write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL, 
-    key_1L_chr = NULL, self_serve_1L_lgl = F, self_serve_fn_ls = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), cls_fn_ls = deprecated()) 
+write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+    self_serve_1L_lgl = F, self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    cls_fn_ls = deprecated(), dss_records_ls = deprecated()) 
 {
     if (lifecycle::is_present(cls_fn_ls)) {
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_clss(cls_fn_ls)", 
             details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the cls_fn_ls object to this function.")
+    }
+    if (lifecycle::is_present(dss_records_ls)) {
+        lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_clss(dss_records_ls)", 
+            details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dss_records_ls object to this function.")
     }
     if (self_serve_1L_lgl) {
         fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
@@ -307,8 +328,8 @@ write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL,
             pkg_setup_ls <- rlang::exec(self_serve_fn_ls$fn, 
                 !!!self_serve_fn_ls$args_ls)
         }
-        write_all_fn_dmt(pkg_setup_ls, fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
-            fns_env_ls = fns_env_ls, document_unexp_lgl = F)
+        write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
+            document_unexp_lgl = F)
     }
     if (!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)) {
         if ("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 
@@ -341,6 +362,8 @@ write_clss <- function (dss_records_ls, pkg_setup_ls, dv_url_pfx_1L_chr = NULL,
                 publish_dv_1L_lgl = T)
         }
     }
+    devtools::document()
+    devtools::load_all()
 }
 #' Write documented function type lookup table
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -590,30 +613,39 @@ write_fls_to_dv <- function (file_paths_chr, descriptions_chr = NULL, ds_url_1L_
 }
 #' Write function file
 #' @description write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param fns_dmt_tb Functions documentation (a tibble)
 #' @param fns_env_ls Functions (a list of environments)
 #' @param pkg_setup_ls Package setup (a list)
 #' @param document_unexp_lgl Document unexported (a logical vector), Default: T
 #' @param consent_1L_chr Consent (a character vector of length one), Default: NULL
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: deprecated()
 #' @param r_dir_1L_chr R directory (a character vector of length one), Default: deprecated()
 #' @return NULL
 #' @rdname write_fn_fl
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
+#' @importFrom stringr str_replace_all
 #' @importFrom stringi stri_replace_last
 #' @importFrom purrr walk pluck
 #' @importFrom dplyr filter
 #' @keywords internal
-write_fn_fl <- function (fns_dmt_tb, fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, 
-    consent_1L_chr = NULL, r_dir_1L_chr = deprecated()) 
+write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, consent_1L_chr = NULL, 
+    fns_dmt_tb = deprecated(), r_dir_1L_chr = deprecated()) 
 {
+    if (lifecycle::is_present(fns_dmt_tb)) {
+        lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_fn_fl(fns_dmt_tb)", 
+            details = "Please use `ready4fun::write_fn_fl(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+    }
     if (lifecycle::is_present(r_dir_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9199", "ready4fun::write_fn_fl(r_dir_1L_chr)", 
             details = "Please use `ready4fun::write_fn_fl(pkg_setup_ls)` to pass the R directory path to this function.")
     }
     r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/R")
-    file_nms_chr <- fns_dmt_tb$file_nm_chr %>% unique()
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% 
+        stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+            "/"), "")
+    file_nms_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% 
+        unique()
     if (is.null(consent_1L_chr)) {
         consent_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to write the files ", 
             file_nms_chr %>% paste0(collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
@@ -622,7 +654,7 @@ write_fn_fl <- function (fns_dmt_tb, fns_env_ls, pkg_setup_ls, document_unexp_lg
     }
     if (consent_1L_chr == "Y") {
         file_nms_chr %>% purrr::walk(~{
-            tb <- fns_dmt_tb %>% dplyr::filter(file_nm_chr == 
+            tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% dplyr::filter(file_nm_chr == 
                 .x)
             first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
             dest_path_1L_chr <- paste0(r_dir_1L_chr, "/", tb$file_pfx_chr[1], 
@@ -1293,7 +1325,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
         ",")[1, 1] - 1), stringr::str_replace(.x, "import\\(", 
         "") %>% stringr::str_sub(end = -2)), NA_character_)) %>% 
         purrr::discard(is.na) %>% unique()
-    if (!is.na(dev_pkgs_chr)) {
+    if (!is.na(dev_pkgs_chr[1])) {
         dev_pkgs_chr <- intersect(packages_chr, dev_pkgs_chr) %>% 
             sort()
         packages_chr <- setdiff(packages_chr, dev_pkgs_chr) %>% 
@@ -1355,14 +1387,16 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = 
     else {
         message("pkg_setup_ls has been validated. Proceeding to package set-up.")
         rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-        dss_records_ls <- write_pkg_dss(pkg_setup_ls, pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+        pkg_setup_ls <- write_pkg_dss(pkg_setup_ls, pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
             strsplit(",") %>% unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
-        write_clss(dss_records_ls = dss_records_ls, pkg_setup_ls = pkg_setup_ls, 
-            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-            self_serve_1L_lgl = self_serve_1L_lgl, self_serve_fn_ls = self_serve_fn_ls, 
+        write_clss(pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
+            self_serve_fn_ls = self_serve_fn_ls, server_1L_chr = server_1L_chr)
+        pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls = pkg_setup_ls, 
+            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, fns_env_ls = NULL, 
+            inc_methods_1L_lgl = T, key_1L_chr = key_1L_chr, 
             server_1L_chr = server_1L_chr)
-        write_and_doc_fn_fls(fns_dmt_tb = dss_records_ls$fns_dmt_tb, 
-            pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T, 
+        write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T, 
             list_generics_1L_lgl = list_generics_1L_lgl)
         write_manuals(pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
@@ -1390,7 +1424,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
         }), args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
 }
 #' Write package datasets
-#' @description write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Datasets records (a list).
+#' @description write_pkg_dss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package datasets. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param args_ls_ls Arguments (a list of lists), Default: NULL
 #' @param details_ls Details (a list), Default: NULL
@@ -1406,7 +1440,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: deprecated()
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: deprecated()
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: deprecated()
-#' @return Datasets records (a list)
+#' @return Package setup (a list)
 #' @rdname write_pkg_dss
 #' @export 
 #' @importFrom tibble tibble
@@ -1454,26 +1488,8 @@ write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL,
                 rlang::exec(write_and_doc_ds, !!!args_ls)
             })
     }
-    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
-        custom_dmt_ls = list(details_ls = details_ls, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
-            force_false_chr = NA_character_), args_ls_ls = args_ls_ls), 
-        fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
-        inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
-        undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-    if (pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl) {
-        pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
-            db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
-                " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
-                pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
-                " package."), format_1L_chr = "A tibble", url_1L_chr = pkg_url_1L_chr, 
-            abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
-            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
-            pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-            server_1L_chr = server_1L_chr)
-    }
-    dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb, fns_dmt_tb = fns_dmt_tb)
-    return(dss_records_ls)
+    pkg_setup_ls$subsequent_ls$dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb)
+    return(pkg_setup_ls)
 }
 #' Write package setup files
 #' @description write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

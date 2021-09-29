@@ -19,6 +19,7 @@ make_pkg_setup_ls(
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
+  dss_records_ls = NULL,
   dv_url_pfx_1L_chr = NULL,
   gh_repo_1L_chr = NA_character_,
   lifecycle_stage_1L_chr = "experimental",
@@ -63,6 +64,8 @@ make_pkg_setup_ls(
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
+
+\item{dss_records_ls}{Datasets records (a list), Default: NULL}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 

@@ -145,25 +145,30 @@ get_from_lup_obj <- function(data_lookup_tb,
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
-                          fns_dmt_tb = NULL,
                           paths_ls = make_fn_nms(),
                           pkg_ds_ls_ls = NULL,
                           transformations_chr = NULL,
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                          use_last_1L_int = NULL){
-  if(is.null(fns_dmt_tb))
-  fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
-                                     abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                     custom_dmt_ls = list(details_ls = NULL,
-                                                          inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
-                                                                                          force_false_chr = NA_character_),
+                          use_last_1L_int = NULL,
+                          fns_dmt_tb = deprecated()){
+  if(lifecycle::is_present(fns_dmt_tb)) {
+    lifecycle::deprecate_warn("0.0.0.9421",
+                              "ready4fun::get_new_abbrs(fns_dmt_tb)",
+                              details = "Please use `ready4fun::get_new_abbrs(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+  }
+  if(is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb))
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
+                                                                  abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                                                                  custom_dmt_ls = list(details_ls = NULL,
+                                                                                       inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
+                                                                                                                       force_false_chr = NA_character_),
                                                           args_ls_ls = NULL),
                                      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
                                      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                      undocumented_fns_dir_chr = undocumented_fns_dir_chr)
   if(is.null(use_last_1L_int)){
-    new_fn_abbrs_chr <- fns_dmt_tb$fns_chr %>%
+    new_fn_abbrs_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr %>%
       get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                           drop_first_1L_lgl = T,
                           treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,
@@ -171,7 +176,7 @@ get_new_abbrs <- function(pkg_setup_ls,
   }else{
     new_fn_abbrs_chr <- character(0)
   }
-  new_arg_abbrs_chr <- fns_dmt_tb$args_ls %>%
+  new_arg_abbrs_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$args_ls %>%
     purrr::map(~names(.x) %>%
                  get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                      treat_as_words_chr = pkg_setup_ls$subsequent_ls$treat_as_words_chr,

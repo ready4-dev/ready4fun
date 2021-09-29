@@ -36,6 +36,94 @@ add_build_ignore <- function (build_ignore_ls)
             escape = FALSE))
     }
 }
+#' Add functions documentation tibble
+#' @description add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param fns_env_ls Functions (a list of environments), Default: NULL
+#' @param inc_methods_1L_lgl Include methods (a logical vector of length one), Default: F
+#' @param key_1L_chr Key (a character vector of length one), Default: NULL
+#' @param server_1L_chr Server (a character vector of length one), Default: NULL
+#' @return Package setup (a list)
+#' @rdname add_fns_dmt_tb
+#' @export 
+#' @importFrom purrr map_chr map_lgl pluck
+#' @importFrom stringr str_sub
+#' @importFrom tibble add_case
+#' @importFrom dplyr bind_rows
+#' @keywords internal
+add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls = NULL, 
+    inc_methods_1L_lgl = F, key_1L_chr = NULL, server_1L_chr = NULL) 
+{
+    paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+        "/data-raw"))
+    undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+    if (!inc_methods_1L_lgl) {
+        if ("mthds" %in% names(paths_ls)) {
+            method_nms_chr <- paths_ls$mthds %>% purrr::map_chr(~basename(.x) %>% 
+                stringr::str_sub(end = -3))
+            paths_ls$mthds <- NULL
+            undocumented_fns_dir_chr <- undocumented_fns_dir_chr[undocumented_fns_dir_chr %>% 
+                purrr::map_lgl(~!endsWith(.x, "mthds"))]
+        }
+        else {
+            method_nms_chr <- character(0)
+        }
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
+            abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
+                force_false_chr = NA_character_), args_ls_ls = NULL), 
+            fns_env_ls = fns_env_ls, fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
+            inc_all_mthds_1L_lgl = T, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+            undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+        new_nms_chr <- setdiff(method_nms_chr, pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr)
+        if (!identical(character(0), new_nms_chr)) {
+            pkg_setup_ls$subsequent_ls$fns_dmt_tb <- tibble::add_case(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
+                fns_chr = new_nms_chr, args_ls = list(character(0)))
+        }
+    }
+    else {
+        paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+            "/data-raw"))
+        undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+        if ("mthds" %in% names(paths_ls)) {
+            paths_ls <- list(mthds = paths_ls$mthds)
+            undocumented_fns_dir_chr <- undocumented_fns_dir_chr[undocumented_fns_dir_chr %>% 
+                purrr::map_lgl(~endsWith(.x, "mthds"))]
+        }
+        fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
+            abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr, 
+                force_false_chr = NA_character_), args_ls_ls = NULL), 
+            fns_env_ls = fns_env_ls, fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
+            inc_all_mthds_1L_lgl = T, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+            undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+        if (is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb) | 
+            !"mthds" %in% names(paths_ls)) {
+            pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb
+        }
+        else {
+            pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
+                fns_dmt_tb)
+        }
+        if (pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl & 
+            !is.null(server_1L_chr)) {
+            pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
+                db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                  " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
+                  pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                  " package."), format_1L_chr = "A tibble", url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+                  strsplit(",") %>% unlist() %>% purrr::pluck(1), 
+                abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+                object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
+                pkg_dss_tb = pkg_setup_ls$subsequent_ls$dss_records_ls$pkg_dss_tb, 
+                dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
+                server_1L_chr = server_1L_chr)
+        }
+    }
+    return(pkg_setup_ls)
+}
 #' Add indefinite article to item
 #' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated. The function returns Indefinite item (a character vector).
 #' @param phrase_chr Phrase (a character vector)

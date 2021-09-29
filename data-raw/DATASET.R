@@ -173,7 +173,7 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                        #badges_lup = badges_lup,
                                        build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                        check_type_1L_chr = "standard",
-                                       cls_fn_ls = list(fn = ready4class::write_classes_and_make_lup.ready4class_constructor_tbl,
+                                       cls_fn_ls = list(fn = ready4class::author.ready4class_constructor_tbl,
                                                         args_ls = list(x = classes_to_make_tb)),
                                        classify_1L_lgl = F, ###
                                        copyright_holders_chr = "Orygen",
@@ -193,8 +193,8 @@ pkg_setup_ls <- pkg_desc_ls %>%
 #
 # 5. Add content to and document the package
 pkg_setup_ls <- fns_env_ls$fns_env$write_package(pkg_setup_ls,
-                                                list_generics_1L_lgl = T,
-                                                self_serve_1L_lgl = T)
+                                                 list_generics_1L_lgl = T,
+                                                 self_serve_1L_lgl = T)
 # pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
 #                                                    #classes_to_make_tb = classes_to_make_tb,
 #                                                    long_name_chr = c("ready4fun R package"),

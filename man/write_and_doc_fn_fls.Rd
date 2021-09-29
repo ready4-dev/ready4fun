@@ -5,13 +5,13 @@
 \title{Write and document function files}
 \usage{
 write_and_doc_fn_fls(
-  fns_dmt_tb,
   pkg_setup_ls,
   make_pdfs_1L_lgl = T,
   update_pkgdown_1L_lgl = T,
   list_generics_1L_lgl = F,
-  path_to_dmt_dir_1L_chr = deprecated(),
   dev_pkgs_chr = deprecated(),
+  fns_dmt_tb = deprecated(),
+  path_to_dmt_dir_1L_chr = deprecated(),
   path_to_dvpr_dmt_dir_1L_chr = deprecated(),
   path_to_pkg_rt_1L_chr = deprecated(),
   path_to_user_dmt_dir_1L_chr = deprecated(),
@@ -19,8 +19,6 @@ write_and_doc_fn_fls(
 )
 }
 \arguments{
-\item{fns_dmt_tb}{Functions documentation (a tibble)}
-
 \item{pkg_setup_ls}{Package setup (a list)}
 
 \item{make_pdfs_1L_lgl}{Make pdfs (a logical vector of length one), Default: T}
@@ -29,9 +27,11 @@ write_and_doc_fn_fls(
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: F}
 
-\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: deprecated()}
-
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: deprecated()}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: deprecated()}
+
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: deprecated()}
 
 \item{path_to_dvpr_dmt_dir_1L_chr}{Path to developer documentation directory (a character vector of length one), Default: deprecated()}
 

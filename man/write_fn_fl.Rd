@@ -5,17 +5,15 @@
 \title{Write function file}
 \usage{
 write_fn_fl(
-  fns_dmt_tb,
   fns_env_ls,
   pkg_setup_ls,
   document_unexp_lgl = T,
   consent_1L_chr = NULL,
+  fns_dmt_tb = deprecated(),
   r_dir_1L_chr = deprecated()
 )
 }
 \arguments{
-\item{fns_dmt_tb}{Functions documentation (a tibble)}
-
 \item{fns_env_ls}{Functions (a list of environments)}
 
 \item{pkg_setup_ls}{Package setup (a list)}
@@ -23,6 +21,8 @@ write_fn_fl(
 \item{document_unexp_lgl}{Document unexported (a logical vector), Default: T}
 
 \item{consent_1L_chr}{Consent (a character vector of length one), Default: NULL}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: deprecated()}
 
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: deprecated()}
 }

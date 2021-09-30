@@ -1,24 +1,16 @@
 Package: ready4fun
 Title: Author and Document Functions for Open and Modular Mental Health
     Simulations
-Version: 0.0.0.9423
-Authors@R: 
-    c(person(given = "Matthew",
-             family = "Hamilton",
-             role = c("aut", "cre"),
-             email = "matthew.hamilton@orygen.org.au",
-             comment = c(ORCID = "0000-0001-7407-9194")),
-      person(given = "Glen",
-             family = "Wiesner",
-             role = "aut",
-             email = "Glen.Wiesner@vu.edu.au",
-             comment = c(ORCID = "0000-0002-0071-130X")),
-      person(given = "Orygen",
-             role = c("cph", "fnd")),
-      person(given = "VicHealth",
-             role = "fnd"),
-      person(given = "Victoria University",
-             role = "fnd"))
+Version: 0.0.0.9424
+Authors@R: c(
+    person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-7407-9194")),
+    person("Glen", "Wiesner", , "Glen.Wiesner@vu.edu.au", role = "aut",
+           comment = c(ORCID = "0000-0002-0071-130X")),
+    person("Orygen", role = c("cph", "fnd")),
+    person("VicHealth", role = "fnd"),
+    person("Victoria University", role = "fnd")
+  )
 Description: ready4fun is a collection of functions for authoring and
     documenting code libraries of functions for use in modular,
     open-source mental health simulations. The current version of this

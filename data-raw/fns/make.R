@@ -769,6 +769,8 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                   abbreviations_lup = NULL,
                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                                   dv_url_pfx_1L_chr = NULL,
+                                  import_from_chr = NA_character_,
+                                  import_mthds_from_chr = NA_character_,
                                   key_1L_chr = NULL,
                                   object_type_lup = NULL,
                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -807,6 +809,8 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                fn_name_1L_chr = fn_name_1L_chr,
                                fn_type_1L_chr = fn_type_1L_chr,
                                import_chr = import_chr,
+                               import_from_chr = import_from_chr,
+                               import_mthds_from_chr = import_mthds_from_chr,
                                abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
 }
@@ -1194,10 +1198,10 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
   if(classify_1L_lgl){
     pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% ready4fun_badges()
     pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% ready4fun_pkg_desc()
-    pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% ready4fun_pkg_setup_one()
-    pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% ready4fun_pkg_setup_two()
+    pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% ready4fun_manifest_one()
+    pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% ready4fun_manifest_two()
     pkg_setup_ls <- pkg_setup_ls %>%
-      ready4fun_pkg_setup()
+      ready4fun_manifest()
   }
 
   return(pkg_setup_ls)

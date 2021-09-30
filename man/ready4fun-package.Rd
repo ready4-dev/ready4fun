@@ -4,19 +4,11 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Author and Document Functions for Open and Modular Mental Health
-    Simulations}
+\title{ready4fun: Author and Document Functions for Open and Modular Mental Health Simulations}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ready4fun is a collection of functions for authoring and
-    documenting code libraries of functions for use in modular,
-    open-source mental health simulations. The current version of this
-    software is a development release, which you should only trial if you
-    feel confident you understand what it does and have created a sandpit
-    area in which you can safely undertake testing. If you have any
-    questions, please contact the authors
-    (matthew.hamilton@orygen.org.au).
+ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health simulations. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 }
 \seealso{
 Useful links:

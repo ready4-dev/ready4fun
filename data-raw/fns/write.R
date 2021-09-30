@@ -660,6 +660,8 @@ write_fn_fl <- function(fns_env_ls,
                                                             details_1L_chr = tb[[.x,4]],
                                                             args_ls = tb$args_ls[[.x]] %>% as.list(),
                                                             import_chr = NA_character_,
+                                                            import_from_chr = NA_character_, # UPDATE THIS,
+                                                            import_mthds_from_chr = NA_character_,  # UPDATE THIS,
                                                             doc_in_class_1L_lgl = F,
                                                             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                                             object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
@@ -676,9 +678,20 @@ write_fn_fl <- function(fns_env_ls,
                                       if(tb$file_pfx_chr[1]=="mthd_"){
                                         writeLines(paste0("#' @rdname ",fn_and_cls_chr[1],"-methods"))
                                         writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
-                                        writeLines(paste0('methods::setMethod(\"', fn_and_cls_chr[1], '\"',
-                                                          ', ',paste0('\"',fn_and_cls_chr[2],'\"'),
-                                                          ', ', tb[[.x,1]],
+                                        writeLines(paste0('methods::setMethod(\"',
+                                                          fn_and_cls_chr[1],
+                                                          '\"',
+                                                          ', ',
+                                                          "methods::className(",
+                                                          paste0('\"',
+                                                                 fn_and_cls_chr[2],
+                                                                 '\"',
+                                                                 ', package = \"',
+                                                                 pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+                                                                 '\"'),
+                                                          ")",
+                                                          ', ',
+                                                          tb[[.x,1]],
                                                           ')'))
                                       }
                                       close_open_sinks()
@@ -1303,21 +1316,15 @@ write_package <- function(pkg_setup_ls,
                               "ready4fun::write_package(path_to_dmt_dir_1L_chr)",
                               details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
   }
-  message("Validating pkg_setup_ls. This may take a couple of minutes.")
+  # message("Validating pkg_setup_ls. This may take a couple of minutes.")
   pkg_setup_ls <- validate_pkg_setup(pkg_setup_ls)
   if(!is.null(pkg_setup_ls$problems_ls)){
     message("Execution halted - fix issues with pkg_setup_ls before making a new call to write_package.")
   }else{
     message("pkg_setup_ls has been validated. Proceeding to package set-up.")
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-    pkg_setup_ls <- write_pkg_dss(pkg_setup_ls,
-                                    pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
-                                      strsplit(",") %>%
-                                      unlist() %>%
-                                      purrr::pluck(1),
-                                    dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
-    write_clss(#dss_records_ls = dss_records_ls,
-               pkg_setup_ls = pkg_setup_ls,
+    pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
+    write_clss(pkg_setup_ls = pkg_setup_ls,
                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                key_1L_chr = key_1L_chr,
                self_serve_1L_lgl = self_serve_1L_lgl,
@@ -1329,8 +1336,7 @@ write_package <- function(pkg_setup_ls,
                                    inc_methods_1L_lgl = T,
                                    key_1L_chr = key_1L_chr,
                                    server_1L_chr = server_1L_chr)
-    write_and_doc_fn_fls(#fns_dmt_tb = pkg_setup_ls$subsequent_ls$dss_records_ls$fns_dmt_tb,
-                         pkg_setup_ls = pkg_setup_ls,
+    write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls,
                          update_pkgdown_1L_lgl = T,
                          list_generics_1L_lgl = list_generics_1L_lgl)
     write_manuals(pkg_setup_ls = pkg_setup_ls,
@@ -1366,7 +1372,6 @@ write_pkg_dss <- function(pkg_setup_ls,
                           details_ls = NULL,
                           inc_all_mthds_1L_lgl = T,
                           paths_ls = make_fn_nms(),
-                          pkg_url_1L_chr = NA_character_,
                           R_dir_1L_chr = "R",
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
                           dv_url_pfx_1L_chr = NULL,
@@ -1375,7 +1380,12 @@ write_pkg_dss <- function(pkg_setup_ls,
                           dev_pkg_nm_1L_chr = deprecated(),
                           dv_ds_nm_1L_chr = deprecated(),
                           inc_pkg_meta_data_1L_lgl = deprecated(),
-                          pkg_ds_ls_ls = deprecated()){
+                          pkg_ds_ls_ls = deprecated(),
+                          pkg_url_1L_chr = deprecated()){
+  # pkg_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
+  #   strsplit(",") %>%
+  #   unlist() %>%
+  #   purrr::pluck(1)
   if(dir.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
                        "/data"))){
     list.files(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,

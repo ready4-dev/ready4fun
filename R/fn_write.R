@@ -678,7 +678,8 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                     6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
                     7]], export_1L_lgl = T, class_name_1L_chr = "", 
                   details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
-                    as.list(), import_chr = NA_character_, doc_in_class_1L_lgl = F, 
+                    as.list(), import_chr = NA_character_, import_from_chr = NA_character_, 
+                  import_mthds_from_chr = NA_character_, doc_in_class_1L_lgl = F, 
                   abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
                   object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
                 if (tb[[.x, 5]] + document_unexp_lgl == 0) {
@@ -696,9 +697,10 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                   writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], 
                     ",", fn_and_cls_chr[2], "-method"))
                   writeLines(paste0("methods::setMethod(\"", 
-                    fn_and_cls_chr[1], "\"", ", ", paste0("\"", 
-                      fn_and_cls_chr[2], "\""), ", ", tb[[.x, 
-                      1]], ")"))
+                    fn_and_cls_chr[1], "\"", ", ", "methods::className(", 
+                    paste0("\"", fn_and_cls_chr[2], "\"", ", package = \"", 
+                      pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                      "\""), ")", ", ", tb[[.x, 1]], ")"))
                 }
                 close_open_sinks()
             })
@@ -1356,7 +1358,6 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-#' @importFrom purrr pluck
 write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
     list_generics_1L_lgl = F, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
@@ -1379,7 +1380,6 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = 
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(path_to_dmt_dir_1L_chr)", 
             details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
     }
-    message("Validating pkg_setup_ls. This may take a couple of minutes.")
     pkg_setup_ls <- validate_pkg_setup(pkg_setup_ls)
     if (!is.null(pkg_setup_ls$problems_ls)) {
         message("Execution halted - fix issues with pkg_setup_ls before making a new call to write_package.")
@@ -1387,8 +1387,7 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = 
     else {
         message("pkg_setup_ls has been validated. Proceeding to package set-up.")
         rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
-        pkg_setup_ls <- write_pkg_dss(pkg_setup_ls, pkg_url_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
-            strsplit(",") %>% unlist() %>% purrr::pluck(1), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2])
+        pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
         write_clss(pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
             self_serve_fn_ls = self_serve_fn_ls, server_1L_chr = server_1L_chr)
@@ -1430,7 +1429,6 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param details_ls Details (a list), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
-#' @param pkg_url_1L_chr Package url (a character vector of length one), Default: 'NA'
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
@@ -1440,6 +1438,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: deprecated()
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: deprecated()
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: deprecated()
+#' @param pkg_url_1L_chr Package url (a character vector of length one), Default: deprecated()
 #' @return Package setup (a list)
 #' @rdname write_pkg_dss
 #' @export 
@@ -1448,11 +1447,12 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @importFrom rlang exec
 #' @keywords internal
 write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL, 
-    inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), pkg_url_1L_chr = NA_character_, 
-    R_dir_1L_chr = "R", undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+    inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), R_dir_1L_chr = "R", 
+    undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     dev_pkg_nm_1L_chr = deprecated(), dv_ds_nm_1L_chr = deprecated(), 
-    inc_pkg_meta_data_1L_lgl = deprecated(), pkg_ds_ls_ls = deprecated()) 
+    inc_pkg_meta_data_1L_lgl = deprecated(), pkg_ds_ls_ls = deprecated(), 
+    pkg_url_1L_chr = deprecated()) 
 {
     if (dir.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/data"))) {

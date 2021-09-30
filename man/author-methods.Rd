@@ -2,13 +2,15 @@
 % Please edit documentation in R/grp_generics.R, R/mthd_author.R
 \name{author}
 \alias{author}
-\alias{author.ready4fun_pkg_setup}
-\alias{author,ready4fun_pkg_setup-method}
+\alias{author.ready4fun_manifest}
+\alias{author,ready4fun_manifest-method}
+\alias{author.ready4fun_manifest_one}
+\alias{author,ready4fun_manifest_one-method}
 \title{Author}
 \usage{
 author(x, ...)
 
-author.ready4fun_pkg_setup(
+author.ready4fun_manifest(
   x,
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
@@ -18,7 +20,7 @@ author.ready4fun_pkg_setup(
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
 
-\S4method{author}{ready4fun_pkg_setup}(
+\S4method{author}{ready4fun_manifest}(
   x,
   dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
@@ -27,9 +29,13 @@ author.ready4fun_pkg_setup(
   self_serve_fn_ls = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
+
+author.ready4fun_manifest_one(x)
+
+\S4method{author}{ready4fun_manifest_one}(x)
 }
 \arguments{
-\item{x}{An instance of ready4 S4 class for package metadata required for package set-up.}
+\item{x}{An instance of ready4 S3 class for package metadata required for initial package set-up step.}
 
 \item{...}{Additional arguments (an additional arguments)}
 
@@ -46,10 +52,12 @@ author.ready4fun_pkg_setup(
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 }
 \value{
-Instance (ready4 S4 class for package metadata required for package set-up.)
+NA ()
 }
 \description{
 author() is an Author function that writes files to local or remote locations. Specifically, this function implements an algorithm to author. The function is called for its side effects and does not return a value.
 
-author.ready4fun_pkg_setup() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S4 class for package metadata required for package set-up. The function is called for its side effects and does not return a value.
+author.ready4fun_manifest() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+
+author.ready4fun_manifest_one() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 }

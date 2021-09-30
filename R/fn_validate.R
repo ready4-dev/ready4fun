@@ -1,13 +1,16 @@
 #' Validate package setup
 #' @description validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
+#' @param is_method_1L_lgl Is method (a logical vector of length one), Default: F
 #' @return Package setup (a list)
 #' @rdname validate_pkg_setup
 #' @export 
 
 #' @keywords internal
-validate_pkg_setup <- function (pkg_setup_ls) 
+validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F) 
 {
+    message(paste0("Validating ", ifelse(is_method_1L_lgl, "manifest", 
+        "pkg_setup_ls"), ". This may take a couple of minutes."))
     pkg_setup_ls$problems_ls <- NULL
     missing_fn_types_chr <- get_new_fn_types(pkg_setup_ls)
     if (!identical(missing_fn_types_chr, character(0))) {
@@ -15,7 +18,8 @@ validate_pkg_setup <- function (pkg_setup_ls)
             1, "s are", " is"), " not yet defined: \n", missing_fn_types_chr %>% 
             make_list_phrase(), ".\nAdd the missing definition", 
             ifelse(length(missing_fn_types_chr) > 1, "s", ""), 
-            " by using the 'write_new_fn_types' function"))
+            " by using the ", ifelse(is_method_1L_lgl, "'renew' method", 
+                "'write_new_fn_types' function.")))
         pkg_setup_ls$problems_ls$missing_fn_types_chr <- missing_fn_types_chr
     }
     else {
@@ -49,7 +53,8 @@ validate_pkg_setup <- function (pkg_setup_ls)
                   missing_cls_pts_chr %>% make_list_phrase(), 
                   ".\nAdd the missing object type definition", 
                   ifelse(length(missing_cls_pts_chr) > 1, "s", 
-                    ""), " by using the 'add_new_cls_pts' function."))
+                    ""), " by using the ", ifelse(is_method_1L_lgl, 
+                    "'renew' method", "'add_new_cls_pts' function.")))
                 pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
             }
         }
@@ -67,7 +72,9 @@ validate_pkg_setup <- function (pkg_setup_ls)
                 missing_obj_types_chr %>% make_list_phrase(), 
                 ".\nAdd the missing object type definition", 
                 ifelse(length(missing_obj_types_chr) > 1, "s", 
-                  ""), " and/or update the 'treat_as_words_chr' by using the 'write_new_obj_types' function."))
+                  ""), " and/or update the 'treat_as_words_chr'", 
+                " by using the ", ifelse(is_method_1L_lgl, "'renew' method", 
+                  "'write_new_obj_types' function.")))
             pkg_setup_ls$problems_ls$missing_obj_types_chr <- missing_obj_types_chr
         }
         else {
@@ -80,10 +87,24 @@ validate_pkg_setup <- function (pkg_setup_ls)
                     " is"), " neither defined nor contained in the 'treat_as_words_chr' object: \n", 
                   missing_abbrs_chr %>% make_list_phrase(), ".\nAdd the missing abbreviation definition", 
                   ifelse(length(missing_abbrs_chr) > 1, "s", 
-                    ""), " and/or update the 'treat_as_words_chr' by using the 'write_new_abbrs' function"))
+                    ""), " and/or update the 'treat_as_words_chr'", 
+                  " by using the ", ifelse(is_method_1L_lgl, 
+                    "'renew' method", "'write_new_abbrs' function.")))
                 pkg_setup_ls$problems_ls$missing_abbrs_chr <- missing_abbrs_chr
             }
         }
     }
     return(pkg_setup_ls)
+}
+#' Validate method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
+#' @description validate.ready4fun_manifest() is a Validate method that validates that an object conforms to required criteria. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)
+#' @rdname validate.ready4fun_manifest
+#' @export 
+
+validate.ready4fun_manifest <- function (x) 
+{
+    x_ready4fun_manifest <- validate_pkg_setup(x, is_method_1L_lgl = T)
+    return(x_ready4fun_manifest)
 }

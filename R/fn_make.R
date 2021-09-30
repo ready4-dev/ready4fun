@@ -809,6 +809,8 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param import_from_chr Import from (a character vector), Default: 'NA'
+#' @param import_mthds_from_chr Import methods from (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -822,8 +824,9 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
     details_1L_chr = "DETAILS", args_ls = NULL, import_chr = NA_character_, 
     doc_in_class_1L_lgl = F, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_url_pfx_1L_chr = NULL, import_from_chr = NA_character_, 
+    import_mthds_from_chr = NA_character_, key_1L_chr = NULL, 
+    object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
@@ -846,6 +849,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr, 
+        import_from_chr = import_from_chr, import_mthds_from_chr = import_mthds_from_chr, 
         abbreviations_lup = abbreviations_lup)
     writeLines(fn_tags_chr)
 }
@@ -1287,10 +1291,10 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
         pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% 
             ready4fun_pkg_desc()
         pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% 
-            ready4fun_pkg_setup_one()
+            ready4fun_manifest_one()
         pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% 
-            ready4fun_pkg_setup_two()
-        pkg_setup_ls <- pkg_setup_ls %>% ready4fun_pkg_setup()
+            ready4fun_manifest_two()
+        pkg_setup_ls <- pkg_setup_ls %>% ready4fun_manifest()
     }
     return(pkg_setup_ls)
 }

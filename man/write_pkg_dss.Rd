@@ -10,7 +10,6 @@ write_pkg_dss(
   details_ls = NULL,
   inc_all_mthds_1L_lgl = T,
   paths_ls = make_fn_nms(),
-  pkg_url_1L_chr = NA_character_,
   R_dir_1L_chr = "R",
   undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
   dv_url_pfx_1L_chr = NULL,
@@ -19,7 +18,8 @@ write_pkg_dss(
   dev_pkg_nm_1L_chr = deprecated(),
   dv_ds_nm_1L_chr = deprecated(),
   inc_pkg_meta_data_1L_lgl = deprecated(),
-  pkg_ds_ls_ls = deprecated()
+  pkg_ds_ls_ls = deprecated(),
+  pkg_url_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -32,8 +32,6 @@ write_pkg_dss(
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
 
 \item{paths_ls}{Paths (a list), Default: make_fn_nms()}
-
-\item{pkg_url_1L_chr}{Package url (a character vector of length one), Default: 'NA'}
 
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 
@@ -52,6 +50,8 @@ write_pkg_dss(
 \item{inc_pkg_meta_data_1L_lgl}{Include package meta data (a logical vector of length one), Default: deprecated()}
 
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: deprecated()}
+
+\item{pkg_url_1L_chr}{Package url (a character vector of length one), Default: deprecated()}
 }
 \value{
 Package setup (a list)

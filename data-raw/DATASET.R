@@ -114,7 +114,7 @@ classes_to_make_tb <- dplyr::bind_rows(
   ),
   ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for initial package set-up step.",#S3
                                                    make_s3_lgl = T,#FALSE,
-                                                   name_stub_chr = "pkg_setup_one",
+                                                   name_stub_chr = "manifest_one",
                                                    # slots_ls = c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
                                                    #              "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
                                                    #              "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr") %>% list(),
@@ -133,7 +133,7 @@ classes_to_make_tb <- dplyr::bind_rows(
   ),
   ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for second package set-up step.", # S3
                                                    make_s3_lgl = T,#F
-                                                   name_stub_chr = "pkg_setup_two",
+                                                   name_stub_chr = "manifest_two",
                                                    #slots_ls = c("addl_pkgs_ls","build_ignore_ls","dev_pkgs_chr","pkg_dmt_dv_dss_chr", "user_manual_fns_chr") %>% list(),
                                                    pt_chkr_pfx_ls = list(list("is.")),
                                                    pt_ls = list(list("list")), #c("list", "list", "character", "character", "character") %>% list(),
@@ -142,15 +142,15 @@ classes_to_make_tb <- dplyr::bind_rows(
                                                    vals_ls = list("list()", "list()", "character(0)", "character(0)", "character(0)") %>%
                                                      stats::setNames(c("addl_pkgs_ls","build_ignore_ls","dev_pkgs_chr","pkg_dmt_dv_dss_chr", "user_manual_fns_chr")) %>% list(),
   ),
-  ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for package metadata required for package set-up.", #S3
+  ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for encapsulating the metadata required for package set-up.", #S3
                                                    make_s3_lgl = T, #F
-                                                   name_stub_chr = "pkg_setup",
+                                                   name_stub_chr = "manifest",
                                                    #slots_ls = c("initial_ls","subsequent_ls") %>% list(),
                                                    pt_chkr_pfx_ls = list(list("is.")),
-                                                   pt_ls = list(list("list")), #c("ready4fun_pkg_setup_one", "ready4fun_pkg_setup_two") %>% list(),
+                                                   pt_ls = list(list("list")), #c("ready4fun_manifest_one", "ready4fun_manifest_two") %>% list(),
                                                    pt_ns_ls = list(list("base")),
                                                    # parent_class_chr = NA_character_
-                                                   vals_ls = list("ready4fun_pkg_setup_one()", "ready4fun_pkg_setup_two()") %>%
+                                                   vals_ls = list("ready4fun_manifest_one()", "ready4fun_manifest_two()") %>%
                                                      stats::setNames(c("initial_ls","subsequent_ls")) %>% list()
   ),
   ready4class::make_pt_ready4class_constructor_tbl(class_desc_chr = "ready4 S3 class for declaring package description file data.",#S3
@@ -200,9 +200,13 @@ pkg_setup_ls <- fns_env_ls$fns_env$write_package(pkg_setup_ls,
 #                                                    long_name_chr = c("ready4fun R package"),
 #                                                    #custom_plural_ls = list(repository = "repositories"),
 #                                                    no_plural_chr = c("ready4fun R package"))
-# pkg_setup_ls<- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
-#                                                      fn_type_desc_chr = c("Runs an analysis or analyses using specified data and parameters.",
-#                                                                           "Searches and retrieves requested data from a specified source."),
+# pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
+#                                                      fn_type_desc_chr = c("Authors and saves files necessary for creating and documenting classes.",
+#                                                                           "Authors and saves files necessary for creating and documenting datasets.",
+#                                                                           "Authors and saves files necessary for creating and documenting functions.",
+#                                                                           "Transforms an instance of a class into an object with different structural properties.",
+#                                                                           "Updates an instance of a class with new values.",
+#                                                                           "Authors a report."),
 #                                       is_generic_lgl = T,
 #                                       publish_dv_1L_lgl = T)
 # pkg_setup_ls <- fns_env_ls$fns_env$update_msng_abbrs(pkg_setup_ls,

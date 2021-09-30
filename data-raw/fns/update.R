@@ -81,6 +81,8 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                           fn_name_1L_chr,
                           fn_type_1L_chr,
                           import_chr,
+                          import_from_chr = NA_character_,
+                          import_mthds_from_chr = NA_character_,
                           abbreviations_lup){
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
@@ -142,6 +144,14 @@ update_fn_dmt <- function(fn_tags_spine_ls,
     fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr,
                             "\n#' @import ",
                             stringr::str_c(import_chr,collapse = " "))
+  if(!is.na(import_from_chr))
+    fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr,
+                            "\n#' @import_from_chr ",
+                            stringr::str_c(import_from_chr,collapse = " "))
+  if(!is.na(import_mthds_from_chr))
+    fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr,
+                            "\n#' @import_mthds_from_chr ",
+                            stringr::str_c(import_mthds_from_chr,collapse = " "))
   if(fn_type_1L_chr == "gen_std_s3_mthd"){
     fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
                                           paste0("@name ", fn_name_1L_chr),

@@ -52,3 +52,9 @@
 ^data-raw/author\.R$
 ^data-raw/mthds/author\.R$
 ^data-raw/fns/transform\.R$
+^data-raw/mthds/authorClasses\.R$
+^data-raw/mthds/authorData\.R$
+^data-raw/mthds/authorFunctions\.R$
+^data-raw/mthds/renew\.R$
+^data-raw/mthds/report\.R$
+^data-raw/mthds/validate\.R$

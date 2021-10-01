@@ -678,9 +678,8 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                     6]], fn_title_1L_chr = tb[[.x, 2]], example_1L_lgl = tb[[.x, 
                     7]], export_1L_lgl = T, class_name_1L_chr = "", 
                   details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
-                    as.list(), import_chr = NA_character_, import_from_chr = NA_character_, 
-                  import_mthds_from_chr = NA_character_, doc_in_class_1L_lgl = F, 
-                  abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+                    as.list(), import_chr = NA_character_, import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr, 
+                  doc_in_class_1L_lgl = F, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
                   object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
                 if (tb[[.x, 5]] + document_unexp_lgl == 0) {
                   writeLines(paste0("#' @keywords internal"))
@@ -696,6 +695,13 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                     "-methods"))
                   writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], 
                     ",", fn_and_cls_chr[2], "-method"))
+                  {
+                    if (fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)) {
+                      writeLines(paste0("#' @importMethodsFrom ", 
+                        unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == 
+                          fn_and_cls_chr[1]], " ", fn_and_cls_chr[1]))
+                    }
+                  }
                   writeLines(paste0("methods::setMethod(\"", 
                     fn_and_cls_chr[1], "\"", ", ", "methods::className(", 
                     paste0("\"", fn_and_cls_chr[2], "\"", ", package = \"", 

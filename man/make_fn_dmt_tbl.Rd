@@ -7,9 +7,7 @@
 make_fn_dmt_tbl(
   fns_path_chr,
   fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-  custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL,
-    inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, args_ls_ls =
-    NULL),
+  custom_dmt_ls = make_custom_dmt_ls(),
   append_1L_lgl = T,
   fns_env_ls = NULL,
   fn_types_lup = NULL,
@@ -27,8 +25,7 @@ make_fn_dmt_tbl(
 
 \item{fns_dir_chr}{Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 
-\item{custom_dmt_ls}{Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL,
-output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)}
+\item{custom_dmt_ls}{Custom documentation (a list), Default: make_custom_dmt_ls()}
 
 \item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
 

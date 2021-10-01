@@ -14,9 +14,17 @@ authorFunctions <- function(x,
                             ...){
   UseMethod("authorFunctions",x)
 }
+enhance <- function(x,
+                     ...){
+  UseMethod("enhance",x)
+}
 envision <- function(x,
                         ...){
   UseMethod("envision",x)
+}
+ingest <- function(x,
+                        ...){
+  UseMethod("ingest",x)
 }
 investigate <- function(x,
                         ...){
@@ -33,6 +41,10 @@ metamorphose <- function(x,
 procure <- function(x,
                          ...){
   UseMethod("procure",x)
+}
+reckon <- function(x,
+                    ...){
+  UseMethod("reckon",x)
 }
 renew <- function(x,
                   ...){

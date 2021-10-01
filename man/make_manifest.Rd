@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_manifest}
 \alias{make_manifest}
-\title{Make package setup list}
+\title{Make manifest}
 \usage{
 make_manifest(
   pkg_desc_ls,
@@ -16,12 +16,14 @@ make_manifest(
   check_type_1L_chr = "ready4",
   classify_1L_lgl = T,
   cls_fn_ls = NULL,
+  custom_dmt_ls = make_custom_dmt_ls(),
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
   dss_records_ls = NULL,
   dv_url_pfx_1L_chr = NULL,
   gh_repo_1L_chr = NA_character_,
+  import_from_chr = NULL,
   lifecycle_stage_1L_chr = "experimental",
   inc_pkg_meta_data_1L_lgl = F,
   incr_ver_1L_lgl = F,
@@ -59,6 +61,8 @@ make_manifest(
 
 \item{cls_fn_ls}{Class (a list of functions), Default: NULL}
 
+\item{custom_dmt_ls}{Custom documentation (a list), Default: make_custom_dmt_ls()}
+
 \item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: T}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
@@ -70,6 +74,8 @@ make_manifest(
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: 'NA'}
+
+\item{import_from_chr}{Import from (a character vector), Default: NULL}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
@@ -96,8 +102,8 @@ make_manifest(
 \item{user_manual_fns_chr}{User manual functions (a character vector), Default: 'NA'}
 }
 \value{
-Package setup (a list)
+Manifest (a list)
 }
 \description{
-make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
+make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make manifest. The function returns Manifest (a list).
 }

@@ -7,9 +7,7 @@
 make_dmt_for_all_fns(
   paths_ls = make_fn_nms(),
   undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-  custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls =
-    list(force_true_chr = NA_character_, force_false_chr = NA_character_), args_ls_ls =
-    NULL),
+  custom_dmt_ls = make_custom_dmt_ls(),
   fns_env_ls = NULL,
   fn_types_lup,
   abbreviations_lup,
@@ -22,8 +20,7 @@ make_dmt_for_all_fns(
 
 \item{undocumented_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 
-\item{custom_dmt_ls}{Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
-force_false_chr = NA_character_), args_ls_ls = NULL)}
+\item{custom_dmt_ls}{Custom documentation (a list), Default: make_custom_dmt_ls()}
 
 \item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 

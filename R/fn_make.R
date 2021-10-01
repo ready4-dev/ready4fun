@@ -320,6 +320,32 @@ make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL)
     build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)
     return(build_ignore_ls)
 }
+#' Make custom documentation list
+#' @description make_custom_dmt_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make custom documentation list. The function returns Custom documentation (a list).
+#' @param args_ls_ls Arguments (a list of lists), Default: NULL
+#' @param desc_ls Description (a list), Default: NULL
+#' @param details_ls Details (a list), Default: NULL
+#' @param example_ls Example (a list), Default: NULL
+#' @param output_ls Output (a list), Default: NULL
+#' @param title_ls Title (a list), Default: NULL
+#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
+#' @return Custom documentation (a list)
+#' @rdname make_custom_dmt_ls
+#' @export 
+
+#' @keywords internal
+make_custom_dmt_ls <- function (args_ls_ls = NULL, desc_ls = NULL, details_ls = NULL, 
+    example_ls = NULL, output_ls = NULL, title_ls = NULL, user_manual_fns_chr = NA_character_) 
+{
+    inc_for_main_user_lgl_ls <- NULL
+    if (!is.na(user_manual_fns_chr[1])) 
+        inc_for_main_user_lgl_ls <- list(force_true_chr = user_manual_fns_chr, 
+            force_false_chr = NA_character_)
+    custom_dmt_ls = list(args_ls_ls = args_ls_ls, desc_ls = desc_ls, 
+        details_ls = details_ls, example_ls = example_ls, inc_for_main_user_lgl_ls = inc_for_main_user_lgl_ls, 
+        output_ls = output_ls, title_ls = title_ls)
+    return(custom_dmt_ls)
+}
 #' Make dependent functions list
 #' @description make_depnt_fns_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make dependent functions list. The function returns Argument (a list).
 #' @param arg_ls Argument (a list)
@@ -346,8 +372,7 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @description make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions. The function returns All functions documentation (a tibble).
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @param custom_dmt_ls Custom documentation (a list), Default: list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
-#'    force_false_chr = NA_character_), args_ls_ls = NULL)
+#' @param custom_dmt_ls Custom documentation (a list), Default: make_custom_dmt_ls()
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table)
 #' @param abbreviations_lup Abbreviations (a lookup table)
@@ -361,10 +386,8 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @importFrom dplyr mutate case_when
 #' @keywords internal
 make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    custom_dmt_ls = list(details_ls = NULL, inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_, 
-        force_false_chr = NA_character_), args_ls_ls = NULL), 
-    fns_env_ls = NULL, fn_types_lup, abbreviations_lup, object_type_lup, 
-    inc_all_mthds_1L_lgl = T) 
+    custom_dmt_ls = make_custom_dmt_ls(), fns_env_ls = NULL, 
+    fn_types_lup, abbreviations_lup, object_type_lup, inc_all_mthds_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) 
         utils::data("abbreviations_lup", package = "ready4fun", 
@@ -525,8 +548,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @description make_fn_dmt_tbl() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make function documentation table. The function returns Function documentation table (a tibble).
 #' @param fns_path_chr Functions path (a character vector)
 #' @param fns_dir_chr Functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @param custom_dmt_ls Custom documentation (a list), Default: list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, inc_for_main_user_lgl_ls = NULL, 
-#'    output_ls = NULL, example_ls = NULL, args_ls_ls = NULL)
+#' @param custom_dmt_ls Custom documentation (a list), Default: make_custom_dmt_ls()
 #' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
@@ -544,12 +566,11 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @importFrom rlang exec
 #' @keywords internal
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    custom_dmt_ls = list(title_ls = NULL, desc_ls = NULL, details_ls = NULL, 
-        inc_for_main_user_lgl_ls = NULL, output_ls = NULL, example_ls = NULL, 
-        args_ls_ls = NULL), append_1L_lgl = T, fns_env_ls = NULL, 
-    fn_types_lup = NULL, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), test_for_write_R_warning_fn = NULL) 
+    custom_dmt_ls = make_custom_dmt_ls(), append_1L_lgl = T, 
+    fns_env_ls = NULL, fn_types_lup = NULL, abbreviations_lup = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    test_for_write_R_warning_fn = NULL) 
 {
     if (is.null(fns_env_ls)) 
         fns_env_ls <- read_fns(fns_dir_chr)
@@ -810,7 +831,6 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param import_from_chr Import from (a character vector), Default: 'NA'
-#' @param import_mthds_from_chr Import methods from (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -825,8 +845,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     details_1L_chr = "DETAILS", args_ls = NULL, import_chr = NA_character_, 
     doc_in_class_1L_lgl = F, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
     dv_url_pfx_1L_chr = NULL, import_from_chr = NA_character_, 
-    import_mthds_from_chr = NA_character_, key_1L_chr = NULL, 
-    object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- get_rds_from_dv("abbreviations_lup", 
@@ -849,8 +868,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr, 
-        import_from_chr = import_from_chr, import_mthds_from_chr = import_mthds_from_chr, 
-        abbreviations_lup = abbreviations_lup)
+        import_from_chr = import_from_chr, abbreviations_lup = abbreviations_lup)
     writeLines(fn_tags_chr)
 }
 #' Make list phrase
@@ -868,6 +886,132 @@ make_list_phrase <- function (items_chr)
         collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
         replacement = " and")
     return(list_phrase_1L_chr)
+}
+#' Make manifest
+#' @description make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make manifest. The function returns Manifest (a list).
+#' @param pkg_desc_ls Package description (a list)
+#' @param copyright_holders_chr Copyright holders (a character vector)
+#' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector)
+#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: T
+#' @param addl_badges_ls Additional badges (a list), Default: NULL
+#' @param addl_pkgs_ls Additional packages (a list), Default: make_addl_pkgs_ls()
+#' @param badges_lup Badges (a lookup table), Default: NULL
+#' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
+#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'ready4'
+#' @param classify_1L_lgl Classify (a logical vector of length one), Default: T
+#' @param cls_fn_ls Class (a list of functions), Default: NULL
+#' @param custom_dmt_ls Custom documentation (a list), Default: make_custom_dmt_ls()
+#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
+#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
+#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
+#' @param dss_records_ls Datasets records (a list), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
+#' @param import_from_chr Import from (a character vector), Default: NULL
+#' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
+#' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
+#' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
+#' @param key_1L_chr Key (a character vector of length one), Default: NULL
+#' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
+#' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
+#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
+#' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
+#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
+#' @return Manifest (a list)
+#' @rdname make_manifest
+#' @export 
+#' @importFrom utils data
+#' @importFrom purrr pluck discard
+#' @importFrom stringr str_trim str_remove
+make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
+    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
+    badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
+    check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
+    custom_dmt_ls = make_custom_dmt_ls(), delete_r_dir_cnts_1L_lgl = T, 
+    dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
+    dss_records_ls = NULL, dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
+    import_from_chr = NULL, lifecycle_stage_1L_chr = "experimental", 
+    inc_pkg_meta_data_1L_lgl = F, incr_ver_1L_lgl = F, key_1L_chr = NULL, 
+    on_cran_1L_lgl = F, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
+    pkg_ds_ls_ls = NULL, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    user_manual_fns_chr = NA_character_) 
+{
+    if (length(pkg_dmt_dv_dss_chr) < 2) {
+        pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
+    }
+    if (!is.na(ready4_type_1L_chr)) {
+        append_ls <- list(ready4 = ready4_type_1L_chr)
+    }
+    else {
+        append_ls <- NULL
+    }
+    if (is.null(badges_lup)) {
+        utils::data("badges_lup", package = "ready4fun", envir = environment())
+    }
+    if (is.na(gh_repo_1L_chr)) 
+        gh_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
+            unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 
+            stringr::str_remove("https://github.com/")
+    addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
+    if (length(addl_badges_ls) == 0) 
+        addl_badges_ls <- NULL
+    manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
+        copyright_holders_chr = copyright_holders_chr, gh_repo_1L_chr = gh_repo_1L_chr, 
+        add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 
+        badges_lup = badges_lup, check_type_1L_chr = check_type_1L_chr, 
+        delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
+        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, 
+        incr_ver_1L_lgl = incr_ver_1L_lgl, on_cran_1L_lgl = on_cran_1L_lgl, 
+        path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr), 
+        subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup", 
+            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
+            cls_fn_ls = cls_fn_ls, custom_dmt_ls = custom_dmt_ls, 
+            dss_records_ls = dss_records_ls, import_from_chr = import_from_chr, 
+            inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl, 
+            path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
+            pkg_ds_ls_ls = pkg_ds_ls_ls, dev_pkgs_chr = dev_pkgs_chr, 
+            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            fns_dmt_tb = NULL, fn_types_lup = get_rds_from_dv("fn_types_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            object_type_lup = get_rds_from_dv("object_type_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
+            server_1L_chr = server_1L_chr, treat_as_words_chr = get_rds_from_dv("treat_as_words_chr", 
+                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)))
+    if (classify_1L_lgl) {
+        if (!"ready4class_badges" %in% class(manifest_ls$subsequent_ls$badges_lup)) 
+            manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% 
+                ready4fun_badges()
+        if (!"ready4class_description" %in% class(manifest_ls$subsequent_ls$pkg_desc_ls)) 
+            manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% 
+                ready4fun_description()
+        manifest_ls$initial_ls <- manifest_ls$initial_ls %>% 
+            ready4fun_metadata_a()
+        if (!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup)) 
+            manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>% 
+                ready4_abbreviations()
+        if (!"ready4class_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
+            manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>% 
+                ready4_executor()
+        if (!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup)) 
+            manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>% 
+                ready4_abbreviations()
+        manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% 
+            ready4fun_metadata_b()
+        manifest_ls <- manifest_ls %>% ready4fun_manifest()
+    }
+    return(manifest_ls)
 }
 #' Make new entries tibble
 #' @description make_new_entries_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
@@ -1185,118 +1329,6 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
         simple_lup_1L_lgl = simple_lup_1L_lgl, url_1L_chr = url_1L_chr, 
         vars_ls = vars_ls)
     return(pkg_ds_ls)
-}
-#' Make package setup list
-#' @description make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
-#' @param pkg_desc_ls Package description (a list)
-#' @param copyright_holders_chr Copyright holders (a character vector)
-#' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector)
-#' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: T
-#' @param addl_badges_ls Additional badges (a list), Default: NULL
-#' @param addl_pkgs_ls Additional packages (a list), Default: make_addl_pkgs_ls()
-#' @param badges_lup Badges (a lookup table), Default: NULL
-#' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
-#' @param check_type_1L_chr Check type (a character vector of length one), Default: 'ready4'
-#' @param classify_1L_lgl Classify (a logical vector of length one), Default: T
-#' @param cls_fn_ls Class (a list of functions), Default: NULL
-#' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
-#' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
-#' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
-#' @param dss_records_ls Datasets records (a list), Default: NULL
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
-#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
-#' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
-#' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
-#' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param on_cran_1L_lgl On cran (a logical vector of length one), Default: F
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
-#' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
-#' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
-#' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
-#' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
-#' @return Package setup (a list)
-#' @rdname make_manifest
-#' @export 
-#' @importFrom utils data
-#' @importFrom purrr pluck discard
-#' @importFrom stringr str_trim str_remove
-make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
-    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
-    badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-    check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
-    delete_r_dir_cnts_1L_lgl = T, dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), 
-    dev_pkgs_chr = NA_character_, dss_records_ls = NULL, dv_url_pfx_1L_chr = NULL, 
-    gh_repo_1L_chr = NA_character_, lifecycle_stage_1L_chr = "experimental", 
-    inc_pkg_meta_data_1L_lgl = F, incr_ver_1L_lgl = F, key_1L_chr = NULL, 
-    on_cran_1L_lgl = F, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
-    path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
-    pkg_ds_ls_ls = NULL, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    user_manual_fns_chr = NA_character_) 
-{
-    if (length(pkg_dmt_dv_dss_chr) < 2) {
-        pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
-    }
-    if (!is.na(ready4_type_1L_chr)) {
-        append_ls <- list(ready4 = ready4_type_1L_chr)
-    }
-    else {
-        append_ls <- NULL
-    }
-    if (is.null(badges_lup)) {
-        utils::data("badges_lup", package = "ready4fun", envir = environment())
-    }
-    if (is.na(gh_repo_1L_chr)) 
-        gh_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
-            unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 
-            stringr::str_remove("https://github.com/")
-    addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
-    if (length(addl_badges_ls) == 0) 
-        addl_badges_ls <- NULL
-    pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
-        copyright_holders_chr = copyright_holders_chr, gh_repo_1L_chr = gh_repo_1L_chr, 
-        add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 
-        badges_lup = badges_lup, check_type_1L_chr = check_type_1L_chr, 
-        delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl, 
-        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr, lifecycle_stage_1L_chr = lifecycle_stage_1L_chr, 
-        incr_ver_1L_lgl = incr_ver_1L_lgl, on_cran_1L_lgl = on_cran_1L_lgl, 
-        path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr, path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr), 
-        subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            addl_pkgs_ls = addl_pkgs_ls, build_ignore_ls = build_ignore_ls, 
-            cls_fn_ls = cls_fn_ls, dss_records_ls = dss_records_ls, 
-            inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl, 
-            path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr, 
-            pkg_ds_ls_ls = pkg_ds_ls_ls, dev_pkgs_chr = dev_pkgs_chr, 
-            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            fns_dmt_tb = NULL, fn_types_lup = get_rds_from_dv("fn_types_lup", 
-                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            key_1L_chr = key_1L_chr, object_type_lup = get_rds_from_dv("object_type_lup", 
-                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr, seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup", 
-                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            server_1L_chr = server_1L_chr, treat_as_words_chr = get_rds_from_dv("treat_as_words_chr", 
-                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-                key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            user_manual_fns_chr = user_manual_fns_chr))
-    if (classify_1L_lgl) {
-        pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% 
-            ready4fun_badges()
-        pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% 
-            ready4fun_description()
-        pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% 
-            ready4fun_metadata_a()
-        pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% 
-            ready4fun_metadata_b()
-        pkg_setup_ls <- pkg_setup_ls %>% ready4fun_manifest()
-    }
-    return(pkg_setup_ls)
 }
 #' Make prompt
 #' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).

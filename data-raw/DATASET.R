@@ -167,7 +167,7 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
 #                                                      stats::setNames(c("db_df","db_1L_chr","title_1L_chr","desc_1L_chr", "abbreviations_lup",
 #                                                                        "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
 #   ready4class::ready4class_constructor()
-pkg_setup_ls <- pkg_desc_ls %>%
+manifest_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
                                        #badges_lup = badges_lup,
                                        build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
@@ -192,31 +192,32 @@ pkg_setup_ls <- pkg_desc_ls %>%
                                        ready4_type_1L_chr = "authoring")
 #
 # 5. Add content to and document the package
-pkg_setup_ls <- fns_env_ls$fns_env$write_package(pkg_setup_ls,
+manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                  list_generics_1L_lgl = T,
                                                  self_serve_1L_lgl = T)
-# pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
+# manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,
 #                                                    #classes_to_make_tb = classes_to_make_tb,
 #                                                    long_name_chr = c("ready4fun R package"),
 #                                                    #custom_plural_ls = list(repository = "repositories"),
 #                                                    no_plural_chr = c("ready4fun R package"))
-# pkg_setup_ls <- fns_env_ls$fns_env$write_new_fn_types(pkg_setup_ls,
-#                                                      fn_type_desc_chr = c("Authors and saves files necessary for creating and documenting classes.",
-#                                                                           "Authors and saves files necessary for creating and documenting datasets.",
-#                                                                           "Authors and saves files necessary for creating and documenting functions.",
-#                                                                           "Transforms an instance of a class into an object with different structural properties.",
-#                                                                           "Updates an instance of a class with new values.",
-#                                                                           "Authors a report."),
-#                                       is_generic_lgl = T,
-#                                       publish_dv_1L_lgl = T)
-# pkg_setup_ls <- fns_env_ls$fns_env$update_msng_abbrs(pkg_setup_ls,
+# manifest_ls <- fns_env_ls$fns_env$write_new_fn_types(manifest_ls,
+#                                                      fn_type_desc_chr = c("Enhances an instance of a class by adding one or more elements.",
+#                                                                           "Executes an algorithm for solving forward problems through simulation or prediction.",
+#                                                                           "Imports objects in external file formats into R objects stored in working memory.",
+#                                                                           "Executes an algorithm so solve an inverse problem, often through estimating statistical models.",
+#                                                                           "Creates a novel R object.",
+#                                                                           "Checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid.",
+#                                                                           "Performs a calculation."),
+#                                                      is_generic_lgl = T,
+#                                                      publish_dv_1L_lgl = T)
+# manifest_ls <- fns_env_ls$fns_env$update_msng_abbrs(manifest_ls,
 #                                                      are_words_chr = c("cran", "lifecycle", "pdf",
 #                                                                        "pdfs","pkgdown",
 #                                                                        "R", "rds", "ready4", "url", "urls"),
 #                                                      tf_to_singular_chr = c(dest = "dests",
 #                                                                             dupl = "dupls",
 #                                                                             msg = "msgs"))
-# pkg_setup_ls <- fns_env_ls$fns_env$write_new_abbrs(pkg_setup_ls,
+# manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,
 #                                                    #classes_to_make_tb = classes_to_make_tb,
 #                                                    long_name_chr = c("additional","destination","detail","duplicate","github",
 #                                                                      "increment","lookup tables", "message", "repository", "version"),

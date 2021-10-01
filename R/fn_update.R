@@ -90,18 +90,16 @@ update_first_word_case <- function (phrase_1L_chr, fn = tolower)
 #' @param fn_name_1L_chr Function name (a character vector of length one)
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param import_chr Import (a character vector)
-#' @param import_from_chr Import from (a character vector), Default: 'NA'
-#' @param import_mthds_from_chr Import methods from (a character vector), Default: 'NA'
+#' @param import_from_chr Import from (a character vector), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @return Function documentation (a character vector of length one)
 #' @rdname update_fn_dmt
 #' @export 
 #' @importFrom stringr str_replace str_c str_sub str_locate
-#' @importFrom purrr reduce
+#' @importFrom purrr reduce flatten_chr pluck
 #' @keywords internal
 update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
-    import_chr, import_from_chr = NA_character_, import_mthds_from_chr = NA_character_, 
-    abbreviations_lup) 
+    import_chr, import_from_chr = NULL, abbreviations_lup) 
 {
     fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
     fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("FUNCTION_TITLE", 
@@ -144,12 +142,15 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
     if (!is.na(import_chr)) 
         fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @import ", 
             stringr::str_c(import_chr, collapse = " "))
-    if (!is.na(import_from_chr)) 
-        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @import_from_chr ", 
-            stringr::str_c(import_from_chr, collapse = " "))
-    if (!is.na(import_mthds_from_chr)) 
-        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @import_mthds_from_chr ", 
-            stringr::str_c(import_mthds_from_chr, collapse = " "))
+    gnrc_part_1L_chr <- fn_name_1L_chr %>% strsplit("\\.") %>% 
+        purrr::flatten_chr() %>% purrr::pluck(1)
+    if (gnrc_part_1L_chr %in% names(import_from_chr) & fn_type_1L_chr == 
+        "meth_std_s3_mthd") {
+        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @importFrom ", 
+            unname(import_from_chr[names(import_from_chr) == 
+                gnrc_part_1L_chr]), " ", names(import_from_chr)[names(import_from_chr) == 
+                gnrc_part_1L_chr])
+    }
     if (fn_type_1L_chr == "gen_std_s3_mthd") {
         fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr, 
             paste0("@name ", fn_name_1L_chr), paste0("@rdname ", 

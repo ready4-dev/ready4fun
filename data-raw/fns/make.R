@@ -293,7 +293,7 @@ make_custom_dmt_ls <- function(args_ls_ls = NULL,
                                title_ls = NULL,
                                user_manual_fns_chr = NA_character_){
   inc_for_main_user_lgl_ls <- NULL
-  if(!is.na(user_manual_fns_chr))
+  if(!is.na(user_manual_fns_chr[1]))
   inc_for_main_user_lgl_ls <- list(force_true_chr = user_manual_fns_chr,
                                   force_false_chr = NA_character_)
   custom_dmt_ls = list(args_ls_ls = args_ls_ls,

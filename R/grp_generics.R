@@ -1,15 +1,3 @@
-#' Analyse
-#' @rdname analyse-methods
-#' @description analyse() is an Analyse function that runs an analysis or analyses using specified data and parameters. Specifically, this function implements an algorithm to analyse. The function is called for its side effects and does not return a value.
-#' @param x An object
-#' @param ... Additional arguments (an additional arguments)
-#' @export 
-
-analyse <- function (x, ...) 
-{
-    UseMethod("analyse", x)
-}
-methods::setGeneric("analyse")
 #' Author
 #' @rdname author-methods
 #' @description author() is an Author function that writes files to local or remote locations. Specifically, this function implements an algorithm to author. The function is called for its side effects and does not return a value.
@@ -58,18 +46,66 @@ authorFunctions <- function (x, ...)
     UseMethod("authorFunctions", x)
 }
 methods::setGeneric("authorFunctions")
-#' Make
-#' @rdname make-methods
-#' @description manufacture() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make. The function is called for its side effects and does not return a value.
+#' Enhance
+#' @rdname enhance-methods
+#' @description enhance() is an Enhance function that enhances an instance of a class by adding one or more elements. Specifically, this function implements an algorithm to enhance. The function is called for its side effects and does not return a value.
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
 
-make <- function (x, ...) 
+enhance <- function (x, ...) 
 {
-    UseMethod("make", x)
+    UseMethod("enhance", x)
 }
-methods::setGeneric("make")
+methods::setGeneric("enhance")
+#' Envision
+#' @rdname envision-methods
+#' @description envision() is an Envision function that executes an algorithm for solving forward problems through simulation or prediction. Specifically, this function implements an algorithm to envision. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+envision <- function (x, ...) 
+{
+    UseMethod("envision", x)
+}
+methods::setGeneric("envision")
+#' Ingest
+#' @rdname ingest-methods
+#' @description ingest() is an Ingest function that imports objects in external file formats into R objects stored in working memory. Specifically, this function implements an algorithm to ingest. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+ingest <- function (x, ...) 
+{
+    UseMethod("ingest", x)
+}
+methods::setGeneric("ingest")
+#' Investigate
+#' @rdname investigate-methods
+#' @description investigate() is an Investigate function that executes an algorithm so solve an inverse problem, often through estimating statistical models. Specifically, this function implements an algorithm to investigate. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+investigate <- function (x, ...) 
+{
+    UseMethod("investigate", x)
+}
+methods::setGeneric("investigate")
+#' Manufacture
+#' @rdname manufacture-methods
+#' @description manufacture() is a Manufacture function that creates a novel R object. Specifically, this function implements an algorithm to manufacture. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+manufacture <- function (x, ...) 
+{
+    UseMethod("manufacture", x)
+}
+methods::setGeneric("manufacture")
 #' Metamorphose
 #' @rdname metamorphose-methods
 #' @description metamorphose() is a Metamorphose function that transforms an instance of a class into an object with different structural properties. Specifically, this function implements an algorithm to metamorphose. The function is called for its side effects and does not return a value.
@@ -94,6 +130,30 @@ procure <- function (x, ...)
     UseMethod("procure", x)
 }
 methods::setGeneric("procure")
+#' Ratify
+#' @rdname ratify-methods
+#' @description ratify() is a Ratify function that checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid. Specifically, this function implements an algorithm to ratify. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+ratify <- function (x, ...) 
+{
+    UseMethod("ratify", x)
+}
+methods::setGeneric("ratify")
+#' Reckon
+#' @rdname reckon-methods
+#' @description reckon() is a Reckon function that performs a calculation. Specifically, this function implements an algorithm to reckon. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+reckon <- function (x, ...) 
+{
+    UseMethod("reckon", x)
+}
+methods::setGeneric("reckon")
 #' Renew
 #' @rdname renew-methods
 #' @description renew() is a Renew function that updates an instance of a class with new values. Specifically, this function implements an algorithm to renew. The function is called for its side effects and does not return a value.
@@ -118,15 +178,3 @@ report <- function (x, ...)
     UseMethod("report", x)
 }
 methods::setGeneric("report")
-#' Validate
-#' @rdname validate-methods
-#' @description validate() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to ratify. The function is called for its side effects and does not return a value.
-#' @param x An object
-#' @param ... Additional arguments (an additional arguments)
-#' @export 
-
-validate <- function (x, ...) 
-{
-    UseMethod("validate", x)
-}
-methods::setGeneric("validate")

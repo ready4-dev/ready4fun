@@ -58,3 +58,10 @@
 ^data-raw/mthds/renew\.R$
 ^data-raw/mthds/report\.R$
 ^data-raw/mthds/validate\.R$
+^data-raw/mthds-TEMP/author\.R$
+^data-raw/mthds-TEMP/authorClasses\.R$
+^data-raw/mthds-TEMP/authorData\.R$
+^data-raw/mthds-TEMP/authorFunctions\.R$
+^data-raw/mthds-TEMP/ratify\.R$
+^data-raw/mthds-TEMP/renew\.R$
+^data-raw/mthds-TEMP/report\.R$

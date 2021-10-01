@@ -26,15 +26,15 @@ x
 }
 #' Make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @description Create a new prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @param initial_ls Initial (a list), Default: ready4fun_manifest_one()
-#' @param subsequent_ls Subsequent (a list), Default: ready4fun_manifest_two()
+#' @param initial_ls Initial (a list), Default: ready4fun_metadata_a()
+#' @param subsequent_ls Subsequent (a list), Default: ready4fun_metadata_b()
 #' @return A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname make_pt_ready4fun_manifest
 #' @export 
 #' @importFrom rlang exec
-make_pt_ready4fun_manifest <- function(initial_ls = ready4fun_manifest_one(),
-subsequent_ls = ready4fun_manifest_two()){ 
+make_pt_ready4fun_manifest <- function(initial_ls = ready4fun_metadata_a(),
+subsequent_ls = ready4fun_metadata_b()){ 
 args_ls <- list(initial_ls = initial_ls,
 subsequent_ls = subsequent_ls) %>% update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)

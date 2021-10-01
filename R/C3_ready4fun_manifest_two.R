@@ -1,26 +1,26 @@
 
 #' ready4 S3 class for package metadata required for second package set-up step.
 #' @description Create a new valid instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step., Default: make_pt_ready4fun_manifest_two()
+#' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step., Default: make_pt_ready4fun_metadata_b()
 #' @return A validated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
-#' @rdname ready4fun_manifest_two
+#' @rdname ready4fun_metadata_b
 #' @export 
 
-ready4fun_manifest_two <- function(x = make_pt_ready4fun_manifest_two()){ 
-validate_ready4fun_manifest_two(make_new_ready4fun_manifest_two(x))
+ready4fun_metadata_b <- function(x = make_pt_ready4fun_metadata_b()){ 
+validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 }
 #' Make new ready4fun package manifest two ready4 S3 class for package metadata required for second package set-up step.
 #' @description Create a new unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step.
 #' @return An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
-#' @rdname make_new_ready4fun_manifest_two
+#' @rdname make_new_ready4fun_metadata_b
 #' @export 
 
-make_new_ready4fun_manifest_two <- function(x){ 
+make_new_ready4fun_metadata_b <- function(x){ 
 stopifnot(is.list(x))
-class(x) <- append(c("ready4fun_manifest_two",setdiff(make_pt_ready4fun_manifest_two() %>% class(),class(x))),
+class(x) <- append(c("ready4fun_metadata_b",setdiff(make_pt_ready4fun_metadata_b() %>% class(),class(x))),
 class(x))
 x
 }
@@ -33,10 +33,10 @@ x
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
-#' @rdname make_pt_ready4fun_manifest_two
+#' @rdname make_pt_ready4fun_metadata_b
 #' @export 
 #' @importFrom rlang exec
-make_pt_ready4fun_manifest_two <- function(addl_pkgs_ls = list(),
+make_pt_ready4fun_metadata_b <- function(addl_pkgs_ls = list(),
 build_ignore_ls = list(),
 dev_pkgs_chr = character(0),
 pkg_dmt_dv_dss_chr = character(0),
@@ -53,22 +53,22 @@ rlang::exec(list,!!!args_ls)
 #' @param x An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @return A prototpe for ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
-#' @rdname validate_ready4fun_manifest_two
+#' @rdname validate_ready4fun_metadata_b
 #' @export 
 #' @importFrom stringr str_detect str_c
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
-validate_ready4fun_manifest_two <- function(x){
-if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_manifest_two())],
-names(make_pt_ready4fun_manifest_two())))!=length(names(make_pt_ready4fun_manifest_two()))){
+validate_ready4fun_metadata_b <- function(x){
+if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_metadata_b())],
+names(make_pt_ready4fun_metadata_b())))!=length(names(make_pt_ready4fun_metadata_b()))){
 stop(paste0("LIST must include elements named: ",
-names(make_pt_ready4fun_manifest_two()) %>% stringr::str_c(sep="", collapse = ", ")),
+names(make_pt_ready4fun_metadata_b()) %>% stringr::str_c(sep="", collapse = ", ")),
 call. = FALSE)
 }
 
- if(!identical(make_pt_ready4fun_manifest_two() %>% 
+ if(!identical(make_pt_ready4fun_metadata_b() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
@@ -77,11 +77,11 @@ x %>%
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
-dplyr::filter(variable %in% names(make_pt_ready4fun_manifest_two())) %>% dplyr::arrange(variable))){
+dplyr::filter(variable %in% names(make_pt_ready4fun_metadata_b())) %>% dplyr::arrange(variable))){
 stop(paste0("LIST elements should be of the following classes: ",
 "",
 {
-class_lup <- make_pt_ready4fun_manifest_two() %>% 
+class_lup <- make_pt_ready4fun_metadata_b() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class))
@@ -102,7 +102,7 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
-#' @rdname is_ready4fun_manifest_two
+#' @rdname is_ready4fun_metadata_b
 #' @export 
 
-is_ready4fun_manifest_two <- function(x) inherits(validate_ready4fun_manifest_two(x), "ready4fun_manifest_two")
+is_ready4fun_metadata_b <- function(x) inherits(validate_ready4fun_metadata_b(x), "ready4fun_metadata_b")

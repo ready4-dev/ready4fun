@@ -1,26 +1,26 @@
 
 #' ready4 S4 class for declaring package description file data..1
 #' @description Create a new valid instance of the ready4 S4 class for declaring package description file data..1
-#' @param x A prototype for the ready4 S4 class for declaring package description file data..1, Default: make_pt_ready4fun_pkg_ds()
+#' @param x A prototype for the ready4 S4 class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()
 #' @return A validated instance of the ready4 S4 class for declaring package description file data..1
 #' @details ready4 S3 class for declaring package description file data.
-#' @rdname ready4fun_pkg_ds
+#' @rdname ready4fun_dataset
 #' @export 
 
-ready4fun_pkg_ds <- function(x = make_pt_ready4fun_pkg_ds()){ 
-validate_ready4fun_pkg_ds(make_new_ready4fun_pkg_ds(x))
+ready4fun_dataset <- function(x = make_pt_ready4fun_dataset()){ 
+validate_ready4fun_dataset(make_new_ready4fun_dataset(x))
 }
 #' Make new ready4fun package package dataset ready4 S4 class for declaring package description file data..1
 #' @description Create a new unvalidated instance of the ready4 S4 class for declaring package description file data..1
 #' @param x A prototype for the ready4 S4 class for declaring package description file data..1
 #' @return An unvalidated instance of the ready4 S4 class for declaring package description file data..1
 #' @details ready4 S3 class for declaring package description file data.
-#' @rdname make_new_ready4fun_pkg_ds
+#' @rdname make_new_ready4fun_dataset
 #' @export 
 
-make_new_ready4fun_pkg_ds <- function(x){ 
+make_new_ready4fun_dataset <- function(x){ 
 stopifnot(is.list(x))
-class(x) <- append(c("ready4fun_pkg_ds",setdiff(make_pt_ready4fun_pkg_ds() %>% class(),class(x))),
+class(x) <- append(c("ready4fun_dataset",setdiff(make_pt_ready4fun_dataset() %>% class(),class(x))),
 class(x))
 x
 }
@@ -38,10 +38,10 @@ x
 #' @param vars_ls Variables (a list), Default: list()
 #' @return A prototype for ready4 S4 class for declaring package description file data..1
 #' @details ready4 S3 class for declaring package description file data.
-#' @rdname make_pt_ready4fun_pkg_ds
+#' @rdname make_pt_ready4fun_dataset
 #' @export 
 #' @importFrom rlang exec
-make_pt_ready4fun_pkg_ds <- function(db_df = data.frame(),
+make_pt_ready4fun_dataset <- function(db_df = data.frame(),
 db_1L_chr = character(0),
 title_1L_chr = character(0),
 desc_1L_chr = character(0),
@@ -68,22 +68,22 @@ rlang::exec(list,!!!args_ls)
 #' @param x An unvalidated instance of the ready4 S4 class for declaring package description file data..1
 #' @return A prototpe for ready4 S4 class for declaring package description file data..1
 #' @details ready4 S3 class for declaring package description file data.
-#' @rdname validate_ready4fun_pkg_ds
+#' @rdname validate_ready4fun_dataset
 #' @export 
 #' @importFrom stringr str_detect str_c
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
-validate_ready4fun_pkg_ds <- function(x){
-if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_pkg_ds())],
-names(make_pt_ready4fun_pkg_ds())))!=length(names(make_pt_ready4fun_pkg_ds()))){
+validate_ready4fun_dataset <- function(x){
+if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_dataset())],
+names(make_pt_ready4fun_dataset())))!=length(names(make_pt_ready4fun_dataset()))){
 stop(paste0("LIST must include elements named: ",
-names(make_pt_ready4fun_pkg_ds()) %>% stringr::str_c(sep="", collapse = ", ")),
+names(make_pt_ready4fun_dataset()) %>% stringr::str_c(sep="", collapse = ", ")),
 call. = FALSE)
 }
 
- if(!identical(make_pt_ready4fun_pkg_ds() %>% 
+ if(!identical(make_pt_ready4fun_dataset() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
@@ -92,11 +92,11 @@ x %>%
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
-dplyr::filter(variable %in% names(make_pt_ready4fun_pkg_ds())) %>% dplyr::arrange(variable))){
+dplyr::filter(variable %in% names(make_pt_ready4fun_dataset())) %>% dplyr::arrange(variable))){
 stop(paste0("LIST elements should be of the following classes: ",
 "",
 {
-class_lup <- make_pt_ready4fun_pkg_ds() %>% 
+class_lup <- make_pt_ready4fun_dataset() %>% 
 lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class))
@@ -117,7 +117,7 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S4 class for declaring package description file data..1
 #' @details ready4 S3 class for declaring package description file data.
-#' @rdname is_ready4fun_pkg_ds
+#' @rdname is_ready4fun_dataset
 #' @export 
 
-is_ready4fun_pkg_ds <- function(x) inherits(validate_ready4fun_pkg_ds(x), "ready4fun_pkg_ds")
+is_ready4fun_dataset <- function(x) inherits(validate_ready4fun_dataset(x), "ready4fun_dataset")

@@ -97,13 +97,13 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
     return(pkg_setup_ls)
 }
 #' Validate method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
-#' @description validate.ready4fun_manifest() is a Validate method that validates that an object conforms to required criteria. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+#' @description ratify.ready4fun_manifest() is a Validate method that validates that an object conforms to required criteria. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An object
 #' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)
-#' @rdname validate.ready4fun_manifest
+#' @rdname ratify.ready4fun_manifest
 #' @export 
 
-validate.ready4fun_manifest <- function (x) 
+ratify.ready4fun_manifest <- function (x) 
 {
     x_ready4fun_manifest <- validate_pkg_setup(x, is_method_1L_lgl = T)
     return(x_ready4fun_manifest)

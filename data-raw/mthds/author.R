@@ -5,7 +5,7 @@ author.ready4fun_manifest <- function(x,
                                       self_serve_1L_lgl = F,
                                       self_serve_fn_ls = NULL,
                                       server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  x <- validate(x)
+  x <- ratify(x)
   if(!is.null(x$problems_ls)){
     message("Execution halted - fix issues with manifest before making a new call to author.")
   }else{
@@ -32,6 +32,6 @@ author.ready4fun_manifest <- function(x,
 }
   return(x)
 }
-author.ready4fun_manifest_one <- function(x){
+author.ready4fun_metadata_a <- function(x){
   rlang::exec(write_pkg_setup_fls, !!!x)
 }

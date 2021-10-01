@@ -37,16 +37,16 @@ author.ready4fun_manifest <- function (x, dv_url_pfx_1L_chr = NULL, key_1L_chr =
 #' @aliases author,ready4fun_manifest-method
 methods::setMethod("author", methods::className("ready4fun_manifest", package = "ready4fun"), author.ready4fun_manifest)
 #' Author method applied to ready4 S3 class for package metadata required for initial package set-up step..
-#' @description author.ready4fun_manifest_one() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
+#' @description author.ready4fun_metadata_a() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for package metadata required for initial package set-up step.
 #' @return NULL
 #' @rdname author-methods
 #' @export 
 #' @importFrom rlang exec
-author.ready4fun_manifest_one <- function (x) 
+author.ready4fun_metadata_a <- function (x) 
 {
     rlang::exec(write_pkg_setup_fls, !!!x)
 }
 #' @rdname author-methods
-#' @aliases author,ready4fun_manifest_one-method
-methods::setMethod("author", methods::className("ready4fun_manifest_one", package = "ready4fun"), author.ready4fun_manifest_one)
+#' @aliases author,ready4fun_metadata_a-method
+methods::setMethod("author", methods::className("ready4fun_metadata_a", package = "ready4fun"), author.ready4fun_metadata_a)

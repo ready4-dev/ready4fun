@@ -4,8 +4,8 @@
 \alias{author}
 \alias{author.ready4fun_manifest}
 \alias{author,ready4fun_manifest-method}
-\alias{author.ready4fun_manifest_one}
-\alias{author,ready4fun_manifest_one-method}
+\alias{author.ready4fun_metadata_a}
+\alias{author,ready4fun_metadata_a-method}
 \title{Author}
 \usage{
 author(x, ...)
@@ -30,9 +30,9 @@ author.ready4fun_manifest(
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
 
-author.ready4fun_manifest_one(x)
+author.ready4fun_metadata_a(x)
 
-\S4method{author}{ready4fun_manifest_one}(x)
+\S4method{author}{ready4fun_metadata_a}(x)
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for package metadata required for initial package set-up step.}
@@ -59,5 +59,5 @@ author() is an Author function that writes files to local or remote locations. S
 
 author.ready4fun_manifest() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 
-author.ready4fun_manifest_one() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
+author.ready4fun_metadata_a() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 }

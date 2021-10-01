@@ -1,7 +1,3 @@
-analyse <- function(x,
-                   ...){
-  UseMethod("analyse",x)
-}
 author <- function(x,
                     ...){
   UseMethod("author",x)
@@ -18,9 +14,17 @@ authorFunctions <- function(x,
                             ...){
   UseMethod("authorFunctions",x)
 }
-make <- function(x,
+envision <- function(x,
+                        ...){
+  UseMethod("envision",x)
+}
+investigate <- function(x,
+                        ...){
+  UseMethod("investigate",x)
+}
+manufacture <- function(x,
                  ...){
-  UseMethod("make",x)
+  UseMethod("manufacture",x)
 }
 metamorphose <- function(x,
                  ...){
@@ -34,11 +38,12 @@ renew <- function(x,
                   ...){
   UseMethod("renew",x)
 }
+ratify <- function(x,
+                   ...){
+  UseMethod("ratify",x)
+}
 report <- function(x,
                    ...){
   UseMethod("report",x)
 }
-validate <- function(x,
-                     ...){
-  UseMethod("validate",x)
-}
+

@@ -5,14 +5,14 @@
 \title{Make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
 \usage{
 make_pt_ready4fun_manifest(
-  initial_ls = ready4fun_manifest_one(),
-  subsequent_ls = ready4fun_manifest_two()
+  initial_ls = ready4fun_metadata_a(),
+  subsequent_ls = ready4fun_metadata_b()
 )
 }
 \arguments{
-\item{initial_ls}{Initial (a list), Default: ready4fun_manifest_one()}
+\item{initial_ls}{Initial (a list), Default: ready4fun_metadata_a()}
 
-\item{subsequent_ls}{Subsequent (a list), Default: ready4fun_manifest_two()}
+\item{subsequent_ls}{Subsequent (a list), Default: ready4fun_metadata_b()}
 }
 \value{
 A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.

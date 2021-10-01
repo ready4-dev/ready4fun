@@ -285,6 +285,26 @@ make_build_ignore_ls <- function(file_nms_chr = NULL,
                          regulars_rgx = regulars_rgx)
   return(build_ignore_ls)
 }
+make_custom_dmt_ls <- function(args_ls_ls = NULL,
+                               desc_ls = NULL,
+                               details_ls = NULL,
+                               example_ls = NULL,
+                               output_ls = NULL,
+                               title_ls = NULL,
+                               user_manual_fns_chr = NA_character_){
+  inc_for_main_user_lgl_ls <- NULL
+  if(!is.na(user_manual_fns_chr))
+  inc_for_main_user_lgl_ls <- list(force_true_chr = user_manual_fns_chr,
+                                  force_false_chr = NA_character_)
+  custom_dmt_ls = list(args_ls_ls = args_ls_ls,
+                       desc_ls = desc_ls,
+                       details_ls = details_ls,
+                       example_ls = example_ls,
+                       inc_for_main_user_lgl_ls = inc_for_main_user_lgl_ls,
+                       output_ls = output_ls,
+                       title_ls = title_ls)
+  return(custom_dmt_ls)
+}
 make_depnt_fns_ls <- function(arg_ls,
                               pkg_depcy_ls){
   lower_tb <- purrr::map_dfr(arg_ls$new_dbl,
@@ -299,10 +319,7 @@ make_depnt_fns_ls <- function(arg_ls,
 }
 make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
                                  undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                                 custom_dmt_ls = list(details_ls = NULL,
-                                                      inc_for_main_user_lgl_ls = list(force_true_chr = NA_character_,
-                                                                                      force_false_chr = NA_character_),
-                                                      args_ls_ls = NULL),
+                                 custom_dmt_ls = make_custom_dmt_ls(),
                                  fns_env_ls = NULL,
                                  fn_types_lup,
                                  abbreviations_lup,
@@ -488,13 +505,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
 }
 make_fn_dmt_tbl <- function(fns_path_chr,
                             fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                            custom_dmt_ls = list(title_ls = NULL,
-                                                 desc_ls = NULL,
-                                                 details_ls = NULL,
-                                                 inc_for_main_user_lgl_ls = NULL,
-                                                 output_ls = NULL,
-                                                 example_ls = NULL,
-                                                 args_ls_ls = NULL),
+                            custom_dmt_ls = make_custom_dmt_ls(),
                             append_1L_lgl = T,
                             fns_env_ls = NULL,
                             fn_types_lup = NULL,
@@ -770,7 +781,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                                   dv_url_pfx_1L_chr = NULL,
                                   import_from_chr = NA_character_,
-                                  import_mthds_from_chr = NA_character_,
+                                  #import_mthds_from_chr = NA_character_,
                                   key_1L_chr = NULL,
                                   object_type_lup = NULL,
                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -810,7 +821,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                fn_type_1L_chr = fn_type_1L_chr,
                                import_chr = import_chr,
                                import_from_chr = import_from_chr,
-                               import_mthds_from_chr = import_mthds_from_chr,
+                               #import_mthds_from_chr = import_mthds_from_chr,
                                abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
 }
@@ -1089,7 +1100,7 @@ make_pkg_ds_ls <- function(db_df,
                     vars_ls = vars_ls)
   return(pkg_ds_ls)
 }
-make_pkg_setup_ls <- function(pkg_desc_ls,
+make_manifest <- function(pkg_desc_ls,
                               copyright_holders_chr,
                               pkg_dmt_dv_dss_chr,
                               add_gh_site_1L_lgl = T,
@@ -1100,12 +1111,14 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                               check_type_1L_chr = "ready4",
                               classify_1L_lgl = T,
                               cls_fn_ls = NULL,
+                          custom_dmt_ls = make_custom_dmt_ls(),
                               delete_r_dir_cnts_1L_lgl = T,
                               dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                               dev_pkgs_chr = NA_character_,
                               dss_records_ls = NULL,
                               dv_url_pfx_1L_chr = NULL,
                               gh_repo_1L_chr = NA_character_,
+                          import_from_chr = NULL,
                               lifecycle_stage_1L_chr = "experimental",
                               inc_pkg_meta_data_1L_lgl = F,
                               incr_ver_1L_lgl = F,
@@ -1140,7 +1153,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
     purrr::discard(is.null)
   if(length(addl_badges_ls)==0)
     addl_badges_ls <- NULL
-  pkg_setup_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
+  manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
 
                                          copyright_holders_chr = copyright_holders_chr,
                                          gh_repo_1L_chr = gh_repo_1L_chr,
@@ -1163,7 +1176,9 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                             addl_pkgs_ls = addl_pkgs_ls,
                                             build_ignore_ls = build_ignore_ls,
                                             cls_fn_ls = cls_fn_ls,#
+                                            custom_dmt_ls = custom_dmt_ls,
                                             dss_records_ls = dss_records_ls,
+                                            import_from_chr = import_from_chr,
                                             inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,#
                                             path_to_dmt_dir_1L_chr =  path_to_dmt_dir_1L_chr,#
                                             pkg_ds_ls_ls = pkg_ds_ls_ls,#
@@ -1176,7 +1191,7 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                                              key_1L_chr = key_1L_chr,
                                                                              server_1L_chr = server_1L_chr),
-                                            key_1L_chr = key_1L_chr,
+                                            #key_1L_chr = key_1L_chr,
                                             object_type_lup = get_rds_from_dv("object_type_lup",
                                                                               dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
@@ -1193,18 +1208,27 @@ make_pkg_setup_ls <- function(pkg_desc_ls,
                                                                                  dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
                                                                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                                                  key_1L_chr = key_1L_chr,
-                                                                                 server_1L_chr = server_1L_chr),
-                                            user_manual_fns_chr = user_manual_fns_chr))
+                                                                                 server_1L_chr = server_1L_chr)))
   if(classify_1L_lgl){
-    pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% ready4fun_badges()
-    pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% ready4fun_pkg_desc()
-    pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% ready4fun_manifest_one()
-    pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% ready4fun_manifest_two()
-    pkg_setup_ls <- pkg_setup_ls %>%
+    if(!"ready4class_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
+      manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% ready4fun_badges()
+    if(!"ready4class_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))
+      manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% ready4fun_description()
+    manifest_ls$initial_ls <- manifest_ls$initial_ls %>% ready4fun_metadata_a()
+    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
+      manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>%
+      ready4_abbreviations()
+    if(!"ready4class_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
+      manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>%
+      ready4_executor()
+    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
+      manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>%
+      ready4_abbreviations()
+    manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% ready4fun_metadata_b()
+    manifest_ls <- manifest_ls %>%
       ready4fun_manifest()
   }
-
-  return(pkg_setup_ls)
+  return(manifest_ls)
 }
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {
   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"

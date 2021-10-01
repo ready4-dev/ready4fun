@@ -23,12 +23,12 @@ reference:
   - ready4fun_pkg_setup
   - ready4fun_badges
   - ready4fun_abbreviations
-  - ready4fun_fn_ls
-  - ready4fun_pkg_desc
-  - ready4fun_manifest_one
-  - ready4fun_manifest_two
+  - ready4fun_executor
+  - ready4fun_description
+  - ready4fun_metadata_a
+  - ready4fun_metadata_b
   - ready4fun_manifest
-  - ready4fun_pkg_ds
+  - ready4fun_dataset
 - title: "Functions"
 - contents:
   - add_new_cls_pts
@@ -39,7 +39,7 @@ reference:
   - make_build_ignore_ls
   - make_pkg_desc_ls
   - make_pkg_ds_ls
-  - make_pkg_setup_ls
+  - make_manifest
   - update_abbr_lup
   - update_msng_abbrs
   - write_new_abbrs
@@ -63,10 +63,10 @@ reference:
 - title: "Methods"
 - contents:
   - author.ready4fun_manifest
-  - author.ready4fun_manifest_one
+  - author.ready4fun_metadata_a
   - authorClasses.ready4fun_manifest
   - authorData.ready4fun_manifest
   - authorFunctions.ready4fun_Manifest
   - renew.ready4fun_manifest
   - report.ready4fun_manifest
-  - validate.ready4fun_manifest
+  - ratify.ready4fun_manifest

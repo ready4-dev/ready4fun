@@ -60,7 +60,7 @@ authorFunctions <- function (x, ...)
 methods::setGeneric("authorFunctions")
 #' Make
 #' @rdname make-methods
-#' @description make() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make. The function is called for its side effects and does not return a value.
+#' @description manufacture() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make. The function is called for its side effects and does not return a value.
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
@@ -120,7 +120,7 @@ report <- function (x, ...)
 methods::setGeneric("report")
 #' Validate
 #' @rdname validate-methods
-#' @description validate() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate. The function is called for its side effects and does not return a value.
+#' @description validate() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to ratify. The function is called for its side effects and does not return a value.
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 

@@ -660,8 +660,7 @@ write_fn_fl <- function(fns_env_ls,
                                                             details_1L_chr = tb[[.x,4]],
                                                             args_ls = tb$args_ls[[.x]] %>% as.list(),
                                                             import_chr = NA_character_,
-                                                            import_from_chr = NA_character_, # UPDATE THIS,
-                                                            import_mthds_from_chr = NA_character_,  # UPDATE THIS,
+                                                            import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr,
                                                             doc_in_class_1L_lgl = F,
                                                             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                                             object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
@@ -678,6 +677,14 @@ write_fn_fl <- function(fns_env_ls,
                                       if(tb$file_pfx_chr[1]=="mthd_"){
                                         writeLines(paste0("#' @rdname ",fn_and_cls_chr[1],"-methods"))
                                         writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
+                                        {
+                                          if(fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)){
+                                          writeLines(paste0("#' @importMethodsFrom ",
+                                                unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
+                                                " ",
+                                                fn_and_cls_chr[1]))
+                                          }
+                                          }
                                         writeLines(paste0('methods::setMethod(\"',
                                                           fn_and_cls_chr[1],
                                                           '\"',
@@ -1430,33 +1437,6 @@ write_pkg_dss <- function(pkg_setup_ls,
                                   rlang::exec(write_and_doc_ds,!!!args_ls)
                                 })
   }
-  # fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
-  #                                    abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-  #                                    custom_dmt_ls = list(details_ls = details_ls,#list(add_indefartls_to_phrases = "TEST DETAILS",close_open_sinks = "ANOTHER TEST"),
-  #                                                         inc_for_main_user_lgl_ls = list(force_true_chr = pkg_setup_ls$subsequent_ls$user_manual_fns_chr,
-  #                                                                                         force_false_chr = NA_character_),
-  #                                                         args_ls_ls = args_ls_ls#list(add_indefartls_to_phrases = NA_character_#c(abbreviated_phrase_chr_vec = "TEST_ARG_DESC_1",ignore_phrs_not_in_lup_1L_lgl = "TEST_ARG_DESC_3"))
-  #                                                    ),
-  #                                    fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
-  #                                    inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
-  #                                    object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-  #                                    undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-  # if(pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl){
-  # pkg_dss_tb <- fns_dmt_tb %>%
-  #   write_and_doc_ds(overwrite_1L_lgl = T,
-  #                    db_1L_chr = "fns_dmt_tb",
-  #                    title_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package," function documentation table"),
-  #                    desc_1L_chr = paste0("A table with the summary information on functions included in the ",pkg_setup_ls$initial_ls$pkg_desc_ls$Package," package."),
-  #                    format_1L_chr = "A tibble",
-  #                    url_1L_chr = pkg_url_1L_chr,
-  #                    abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-  #                    object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-  #                    pkg_dss_tb = pkg_dss_tb,
-  #                    dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-  #                    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-  #                    key_1L_chr = key_1L_chr,
-  #                    server_1L_chr = server_1L_chr)
-  # }
   pkg_setup_ls$subsequent_ls$dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb#, fns_dmt_tb = fns_dmt_tb
                                                     )
   return(pkg_setup_ls)

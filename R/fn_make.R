@@ -1187,7 +1187,7 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
     return(pkg_ds_ls)
 }
 #' Make package setup list
-#' @description make_pkg_setup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
+#' @description make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package setup list. The function returns Package setup (a list).
 #' @param pkg_desc_ls Package description (a list)
 #' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector)
@@ -1218,12 +1218,12 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return Package setup (a list)
-#' @rdname make_pkg_setup_ls
+#' @rdname make_manifest
 #' @export 
 #' @importFrom utils data
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
-make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
+make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
     check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
@@ -1289,11 +1289,11 @@ make_pkg_setup_ls <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_ds
         pkg_setup_ls$initial_ls$badges_lup <- pkg_setup_ls$initial_ls$badges_lup %>% 
             ready4fun_badges()
         pkg_setup_ls$initial_ls$pkg_desc_ls <- pkg_setup_ls$initial_ls$pkg_desc_ls %>% 
-            ready4fun_pkg_desc()
+            ready4fun_description()
         pkg_setup_ls$initial_ls <- pkg_setup_ls$initial_ls %>% 
-            ready4fun_manifest_one()
+            ready4fun_metadata_a()
         pkg_setup_ls$subsequent_ls <- pkg_setup_ls$subsequent_ls %>% 
-            ready4fun_manifest_two()
+            ready4fun_metadata_b()
         pkg_setup_ls <- pkg_setup_ls %>% ready4fun_manifest()
     }
     return(pkg_setup_ls)

@@ -65,8 +65,8 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
 #' @rdname write_all_fn_dmt
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
-#' @importFrom stringr str_replace_all
 #' @importFrom dplyr filter
+#' @importFrom stringr str_replace_all
 #' @importFrom devtools document load_all
 #' @keywords internal
 write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, fns_dmt_tb = deprecated()) 
@@ -75,6 +75,8 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
         lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_all_fn_dmt(fns_dmt_tb)", 
             details = "Please use `ready4fun::write_all_fn_dmt(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
     }
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% 
+        dplyr::filter(!is.na(file_nm_chr))
     pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% 
         stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/"), "")

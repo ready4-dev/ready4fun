@@ -50,7 +50,7 @@ add_build_ignore <- function (build_ignore_ls)
 #' @importFrom purrr map_chr map_lgl pluck
 #' @importFrom stringr str_sub
 #' @importFrom tibble add_case
-#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter bind_rows distinct
 #' @keywords internal
 add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls = NULL, 
     inc_methods_1L_lgl = F, key_1L_chr = NULL, server_1L_chr = NULL) 
@@ -82,6 +82,8 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls =
         }
     }
     else {
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% 
+            dplyr::filter(!is.na(file_nm_chr))
         paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/data-raw"))
         undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
@@ -104,6 +106,8 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls =
             pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
                 fns_dmt_tb)
         }
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% 
+            dplyr::distinct()
         if (pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl & 
             !is.null(server_1L_chr)) {
             pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 

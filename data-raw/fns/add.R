@@ -51,6 +51,8 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
                                                                 args_ls = list(character(0)))
     }
   }else{
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
+      dplyr::filter(!is.na(file_nm_chr))
     paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw"))
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
     if("mthds" %in% names(paths_ls)){
@@ -72,6 +74,8 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb,
                                                                 fns_dmt_tb)
     }
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
+      dplyr::distinct()
     if(pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl & !is.null(server_1L_chr)){
     pkg_dss_tb <- fns_dmt_tb %>%
       write_and_doc_ds(overwrite_1L_lgl = T,

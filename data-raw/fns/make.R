@@ -948,13 +948,13 @@ make_manifest <- function(pkg_desc_ls,
     manifest_ls$initial_ls <- manifest_ls$initial_ls %>% ready4fun_metadata_a()
     if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
       manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>%
-      ready4_abbreviations()
+      ready4fun_abbreviations()
     if(!"ready4class_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
       manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>%
-      ready4_executor()
+      ready4fun_executor()
     if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
       manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>%
-      ready4_abbreviations()
+      ready4fun_abbreviations()
     manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% ready4fun_metadata_b()
     manifest_ls <- manifest_ls %>%
       ready4fun_manifest()

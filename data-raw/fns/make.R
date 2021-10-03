@@ -831,6 +831,136 @@ make_list_phrase <- function(items_chr){
     stringi::stri_replace_last(fixed=",", replacement = " and")
   return(list_phrase_1L_chr)
 }
+make_manifest <- function(pkg_desc_ls,
+                          copyright_holders_chr,
+                          pkg_dmt_dv_dss_chr,
+                          add_gh_site_1L_lgl = T,
+                          addl_badges_ls = NULL,
+                          addl_pkgs_ls = make_addl_pkgs_ls(),#
+                          badges_lup = NULL,
+                          build_ignore_ls = make_build_ignore_ls(),#
+                          check_type_1L_chr = "ready4",
+                          classify_1L_lgl = T,
+                          cls_fn_ls = NULL,
+                          custom_dmt_ls = make_custom_dmt_ls(),
+                          delete_r_dir_cnts_1L_lgl = T,
+                          dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
+                          dev_pkgs_chr = NA_character_,
+                          dss_records_ls = NULL,
+                          dv_url_pfx_1L_chr = NULL,
+                          gh_repo_1L_chr = NA_character_,
+                          import_from_chr = NULL,
+                          lifecycle_stage_1L_chr = "experimental",
+                          inc_pkg_meta_data_1L_lgl = F,
+                          incr_ver_1L_lgl = F,
+                          key_1L_chr = NULL,
+                          on_cran_1L_lgl = F,
+                          path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
+                          path_to_pkg_logo_1L_chr = NA_character_,
+                          path_to_pkg_rt_1L_chr = getwd(),
+                          pkg_ds_ls_ls = NULL,
+                          ready4_type_1L_chr, #
+                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                          user_manual_fns_chr = NA_character_){
+  if(length(pkg_dmt_dv_dss_chr)<2){
+    pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
+  }
+  if(!is.na(ready4_type_1L_chr)){
+    append_ls <- list(ready4 = ready4_type_1L_chr)
+  }else{
+    append_ls <- NULL
+  }
+  if(is.null(badges_lup)){
+    utils::data("badges_lup", package = "ready4fun", envir = environment())
+  }
+  if(is.na(gh_repo_1L_chr))
+    gh_repo_1L_chr <- pkg_desc_ls$URL %>%
+      strsplit(",") %>%
+      unlist() %>%
+      purrr::pluck(2) %>%
+      stringr::str_trim() %>%
+      stringr::str_remove("https://github.com/")
+  addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
+    purrr::discard(is.null)
+  if(length(addl_badges_ls)==0)
+    addl_badges_ls <- NULL
+  manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
+
+                                        copyright_holders_chr = copyright_holders_chr,
+                                        gh_repo_1L_chr = gh_repo_1L_chr,
+                                        add_gh_site_1L_lgl = add_gh_site_1L_lgl,
+                                        addl_badges_ls = addl_badges_ls,
+                                        badges_lup = badges_lup,
+                                        check_type_1L_chr = check_type_1L_chr,
+                                        delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl,
+                                        dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
+                                        lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
+                                        incr_ver_1L_lgl = incr_ver_1L_lgl,
+                                        on_cran_1L_lgl = on_cran_1L_lgl,
+                                        path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
+                                        path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr),
+                      subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup",
+                                                                               dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                               key_1L_chr = key_1L_chr,
+                                                                               server_1L_chr = server_1L_chr),
+                                           addl_pkgs_ls = addl_pkgs_ls,
+                                           build_ignore_ls = build_ignore_ls,
+                                           cls_fn_ls = cls_fn_ls,#
+                                           custom_dmt_ls = custom_dmt_ls,
+                                           dss_records_ls = dss_records_ls,
+                                           import_from_chr = import_from_chr,
+                                           inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,#
+                                           path_to_dmt_dir_1L_chr =  path_to_dmt_dir_1L_chr,#
+                                           pkg_ds_ls_ls = pkg_ds_ls_ls,#
+                                           dev_pkgs_chr = dev_pkgs_chr,
+                                           dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                           fns_dmt_tb = NULL,
+                                           fn_types_lup = get_rds_from_dv("fn_types_lup",
+                                                                          dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                          dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                          key_1L_chr = key_1L_chr,
+                                                                          server_1L_chr = server_1L_chr),
+                                           #key_1L_chr = key_1L_chr,
+                                           object_type_lup = get_rds_from_dv("object_type_lup",
+                                                                             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                             key_1L_chr = key_1L_chr,
+                                                                             server_1L_chr = server_1L_chr),
+                                           pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
+                                           seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup",
+                                                                               dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                               key_1L_chr = key_1L_chr,
+                                                                               server_1L_chr = server_1L_chr),
+                                           server_1L_chr = server_1L_chr,
+                                           treat_as_words_chr = get_rds_from_dv("treat_as_words_chr",
+                                                                                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
+                                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                                                                key_1L_chr = key_1L_chr,
+                                                                                server_1L_chr = server_1L_chr)))
+  if(classify_1L_lgl){
+    if(!"ready4class_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
+      manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% ready4fun_badges()
+    if(!"ready4class_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))
+      manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% ready4fun_description()
+    manifest_ls$initial_ls <- manifest_ls$initial_ls %>% ready4fun_metadata_a()
+    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
+      manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>%
+      ready4_abbreviations()
+    if(!"ready4class_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
+      manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>%
+      ready4_executor()
+    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
+      manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>%
+      ready4_abbreviations()
+    manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% ready4fun_metadata_b()
+    manifest_ls <- manifest_ls %>%
+      ready4fun_manifest()
+  }
+  return(manifest_ls)
+}
 make_new_fn_dmt <- function(fn_type_1L_chr,
                             fn_name_1L_chr,
                             fn_desc_1L_chr = NA_character_,
@@ -1099,136 +1229,6 @@ make_pkg_ds_ls <- function(db_df,
                     url_1L_chr = url_1L_chr,
                     vars_ls = vars_ls)
   return(pkg_ds_ls)
-}
-make_manifest <- function(pkg_desc_ls,
-                              copyright_holders_chr,
-                              pkg_dmt_dv_dss_chr,
-                              add_gh_site_1L_lgl = T,
-                              addl_badges_ls = NULL,
-                              addl_pkgs_ls = make_addl_pkgs_ls(),#
-                              badges_lup = NULL,
-                              build_ignore_ls = make_build_ignore_ls(),#
-                              check_type_1L_chr = "ready4",
-                              classify_1L_lgl = T,
-                              cls_fn_ls = NULL,
-                          custom_dmt_ls = make_custom_dmt_ls(),
-                              delete_r_dir_cnts_1L_lgl = T,
-                              dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                              dev_pkgs_chr = NA_character_,
-                              dss_records_ls = NULL,
-                              dv_url_pfx_1L_chr = NULL,
-                              gh_repo_1L_chr = NA_character_,
-                          import_from_chr = NULL,
-                              lifecycle_stage_1L_chr = "experimental",
-                              inc_pkg_meta_data_1L_lgl = F,
-                              incr_ver_1L_lgl = F,
-                              key_1L_chr = NULL,
-                              on_cran_1L_lgl = F,
-                              path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
-                              path_to_pkg_logo_1L_chr = NA_character_,
-                              path_to_pkg_rt_1L_chr = getwd(),
-                              pkg_ds_ls_ls = NULL,
-                              ready4_type_1L_chr, #
-                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-                              user_manual_fns_chr = NA_character_){
-  if(length(pkg_dmt_dv_dss_chr)<2){
-    pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
-  }
-  if(!is.na(ready4_type_1L_chr)){
-    append_ls <- list(ready4 = ready4_type_1L_chr)
-  }else{
-    append_ls <- NULL
-  }
-  if(is.null(badges_lup)){
-    utils::data("badges_lup", package = "ready4fun", envir = environment())
-  }
-  if(is.na(gh_repo_1L_chr))
-    gh_repo_1L_chr <- pkg_desc_ls$URL %>%
-    strsplit(",") %>%
-    unlist() %>%
-    purrr::pluck(2) %>%
-      stringr::str_trim() %>%
-      stringr::str_remove("https://github.com/")
-  addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
-    purrr::discard(is.null)
-  if(length(addl_badges_ls)==0)
-    addl_badges_ls <- NULL
-  manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
-
-                                         copyright_holders_chr = copyright_holders_chr,
-                                         gh_repo_1L_chr = gh_repo_1L_chr,
-                                         add_gh_site_1L_lgl = add_gh_site_1L_lgl,
-                                         addl_badges_ls = addl_badges_ls,
-                                         badges_lup = badges_lup,
-                                         check_type_1L_chr = check_type_1L_chr,
-                                         delete_r_dir_cnts_1L_lgl = delete_r_dir_cnts_1L_lgl,
-                                         dev_pkg_nm_1L_chr = dev_pkg_nm_1L_chr,
-                                         lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
-                                         incr_ver_1L_lgl = incr_ver_1L_lgl,
-                                         on_cran_1L_lgl = on_cran_1L_lgl,
-                                         path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
-                                         path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr),
-                       subsequent_ls = list(abbreviations_lup = get_rds_from_dv("abbreviations_lup",
-                                                                                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                                key_1L_chr = key_1L_chr,
-                                                                                server_1L_chr = server_1L_chr),
-                                            addl_pkgs_ls = addl_pkgs_ls,
-                                            build_ignore_ls = build_ignore_ls,
-                                            cls_fn_ls = cls_fn_ls,#
-                                            custom_dmt_ls = custom_dmt_ls,
-                                            dss_records_ls = dss_records_ls,
-                                            import_from_chr = import_from_chr,
-                                            inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,#
-                                            path_to_dmt_dir_1L_chr =  path_to_dmt_dir_1L_chr,#
-                                            pkg_ds_ls_ls = pkg_ds_ls_ls,#
-                                            dev_pkgs_chr = dev_pkgs_chr,
-                                            dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                            fns_dmt_tb = NULL,
-                                            fn_types_lup = get_rds_from_dv("fn_types_lup",
-                                                                             dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                                                             dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                             key_1L_chr = key_1L_chr,
-                                                                             server_1L_chr = server_1L_chr),
-                                            #key_1L_chr = key_1L_chr,
-                                            object_type_lup = get_rds_from_dv("object_type_lup",
-                                                                              dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                                                              dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                              key_1L_chr = key_1L_chr,
-                                                                              server_1L_chr = server_1L_chr),
-                                            pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
-                                            seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup",
-                                                                                dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                                                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                                key_1L_chr = key_1L_chr,
-                                                                                server_1L_chr = server_1L_chr),
-                                            server_1L_chr = server_1L_chr,
-                                            treat_as_words_chr = get_rds_from_dv("treat_as_words_chr",
-                                                                                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2],
-                                                                                 dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                                                 key_1L_chr = key_1L_chr,
-                                                                                 server_1L_chr = server_1L_chr)))
-  if(classify_1L_lgl){
-    if(!"ready4class_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
-      manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% ready4fun_badges()
-    if(!"ready4class_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))
-      manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% ready4fun_description()
-    manifest_ls$initial_ls <- manifest_ls$initial_ls %>% ready4fun_metadata_a()
-    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
-      manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>%
-      ready4_abbreviations()
-    if(!"ready4class_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
-      manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>%
-      ready4_executor()
-    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
-      manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>%
-      ready4_abbreviations()
-    manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% ready4fun_metadata_b()
-    manifest_ls <- manifest_ls %>%
-      ready4fun_manifest()
-  }
-  return(manifest_ls)
 }
 make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {
   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"

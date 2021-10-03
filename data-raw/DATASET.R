@@ -69,132 +69,131 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                                                        url_1L_chr = "https://ready4-dev.github.io/ready4/"))
 #
 # 4. Specify the new classes to be created
-# constructor_r3 <- dplyr::bind_rows(
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for tibble object lookup table of badges metadata.",
-#                                                    make_s3_lgl = TRUE,
-#                                                    name_stub_chr = "badges",
-#                                                    pt_ls = list(list("tibble")),
-#                                                    pt_chkr_pfx_ls = list(list("is_")),
-#                                                    pt_ns_ls = list(list("tibble")),
-#                                                    vals_ls = list(list(badge_names_chr = "character(0)",
-#                                                                        label_names_chr = "character(0)",
-#                                                                        colours_chr = "character(0)",
-#                                                                        badges_chr = "character(0)"))),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for tibble object lookup table of abbreviations.",
-#                                                    make_s3_lgl = TRUE,
-#                                                    name_stub_chr = "abbreviations",
-#                                                    pt_ls = list(list("tibble")),
-#                                                    pt_chkr_pfx_ls = list(list("is_")),
-#                                                    pt_ns_ls = list(list("tibble")),
-#                                                    vals_ls = list(list(short_name_chr = "character(0)",
-#                                                                        long_name_chr = "character(0)",
-#                                                                        plural_lgl = "logical(0)"))),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for list object specifying function arguments and function.",# S4
-#                                                    make_s3_lgl = T,
-#                                                    name_stub_chr = "executor",
-#                                                    pt_chkr_pfx_ls = list(list("is.")),
-#                                                    pt_ls = list(list("list")),
-#                                                    pt_ns_ls = list(list("base")),
-#                                                    vals_ls = list(list(args_ls = "list()",
-#                                                                        fn = "identity"))
-#   ),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
-#                                                    make_s3_lgl = T,
-#                                                    name_stub_chr = "description",
-#                                                    pt_chkr_pfx_ls = list(list("is.")),
-#                                                    pt_ls = list(list("list")),
-#                                                    pt_ns_ls = list(list("base")),
-#                                                    vals_ls = list(list(Package = "character(0)",
-#                                                                        Title = "character(0)",
-#                                                                        Description = "character(0)",
-#                                                                        License = "logical(0)",
-#                                                                        URL = "character(0)"))
-#   ),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for package metadata required for initial package set-up step.",#S3
-#                                                    make_s3_lgl = T,
-#                                                    name_stub_chr = "metadata_a",
-#                                                    pt_chkr_pfx_ls = list(list("is.")),
-#                                                    pt_ls = list(list("list")),
-#                                                    pt_ns_ls = list(list("base")),
-#                                                    vals_ls = list(list("ready4fun_description()", "character(0)", "character(0)", "logical(0)", "list()",
-#                                                                        "ready4fun_badges()", "character(0)", "logical(0)", "character(0)", "character(0)",
-#                                                                        "logical(0)", "logical(0)", "character(0)", "character(0)") %>%
-#                                                                     stats::setNames(c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
-#                                                                                       "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
-#                                                                                       "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr")))
-#   ),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for package metadata required for second package set-up step.",
-#                                                make_s3_lgl = T,
-#                                                name_stub_chr = "metadata_b",
-#                                                pt_chkr_pfx_ls = list(list("is.")),
-#                                                pt_ls = list(list("list")),
-#                                                pt_ns_ls = list(list("base")),
-#                                                vals_ls = list("ready4fun_abbreviations()","list()", "list()",
-#                                                               "ready4fun_executor()","list()","character(0)",
-#                                                               "list()",
-#                                                               "character(0)", "character(0)","tibble()","tibble()",
-#                                                               "character(0)","logical(0)","character(0)",
-#                                                               "ready4fun_abbreviations()",
-#                                                               "character(0)", "list()",
-#                                                               "tibble()","character(0)", "character(0)") %>%
-#                                                  stats::setNames(c("abbreviations_lup","addl_pkgs_ls","build_ignore_ls",
-#                                                                    "cls_fn_ls","custom_dmt_ls", "dev_pkgs_chr",
-#                                                                    "dss_records_ls",
-#                                                                    "dv_ds_nm_1L_chr", "dv_url_pfx_1L_chr", "fns_dmt_tb", "fn_types_lup",
-#                                                                    "import_from_chr","inc_pkg_meta_data_1L_lgl","path_to_dmt_dir_1L_chr",
-#                                                                    "object_type_lup",
-#                                                                    "pkg_dmt_dv_dss_chr","pkg_ds_ls_ls",
-#                                                                    "seed_obj_type_lup", "server_1L_chr","treat_as_words_chr")) %>%
-#                                                  list()),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for encapsulating the metadata required for package set-up.",
-#                                                make_s3_lgl = T,
-#                                                name_stub_chr = "manifest",
-#                                                pt_chkr_pfx_ls = list(list("is.")),
-#                                                pt_ls = list(list("list")),
-#                                                pt_ns_ls = list(list("base")),
-#                                                vals_ls = list("ready4fun_metadata_a()",
-#                                                               "ready4fun_metadata_b()") %>%
-#                                                  stats::setNames(c("initial_ls","subsequent_ls")) %>% list()
-#   ),
-#   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for declaring package description file data.",#S3
-#                                                    make_s3_lgl = T,#F
-#                                                    name_stub_chr = "dataset",
-#                                                pt_chkr_pfx_ls = list(list("is.")),
-#                                                    pt_ls = list(list("list")),
-#                                                pt_ns_ls = list(list("base")),
-#                                                vals_ls = list("data.frame()","character(0)","character(0)","character(0)", "ready4fun_abbreviations()",
-#                                                                   "character(0)","ready4fun_abbreviations()","logical(0)","character(0)","list()") %>%
-#                                                      stats::setNames(c("db_df","db_1L_chr","title_1L_chr","desc_1L_chr", "abbreviations_lup",
-#                                                                        "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
-#   ready4class::ready4class_constructor()
+constructor_r3 <- dplyr::bind_rows(
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for tibble object lookup table of badges metadata.",
+                                               make_s3_lgl = TRUE,
+                                               name_stub_chr = "badges",
+                                               pt_ls = list(list("tibble")),
+                                               pt_chkr_pfx_ls = list(list("is_")),
+                                               pt_ns_ls = list(list("tibble")),
+                                               vals_ls = list(list(badge_names_chr = "character(0)",
+                                                                   label_names_chr = "character(0)",
+                                                                   colours_chr = "character(0)",
+                                                                   badges_chr = "character(0)"))),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for tibble object lookup table of abbreviations.",
+                                               make_s3_lgl = TRUE,
+                                               name_stub_chr = "abbreviations",
+                                               pt_ls = list(list("tibble")),
+                                               pt_chkr_pfx_ls = list(list("is_")),
+                                               pt_ns_ls = list(list("tibble")),
+                                               vals_ls = list(list(short_name_chr = "character(0)",
+                                                                   long_name_chr = "character(0)",
+                                                                   plural_lgl = "logical(0)"))),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for list object specifying function arguments and function.",# S4
+                                               make_s3_lgl = T,
+                                               name_stub_chr = "executor",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list(list(args_ls = "list()",
+                                                                   fn = "identity"))
+  ),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for declaring package description file data.",# S4
+                                               make_s3_lgl = T,
+                                               name_stub_chr = "description",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list(list(Package = "character(0)",
+                                                                   Title = "character(0)",
+                                                                   Description = "character(0)",
+                                                                   License = "logical(0)",
+                                                                   URL = "character(0)"))
+  ),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for package metadata required for initial package set-up step.",#S3
+                                               make_s3_lgl = T,
+                                               name_stub_chr = "metadata_a",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list(list("ready4fun_description()", "character(0)", "character(0)", "logical(0)", "list()",
+                                                                   "ready4fun_badges()", "character(0)", "logical(0)", "character(0)", "character(0)",
+                                                                   "logical(0)", "logical(0)", "character(0)", "character(0)") %>%
+                                                                stats::setNames(c("pkg_desc_ls","copyright_holders_chr","gh_repo_1L_chr","add_gh_site_1L_lgl", "addl_badges_ls",
+                                                                                  "badges_lup", "check_type_1L_chr", "delete_r_dir_cnts_1L_lgl", "dev_pkg_nm_1L_chr", "lifecycle_stage_1L_chr",
+                                                                                  "incr_ver_1L_lgl","on_cran_1L_lgl", "path_to_pkg_logo_1L_chr", "path_to_pkg_rt_1L_chr")))
+  ),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for package metadata required for second package set-up step.",
+                                               make_s3_lgl = T,
+                                               name_stub_chr = "metadata_b",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list("ready4fun_abbreviations()","list()", "list()",
+                                                              "ready4fun_executor()","list()","character(0)",
+                                                              "list()",
+                                                              "character(0)", "character(0)","tibble()","tibble()",
+                                                              "character(0)","logical(0)","character(0)",
+                                                              "ready4fun_abbreviations()",
+                                                              "character(0)", "list()",
+                                                              "tibble()","character(0)", "character(0)") %>%
+                                                 stats::setNames(c("abbreviations_lup","addl_pkgs_ls","build_ignore_ls",
+                                                                   "cls_fn_ls","custom_dmt_ls", "dev_pkgs_chr",
+                                                                   "dss_records_ls",
+                                                                   "dv_ds_nm_1L_chr", "dv_url_pfx_1L_chr", "fns_dmt_tb", "fn_types_lup",
+                                                                   "import_from_chr","inc_pkg_meta_data_1L_lgl","path_to_dmt_dir_1L_chr",
+                                                                   "object_type_lup",
+                                                                   "pkg_dmt_dv_dss_chr","pkg_ds_ls_ls",
+                                                                   "seed_obj_type_lup", "server_1L_chr","treat_as_words_chr")) %>%
+                                                 list()),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for encapsulating the metadata required for package set-up.",
+                                               make_s3_lgl = T,
+                                               name_stub_chr = "manifest",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list("ready4fun_metadata_a()",
+                                                              "ready4fun_metadata_b()") %>%
+                                                 stats::setNames(c("initial_ls","subsequent_ls")) %>% list()
+  ),
+  ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for declaring package description file data.",#S3
+                                               make_s3_lgl = T,#F
+                                               name_stub_chr = "dataset",
+                                               pt_chkr_pfx_ls = list(list("is.")),
+                                               pt_ls = list(list("list")),
+                                               pt_ns_ls = list(list("base")),
+                                               vals_ls = list("data.frame()","character(0)","character(0)","character(0)", "ready4fun_abbreviations()",
+                                                              "character(0)","ready4fun_abbreviations()","logical(0)","character(0)","list()") %>%
+                                                 stats::setNames(c("db_df","db_1L_chr","title_1L_chr","desc_1L_chr", "abbreviations_lup",
+                                                                   "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
+  ready4class::ready4class_constructor()
 manifest_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
-                                       #badges_lup = badges_lup,
-                                       build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
-                                       check_type_1L_chr = "standard",
-                                       cls_fn_ls = NULL,
-                                   # list(fn = ready4class::author.ready4class_constructor,
-                                   #                      args_ls = list(x = constructor_r3)),
-                                       classify_1L_lgl = F, ###
+                                   #badges_lup = badges_lup,
+                                   build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
+                                   check_type_1L_chr = "standard",
+                                   cls_fn_ls = list(fn = ready4class::author.ready4class_constructor,
+                                        args_ls = list(x = constructor_r3)),
+                                   classify_1L_lgl = F, ###
                                    custom_dmt_ls = fns_env_ls$fns_env$make_custom_dmt_ls(user_manual_fns_chr = c("add_new_cls_pts",
                                                                                                                  "get_dv_fls_urls", "get_from_lup_obj", "get_rds_from_dv",
                                                                                                                  "make_addl_pkgs_ls","make_build_ignore_ls", "make_pkg_desc_ls", "make_pkg_ds_ls","make_manifest",
                                                                                                                  "update_abbr_lup", "update_msng_abbrs",
                                                                                                                  "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package", "write_ws")),
-                                       copyright_holders_chr = "Orygen",
-                                       inc_pkg_meta_data_1L_lgl = T, ###
-                                       lifecycle_stage_1L_chr = "experimental",
-                                       path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
-                                       path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-                                       pkg_dmt_dv_dss_chr = c("https://doi.org/10.7910/DVN/HLLXZN",
-                                                              "https://doi.org/10.7910/DVN/2Y9VF9"),
-                                       pkg_ds_ls_ls = pkg_ds_ls_ls,
-                                       ready4_type_1L_chr = "authoring")
+                                   copyright_holders_chr = "Orygen",
+                                   inc_pkg_meta_data_1L_lgl = T, ###
+                                   lifecycle_stage_1L_chr = "experimental",
+                                   path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
+                                   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
+                                   pkg_dmt_dv_dss_chr = c("https://doi.org/10.7910/DVN/HLLXZN",
+                                                          "https://doi.org/10.7910/DVN/2Y9VF9"),
+                                   pkg_ds_ls_ls = pkg_ds_ls_ls,
+                                   ready4_type_1L_chr = "authoring")
 #
 # 5. Add content to and document the package
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
-                                                 list_generics_1L_lgl = T,
-                                                 self_serve_1L_lgl = T)
+                                                list_generics_1L_lgl = T,
+                                                self_serve_1L_lgl = T)
 # manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,
 #                                                    #classes_to_make_tb = classes_to_make_tb,
 #                                                    long_name_chr = c("ready4fun R package"),

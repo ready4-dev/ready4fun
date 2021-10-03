@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Author and Document Functions for Open and Modular Mental Health
     Simulations
-Version: 0.0.0.9426
+Version: 0.0.0.9427
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -49,6 +49,7 @@ Imports:
     testit,
     testthat,
     tibble,
+    tidyr,
     tools,
     usethis,
     utils,

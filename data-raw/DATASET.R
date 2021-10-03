@@ -132,11 +132,11 @@ constructor_r3 <- dplyr::bind_rows(
                                                vals_ls = list("ready4fun_abbreviations()","list()", "list()",
                                                               "ready4fun_executor()","list()","character(0)",
                                                               "list()",
-                                                              "character(0)", "character(0)","tibble()","tibble()",
+                                                              "character(0)", "character(0)","tibble::tibble()","tibble::tibble()",
                                                               "character(0)","logical(0)","ready4fun_abbreviations()",
                                                               "character(0)",
                                                               "character(0)", "list()",
-                                                              "tibble()","character(0)", "character(0)") %>%
+                                                              "tibble::tibble()","character(0)", "character(0)") %>%
                                                  stats::setNames(c("abbreviations_lup","addl_pkgs_ls","build_ignore_ls",
                                                                    "cls_fn_ls","custom_dmt_ls", "dev_pkgs_chr",
                                                                    "dss_records_ls",

@@ -14,15 +14,15 @@ make_pt_ready4fun_metadata_b(
   dss_records_ls = list(),
   dv_ds_nm_1L_chr = character(0),
   dv_url_pfx_1L_chr = character(0),
-  fn_types_lup = tibble(),
-  fns_dmt_tb = tibble(),
+  fn_types_lup = tibble::tibble(),
+  fns_dmt_tb = tibble::tibble(),
   import_from_chr = character(0),
   inc_pkg_meta_data_1L_lgl = logical(0),
   object_type_lup = ready4fun_abbreviations(),
   path_to_dmt_dir_1L_chr = character(0),
   pkg_dmt_dv_dss_chr = character(0),
   pkg_ds_ls_ls = list(),
-  seed_obj_type_lup = tibble(),
+  seed_obj_type_lup = tibble::tibble(),
   server_1L_chr = character(0),
   treat_as_words_chr = character(0)
 )
@@ -46,9 +46,9 @@ make_pt_ready4fun_metadata_b(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
-\item{fn_types_lup}{Function types (a lookup table), Default: tibble()}
+\item{fn_types_lup}{Function types (a lookup table), Default: tibble::tibble()}
 
-\item{fns_dmt_tb}{Functions documentation (a tibble), Default: tibble()}
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: tibble::tibble()}
 
 \item{import_from_chr}{Import from (a character vector), Default: character(0)}
 
@@ -62,7 +62,7 @@ make_pt_ready4fun_metadata_b(
 
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list()}
 
-\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: tibble()}
+\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: tibble::tibble()}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: character(0)}
 

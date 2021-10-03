@@ -35,21 +35,22 @@ x
 #' @param dss_records_ls Datasets records (a list), Default: list()
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: character(0)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param fn_types_lup Function types (a lookup table), Default: tibble()
-#' @param fns_dmt_tb Functions documentation (a tibble), Default: tibble()
+#' @param fn_types_lup Function types (a lookup table), Default: tibble::tibble()
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: tibble::tibble()
 #' @param import_from_chr Import from (a character vector), Default: character(0)
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: logical(0)
 #' @param object_type_lup Object type (a lookup table), Default: ready4fun_abbreviations()
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: character(0)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector), Default: character(0)
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
-#' @param seed_obj_type_lup Seed object type (a lookup table), Default: tibble()
+#' @param seed_obj_type_lup Seed object type (a lookup table), Default: tibble::tibble()
 #' @param server_1L_chr Server (a character vector of length one), Default: character(0)
 #' @param treat_as_words_chr Treat as words (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
 #' @rdname make_pt_ready4fun_metadata_b
 #' @export 
+#' @importFrom tibble tibble
 #' @importFrom rlang exec
 make_pt_ready4fun_metadata_b <- function(abbreviations_lup = ready4fun_abbreviations(),
 addl_pkgs_ls = list(),
@@ -60,15 +61,15 @@ dev_pkgs_chr = character(0),
 dss_records_ls = list(),
 dv_ds_nm_1L_chr = character(0),
 dv_url_pfx_1L_chr = character(0),
-fn_types_lup = tibble(),
-fns_dmt_tb = tibble(),
+fn_types_lup = tibble::tibble(),
+fns_dmt_tb = tibble::tibble(),
 import_from_chr = character(0),
 inc_pkg_meta_data_1L_lgl = logical(0),
 object_type_lup = ready4fun_abbreviations(),
 path_to_dmt_dir_1L_chr = character(0),
 pkg_dmt_dv_dss_chr = character(0),
 pkg_ds_ls_ls = list(),
-seed_obj_type_lup = tibble(),
+seed_obj_type_lup = tibble::tibble(),
 server_1L_chr = character(0),
 treat_as_words_chr = character(0)){ 
 args_ls <- list(abbreviations_lup = abbreviations_lup,

@@ -14,12 +14,12 @@ make_pt_ready4fun_metadata_b(
   dss_records_ls = list(),
   dv_ds_nm_1L_chr = character(0),
   dv_url_pfx_1L_chr = character(0),
-  fns_dmt_tb = tibble(),
   fn_types_lup = tibble(),
+  fns_dmt_tb = tibble(),
   import_from_chr = character(0),
   inc_pkg_meta_data_1L_lgl = logical(0),
-  path_to_dmt_dir_1L_chr = character(0),
   object_type_lup = ready4fun_abbreviations(),
+  path_to_dmt_dir_1L_chr = character(0),
   pkg_dmt_dv_dss_chr = character(0),
   pkg_ds_ls_ls = list(),
   seed_obj_type_lup = tibble(),
@@ -46,17 +46,17 @@ make_pt_ready4fun_metadata_b(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
-\item{fns_dmt_tb}{Functions documentation (a tibble), Default: tibble()}
-
 \item{fn_types_lup}{Function types (a lookup table), Default: tibble()}
+
+\item{fns_dmt_tb}{Functions documentation (a tibble), Default: tibble()}
 
 \item{import_from_chr}{Import from (a character vector), Default: character(0)}
 
 \item{inc_pkg_meta_data_1L_lgl}{Include package meta data (a logical vector of length one), Default: logical(0)}
 
-\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: character(0)}
-
 \item{object_type_lup}{Object type (a lookup table), Default: ready4fun_abbreviations()}
+
+\item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: character(0)}
 
 \item{pkg_dmt_dv_dss_chr}{Package documentation dataverse datasets (a character vector), Default: character(0)}
 

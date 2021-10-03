@@ -35,12 +35,12 @@ x
 #' @param dss_records_ls Datasets records (a list), Default: list()
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: character(0)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param fns_dmt_tb Functions documentation (a tibble), Default: tibble()
 #' @param fn_types_lup Function types (a lookup table), Default: tibble()
+#' @param fns_dmt_tb Functions documentation (a tibble), Default: tibble()
 #' @param import_from_chr Import from (a character vector), Default: character(0)
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: logical(0)
-#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: character(0)
 #' @param object_type_lup Object type (a lookup table), Default: ready4fun_abbreviations()
+#' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: character(0)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector), Default: character(0)
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
 #' @param seed_obj_type_lup Seed object type (a lookup table), Default: tibble()
@@ -60,12 +60,12 @@ dev_pkgs_chr = character(0),
 dss_records_ls = list(),
 dv_ds_nm_1L_chr = character(0),
 dv_url_pfx_1L_chr = character(0),
-fns_dmt_tb = tibble(),
 fn_types_lup = tibble(),
+fns_dmt_tb = tibble(),
 import_from_chr = character(0),
 inc_pkg_meta_data_1L_lgl = logical(0),
-path_to_dmt_dir_1L_chr = character(0),
 object_type_lup = ready4fun_abbreviations(),
+path_to_dmt_dir_1L_chr = character(0),
 pkg_dmt_dv_dss_chr = character(0),
 pkg_ds_ls_ls = list(),
 seed_obj_type_lup = tibble(),
@@ -80,12 +80,12 @@ dev_pkgs_chr = dev_pkgs_chr,
 dss_records_ls = dss_records_ls,
 dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
 dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-fns_dmt_tb = fns_dmt_tb,
 fn_types_lup = fn_types_lup,
+fns_dmt_tb = fns_dmt_tb,
 import_from_chr = import_from_chr,
 inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,
-path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
 object_type_lup = object_type_lup,
+path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
 pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
 pkg_ds_ls_ls = pkg_ds_ls_ls,
 seed_obj_type_lup = seed_obj_type_lup,

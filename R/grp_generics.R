@@ -58,18 +58,6 @@ enhance <- function (x, ...)
     UseMethod("enhance", x)
 }
 methods::setGeneric("enhance")
-#' Envision
-#' @rdname envision-methods
-#' @description envision() is an Envision function that executes an algorithm for solving forward problems through simulation or prediction. Specifically, this function implements an algorithm to envision. The function is called for its side effects and does not return a value.
-#' @param x An object
-#' @param ... Additional arguments (an additional arguments)
-#' @export 
-
-envision <- function (x, ...) 
-{
-    UseMethod("envision", x)
-}
-methods::setGeneric("envision")
 #' Ingest
 #' @rdname ingest-methods
 #' @description ingest() is an Ingest function that imports objects in external file formats into R objects stored in working memory. Specifically, this function implements an algorithm to ingest. The function is called for its side effects and does not return a value.
@@ -130,6 +118,18 @@ procure <- function (x, ...)
     UseMethod("procure", x)
 }
 methods::setGeneric("procure")
+#' Prognosticate
+#' @rdname prognosticate-methods
+#' @description prognosticate() is a Prognosticate function that executes an algorithm for solving forward problems through simulation or prediction. Specifically, this function implements an algorithm to prognosticate. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+prognosticate <- function (x, ...) 
+{
+    UseMethod("prognosticate", x)
+}
+methods::setGeneric("prognosticate")
 #' Ratify
 #' @rdname ratify-methods
 #' @description ratify() is a Ratify function that checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid. Specifically, this function implements an algorithm to ratify. The function is called for its side effects and does not return a value.
@@ -178,3 +178,15 @@ report <- function (x, ...)
     UseMethod("report", x)
 }
 methods::setGeneric("report")
+#' Share
+#' @rdname share-methods
+#' @description share() is a Share function that processes output for public disemination and uploads to an online repository along with required metadata. Specifically, this function implements an algorithm to share. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+
+share <- function (x, ...) 
+{
+    UseMethod("share", x)
+}
+methods::setGeneric("share")

@@ -1,9 +1,9 @@
 home:
   links:
   - text: Manual - User (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5210279
+    href: https://dataverse.harvard.edu/api/access/datafile/5210281
   - text: Manual - Developer (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5210278
+    href: https://dataverse.harvard.edu/api/access/datafile/5210280
   - text: Project website
     href:  https://www.ready4-dev.com/
 development:
@@ -18,14 +18,6 @@ reference:
   - object_type_lup
 - title: "Classes"
 - contents:
-  - ready4fun_pkg_setup_one
-  - ready4fun_pkg_setup_two
-  - ready4fun_pkg_setup
-  - ready4fun_fn_ls
-  - ready4fun_pkg_desc
-  - ready4fun_manifest_one
-  - ready4fun_manifest_two
-  - ready4fun_pkg_ds
   - ready4fun_badges
   - ready4fun_abbreviations
   - ready4fun_executor

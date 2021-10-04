@@ -14,7 +14,7 @@ get_all_depcys_of_fns <- function(pkg_depcy_ls,
 }
 get_arg_obj_type <- function(argument_nm_1L_chr,
                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = NULL,
+                             dv_url_pfx_1L_chr = character(0),
                              key_1L_chr = NULL,
                              object_type_lup = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -45,10 +45,10 @@ get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = "."){
 }
 get_dv_fls_urls <- function(file_nms_chr,
                             dv_ds_nm_1L_chr,
-                            dv_url_pfx_1L_chr = NULL,
+                            dv_url_pfx_1L_chr = character(0),
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                             key_1L_chr = NULL){
-  if(is.null(dv_url_pfx_1L_chr))
+  if(identical(dv_url_pfx_1L_chr, character(0)))
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,
                                 "/api/access/datafile/")
@@ -288,7 +288,7 @@ get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S
 }
 get_obj_type_new_cses <- function(updated_obj_type_lup,
                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                  dv_url_pfx_1L_chr = NULL,
+                                  dv_url_pfx_1L_chr = character(0),
                                   excluded_chr = NA_character_,
                                   key_1L_chr = NULL,
                                   old_obj_type_lup = NULL,
@@ -309,7 +309,7 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
 get_outp_obj_type <- function(fns_chr,
                               abbreviations_lup,
                               dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                              dv_url_pfx_1L_chr = NULL,
+                              dv_url_pfx_1L_chr = character(0),
                               fns_env_ls,
                               is_generic_lgl = F,
                               key_1L_chr = NULL,
@@ -353,10 +353,10 @@ get_r4_obj_slots <- function(fn_name_1L_chr,
 }
 get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                            dv_url_pfx_1L_chr = NULL,
+                            dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-  if(is.null(dv_url_pfx_1L_chr))
+  if(identical(dv_url_pfx_1L_chr, character(0)))
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,
                                 "/api/access/datafile/")

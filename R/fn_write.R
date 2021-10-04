@@ -11,7 +11,7 @@
 #'    desc_chr = character(0), url_chr = character(0))
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
@@ -26,7 +26,7 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
     object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
     pkg_nm_1L_chr = get_dev_pkg_nm(), dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     url_1L_chr = deprecated()) 
 {
     if (lifecycle::is_present(url_1L_chr)) {
@@ -132,7 +132,7 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Package datasets (a tibble)
@@ -146,7 +146,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -293,7 +293,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' Write classes
 #' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
@@ -307,7 +307,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @importFrom rlang exec
 #' @importFrom devtools document load_all
 #' @keywords internal
-write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
     self_serve_1L_lgl = F, self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     cls_fn_ls = deprecated(), dss_records_ls = deprecated()) 
 {
@@ -378,7 +378,7 @@ write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NUL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return NULL
@@ -392,7 +392,7 @@ write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = deprecated(), 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (lifecycle::is_present(url_1L_chr)) {
@@ -456,7 +456,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return NULL
@@ -468,7 +468,7 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
     simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -881,7 +881,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @description write_manuals() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -893,7 +893,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @importFrom purrr pluck
 #' @keywords internal
 write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(), 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, publish_dv_1L_lgl = T, 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, publish_dv_1L_lgl = T, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), pkg_desc_ls = deprecated()) 
 {
     if (lifecycle::is_present(pkg_desc_ls)) {
@@ -1350,7 +1350,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' Write package
 #' @description write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: F
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
@@ -1366,7 +1366,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
     list_generics_1L_lgl = F, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     cls_fn_ls = deprecated(), path_to_dmt_dir_1L_chr = deprecated(), 
@@ -1439,7 +1439,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: deprecated()
@@ -1457,7 +1457,7 @@ write_pkg <- function (package_1L_chr, R_dir_1L_chr = "R")
 write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL, 
     inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), R_dir_1L_chr = "R", 
     undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     dev_pkg_nm_1L_chr = deprecated(), dv_ds_nm_1L_chr = deprecated(), 
     inc_pkg_meta_data_1L_lgl = deprecated(), pkg_ds_ls_ls = deprecated(), 
     pkg_url_1L_chr = deprecated()) 
@@ -1478,7 +1478,7 @@ write_pkg_dss <- function (pkg_setup_ls, args_ls_ls = NULL, details_ls = NULL,
             write_dmtd_fn_type_lup(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
                 pkg_dss_tb = pkg_dss_tb, dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-                dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, 
+                dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
                 server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
     }
     if (!is.null(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)) {

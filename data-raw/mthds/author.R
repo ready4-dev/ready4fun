@@ -1,5 +1,5 @@
 author.ready4fun_manifest <- function(x,
-                                      dv_url_pfx_1L_chr = NULL,
+                                      dv_url_pfx_1L_chr = character(0),
                                       key_1L_chr = NULL,
                                       list_generics_1L_lgl = F,
                                       self_serve_1L_lgl = F,

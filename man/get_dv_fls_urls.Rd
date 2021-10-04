@@ -7,7 +7,7 @@
 get_dv_fls_urls(
   file_nms_chr,
   dv_ds_nm_1L_chr,
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   key_1L_chr = NULL
 )
@@ -17,7 +17,7 @@ get_dv_fls_urls(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one)}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 

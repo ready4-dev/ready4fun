@@ -7,7 +7,7 @@
 get_obj_type_new_cses(
   updated_obj_type_lup,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   excluded_chr = NA_character_,
   key_1L_chr = NULL,
   old_obj_type_lup = NULL,
@@ -19,7 +19,7 @@ get_obj_type_new_cses(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{excluded_chr}{Excluded (a character vector), Default: 'NA'}
 

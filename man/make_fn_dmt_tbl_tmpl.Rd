@@ -11,7 +11,7 @@ make_fn_dmt_tbl_tmpl(
   fn_types_lup = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   object_type_lup = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
@@ -31,7 +31,7 @@ make_fn_dmt_tbl_tmpl(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

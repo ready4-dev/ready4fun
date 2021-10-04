@@ -11,7 +11,7 @@ renew(x, ...)
 renew.ready4fun_manifest(
   x,
   type_1L_chr,
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
@@ -19,7 +19,7 @@ renew.ready4fun_manifest(
 \S4method{renew}{ready4fun_manifest}(
   x,
   type_1L_chr,
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
@@ -31,7 +31,7 @@ renew.ready4fun_manifest(
 
 \item{type_1L_chr}{Type (a character vector of length one)}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

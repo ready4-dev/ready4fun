@@ -7,7 +7,7 @@
 write_manuals(
   pkg_setup_ls,
   path_to_dmt_dir_1L_chr = deprecated(),
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   publish_dv_1L_lgl = T,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
@@ -19,7 +19,7 @@ write_manuals(
 
 \item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: deprecated()}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

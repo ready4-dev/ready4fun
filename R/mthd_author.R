@@ -1,7 +1,7 @@
 #' Author method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
 #' @description author.ready4fun_manifest() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: F
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
@@ -11,8 +11,9 @@
 #' @rdname author-methods
 #' @export 
 
-author.ready4fun_manifest <- function (x, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, list_generics_1L_lgl = F, 
-    self_serve_1L_lgl = F, self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+author.ready4fun_manifest <- function (x, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
+    list_generics_1L_lgl = F, self_serve_1L_lgl = F, self_serve_fn_ls = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     x <- ratify(x)
     if (!is.null(x$problems_ls)) {

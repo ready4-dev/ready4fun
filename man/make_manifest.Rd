@@ -9,21 +9,21 @@ make_manifest(
   copyright_holders_chr,
   pkg_dmt_dv_dss_chr,
   add_gh_site_1L_lgl = T,
-  addl_badges_ls = NULL,
+  addl_badges_ls = list(),
   addl_pkgs_ls = make_addl_pkgs_ls(),
-  badges_lup = NULL,
+  badges_lup = tibble::tibble(),
   build_ignore_ls = make_build_ignore_ls(),
   check_type_1L_chr = "ready4",
   classify_1L_lgl = T,
-  cls_fn_ls = NULL,
+  cls_fn_ls = list(),
   custom_dmt_ls = make_custom_dmt_ls(),
   delete_r_dir_cnts_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   dev_pkgs_chr = NA_character_,
-  dss_records_ls = NULL,
-  dv_url_pfx_1L_chr = NULL,
+  dss_records_ls = list(),
+  dv_url_pfx_1L_chr = character(0),
   gh_repo_1L_chr = NA_character_,
-  import_from_chr = NULL,
+  import_from_chr = character(0),
   lifecycle_stage_1L_chr = "experimental",
   inc_pkg_meta_data_1L_lgl = F,
   incr_ver_1L_lgl = F,
@@ -32,7 +32,7 @@ make_manifest(
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
-  pkg_ds_ls_ls = NULL,
+  pkg_ds_ls_ls = list,
   ready4_type_1L_chr,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   user_manual_fns_chr = NA_character_
@@ -47,11 +47,11 @@ make_manifest(
 
 \item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: T}
 
-\item{addl_badges_ls}{Additional badges (a list), Default: NULL}
+\item{addl_badges_ls}{Additional badges (a list), Default: list()}
 
 \item{addl_pkgs_ls}{Additional packages (a list), Default: make_addl_pkgs_ls()}
 
-\item{badges_lup}{Badges (a lookup table), Default: NULL}
+\item{badges_lup}{Badges (a lookup table), Default: tibble::tibble()}
 
 \item{build_ignore_ls}{Build ignore (a list), Default: make_build_ignore_ls()}
 
@@ -59,7 +59,7 @@ make_manifest(
 
 \item{classify_1L_lgl}{Classify (a logical vector of length one), Default: T}
 
-\item{cls_fn_ls}{Class (a list of functions), Default: NULL}
+\item{cls_fn_ls}{Class (a list of functions), Default: list()}
 
 \item{custom_dmt_ls}{Custom documentation (a list), Default: make_custom_dmt_ls()}
 
@@ -69,13 +69,13 @@ make_manifest(
 
 \item{dev_pkgs_chr}{Development packages (a character vector), Default: 'NA'}
 
-\item{dss_records_ls}{Datasets records (a list), Default: NULL}
+\item{dss_records_ls}{Datasets records (a list), Default: list()}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: 'NA'}
 
-\item{import_from_chr}{Import from (a character vector), Default: NULL}
+\item{import_from_chr}{Import from (a character vector), Default: character(0)}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
@@ -93,7 +93,7 @@ make_manifest(
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
-\item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: NULL}
+\item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list}
 
 \item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
 

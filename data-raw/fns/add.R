@@ -20,7 +20,7 @@ add_build_ignore <- function(build_ignore_ls){
   }
 }
 add_fns_dmt_tb <- function(pkg_setup_ls,
-                           dv_url_pfx_1L_chr = NULL,
+                           dv_url_pfx_1L_chr = character(0),
                            fns_env_ls = NULL,
                            inc_methods_1L_lgl = F,
                            key_1L_chr = NULL,

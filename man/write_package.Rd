@@ -6,7 +6,7 @@
 \usage{
 write_package(
   pkg_setup_ls,
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   list_generics_1L_lgl = F,
   publish_dv_1L_lgl = T,
@@ -22,7 +22,7 @@ write_package(
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

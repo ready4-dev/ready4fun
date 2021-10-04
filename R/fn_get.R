@@ -25,7 +25,7 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
 #' @description get_arg_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get argument object type. Function argument argument_nm_1L_chr specifies the where to look for the required object. The function returns Argument object type (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -35,7 +35,7 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
 #' @importFrom dplyr filter mutate pull
 #' @keywords internal
 get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, object_type_lup = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
@@ -74,7 +74,7 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
 #' @description get_dv_fls_urls() is a Get Data function that retrieves data from R objects loaded in memory. Specifically, this function implements an algorithm to get dataverse files urls. The function returns Urls (a character vector).
 #' @param file_nms_chr File names (a character vector)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @return Urls (a character vector)
@@ -82,10 +82,10 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
 #' @export 
 #' @importFrom dataverse dataset_files
 #' @importFrom purrr map_chr
-get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = NULL, 
+get_dv_fls_urls <- function (file_nms_chr, dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = character(0), 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), key_1L_chr = NULL) 
 {
-    if (is.null(dv_url_pfx_1L_chr)) 
+    if (identical(dv_url_pfx_1L_chr, character(0))) 
         dv_url_pfx_1L_chr <- paste0("https://", server_1L_chr, 
             "/api/access/datafile/")
     ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr, server = server_1L_chr, 
@@ -226,6 +226,7 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @rdname get_new_abbrs
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
+#' @importFrom tibble tibble
 #' @importFrom purrr map flatten_chr discard
 #' @keywords internal
 get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthds_1L_lgl = T, 
@@ -237,7 +238,7 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
         lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::get_new_abbrs(fns_dmt_tb)", 
             details = "Please use `ready4fun::get_new_abbrs(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
     }
-    if (is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb)) 
+    if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) 
         pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
             custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, 
@@ -372,7 +373,7 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
 #' @description get_obj_type_new_cses() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type new cases. Function argument updated_obj_type_lup specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
 #' @param updated_obj_type_lup Updated object type (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param excluded_chr Excluded (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param old_obj_type_lup Old object type (a lookup table), Default: NULL
@@ -383,8 +384,8 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
 #' @importFrom dplyr filter
 #' @keywords internal
 get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, excluded_chr = NA_character_, key_1L_chr = NULL, 
-    old_obj_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_url_pfx_1L_chr = character(0), excluded_chr = NA_character_, 
+    key_1L_chr = NULL, old_obj_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(old_obj_type_lup)) 
         old_obj_type_lup <- get_rds_from_dv("object_type_lup", 
@@ -402,7 +403,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
 #' @param fns_chr Functions (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param fns_env_ls Functions (a list of environments)
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
@@ -414,7 +415,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "http
 #' @importFrom purrr map2_chr
 #' @keywords internal
 get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, fns_env_ls, is_generic_lgl = F, 
+    dv_url_pfx_1L_chr = character(0), fns_env_ls, is_generic_lgl = F, 
     key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
@@ -464,7 +465,7 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @description get_rds_from_dv() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from dataverse. Function argument file_nm_1L_chr specifies the where to look for the required object. The function returns R object (an output object of multiple potential types).
 #' @param file_nm_1L_chr File name (a character vector of length one)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return R object (an output object of multiple potential types)
@@ -473,9 +474,9 @@ get_r4_obj_slots <- function (fn_name_1L_chr, package_1L_chr = "")
 #' @importFrom dataverse dataset_files
 #' @importFrom purrr map_chr
 get_rds_from_dv <- function (file_nm_1L_chr, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
-    if (is.null(dv_url_pfx_1L_chr)) 
+    if (identical(dv_url_pfx_1L_chr, character(0))) 
         dv_url_pfx_1L_chr <- paste0("https://", server_1L_chr, 
             "/api/access/datafile/")
     ds_ls <- dataverse::dataset_files(dv_ds_nm_1L_chr, server = server_1L_chr, 

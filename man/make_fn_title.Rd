@@ -9,7 +9,7 @@ make_fn_title(
   object_type_lup = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   is_generic_lgl = F,
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
@@ -24,7 +24,7 @@ make_fn_title(
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{is_generic_lgl}{Is generic (a logical vector), Default: F}
 

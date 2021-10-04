@@ -16,7 +16,7 @@ write_abbr_lup(
     desc_chr = character(0), url_chr = character(0)),
   pkg_nm_1L_chr = get_dev_pkg_nm(),
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   url_1L_chr = deprecated()
@@ -44,7 +44,7 @@ desc_chr = character(0), url_chr = character(0))}
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

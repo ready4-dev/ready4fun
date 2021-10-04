@@ -12,7 +12,7 @@ author(x, ...)
 
 author.ready4fun_manifest(
   x,
-  key_1L_chr = NULL,
+  key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = F,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL
@@ -20,7 +20,7 @@ author.ready4fun_manifest(
 
 \S4method{author}{ready4fun_manifest}(
   x,
-  key_1L_chr = NULL,
+  key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = F,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL
@@ -35,7 +35,7 @@ author.ready4fun_metadata_a(x)
 
 \item{...}{Additional arguments (an additional arguments)}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: F}
 

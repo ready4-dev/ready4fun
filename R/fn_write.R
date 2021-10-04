@@ -360,7 +360,8 @@ write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_c
             write_env_objs_to_dv(list(prototype_lup = prototype_lup), 
                 descriptions_chr = "Class prototype lookup table", 
                 ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-                key_1L_chr = key_1L_chr, publish_dv_1L_lgl = T)
+                key_1L_chr = key_1L_chr, publish_dv_1L_lgl = T, 
+                server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
         }
     }
     devtools::document()
@@ -1350,7 +1351,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @description write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: F
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
@@ -1365,7 +1366,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
+write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
     list_generics_1L_lgl = F, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     cls_fn_ls = deprecated(), path_to_dmt_dir_1L_chr = deprecated(), 

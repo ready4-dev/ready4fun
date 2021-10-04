@@ -1,9 +1,9 @@
 home:
   links:
   - text: Manual - User (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5210363
+    href: https://dataverse.harvard.edu/api/access/datafile/5210369
   - text: Manual - Developer (PDF)
-    href: https://dataverse.harvard.edu/api/access/datafile/5210362
+    href: https://dataverse.harvard.edu/api/access/datafile/5210368
   - text: Project website
     href:  https://www.ready4-dev.com/
 development:
@@ -70,7 +70,7 @@ reference:
   - author.ready4fun_metadata_a
   - authorClasses.ready4fun_manifest
   - authorData.ready4fun_manifest
-  - authorFunctions.ready4fun_Manifest
+  - authorFunctions.ready4fun_manifest
   - ratify.ready4fun_manifest
   - renew.ready4fun_manifest
   - report.ready4fun_manifest

@@ -7,7 +7,7 @@
 write_package(
   pkg_setup_ls,
   dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
+  key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = F,
   publish_dv_1L_lgl = T,
   self_serve_1L_lgl = F,
@@ -24,7 +24,7 @@ write_package(
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: F}
 

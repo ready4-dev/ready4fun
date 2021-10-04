@@ -355,7 +355,8 @@ write_clss <- function(pkg_setup_ls,
                            descriptions_chr = "Class prototype lookup table",
                            ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
                            key_1L_chr = key_1L_chr,
-                           publish_dv_1L_lgl = T)
+                           publish_dv_1L_lgl = T,
+                           server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
     }
   }
   devtools::document()
@@ -1295,7 +1296,7 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
 }
 write_package <- function(pkg_setup_ls,
                           dv_url_pfx_1L_chr = character(0),
-                          key_1L_chr = NULL,
+                          key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                           list_generics_1L_lgl = F,
                           publish_dv_1L_lgl = T,
                           self_serve_1L_lgl = F,

@@ -2,18 +2,18 @@
 % Please edit documentation in R/grp_generics.R, R/mthd_authorFunctions.R
 \name{authorFunctions}
 \alias{authorFunctions}
-\alias{authorFunctions.ready4fun_Manifest}
-\alias{authorFunctions,ready4fun_Manifest-method}
+\alias{authorFunctions.ready4fun_manifest}
+\alias{authorFunctions,ready4fun_manifest-method}
 \title{AuthorFunctions}
 \usage{
 authorFunctions(x, ...)
 
-authorFunctions.ready4fun_Manifest(x, list_generics_1L_lgl = F)
+authorFunctions.ready4fun_manifest(x, list_generics_1L_lgl = F)
 
-\S4method{authorFunctions}{ready4fun_Manifest}(x, list_generics_1L_lgl = F)
+\S4method{authorFunctions}{ready4fun_manifest}(x, list_generics_1L_lgl = F)
 }
 \arguments{
-\item{x}{An instance of}
+\item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
 
 \item{...}{Additional arguments (an additional arguments)}
 
@@ -22,5 +22,5 @@ authorFunctions.ready4fun_Manifest(x, list_generics_1L_lgl = F)
 \description{
 authorFunctions() is an AuthorFunctions function that authors and saves files necessary for creating and documenting functions. Specifically, this function implements an algorithm to authorfunctions. The function is called for its side effects and does not return a value.
 
-authorFunctions.ready4fun_Manifest() is an AuthorFunctions function that authors and saves files necessary for creating and documenting functions. Specifically, this function implements an algorithm to authorfunctions.ready4fun manifest. The function is called for its side effects and does not return a value.
+authorFunctions.ready4fun_manifest() is an AuthorFunctions method that authors and saves files necessary for creating and documenting functions. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

@@ -81,7 +81,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                           fn_name_1L_chr,
                           fn_type_1L_chr,
                           import_chr,
-                          import_from_chr = NULL,
+                          import_from_chr = NA_character_,
                           #import_mthds_from_chr = NA_character_,
                           abbreviations_lup){
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr

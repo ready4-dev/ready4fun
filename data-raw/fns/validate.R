@@ -25,7 +25,7 @@ validate_pkg_setup <- function(pkg_setup_ls,
         pkg_setup_ls <- write_new_abbrs(pkg_setup_ls)
       }
     }
-    if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)){
+    if(!identical(manifest_ls$subsequent_ls$cls_fn_ls, list())){
       if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x)){
         missing_class_abbrs_chr <- setdiff(paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                                                   "_",

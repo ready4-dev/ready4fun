@@ -6,25 +6,19 @@
 \usage{
 add_fns_dmt_tb(
   pkg_setup_ls,
-  dv_url_pfx_1L_chr = NULL,
   fns_env_ls = NULL,
   inc_methods_1L_lgl = F,
-  key_1L_chr = NULL,
-  server_1L_chr = NULL
+  key_1L_chr = NULL
 )
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
-
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
 \item{inc_methods_1L_lgl}{Include methods (a logical vector of length one), Default: F}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
-
-\item{server_1L_chr}{Server (a character vector of length one), Default: NULL}
 }
 \value{
 Package setup (a list)

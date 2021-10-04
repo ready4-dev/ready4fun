@@ -19,7 +19,7 @@ make_arg_desc <- function(fn_args_chr,
                           object_type_lup = NULL,
                           abbreviations_lup = NULL,
                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                          dv_url_pfx_1L_chr = NULL,
+                          dv_url_pfx_1L_chr = character(0),
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
@@ -48,7 +48,7 @@ make_arg_desc_ls <- function(fn_nms_chr,
                              fns_env_ls,
                              abbreviations_lup = NULL,
                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = NULL,
+                             dv_url_pfx_1L_chr = character(0),
                              key_1L_chr = NULL,
                              object_type_lup = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -87,7 +87,7 @@ make_arg_desc_spine <- function(argument_nm_1L_chr,
                                 object_type_lup = NULL,
                                 abbreviations_lup = NULL,
                                 dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                dv_url_pfx_1L_chr = NULL,
+                                dv_url_pfx_1L_chr = character(0),
                                 key_1L_chr = NULL,
                                 master_object_type_lup = NULL,
                                 server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -132,7 +132,7 @@ make_arg_title <- function(args_chr,
                            object_type_lup = NULL,
                            abbreviations_lup = NULL,
                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                           dv_url_pfx_1L_chr = NULL,
+                           dv_url_pfx_1L_chr = character(0),
                            key_1L_chr = NULL,
                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
@@ -175,7 +175,7 @@ make_arg_type_abbr <- function(fn_args_chr,
                                object_type_lup = NULL,
                                abbreviations_lup = NULL,
                                dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                               dv_url_pfx_1L_chr = NULL,
+                               dv_url_pfx_1L_chr = character(0),
                                key_1L_chr = NULL,
                                server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){#
   if(is.null(abbreviations_lup))
@@ -214,7 +214,7 @@ make_arg_type <- function(fn_args_chr,
                           object_type_lup = NULL,
                           abbreviations_lup = NULL,
                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                          dv_url_pfx_1L_chr = NULL,
+                          dv_url_pfx_1L_chr = character(0),
                           fn,
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -263,7 +263,7 @@ make_arg_type <- function(fn_args_chr,
 }
 make_arg_type_lup_ls <- function(object_type_lup = NULL,
                                  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                 dv_url_pfx_1L_chr = NULL,
+                                 dv_url_pfx_1L_chr = character(0),
                                  key_1L_chr = NULL,
                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
@@ -511,7 +511,7 @@ make_fn_dmt_tbl <- function(fns_path_chr,
                             fn_types_lup = NULL,
                             abbreviations_lup = NULL,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                            dv_url_pfx_1L_chr = NULL,
+                            dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             object_type_lup = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
@@ -550,7 +550,7 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
                                  fn_types_lup = NULL,
                                  abbreviations_lup = NULL,
                                  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                 dv_url_pfx_1L_chr = NULL,
+                                 dv_url_pfx_1L_chr = character(0),
                                  key_1L_chr = NULL,
                                  object_type_lup = NULL,
                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
@@ -779,7 +779,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                   doc_in_class_1L_lgl = F,
                                   abbreviations_lup = NULL,
                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                  dv_url_pfx_1L_chr = NULL,
+                                  dv_url_pfx_1L_chr = character(0),
                                   import_from_chr = NA_character_,
                                   #import_mthds_from_chr = NA_character_,
                                   key_1L_chr = NULL,
@@ -835,21 +835,21 @@ make_manifest <- function(pkg_desc_ls,
                           copyright_holders_chr,
                           pkg_dmt_dv_dss_chr,
                           add_gh_site_1L_lgl = T,
-                          addl_badges_ls = NULL,
+                          addl_badges_ls = list(),
                           addl_pkgs_ls = make_addl_pkgs_ls(),#
                           badges_lup = NULL,
                           build_ignore_ls = make_build_ignore_ls(),#
                           check_type_1L_chr = "ready4",
                           classify_1L_lgl = T,
-                          cls_fn_ls = NULL,
+                          cls_fn_ls = list(),
                           custom_dmt_ls = make_custom_dmt_ls(),
                           delete_r_dir_cnts_1L_lgl = T,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                           dev_pkgs_chr = NA_character_,
-                          dss_records_ls = NULL,
-                          dv_url_pfx_1L_chr = NULL,
+                          dss_records_ls = list(),
+                          dv_url_pfx_1L_chr = character(0),
                           gh_repo_1L_chr = NA_character_,
-                          import_from_chr = NULL,
+                          import_from_chr = NA_character_,
                           lifecycle_stage_1L_chr = "experimental",
                           inc_pkg_meta_data_1L_lgl = F,
                           incr_ver_1L_lgl = F,
@@ -858,7 +858,7 @@ make_manifest <- function(pkg_desc_ls,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           path_to_pkg_logo_1L_chr = NA_character_,
                           path_to_pkg_rt_1L_chr = getwd(),
-                          pkg_ds_ls_ls = NULL,
+                          pkg_ds_ls_ls = list(),
                           ready4_type_1L_chr, #
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                           user_manual_fns_chr = NA_character_){
@@ -883,7 +883,7 @@ make_manifest <- function(pkg_desc_ls,
   addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
     purrr::discard(is.null)
   if(length(addl_badges_ls)==0)
-    addl_badges_ls <- NULL
+    addl_badges_ls <- list()#NULL
   manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
 
                                         copyright_holders_chr = copyright_holders_chr,
@@ -940,18 +940,18 @@ make_manifest <- function(pkg_desc_ls,
                                                                                 key_1L_chr = key_1L_chr,
                                                                                 server_1L_chr = server_1L_chr)))
   if(classify_1L_lgl){
-    if(!"ready4class_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
+    if(!"ready4fun_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
       manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% ready4fun_badges()
-    if(!"ready4class_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))
+    if(!"ready4fun_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))
       manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% ready4fun_description()
     manifest_ls$initial_ls <- manifest_ls$initial_ls %>% ready4fun_metadata_a()
-    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
+    if(!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup))
       manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>%
       ready4fun_abbreviations()
-    if(!"ready4class_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
+    if(!identical(manifest_ls$subsequent_ls$cls_fn_ls, list()) &!"ready4fun_executor" %in% class (manifest_ls$subsequent_ls$cls_fn_ls))
       manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>%
       ready4fun_executor()
-    if(!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
+    if(!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup))
       manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>%
       ready4fun_abbreviations()
     manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% ready4fun_metadata_b()
@@ -969,7 +969,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
                             fn = NULL,
                             abbreviations_lup = NULL,
                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                            dv_url_pfx_1L_chr = NULL,
+                            dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             object_type_lup = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){

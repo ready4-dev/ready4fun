@@ -26,7 +26,7 @@ make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Argument description (a character vector)
@@ -35,7 +35,7 @@ make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_
 
 #' @keywords internal
 make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -58,7 +58,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @param fns_env_ls Functions (a list of environments)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -69,7 +69,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @importFrom stats setNames
 #' @keywords internal
 make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, object_type_lup = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -100,7 +100,7 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param master_object_type_lup Master object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -110,7 +110,7 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
 
 #' @keywords internal
 make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, master_object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -147,7 +147,7 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Title (a character vector)
@@ -159,7 +159,7 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
 #' @importFrom Hmisc capitalize
 #' @keywords internal
 make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -188,7 +188,7 @@ make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbrevi
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param fn Function (a function)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -200,7 +200,7 @@ make_arg_title <- function (args_chr, match_chr, object_type_lup = NULL, abbrevi
 #' @importFrom rlang exec
 #' @keywords internal
 make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     fn, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -239,7 +239,7 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Argument type abbreviation (a character vector)
@@ -248,7 +248,7 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 
 #' @keywords internal
 make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -286,7 +286,7 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, object_type_lup)
 #' @description make_arg_type_lup_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument type lookup table list. The function returns Lookup table list (a list of lookup tables).
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Lookup table list (a list of lookup tables)
@@ -296,7 +296,7 @@ make_arg_type_abbr_spine <- function (argument_nm_1L_chr, object_type_lup)
 #' @importFrom purrr map
 #' @keywords internal
 make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(object_type_lup)) 
         object_type_lup <- get_rds_from_dv("object_type_lup", 
@@ -554,7 +554,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -568,7 +568,7 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
 make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     custom_dmt_ls = make_custom_dmt_ls(), append_1L_lgl = T, 
     fns_env_ls = NULL, fn_types_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     test_for_write_R_warning_fn = NULL) 
 {
@@ -602,7 +602,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -618,7 +618,7 @@ make_fn_dmt_tbl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr
 #' @keywords internal
 make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     fns_env_ls = NULL, fn_types_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
     key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     test_for_write_R_warning_fn = NULL) 
 {
@@ -829,7 +829,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @param doc_in_class_1L_lgl Document in class (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param import_from_chr Import from (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -844,7 +844,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
     details_1L_chr = "DETAILS", args_ls = NULL, import_chr = NA_character_, 
     doc_in_class_1L_lgl = F, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, import_from_chr = NA_character_, 
+    dv_url_pfx_1L_chr = character(0), import_from_chr = NA_character_, 
     key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
@@ -893,21 +893,21 @@ make_list_phrase <- function (items_chr)
 #' @param copyright_holders_chr Copyright holders (a character vector)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector)
 #' @param add_gh_site_1L_lgl Add github site (a logical vector of length one), Default: T
-#' @param addl_badges_ls Additional badges (a list), Default: NULL
+#' @param addl_badges_ls Additional badges (a list), Default: list()
 #' @param addl_pkgs_ls Additional packages (a list), Default: make_addl_pkgs_ls()
 #' @param badges_lup Badges (a lookup table), Default: NULL
 #' @param build_ignore_ls Build ignore (a list), Default: make_build_ignore_ls()
 #' @param check_type_1L_chr Check type (a character vector of length one), Default: 'ready4'
 #' @param classify_1L_lgl Classify (a logical vector of length one), Default: T
-#' @param cls_fn_ls Class (a list of functions), Default: NULL
+#' @param cls_fn_ls Class (a list of functions), Default: list()
 #' @param custom_dmt_ls Custom documentation (a list), Default: make_custom_dmt_ls()
 #' @param delete_r_dir_cnts_1L_lgl Delete r directory contents (a logical vector of length one), Default: T
 #' @param dev_pkg_nm_1L_chr Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())
 #' @param dev_pkgs_chr Development packages (a character vector), Default: 'NA'
-#' @param dss_records_ls Datasets records (a list), Default: NULL
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dss_records_ls Datasets records (a list), Default: list()
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
-#' @param import_from_chr Import from (a character vector), Default: NULL
+#' @param import_from_chr Import from (a character vector), Default: 'NA'
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
 #' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
@@ -916,7 +916,7 @@ make_list_phrase <- function (items_chr)
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: NULL
+#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
 #' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
@@ -927,17 +927,18 @@ make_list_phrase <- function (items_chr)
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
-    add_gh_site_1L_lgl = T, addl_badges_ls = NULL, addl_pkgs_ls = make_addl_pkgs_ls(), 
+    add_gh_site_1L_lgl = T, addl_badges_ls = list(), addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-    check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = NULL, 
+    check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = list(), 
     custom_dmt_ls = make_custom_dmt_ls(), delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
-    dss_records_ls = NULL, dv_url_pfx_1L_chr = NULL, gh_repo_1L_chr = NA_character_, 
-    import_from_chr = NULL, lifecycle_stage_1L_chr = "experimental", 
-    inc_pkg_meta_data_1L_lgl = F, incr_ver_1L_lgl = F, key_1L_chr = NULL, 
-    on_cran_1L_lgl = F, path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
+    dss_records_ls = list(), dv_url_pfx_1L_chr = character(0), 
+    gh_repo_1L_chr = NA_character_, import_from_chr = NA_character_, 
+    lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
+    incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
+    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
-    pkg_ds_ls_ls = NULL, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    pkg_ds_ls_ls = list(), ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     user_manual_fns_chr = NA_character_) 
 {
     if (length(pkg_dmt_dv_dss_chr) < 2) {
@@ -958,7 +959,7 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
             stringr::str_remove("https://github.com/")
     addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
     if (length(addl_badges_ls) == 0) 
-        addl_badges_ls <- NULL
+        addl_badges_ls <- list()
     manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
         copyright_holders_chr = copyright_holders_chr, gh_repo_1L_chr = gh_repo_1L_chr, 
         add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 
@@ -990,21 +991,22 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)))
     if (classify_1L_lgl) {
-        if (!"ready4class_badges" %in% class(manifest_ls$subsequent_ls$badges_lup)) 
+        if (!"ready4fun_badges" %in% class(manifest_ls$subsequent_ls$badges_lup)) 
             manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% 
                 ready4fun_badges()
-        if (!"ready4class_description" %in% class(manifest_ls$subsequent_ls$pkg_desc_ls)) 
+        if (!"ready4fun_description" %in% class(manifest_ls$subsequent_ls$pkg_desc_ls)) 
             manifest_ls$initial_ls$pkg_desc_ls <- manifest_ls$initial_ls$pkg_desc_ls %>% 
                 ready4fun_description()
         manifest_ls$initial_ls <- manifest_ls$initial_ls %>% 
             ready4fun_metadata_a()
-        if (!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup)) 
+        if (!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup)) 
             manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>% 
                 ready4fun_abbreviations()
-        if (!"ready4class_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
+        if (!identical(manifest_ls$subsequent_ls$cls_fn_ls, list()) & 
+            !"ready4fun_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
             manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>% 
                 ready4fun_executor()
-        if (!"ready4class_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup)) 
+        if (!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup)) 
             manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>% 
                 ready4fun_abbreviations()
         manifest_ls$subsequent_ls <- manifest_ls$subsequent_ls %>% 
@@ -1042,7 +1044,7 @@ make_new_entries_tb <- function (short_name_chr, long_name_chr, atomic_element_l
 #' @param fn Function (a function), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -1057,7 +1059,7 @@ make_new_entries_tb <- function (short_name_chr, long_name_chr, atomic_element_l
 make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA_character_, 
     fn_det_1L_chr = NA_character_, fn_out_type_1L_chr = NA_character_, 
     args_ls = NULL, fn = NULL, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL, object_type_lup = NULL, 
+    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, object_type_lup = NULL, 
     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 

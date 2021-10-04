@@ -6,11 +6,9 @@
 \usage{
 write_clss(
   pkg_setup_ls,
-  dv_url_pfx_1L_chr = NULL,
   key_1L_chr = NULL,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   cls_fn_ls = deprecated(),
   dss_records_ls = deprecated()
 )
@@ -18,15 +16,11 @@ write_clss(
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
-
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
 
 \item{self_serve_fn_ls}{Self serve (a list of functions), Default: NULL}
-
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 
 \item{cls_fn_ls}{Class (a list of functions), Default: deprecated()}
 

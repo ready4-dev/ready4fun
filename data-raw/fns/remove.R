@@ -2,7 +2,7 @@ remove_obj_type_from_nm <- function(nms_chr,
                                     object_type_lup = NULL,
                                     abbreviations_lup = NULL,
                                     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                    dv_url_pfx_1L_chr = NULL,
+                                    dv_url_pfx_1L_chr = character(0),
                                     is_generic_lgl = F,
                                     key_1L_chr = NULL,
                                     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){

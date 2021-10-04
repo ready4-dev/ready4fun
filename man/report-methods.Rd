@@ -8,19 +8,9 @@
 \usage{
 report(x, ...)
 
-report.ready4fun_manifest(
-  x,
-  dv_url_pfx_1L_chr = NULL,
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
+report.ready4fun_manifest(x, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL)
 
-\S4method{report}{ready4fun_manifest}(
-  x,
-  dv_url_pfx_1L_chr = NULL,
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
+\S4method{report}{ready4fun_manifest}(x, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL)
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
@@ -30,8 +20,6 @@ report.ready4fun_manifest(
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
-
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 }
 \description{
 report() is a Report function that authors a report. Specifically, this function implements an algorithm to report. The function is called for its side effects and does not return a value.

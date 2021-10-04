@@ -11,7 +11,7 @@ write_abbr_lup <- function(seed_lup = NULL,
                                                        url_chr = character(0)),
                            pkg_nm_1L_chr = get_dev_pkg_nm(),
                            dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                           dv_url_pfx_1L_chr = NULL,
+                           dv_url_pfx_1L_chr = character(0),
                            key_1L_chr = NULL,
                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                            url_1L_chr = deprecated()){
@@ -117,7 +117,7 @@ write_and_doc_ds <- function(db_df,
                                                          desc_chr = character(0),
                                                          url_chr = character(0)),
                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = NULL,
+                             dv_url_pfx_1L_chr = character(0),
                              key_1L_chr = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
@@ -302,11 +302,11 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
   }
 }
 write_clss <- function(pkg_setup_ls,
-                       dv_url_pfx_1L_chr = NULL,
+                       #dv_url_pfx_1L_chr = NULL,
                        key_1L_chr = NULL,
                        self_serve_1L_lgl = F,
                        self_serve_fn_ls = NULL,
-                       server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                       #server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                        cls_fn_ls = deprecated(),
                        dss_records_ls = deprecated()){
   if (lifecycle::is_present(cls_fn_ls)) {
@@ -336,7 +336,7 @@ write_clss <- function(pkg_setup_ls,
                      fns_env_ls = fns_env_ls,
                      document_unexp_lgl = F)
   }
-  if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls)){
+  if(!identical(manifest_ls$subsequent_ls$cls_fn_ls, list())){
     if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$dev_pkg_ns_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
     if("name_pfx_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "name_pfx_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
@@ -355,6 +355,7 @@ write_clss <- function(pkg_setup_ls,
       write_env_objs_to_dv(list(prototype_lup = prototype_lup),
                            descriptions_chr = "Class prototype lookup table",
                            ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+                           key_1L_chr = key_1L_chr,
                            publish_dv_1L_lgl = T)
     }
   }
@@ -372,7 +373,7 @@ write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                                                desc_chr = character(0),
                                                                url_chr = character(0)),
                                    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                   dv_url_pfx_1L_chr = NULL,
+                                   dv_url_pfx_1L_chr = character(0),
                                    key_1L_chr = NULL,
                                    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if (lifecycle::is_present(url_1L_chr)) {
@@ -435,7 +436,7 @@ write_ds_dmt <- function(db_df,
                          abbreviations_lup = NULL,
                          object_type_lup = NULL,
                          dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                         dv_url_pfx_1L_chr = NULL,
+                         dv_url_pfx_1L_chr = character(0),
                          key_1L_chr = NULL,
                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
@@ -837,10 +838,10 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
 }
 write_manuals <- function(pkg_setup_ls,
                           path_to_dmt_dir_1L_chr = deprecated(), ##
-                          dv_url_pfx_1L_chr = NULL,
+                          dv_url_pfx_1L_chr = character(0),
                           key_1L_chr = NULL,
                           publish_dv_1L_lgl = T,
-                          server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                          server_1L_chr = deprecated(),
                           pkg_desc_ls = deprecated()){
   if (lifecycle::is_present(pkg_desc_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
@@ -858,7 +859,7 @@ write_manuals <- function(pkg_setup_ls,
                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                   key_1L_chr = key_1L_chr,
-                                  server_1L_chr = server_1L_chr)
+                                  server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
   project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
     strsplit(",") %>%
     unlist() %>%
@@ -936,7 +937,7 @@ write_new_abbrs <- function(pkg_setup_ls,
                             no_plural_chr = NA_character_,
                             publish_dv_1L_lgl = T,
                             pfx_rgx = NA_character_,
-                            server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                            server_1L_chr = deprecated()){
   if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
     pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
     was_null_abbrs_1L_lgl <- T
@@ -992,7 +993,7 @@ write_new_abbrs <- function(pkg_setup_ls,
                                        descriptions_chr = c("Abbreviations lookup table", words_desc_1L_chr),
                                        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                        key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr,
+                                       server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
   return(pkg_setup_ls)
 }
@@ -1294,7 +1295,7 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
     usethis::use_version()
 }
 write_package <- function(pkg_setup_ls,
-                          dv_url_pfx_1L_chr = NULL,
+                          dv_url_pfx_1L_chr = character(0),
                           key_1L_chr = NULL,
                           list_generics_1L_lgl = F,
                           publish_dv_1L_lgl = T,
@@ -1334,17 +1335,15 @@ write_package <- function(pkg_setup_ls,
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
     pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
     write_clss(pkg_setup_ls = pkg_setup_ls,
-               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+               #dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                key_1L_chr = key_1L_chr,
                self_serve_1L_lgl = self_serve_1L_lgl,
-               self_serve_fn_ls = self_serve_fn_ls,
-               server_1L_chr = server_1L_chr)
+               self_serve_fn_ls = self_serve_fn_ls#,server_1L_chr = server_1L_chr
+               )
     pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls = pkg_setup_ls,
-                                   dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                    fns_env_ls = NULL,
                                    inc_methods_1L_lgl = T,
-                                   key_1L_chr = key_1L_chr,
-                                   server_1L_chr = server_1L_chr)
+                                   key_1L_chr = key_1L_chr)
     write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls,
                          update_pkgdown_1L_lgl = T,
                          list_generics_1L_lgl = list_generics_1L_lgl)
@@ -1383,7 +1382,7 @@ write_pkg_dss <- function(pkg_setup_ls,
                           paths_ls = make_fn_nms(),
                           R_dir_1L_chr = "R",
                           undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
-                          dv_url_pfx_1L_chr = NULL,
+                          dv_url_pfx_1L_chr = character(0),
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                           dev_pkg_nm_1L_chr = deprecated(),
@@ -1415,7 +1414,7 @@ write_pkg_dss <- function(pkg_setup_ls,
                              object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                              pkg_dss_tb = pkg_dss_tb,
                              dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,#url_1L_chr,
-                             dv_url_pfx_1L_chr = NULL,
+                             dv_url_pfx_1L_chr = character(0),
                              key_1L_chr = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
     # utils::data("fn_types_lup", envir = environment())
@@ -1446,7 +1445,7 @@ write_pkg_dss <- function(pkg_setup_ls,
 write_pkg_setup_fls <- function(pkg_desc_ls,
                                 copyright_holders_chr,
                                 gh_repo_1L_chr,
-                                addl_badges_ls = NULL,
+                                addl_badges_ls = list(),
                                 badges_lup = NULL,
                                 check_type_1L_chr = "none",
                                 delete_r_dir_cnts_1L_lgl = F,
@@ -1582,7 +1581,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                   fl_nm_1L_chr = "fav120.png")
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
-  if(!is.null(addl_badges_ls)){
+  if(!identical(addl_badges_ls,list())){
     badges_chr <- purrr::map2_chr(addl_badges_ls,
                       names(addl_badges_ls),
                       ~{

@@ -8,7 +8,7 @@ write_pkg_setup_fls(
   pkg_desc_ls,
   copyright_holders_chr,
   gh_repo_1L_chr,
-  addl_badges_ls = NULL,
+  addl_badges_ls = list(),
   badges_lup = NULL,
   check_type_1L_chr = "none",
   delete_r_dir_cnts_1L_lgl = F,
@@ -28,7 +28,7 @@ write_pkg_setup_fls(
 
 \item{gh_repo_1L_chr}{Github repository (a character vector of length one)}
 
-\item{addl_badges_ls}{Additional badges (a list), Default: NULL}
+\item{addl_badges_ls}{Additional badges (a list), Default: list()}
 
 \item{badges_lup}{Badges (a lookup table), Default: NULL}
 

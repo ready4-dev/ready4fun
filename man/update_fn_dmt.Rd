@@ -10,7 +10,7 @@ update_fn_dmt(
   fn_name_1L_chr,
   fn_type_1L_chr,
   import_chr,
-  import_from_chr = NULL,
+  import_from_chr = NA_character_,
   abbreviations_lup
 )
 }
@@ -25,7 +25,7 @@ update_fn_dmt(
 
 \item{import_chr}{Import (a character vector)}
 
-\item{import_from_chr}{Import from (a character vector), Default: NULL}
+\item{import_from_chr}{Import from (a character vector), Default: 'NA'}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table)}
 }

@@ -12,7 +12,7 @@ write_new_abbrs(
   no_plural_chr = NA_character_,
   publish_dv_1L_lgl = T,
   pfx_rgx = NA_character_,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ write_new_abbrs(
 
 \item{pfx_rgx}{Prefix (a regular expression vector), Default: 'NA'}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Package setup (a list)

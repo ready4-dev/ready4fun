@@ -39,11 +39,9 @@ add_build_ignore <- function (build_ignore_ls)
 #' Add functions documentation tibble
 #' @description add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: NULL
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param inc_methods_1L_lgl Include methods (a logical vector of length one), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: NULL
 #' @return Package setup (a list)
 #' @rdname add_fns_dmt_tb
 #' @export 
@@ -52,8 +50,8 @@ add_build_ignore <- function (build_ignore_ls)
 #' @importFrom tibble add_case
 #' @importFrom dplyr filter bind_rows distinct
 #' @keywords internal
-add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls = NULL, 
-    inc_methods_1L_lgl = F, key_1L_chr = NULL, server_1L_chr = NULL) 
+add_fns_dmt_tb <- function (pkg_setup_ls, fns_env_ls = NULL, inc_methods_1L_lgl = F, 
+    key_1L_chr = NULL) 
 {
     paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/data-raw"))
@@ -109,7 +107,9 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls =
         pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>% 
             dplyr::distinct()
         if (pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl & 
-            !is.null(server_1L_chr)) {
+            !(is.null(pkg_setup_ls$subsequent_ls$server_1L_chr) | 
+                identical(pkg_setup_ls$subsequent_ls$server_1L_chr, 
+                  character(0)))) {
             pkg_dss_tb <- fns_dmt_tb %>% write_and_doc_ds(overwrite_1L_lgl = T, 
                 db_1L_chr = "fns_dmt_tb", title_1L_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
                   " function documentation table"), desc_1L_chr = paste0("A table with the summary information on functions included in the ", 
@@ -120,8 +120,8 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = NULL, fns_env_ls =
                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
                 pkg_dss_tb = pkg_setup_ls$subsequent_ls$dss_records_ls$pkg_dss_tb, 
                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-                server_1L_chr = server_1L_chr)
+                dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr, 
+                key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
         }
     }
     return(pkg_setup_ls)
@@ -255,8 +255,6 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL)
         pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup", 
             dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
             dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr)
-        if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) 
-            pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup")
     }
     if (!is.null(addl_cls_pts_tb)) {
         pkg_setup_ls$subsequent_ls$prototype_lup <- add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 

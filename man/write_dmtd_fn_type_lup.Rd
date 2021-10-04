@@ -14,7 +14,7 @@ write_dmtd_fn_type_lup(
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0)),
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = NULL,
+  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
 )
@@ -37,7 +37,7 @@ desc_chr = character(0), url_chr = character(0))}
 
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 

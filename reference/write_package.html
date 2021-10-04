@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9434</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9435</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@
     <pre class="usage"><span class='fu'>write_package</span><span class='op'>(</span>
   <span class='va'>pkg_setup_ls</span>,
   dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
-  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_KEY"</span><span class='op'>)</span>,
   list_generics_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   self_serve_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
@@ -156,7 +156,7 @@
     </tr>
     <tr>
       <th>key_1L_chr</th>
-      <td><p>Key (a character vector of length one), Default: NULL</p></td>
+      <td><p>Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")</p></td>
     </tr>
     <tr>
       <th>list_generics_1L_lgl</th>

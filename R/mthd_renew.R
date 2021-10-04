@@ -2,12 +2,21 @@
 #' @description renew.ready4fun_manifest() is a Renew method that updates an instance of a class with new values. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param type_1L_chr Type (a character vector of length one)
+<<<<<<< HEAD
+=======
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+>>>>>>> dev
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)
 #' @rdname renew-methods
 #' @export 
 
+<<<<<<< HEAD
 renew.ready4fun_manifest <- function (x, type_1L_chr, key_1L_chr = NULL) 
+=======
+renew.ready4fun_manifest <- function (x, type_1L_chr, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+>>>>>>> dev
 {
     if (type_1L_chr == "fns_dmt") 
         x_ready4fun_manifest <- add_fns_dmt_tb(pkg_setup_ls = x, 

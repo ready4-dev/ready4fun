@@ -20,7 +20,11 @@ add_build_ignore <- function(build_ignore_ls){
   }
 }
 add_fns_dmt_tb <- function(pkg_setup_ls,
+<<<<<<< HEAD
                            #dv_url_pfx_1L_chr = NULL,
+=======
+                           dv_url_pfx_1L_chr = character(0),
+>>>>>>> dev
                            fns_env_ls = NULL,
                            inc_methods_1L_lgl = F,
                            key_1L_chr = NULL#, server_1L_chr = NULL
@@ -68,7 +72,7 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
                                        inc_all_mthds_1L_lgl = T,
                                        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                        undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-    if(is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb) | !"mthds" %in% names(paths_ls)){
+    if(identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb,tibble::tibble()) | !"mthds" %in% names(paths_ls)){
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb
     }else{
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb,

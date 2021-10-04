@@ -156,7 +156,7 @@ get_new_abbrs <- function(pkg_setup_ls,
                               "ready4fun::get_new_abbrs(fns_dmt_tb)",
                               details = "Please use `ready4fun::get_new_abbrs(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
   }
-  if(is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb))
+  if(identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb,tibble::tibble()))
     pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls,
                                                                   abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                                                                   custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
@@ -356,7 +356,11 @@ get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+<<<<<<< HEAD
   if(identical(dv_url_pfx_1L_chr,character(0)))
+=======
+  if(identical(dv_url_pfx_1L_chr, character(0)))
+>>>>>>> dev
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,
                                 "/api/access/datafile/")

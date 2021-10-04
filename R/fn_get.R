@@ -226,6 +226,7 @@ get_from_lup_obj <- function (data_lookup_tb, match_value_xx, match_var_nm_1L_ch
 #' @rdname get_new_abbrs
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
+#' @importFrom tibble tibble
 #' @importFrom purrr map flatten_chr discard
 #' @keywords internal
 get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthds_1L_lgl = T, 
@@ -237,7 +238,7 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
         lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::get_new_abbrs(fns_dmt_tb)", 
             details = "Please use `ready4fun::get_new_abbrs(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
     }
-    if (is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb)) 
+    if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) 
         pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
             custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, 

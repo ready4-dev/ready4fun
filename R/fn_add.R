@@ -39,6 +39,10 @@ add_build_ignore <- function (build_ignore_ls)
 #' Add functions documentation tibble
 #' @description add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
+<<<<<<< HEAD
+=======
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+>>>>>>> dev
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param inc_methods_1L_lgl Include methods (a logical vector of length one), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
@@ -47,11 +51,16 @@ add_build_ignore <- function (build_ignore_ls)
 #' @export 
 #' @importFrom purrr map_chr map_lgl pluck
 #' @importFrom stringr str_sub
-#' @importFrom tibble add_case
+#' @importFrom tibble add_case tibble
 #' @importFrom dplyr filter bind_rows distinct
 #' @keywords internal
+<<<<<<< HEAD
 add_fns_dmt_tb <- function (pkg_setup_ls, fns_env_ls = NULL, inc_methods_1L_lgl = F, 
     key_1L_chr = NULL) 
+=======
+add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), fns_env_ls = NULL, 
+    inc_methods_1L_lgl = F, key_1L_chr = NULL, server_1L_chr = NULL) 
+>>>>>>> dev
 {
     paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/data-raw"))
@@ -96,8 +105,8 @@ add_fns_dmt_tb <- function (pkg_setup_ls, fns_env_ls = NULL, inc_methods_1L_lgl 
             fns_env_ls = fns_env_ls, fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
             inc_all_mthds_1L_lgl = T, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
             undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-        if (is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb) | 
-            !"mthds" %in% names(paths_ls)) {
+        if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
+            tibble::tibble()) | !"mthds" %in% names(paths_ls)) {
             pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb
         }
         else {

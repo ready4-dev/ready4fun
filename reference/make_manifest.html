@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9430</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9431</span>
       </span>
     </div>
 
@@ -133,21 +133,21 @@
   <span class='va'>copyright_holders_chr</span>,
   <span class='va'>pkg_dmt_dv_dss_chr</span>,
   add_gh_site_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
-  addl_badges_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  addl_badges_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   addl_pkgs_ls <span class='op'>=</span> <span class='fu'><a href='make_addl_pkgs_ls.html'>make_addl_pkgs_ls</a></span><span class='op'>(</span><span class='op'>)</span>,
   badges_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
   build_ignore_ls <span class='op'>=</span> <span class='fu'><a href='make_build_ignore_ls.html'>make_build_ignore_ls</a></span><span class='op'>(</span><span class='op'>)</span>,
   check_type_1L_chr <span class='op'>=</span> <span class='st'>"ready4"</span>,
   classify_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
-  cls_fn_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cls_fn_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   custom_dmt_ls <span class='op'>=</span> <span class='fu'><a href='make_custom_dmt_ls.html'>make_custom_dmt_ls</a></span><span class='op'>(</span><span class='op'>)</span>,
   delete_r_dir_cnts_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
   dev_pkg_nm_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
   dev_pkgs_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  dss_records_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dss_records_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
   gh_repo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  import_from_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  import_from_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   lifecycle_stage_1L_chr <span class='op'>=</span> <span class='st'>"experimental"</span>,
   inc_pkg_meta_data_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   incr_ver_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
@@ -156,7 +156,7 @@
   path_to_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/normalizePath.html'>normalizePath</a></span><span class='op'>(</span><span class='st'>"../../../../../Documentation/Code"</span><span class='op'>)</span>,
   path_to_pkg_logo_1L_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   path_to_pkg_rt_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span>,
-  pkg_ds_ls_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pkg_ds_ls_ls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>ready4_type_1L_chr</span>,
   server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>,
   user_manual_fns_chr <span class='op'>=</span> <span class='cn'>NA_character_</span>
@@ -183,7 +183,7 @@
     </tr>
     <tr>
       <th>addl_badges_ls</th>
-      <td><p>Additional badges (a list), Default: NULL</p></td>
+      <td><p>Additional badges (a list), Default: list()</p></td>
     </tr>
     <tr>
       <th>addl_pkgs_ls</th>
@@ -207,7 +207,7 @@
     </tr>
     <tr>
       <th>cls_fn_ls</th>
-      <td><p>Class (a list of functions), Default: NULL</p></td>
+      <td><p>Class (a list of functions), Default: list()</p></td>
     </tr>
     <tr>
       <th>custom_dmt_ls</th>
@@ -227,11 +227,11 @@
     </tr>
     <tr>
       <th>dss_records_ls</th>
-      <td><p>Datasets records (a list), Default: NULL</p></td>
+      <td><p>Datasets records (a list), Default: list()</p></td>
     </tr>
     <tr>
       <th>dv_url_pfx_1L_chr</th>
-      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: character(0)</p></td>
     </tr>
     <tr>
       <th>gh_repo_1L_chr</th>
@@ -239,7 +239,7 @@
     </tr>
     <tr>
       <th>import_from_chr</th>
-      <td><p>Import from (a character vector), Default: NULL</p></td>
+      <td><p>Import from (a character vector), Default: 'NA'</p></td>
     </tr>
     <tr>
       <th>lifecycle_stage_1L_chr</th>
@@ -275,7 +275,7 @@
     </tr>
     <tr>
       <th>pkg_ds_ls_ls</th>
-      <td><p>Package dataset (a list of lists), Default: NULL</p></td>
+      <td><p>Package dataset (a list of lists), Default: list()</p></td>
     </tr>
     <tr>
       <th>ready4_type_1L_chr</th>

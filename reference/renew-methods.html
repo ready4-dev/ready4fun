@@ -81,7 +81,7 @@ renew.ready4fun_manifest() is a Renew method that updates an instance of a class
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9430</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9431</span>
       </span>
     </div>
 
@@ -132,22 +132,10 @@ renew.ready4fun_manifest() is a Renew method that updates an instance of a class
 
     <pre class="usage"><span class='fu'>renew</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>renew.ready4fun_manifest</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>type_1L_chr</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
-<span class='op'>)</span>
+<span class='fu'>renew.ready4fun_manifest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>type_1L_chr</span>, key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ready4fun_manifest</span>
-<span class='fu'>renew</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>type_1L_chr</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+<span class='fu'>renew</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>type_1L_chr</span>, key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,16 +153,8 @@ renew.ready4fun_manifest() is a Renew method that updates an instance of a class
       <td><p>Type (a character vector of length one)</p></td>
     </tr>
     <tr>
-      <th>dv_url_pfx_1L_chr</th>
-      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
-    </tr>
-    <tr>
       <th>key_1L_chr</th>
       <td><p>Key (a character vector of length one), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>server_1L_chr</th>
-      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
     </tr>
     </table>
 

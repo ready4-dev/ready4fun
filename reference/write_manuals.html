@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9430</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9431</span>
       </span>
     </div>
 
@@ -131,10 +131,10 @@
     <pre class="usage"><span class='fu'>write_manuals</span><span class='op'>(</span>
   <span class='va'>pkg_setup_ls</span>,
   path_to_dmt_dir_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
   key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
   publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>,
-  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>,
+  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   pkg_desc_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -151,7 +151,7 @@
     </tr>
     <tr>
       <th>dv_url_pfx_1L_chr</th>
-      <td><p>Dataverse url prefix (a character vector of length one), Default: NULL</p></td>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: character(0)</p></td>
     </tr>
     <tr>
       <th>key_1L_chr</th>
@@ -163,7 +163,7 @@
     </tr>
     <tr>
       <th>server_1L_chr</th>
-      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
+      <td><p>Server (a character vector of length one), Default: deprecated()</p></td>
     </tr>
     <tr>
       <th>pkg_desc_ls</th>

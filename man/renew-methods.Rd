@@ -8,27 +8,9 @@
 \usage{
 renew(x, ...)
 
-<<<<<<< HEAD
 renew.ready4fun_manifest(x, type_1L_chr, key_1L_chr = NULL)
 
 \S4method{renew}{ready4fun_manifest}(x, type_1L_chr, key_1L_chr = NULL)
-=======
-renew.ready4fun_manifest(
-  x,
-  type_1L_chr,
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
-
-\S4method{renew}{ready4fun_manifest}(
-  x,
-  type_1L_chr,
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
->>>>>>> dev
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
@@ -37,11 +19,6 @@ renew.ready4fun_manifest(
 
 \item{type_1L_chr}{Type (a character vector of length one)}
 
-<<<<<<< HEAD
-=======
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
-
->>>>>>> dev
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 }
 \value{

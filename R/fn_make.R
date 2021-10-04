@@ -907,11 +907,7 @@ make_list_phrase <- function (items_chr)
 #' @param dss_records_ls Datasets records (a list), Default: list()
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'NA'
-<<<<<<< HEAD
-#' @param import_from_chr Import from (a character vector), Default: 'NA'
-=======
 #' @param import_from_chr Import from (a character vector), Default: character(0)
->>>>>>> dev
 #' @param lifecycle_stage_1L_chr Lifecycle stage (a character vector of length one), Default: 'experimental'
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: F
 #' @param incr_ver_1L_lgl Increment version (a logical vector of length one), Default: F
@@ -920,11 +916,7 @@ make_list_phrase <- function (items_chr)
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: normalizePath("../../../../../Documentation/Code")
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: 'NA'
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
-<<<<<<< HEAD
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
-=======
-#' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list
->>>>>>> dev
 #' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
@@ -937,29 +929,17 @@ make_list_phrase <- function (items_chr)
 #' @importFrom stringr str_trim str_remove
 make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
     add_gh_site_1L_lgl = T, addl_badges_ls = list(), addl_pkgs_ls = make_addl_pkgs_ls(), 
-<<<<<<< HEAD
-    badges_lup = NULL, build_ignore_ls = make_build_ignore_ls(), 
-=======
     badges_lup = tibble::tibble(), build_ignore_ls = make_build_ignore_ls(), 
->>>>>>> dev
     check_type_1L_chr = "ready4", classify_1L_lgl = T, cls_fn_ls = list(), 
     custom_dmt_ls = make_custom_dmt_ls(), delete_r_dir_cnts_1L_lgl = T, 
     dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()), dev_pkgs_chr = NA_character_, 
     dss_records_ls = list(), dv_url_pfx_1L_chr = character(0), 
-<<<<<<< HEAD
-    gh_repo_1L_chr = NA_character_, import_from_chr = NA_character_, 
-=======
     gh_repo_1L_chr = NA_character_, import_from_chr = character(0), 
->>>>>>> dev
     lifecycle_stage_1L_chr = "experimental", inc_pkg_meta_data_1L_lgl = F, 
     incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
     path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
-<<<<<<< HEAD
     pkg_ds_ls_ls = list(), ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-=======
-    pkg_ds_ls_ls = list, ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
->>>>>>> dev
     user_manual_fns_chr = NA_character_) 
 {
     if (length(pkg_dmt_dv_dss_chr) < 2) {
@@ -979,11 +959,6 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
             unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 
             stringr::str_remove("https://github.com/")
     addl_badges_ls <- append(addl_badges_ls, append_ls) %>% purrr::discard(is.null)
-<<<<<<< HEAD
-    if (length(addl_badges_ls) == 0) 
-        addl_badges_ls <- list()
-=======
->>>>>>> dev
     manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls, 
         copyright_holders_chr = copyright_holders_chr, gh_repo_1L_chr = gh_repo_1L_chr, 
         add_gh_site_1L_lgl = add_gh_site_1L_lgl, addl_badges_ls = addl_badges_ls, 

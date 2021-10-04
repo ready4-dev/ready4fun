@@ -8,32 +8,16 @@
 \usage{
 report(x, ...)
 
-<<<<<<< HEAD
 report.ready4fun_manifest(x, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL)
 
 \S4method{report}{ready4fun_manifest}(x, dv_url_pfx_1L_chr = NULL, key_1L_chr = NULL)
-=======
-report.ready4fun_manifest(
-  x,
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
-
-\S4method{report}{ready4fun_manifest}(
-  x,
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
-)
->>>>>>> dev
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
 
 \item{...}{Additional arguments (an additional arguments)}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: NULL}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 }

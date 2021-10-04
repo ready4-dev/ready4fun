@@ -10,10 +10,6 @@ authorClasses(x, ...)
 
 authorClasses.ready4fun_manifest(
   x,
-<<<<<<< HEAD
-=======
-  dv_url_pfx_1L_chr = character(0),
->>>>>>> dev
   key_1L_chr = NULL,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL
@@ -21,10 +17,6 @@ authorClasses.ready4fun_manifest(
 
 \S4method{authorClasses}{ready4fun_manifest}(
   x,
-<<<<<<< HEAD
-=======
-  dv_url_pfx_1L_chr = character(0),
->>>>>>> dev
   key_1L_chr = NULL,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL
@@ -35,11 +27,6 @@ authorClasses.ready4fun_manifest(
 
 \item{...}{Additional arguments (an additional arguments)}
 
-<<<<<<< HEAD
-=======
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
-
->>>>>>> dev
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}

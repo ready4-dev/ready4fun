@@ -293,10 +293,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' Write classes
 #' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
-<<<<<<< HEAD
-=======
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
->>>>>>> dev
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
@@ -309,14 +306,9 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @importFrom rlang exec
 #' @importFrom devtools document load_all
 #' @keywords internal
-<<<<<<< HEAD
-write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F, 
-    self_serve_fn_ls = NULL, cls_fn_ls = deprecated(), dss_records_ls = deprecated()) 
-=======
 write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
-    self_serve_1L_lgl = F, self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    cls_fn_ls = deprecated(), dss_records_ls = deprecated()) 
->>>>>>> dev
+    self_serve_1L_lgl = F, self_serve_fn_ls = NULL, cls_fn_ls = deprecated(), 
+    dss_records_ls = deprecated()) 
 {
     if (lifecycle::is_present(cls_fn_ls)) {
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_clss(cls_fn_ls)", 
@@ -901,11 +893,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @keywords internal
 write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(), 
     dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, publish_dv_1L_lgl = T, 
-<<<<<<< HEAD
     server_1L_chr = deprecated(), pkg_desc_ls = deprecated()) 
-=======
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), pkg_desc_ls = deprecated()) 
->>>>>>> dev
 {
     if (lifecycle::is_present(pkg_desc_ls)) {
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_manuals(pkg_desc_ls)", 

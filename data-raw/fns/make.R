@@ -849,11 +849,7 @@ make_manifest <- function(pkg_desc_ls,
                           dss_records_ls = list(),
                           dv_url_pfx_1L_chr = character(0),
                           gh_repo_1L_chr = NA_character_,
-<<<<<<< HEAD
-                          import_from_chr = NA_character_,
-=======
                           import_from_chr = character(0),
->>>>>>> dev
                           lifecycle_stage_1L_chr = "experimental",
                           inc_pkg_meta_data_1L_lgl = F,
                           incr_ver_1L_lgl = F,
@@ -862,11 +858,7 @@ make_manifest <- function(pkg_desc_ls,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           path_to_pkg_logo_1L_chr = NA_character_,
                           path_to_pkg_rt_1L_chr = getwd(),
-<<<<<<< HEAD
                           pkg_ds_ls_ls = list(),
-=======
-                          pkg_ds_ls_ls = list,
->>>>>>> dev
                           ready4_type_1L_chr, #
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                           user_manual_fns_chr = NA_character_){
@@ -890,13 +882,6 @@ make_manifest <- function(pkg_desc_ls,
       stringr::str_remove("https://github.com/")
   addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
     purrr::discard(is.null)
-<<<<<<< HEAD
-  if(length(addl_badges_ls)==0)
-    addl_badges_ls <- list()#NULL
-=======
-  # if(length(addl_badges_ls)==0)
-  #   addl_badges_ls <- NULL
->>>>>>> dev
   manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
 
                                         copyright_holders_chr = copyright_holders_chr,

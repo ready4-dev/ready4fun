@@ -39,10 +39,7 @@ add_build_ignore <- function (build_ignore_ls)
 #' Add functions documentation tibble
 #' @description add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
-<<<<<<< HEAD
-=======
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
->>>>>>> dev
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
 #' @param inc_methods_1L_lgl Include methods (a logical vector of length one), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
@@ -54,13 +51,8 @@ add_build_ignore <- function (build_ignore_ls)
 #' @importFrom tibble add_case tibble
 #' @importFrom dplyr filter bind_rows distinct
 #' @keywords internal
-<<<<<<< HEAD
-add_fns_dmt_tb <- function (pkg_setup_ls, fns_env_ls = NULL, inc_methods_1L_lgl = F, 
-    key_1L_chr = NULL) 
-=======
 add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), fns_env_ls = NULL, 
-    inc_methods_1L_lgl = F, key_1L_chr = NULL, server_1L_chr = NULL) 
->>>>>>> dev
+    inc_methods_1L_lgl = F, key_1L_chr = NULL) 
 {
     paths_ls <- make_fn_nms(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/data-raw"))

@@ -12,10 +12,6 @@ author(x, ...)
 
 author.ready4fun_manifest(
   x,
-<<<<<<< HEAD
-=======
-  dv_url_pfx_1L_chr = character(0),
->>>>>>> dev
   key_1L_chr = NULL,
   list_generics_1L_lgl = F,
   self_serve_1L_lgl = F,
@@ -24,10 +20,6 @@ author.ready4fun_manifest(
 
 \S4method{author}{ready4fun_manifest}(
   x,
-<<<<<<< HEAD
-=======
-  dv_url_pfx_1L_chr = character(0),
->>>>>>> dev
   key_1L_chr = NULL,
   list_generics_1L_lgl = F,
   self_serve_1L_lgl = F,
@@ -43,11 +35,6 @@ author.ready4fun_metadata_a(x)
 
 \item{...}{Additional arguments (an additional arguments)}
 
-<<<<<<< HEAD
-=======
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
-
->>>>>>> dev
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: F}

@@ -356,11 +356,7 @@ get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
-<<<<<<< HEAD
-  if(identical(dv_url_pfx_1L_chr,character(0)))
-=======
   if(identical(dv_url_pfx_1L_chr, character(0)))
->>>>>>> dev
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,
                                 "/api/access/datafile/")

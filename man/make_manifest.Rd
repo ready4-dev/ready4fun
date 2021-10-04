@@ -23,11 +23,7 @@ make_manifest(
   dss_records_ls = list(),
   dv_url_pfx_1L_chr = character(0),
   gh_repo_1L_chr = NA_character_,
-<<<<<<< HEAD
-  import_from_chr = NA_character_,
-=======
   import_from_chr = character(0),
->>>>>>> dev
   lifecycle_stage_1L_chr = "experimental",
   inc_pkg_meta_data_1L_lgl = F,
   incr_ver_1L_lgl = F,
@@ -36,11 +32,7 @@ make_manifest(
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
-<<<<<<< HEAD
   pkg_ds_ls_ls = list(),
-=======
-  pkg_ds_ls_ls = list,
->>>>>>> dev
   ready4_type_1L_chr,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   user_manual_fns_chr = NA_character_
@@ -83,11 +75,7 @@ make_manifest(
 
 \item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: 'NA'}
 
-<<<<<<< HEAD
-\item{import_from_chr}{Import from (a character vector), Default: 'NA'}
-=======
 \item{import_from_chr}{Import from (a character vector), Default: character(0)}
->>>>>>> dev
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
 
@@ -105,11 +93,7 @@ make_manifest(
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 
-<<<<<<< HEAD
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list()}
-=======
-\item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list}
->>>>>>> dev
 
 \item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
 

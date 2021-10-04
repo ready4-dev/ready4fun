@@ -835,21 +835,21 @@ make_manifest <- function(pkg_desc_ls,
                           copyright_holders_chr,
                           pkg_dmt_dv_dss_chr,
                           add_gh_site_1L_lgl = T,
-                          addl_badges_ls = NULL,
+                          addl_badges_ls = list(),
                           addl_pkgs_ls = make_addl_pkgs_ls(),#
-                          badges_lup = NULL,
+                          badges_lup = tibble::tibble(),
                           build_ignore_ls = make_build_ignore_ls(),#
                           check_type_1L_chr = "ready4",
                           classify_1L_lgl = T,
-                          cls_fn_ls = NULL,
+                          cls_fn_ls = list(),
                           custom_dmt_ls = make_custom_dmt_ls(),
                           delete_r_dir_cnts_1L_lgl = T,
                           dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
                           dev_pkgs_chr = NA_character_,
-                          dss_records_ls = NULL,
-                          dv_url_pfx_1L_chr = NULL,
+                          dss_records_ls = list(),
+                          dv_url_pfx_1L_chr = character(0),
                           gh_repo_1L_chr = NA_character_,
-                          import_from_chr = NULL,
+                          import_from_chr = character(0),
                           lifecycle_stage_1L_chr = "experimental",
                           inc_pkg_meta_data_1L_lgl = F,
                           incr_ver_1L_lgl = F,
@@ -858,7 +858,7 @@ make_manifest <- function(pkg_desc_ls,
                           path_to_dmt_dir_1L_chr =  normalizePath("../../../../../Documentation/Code"),
                           path_to_pkg_logo_1L_chr = NA_character_,
                           path_to_pkg_rt_1L_chr = getwd(),
-                          pkg_ds_ls_ls = NULL,
+                          pkg_ds_ls_ls = list,
                           ready4_type_1L_chr, #
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                           user_manual_fns_chr = NA_character_){
@@ -870,7 +870,7 @@ make_manifest <- function(pkg_desc_ls,
   }else{
     append_ls <- NULL
   }
-  if(is.null(badges_lup)){
+  if(identical(badges_lup,tibble::tibble())){
     utils::data("badges_lup", package = "ready4fun", envir = environment())
   }
   if(is.na(gh_repo_1L_chr))
@@ -882,8 +882,8 @@ make_manifest <- function(pkg_desc_ls,
       stringr::str_remove("https://github.com/")
   addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
     purrr::discard(is.null)
-  if(length(addl_badges_ls)==0)
-    addl_badges_ls <- NULL
+  # if(length(addl_badges_ls)==0)
+  #   addl_badges_ls <- NULL
   manifest_ls <- list(initial_ls = list(pkg_desc_ls = pkg_desc_ls,
 
                                         copyright_holders_chr = copyright_holders_chr,
@@ -917,7 +917,7 @@ make_manifest <- function(pkg_desc_ls,
                                                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                                           key_1L_chr = key_1L_chr,
                                                                           server_1L_chr = server_1L_chr),
-                                           fns_dmt_tb = NULL,
+                                           fns_dmt_tb = tibble::tibble(),
                                            import_from_chr = import_from_chr,
                                            inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,#
                                            object_type_lup = get_rds_from_dv("object_type_lup",

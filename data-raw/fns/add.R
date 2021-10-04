@@ -68,7 +68,7 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
                                        inc_all_mthds_1L_lgl = T,
                                        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                                        undocumented_fns_dir_chr = undocumented_fns_dir_chr)
-    if(is.null(pkg_setup_ls$subsequent_ls$fns_dmt_tb) | !"mthds" %in% names(paths_ls)){
+    if(identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb,tibble::tibble()) | !"mthds" %in% names(paths_ls)){
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb
     }else{
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb,

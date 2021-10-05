@@ -249,7 +249,6 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
 #' @return Package setup (a list)
 #' @rdname add_new_cls_pts
 #' @export 
-
 add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL) 
 {
     if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {

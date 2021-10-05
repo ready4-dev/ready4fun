@@ -96,7 +96,7 @@ update_first_word_case <- function (phrase_1L_chr, fn = tolower)
 #' @rdname update_fn_dmt
 #' @export 
 #' @importFrom stringr str_replace str_c str_sub str_locate
-#' @importFrom purrr reduce flatten_chr pluck
+#' @importFrom purrr reduce pluck map_lgl flatten_chr
 #' @keywords internal
 update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_type_1L_chr, 
     import_chr, import_from_chr = NA_character_, abbreviations_lup) 
@@ -139,18 +139,47 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
                     object_type_lup = abbreviations_lup)))
         }
     }
-    if (!is.na(import_chr)) 
-        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @import ", 
-            stringr::str_c(import_chr, collapse = " "))
+    split_fn_dmt_chr <- fn_dmt_1L_chr %>% strsplit("\n") %>% 
+        purrr::pluck(1)
+    if (!is.na(import_chr)) {
+        import_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 
+            "#' @import "))
+        if (import_idx_1L_int != 0) {
+            import_txt_1L_chr <- split_fn_dmt_chr[import_idx_1L_int]
+            import_txt_1L_chr <- paste0(import_txt_1L_chr, paste0(" ", 
+                import_chr[import_chr %>% purrr::map_lgl(~!.x %in% 
+                  (import_txt_1L_chr %>% strsplit(" ") %>% purrr::pluck(1)))]))
+            split_fn_dmt_chr[import_idx_1L_int] <- import_txt_1L_chr
+        }
+        else {
+            import_txt_1L_chr <- paste0("#' @import ", stringr::str_c(import_chr, 
+                collapse = " "))
+            split_fn_dmt_chr <- c(split_fn_dmt_chr, import_txt_1L_chr)
+        }
+    }
     gnrc_part_1L_chr <- fn_name_1L_chr %>% strsplit("\\.") %>% 
         purrr::flatten_chr() %>% purrr::pluck(1)
     if (gnrc_part_1L_chr %in% names(import_from_chr) & fn_type_1L_chr == 
         "meth_std_s3_mthd") {
-        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @importFrom ", 
-            unname(import_from_chr[names(import_from_chr) == 
-                gnrc_part_1L_chr]), " ", names(import_from_chr)[names(import_from_chr) == 
-                gnrc_part_1L_chr])
+        ns_1L_chr <- unname(import_from_chr[names(import_from_chr) == 
+            gnrc_part_1L_chr])
+        import_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 
+            paste0("#' @importFrom ", ns_1L_chr)))
+        if (import_idx_1L_int != 0) {
+            import_txt_1L_chr <- split_fn_dmt_chr[import_idx_1L_int]
+            import_txt_1L_chr <- paste0(import_txt_1L_chr, ifelse(gnrc_part_1L_chr %in% 
+                (import_txt_1L_chr %>% strsplit(" ") %>% purrr::pluck(1)), 
+                "", paste0(" ", gnrc_part_1L_chr)))
+            split_fn_dmt_chr[import_idx_1L_int] <- import_txt_1L_chr
+        }
+        else {
+            import_txt_1L_chr <- paste0("#' @importFrom ", ns_1L_chr, 
+                " ", names(import_from_chr)[names(import_from_chr) == 
+                  gnrc_part_1L_chr])
+            split_fn_dmt_chr <- c(split_fn_dmt_chr, import_txt_1L_chr)
+        }
     }
+    fn_dmt_1L_chr <- paste0(split_fn_dmt_chr, collapse = "\n")
     if (fn_type_1L_chr == "gen_std_s3_mthd") {
         fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr, 
             paste0("@name ", fn_name_1L_chr), paste0("@rdname ", 
@@ -381,7 +410,6 @@ update_msng_abbrs <- function (pkg_setup_ls, are_words_chr = NA_character_, tf_t
 #' @return Package name (a character vector)
 #' @rdname update_ns
 #' @export 
-
 #' @keywords internal
 update_ns <- function (package_1L_chr) 
 {
@@ -396,7 +424,6 @@ update_ns <- function (package_1L_chr)
 #' @return Package setup (a list)
 #' @rdname update_pkg_setup_msgs
 #' @export 
-
 #' @keywords internal
 update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr) 
 {

@@ -6,7 +6,6 @@
 #' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)
 #' @rdname renew-methods
 #' @export 
-
 renew.ready4fun_manifest <- function (x, type_1L_chr, key_1L_chr = NULL) 
 {
     if (type_1L_chr == "fns_dmt") 

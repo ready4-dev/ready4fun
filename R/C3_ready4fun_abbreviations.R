@@ -7,7 +7,6 @@ setOldClass(c("ready4fun_abbreviations","tbl_df", "tbl", "data.frame"))
 #' @details ready4 S3 class for tibble object lookup table of abbreviations.
 #' @rdname ready4fun_abbreviations
 #' @export 
-
 ready4fun_abbreviations <- function(x = make_pt_ready4fun_abbreviations()){ 
 validate_ready4fun_abbreviations(make_new_ready4fun_abbreviations(x))
 }
@@ -99,5 +98,4 @@ x}
 #' @details ready4 S3 class for tibble object lookup table of abbreviations.
 #' @rdname is_ready4fun_abbreviations
 #' @export 
-
 is_ready4fun_abbreviations <- function(x) inherits(validate_ready4fun_abbreviations(x), "ready4fun_abbreviations")

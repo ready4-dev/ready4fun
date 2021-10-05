@@ -1,25 +1,15 @@
-## Note files to be rewritten cannot be open in RStudio.
-## Empty dataverse dataset must be published first.
-#
-# 1. Set-up workspace.
 library(magrittr)
 library(lifecycle)
 fns_dir_1L_chr <-"data-raw/fns"
 if(!dir.exists(fns_dir_1L_chr))
   dir.create(fns_dir_1L_chr)
-#
-# 2. Add functions.
-# 2.1 MANUAL STEP. Write all your functions to R files in the new "fns" directory.
-#
-# 2.2. Read all undocumented functions in the temporary "fns" directory.
+# MANUAL STEP. Write all functions to R files in the new "fns" directory.
 fns_env_ls <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
                        fns_env = fns_env_ls)
 rm(read_fns)
 fns_env_ls$fns_env$write_fn_type_dirs()
-#
-# 3. Add package metadata
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                              label_names_chr = c("authoring","description","modelling", "prediction"),
                              colours_chr = c("maroon", "navy","indigo", "forestgreen")) %>%
@@ -67,8 +57,6 @@ pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
                                                        desc_1L_chr = "A lookup table to identify the appropriate text to insert in README files to represent different types of ready4 badges.",
                                                        title_1L_chr = "ready4 badges lookup table",
                                                        url_1L_chr = "https://ready4-dev.github.io/ready4/"))
-#
-# 4. Specify the new classes to be created
 constructor_r3 <- dplyr::bind_rows(
   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for tibble object lookup table of badges metadata.",
                                                make_s3_lgl = TRUE,
@@ -188,40 +176,7 @@ manifest_ls <- pkg_desc_ls %>%
                                                           "https://doi.org/10.7910/DVN/2Y9VF9"),
                                    pkg_ds_ls_ls = pkg_ds_ls_ls,
                                    ready4_type_1L_chr = "authoring")
-#
-# 5. Add content to and document the package
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)
-# manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,
-#                                                    #classes_to_make_tb = classes_to_make_tb,
-#                                                    long_name_chr = c("ready4fun R package"),
-#                                                    #custom_plural_ls = list(repository = "repositories"),
-#                                                    no_plural_chr = c("ready4fun R package"))
-# manifest_ls <- fns_env_ls$fns_env$write_new_fn_types(manifest_ls,
-#                                                      fn_type_desc_chr = c("Executes an algorithm for solving forward problems through simulation or prediction."),
-#                                                      is_generic_lgl = T,
-#                                                      publish_dv_1L_lgl = T)
-# manifest_ls <- fns_env_ls$fns_env$update_msng_abbrs(manifest_ls,
-#                                                      are_words_chr = c("cran", "lifecycle", "pdf",
-#                                                                        "pdfs","pkgdown",
-#                                                                        "R", "rds", "ready4", "url", "urls"),
-#                                                      tf_to_singular_chr = c(dest = "dests",
-#                                                                             dupl = "dupls",
-#                                                                             msg = "msgs"))
-# manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,
-#                                                    #classes_to_make_tb = classes_to_make_tb,
-#                                                    long_name_chr = c("additional","destination","detail","duplicate","github",
-#                                                                      "increment","lookup tables", "message", "repository", "version"),
-#                                                    custom_plural_ls = list(repository = "repositories"),
-#                                                    no_plural_chr = c("lookup tables"))
-##
-# Create vignettes
-# NOTE TO SELF: NEED TO RENAME export_lgl in tables and initial (not subsequent) functions to something like: inc_in_user_dmt_lgl
-# NOTE TO SELF: NEED TO ADD WORKFLOW FOR TRANSITIONING FROM PRIVATE TO PUBLIC REPO TO CLENSE ALL PRIVATE COMMIT HISTORY. Variant of: https://gist.github.com/stephenhardy/5470814
-# NOTE TO SELF: IN WORKFOW VIGNETTE, INCLUDE LINK TO: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
-# and https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches
-# and https://www.thegeekstuff.com/2019/03/git-create-dev-branch-and-merge/
-# NOTE TO SELF: In vignette, include: https://docs.github.com/en/github/using-git/setting-your-username-in-git
-# (plus user.email)
-# Note to self - Ensure gitignore in default package bundle does not include docs/
+

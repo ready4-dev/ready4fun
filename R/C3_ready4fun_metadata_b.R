@@ -6,7 +6,6 @@
 #' @details ready4 S3 class for package metadata required for second package set-up step.
 #' @rdname ready4fun_metadata_b
 #' @export 
-
 ready4fun_metadata_b <- function(x = make_pt_ready4fun_metadata_b()){ 
 validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 }
@@ -17,7 +16,6 @@ validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 #' @details ready4 S3 class for package metadata required for second package set-up step.
 #' @rdname make_new_ready4fun_metadata_b
 #' @export 
-
 make_new_ready4fun_metadata_b <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_metadata_b",setdiff(make_pt_ready4fun_metadata_b() %>% class(),class(x))),
@@ -150,5 +148,4 @@ x}
 #' @details ready4 S3 class for package metadata required for second package set-up step.
 #' @rdname is_ready4fun_metadata_b
 #' @export 
-
 is_ready4fun_metadata_b <- function(x) inherits(validate_ready4fun_metadata_b(x), "ready4fun_metadata_b")

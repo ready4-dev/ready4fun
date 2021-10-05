@@ -8,7 +8,6 @@
 #' @return NA ()
 #' @rdname author-methods
 #' @export 
-
 author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), list_generics_1L_lgl = F, 
     self_serve_1L_lgl = F, self_serve_fn_ls = NULL) 
 {

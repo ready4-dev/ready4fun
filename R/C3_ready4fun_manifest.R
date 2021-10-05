@@ -6,7 +6,6 @@
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname ready4fun_manifest
 #' @export 
-
 ready4fun_manifest <- function(x = make_pt_ready4fun_manifest()){ 
 validate_ready4fun_manifest(make_new_ready4fun_manifest(x))
 }
@@ -17,7 +16,6 @@ validate_ready4fun_manifest(make_new_ready4fun_manifest(x))
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname make_new_ready4fun_manifest
 #' @export 
-
 make_new_ready4fun_manifest <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_manifest",setdiff(make_pt_ready4fun_manifest() %>% class(),class(x))),
@@ -95,5 +93,4 @@ x}
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname is_ready4fun_manifest
 #' @export 
-
 is_ready4fun_manifest <- function(x) inherits(validate_ready4fun_manifest(x), "ready4fun_manifest")

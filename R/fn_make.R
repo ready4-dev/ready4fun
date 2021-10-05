@@ -32,7 +32,6 @@ make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_
 #' @return Argument description (a character vector)
 #' @rdname make_arg_desc
 #' @export 
-
 #' @keywords internal
 make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
@@ -107,7 +106,6 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
 #' @return NA ()
 #' @rdname make_arg_desc_spine
 #' @export 
-
 #' @keywords internal
 make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
@@ -245,7 +243,6 @@ make_arg_type <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
 #' @return Argument type abbreviation (a character vector)
 #' @rdname make_arg_type_abbr
 #' @export 
-
 #' @keywords internal
 make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
@@ -272,7 +269,6 @@ make_arg_type_abbr <- function (fn_args_chr, object_type_lup = NULL, abbreviatio
 #' @return Argument type abbreviation spine (a character vector of length one)
 #' @rdname make_arg_type_abbr_spine
 #' @export 
-
 #' @keywords internal
 make_arg_type_abbr_spine <- function (argument_nm_1L_chr, object_type_lup) 
 {
@@ -314,7 +310,6 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "htt
 #' @return Build ignore (a list)
 #' @rdname make_build_ignore_ls
 #' @export 
-
 make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL) 
 {
     build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)
@@ -332,7 +327,6 @@ make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL)
 #' @return Custom documentation (a list)
 #' @rdname make_custom_dmt_ls
 #' @export 
-
 #' @keywords internal
 make_custom_dmt_ls <- function (args_ls_ls = NULL, desc_ls = NULL, details_ls = NULL, 
     example_ls = NULL, output_ls = NULL, title_ls = NULL, user_manual_fns_chr = NA_character_) 
@@ -522,7 +516,6 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
 #' @return Function documentation spine (a list of character vectors)
 #' @rdname make_fn_dmt_spine
 #' @export 
-
 #' @keywords internal
 make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr = NA_character_, 
     fn, details_1L_chr = NA_character_, example_1L_lgl = F, export_1L_lgl = T, 
@@ -755,7 +748,6 @@ make_fn_type_lup <- function (fn_type_nm_chr = character(0), fn_type_desc_chr = 
 #' @return Functions type (a character vector)
 #' @rdname make_fn_types
 #' @export 
-
 #' @keywords internal
 make_fn_types <- function () 
 {
@@ -837,7 +829,6 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @return NULL
 #' @rdname make_lines_for_fn_dmt
 #' @export 
-
 #' @keywords internal
 make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn_desc_1L_chr = NA_character_, 
     fn_out_type_1L_chr = NA_character_, fn_title_1L_chr = NA_character_, 
@@ -1319,7 +1310,6 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
 #' @return Package dataset (a list)
 #' @rdname make_pkg_ds_ls
 #' @export 
-
 make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbreviations_lup = NULL, 
     format_1L_chr = "A tibble", object_type_lup = NULL, simple_lup_1L_lgl = F, 
     url_1L_chr = NA_character_, vars_ls = NULL) 
@@ -1339,7 +1329,6 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
 #' @return Response (a character vector of length one)
 #' @rdname make_prompt
 #' @export 
-
 #' @keywords internal
 make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) 
 {
@@ -1365,7 +1354,6 @@ make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1L_c
 #' @return Return object description (a character vector of length one)
 #' @rdname make_ret_obj_desc
 #' @export 
-
 #' @keywords internal
 make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T) 
 {
@@ -1392,7 +1380,6 @@ make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T
 #' @return Short and long vector (a character vector)
 #' @rdname make_short_long_nms_vec
 #' @export 
-
 #' @keywords internal
 make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_chr = character(0)) 
 {

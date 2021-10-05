@@ -4,7 +4,6 @@
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 author <- function (x, ...) 
 {
     UseMethod("author", x)
@@ -16,7 +15,6 @@ methods::setGeneric("author")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 authorClasses <- function (x, ...) 
 {
     UseMethod("authorClasses", x)
@@ -28,7 +26,6 @@ methods::setGeneric("authorClasses")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 authorData <- function (x, ...) 
 {
     UseMethod("authorData", x)
@@ -40,7 +37,6 @@ methods::setGeneric("authorData")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 authorFunctions <- function (x, ...) 
 {
     UseMethod("authorFunctions", x)
@@ -52,7 +48,6 @@ methods::setGeneric("authorFunctions")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 enhance <- function (x, ...) 
 {
     UseMethod("enhance", x)
@@ -64,7 +59,6 @@ methods::setGeneric("enhance")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 ingest <- function (x, ...) 
 {
     UseMethod("ingest", x)
@@ -76,7 +70,6 @@ methods::setGeneric("ingest")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 investigate <- function (x, ...) 
 {
     UseMethod("investigate", x)
@@ -88,7 +81,6 @@ methods::setGeneric("investigate")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 manufacture <- function (x, ...) 
 {
     UseMethod("manufacture", x)
@@ -100,7 +92,6 @@ methods::setGeneric("manufacture")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 metamorphose <- function (x, ...) 
 {
     UseMethod("metamorphose", x)
@@ -112,7 +103,6 @@ methods::setGeneric("metamorphose")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 procure <- function (x, ...) 
 {
     UseMethod("procure", x)
@@ -124,7 +114,6 @@ methods::setGeneric("procure")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 prognosticate <- function (x, ...) 
 {
     UseMethod("prognosticate", x)
@@ -136,7 +125,6 @@ methods::setGeneric("prognosticate")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 ratify <- function (x, ...) 
 {
     UseMethod("ratify", x)
@@ -148,7 +136,6 @@ methods::setGeneric("ratify")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 reckon <- function (x, ...) 
 {
     UseMethod("reckon", x)
@@ -160,7 +147,6 @@ methods::setGeneric("reckon")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 renew <- function (x, ...) 
 {
     UseMethod("renew", x)
@@ -172,7 +158,6 @@ methods::setGeneric("renew")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 report <- function (x, ...) 
 {
     UseMethod("report", x)
@@ -184,7 +169,6 @@ methods::setGeneric("report")
 #' @param x An object
 #' @param ... Additional arguments (an additional arguments)
 #' @export 
-
 share <- function (x, ...) 
 {
     UseMethod("share", x)

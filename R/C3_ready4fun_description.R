@@ -6,7 +6,6 @@
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname ready4fun_description
 #' @export 
-
 ready4fun_description <- function(x = make_pt_ready4fun_description()){ 
 validate_ready4fun_description(make_new_ready4fun_description(x))
 }
@@ -17,7 +16,6 @@ validate_ready4fun_description(make_new_ready4fun_description(x))
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname make_new_ready4fun_description
 #' @export 
-
 make_new_ready4fun_description <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_description",setdiff(make_pt_ready4fun_description() %>% class(),class(x))),
@@ -104,5 +102,4 @@ x}
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname is_ready4fun_description
 #' @export 
-
 is_ready4fun_description <- function(x) inherits(validate_ready4fun_description(x), "ready4fun_description")

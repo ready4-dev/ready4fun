@@ -821,7 +821,6 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                fn_type_1L_chr = fn_type_1L_chr,
                                import_chr = import_chr,
                                import_from_chr = import_from_chr,
-                               #import_mthds_from_chr = import_mthds_from_chr,
                                abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
 }

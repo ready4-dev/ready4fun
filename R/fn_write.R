@@ -721,7 +721,6 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
 #' @return NULL
 #' @rdname write_fn_type_dirs
 #' @export 
-
 #' @keywords internal
 write_fn_type_dirs <- function (path_1L_chr = "data-raw") 
 {
@@ -824,7 +823,6 @@ write_from_tmp <- function (tmp_paths_chr, dest_paths_chr, edit_fn_ls = list(NUL
 #' @return NULL
 #' @rdname write_inst_dir
 #' @export 
-
 #' @keywords internal
 write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd()) 
 {
@@ -1194,7 +1192,6 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, fl_nm_1L_chr = N
 #' @return Package setup (a list)
 #' @rdname write_new_fn_types
 #' @export 
-
 write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     is_generic_lgl = F, is_method_lgl = F, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
     second_arg_desc_chr = NA_character_, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
@@ -1673,7 +1670,6 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
 #' @return NULL
 #' @rdname write_pt_lup_db
 #' @export 
-
 #' @keywords internal
 write_pt_lup_db <- function (R_dir_1L_chr = "R") 
 {
@@ -1809,7 +1805,6 @@ write_to_publish_dv_ds <- function (dv_ds_1L_chr)
 #' @return Description (a character vector)
 #' @rdname write_to_remove_collate
 #' @export 
-
 #' @keywords internal
 write_to_remove_collate <- function (description_chr) 
 {

@@ -7,7 +7,6 @@ setOldClass(c("ready4fun_badges","tbl_df", "tbl", "data.frame"))
 #' @details ready4 S3 class for tibble object lookup table of badges metadata.
 #' @rdname ready4fun_badges
 #' @export 
-
 ready4fun_badges <- function(x = make_pt_ready4fun_badges()){ 
 validate_ready4fun_badges(make_new_ready4fun_badges(x))
 }
@@ -102,5 +101,4 @@ x}
 #' @details ready4 S3 class for tibble object lookup table of badges metadata.
 #' @rdname is_ready4fun_badges
 #' @export 
-
 is_ready4fun_badges <- function(x) inherits(validate_ready4fun_badges(x), "ready4fun_badges")

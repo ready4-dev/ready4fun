@@ -683,9 +683,9 @@ write_fn_fl <- function(fns_env_ls,
                                         {
                                           if(fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)){
                                           writeLines(paste0("#' @importMethodsFrom ",
-                                                unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
-                                                " ",
-                                                fn_and_cls_chr[1]))
+                                                            unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
+                                                            " ",
+                                                            fn_and_cls_chr[1]))
                                           }
                                           }
                                         writeLines(paste0('methods::setMethod(\"',

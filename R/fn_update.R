@@ -165,7 +165,7 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
             gnrc_part_1L_chr])
         import_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 
             paste0("#' @importFrom ", ns_1L_chr)))
-        if (import_idx_1L_int != 0) {
+        if (!identical(import_idx_1L_int, integer(0))) {
             import_txt_1L_chr <- split_fn_dmt_chr[import_idx_1L_int]
             import_txt_1L_chr <- paste0(import_txt_1L_chr, ifelse(gnrc_part_1L_chr %in% 
                 (import_txt_1L_chr %>% strsplit(" ") %>% purrr::pluck(1)), 

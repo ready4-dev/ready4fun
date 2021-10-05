@@ -5,7 +5,9 @@
 #' @return Package setup (a list)
 #' @rdname validate_pkg_setup
 #' @export 
-
+#' @importFrom purrr map_chr
+#' @importFrom stringr str_sub
+#' @importFrom Hmisc capitalize
 #' @keywords internal
 validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F) 
 {
@@ -35,8 +37,11 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
         if (!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, 
             list())) {
             if (!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x)) {
-                missing_class_abbrs_chr <- setdiff(paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
-                  "_", pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr), 
+                name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                  "_")
+                missing_class_abbrs_chr <- setdiff(paste0(purrr::map_chr(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$make_s3_lgl, 
+                  ~ifelse(.x, name_pfx_1L_chr, stringr::str_sub(name_pfx_1L_chr, 
+                    end = -2) %>% Hmisc::capitalize())), pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr), 
                   pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
                 if (!identical(missing_class_abbrs_chr, character(0))) {
                   pkg_setup_ls$problems_ls$missing_class_abbrs_chr <- missing_class_abbrs_chr

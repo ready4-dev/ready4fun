@@ -27,8 +27,14 @@ validate_pkg_setup <- function(pkg_setup_ls,
     }
     if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
       if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x)){
-        missing_class_abbrs_chr <- setdiff(paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                                                  "_",
+        name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+                                  "_")
+        missing_class_abbrs_chr <- setdiff(paste0(purrr::map_chr(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$make_s3_lgl,
+                                                                 ~ifelse(.x,
+                                                                         name_pfx_1L_chr,
+                                                                         stringr::str_sub(name_pfx_1L_chr,
+                                                                                          end = -2) %>%
+                                                                           Hmisc::capitalize())),
                                                   pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr),
                                            pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
         if(!identical(missing_class_abbrs_chr, character(0))){

@@ -682,7 +682,7 @@ write_fn_fl <- function(fns_env_ls,
                                         writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
                                         {
                                           if(fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)){
-                                          writeLines(paste0("#' @importMethodsFrom ",
+                                          writeLines(paste0("#' @importFrom ",
                                                             unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
                                                             " ",
                                                             fn_and_cls_chr[1]))

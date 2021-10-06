@@ -279,4 +279,9 @@ add_rows_to_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
   }
   return(updated_fn_types_lup)
 }
+# add_S4_mthds <- function(fns_dmt_tb,
+#                          S4_mthds_ls,
+#                          fns_env_ls){
+#
+# }
 

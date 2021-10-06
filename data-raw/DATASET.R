@@ -179,4 +179,3 @@ manifest_ls <- pkg_desc_ls %>%
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)
-

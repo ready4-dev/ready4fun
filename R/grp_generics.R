@@ -42,6 +42,17 @@ authorFunctions <- function (x, ...)
     UseMethod("authorFunctions", x)
 }
 methods::setGeneric("authorFunctions")
+#' Characterize
+#' @rdname characterize-methods
+#' @description characterize() is a Characterize function that generates descriptive information about a dataset. Specifically, this function implements an algorithm to characterize. The function is called for its side effects and does not return a value.
+#' @param x An object
+#' @param ... Additional arguments (an additional arguments)
+#' @export 
+characterize <- function (x, ...) 
+{
+    UseMethod("characterize", x)
+}
+methods::setGeneric("characterize")
 #' Enhance
 #' @rdname enhance-methods
 #' @description enhance() is an Enhance function that enhances an instance of a class by adding one or more elements. Specifically, this function implements an algorithm to enhance. The function is called for its side effects and does not return a value.

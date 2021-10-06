@@ -14,6 +14,10 @@ authorFunctions <- function(x,
                             ...){
   UseMethod("authorFunctions",x)
 }
+characterize <- function(x,
+                         ...){
+  UseMethod("characterize",x)
+}
 enhance <- function(x,
                     ...){
   UseMethod("enhance",x)

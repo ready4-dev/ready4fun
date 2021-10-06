@@ -982,10 +982,10 @@ write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_l
         class_desc_chr <- pkg_setup_ls$problems_ls$missing_class_abbrs_chr %>% 
             purrr::map_chr(~get_from_lup_obj(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
                 match_value_xx = ifelse(startsWith(.x, pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>% 
-                  Hmisc::capitalize(pkg_setup_ls$initial_ls$pkg_desc_ls$Package)), 
-                  stringr::str_remove(.x, pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>% 
-                    Hmisc::capitalize(pkg_setup_ls$initial_ls$pkg_desc_ls$Package)), 
-                  stringr::str_remove(.x, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                  Hmisc::capitalize()), stringr::str_remove(.x, 
+                  pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>% 
+                    Hmisc::capitalize()), stringr::str_remove(.x, 
+                  paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
                     "_"))), match_var_nm_1L_chr = "name_stub_chr", 
                 target_var_nm_1L_chr = "class_desc_chr", evaluate_lgl = F))
         short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_class_abbrs_chr, 

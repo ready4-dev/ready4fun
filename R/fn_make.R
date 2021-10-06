@@ -992,10 +992,14 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
         if (!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$abbreviations_lup)) 
             manifest_ls$subsequent_ls$abbreviations_lup <- manifest_ls$subsequent_ls$abbreviations_lup %>% 
                 ready4fun_abbreviations()
-        if (!identical(manifest_ls$subsequent_ls$cls_fn_ls, list()) & 
-            !"ready4fun_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
-            manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>% 
-                ready4fun_executor()
+        if (identical(manifest_ls$subsequent_ls$cls_fn_ls, list())) {
+            manifest_ls$subsequent_ls$cls_fn_ls <- ready4fun_executor()
+        }
+        else {
+            if (!"ready4fun_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
+                manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>% 
+                  ready4fun_executor()
+        }
         if (!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup)) 
             manifest_ls$subsequent_ls$object_type_lup <- manifest_ls$subsequent_ls$object_type_lup %>% 
                 ready4fun_abbreviations()

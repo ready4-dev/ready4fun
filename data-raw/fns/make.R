@@ -757,7 +757,7 @@ make_gtr_str_dmt_spine <- function(fn_type_1L_chr,
                           # ref_slot_1L_chr,#fn_name_1L_chr,
                           # ifelse(fn_type_1L_chr == "gen_set_slot","_set",""), #added
                           # "-methods\n", #added -methods
-                          # #' @aliases crs_nbr_dbl,ready4_script_data-method
+                          # #' @aliases crs_nbr_dbl,ready4Arguments-method
                           )
   }
   gtr_str_dmt_spine_chr_ls <- list(fn_tags_1L_chr = fn_tags_1L_chr,

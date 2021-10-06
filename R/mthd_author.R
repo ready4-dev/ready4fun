@@ -18,7 +18,7 @@ author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY
     else {
         message("Manifest has been validated. Proceeding to package set-up.")
         author(x$initial_ls)
-        authorData(x)
+        x <- authorData(x)
         authorClasses(x, key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
             self_serve_fn_ls = self_serve_fn_ls)
         x <- renew(x, type_1L_chr = "fns_dmt", key_1L_chr = key_1L_chr)

@@ -9,7 +9,7 @@ author.ready4fun_manifest <- function(x,
   }else{
     message("Manifest has been validated. Proceeding to package set-up.")
     author(x$initial_ls)
-    authorData(x)
+    x <- authorData(x)
     authorClasses(x,
                   key_1L_chr = key_1L_chr,
                   self_serve_1L_lgl = self_serve_1L_lgl,

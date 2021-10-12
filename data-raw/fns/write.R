@@ -302,11 +302,11 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
   }
 }
 write_clss <- function(pkg_setup_ls,
-                       dv_url_pfx_1L_chr = character(0),
                        key_1L_chr = NULL,
                        self_serve_1L_lgl = F,
                        self_serve_fn_ls = NULL,
                        cls_fn_ls = deprecated(),
+                       dv_url_pfx_1L_chr = deprecated(),
                        dss_records_ls = deprecated()){
   if (lifecycle::is_present(cls_fn_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
@@ -317,6 +317,11 @@ write_clss <- function(pkg_setup_ls,
     lifecycle::deprecate_warn("0.0.0.9421",
                               "ready4fun::write_clss(dss_records_ls)",
                               details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dss_records_ls object to this function.")
+  }
+  if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9442",
+                              "ready4fun::write_clss(dv_url_pfx_1L_chr)",
+                              details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
   }
   if(self_serve_1L_lgl){
     fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
@@ -1273,6 +1278,24 @@ write_new_obj_types <- function(pkg_setup_ls,
                                        key_1L_chr = key_1L_chr,
                                        server_1L_chr = server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
+  return(pkg_setup_ls)
+}
+write_new_words_vec <- function(pkg_setup_ls,
+                                key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                                publish_dv_1L_lgl = T){
+  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
+    append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+                                             pkg_setup_ls$problems_ls$missing_words_chr))
+    words_desc_1L_chr <- "Additional words for dictionary"
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+                                          list_element_1L_chr = "missing_words_chr")
+    file_ids_int <- write_env_objs_to_dv(append_ls,
+                                         descriptions_chr = c(words_desc_1L_chr),
+                                         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                         key_1L_chr = key_1L_chr,
+                                         server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
+                                         publish_dv_1L_lgl = publish_dv_1L_lgl)
+  }
   return(pkg_setup_ls)
 }
 write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,

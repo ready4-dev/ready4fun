@@ -4,12 +4,18 @@
 \alias{add_new_cls_pts}
 \title{Add new class prototypes}
 \usage{
-add_new_cls_pts(pkg_setup_ls, addl_cls_pts_tb = NULL)
+add_new_cls_pts(
+  pkg_setup_ls,
+  addl_cls_pts_tb = NULL,
+  purge_pkg_clss_1L_lgl = T
+)
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
 
 \item{addl_cls_pts_tb}{Additional class prototypes (a tibble), Default: NULL}
+
+\item{purge_pkg_clss_1L_lgl}{Purge package classes (a logical vector of length one), Default: T}
 }
 \value{
 Package setup (a list)

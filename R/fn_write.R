@@ -293,11 +293,11 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' Write classes
 #' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
 #' @param cls_fn_ls Class (a list of functions), Default: deprecated()
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
 #' @param dss_records_ls Datasets records (a list), Default: deprecated()
 #' @return NULL
 #' @rdname write_clss
@@ -306,8 +306,8 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @importFrom rlang exec
 #' @importFrom devtools document load_all
 #' @keywords internal
-write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, 
-    self_serve_1L_lgl = F, self_serve_fn_ls = NULL, cls_fn_ls = deprecated(), 
+write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F, 
+    self_serve_fn_ls = NULL, cls_fn_ls = deprecated(), dv_url_pfx_1L_chr = deprecated(), 
     dss_records_ls = deprecated()) 
 {
     if (lifecycle::is_present(cls_fn_ls)) {
@@ -317,6 +317,10 @@ write_clss <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_c
     if (lifecycle::is_present(dss_records_ls)) {
         lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::write_clss(dss_records_ls)", 
             details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dss_records_ls object to this function.")
+    }
+    if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9442", "ready4fun::write_clss(dv_url_pfx_1L_chr)", 
+            details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
     }
     if (self_serve_1L_lgl) {
         fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
@@ -1313,6 +1317,30 @@ write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_elem
         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
         key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
         publish_dv_1L_lgl = publish_dv_1L_lgl)
+    return(pkg_setup_ls)
+}
+#' Write new words vector
+#' @description write_new_words_vec() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new words vector. The function returns Package setup (a list).
+#' @param pkg_setup_ls Package setup (a list)
+#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
+#' @return Package setup (a list)
+#' @rdname write_new_words_vec
+#' @export 
+#' @keywords internal
+write_new_words_vec <- function (pkg_setup_ls, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    publish_dv_1L_lgl = T) 
+{
+    if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+        append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr, 
+            pkg_setup_ls$problems_ls$missing_words_chr))
+        words_desc_1L_chr <- "Additional words for dictionary"
+        pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_words_chr")
+        file_ids_int <- write_env_objs_to_dv(append_ls, descriptions_chr = c(words_desc_1L_chr), 
+            ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
+            publish_dv_1L_lgl = publish_dv_1L_lgl)
+    }
     return(pkg_setup_ls)
 }
 #' Write namespace imports to description

@@ -4,6 +4,7 @@
 #' @return NA ()
 #' @rdname authorData-methods
 #' @export 
+#' @importFrom ready4 authorData
 authorData.ready4fun_manifest <- function (x) 
 {
     x <- write_pkg_dss(x)
@@ -11,4 +12,5 @@ authorData.ready4fun_manifest <- function (x)
 }
 #' @rdname authorData-methods
 #' @aliases authorData,ready4fun_manifest-method
+#' @importFrom ready4 authorData
 methods::setMethod("authorData", methods::className("ready4fun_manifest", package = "ready4fun"), authorData.ready4fun_manifest)

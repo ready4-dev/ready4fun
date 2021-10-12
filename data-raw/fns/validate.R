@@ -25,7 +25,12 @@ validate_pkg_setup <- function(pkg_setup_ls,
         pkg_setup_ls <- write_new_abbrs(pkg_setup_ls)
       }
     }
-    if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
+    if(is_method_1L_lgl){
+      test_2_1L_lgl <- identical(pkg_setup_ls$subsequent_ls$cls_fn_ls,ready4fun_executor())
+    }else{
+      test_2_1L_lgl <- F
+    }
+    if(!(identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list()) | test_2_1L_lgl)){
       if(!is.null(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x)){
         name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                                   "_")

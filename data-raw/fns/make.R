@@ -872,6 +872,8 @@ make_manifest <- function(pkg_desc_ls,
   if(identical(badges_lup,tibble::tibble())){
     utils::data("badges_lup", package = "ready4fun", envir = environment())
   }
+  if(identical(import_from_chr,character(0)))
+    import_from_chr <- ready4::make_gnrc_imports()
   if(is.na(gh_repo_1L_chr))
     gh_repo_1L_chr <- pkg_desc_ls$URL %>%
       strsplit(",") %>%
@@ -937,6 +939,7 @@ make_manifest <- function(pkg_desc_ls,
                                                                                 key_1L_chr = key_1L_chr,
                                                                                 server_1L_chr = server_1L_chr)))
   if(classify_1L_lgl){
+    # Consider classifying pkg_ds_ls_ls
     if(!"ready4fun_badges" %in% class (manifest_ls$subsequent_ls$badges_lup))
       manifest_ls$initial_ls$badges_lup <- manifest_ls$initial_ls$badges_lup %>% ready4fun_badges()
     if(!"ready4fun_description" %in% class (manifest_ls$subsequent_ls$pkg_desc_ls))

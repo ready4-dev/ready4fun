@@ -6,18 +6,16 @@
 \usage{
 write_clss(
   pkg_setup_ls,
-  dv_url_pfx_1L_chr = character(0),
   key_1L_chr = NULL,
   self_serve_1L_lgl = F,
   self_serve_fn_ls = NULL,
   cls_fn_ls = deprecated(),
+  dv_url_pfx_1L_chr = deprecated(),
   dss_records_ls = deprecated()
 )
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
-
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
 
@@ -26,6 +24,8 @@ write_clss(
 \item{self_serve_fn_ls}{Self serve (a list of functions), Default: NULL}
 
 \item{cls_fn_ls}{Class (a list of functions), Default: deprecated()}
+
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
 \item{dss_records_ls}{Datasets records (a list), Default: deprecated()}
 }

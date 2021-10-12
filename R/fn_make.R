@@ -916,6 +916,7 @@ make_list_phrase <- function (items_chr)
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom utils data
+#' @importFrom ready4 make_gnrc_imports
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr, 
@@ -945,6 +946,8 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
     if (identical(badges_lup, tibble::tibble())) {
         utils::data("badges_lup", package = "ready4fun", envir = environment())
     }
+    if (identical(import_from_chr, character(0))) 
+        import_from_chr <- ready4::make_gnrc_imports()
     if (is.na(gh_repo_1L_chr)) 
         gh_repo_1L_chr <- pkg_desc_ls$URL %>% strsplit(",") %>% 
             unlist() %>% purrr::pluck(2) %>% stringr::str_trim() %>% 

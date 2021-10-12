@@ -1,5 +1,6 @@
-library(magrittr)
-library(lifecycle)
+# library(magrittr)
+# library(lifecycle)
+library(ready4)
 fns_dir_1L_chr <-"data-raw/fns"
 if(!dir.exists(fns_dir_1L_chr))
   dir.create(fns_dir_1L_chr)
@@ -20,7 +21,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                color = .y,
                                                label_color = "black",
                                                md_link = "https://www.ready4-dev.com/toolkits/",
-                                               logo_path = "https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
+                                               logo_path = "https://dataverse.harvard.edu/api/access/datafile/5244818",#"https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
 pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions for Open and Modular Mental Health Simulations",
@@ -156,7 +157,7 @@ constructor_r3 <- dplyr::bind_rows(
                                                                    "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
   ready4class::ready4class_constructor()
 manifest_ls <- pkg_desc_ls %>%
-  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(suggests_chr = "rmarkdown"),
+  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(depends_chr = "ready4", suggests_chr = "rmarkdown"),
                                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                    check_type_1L_chr = "standard",
                                    cls_fn_ls = list(fn = ready4class::author.ready4class_constructor,
@@ -177,5 +178,5 @@ manifest_ls <- pkg_desc_ls %>%
                                    pkg_ds_ls_ls = pkg_ds_ls_ls,
                                    ready4_type_1L_chr = "authoring")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
-                                                list_generics_1L_lgl = T,
+                                                #list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)

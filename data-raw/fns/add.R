@@ -240,11 +240,16 @@ add_plurals_to_abbr_lup <- function(abbr_tb,
   return(abbr_tb)
 }
 add_new_cls_pts <- function(pkg_setup_ls,
-                            addl_cls_pts_tb = NULL){
+                            addl_cls_pts_tb = NULL,
+                            purge_pkg_clss_1L_lgl = T){
   if(is.null(pkg_setup_ls$subsequent_ls$prototype_lup)){
     pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup",
                                                                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                                                 dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr)
+  }
+  if(purge_pkg_clss_1L_lgl){
+    pkg_setup_ls$subsequent_ls$prototype_lup <- pkg_setup_ls$subsequent_ls$prototype_lup %>%
+      dplyr::filter(pt_ns_chr != pkg_setup_ls$initial_ls$pkg_desc_ls$Package)
   }
   if(!is.null(addl_cls_pts_tb)){
     pkg_setup_ls$subsequent_ls$prototype_lup <- add_lups(pkg_setup_ls$subsequent_ls$prototype_lup,

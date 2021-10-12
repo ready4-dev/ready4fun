@@ -8,6 +8,7 @@
 #' @return NA ()
 #' @rdname author-methods
 #' @export 
+#' @importFrom ready4 author
 author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), list_generics_1L_lgl = F, 
     self_serve_1L_lgl = F, self_serve_fn_ls = NULL) 
 {
@@ -29,6 +30,7 @@ author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY
 }
 #' @rdname author-methods
 #' @aliases author,ready4fun_manifest-method
+#' @importFrom ready4 author
 methods::setMethod("author", methods::className("ready4fun_manifest", package = "ready4fun"), author.ready4fun_manifest)
 #' Author method applied to ready4 S3 class for package metadata required for initial package set-up step..
 #' @description author.ready4fun_metadata_a() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
@@ -37,10 +39,12 @@ methods::setMethod("author", methods::className("ready4fun_manifest", package = 
 #' @rdname author-methods
 #' @export 
 #' @importFrom rlang exec
+#' @importFrom ready4 author
 author.ready4fun_metadata_a <- function (x) 
 {
     rlang::exec(write_pkg_setup_fls, !!!x)
 }
 #' @rdname author-methods
 #' @aliases author,ready4fun_metadata_a-method
+#' @importFrom ready4 author
 methods::setMethod("author", methods::className("ready4fun_metadata_a", package = "ready4fun"), author.ready4fun_metadata_a)

@@ -29,7 +29,10 @@ write_clss(
 
 \item{dss_records_ls}{Datasets records (a list), Default: deprecated()}
 }
+\value{
+Package setup (a list)
+}
 \description{
-write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
 }
 \keyword{internal}

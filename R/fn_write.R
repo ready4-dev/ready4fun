@@ -291,7 +291,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
     }
 }
 #' Write classes
-#' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
@@ -299,7 +299,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @param cls_fn_ls Class (a list of functions), Default: deprecated()
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
 #' @param dss_records_ls Datasets records (a list), Default: deprecated()
-#' @return NULL
+#' @return Package setup (a list)
 #' @rdname write_clss
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
@@ -359,8 +359,9 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
             pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$init_class_pt_lup <- pkg_setup_ls$subsequent_ls$prototype_lup
         prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
-        if (!identical(pkg_setup_ls$subsequent_ls$prototype_lup, 
-            prototype_lup)) {
+        pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup
+        if (!identical(get_rds_from_dv("prototype_lup", dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
+            key_1L_chr = key_1L_chr), prototype_lup)) {
             write_env_objs_to_dv(list(prototype_lup = prototype_lup), 
                 descriptions_chr = "Class prototype lookup table", 
                 ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
@@ -370,6 +371,7 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
     }
     devtools::document()
     devtools::load_all()
+    return(pkg_setup_ls)
 }
 #' Write documented function type lookup table
 #' @description write_dmtd_fn_type_lup() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write documented function type lookup table. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -1425,8 +1427,9 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1
         message("pkg_setup_ls has been validated. Proceeding to package set-up.")
         rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
         pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
-        write_clss(pkg_setup_ls = pkg_setup_ls, key_1L_chr = key_1L_chr, 
-            self_serve_1L_lgl = self_serve_1L_lgl, self_serve_fn_ls = self_serve_fn_ls)
+        pkg_setup_ls <- write_clss(pkg_setup_ls = pkg_setup_ls, 
+            key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
+            self_serve_fn_ls = self_serve_fn_ls)
         pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls = pkg_setup_ls, 
             fns_env_ls = NULL, inc_methods_1L_lgl = T, key_1L_chr = key_1L_chr)
         write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T, 

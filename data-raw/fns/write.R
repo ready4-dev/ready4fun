@@ -354,8 +354,12 @@ write_clss <- function(pkg_setup_ls,
     if("init_class_pt_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "init_class_pt_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$init_class_pt_lup <- pkg_setup_ls$subsequent_ls$prototype_lup
     prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
-                                 !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls) #%>%
-    if(!identical(pkg_setup_ls$subsequent_ls$prototype_lup, prototype_lup)){
+                                 !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
+    pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup # Check this
+    if(!identical(get_rds_from_dv("prototype_lup",
+                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                  key_1L_chr = key_1L_chr),
+                  prototype_lup)){
       write_env_objs_to_dv(list(prototype_lup = prototype_lup),
                            descriptions_chr = "Class prototype lookup table",
                            ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
@@ -366,6 +370,7 @@ write_clss <- function(pkg_setup_ls,
   }
   devtools::document()
   devtools::load_all()
+  return(pkg_setup_ls)
 }
 write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                    overwrite_1L_lgl = T,
@@ -1363,12 +1368,10 @@ write_package <- function(pkg_setup_ls,
     message("pkg_setup_ls has been validated. Proceeding to package set-up.")
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
     pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
-    write_clss(pkg_setup_ls = pkg_setup_ls,
-               #dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-               key_1L_chr = key_1L_chr,
-               self_serve_1L_lgl = self_serve_1L_lgl,
-               self_serve_fn_ls = self_serve_fn_ls#,server_1L_chr = server_1L_chr
-               )
+    pkg_setup_ls <- write_clss(pkg_setup_ls = pkg_setup_ls,
+                               key_1L_chr = key_1L_chr,
+                               self_serve_1L_lgl = self_serve_1L_lgl,
+                               self_serve_fn_ls = self_serve_fn_ls)
     pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls = pkg_setup_ls,
                                    fns_env_ls = NULL,
                                    inc_methods_1L_lgl = T,

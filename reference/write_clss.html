@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Write classes — write_clss" />
-<meta property="og:description" content="write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour" />
+<meta property="og:description" content="write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9441</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9444</span>
       </span>
     </div>
 
@@ -125,16 +125,16 @@
     </div>
 
     <div class="ref-description">
-    <p>write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour</p>
+    <p>write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).</p>
     </div>
 
     <pre class="usage"><span class='fu'>write_clss</span><span class='op'>(</span>
   <span class='va'>pkg_setup_ls</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
   key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
   self_serve_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
   self_serve_fn_ls <span class='op'>=</span> <span class='cn'>NULL</span>,
   cls_fn_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
+  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>,
   dss_records_ls <span class='op'>=</span> <span class='fu'><a href='deprecated.html'>deprecated</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
@@ -144,10 +144,6 @@
     <tr>
       <th>pkg_setup_ls</th>
       <td><p>Package setup (a list)</p></td>
-    </tr>
-    <tr>
-      <th>dv_url_pfx_1L_chr</th>
-      <td><p>Dataverse url prefix (a character vector of length one), Default: character(0)</p></td>
     </tr>
     <tr>
       <th>key_1L_chr</th>
@@ -166,11 +162,18 @@
       <td><p>Class (a list of functions), Default: deprecated()</p></td>
     </tr>
     <tr>
+      <th>dv_url_pfx_1L_chr</th>
+      <td><p>Dataverse url prefix (a character vector of length one), Default: deprecated()</p></td>
+    </tr>
+    <tr>
       <th>dss_records_ls</th>
       <td><p>Datasets records (a list), Default: deprecated()</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Package setup (a list)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

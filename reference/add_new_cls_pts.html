@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9441</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9444</span>
       </span>
     </div>
 
@@ -128,7 +128,11 @@
     <p>add_new_cls_pts() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add new class prototypes. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_new_cls_pts</span><span class='op'>(</span><span class='va'>pkg_setup_ls</span>, addl_cls_pts_tb <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_new_cls_pts</span><span class='op'>(</span>
+  <span class='va'>pkg_setup_ls</span>,
+  addl_cls_pts_tb <span class='op'>=</span> <span class='cn'>NULL</span>,
+  purge_pkg_clss_1L_lgl <span class='op'>=</span> <span class='cn'>T</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +144,10 @@
     <tr>
       <th>addl_cls_pts_tb</th>
       <td><p>Additional class prototypes (a tibble), Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>purge_pkg_clss_1L_lgl</th>
+      <td><p>Purge package classes (a logical vector of length one), Default: T</p></td>
     </tr>
     </table>
 

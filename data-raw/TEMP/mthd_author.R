@@ -8,23 +8,23 @@
 #' @return NA ()
 #' @rdname author-methods
 #' @export 
-#' @importFrom ready4 ratify author authorData authorClasses renew authorFunctions report
+#' @importFrom ready4 author
 author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), list_generics_1L_lgl = F, 
     self_serve_1L_lgl = F, self_serve_fn_ls = NULL) 
 {
-    x <- ready4::ratify(x)
+    x <- ratify(x)
     if (!is.null(x$problems_ls)) {
         message("Execution halted - fix issues with manifest before making a new call to author.")
     }
     else {
         message("Manifest has been validated. Proceeding to package set-up.")
-        ready4::author(x$initial_ls)
-        x <- ready4::authorData(x)
-        ready4::authorClasses(x, key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
+        author(x$initial_ls)
+        x <- authorData(x)
+        authorClasses(x, key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 
             self_serve_fn_ls = self_serve_fn_ls)
-        x <- ready4::renew(x, type_1L_chr = "fns_dmt", key_1L_chr = key_1L_chr)
-        ready4::authorFunctions(x, list_generics_1L_lgl = list_generics_1L_lgl)
-        ready4::report(x, key_1L_chr = key_1L_chr)
+        x <- renew(x, type_1L_chr = "fns_dmt", key_1L_chr = key_1L_chr)
+        authorFunctions(x, list_generics_1L_lgl = list_generics_1L_lgl)
+        report(x, key_1L_chr = key_1L_chr)
     }
     return(x)
 }

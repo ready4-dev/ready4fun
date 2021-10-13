@@ -82,8 +82,7 @@ write_all_fn_dmt <- function(pkg_setup_ls,
     unique()
   write_new_files(paths_chr = paths_chr,
                   custom_write_ls = list(fn = write_fn_fl,
-                                         args_ls = list(#fns_dmt_tb = fns_dmt_tb,
-                                                        fns_env_ls = fns_env_ls,
+                                         args_ls = list(fns_env_ls = fns_env_ls,
                                                         pkg_setup_ls = pkg_setup_ls,
                                                         document_unexp_lgl = document_unexp_lgl)))
   devtools::document()
@@ -224,28 +223,8 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
                c(T,F),
                ~ {
                  write_all_fn_dmt(pkg_setup_ls,
-                                  #fns_dmt_tb = fns_dmt_tb,
                                   fns_env_ls = fns_env_ls,
                                   document_unexp_lgl = .y)
-                 # paths_chr <- paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
-                 #                     "/",
-                 #                     fns_dmt_tb$file_pfx_chr,
-                 #                     fns_dmt_tb$file_nm_chr) %>%
-                 #   unique()
-                 # # write_to_delete_fls(paths_chr)
-                 # write_new_files(paths_chr = paths_chr,
-                 #                   # paste0(r_dir_1L_chr,
-                 #                   #                  "/",
-                 #                   #                  fns_dmt_tb$file_pfx_chr[1],
-                 #                   #                  fns_dmt_tb$file_nm_chr %>%
-                 #                   #                    unique()),
-                 #                 custom_write_ls = list(fn = write_fn_fl,
-                 #                                        args_ls = list(fns_dmt_tb = fns_dmt_tb,
-                 #                                                       fns_env_ls = fns_env_ls,
-                 #                                                       r_dir_1L_chr = r_dir_1L_chr,
-                 #                                                       document_unexp_lgl = .y)))
-                 # devtools::document()
-                 # devtools::load_all()
                  write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
                                        incr_ver_1L_lgl = .y)
                  devtools::load_all()
@@ -848,7 +827,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
 }
 write_manuals <- function(pkg_setup_ls,
                           path_to_dmt_dir_1L_chr = deprecated(), ##
-                          dv_url_pfx_1L_chr = character(0),
+                          dv_url_pfx_1L_chr = deprecated(),
                           key_1L_chr = NULL,
                           publish_dv_1L_lgl = T,
                           server_1L_chr = deprecated(),
@@ -857,6 +836,11 @@ write_manuals <- function(pkg_setup_ls,
     lifecycle::deprecate_warn("0.0.0.9333",
                               "ready4fun::write_manuals(pkg_desc_ls)",
                               details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+  }
+  if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
+    lifecycle::deprecate_warn("0.0.0.9445",
+                              "ready4fun::write_manuals(dv_url_pfx_1L_chr)",
+                              details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
   }
   write_manuals_to_dv(package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                       path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
@@ -867,7 +851,7 @@ write_manuals <- function(pkg_setup_ls,
                                                         c("Developer","User"),
                                                         ".pdf"),
                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                  dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr,
                                   key_1L_chr = key_1L_chr,
                                   server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
   project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
@@ -1380,7 +1364,7 @@ write_package <- function(pkg_setup_ls,
                          update_pkgdown_1L_lgl = T,
                          list_generics_1L_lgl = list_generics_1L_lgl)
     write_manuals(pkg_setup_ls = pkg_setup_ls,
-                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                  #dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                   key_1L_chr = key_1L_chr,
                   server_1L_chr = server_1L_chr)
   }

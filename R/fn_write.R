@@ -884,7 +884,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @description write_manuals() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_setup_ls Package setup (a list)
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: deprecated()
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
@@ -896,12 +896,16 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
 #' @importFrom purrr pluck
 #' @keywords internal
 write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(), 
-    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, publish_dv_1L_lgl = T, 
+    dv_url_pfx_1L_chr = deprecated(), key_1L_chr = NULL, publish_dv_1L_lgl = T, 
     server_1L_chr = deprecated(), pkg_desc_ls = deprecated()) 
 {
     if (lifecycle::is_present(pkg_desc_ls)) {
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_manuals(pkg_desc_ls)", 
             details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+    }
+    if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
+        lifecycle::deprecate_warn("0.0.0.9445", "ready4fun::write_manuals(dv_url_pfx_1L_chr)", 
+            details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
     }
     write_manuals_to_dv(package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
         path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
@@ -909,8 +913,8 @@ write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(),
         publish_dv_1L_lgl = publish_dv_1L_lgl)
     dmt_urls_chr <- get_dv_fls_urls(file_nms_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
         "_", c("Developer", "User"), ".pdf"), dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1], 
-        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 
-        server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+        dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr, 
+        key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
     project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
         strsplit(",") %>% unlist() %>% purrr::pluck(3)
     if (is.null(project_url_1L_chr)) 
@@ -1434,8 +1438,8 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1
             fns_env_ls = NULL, inc_methods_1L_lgl = T, key_1L_chr = key_1L_chr)
         write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T, 
             list_generics_1L_lgl = list_generics_1L_lgl)
-        write_manuals(pkg_setup_ls = pkg_setup_ls, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        write_manuals(pkg_setup_ls = pkg_setup_ls, key_1L_chr = key_1L_chr, 
+            server_1L_chr = server_1L_chr)
     }
     return(pkg_setup_ls)
 }

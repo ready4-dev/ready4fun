@@ -167,7 +167,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
     ##
     ns_1L_chr <- unname(import_from_chr[names(import_from_chr) == gnrc_part_1L_chr])
     import_idx_1L_int <- which(startsWith(split_fn_dmt_chr,
-                                          paste0("#' @importFrom ",ns_1L_chr)))
+                                          paste0("#' @importFrom ",ns_1L_chr," ")))
     if(!identical(import_idx_1L_int, integer(0))){
       import_txt_1L_chr <- split_fn_dmt_chr[import_idx_1L_int]
       import_txt_1L_chr <- paste0(import_txt_1L_chr,

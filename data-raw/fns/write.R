@@ -335,10 +335,12 @@ write_clss <- function(pkg_setup_ls,
     prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
                                  !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
     pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup # Check this
-    if(!identical(get_rds_from_dv("prototype_lup",
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                  key_1L_chr = key_1L_chr),
-                  prototype_lup)){
+    current_lup <- get_rds_from_dv("prototype_lup",
+                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+                                   key_1L_chr = key_1L_chr,
+                                   server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+    if(!identical(current_lup,
+                  prototype_lup) & !is.null(current_lup)){
       write_env_objs_to_dv(list(prototype_lup = prototype_lup),
                            descriptions_chr = "Class prototype lookup table",
                            ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],

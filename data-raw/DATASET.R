@@ -12,8 +12,8 @@ fns_env_ls <- read_fns(fns_dir_1L_chr,
 rm(read_fns)
 fns_env_ls$fns_env$write_fn_type_dirs()
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
-                             label_names_chr = c("authoring","description","modelling", "prediction"),
-                             colours_chr = c("maroon", "navy","indigo", "forestgreen")) %>%
+                             label_names_chr = c("foundation","authoring","description","modelling", "prediction"),
+                             colours_chr = c("coral","maroon", "navy","indigo", "forestgreen")) %>%
   dplyr::mutate(badges_chr = purrr::map2_chr(label_names_chr, colours_chr,
                                              ~badgr::get_badge(
                                                label = "ready4",

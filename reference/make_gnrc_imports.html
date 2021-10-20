@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get output object type — get_outp_obj_type • ready4fun</title>
+<title>Make generic imports — make_gnrc_imports • ready4fun</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get output object type — get_outp_obj_type" />
-<meta property="og:description" content="get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector)." />
+<meta property="og:title" content="Make generic imports — make_gnrc_imports" />
+<meta property="og:description" content="make_gnrc_imports() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make generic imports. The function returns Generic imports (a character vector)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,71 +119,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get output object type</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_get.R'><code>R/fn_get.R</code></a></small>
-    <div class="hidden name"><code>get_outp_obj_type.Rd</code></div>
+    <h1>Make generic imports</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ready4-dev/ready4fun/blob/master/R/fn_make.R'><code>R/fn_make.R</code></a></small>
+    <div class="hidden name"><code>make_gnrc_imports.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).</p>
+    <p>make_gnrc_imports() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make generic imports. The function returns Generic imports (a character vector).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_outp_obj_type</span><span class='op'>(</span>
-  <span class='va'>fns_chr</span>,
-  <span class='va'>abbreviations_lup</span>,
-  dv_ds_nm_1L_chr <span class='op'>=</span> <span class='st'>"https://doi.org/10.7910/DVN/2Y9VF9"</span>,
-  dv_url_pfx_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>,
-  <span class='va'>fns_env_ls</span>,
-  is_generic_lgl <span class='op'>=</span> <span class='cn'>F</span>,
-  key_1L_chr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  object_type_lup <span class='op'>=</span> <span class='cn'>NULL</span>,
-  server_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"DATAVERSE_SERVER"</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_gnrc_imports</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fns_chr</th>
-      <td><p>Functions (a character vector)</p></td>
-    </tr>
-    <tr>
-      <th>abbreviations_lup</th>
-      <td><p>Abbreviations (a lookup table)</p></td>
-    </tr>
-    <tr>
-      <th>dv_ds_nm_1L_chr</th>
-      <td><p>Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'</p></td>
-    </tr>
-    <tr>
-      <th>dv_url_pfx_1L_chr</th>
-      <td><p>Dataverse url prefix (a character vector of length one), Default: character(0)</p></td>
-    </tr>
-    <tr>
-      <th>fns_env_ls</th>
-      <td><p>Functions (a list of environments)</p></td>
-    </tr>
-    <tr>
-      <th>is_generic_lgl</th>
-      <td><p>Is generic (a logical vector), Default: F</p></td>
-    </tr>
-    <tr>
-      <th>key_1L_chr</th>
-      <td><p>Key (a character vector of length one), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>object_type_lup</th>
-      <td><p>Object type (a lookup table), Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>server_1L_chr</th>
-      <td><p>Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Output object type (a character vector)</p>
+    <p>Generic imports (a character vector)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

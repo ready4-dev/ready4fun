@@ -29,3 +29,4 @@ Urls (a character vector)
 \description{
 get_dv_fls_urls() is a Get Data function that retrieves data from R objects loaded in memory. Specifically, this function implements an algorithm to get dataverse files urls. The function returns Urls (a character vector).
 }
+\keyword{internal}

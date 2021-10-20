@@ -19,7 +19,7 @@ get_arg_obj_type <- function(argument_nm_1L_chr,
                              object_type_lup = NULL,
                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
+    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
@@ -48,6 +48,7 @@ get_dv_fls_urls <- function(file_nms_chr,
                             dv_url_pfx_1L_chr = character(0),
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
                             key_1L_chr = NULL){
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::get_dv_fls_urls()", "ready4::get_dv_fls_urls()")
   if(identical(dv_url_pfx_1L_chr, character(0)))
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,
@@ -69,19 +70,20 @@ get_dv_fls_urls <- function(file_nms_chr,
 }
 get_fl_id_from_dv_ls <-  function (ds_ls, fl_nm_1L_chr, nms_chr = NA_character_)
 {
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::get_fl_id_from_dv_ls()", "ready4::get_fl_id_from_dv_ls()")
   if (is.na(nms_chr[1])) {
     nms_chr <- purrr::map2_chr(ds_ls$files$originalFileName,
                                ds_ls$files$filename, ~ifelse(is.na(.x), .y, .x))
   }
   if (fl_nm_1L_chr %in% nms_chr) {
-    id_1L_chr <- get_from_lup_obj(ds_ls$files[, names(ds_ls$files) %>% unique()] %>%
+    id_1L_chr <- ready4::get_from_lup_obj(ds_ls$files[, names(ds_ls$files) %>% unique()] %>%
                                     tibble::as_tibble(),
                                   match_var_nm_1L_chr = ifelse(fl_nm_1L_chr %in% ds_ls$files$originalFileName,
                                                                "originalFileName",
                                                                "filename"),
                                   match_value_xx = fl_nm_1L_chr,
                                   target_var_nm_1L_chr = "id",
-                                  evaluate_lgl = F)
+                                  evaluate_1L_lgl = F)
   }
   else {
     id_1L_chr <- NA_character_
@@ -104,12 +106,13 @@ get_from_lup_obj <- function(data_lookup_tb,
                              match_value_xx,
                              match_var_nm_1L_chr,
                              target_var_nm_1L_chr,
-                             evaluate_lgl = TRUE){
+                             evaluate_1L_lgl = TRUE){
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::get_from_lup_obj()", "ready4::get_from_lup_obj()")
   return_object_ref <- data_lookup_tb %>%
     dplyr::filter(!!rlang::sym(match_var_nm_1L_chr)==match_value_xx) %>%
     dplyr::select(!!target_var_nm_1L_chr) %>%
     dplyr::pull()
-  if(evaluate_lgl){
+  if(evaluate_1L_lgl){
     if(stringr::str_detect(return_object_ref,"::")){
       colon_positions <- stringr::str_locate(return_object_ref,
                                              "::")
@@ -294,7 +297,7 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
                                   old_obj_type_lup = NULL,
                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(old_obj_type_lup))
-    old_obj_type_lup <- get_rds_from_dv("object_type_lup",
+    old_obj_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                            key_1L_chr = key_1L_chr,
@@ -316,7 +319,7 @@ get_outp_obj_type <- function(fns_chr,
                               object_type_lup = NULL,
                               server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
+    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
@@ -347,6 +350,7 @@ get_outp_obj_type <- function(fns_chr,
 }
 get_r4_obj_slots <- function(fn_name_1L_chr,
                                      package_1L_chr = ""){
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::get_r4_obj_slots()", "ready4::get_r4_obj_slots()")
   slots_ls <- className(fn_name_1L_chr,update_ns(package_1L_chr)) %>% methods::getSlots()
   slots_chr <- purrr::map_chr(slots_ls, ~ .x)
   return(slots_chr)
@@ -356,6 +360,7 @@ get_rds_from_dv <- function(file_nm_1L_chr,
                             dv_url_pfx_1L_chr = character(0),
                             key_1L_chr = NULL,
                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::get_rds_from_dv()", "ready4::get_rds_from_dv()")
   if(identical(dv_url_pfx_1L_chr, character(0)))
     dv_url_pfx_1L_chr <- paste0("https://",
                                 server_1L_chr,

@@ -5,6 +5,7 @@
 #' @return Package setup (a list)
 #' @rdname validate_pkg_setup
 #' @export 
+#' @importFrom ready4 make_list_phrase
 #' @importFrom purrr map_chr
 #' @importFrom stringr str_sub
 #' @importFrom Hmisc capitalize
@@ -18,7 +19,7 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
     if (!identical(missing_fn_types_chr, character(0))) {
         message(paste0("The following function type", ifelse(length(missing_fn_types_chr) > 
             1, "s are", " is"), " not yet defined: \n", missing_fn_types_chr %>% 
-            make_list_phrase(), ".\nAdd the missing definition", 
+            ready4::make_list_phrase(), ".\nAdd the missing definition", 
             ifelse(length(missing_fn_types_chr) > 1, "s", ""), 
             " by using the ", ifelse(is_method_1L_lgl, "'renew' method", 
                 "'write_new_fn_types' function.")))
@@ -63,7 +64,7 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
                 message(paste0("The following potential class prototype", 
                   ifelse(length(missing_cls_pts_chr) > 1, "s are", 
                     " is"), " not defined in the prototype_lup object: \n", 
-                  missing_cls_pts_chr %>% make_list_phrase(), 
+                  missing_cls_pts_chr %>% ready4::make_list_phrase(), 
                   ".\nAdd the missing object type definition", 
                   ifelse(length(missing_cls_pts_chr) > 1, "s", 
                     ""), " by using the ", ifelse(is_method_1L_lgl, 
@@ -82,7 +83,7 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
             message(paste0("The following potential object type", 
                 ifelse(length(missing_obj_types_chr) > 1, "s are", 
                   " is"), " neither defined nor contained in the 'treat_as_words_chr' object: \n", 
-                missing_obj_types_chr %>% make_list_phrase(), 
+                missing_obj_types_chr %>% ready4::make_list_phrase(), 
                 ".\nAdd the missing object type definition", 
                 ifelse(length(missing_obj_types_chr) > 1, "s", 
                   ""), " and/or update the 'treat_as_words_chr'", 
@@ -98,7 +99,8 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
                 message(paste0("The following potential abbreviation", 
                   ifelse(length(missing_abbrs_chr) > 1, "s are", 
                     " is"), " neither defined nor contained in the 'treat_as_words_chr' object: \n", 
-                  missing_abbrs_chr %>% make_list_phrase(), ".\nAdd the missing abbreviation definition", 
+                  missing_abbrs_chr %>% ready4::make_list_phrase(), 
+                  ".\nAdd the missing abbreviation definition", 
                   ifelse(length(missing_abbrs_chr) > 1, "s", 
                     ""), " and/or update the 'treat_as_words_chr'", 
                   " by using the ", ifelse(is_method_1L_lgl, 

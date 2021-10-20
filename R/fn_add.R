@@ -136,6 +136,7 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), fns_
 #' @rdname add_indef_artl_to_item
 #' @export 
 #' @importFrom purrr map_chr
+#' @importFrom ready4 get_from_lup_obj
 #' @importFrom stringr str_sub
 #' @keywords internal
 add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_not_in_lup_1L_lgl = T) 
@@ -153,9 +154,9 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_n
                 max(n_char_matches_dbl))]
         }
         plural_1L_lgl <- ifelse(prefix_chr %in% abbreviations_lup$long_name_chr, 
-            get_from_lup_obj(abbreviations_lup, match_var_nm_1L_chr = "long_name_chr", 
+            ready4::get_from_lup_obj(abbreviations_lup, match_var_nm_1L_chr = "long_name_chr", 
                 match_value_xx = prefix_chr, target_var_nm_1L_chr = "plural_lgl", 
-                evaluate_lgl = F), ignore_phrs_not_in_lup_1L_lgl)
+                evaluate_1L_lgl = F), ignore_phrs_not_in_lup_1L_lgl)
         ifelse(is.na(plural_1L_lgl), .x, ifelse(plural_1L_lgl, 
             .x, ifelse(.x %>% tolower() %>% stringr::str_sub(end = 1) %in% 
                 c("a", "e", "i", "o", "u"), paste0("an ", .x), 
@@ -210,13 +211,17 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @return Combined (lookup tables)
 #' @rdname add_lups
 #' @export 
+#' @importFrom lifecycle deprecate_soft
 #' @importFrom testit assert
 #' @importFrom dplyr filter pull bind_rows arrange
 #' @importFrom rlang sym
 #' @importFrom Hmisc label
+#' @importFrom ready4 remove_lbls_from_df
 #' @keywords internal
 add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for_dupls_1L_chr = "template") 
 {
+    lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::add_lups()", 
+        "ready4::add_lups()")
     testit::assert("Look up tables must have same column names", 
         names(template_lup) == names(new_lup))
     if (priority_lup_for_dupls_1L_chr == "template") {
@@ -230,8 +235,8 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
         labels_chr <- Hmisc::label(new_lup) %>% unname()
     }
     if (!all(labels_chr %>% unique() == "")) {
-        template_lup <- template_lup %>% remove_lbls_from_df()
-        new_lup <- new_lup %>% remove_lbls_from_df()
+        template_lup <- template_lup %>% ready4::remove_lbls_from_df()
+        new_lup <- new_lup %>% ready4::remove_lbls_from_df()
         Hmisc::label(template_lup) <- as.list(labels_chr %>% 
             unname())
         Hmisc::label(new_lup) <- as.list(labels_chr %>% unname())
@@ -250,11 +255,12 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
 #' @return Package setup (a list)
 #' @rdname add_new_cls_pts
 #' @export 
+#' @importFrom ready4 get_rds_from_dv add_lups
 #' @importFrom dplyr filter
 add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_clss_1L_lgl = T) 
 {
     if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {
-        pkg_setup_ls$subsequent_ls$prototype_lup <- get_rds_from_dv("prototype_lup", 
+        pkg_setup_ls$subsequent_ls$prototype_lup <- ready4::get_rds_from_dv("prototype_lup", 
             dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
             dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr)
     }
@@ -263,7 +269,7 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_cls
             dplyr::filter(pt_ns_chr != pkg_setup_ls$initial_ls$pkg_desc_ls$Package)
     }
     if (!is.null(addl_cls_pts_tb)) {
-        pkg_setup_ls$subsequent_ls$prototype_lup <- add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 
+        pkg_setup_ls$subsequent_ls$prototype_lup <- ready4::add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 
             new_lup = addl_cls_pts_tb, key_var_nm_1L_chr = "type_chr")
         if (!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr)) 
             pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, 
@@ -326,6 +332,7 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
 #' @return Updated function types (a lookup table)
 #' @rdname add_rows_to_fn_type_lup
 #' @export 
+#' @importFrom ready4 add_lups
 #' @importFrom tibble tibble
 #' @keywords internal
 add_rows_to_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), fn_type_nm_chr = NA_character_, 
@@ -334,10 +341,11 @@ add_rows_to_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), fn_type_
     is_method_lgl = F) 
 {
     if (length(fn_type_nm_chr) > 0) {
-        updated_fn_types_lup <- add_lups(fn_types_lup, new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
-            fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
-            second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
-            is_method_lgl = is_method_lgl), key_var_nm_1L_chr = "fn_type_nm_chr")
+        updated_fn_types_lup <- ready4::add_lups(fn_types_lup, 
+            new_lup = tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
+                fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
+                second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
+                is_method_lgl = is_method_lgl), key_var_nm_1L_chr = "fn_type_nm_chr")
     }
     else {
         updated_fn_types_lup <- fn_types_lup

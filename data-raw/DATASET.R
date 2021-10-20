@@ -1,4 +1,3 @@
-library(magrittr)
 library(lifecycle)
 library(ready4)
 fns_dir_1L_chr <-"data-raw/fns"
@@ -45,7 +44,7 @@ pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author an
                                                    urls_chr = c("https://ready4-dev.github.io/ready4fun/",
                                                                 "https://github.com/ready4-dev/ready4fun",
                                                                 "https://www.ready4-dev.com/"))
-pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_dv("object_type_lup") %>%
+pkg_ds_ls_ls <- list(ready4::get_rds_from_dv("object_type_lup") %>%
                        fns_env_ls$fns_env$make_pkg_ds_ls(db_df = .,
                                                          abbreviations_lup = .,
                                                          db_1L_chr = "object_type_lup",
@@ -164,10 +163,10 @@ manifest_ls <- pkg_desc_ls %>%
                                         args_ls = list(x = constructor_r3)),
                                    classify_1L_lgl = F, ###
                                    custom_dmt_ls = fns_env_ls$fns_env$make_custom_dmt_ls(user_manual_fns_chr = c("add_new_cls_pts",
-                                                                                                                 "get_dv_fls_urls", "get_from_lup_obj", "get_rds_from_dv",
                                                                                                                  "make_addl_pkgs_ls","make_build_ignore_ls", "make_pkg_desc_ls", "make_pkg_ds_ls","make_manifest",
                                                                                                                  "update_abbr_lup", "update_msng_abbrs",
-                                                                                                                 "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package", "write_ws")),
+                                                                                                                 "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package"
+                                                                                                                 )),
                                    copyright_holders_chr = "Orygen",
                                    dev_pkgs_chr = "ready4",
                                    inc_pkg_meta_data_1L_lgl = T, ###
@@ -179,5 +178,4 @@ manifest_ls <- pkg_desc_ls %>%
                                    pkg_ds_ls_ls = pkg_ds_ls_ls,
                                    ready4_type_1L_chr = "authoring")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
-                                                #list_generics_1L_lgl = T,
                                                 self_serve_1L_lgl = T)

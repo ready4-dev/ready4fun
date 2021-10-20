@@ -5,12 +5,12 @@
 \title{Make object lookup table spine}
 \usage{
 make_obj_lup_spine(
-  seed_obj_type_lup = get_rds_from_dv("seed_obj_type_lup"),
+  seed_obj_type_lup = ready4::get_rds_from_dv("seed_obj_type_lup"),
   new_entries_tb = NULL
 )
 }
 \arguments{
-\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: get_rds_from_dv("seed_obj_type_lup")}
+\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: ready4::get_rds_from_dv("seed_obj_type_lup")}
 
 \item{new_entries_tb}{New entries (a tibble), Default: NULL}
 }

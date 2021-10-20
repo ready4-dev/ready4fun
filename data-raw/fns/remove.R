@@ -7,13 +7,13 @@ remove_obj_type_from_nm <- function(nms_chr,
                                     key_1L_chr = NULL,
                                     server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
   if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_dv("abbreviations_lup",
+    abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup",
                                          dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                          dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                          key_1L_chr = key_1L_chr,
                                          server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_dv("object_type_lup",
+    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
                                        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                        key_1L_chr = key_1L_chr,
@@ -55,6 +55,7 @@ remove_obj_type_from_nm <- function(nms_chr,
 
 }
 remove_lbls_from_df <- function(data_df){ # Adapted from: https://rdrr.io/github/dlindholm/doctoR/src/R/clear_labels.R
+  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::remove_lbls_from_df()", "ready4::remove_lbls_from_df()")
   unlabelled_data_df <- purrr::reduce(1:ncol(data_df),
                 .init = data_df,
                 ~ {

@@ -5,10 +5,10 @@ update_abbr_lup <- function(abbr_tb,
                             custom_plural_ls = NULL,
                             pfx_rgx = NA_character_){
   testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the short_name_chr column:\n",
-                        abbr_tb$short_name_chr[duplicated(abbr_tb$short_name_chr)] %>% make_list_phrase()),
+                        abbr_tb$short_name_chr[duplicated(abbr_tb$short_name_chr)] %>% ready4::make_list_phrase()),
                  !any(duplicated(abbr_tb$short_name_chr)))
   testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the long_name_chr column:\n",
-                        abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% make_list_phrase()),
+                        abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% ready4::make_list_phrase()),
                  !any(duplicated(abbr_tb$long_name_chr)))
   if(!"plural_lgl" %in% names(abbr_tb))
     abbr_tb <- dplyr::mutate(abbr_tb, plural_lgl = NA)
@@ -22,9 +22,9 @@ update_abbr_lup <- function(abbr_tb,
                            long_name_chr = long_name_chr) %>%
     add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr,
                             custom_plural_ls = custom_plural_ls) #%>% tidyr::drop_na()
-  abbr_tb <- add_lups(abbr_tb,
-                      new_lup = new_tb,
-                      key_var_nm_1L_chr = "short_name_chr")
+  abbr_tb <- ready4::add_lups(abbr_tb,
+                              new_lup = new_tb,
+                              key_var_nm_1L_chr = "short_name_chr")
   # tibble::tibble(short_name_chr = make.unique(c(abbr_tb$short_name_chr,new_tb$short_name_chr)),
   #                         long_name_chr = make.unique(c(abbr_tb$long_name_chr,new_tb$long_name_chr)),
   #                         plural_lgl = c(abbr_tb$plural_lgl,new_tb$plural_lgl)) %>%
@@ -43,10 +43,10 @@ update_abbrs <- function(pkg_setup_ls,
   long_dupls_chr <- intersect(long_name_chr,
                               pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
   testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
-                        short_dupls_chr %>% make_list_phrase()),
+                        short_dupls_chr %>% ready4::make_list_phrase()),
                  identical(short_dupls_chr, character(0)))
   testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
-                        long_dupls_chr %>% make_list_phrase()),
+                        long_dupls_chr %>% ready4::make_list_phrase()),
                  identical(long_dupls_chr, character(0)))
   if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup))
     pkg_setup_ls$subsequent_ls$abbreviations_lup <- make_obj_lup(obj_lup_spine = make_obj_lup_spine(NULL)) %>%
@@ -67,7 +67,7 @@ update_first_word_case <- function(phrase_1L_chr,
 }
 update_fn_dmt_with_slots <- function(fn_name_1L_chr,
                                      fn_dmt_1L_chr){
-  slots_chr <- get_r4_obj_slots(fn_name_1L_chr)
+  slots_chr <- ready4::get_r4_obj_slots(fn_name_1L_chr)
   fn_dmt_1L_chr <- purrr::reduce(1:length(slots_chr),
                                  .init = fn_dmt_1L_chr,
                                  ~ .x %>%

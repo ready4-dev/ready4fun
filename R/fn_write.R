@@ -98,8 +98,9 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
             document_unexp_lgl = document_unexp_lgl)))
     devtools::document()
     devtools::load_all()
-    if (!is.null(pkg_setup_ls$subsequent_ls$s4_fn_ls)) {
-        rlang::exec(pkg_setup_ls$subsequent_ls$s4_fn_ls$fn, !!!pkg_setup_ls$subsequent_ls$s4_fn_ls$args_ls)
+    if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0) {
+        rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
+            !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
         devtools::document()
         devtools::load_all()
     }

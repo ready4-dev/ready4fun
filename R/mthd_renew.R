@@ -10,7 +10,7 @@
 #' @param not_obj_type_chr Not object type (a character vector), Default: character(0)
 #' @param pfx_rgx Prefix (a regular expression vector), Default: character(0)
 #' @param tf_to_singular_chr Transform to singular (a character vector), Default: character(0)
-#' @return NA ()
+#' @return x (An object)
 #' @rdname renew-methods
 #' @export 
 #' @importFrom ready4 renew

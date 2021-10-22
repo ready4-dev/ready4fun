@@ -24,6 +24,7 @@ make_pt_ready4fun_metadata_b(
   pkg_ds_ls_ls = list(),
   seed_obj_type_lup = tibble::tibble(),
   server_1L_chr = character(0),
+  s4_fns_ls = ready4fun_executor(),
   treat_as_words_chr = character(0)
 )
 }
@@ -65,6 +66,8 @@ make_pt_ready4fun_metadata_b(
 \item{seed_obj_type_lup}{Seed object type (a lookup table), Default: tibble::tibble()}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: character(0)}
+
+\item{s4_fns_ls}{S4 functions (a list), Default: ready4fun_executor()}
 
 \item{treat_as_words_chr}{Treat as words (a character vector), Default: character(0)}
 }

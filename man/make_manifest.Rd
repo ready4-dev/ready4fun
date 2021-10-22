@@ -34,6 +34,8 @@ make_manifest(
   path_to_pkg_rt_1L_chr = getwd(),
   pkg_ds_ls_ls = list(),
   ready4_type_1L_chr,
+  s4_mthds_fn = NULL,
+  s4_mthds_ls = NULL,
   server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
   user_manual_fns_chr = NA_character_
 )
@@ -96,6 +98,10 @@ make_manifest(
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list()}
 
 \item{ready4_type_1L_chr}{Ready4 type (a character vector of length one)}
+
+\item{s4_mthds_fn}{S4 methods (a function), Default: NULL}
+
+\item{s4_mthds_ls}{S4 methods (a list), Default: NULL}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
 

@@ -43,6 +43,7 @@ x
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
 #' @param seed_obj_type_lup Seed object type (a lookup table), Default: tibble::tibble()
 #' @param server_1L_chr Server (a character vector of length one), Default: character(0)
+#' @param s4_fns_ls S4 functions (a list), Default: ready4fun_executor()
 #' @param treat_as_words_chr Treat as words (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for second package set-up step.
 #' @details ready4 S3 class for package metadata required for second package set-up step.
@@ -69,6 +70,7 @@ pkg_dmt_dv_dss_chr = character(0),
 pkg_ds_ls_ls = list(),
 seed_obj_type_lup = tibble::tibble(),
 server_1L_chr = character(0),
+s4_fns_ls = ready4fun_executor(),
 treat_as_words_chr = character(0)){ 
 args_ls <- list(abbreviations_lup = abbreviations_lup,
 addl_pkgs_ls = addl_pkgs_ls,
@@ -89,6 +91,7 @@ pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
 pkg_ds_ls_ls = pkg_ds_ls_ls,
 seed_obj_type_lup = seed_obj_type_lup,
 server_1L_chr = server_1L_chr,
+s4_fns_ls = s4_fns_ls,
 treat_as_words_chr = treat_as_words_chr) %>% update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }

@@ -70,6 +70,7 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
 #' @importFrom stringr str_replace_all
 #' @importFrom ready4 write_new_files
 #' @importFrom devtools document load_all
+#' @importFrom rlang exec
 #' @keywords internal
 write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, fns_dmt_tb = deprecated()) 
 {
@@ -97,6 +98,11 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
             document_unexp_lgl = document_unexp_lgl)))
     devtools::document()
     devtools::load_all()
+    if (!is.null(pkg_setup_ls$subsequent_ls$s4_fn_ls)) {
+        rlang::exec(pkg_setup_ls$subsequent_ls$s4_fn_ls$fn, !!!pkg_setup_ls$subsequent_ls$s4_fn_ls$args_ls)
+        devtools::document()
+        devtools::load_all()
+    }
 }
 #' Write all tibbles in tibbles ready4 S4 to comma separated variables files
 #' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles ready4 s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

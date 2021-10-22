@@ -11,6 +11,7 @@ make_new_fn_dmt(
   fn_det_1L_chr = NA_character_,
   fn_out_type_1L_chr = NA_character_,
   args_ls = NULL,
+  class_name_1L_chr = "",
   fn = NULL,
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
@@ -32,6 +33,8 @@ make_new_fn_dmt(
 \item{fn_out_type_1L_chr}{Function out type (a character vector of length one), Default: 'NA'}
 
 \item{args_ls}{Arguments (a list), Default: NULL}
+
+\item{class_name_1L_chr}{Class name (a character vector of length one), Default: ''}
 
 \item{fn}{Function (a function), Default: NULL}
 

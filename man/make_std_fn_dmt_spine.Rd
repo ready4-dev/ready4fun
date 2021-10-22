@@ -10,6 +10,7 @@ make_std_fn_dmt_spine(
   fn_title_1L_chr,
   fn,
   details_1L_chr = NA_character_,
+  doc_in_class_1L_lgl = F,
   example_1L_lgl = F,
   export_1L_lgl = T,
   class_name_1L_chr = "",
@@ -26,6 +27,8 @@ make_std_fn_dmt_spine(
 \item{fn}{Function (a function)}
 
 \item{details_1L_chr}{Details (a character vector of length one), Default: 'NA'}
+
+\item{doc_in_class_1L_lgl}{Document in class (a logical vector of length one), Default: F}
 
 \item{example_1L_lgl}{Example (a logical vector of length one), Default: F}
 

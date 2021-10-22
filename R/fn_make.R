@@ -96,7 +96,7 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
     return(arg_desc_ls)
 }
 #' Make argument description spine
-#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function is called for its side effects and does not return a value.
+#' @description make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function returns Argument description spine (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -105,7 +105,7 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param master_object_type_lup Master object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
-#' @return NA ()
+#' @return Argument description spine (a character vector of length one)
 #' @rdname make_arg_desc_spine
 #' @export 
 #' @importFrom ready4 get_rds_from_dv
@@ -133,13 +133,13 @@ make_arg_desc_spine <- function (argument_nm_1L_chr, object_type_lup = NULL, abb
         match_1L_chr <- get_arg_obj_type(argument_nm_1L_chr, 
             object_type_lup = object_type_lup)
     }
-    arg_desc_spine <- ifelse(identical(match_1L_chr, character(0)), 
+    arg_desc_spine_1L_chr <- ifelse(identical(match_1L_chr, character(0)), 
         NA_character_, paste0(argument_nm_1L_chr %>% make_arg_title(match_chr = match_1L_chr, 
             abbreviations_lup = abbreviations_lup, object_type_lup = master_object_type_lup), 
             " (", match_1L_chr %>% update_first_word_case() %>% 
                 add_indefartls_to_phrases(abbreviations_lup = abbreviations_lup, 
                   ignore_phrs_not_in_lup_1L_lgl = F), ")"))
-    return(arg_desc_spine)
+    return(arg_desc_spine_1L_chr)
 }
 #' Make argument title
 #' @description make_arg_title() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument title. The function returns Title (a character vector).
@@ -534,9 +534,9 @@ make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr =
     if (!fn_type_1L_chr %in% get_set_chr) {
         fn_dmt_spine_chr_ls <- make_std_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
             fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
-            fn = fn, details_1L_chr = details_1L_chr, example_1L_lgl = example_1L_lgl, 
-            export_1L_lgl = export_1L_lgl, class_name_1L_chr = class_name_1L_chr, 
-            exclude_if_match_chr = get_set_chr)
+            fn = fn, details_1L_chr = details_1L_chr, doc_in_class_1L_lgl = doc_in_class_1L_lgl, 
+            example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
+            class_name_1L_chr = class_name_1L_chr, exclude_if_match_chr = get_set_chr)
     }
     else {
         fn_dmt_spine_chr_ls <- make_gtr_str_dmt_spine(fn_type_1L_chr = fn_type_1L_chr, 
@@ -821,7 +821,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
             fn_name_1L_chr, "-", class_name_1L_chr, "\n", "#' @description FUNCTION_DESCRIPTION", 
             " for S4 objects of class ", class_name_1L_chr, "\n", 
             "#' @param x An object of class ", class_name_1L_chr, 
-            "\n", ifelse(fn_type_1L_chr == "gen_set_slot", "#' @param value Value to be assigned to x\n", 
+            "\n", ifelse(fn_type_1L_chr == "meth_set_slot", "#' @param value Value to be assigned to x\n", 
                 ""), ifelse(example_1L_lgl, paste0("#' @examples\n", 
                 "#' \\dontrun{\n", "#' if(interactive()){\n", 
                 "#'  #EXAMPLE1\n", "#'  }\n", "#' }\n"), ""), 
@@ -886,8 +886,8 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
         fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
         fn_det_1L_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
-        args_ls = args_ls, fn = fn, abbreviations_lup = abbreviations_lup, 
-        object_type_lup = object_type_lup)
+        args_ls = args_ls, class_name_1L_chr = class_name_1L_chr, 
+        fn = fn, abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr, 
@@ -944,6 +944,8 @@ make_list_phrase <- function (items_chr)
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
 #' @param ready4_type_1L_chr Ready4 type (a character vector of length one)
+#' @param s4_mthds_fn S4 methods (a function), Default: NULL
+#' @param s4_mthds_ls S4 methods (a list), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @param user_manual_fns_chr User manual functions (a character vector), Default: 'NA'
 #' @return Manifest (a list)
@@ -966,7 +968,8 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
     incr_ver_1L_lgl = F, key_1L_chr = NULL, on_cran_1L_lgl = F, 
     path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"), 
     path_to_pkg_logo_1L_chr = NA_character_, path_to_pkg_rt_1L_chr = getwd(), 
-    pkg_ds_ls_ls = list(), ready4_type_1L_chr, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
+    pkg_ds_ls_ls = list(), ready4_type_1L_chr, s4_mthds_fn = NULL, 
+    s4_mthds_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     user_manual_fns_chr = NA_character_) 
 {
     if (length(pkg_dmt_dv_dss_chr) < 2) {
@@ -1016,7 +1019,8 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
             seed_obj_type_lup = ready4::get_rds_from_dv("seed_obj_type_lup", 
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr), 
-            server_1L_chr = server_1L_chr, treat_as_words_chr = ready4::get_rds_from_dv("treat_as_words_chr", 
+            server_1L_chr = server_1L_chr, s4_fns_ls = list(), 
+            treat_as_words_chr = ready4::get_rds_from_dv("treat_as_words_chr", 
                 dv_ds_nm_1L_chr = pkg_dmt_dv_dss_chr[2], dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
                 key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)))
     if (classify_1L_lgl) {
@@ -1037,6 +1041,14 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
         else {
             if (!"ready4fun_executor" %in% class(manifest_ls$subsequent_ls$cls_fn_ls)) 
                 manifest_ls$subsequent_ls$cls_fn_ls <- manifest_ls$subsequent_ls$cls_fn_ls %>% 
+                  ready4fun_executor()
+        }
+        if (identical(manifest_ls$subsequent_ls$s4_fns_ls, list())) {
+            manifest_ls$subsequent_ls$s4_fns_ls <- ready4fun_executor()
+        }
+        else {
+            if (!"ready4fun_executor" %in% class(manifest_ls$subsequent_ls$s4_fns_ls)) 
+                manifest_ls$subsequent_ls$s4_fns_ls <- manifest_ls$subsequent_ls$s4_fns_ls %>% 
                   ready4fun_executor()
         }
         if (!"ready4fun_abbreviations" %in% class(manifest_ls$subsequent_ls$object_type_lup)) 
@@ -1074,6 +1086,7 @@ make_new_entries_tb <- function (short_name_chr, long_name_chr, atomic_element_l
 #' @param fn_det_1L_chr Function detail (a character vector of length one), Default: 'NA'
 #' @param fn_out_type_1L_chr Function out type (a character vector of length one), Default: 'NA'
 #' @param args_ls Arguments (a list), Default: NULL
+#' @param class_name_1L_chr Class name (a character vector of length one), Default: ''
 #' @param fn Function (a function), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
@@ -1092,9 +1105,9 @@ make_new_entries_tb <- function (short_name_chr, long_name_chr, atomic_element_l
 #' @keywords internal
 make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA_character_, 
     fn_det_1L_chr = NA_character_, fn_out_type_1L_chr = NA_character_, 
-    args_ls = NULL, fn = NULL, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, object_type_lup = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    args_ls = NULL, class_name_1L_chr = "", fn = NULL, abbreviations_lup = NULL, 
+    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
+    key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
@@ -1107,7 +1120,8 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
     s3_class_main_1L_chr <- x_param_desc_1L_chr <- NULL
     if (!is.null(fn)) {
         fn_args_chr <- get_fn_args(fn)
-        fn_out_type_1L_chr <- make_ret_obj_desc(fn, abbreviations_lup = abbreviations_lup)
+        fn_out_type_1L_chr <- make_ret_obj_desc(fn, abbreviations_lup = abbreviations_lup, 
+            class_name_1L_chr = class_name_1L_chr)
     }
     else {
         fn_args_chr <- NA_character_
@@ -1207,6 +1221,10 @@ make_new_fn_dmt <- function (fn_type_1L_chr, fn_name_1L_chr, fn_desc_1L_chr = NA
             x_param_desc_1L_chr <- "An object"
         }
     }
+    if (fn_type_1L_chr == "meth_std_s4_mthd") {
+        x_param_desc_1L_chr <- paste0("An object of class ", 
+            class_name_1L_chr)
+    }
     if (is.null(args_ls)) {
         arg_desc_chr <- NULL
         if (any(!is.na(fn_args_chr)) & !is.null(object_type_lup)) {
@@ -1281,7 +1299,7 @@ make_obj_lup <- function (obj_lup_spine = make_obj_lup_spine())
 #' @description make_obj_lup_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
 #' @param seed_obj_type_lup Seed object type (a lookup table), Default: ready4::get_rds_from_dv("seed_obj_type_lup")
 #' @param new_entries_tb New entries (a tibble), Default: NULL
-#' @return NA ()
+#' @return obj_lup_spine (An object)
 #' @rdname make_obj_lup_spine
 #' @export 
 #' @importFrom ready4 get_rds_from_dv add_lups
@@ -1399,12 +1417,13 @@ make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1L_c
 #' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make return object description. The function returns Return object description (a character vector of length one).
 #' @param fn Function (a function)
 #' @param abbreviations_lup Abbreviations (a lookup table)
+#' @param class_name_1L_chr Class name (a character vector of length one), Default: ''
 #' @param starts_sentence_1L_lgl Starts sentence (a logical vector of length one), Default: T
 #' @return Return object description (a character vector of length one)
 #' @rdname make_ret_obj_desc
 #' @export 
 #' @keywords internal
-make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T) 
+make_ret_obj_desc <- function (fn, abbreviations_lup, class_name_1L_chr = "", starts_sentence_1L_lgl = T) 
 {
     ret_obj_nm_1L_chr <- get_return_obj_nm(fn)
     if (is.na(ret_obj_nm_1L_chr)) {
@@ -1413,11 +1432,17 @@ make_ret_obj_desc <- function (fn, abbreviations_lup, starts_sentence_1L_lgl = T
     else {
         obj_type_1L_chr <- get_arg_obj_type(ret_obj_nm_1L_chr, 
             object_type_lup = abbreviations_lup)
-        ret_obj_desc_1L_chr <- paste0(ret_obj_nm_1L_chr %>% make_arg_title(match_chr = obj_type_1L_chr, 
-            abbreviations_lup = abbreviations_lup, object_type_lup = abbreviations_lup) %>% 
-            add_indef_artl_to_item(abbreviations_lup = abbreviations_lup) %>% 
-            ifelse(!starts_sentence_1L_lgl, tolower(.), .), " (", 
-            obj_type_1L_chr %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup), 
+        obj_type_1L_chr <- ifelse(ret_obj_nm_1L_chr == "x", paste0("An object", 
+            ifelse(class_name_1L_chr != "", paste0(" of class ", 
+                class_name_1L_chr), "")), ifelse(identical(character(0), 
+            obj_type_1L_chr), "An object", obj_type_1L_chr))
+        ret_obj_desc_1L_chr <- paste0(ifelse(ret_obj_nm_1L_chr == 
+            "x", ret_obj_nm_1L_chr, ifelse(obj_type_1L_chr == 
+            "An object", ret_obj_nm_1L_chr, ret_obj_nm_1L_chr %>% 
+            make_arg_title(match_chr = obj_type_1L_chr, abbreviations_lup = abbreviations_lup, 
+                object_type_lup = abbreviations_lup) %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup) %>% 
+            ifelse(!starts_sentence_1L_lgl, tolower(.), .))), 
+            " (", obj_type_1L_chr %>% add_indef_artl_to_item(abbreviations_lup = abbreviations_lup), 
             ")")
     }
     return(ret_obj_desc_1L_chr)
@@ -1446,6 +1471,7 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
 #' @param fn_title_1L_chr Function title (a character vector of length one)
 #' @param fn Function (a function)
 #' @param details_1L_chr Details (a character vector of length one), Default: 'NA'
+#' @param doc_in_class_1L_lgl Document in class (a logical vector of length one), Default: F
 #' @param example_1L_lgl Example (a logical vector of length one), Default: F
 #' @param export_1L_lgl Export (a logical vector of length one), Default: T
 #' @param class_name_1L_chr Class name (a character vector of length one), Default: ''
@@ -1458,8 +1484,9 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
 #' @importFrom purrr discard
 #' @keywords internal
 make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr, fn, 
-    details_1L_chr = NA_character_, example_1L_lgl = F, export_1L_lgl = T, 
-    class_name_1L_chr = "", exclude_if_match_chr) 
+    details_1L_chr = NA_character_, doc_in_class_1L_lgl = F, 
+    example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
+    exclude_if_match_chr) 
 {
     assert_inp_does_not_match_terms(input_chr = fn_type_1L_chr, 
         exclude_if_match_chr = exclude_if_match_chr)
@@ -1479,11 +1506,21 @@ make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_c
                 NA_character_), "rdname", ifelse(export_1L_lgl, 
                 "export", NA_character_)) %>% purrr::discard(is.na)) %>% 
             stringr::str_replace("#' @title FUNCTION_TITLE\n", 
-                "")
+                ifelse(fn_type_1L_chr != "meth_std_s4_mthd", 
+                  "", paste0("#' ", fn_name_1L_chr, "\n#' @name ", 
+                    fn_name_1L_chr, "-", class_name_1L_chr, "\n")))
     }
-    fn_tags_1L_chr <- fn_tags_1L_chr %>% stringr::str_replace("@title ", 
-        "@name ") %>% stringr::str_replace("@rdname fn", paste0("@rdname ", 
-        fn_name_1L_chr))
+    if (fn_type_1L_chr == "meth_std_s4_mthd") {
+        fn_tags_1L_chr <- fn_tags_1L_chr %>% stringr::str_replace("@rdname fn", 
+            paste0("@rdname ", ifelse(doc_in_class_1L_lgl, class_name_1L_chr, 
+                paste0(fn_name_1L_chr, "-methods\n")), paste0("#' @aliases ", 
+                fn_name_1L_chr, ",", class_name_1L_chr, "-method")))
+    }
+    else {
+        fn_tags_1L_chr <- fn_tags_1L_chr %>% stringr::str_replace("@title ", 
+            "@name ") %>% stringr::str_replace("@rdname fn", 
+            paste0("@rdname ", fn_name_1L_chr))
+    }
     fn_tags_1L_chr <- paste0("#' ", ifelse((startsWith(fn_type_1L_chr, 
         "gen_") | fn_type_1L_chr %in% c("fn", "meth_std_s3_mthd") | 
         startsWith(fn_type_1L_chr, "s3_")), fn_title_1L_chr, 

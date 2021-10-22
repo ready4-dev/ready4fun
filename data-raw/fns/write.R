@@ -87,6 +87,12 @@ write_all_fn_dmt <- function(pkg_setup_ls,
                                                         document_unexp_lgl = document_unexp_lgl)))
   devtools::document()
   devtools::load_all()
+  if(!is.null(pkg_setup_ls$subsequent_ls$s4_fn_ls)){
+    rlang::exec(pkg_setup_ls$subsequent_ls$s4_fn_ls$fn,
+                !!!pkg_setup_ls$subsequent_ls$s4_fn_ls$args_ls)
+    devtools::document()
+    devtools::load_all()
+  }
 }
 write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
                                             r4_name_1L_chr,
@@ -326,7 +332,6 @@ write_clss <- function(pkg_setup_ls,
 
     }
     write_all_fn_dmt(pkg_setup_ls,
-                     #fns_dmt_tb = pkg_setup_ls$subsequent_ls$dss_records_ls$fns_dmt_tb,
                      fns_env_ls = fns_env_ls,
                      document_unexp_lgl = F)
   }

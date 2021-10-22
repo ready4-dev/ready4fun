@@ -53,7 +53,7 @@ renew.ready4fun_manifest(
 \item{tf_to_singular_chr}{Transform to singular (a character vector), Default: character(0)}
 }
 \value{
-NA ()
+x (An object)
 }
 \description{
 renew.ready4fun_manifest() is a Renew method that updates an instance of a class with new values. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.

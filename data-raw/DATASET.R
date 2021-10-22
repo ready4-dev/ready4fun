@@ -124,7 +124,8 @@ constructor_r3 <- dplyr::bind_rows(
                                                               "character(0)","logical(0)","ready4fun_abbreviations()",
                                                               "character(0)",
                                                               "character(0)", "list()",
-                                                              "tibble::tibble()","character(0)", "character(0)") %>%
+                                                              "tibble::tibble()","character(0)",
+                                                              "ready4fun_executor()","character(0)") %>%
                                                  stats::setNames(c("abbreviations_lup","addl_pkgs_ls","build_ignore_ls",
                                                                    "cls_fn_ls","custom_dmt_ls", "dev_pkgs_chr",
                                                                    "dss_records_ls",
@@ -132,7 +133,8 @@ constructor_r3 <- dplyr::bind_rows(
                                                                    "import_from_chr","inc_pkg_meta_data_1L_lgl","object_type_lup",
                                                                    "path_to_dmt_dir_1L_chr",
                                                                    "pkg_dmt_dv_dss_chr","pkg_ds_ls_ls",
-                                                                   "seed_obj_type_lup", "server_1L_chr","treat_as_words_chr")) %>%
+                                                                   "seed_obj_type_lup", "server_1L_chr",
+                                                                   "s4_fns_ls","treat_as_words_chr")) %>%
                                                  list()),
   ready4class::make_pt_ready4class_constructor(class_desc_chr = "ready4 S3 class for encapsulating the metadata required for package set-up.",
                                                make_s3_lgl = T,

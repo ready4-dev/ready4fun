@@ -4,12 +4,19 @@
 \alias{make_ret_obj_desc}
 \title{Make return object description}
 \usage{
-make_ret_obj_desc(fn, abbreviations_lup, starts_sentence_1L_lgl = T)
+make_ret_obj_desc(
+  fn,
+  abbreviations_lup,
+  class_name_1L_chr = "",
+  starts_sentence_1L_lgl = T
+)
 }
 \arguments{
 \item{fn}{Function (a function)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table)}
+
+\item{class_name_1L_chr}{Class name (a character vector of length one), Default: ''}
 
 \item{starts_sentence_1L_lgl}{Starts sentence (a logical vector of length one), Default: T}
 }

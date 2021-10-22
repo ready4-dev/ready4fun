@@ -5,7 +5,7 @@
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: T
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
-#' @return NA ()
+#' @return x (An object)
 #' @rdname author-methods
 #' @export 
 #' @importFrom ready4 ratify author authorData authorClasses renew authorFunctions report

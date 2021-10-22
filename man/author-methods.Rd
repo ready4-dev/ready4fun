@@ -39,7 +39,7 @@ author.ready4fun_metadata_a(x)
 \item{self_serve_fn_ls}{Self serve (a list of functions), Default: NULL}
 }
 \value{
-NA ()
+x (An object)
 }
 \description{
 author.ready4fun_manifest() is an Author method that writes files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.

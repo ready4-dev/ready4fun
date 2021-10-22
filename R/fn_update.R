@@ -161,8 +161,8 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
     }
     gnrc_part_1L_chr <- fn_name_1L_chr %>% strsplit("\\.") %>% 
         purrr::flatten_chr() %>% purrr::pluck(1)
-    if (gnrc_part_1L_chr %in% names(import_from_chr) & fn_type_1L_chr == 
-        "meth_std_s3_mthd") {
+    if (gnrc_part_1L_chr %in% names(import_from_chr) & fn_type_1L_chr %in% 
+        c("meth_std_s3_mthd", "meth_std_s4_mthd")) {
         ns_1L_chr <- unname(import_from_chr[names(import_from_chr) == 
             gnrc_part_1L_chr])
         import_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 

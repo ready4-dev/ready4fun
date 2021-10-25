@@ -3,7 +3,7 @@
 \name{ratify.ready4fun_manifest}
 \alias{ratify.ready4fun_manifest}
 \alias{ratify,ready4fun_manifest-method}
-\title{Ratify method applied to ready4 S3 class for encapsulating the metadata required for package set-up..}
+\title{Ratify - a method that checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid.}
 \usage{
 ratify.ready4fun_manifest(x)
 

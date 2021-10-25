@@ -8,8 +8,8 @@ fns_env_ls <- new.env(parent = globalenv())
 source(paste0(fns_dir_1L_chr,"/read.R"))
 fns_env_ls <- read_fns(fns_dir_1L_chr,
                        fns_env = fns_env_ls)
-rm(read_fns)
 fns_env_ls$fns_env$write_fn_type_dirs()
+rm(read_fns)
 badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                              label_names_chr = c("foundation","authoring","description","modelling", "prediction"),
                              colours_chr = c("coral","maroon", "navy","indigo", "forestgreen")) %>%

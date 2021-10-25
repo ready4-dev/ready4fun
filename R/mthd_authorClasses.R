@@ -1,4 +1,4 @@
-#' AuthorClasses method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
+#' AuthorClasses - a method that authors and saves files necessary for creating and documenting classes.
 #' @description authorClasses.ready4fun_manifest() is an AuthorClasses method that authors and saves files necessary for creating and documenting classes. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL

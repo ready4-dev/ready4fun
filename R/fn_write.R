@@ -99,7 +99,7 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
     devtools::document()
     devtools::load_all()
     if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0) {
-        rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
+        s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
         devtools::document()
         devtools::load_all()
@@ -725,6 +725,7 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                   details_1L_chr = tb[[.x, 4]], args_ls = tb$args_ls[[.x]] %>% 
                     as.list(), import_chr = NA_character_, import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr, 
                   doc_in_class_1L_lgl = F, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+                  fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
                   object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
                 if (tb[[.x, 5]] + document_unexp_lgl == 0) {
                   writeLines(paste0("#' @keywords internal"))

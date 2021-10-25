@@ -21,6 +21,7 @@ make_lines_for_fn_dmt(
   abbreviations_lup = NULL,
   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
   dv_url_pfx_1L_chr = character(0),
+  fn_types_lup = NULL,
   import_from_chr = NA_character_,
   key_1L_chr = NULL,
   object_type_lup = NULL,
@@ -59,6 +60,8 @@ make_lines_for_fn_dmt(
 \item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+
+\item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
 \item{import_from_chr}{Import from (a character vector), Default: 'NA'}
 

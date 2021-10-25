@@ -500,10 +500,11 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
                 ~endsWith(fn_name_1L_chr, paste0(".", .x)))]), 
             paste0(" Specifically, this function implements an algorithm to ", 
                 make_fn_title(fn_name_1L_chr, object_type_lup = abbreviations_lup, 
-                  abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
-                  tolower(), "."))), ifelse(ifelse(is.null(fn_args_chr) | 
-            is.na(text_elements_chr[2]), F, T), paste0(" Function argument ", 
-            fn_args_chr[1], " specifies the ", update_first_word_case(text_elements_chr[2])), 
+                  abbreviations_lup = abbreviations_lup, fn_types_lup = fn_types_lup, 
+                  is_generic_lgl = T) %>% tolower(), "."))), 
+        ifelse(ifelse(is.null(fn_args_chr) | is.na(text_elements_chr[2]), 
+            F, T), paste0(" Function argument ", fn_args_chr[1], 
+            " specifies the ", update_first_word_case(text_elements_chr[2])), 
             ""), ifelse(ifelse(is.null(fn_args_chr) | is.na(text_elements_chr[3]), 
             F, length(fn_args_chr) > 1), paste0(" Argument ", 
             fn_args_chr[2], " provides the ", update_first_word_case(text_elements_chr[3])), 
@@ -516,6 +517,7 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one), Default: 'NA'
 #' @param fn Function (a function)
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param details_1L_chr Details (a character vector of length one), Default: 'NA'
 #' @param example_1L_lgl Example (a logical vector of length one), Default: F
 #' @param export_1L_lgl Export (a logical vector of length one), Default: T
@@ -526,17 +528,19 @@ make_fn_desc_spine <- function (fn, fn_name_1L_chr, fn_title_1L_chr, fn_types_lu
 #' @export 
 #' @keywords internal
 make_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr = NA_character_, 
-    fn, details_1L_chr = NA_character_, example_1L_lgl = F, export_1L_lgl = T, 
-    class_name_1L_chr, doc_in_class_1L_lgl) 
+    fn, fn_types_lup = NULL, details_1L_chr = NA_character_, 
+    example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr, 
+    doc_in_class_1L_lgl) 
 {
     get_set_chr <- c("gen_get_slot", "meth_get_slot", "gen_set_slot", 
         "meth_set_slot")
     if (!fn_type_1L_chr %in% get_set_chr) {
         fn_dmt_spine_chr_ls <- make_std_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
             fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
-            fn = fn, details_1L_chr = details_1L_chr, doc_in_class_1L_lgl = doc_in_class_1L_lgl, 
-            example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
-            class_name_1L_chr = class_name_1L_chr, exclude_if_match_chr = get_set_chr)
+            fn = fn, fn_types_lup = fn_types_lup, details_1L_chr = details_1L_chr, 
+            doc_in_class_1L_lgl = doc_in_class_1L_lgl, example_1L_lgl = example_1L_lgl, 
+            export_1L_lgl = export_1L_lgl, class_name_1L_chr = class_name_1L_chr, 
+            exclude_if_match_chr = get_set_chr)
     }
     else {
         fn_dmt_spine_chr_ls <- make_gtr_str_dmt_spine(fn_type_1L_chr = fn_type_1L_chr, 
@@ -631,6 +635,10 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
         abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     if (is.null(object_type_lup)) 
         object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
@@ -645,8 +653,8 @@ make_fn_dmt_tbl_tmpl <- function (fns_path_chr, fns_dir_chr = make_undmtd_fns_di
         file_nm_chr = .x %>% stringr::str_replace(paste0(fns_dir_chr, 
             "/"), ""), file_pfx_chr = file_pfx_chr))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::mutate(title_chr = make_fn_title(fns_chr, 
-        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, 
-        is_generic_lgl = T))
+        abbreviations_lup = abbreviations_lup, fn_types_lup = fn_types_lup, 
+        object_type_lup = object_type_lup, is_generic_lgl = T))
     fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>% dplyr::filter(title_chr %>% 
         tools::toTitleCase() %>% purrr::map_lgl(~{
         startsWith(.x, fn_types_lup$fn_type_nm_chr) %>% any()
@@ -698,6 +706,7 @@ make_fn_nms <- function (path_1L_chr = "data-raw")
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
@@ -712,10 +721,15 @@ make_fn_nms <- function (path_1L_chr = "data-raw")
 #' @keywords internal
 make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    is_generic_lgl = F, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    fn_types_lup = NULL, is_generic_lgl = F, key_1L_chr = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     if (is.null(object_type_lup)) 
@@ -723,10 +737,11 @@ make_fn_title <- function (fns_chr, object_type_lup = NULL, abbreviations_lup = 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     title_chr <- remove_obj_type_from_nm(fns_chr, object_type_lup = object_type_lup, 
-        abbreviations_lup = abbreviations_lup, is_generic_lgl = T) %>% 
-        stringr::str_replace_all("_", " ") %>% Hmisc::capitalize() %>% 
-        purrr::map_chr(~replace_abbr(.x, abbreviations_lup = abbreviations_lup) %>% 
-            stringi::stri_replace_last_fixed(" R", ""))
+        abbreviations_lup = abbreviations_lup, fn_types_lup = fn_types_lup, 
+        is_generic_lgl = T) %>% stringr::str_replace_all("_", 
+        " ") %>% Hmisc::capitalize() %>% purrr::map_chr(~replace_abbr(.x, 
+        abbreviations_lup = abbreviations_lup) %>% stringi::stri_replace_last_fixed(" R", 
+        ""))
     return(title_chr)
 }
 #' Make function type lookup table
@@ -853,6 +868,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param import_from_chr Import from (a character vector), Default: 'NA'
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -867,11 +883,15 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
     details_1L_chr = "DETAILS", args_ls = NULL, import_chr = NA_character_, 
     doc_in_class_1L_lgl = F, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = character(0), import_from_chr = NA_character_, 
+    dv_url_pfx_1L_chr = character(0), fn_types_lup = NULL, import_from_chr = NA_character_, 
     key_1L_chr = NULL, object_type_lup = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     if (is.null(object_type_lup)) 
@@ -880,9 +900,9 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     fn_tags_spine_ls <- make_fn_dmt_spine(fn_name_1L_chr = fn_name_1L_chr, 
         fn_type_1L_chr = fn_type_1L_chr, fn_title_1L_chr = fn_title_1L_chr, 
-        fn = fn, example_1L_lgl = example_1L_lgl, export_1L_lgl = export_1L_lgl, 
-        details_1L_chr = details_1L_chr, class_name_1L_chr = class_name_1L_chr, 
-        doc_in_class_1L_lgl = doc_in_class_1L_lgl)
+        fn = fn, fn_types_lup = fn_types_lup, example_1L_lgl = example_1L_lgl, 
+        export_1L_lgl = export_1L_lgl, details_1L_chr = details_1L_chr, 
+        class_name_1L_chr = class_name_1L_chr, doc_in_class_1L_lgl = doc_in_class_1L_lgl)
     new_tag_chr_ls <- make_new_fn_dmt(fn_type_1L_chr = fn_type_1L_chr, 
         fn_name_1L_chr = fn_name_1L_chr, fn_desc_1L_chr = fn_desc_1L_chr, 
         fn_det_1L_chr = details_1L_chr, fn_out_type_1L_chr = fn_out_type_1L_chr, 
@@ -890,8 +910,9 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
         fn = fn, abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
     fn_tags_chr <- update_fn_dmt(fn_tags_spine_ls = fn_tags_spine_ls, 
         new_tag_chr_ls = new_tag_chr_ls, fn_name_1L_chr = fn_name_1L_chr, 
-        fn_type_1L_chr = fn_type_1L_chr, import_chr = import_chr, 
-        import_from_chr = import_from_chr, abbreviations_lup = abbreviations_lup)
+        fn_type_1L_chr = fn_type_1L_chr, fn_types_lup = fn_types_lup, 
+        import_chr = import_chr, import_from_chr = import_from_chr, 
+        abbreviations_lup = abbreviations_lup)
     writeLines(fn_tags_chr)
 }
 #' Make list phrase
@@ -1470,6 +1491,7 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
 #' @param fn_type_1L_chr Function type (a character vector of length one)
 #' @param fn_title_1L_chr Function title (a character vector of length one)
 #' @param fn Function (a function)
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param details_1L_chr Details (a character vector of length one), Default: 'NA'
 #' @param doc_in_class_1L_lgl Document in class (a logical vector of length one), Default: F
 #' @param example_1L_lgl Example (a logical vector of length one), Default: F
@@ -1479,17 +1501,22 @@ make_short_long_nms_vec <- function (long_vecs_chr = character(0), short_vecs_ch
 #' @return Standard function documentation spine (a list of character vectors)
 #' @rdname make_std_fn_dmt_spine
 #' @export 
+#' @importFrom ready4 get_rds_from_dv
 #' @importFrom sinew makeOxygen
 #' @importFrom stringr str_replace
 #' @importFrom purrr discard
 #' @keywords internal
 make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_chr, fn, 
-    details_1L_chr = NA_character_, doc_in_class_1L_lgl = F, 
+    fn_types_lup = NULL, details_1L_chr = NA_character_, doc_in_class_1L_lgl = F, 
     example_1L_lgl = F, export_1L_lgl = T, class_name_1L_chr = "", 
     exclude_if_match_chr) 
 {
     assert_inp_does_not_match_terms(input_chr = fn_type_1L_chr, 
         exclude_if_match_chr = exclude_if_match_chr)
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     if (!is.na(details_1L_chr)) {
         if (details_1L_chr == "DETAILS") 
             details_1L_chr <- NA_character_

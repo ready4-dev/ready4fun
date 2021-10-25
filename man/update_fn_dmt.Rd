@@ -11,7 +11,8 @@ update_fn_dmt(
   fn_type_1L_chr,
   import_chr,
   import_from_chr = NA_character_,
-  abbreviations_lup
+  abbreviations_lup,
+  fn_types_lup
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ update_fn_dmt(
 \item{import_from_chr}{Import from (a character vector), Default: 'NA'}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table)}
+
+\item{fn_types_lup}{Function types (a lookup table)}
 }
 \value{
 Function documentation (a character vector of length one)

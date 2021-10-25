@@ -1,4 +1,4 @@
-#' Procure method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
+#' Procure - a method that searches and retrieves requested data from a specified source.
 #' @description procure.ready4fun_manifest() is a Procure method that searches and retrieves requested data from a specified source. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function returns Value (an output object of multiple potential types).
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param type_1L_chr Type (a character vector of length one)

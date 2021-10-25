@@ -9,6 +9,7 @@ make_std_fn_dmt_spine(
   fn_type_1L_chr,
   fn_title_1L_chr,
   fn,
+  fn_types_lup = NULL,
   details_1L_chr = NA_character_,
   doc_in_class_1L_lgl = F,
   example_1L_lgl = F,
@@ -25,6 +26,8 @@ make_std_fn_dmt_spine(
 \item{fn_title_1L_chr}{Function title (a character vector of length one)}
 
 \item{fn}{Function (a function)}
+
+\item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
 \item{details_1L_chr}{Details (a character vector of length one), Default: 'NA'}
 

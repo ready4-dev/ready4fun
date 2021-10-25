@@ -88,7 +88,7 @@ write_all_fn_dmt <- function(pkg_setup_ls,
   devtools::document()
   devtools::load_all()
   if(length(pkg_setup_ls$subsequent_ls$s4_fns_ls)>0){
-    rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
+    s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
                 !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
     devtools::document()
     devtools::load_all()
@@ -675,6 +675,7 @@ write_fn_fl <- function(fns_env_ls,
                                                             import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr,
                                                             doc_in_class_1L_lgl = F,
                                                             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                                                            fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
                                                             object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
                                       if(tb[[.x,5]] + document_unexp_lgl == 0){
                                         writeLines(paste0("#' @keywords internal"))
@@ -1319,7 +1320,7 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
 write_package <- function(pkg_setup_ls,
                           dv_url_pfx_1L_chr = character(0),
                           key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
-                          list_generics_1L_lgl = F,
+                          list_generics_1L_lgl = T,
                           publish_dv_1L_lgl = T,
                           self_serve_1L_lgl = F,
                           self_serve_fn_ls = NULL,
@@ -1368,7 +1369,6 @@ write_package <- function(pkg_setup_ls,
                          update_pkgdown_1L_lgl = T,
                          list_generics_1L_lgl = list_generics_1L_lgl)
     write_manuals(pkg_setup_ls = pkg_setup_ls,
-                  #dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                   key_1L_chr = key_1L_chr,
                   server_1L_chr = server_1L_chr)
   }

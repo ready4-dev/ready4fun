@@ -3,7 +3,7 @@
 \name{renew.ready4fun_manifest}
 \alias{renew.ready4fun_manifest}
 \alias{renew,ready4fun_manifest-method}
-\title{Renew method applied to ready4 S3 class for encapsulating the metadata required for package set-up..}
+\title{Renew - a method that updates an instance of a class with new values.}
 \usage{
 renew.ready4fun_manifest(
   x,

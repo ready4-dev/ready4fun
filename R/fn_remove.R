@@ -26,23 +26,30 @@ remove_lbls_from_df <- function (data_df)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
 #' @return Names (a character vector)
 #' @rdname remove_obj_type_from_nm
 #' @export 
-#' @importFrom ready4 get_rds_from_dv
+#' @importFrom ready4 get_rds_from_dv get_from_lup_obj
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
+#' @importFrom Hmisc capitalize
 #' @importFrom stringi stri_replace_last_fixed
 #' @keywords internal
 remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    is_generic_lgl = F, key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    fn_types_lup = NULL, is_generic_lgl = F, key_1L_chr = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
 {
     if (is.null(abbreviations_lup)) 
         abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
+            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    if (is.null(fn_types_lup)) 
+        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
             dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
             key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     if (is.null(object_type_lup)) 
@@ -59,15 +66,18 @@ remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviati
         })
     names_chr <- purrr::map2_chr(nms_chr, suffices_chr, ~{
         name_1L_chr <- .x
-        ifelse(purrr::map_lgl(abbreviations_lup$short_name_chr, 
-            ~endsWith(name_1L_chr, paste0(".", .x))) %>% any(), 
-            paste0(name_1L_chr %>% stringr::str_remove(paste0(".", 
-                abbreviations_lup$short_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
-                  ~endsWith(name_1L_chr, paste0(".", .x)))])), 
-                " method applied to ", abbreviations_lup$long_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
-                  ~endsWith(name_1L_chr, paste0(".", .x)))], 
-                "."), ifelse(.y == "", .x, stringi::stri_replace_last_fixed(.x, 
-                paste0("_", .y), "")))
+        is_s3_mthd_1L_lgl <- purrr::map_lgl(abbreviations_lup$short_name_chr, 
+            ~endsWith(name_1L_chr, paste0(".", .x))) %>% any()
+        gnrc_part_1L_chr <- ifelse(is_s3_mthd_1L_lgl, name_1L_chr %>% 
+            stringr::str_remove(paste0(".", abbreviations_lup$short_name_chr[purrr::map_lgl(abbreviations_lup$short_name_chr, 
+                ~endsWith(name_1L_chr, paste0(".", .x)))])), 
+            "")
+        ifelse(is_s3_mthd_1L_lgl, paste0(gnrc_part_1L_chr, " - a method that ", 
+            gnrc_part_1L_chr %>% Hmisc::capitalize() %>% ready4::get_from_lup_obj(fn_types_lup, 
+                match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = ., 
+                target_var_nm_1L_chr = "fn_type_desc_chr", evaluate_1L_lgl = F) %>% 
+                tolower()), ifelse(.y == "", .x, stringi::stri_replace_last_fixed(.x, 
+            paste0("_", .y), "")))
     })
     return(names_chr)
 }

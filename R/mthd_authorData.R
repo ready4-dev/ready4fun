@@ -1,4 +1,4 @@
-#' AuthorData method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
+#' AuthorData - a method that authors and saves files necessary for creating and documenting datasets.
 #' @description authorData.ready4fun_manifest() is an AuthorData method that authors and saves files necessary for creating and documenting datasets. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return x (An object)

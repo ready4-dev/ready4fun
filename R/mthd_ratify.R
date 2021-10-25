@@ -1,4 +1,4 @@
-#' Ratify method applied to ready4 S3 class for encapsulating the metadata required for package set-up..
+#' Ratify - a method that checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid.
 #' @description ratify.ready4fun_manifest() is a Ratify method that checks whether an instance of a class conforms to required criteria, potentially modifying that instance to ensure that it is valid. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)

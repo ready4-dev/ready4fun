@@ -3,7 +3,7 @@
 \name{procure.ready4fun_manifest}
 \alias{procure.ready4fun_manifest}
 \alias{procure,ready4fun_manifest-method}
-\title{Procure method applied to ready4 S3 class for encapsulating the metadata required for package set-up..}
+\title{Procure - a method that searches and retrieves requested data from a specified source.}
 \usage{
 procure.ready4fun_manifest(x, type_1L_chr)
 

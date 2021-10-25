@@ -454,6 +454,7 @@ make_fn_desc_spine <- function(fn,
                                                        make_fn_title(fn_name_1L_chr,
                                                                      object_type_lup = abbreviations_lup,
                                                                      abbreviations_lup = abbreviations_lup,
+                                                                     fn_types_lup = fn_types_lup,
                                                                      is_generic_lgl = T) %>% tolower(),
                                                        "."))),
                                  ifelse(ifelse(is.null(fn_args_chr)|is.na(text_elements_chr[2]),
@@ -478,6 +479,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
                               fn_type_1L_chr,
                               fn_title_1L_chr = NA_character_,
                               fn,
+                              fn_types_lup = NULL,
                               details_1L_chr = NA_character_,
                               example_1L_lgl = F,
                               export_1L_lgl = T,
@@ -489,6 +491,7 @@ make_fn_dmt_spine <- function(fn_name_1L_chr,
                                                  fn_type_1L_chr = fn_type_1L_chr,
                                                  fn_title_1L_chr = fn_title_1L_chr,
                                                  fn = fn,
+                                                 fn_types_lup = fn_types_lup,
                                                  details_1L_chr = details_1L_chr,
                                                  doc_in_class_1L_lgl = doc_in_class_1L_lgl,
                                                  example_1L_lgl = example_1L_lgl,
@@ -564,6 +567,12 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
                                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                  key_1L_chr = key_1L_chr,
                                                  server_1L_chr = server_1L_chr)
+  if(is.null(fn_types_lup))
+    fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup",
+                                               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                               key_1L_chr = key_1L_chr,
+                                               server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
     object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -586,6 +595,7 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(title_chr = make_fn_title(fns_chr,
                                             abbreviations_lup = abbreviations_lup,
+                                            fn_types_lup = fn_types_lup,
                                             object_type_lup = object_type_lup,
                                             is_generic_lgl = T#purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
     ))
@@ -622,6 +632,7 @@ make_fn_title <- function(fns_chr,
                           abbreviations_lup = NULL,
                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                           dv_url_pfx_1L_chr = character(0),
+                          fn_types_lup = NULL,
                           is_generic_lgl = F,
                           key_1L_chr = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
@@ -631,6 +642,12 @@ make_fn_title <- function(fns_chr,
                                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                  key_1L_chr = key_1L_chr,
                                                  server_1L_chr = server_1L_chr)
+  if(is.null(fn_types_lup))
+    fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup",
+                                               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                               key_1L_chr = key_1L_chr,
+                                               server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
     object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -640,6 +657,7 @@ make_fn_title <- function(fns_chr,
   title_chr <- remove_obj_type_from_nm(fns_chr,
                                        object_type_lup = object_type_lup,
                                        abbreviations_lup = abbreviations_lup,
+                                       fn_types_lup = fn_types_lup,
                                        is_generic_lgl = T) %>% # is_generic_lgl
     stringr::str_replace_all("_"," ") %>%
     Hmisc::capitalize() %>%
@@ -784,6 +802,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                   abbreviations_lup = NULL,
                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
                                   dv_url_pfx_1L_chr = character(0),
+                                  fn_types_lup = NULL,
                                   import_from_chr = NA_character_,
                                   #import_mthds_from_chr = NA_character_,
                                   key_1L_chr = NULL,
@@ -795,6 +814,12 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                                  dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                                  key_1L_chr = key_1L_chr,
                                                  server_1L_chr = server_1L_chr)
+  if(is.null(fn_types_lup))
+    fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup",
+                                               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                               key_1L_chr = key_1L_chr,
+                                               server_1L_chr = server_1L_chr)
   if(is.null(object_type_lup))
     object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
                                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
@@ -805,6 +830,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                         fn_type_1L_chr = fn_type_1L_chr,
                                         fn_title_1L_chr = fn_title_1L_chr,
                                         fn = fn,
+                                        fn_types_lup = fn_types_lup,
                                         example_1L_lgl = example_1L_lgl,
                                         export_1L_lgl = export_1L_lgl,
                                         details_1L_chr = details_1L_chr,
@@ -824,6 +850,7 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                new_tag_chr_ls = new_tag_chr_ls,
                                fn_name_1L_chr = fn_name_1L_chr,
                                fn_type_1L_chr = fn_type_1L_chr,
+                               fn_types_lup = fn_types_lup,
                                import_chr = import_chr,
                                import_from_chr = import_from_chr,
                                abbreviations_lup = abbreviations_lup)
@@ -1314,6 +1341,7 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
                                   fn_type_1L_chr,
                                   fn_title_1L_chr,
                                   fn,
+                                  fn_types_lup = NULL,
                                   details_1L_chr = NA_character_,
                                   doc_in_class_1L_lgl = F,
                                   example_1L_lgl = F,
@@ -1322,6 +1350,12 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
                                   exclude_if_match_chr){
   assert_inp_does_not_match_terms(input_chr = fn_type_1L_chr,
                                   exclude_if_match_chr = exclude_if_match_chr)
+  if(is.null(fn_types_lup))
+    fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup",
+                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                            key_1L_chr = key_1L_chr,
+                                            server_1L_chr = server_1L_chr)
   if(!is.na(details_1L_chr)){
     if(details_1L_chr=="DETAILS")
       details_1L_chr <- NA_character_
@@ -1372,8 +1406,11 @@ make_std_fn_dmt_spine <- function(fn_name_1L_chr,
                            paste0("@rdname ",fn_name_1L_chr))
   }
   fn_tags_1L_chr <- paste0("#' ",
-                           ifelse((startsWith(fn_type_1L_chr,"gen_")|fn_type_1L_chr %in% c("fn","meth_std_s3_mthd")|startsWith(fn_type_1L_chr,"s3_")),fn_title_1L_chr,""),
-                           "\n",fn_tags_1L_chr)
+                           ifelse((startsWith(fn_type_1L_chr,"gen_")|fn_type_1L_chr %in% c("fn","meth_std_s3_mthd")|startsWith(fn_type_1L_chr,"s3_")),
+                                  fn_title_1L_chr,
+                                  ""),
+                           "\n",
+                           fn_tags_1L_chr)
   if(!fn_type_1L_chr %>% startsWith("s3") & !fn_type_1L_chr %in% c("fn",
                                                                    "gen_std_s3_mthd",
                                                                    "meth_std_s3_mthd",

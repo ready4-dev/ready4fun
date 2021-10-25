@@ -3,7 +3,7 @@
 \name{report.ready4fun_manifest}
 \alias{report.ready4fun_manifest}
 \alias{report,ready4fun_manifest-method}
-\title{Report method applied to ready4 S3 class for encapsulating the metadata required for package set-up..}
+\title{Report - a method that authors a report.}
 \usage{
 report.ready4fun_manifest(x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"))
 

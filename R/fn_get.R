@@ -376,6 +376,7 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
             "/generics.R")))
     new_fn_types_chr <- new_fn_types_chr %>% unique() %>% sort() %>% 
         make_fn_title(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
+            fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
             object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
             is_generic_lgl = T) %>% tools::toTitleCase()
     if (!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup)) 

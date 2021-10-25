@@ -83,7 +83,8 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                           import_chr,
                           import_from_chr = NA_character_,
                           #import_mthds_from_chr = NA_character_,
-                          abbreviations_lup){
+                          abbreviations_lup,
+                          fn_types_lup){
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace("FUNCTION_TITLE",fn_name_1L_chr) %>%
@@ -133,6 +134,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
         stringr::str_replace(names(new_tag_chr_ls$s3_class_main_1L_chr),
                              paste0(make_fn_title(names(new_tag_chr_ls$s3_class_main_1L_chr),
                                                   object_type_lup = abbreviations_lup,
+                                                  fn_types_lup = fn_types_lup,
                                                   abbreviations_lup = abbreviations_lup),
                                     " ",
                                     get_arg_obj_type(new_tag_chr_ls$s3_class_main_1L_chr,

@@ -5,7 +5,7 @@
 \alias{author,ready4fun_manifest-method}
 \alias{author.ready4fun_metadata_a}
 \alias{author,ready4fun_metadata_a-method}
-\title{Author method applied to ready4 S3 class for encapsulating the metadata required for package set-up..}
+\title{Author - a method that writes files to local or remote locations.}
 \usage{
 author.ready4fun_manifest(
   x,

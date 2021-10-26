@@ -375,6 +375,9 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
         if ("abbreviations_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 
             !"abbreviations_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) 
             pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
+        if ("fn_types_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 
+            !"fn_types_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) 
+            pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup
         if ("object_type_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 
             !"object_type_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) 
             pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
@@ -1446,7 +1449,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
-#' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: F
+#' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: T
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
@@ -1461,7 +1464,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
 write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    list_generics_1L_lgl = F, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
+    list_generics_1L_lgl = T, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
     cls_fn_ls = deprecated(), path_to_dmt_dir_1L_chr = deprecated(), 
     pkg_desc_ls = deprecated(), pkg_ds_ls_ls = deprecated()) 

@@ -89,10 +89,13 @@ write_all_fn_dmt <- function(pkg_setup_ls,
   devtools::load_all()
   if(length(pkg_setup_ls$subsequent_ls$s4_fns_ls)>0){
     s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
-                !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
+                               !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
     devtools::document()
     devtools::load_all()
+  }else{
+    s4_mthds_ls <- NULL
   }
+  return(s4_mthds_ls)
 }
 write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
                                             r4_name_1L_chr,
@@ -225,19 +228,20 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
   fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
                                                         "/data-raw"),
                                                  drop_empty_1L_lgl = T))
-  purrr::walk2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
-                    paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")),
-               c(T,F),
-               ~ {
-                 write_all_fn_dmt(pkg_setup_ls,
-                                  fns_env_ls = fns_env_ls,
-                                  document_unexp_lgl = .y)
-                 write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
-                                       incr_ver_1L_lgl = .y)
-                 devtools::load_all()
-                 if(make_pdfs_1L_lgl)
-                 devtools::build_manual(path = .x)
-               })
+  s4_mthds_ls_ls <- purrr::map2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
+                                     paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")),
+                                c(T,F),
+                                ~ {
+                                  s4_mthds_ls <- write_all_fn_dmt(pkg_setup_ls,
+                                                                  fns_env_ls = fns_env_ls,
+                                                                  document_unexp_lgl = .y)
+                                  write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
+                                                        incr_ver_1L_lgl = .y)
+                                  devtools::load_all()
+                                  if(make_pdfs_1L_lgl)
+                                    devtools::build_manual(path = .x)
+                                  s4_mthds_ls
+                                })
   if(update_pkgdown_1L_lgl){
     datasets_chr <- utils::data(package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr),
                                 envir = environment())$results[,3]
@@ -285,6 +289,16 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
                              ~{
                    fns_chr <- dplyr::filter(pkg_setup_ls$subsequent_ls$fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
                      dplyr::pull(fns_chr)
+                   if(.x=="mthd_" & !is.null(s4_mthds_ls_ls)){
+                     fns_chr <- c(fns_chr,
+                                  s4_mthds_ls_ls[[2]]$mthds_ls %>%
+                       purrr::map2(names(s4_mthds_ls_ls[[2]]$mthds_ls),
+                                  ~{
+                                    mthd_nm_1L_chr <- .y
+                                    s4_cls_nms_chr <- names(.x)
+                                   paste0(mthd_nm_1L_chr,"-",s4_cls_nms_chr)
+                                  }) %>% purrr::flatten_chr()) %>% sort()
+                   }
                    if(length(fns_chr)>0){
                     txt_chr  <- c( paste0("- title: \"",.y,"\""),
                         "- contents:",

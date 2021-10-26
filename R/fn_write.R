@@ -57,12 +57,12 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
     return(pkg_dss_tb)
 }
 #' Write all function documentation
-#' @description write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @description write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function returns a S4 methods (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param fns_env_ls Functions (a list of environments)
 #' @param document_unexp_lgl Document unexported (a logical vector), Default: F
 #' @param fns_dmt_tb Functions documentation (a tibble), Default: deprecated()
-#' @return NULL
+#' @return a S4 methods (a list)
 #' @rdname write_all_fn_dmt
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
@@ -104,6 +104,10 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
         devtools::document()
         devtools::load_all()
     }
+    else {
+        s4_mthds_ls <- NULL
+    }
+    return(s4_mthds_ls)
 }
 #' Write all tibbles in tibbles ready4 S4 to comma separated variables files
 #' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles ready4 s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
@@ -207,7 +211,7 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom ready4 write_new_dirs
-#' @importFrom purrr walk2 map flatten_chr discard map2
+#' @importFrom purrr map2 map flatten_chr discard
 #' @importFrom devtools load_all build_manual
 #' @importFrom utils data
 #' @importFrom dplyr filter pull
@@ -257,15 +261,16 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
             "/User")))
     fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
         "/data-raw"), drop_empty_1L_lgl = T))
-    purrr::walk2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
+    s4_mthds_ls_ls <- purrr::map2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
         "/Developer"), paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, 
         "/User")), c(T, F), ~{
-        write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
+        s4_mthds_ls <- write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
             document_unexp_lgl = .y)
         write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, incr_ver_1L_lgl = .y)
         devtools::load_all()
         if (make_pdfs_1L_lgl) 
             devtools::build_manual(path = .x)
+        s4_mthds_ls
     })
     if (update_pkgdown_1L_lgl) {
         datasets_chr <- utils::data(package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr), 
@@ -302,6 +307,15 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
                   fns_chr <- dplyr::filter(pkg_setup_ls$subsequent_ls$fns_dmt_tb, 
                     inc_for_main_user_lgl & file_pfx_chr == .x) %>% 
                     dplyr::pull(fns_chr)
+                  if (.x == "mthd_" & !is.null(s4_mthds_ls_ls)) {
+                    fns_chr <- c(fns_chr, s4_mthds_ls_ls[[2]]$mthds_ls %>% 
+                      purrr::map2(names(s4_mthds_ls_ls[[2]]$mthds_ls), 
+                        ~{
+                          mthd_nm_1L_chr <- .y
+                          s4_cls_nms_chr <- names(.x)
+                          paste0(mthd_nm_1L_chr, "-", s4_cls_nms_chr)
+                        }) %>% purrr::flatten_chr()) %>% sort()
+                  }
                   if (length(fns_chr) > 0) {
                     txt_chr <- c(paste0("- title: \"", .y, "\""), 
                       "- contents:", paste0("  - ", fns_chr))

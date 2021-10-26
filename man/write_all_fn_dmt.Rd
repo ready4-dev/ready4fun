@@ -20,7 +20,10 @@ write_all_fn_dmt(
 
 \item{fns_dmt_tb}{Functions documentation (a tibble), Default: deprecated()}
 }
+\value{
+a S4 methods (a list)
+}
 \description{
-write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function returns a S4 methods (a list).
 }
 \keyword{internal}

@@ -883,15 +883,18 @@ write_manuals <- function(pkg_setup_ls,
   write_manuals_to_dv(package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
                       path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
                       pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                      publish_dv_1L_lgl = publish_dv_1L_lgl)
-  dmt_urls_chr <- ready4::get_dv_fls_urls(file_nms_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                                                        "_",
-                                                        c("Developer","User"),
-                                                        ".pdf"),
-                                  dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                                  dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr,
-                                  key_1L_chr = key_1L_chr,
-                                  server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+                      publish_dv_1L_lgl = publish_dv_1L_lgl,
+                      piggyback_to_1L_chr = pkg_setup_ls$initial_ls$gh_repo_1L_chr)
+  dmt_urls_chr <- piggyback::pb_download_url(repo = pkg_setup_ls$initial_ls$gh_repo_1L_chr,
+                                             tag = "Documentation_0.0")
+  # dmt_urls_chr <- ready4::get_dv_fls_urls(file_nms_chr = paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+  #                                                       "_",
+  #                                                       c("Developer","User"),
+  #                                                       ".pdf"),
+  #                                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
+  #                                 dv_url_pfx_1L_chr = pkg_setup_ls$subsequent_ls$dv_url_pfx_1L_chr,
+  #                                 key_1L_chr = key_1L_chr,
+  #                                 server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
   project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
     strsplit(",") %>%
     unlist() %>%
@@ -905,7 +908,10 @@ write_manuals <- function(pkg_setup_ls,
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_dmt_dir_1L_chr,
                                 pkg_dmt_dv_ds_1L_chr,
-                                publish_dv_1L_lgl = F){
+                                publish_dv_1L_lgl = F,
+                                piggyback_desc_1L_chr = "Latest package manual PDFs.",
+                                piggyback_tag_1L_chr = "Documentation_0.0",
+                                piggyback_to_1L_chr = character(0)){
   version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
   purrr::walk(c("Developer","User"),
               ~{
@@ -930,16 +936,28 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                   source_paths_ls = list(original_1L_chr),
                                   fl_nm_1L_chr = fl_nm_1L_chr)
                 }
-                ready4::write_fls_to_dv(copy_1L_chr,
-                                descriptions_chr = paste0("Manual (",
-                                                          .x %>% tolower(),
-                                                          " version)",
-                                                          " describing the contents of the ",
-                                                          package_1L_chr,
-                                                          " R package."),
-                                ds_url_1L_chr = pkg_dmt_dv_ds_1L_chr)
+                if(!identical(piggyback_to_1L_chr,character(0))){
+                  releases_df <- piggyback::pb_list(repo = piggyback_to_1L_chr)
+                  if(!piggyback_tag_1L_chr %in% releases_df$tag)
+                    piggyback::pb_new_release(piggyback_to_1L_chr,
+                                            tag = piggyback_tag_1L_chr,
+                                            body = piggyback_desc_1L_chr,
+                                            prerelease = T)
+                  piggyback::pb_upload(copy_1L_chr,
+                                       repo = piggyback_to_1L_chr,
+                                       tag = piggyback_tag_1L_chr)
+                }else{ # USUALLY NOT RECOMMENDED
+                  ready4::write_fls_to_dv(copy_1L_chr,
+                                          descriptions_chr = paste0("Manual (",
+                                                                    .x %>% tolower(),
+                                                                    " version)",
+                                                                    " describing the contents of the ",
+                                                                    package_1L_chr,
+                                                                    " R package."),
+                                          ds_url_1L_chr = pkg_dmt_dv_ds_1L_chr)
+                }
               })
-  if(publish_dv_1L_lgl){
+  if(publish_dv_1L_lgl & identical(piggyback_to_1L_chr,character(0))){
     ready4::write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
   }
 }

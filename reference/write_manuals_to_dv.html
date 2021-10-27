@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9459</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9460</span>
       </span>
     </div>
 
@@ -132,7 +132,10 @@
   package_1L_chr <span class='op'>=</span> <span class='fu'><a href='get_dev_pkg_nm.html'>get_dev_pkg_nm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>,
   <span class='va'>path_to_dmt_dir_1L_chr</span>,
   <span class='va'>pkg_dmt_dv_ds_1L_chr</span>,
-  publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>
+  publish_dv_1L_lgl <span class='op'>=</span> <span class='cn'>F</span>,
+  piggyback_desc_1L_chr <span class='op'>=</span> <span class='st'>"Latest package manual PDFs."</span>,
+  piggyback_tag_1L_chr <span class='op'>=</span> <span class='st'>"Documentation_0.0"</span>,
+  piggyback_to_1L_chr <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -153,6 +156,18 @@
     <tr>
       <th>publish_dv_1L_lgl</th>
       <td><p>Publish dataverse (a logical vector of length one), Default: F</p></td>
+    </tr>
+    <tr>
+      <th>piggyback_desc_1L_chr</th>
+      <td><p>Piggyback description (a character vector of length one), Default: 'Latest package manual PDFs.'</p></td>
+    </tr>
+    <tr>
+      <th>piggyback_tag_1L_chr</th>
+      <td><p>Piggyback tag (a character vector of length one), Default: 'Documentation_0.0'</p></td>
+    </tr>
+    <tr>
+      <th>piggyback_to_1L_chr</th>
+      <td><p>Piggyback to (a character vector of length one), Default: character(0)</p></td>
     </tr>
     </table>
 

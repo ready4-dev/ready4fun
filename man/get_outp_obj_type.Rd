@@ -7,13 +7,13 @@
 get_outp_obj_type(
   fns_chr,
   abbreviations_lup,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
   fns_env_ls,
   is_generic_lgl = F,
-  key_1L_chr = NULL,
+  key_1L_chr = deprecated(),
   object_type_lup = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -21,19 +21,19 @@ get_outp_obj_type(
 
 \item{abbreviations_lup}{Abbreviations (a lookup table)}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
 \item{fns_env_ls}{Functions (a list of environments)}
 
 \item{is_generic_lgl}{Is generic (a logical vector), Default: F}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Output object type (a character vector)

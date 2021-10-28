@@ -84,3 +84,10 @@
 ^data-raw/TEMP/mthd_ratify\.R$
 ^data-raw/TEMP/mthd_renew\.R$
 ^data-raw/TEMP/mthd_report\.R$
+^data-raw/abbreviations_lup\.Rds$
+^data-raw/fn_types_lup\.Rds$
+^data-raw/object_type_lup\.Rds$
+^data-raw/prototype_lup\.Rds$
+^data-raw/seed_obj_lup_tb\.Rds$
+^data-raw/seed_obj_type_lup\.Rds$
+^data-raw/treat_as_words_chr\.Rds$

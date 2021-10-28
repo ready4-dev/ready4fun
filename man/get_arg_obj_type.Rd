@@ -6,25 +6,25 @@
 \usage{
 get_arg_obj_type(
   argument_nm_1L_chr,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
+  key_1L_chr = deprecated(),
   object_type_lup = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
 \item{argument_nm_1L_chr}{Argument name (a character vector of length one)}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Argument object type (a character vector of length one)

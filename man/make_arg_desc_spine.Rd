@@ -8,11 +8,11 @@ make_arg_desc_spine(
   argument_nm_1L_chr,
   object_type_lup = NULL,
   abbreviations_lup = NULL,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
+  key_1L_chr = deprecated(),
   master_object_type_lup = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -22,15 +22,15 @@ make_arg_desc_spine(
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{master_object_type_lup}{Master object type (a lookup table), Default: NULL}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Argument description spine (a character vector of length one)

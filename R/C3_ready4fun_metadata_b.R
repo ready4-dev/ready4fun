@@ -39,6 +39,7 @@ x
 #' @param inc_pkg_meta_data_1L_lgl Include package meta data (a logical vector of length one), Default: logical(0)
 #' @param object_type_lup Object type (a lookup table), Default: ready4fun_abbreviations()
 #' @param path_to_dmt_dir_1L_chr Path to documentation directory (a character vector of length one), Default: character(0)
+#' @param piggyback_to_1L_chr Piggyback to (a character vector of length one), Default: character(0)
 #' @param pkg_dmt_dv_dss_chr Package documentation dataverse datasets (a character vector), Default: character(0)
 #' @param pkg_ds_ls_ls Package dataset (a list of lists), Default: list()
 #' @param seed_obj_type_lup Seed object type (a lookup table), Default: tibble::tibble()
@@ -66,6 +67,7 @@ import_from_chr = character(0),
 inc_pkg_meta_data_1L_lgl = logical(0),
 object_type_lup = ready4fun_abbreviations(),
 path_to_dmt_dir_1L_chr = character(0),
+piggyback_to_1L_chr = character(0),
 pkg_dmt_dv_dss_chr = character(0),
 pkg_ds_ls_ls = list(),
 seed_obj_type_lup = tibble::tibble(),
@@ -87,6 +89,7 @@ import_from_chr = import_from_chr,
 inc_pkg_meta_data_1L_lgl = inc_pkg_meta_data_1L_lgl,
 object_type_lup = object_type_lup,
 path_to_dmt_dir_1L_chr = path_to_dmt_dir_1L_chr,
+piggyback_to_1L_chr = piggyback_to_1L_chr,
 pkg_dmt_dv_dss_chr = pkg_dmt_dv_dss_chr,
 pkg_ds_ls_ls = pkg_ds_ls_ls,
 seed_obj_type_lup = seed_obj_type_lup,

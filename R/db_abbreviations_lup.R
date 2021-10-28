@@ -9,5 +9,5 @@
 #'   \item{long_name_chr}{Long name (a character vector)}
 #'   \item{plural_lgl}{Plural (a logical vector)}
 #' }
-#' @source \url{https://doi.org/10.7910/DVN/2Y9VF9}
+#' @source \url{ready4-dev/ready4}
 "abbreviations_lup"

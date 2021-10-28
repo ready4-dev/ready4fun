@@ -13,17 +13,14 @@ get_all_depcys_of_fns <- function(pkg_depcy_ls,
   return(fns_to_keep_chr)
 }
 get_arg_obj_type <- function(argument_nm_1L_chr,
-                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = character(0),
-                             key_1L_chr = NULL,
+                             dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                             dv_url_pfx_1L_chr = deprecated(),
+                             key_1L_chr = deprecated(),
                              object_type_lup = NULL,
-                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                             server_1L_chr = deprecated()){
   if(is.null(object_type_lup))
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   nchar_int <- nchar(object_type_lup$short_name_chr)
   match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr,
                                                       paste0(ifelse(nchar(argument_nm_1L_chr)==nchar_int,"","_"),
@@ -291,18 +288,15 @@ get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S
   return(new_fn_types_chr)
 }
 get_obj_type_new_cses <- function(updated_obj_type_lup,
-                                  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                  dv_url_pfx_1L_chr = character(0),
+                                  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                                  dv_url_pfx_1L_chr = deprecated(),
                                   excluded_chr = NA_character_,
-                                  key_1L_chr = NULL,
+                                  key_1L_chr = deprecated(),
                                   old_obj_type_lup = NULL,
-                                  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                                  server_1L_chr = deprecated()){
   if(is.null(old_obj_type_lup))
-    old_obj_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                           dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                           dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                           key_1L_chr = key_1L_chr,
-                                           server_1L_chr = server_1L_chr)
+    old_obj_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                              piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   obj_type_lup_new_cses_tb <- updated_obj_type_lup %>%
     dplyr::filter(!short_name_chr %in% old_obj_type_lup$short_name_chr)
   if(!is.na(excluded_chr[1]))
@@ -312,19 +306,16 @@ get_obj_type_new_cses <- function(updated_obj_type_lup,
 }
 get_outp_obj_type <- function(fns_chr,
                               abbreviations_lup,
-                              dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                              dv_url_pfx_1L_chr = character(0),
+                              dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                              dv_url_pfx_1L_chr = deprecated(),
                               fns_env_ls,
                               is_generic_lgl = F,
-                              key_1L_chr = NULL,
+                              key_1L_chr = deprecated(),
                               object_type_lup = NULL,
-                              server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                              server_1L_chr = deprecated()){
   if(is.null(object_type_lup))
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                              piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   outp_obj_type_chr <- purrr::map2_chr(fns_chr,
                                        is_generic_lgl,
                                           ~ {
@@ -377,6 +368,19 @@ get_rds_from_dv <- function(file_nm_1L_chr,
     r_object_xx <- readRDS(url(paste0(dv_url_pfx_1L_chr,
                                       ds_ls[[idx_1L_int]]$dataFile$id)))
   }
+  return(r_object_xx)
+}
+get_rds_from_pkg_dmt <- function(pkg_setup_ls = NULL,
+                                  fl_nm_1L_chr,
+                                  piggyback_to_1L_chr = character(0),
+                                  piggyback_tag_1L_chr = "Documentation_0.0"){
+  if(!is.null(pkg_setup_ls)){
+    piggyback_to_1L_chr <- pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr
+  }
+  dmt_urls_chr <- piggyback::pb_download_url(repo = piggyback_to_1L_chr,
+                                             tag = piggyback_tag_1L_chr)
+  dmt_url_1L_chr <- dmt_urls_chr[dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".Rds"))]
+  r_object_xx <- readRDS(url(dmt_url_1L_chr))
   return(r_object_xx)
 }
 get_return_obj_nm <- function(fn){

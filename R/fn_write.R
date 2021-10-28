@@ -10,40 +10,36 @@
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: get_dev_pkg_nm()
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @param url_1L_chr Url (a character vector of length one), Default: deprecated()
 #' @return Package datasets (a tibble)
 #' @rdname write_abbr_lup
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom lifecycle is_present deprecate_warn
-#' @importFrom ready4 get_rds_from_dv
 #' @keywords internal
 write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, long_name_chr = NA_character_, 
     no_plural_chr = NA_character_, custom_plural_ls = NULL, overwrite_1L_lgl = T, 
     object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    pkg_nm_1L_chr = get_dev_pkg_nm(), dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", 
-    dv_url_pfx_1L_chr = character(0), key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    url_1L_chr = deprecated()) 
+    pkg_nm_1L_chr = get_dev_pkg_nm(), dv_ds_nm_1L_chr = "ready4-dev/ready4", 
+    dv_url_pfx_1L_chr = deprecated(), key_1L_chr = deprecated(), 
+    server_1L_chr = deprecated(), url_1L_chr = deprecated()) 
 {
     if (lifecycle::is_present(url_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9323", "ready4fun::write_abbr_lup(url_1L_chr)", 
             details = "Please use `ready4fun::write_abbr_lup(dv_ds_nm_1L_chr)` instead.")
     }
     if (is.null(seed_lup)) {
-        seed_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        seed_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     }
-    if (is.null(object_type_lup)) {
-        object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
-    }
+    if (is.null(object_type_lup)) 
+        object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     pkg_dss_tb <- update_abbr_lup(seed_lup, short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, no_plural_chr = no_plural_chr, 
         custom_plural_ls = custom_plural_ls) %>% write_and_doc_ds(db_df = ., 
@@ -148,15 +144,14 @@ write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return Package datasets (a tibble)
 #' @rdname write_and_doc_ds
 #' @export 
 #' @importFrom tibble tibble add_case
-#' @importFrom ready4 get_rds_from_dv
 #' @importFrom devtools document load_all
 #' @keywords internal
 write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_chr, 
@@ -164,17 +159,15 @@ write_and_doc_ds <- function (db_df, overwrite_1L_lgl = T, db_1L_chr, title_1L_c
     vars_ls = NULL, R_dir_1L_chr = "R", simple_lup_1L_lgl = F, 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_ds_nm_1L_chr = "ready4-dev/ready4", dv_url_pfx_1L_chr = deprecated(), 
+    key_1L_chr = deprecated(), server_1L_chr = deprecated()) 
 {
     if (is.null(abbreviations_lup)) 
-        abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     if (is.null(object_type_lup)) 
-        object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     eval(parse(text = paste0(db_1L_chr, "<-db_df")))
     eval(parse(text = paste0("usethis::use_data(", db_1L_chr, 
         ", overwrite = overwrite_1L_lgl)")))
@@ -341,7 +334,7 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-#' @importFrom ready4 get_rds_from_dv write_env_objs_to_dv
+#' @importFrom ready4 write_env_objs_to_dv
 #' @importFrom devtools document load_all
 #' @keywords internal
 write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F, 
@@ -401,15 +394,13 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
         prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
         pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup
-        current_lup <- ready4::get_rds_from_dv("prototype_lup", 
-            dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+        current_lup <- get_RDS_from_pkg_dmtn(pkg_setup_ls, fl_nm_1L_chr = "prototype_lup")
         if (!identical(current_lup, prototype_lup) & !is.null(current_lup)) {
             ready4::write_env_objs_to_dv(list(prototype_lup = prototype_lup), 
                 descriptions_chr = "Class prototype lookup table", 
                 ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-                key_1L_chr = key_1L_chr, publish_dv_1L_lgl = T, 
-                server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+                key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+                publish_dv_1L_lgl = T, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
         }
     }
     devtools::document()
@@ -426,24 +417,23 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param pkg_dss_tb Package datasets (a tibble), Default: tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0), 
 #'    desc_chr = character(0), url_chr = character(0))
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return NULL
 #' @rdname write_dmtd_fn_type_lup
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom utils data
-#' @importFrom ready4 get_rds_from_dv
 #' @keywords internal
 write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite_1L_lgl = T, 
     pkg_nm_1L_chr = get_dev_pkg_nm(), url_1L_chr = deprecated(), 
     abbreviations_lup = NULL, object_type_lup = NULL, pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), 
         title_chr = character(0), desc_chr = character(0), url_chr = character(0)), 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_ds_nm_1L_chr = "ready4-dev/ready4", dv_url_pfx_1L_chr = deprecated(), 
+    key_1L_chr = deprecated(), server_1L_chr = deprecated()) 
 {
     if (lifecycle::is_present(url_1L_chr)) {
         lifecycle::deprecate_warn("0.0.0.9323", "ready4fun::write_dmtd_fn_type_lup(url_1L_chr)", 
@@ -453,9 +443,8 @@ write_dmtd_fn_type_lup <- function (fn_types_lup = make_fn_type_lup(), overwrite
         utils::data("abbreviations_lup", package = "ready4fun", 
             envir = environment())
     if (is.null(object_type_lup)) 
-        object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     fn_types_lup %>% write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl, 
         db_1L_chr = "fn_types_lup", title_1L_chr = "Function type lookup table", 
         desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", 
@@ -504,32 +493,30 @@ write_documented_fns <- function (tmp_fn_dir_1L_chr, R_dir_1L_chr)
 #' @param R_dir_1L_chr R directory (a character vector of length one), Default: 'R'
 #' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: F
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
 #' @param object_type_lup Object type (a lookup table), Default: NULL
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return NULL
 #' @rdname write_ds_dmt
 #' @export 
-#' @importFrom ready4 get_rds_from_dv get_from_lup_obj
 #' @importFrom purrr map map2 pluck map2_chr
+#' @importFrom ready4 get_from_lup_obj
 #' @importFrom stats setNames
 #' @keywords internal
 write_ds_dmt <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, format_1L_chr = "A tibble", 
     url_1L_chr = NA_character_, vars_ls = NULL, R_dir_1L_chr = "R", 
-    simple_lup_1L_lgl = F, abbreviations_lup = NULL, object_type_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    key_1L_chr = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    simple_lup_1L_lgl = F, abbreviations_lup = NULL, dv_ds_nm_1L_chr = "ready4-dev/ready4", 
+    dv_url_pfx_1L_chr = deprecated(), key_1L_chr = deprecated(), 
+    object_type_lup = NULL, server_1L_chr = deprecated()) 
 {
     if (is.null(abbreviations_lup)) 
-        abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        abbreviations_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "abbreviations_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     if (is.null(object_type_lup)) 
-        object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     auto_vars_ls <- names(db_df) %>% purrr::map(~ifelse(simple_lup_1L_lgl, 
         ready4::get_from_lup_obj(abbreviations_lup, target_var_nm_1L_chr = "long_name_chr", 
             match_var_nm_1L_chr = "short_name_chr", match_value_xx = .x, 
@@ -1104,7 +1091,8 @@ write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_l
     file_ids_int <- ready4::write_env_objs_to_dv(append(list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup), 
         append_ls), descriptions_chr = c("Abbreviations lookup table", 
         words_desc_1L_chr), ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
+        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
         publish_dv_1L_lgl = publish_dv_1L_lgl)
     return(pkg_setup_ls)
 }
@@ -1302,8 +1290,8 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
     file_ids_int <- ready4::write_env_objs_to_dv(list(fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup), 
         descriptions_chr = c("Function types lookup table"), 
         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
-        publish_dv_1L_lgl = publish_dv_1L_lgl)
+        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        server_1L_chr = server_1L_chr, publish_dv_1L_lgl = publish_dv_1L_lgl)
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_fn_types_chr")
     return(pkg_setup_ls)
 }
@@ -1410,8 +1398,8 @@ write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_elem
         append_ls), descriptions_chr = c("Object type lookup table", 
         words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr), 
         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr, 
-        publish_dv_1L_lgl = publish_dv_1L_lgl)
+        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        server_1L_chr = server_1L_chr, publish_dv_1L_lgl = publish_dv_1L_lgl)
     return(pkg_setup_ls)
 }
 #' Write new words vector
@@ -1434,7 +1422,8 @@ write_new_words_vec <- function (pkg_setup_ls, key_1L_chr = Sys.getenv("DATAVERS
         pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_words_chr")
         file_ids_int <- ready4::write_env_objs_to_dv(append_ls, 
             descriptions_chr = c(words_desc_1L_chr), ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
+            key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+            server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
             publish_dv_1L_lgl = publish_dv_1L_lgl)
     }
     return(pkg_setup_ls)

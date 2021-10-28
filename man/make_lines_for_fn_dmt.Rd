@@ -19,13 +19,13 @@ make_lines_for_fn_dmt(
   import_chr = NA_character_,
   doc_in_class_1L_lgl = F,
   abbreviations_lup = NULL,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
   fn_types_lup = NULL,
   import_from_chr = NA_character_,
-  key_1L_chr = NULL,
+  key_1L_chr = deprecated(),
   object_type_lup = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -57,19 +57,19 @@ make_lines_for_fn_dmt(
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
 \item{fn_types_lup}{Function types (a lookup table), Default: NULL}
 
 \item{import_from_chr}{Import from (a character vector), Default: 'NA'}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{object_type_lup}{Object type (a lookup table), Default: NULL}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \description{
 make_lines_for_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make lines for function documentation. The function is called for its side effects and does not return a value.

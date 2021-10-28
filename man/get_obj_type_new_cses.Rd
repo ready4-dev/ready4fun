@@ -6,28 +6,28 @@
 \usage{
 get_obj_type_new_cses(
   updated_obj_type_lup,
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
   excluded_chr = NA_character_,
-  key_1L_chr = NULL,
+  key_1L_chr = deprecated(),
   old_obj_type_lup = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
 \item{updated_obj_type_lup}{Updated object type (a lookup table)}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
 \item{excluded_chr}{Excluded (a character vector), Default: 'NA'}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{old_obj_type_lup}{Old object type (a lookup table), Default: NULL}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Object type lookup table new cases (a tibble)

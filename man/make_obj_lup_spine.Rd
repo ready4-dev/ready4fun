@@ -5,12 +5,13 @@
 \title{Make object lookup table spine}
 \usage{
 make_obj_lup_spine(
-  seed_obj_type_lup = ready4::get_rds_from_dv("seed_obj_type_lup"),
+  seed_obj_type_lup = get_rds_from_pkg_dmt(fl_nm_1L_chr = "seed_obj_type_lup",
+    piggyback_to_1L_chr = "ready4-dev/ready4"),
   new_entries_tb = NULL
 )
 }
 \arguments{
-\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: ready4::get_rds_from_dv("seed_obj_type_lup")}
+\item{seed_obj_type_lup}{Seed object type (a lookup table), Default: get_rds_from_pkg_dmt(fl_nm_1L_chr = "seed_obj_type_lup", piggyback_to_1L_chr = "ready4-dev/ready4")}
 
 \item{new_entries_tb}{New entries (a tibble), Default: NULL}
 }

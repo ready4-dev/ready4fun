@@ -15,7 +15,8 @@ make_std_fn_dmt_spine(
   example_1L_lgl = F,
   export_1L_lgl = T,
   class_name_1L_chr = "",
-  exclude_if_match_chr
+  exclude_if_match_chr,
+  piggyback_to_1L_chr = "ready4-dev/ready4"
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ make_std_fn_dmt_spine(
 \item{class_name_1L_chr}{Class name (a character vector of length one), Default: ''}
 
 \item{exclude_if_match_chr}{Exclude if match (a character vector)}
+
+\item{piggyback_to_1L_chr}{Piggyback to (a character vector of length one), Default: 'ready4-dev/ready4'}
 }
 \value{
 Standard function documentation spine (a list of character vectors)

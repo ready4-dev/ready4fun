@@ -32,6 +32,7 @@ make_manifest(
   path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
   path_to_pkg_logo_1L_chr = NA_character_,
   path_to_pkg_rt_1L_chr = getwd(),
+  piggyback_to_1L_chr = NA_character_,
   pkg_ds_ls_ls = list(),
   ready4_type_1L_chr,
   s4_mthds_fn = NULL,
@@ -94,6 +95,8 @@ make_manifest(
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
+
+\item{piggyback_to_1L_chr}{Piggyback to (a character vector of length one), Default: 'NA'}
 
 \item{pkg_ds_ls_ls}{Package dataset (a list of lists), Default: list()}
 

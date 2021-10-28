@@ -24,38 +24,35 @@ remove_lbls_from_df <- function (data_df)
 #' @param nms_chr Names (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
-#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'
-#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
 #' @param fn_types_lup Function types (a lookup table), Default: NULL
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
-#' @param key_1L_chr Key (a character vector of length one), Default: NULL
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return Names (a character vector)
 #' @rdname remove_obj_type_from_nm
 #' @export 
-#' @importFrom ready4 get_rds_from_dv get_from_lup_obj
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
 #' @importFrom Hmisc capitalize
+#' @importFrom ready4 get_from_lup_obj
 #' @importFrom stringi stri_replace_last_fixed
 #' @keywords internal
 remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
-    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9", dv_url_pfx_1L_chr = character(0), 
-    fn_types_lup = NULL, is_generic_lgl = F, key_1L_chr = NULL, 
-    server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    dv_ds_nm_1L_chr = "ready4-dev/ready4", dv_url_pfx_1L_chr = deprecated(), 
+    fn_types_lup = NULL, is_generic_lgl = F, key_1L_chr = deprecated(), 
+    server_1L_chr = deprecated()) 
 {
     if (is.null(abbreviations_lup)) 
-        abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     if (is.null(fn_types_lup)) 
-        fn_types_lup <- ready4::get_rds_from_dv("fn_types_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        fn_types_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "fn_types_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     if (is.null(object_type_lup)) 
-        object_type_lup <- ready4::get_rds_from_dv("object_type_lup", 
-            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
-            key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+        object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
+            piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     output_chr <- make_arg_type_abbr(nms_chr, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 

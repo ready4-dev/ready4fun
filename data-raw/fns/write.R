@@ -10,10 +10,10 @@ write_abbr_lup <- function(seed_lup = NULL,
                                                        desc_chr = character(0),
                                                        url_chr = character(0)),
                            pkg_nm_1L_chr = get_dev_pkg_nm(),
-                           dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                           dv_url_pfx_1L_chr = character(0),
-                           key_1L_chr = NULL,
-                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+                           dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                           dv_url_pfx_1L_chr = deprecated(),
+                           key_1L_chr = deprecated(),
+                           server_1L_chr = deprecated(),
                            url_1L_chr = deprecated()){
   if (lifecycle::is_present(url_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9323",
@@ -21,19 +21,12 @@ write_abbr_lup <- function(seed_lup = NULL,
                               details = "Please use `ready4fun::write_abbr_lup(dv_ds_nm_1L_chr)` instead.")
   }
   if(is.null(seed_lup)){
-    seed_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                key_1L_chr = key_1L_chr,
-                                server_1L_chr = server_1L_chr)
+    seed_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                      piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   }
-  if(is.null(object_type_lup)){ # Was seed_lup
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
-  }
+  if(is.null(object_type_lup))
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   pkg_dss_tb <- update_abbr_lup(seed_lup,
                   short_name_chr = short_name_chr,
                   long_name_chr = long_name_chr,
@@ -125,22 +118,16 @@ write_and_doc_ds <- function(db_df,
                                                          title_chr = character(0),
                                                          desc_chr = character(0),
                                                          url_chr = character(0)),
-                             dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                             dv_url_pfx_1L_chr = character(0),
-                             key_1L_chr = NULL,
-                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                             dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                             dv_url_pfx_1L_chr = deprecated(),
+                             key_1L_chr = deprecated(),
+                             server_1L_chr = deprecated()){
   if(is.null(abbreviations_lup))
-    abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup",
-                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                         key_1L_chr = key_1L_chr,
-                                         server_1L_chr = server_1L_chr)
+    abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup",
+                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   if(is.null(object_type_lup))
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
                          db_1L_chr,
@@ -367,18 +354,17 @@ write_clss <- function(pkg_setup_ls,
     prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
                                  !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
     pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup # Check this
-    current_lup <- ready4::get_rds_from_dv("prototype_lup",
-                                   dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                   key_1L_chr = key_1L_chr,
-                                   server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+    current_lup <- get_RDS_from_pkg_dmtn(pkg_setup_ls,
+                                         fl_nm_1L_chr = "prototype_lup")
     if(!identical(current_lup,
                   prototype_lup) & !is.null(current_lup)){
       ready4::write_env_objs_to_dv(list(prototype_lup = prototype_lup),
-                           descriptions_chr = "Class prototype lookup table",
-                           ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                           key_1L_chr = key_1L_chr,
-                           publish_dv_1L_lgl = T,
-                           server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+                                   descriptions_chr = "Class prototype lookup table",
+                                   ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+                                   key_1L_chr = key_1L_chr,
+                                   piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+                                   publish_dv_1L_lgl = T,
+                                   server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
     }
   }
   devtools::document()
@@ -395,10 +381,10 @@ write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                                                title_chr = character(0),
                                                                desc_chr = character(0),
                                                                url_chr = character(0)),
-                                   dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                                   dv_url_pfx_1L_chr = character(0),
-                                   key_1L_chr = NULL,
-                                   server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                                   dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                                   dv_url_pfx_1L_chr = deprecated(),
+                                   key_1L_chr = deprecated(),
+                                   server_1L_chr = deprecated()){
   if (lifecycle::is_present(url_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9323",
                               "ready4fun::write_dmtd_fn_type_lup(url_1L_chr)",
@@ -408,11 +394,8 @@ write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
     utils::data("abbreviations_lup", # Replace with ready4::get_rds_from_dv ?
                 package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   fn_types_lup %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
                      db_1L_chr = "fn_types_lup",
@@ -457,23 +440,17 @@ write_ds_dmt <- function(db_df,
                          R_dir_1L_chr = "R",
                          simple_lup_1L_lgl = F,
                          abbreviations_lup = NULL,
+                         dv_ds_nm_1L_chr = "ready4-dev/ready4",
+                         dv_url_pfx_1L_chr = deprecated(),
+                         key_1L_chr = deprecated(),
                          object_type_lup = NULL,
-                         dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-                         dv_url_pfx_1L_chr = character(0),
-                         key_1L_chr = NULL,
-                         server_1L_chr = Sys.getenv("DATAVERSE_SERVER")){
+                         server_1L_chr = deprecated()){
   if(is.null(abbreviations_lup))
-    abbreviations_lup <- ready4::get_rds_from_dv("abbreviations_lup",
-                                         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                         key_1L_chr = key_1L_chr,
-                                         server_1L_chr = server_1L_chr)
+    abbreviations_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "abbreviations_lup",
+                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   if(is.null(object_type_lup))
-    object_type_lup <- ready4::get_rds_from_dv("object_type_lup",
-                                       dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                       dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                       key_1L_chr = key_1L_chr,
-                                       server_1L_chr = server_1L_chr)
+    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
                         ready4::get_from_lup_obj(abbreviations_lup,
@@ -1030,6 +1007,7 @@ write_new_abbrs <- function(pkg_setup_ls,
                                        descriptions_chr = c("Abbreviations lookup table", words_desc_1L_chr),
                                        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                        key_1L_chr = key_1L_chr,
+                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
                                        server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
   return(pkg_setup_ls)
@@ -1202,6 +1180,7 @@ write_new_fn_types <- function(pkg_setup_ls,
                                        descriptions_chr = c("Function types lookup table"),
                                        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                        key_1L_chr = key_1L_chr,
+                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
                                        server_1L_chr = server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
   pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
@@ -1304,6 +1283,7 @@ write_new_obj_types <- function(pkg_setup_ls,
                                                             words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr),
                                        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                        key_1L_chr = key_1L_chr,
+                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
                                        server_1L_chr = server_1L_chr,
                                        publish_dv_1L_lgl = publish_dv_1L_lgl)
   return(pkg_setup_ls)
@@ -1321,6 +1301,7 @@ write_new_words_vec <- function(pkg_setup_ls,
                                          descriptions_chr = c(words_desc_1L_chr),
                                          ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
                                          key_1L_chr = key_1L_chr,
+                                         piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
                                          server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
                                          publish_dv_1L_lgl = publish_dv_1L_lgl)
   }

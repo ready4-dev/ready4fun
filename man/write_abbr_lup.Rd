@@ -15,10 +15,10 @@ write_abbr_lup(
   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0), title_chr = character(0),
     desc_chr = character(0), url_chr = character(0)),
   pkg_nm_1L_chr = get_dev_pkg_nm(),
-  dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/2Y9VF9",
-  dv_url_pfx_1L_chr = character(0),
-  key_1L_chr = NULL,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
+  dv_ds_nm_1L_chr = "ready4-dev/ready4",
+  dv_url_pfx_1L_chr = deprecated(),
+  key_1L_chr = deprecated(),
+  server_1L_chr = deprecated(),
   url_1L_chr = deprecated()
 )
 }
@@ -42,13 +42,13 @@ desc_chr = character(0), url_chr = character(0))}
 
 \item{pkg_nm_1L_chr}{Package name (a character vector of length one), Default: get_dev_pkg_nm()}
 
-\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'https://doi.org/10.7910/DVN/2Y9VF9'}
+\item{dv_ds_nm_1L_chr}{Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'}
 
-\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+\item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: deprecated()}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: NULL}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 
 \item{url_1L_chr}{Url (a character vector of length one), Default: deprecated()}
 }

@@ -20,6 +20,7 @@ make_pt_ready4fun_metadata_b(
   inc_pkg_meta_data_1L_lgl = logical(0),
   object_type_lup = ready4fun_abbreviations(),
   path_to_dmt_dir_1L_chr = character(0),
+  piggyback_to_1L_chr = character(0),
   pkg_dmt_dv_dss_chr = character(0),
   pkg_ds_ls_ls = list(),
   seed_obj_type_lup = tibble::tibble(),
@@ -58,6 +59,8 @@ make_pt_ready4fun_metadata_b(
 \item{object_type_lup}{Object type (a lookup table), Default: ready4fun_abbreviations()}
 
 \item{path_to_dmt_dir_1L_chr}{Path to documentation directory (a character vector of length one), Default: character(0)}
+
+\item{piggyback_to_1L_chr}{Piggyback to (a character vector of length one), Default: character(0)}
 
 \item{pkg_dmt_dv_dss_chr}{Package documentation dataverse datasets (a character vector), Default: character(0)}
 

@@ -8,7 +8,7 @@
 An object of class \code{ready4fun_abbreviations} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 675 rows and 3 columns.
 }
 \source{
-\url{https://doi.org/10.7910/DVN/2Y9VF9}
+\url{ready4-dev/ready4}
 }
 \usage{
 abbreviations_lup

@@ -122,7 +122,7 @@ constructor_r3 <- dplyr::bind_rows(
                                                               "list()",
                                                               "character(0)", "character(0)","tibble::tibble()","tibble::tibble()",
                                                               "character(0)","logical(0)","ready4fun_abbreviations()",
-                                                              "character(0)",
+                                                              "character(0)","character(0)",
                                                               "character(0)", "list()",
                                                               "tibble::tibble()","character(0)",
                                                               "ready4fun_executor()","character(0)") %>%
@@ -131,7 +131,7 @@ constructor_r3 <- dplyr::bind_rows(
                                                                    "dss_records_ls",
                                                                    "dv_ds_nm_1L_chr", "dv_url_pfx_1L_chr", "fn_types_lup", "fns_dmt_tb",
                                                                    "import_from_chr","inc_pkg_meta_data_1L_lgl","object_type_lup",
-                                                                   "path_to_dmt_dir_1L_chr",
+                                                                   "path_to_dmt_dir_1L_chr","piggyback_to_1L_chr",
                                                                    "pkg_dmt_dv_dss_chr","pkg_ds_ls_ls",
                                                                    "seed_obj_type_lup", "server_1L_chr",
                                                                    "s4_fns_ls","treat_as_words_chr")) %>%
@@ -175,8 +175,9 @@ manifest_ls <- pkg_desc_ls %>%
                                    lifecycle_stage_1L_chr = "experimental",
                                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
                                    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
-                                   pkg_dmt_dv_dss_chr = c("https://doi.org/10.7910/DVN/HLLXZN",
-                                                          "https://doi.org/10.7910/DVN/2Y9VF9"),
+                                   piggyback_to_1L_chr = "ready4-dev/ready4",
+                                   pkg_dmt_dv_dss_chr = c("ready4-dev/ready4fun",
+                                                          "ready4-dev/ready4"),
                                    pkg_ds_ls_ls = pkg_ds_ls_ls,
                                    ready4_type_1L_chr = "authoring")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,

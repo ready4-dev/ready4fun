@@ -1,5 +1,9 @@
 library(lifecycle)
 library(ready4)
+# piggyback::pb_new_release("ready4-dev/ready4fun",
+#                           tag = "0.0.0.9461",
+#                           body = "First release indexed with a Zenodo DOI.",
+#                           prerelease = T)
 fns_dir_1L_chr <-"data-raw/fns"
 if(!dir.exists(fns_dir_1L_chr))
   dir.create(fns_dir_1L_chr)
@@ -176,9 +180,8 @@ manifest_ls <- pkg_desc_ls %>%
                                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
                                    path_to_dmt_dir_1L_chr = normalizePath("../../../../../Documentation/Code"),
                                    piggyback_to_1L_chr = "ready4-dev/ready4",
-                                   pkg_dmt_dv_dss_chr = c("ready4-dev/ready4fun",
-                                                          "ready4-dev/ready4"),
                                    pkg_ds_ls_ls = pkg_ds_ls_ls,
-                                   ready4_type_1L_chr = "authoring")
+                                   ready4_type_1L_chr = "authoring",
+                                   zenodo_badge_1L_chr = "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)

@@ -126,7 +126,7 @@ write_and_doc_ds <- function(db_df,
     abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup",
                                                piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   if(is.null(object_type_lup))
-    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
                                              piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   eval(parse(text=paste0(db_1L_chr,"<-db_df")))
   eval(parse(text=paste0("usethis::use_data(",
@@ -354,7 +354,7 @@ write_clss <- function(pkg_setup_ls,
     prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
                                  !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
     pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup # Check this
-    current_lup <- get_RDS_from_pkg_dmtn(pkg_setup_ls,
+    current_lup <- get_rds_from_pkg_dmt(pkg_setup_ls,
                                          fl_nm_1L_chr = "prototype_lup")
     if(!identical(current_lup,
                   prototype_lup) & !is.null(current_lup)){
@@ -394,7 +394,7 @@ write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
     utils::data("abbreviations_lup", # Replace with ready4::get_rds_from_dv ?
                 package="ready4fun",envir = environment())
   if(is.null(object_type_lup))
-    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
                                                piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   fn_types_lup %>%
     write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
@@ -446,10 +446,10 @@ write_ds_dmt <- function(db_df,
                          object_type_lup = NULL,
                          server_1L_chr = deprecated()){
   if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "abbreviations_lup",
+    abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup",
                                                piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   if(is.null(object_type_lup))
-    object_type_lup <- get_RDS_from_pkg_dmtn(fl_nm_1L_chr = "object_type_lup",
+    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
                                              piggyback_to_1L_chr = dv_ds_nm_1L_chr)
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
@@ -941,7 +941,7 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
 write_new_abbrs <- function(pkg_setup_ls,
                             long_name_chr = NULL,
                             custom_plural_ls = NULL,
-                            key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+                            key_1L_chr = deprecated(),
                             no_plural_chr = NA_character_,
                             publish_dv_1L_lgl = T,
                             pfx_rgx = NA_character_,
@@ -1289,8 +1289,8 @@ write_new_obj_types <- function(pkg_setup_ls,
   return(pkg_setup_ls)
 }
 write_new_words_vec <- function(pkg_setup_ls,
-                                key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
-                                publish_dv_1L_lgl = T){
+                                key_1L_chr = deprecated(),
+                                publish_dv_1L_lgl = deprecated()){
   if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
     append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
                                              pkg_setup_ls$problems_ls$missing_words_chr))
@@ -1300,10 +1300,12 @@ write_new_words_vec <- function(pkg_setup_ls,
     file_ids_int <- ready4::write_env_objs_to_dv(append_ls,
                                          descriptions_chr = c(words_desc_1L_chr),
                                          ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                         key_1L_chr = key_1L_chr,
+                                         #key_1L_chr = key_1L_chr,
+                                         piggyback_tag_1L_chr = "Documentation_0.0",
                                          piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                         server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
-                                         publish_dv_1L_lgl = publish_dv_1L_lgl)
+                                         #server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
+                                         publish_dv_1L_lgl = F)
+    pkg_setup_ls$subsequent_ls$treat_as_words_chr <- append_ls$treat_as_words_chr
   }
   return(pkg_setup_ls)
 }

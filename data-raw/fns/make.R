@@ -778,7 +778,7 @@ make_list_phrase <- function(items_chr){
 }
 make_manifest <- function(pkg_desc_ls,
                           copyright_holders_chr,
-                          pkg_dmt_dv_dss_chr,
+                          pkg_dmt_dv_dss_chr = deprecated(),
                           add_gh_site_1L_lgl = T,
                           addl_badges_ls = list(),
                           addl_pkgs_ls = make_addl_pkgs_ls(),#
@@ -809,20 +809,8 @@ make_manifest <- function(pkg_desc_ls,
                           s4_mthds_fn = NULL,
                           s4_mthds_ls = NULL,
                           server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-                          user_manual_fns_chr = NA_character_){
-  if(length(pkg_dmt_dv_dss_chr)<2){
-    pkg_dmt_dv_dss_chr <- rep(pkg_dmt_dv_dss_chr, 2)
-  }
-  if(!is.na(ready4_type_1L_chr)){
-    append_ls <- list(ready4 = ready4_type_1L_chr)
-  }else{
-    append_ls <- NULL
-  }
-  if(identical(badges_lup,tibble::tibble())){
-    utils::data("badges_lup", package = "ready4fun", envir = environment())
-  }
-  if(identical(import_from_chr,character(0)))
-    import_from_chr <- make_gnrc_imports()
+                          user_manual_fns_chr = NA_character_,
+                          zenodo_badge_1L_chr = character(0)){
   if(is.na(gh_repo_1L_chr))
     gh_repo_1L_chr <- pkg_desc_ls$URL %>%
       strsplit(",") %>%
@@ -830,6 +818,27 @@ make_manifest <- function(pkg_desc_ls,
       purrr::pluck(2) %>%
       stringr::str_trim() %>%
       stringr::str_remove("https://github.com/")
+  #if(length(pkg_dmt_dv_dss_chr)<2){
+  pkg_dmt_dv_dss_chr <- c(gh_repo_1L_chr,piggyback_to_1L_chr)#rep(pkg_dmt_dv_dss_chr, 2)
+  #}
+    if(!is.na(ready4_type_1L_chr)){
+      append_ls <- list(ready4 = ready4_type_1L_chr)
+    }else{
+      append_ls <- NULL
+    }
+    if(identical(badges_lup,tibble::tibble())){
+      utils::data("badges_lup", package = "ready4fun", envir = environment())
+    }
+    if(!identical(zenodo_badge_1L_chr,character(0))){
+      badges_lup <- badges_lup %>%
+        tibble::add_case(badge_names_chr = "DOI",
+                         label_names_chr = "Zenodo",
+                         badges_chr = zenodo_badge_1L_chr)
+      append_ls <- append(append_ls,
+                          list(DOI = "Zenodo"))
+    }
+  if(identical(import_from_chr,character(0)))
+    import_from_chr <- make_gnrc_imports()
   addl_badges_ls <- append(addl_badges_ls, append_ls) %>%
     purrr::discard(is.null)
   piggyback_to_1L_chr <- ifelse(is.na(piggyback_to_1L_chr),

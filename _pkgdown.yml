@@ -1,2 +1,53 @@
-url: ~
-
+home:
+  links:
+  - text: Manual - User (PDF)
+    href: https://github.com/ready4-dev/ready4fun/releases/download/Documentation_0.0/ready4fun_User.pdf
+  - text: Manual - Developer (PDF)
+    href: https://github.com/ready4-dev/ready4fun/releases/download/Documentation_0.0/ready4fun_Developer.pdf
+  - text: Project website
+    href:  https://www.ready4-dev.com/
+development:
+  mode: auto
+reference:
+- title: "Datasets"
+- contents:
+  - abbreviations_lup
+  - badges_lup
+  - fn_types_lup
+  - fns_dmt_tb
+  - object_type_lup
+- title: "S3 Classes"
+- contents:
+  - ready4fun_badges
+  - ready4fun_abbreviations
+  - ready4fun_executor
+  - ready4fun_description
+  - ready4fun_metadata_a
+  - ready4fun_metadata_b
+  - ready4fun_manifest
+  - ready4fun_dataset
+- title: "Functions"
+- contents:
+  - add_new_cls_pts
+  - make_addl_pkgs_ls
+  - make_build_ignore_ls
+  - make_manifest
+  - make_pkg_desc_ls
+  - make_pkg_ds_ls
+  - update_abbr_lup
+  - update_msng_abbrs
+  - write_new_abbrs
+  - write_new_fn_types
+  - write_new_obj_types
+  - write_package
+- title: "Methods"
+- contents:
+  - author.ready4fun_manifest
+  - author.ready4fun_metadata_a
+  - authorClasses.ready4fun_manifest
+  - authorData.ready4fun_manifest
+  - authorFunctions.ready4fun_manifest
+  - procure.ready4fun_manifest
+  - ratify.ready4fun_manifest
+  - renew.ready4fun_manifest
+  - report.ready4fun_manifest

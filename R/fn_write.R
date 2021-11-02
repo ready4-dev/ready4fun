@@ -399,8 +399,8 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
             ready4::write_env_objs_to_dv(list(prototype_lup = prototype_lup), 
                 descriptions_chr = "Class prototype lookup table", 
                 ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2], 
-                key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
-                publish_dv_1L_lgl = T, server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr)
+                piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+                publish_dv_1L_lgl = F)
         }
     }
     devtools::document()
@@ -1028,7 +1028,7 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
-#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: deprecated()
 #' @param pfx_rgx Prefix (a regular expression vector), Default: 'NA'
 #' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return Package setup (a list)
@@ -1041,7 +1041,8 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' @importFrom testit assert
 write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_ls = NULL, 
     key_1L_chr = deprecated(), no_plural_chr = NA_character_, 
-    publish_dv_1L_lgl = T, pfx_rgx = NA_character_, server_1L_chr = deprecated()) 
+    publish_dv_1L_lgl = deprecated(), pfx_rgx = NA_character_, 
+    server_1L_chr = deprecated()) 
 {
     if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
         pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
@@ -1091,9 +1092,8 @@ write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_l
     file_ids_int <- ready4::write_env_objs_to_dv(append(list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup), 
         append_ls), descriptions_chr = c("Abbreviations lookup table", 
         words_desc_1L_chr), ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
-        server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr, 
-        publish_dv_1L_lgl = publish_dv_1L_lgl)
+        piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        publish_dv_1L_lgl = F)
     return(pkg_setup_ls)
 }
 #' Write new argument suffices
@@ -1269,18 +1269,18 @@ write_new_files <- function (paths_chr, custom_write_ls = NULL, fl_nm_1L_chr = N
 #' @param first_arg_desc_chr First argument description (a character vector), Default: 'NA'
 #' @param is_generic_lgl Is generic (a logical vector), Default: F
 #' @param is_method_lgl Is method (a logical vector), Default: F
-#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
 #' @param second_arg_desc_chr Second argument description (a character vector), Default: 'NA'
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
-#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: F
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: deprecated()
 #' @return Package setup (a list)
 #' @rdname write_new_fn_types
 #' @export 
 #' @importFrom ready4 write_env_objs_to_dv
 write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
-    is_generic_lgl = F, is_method_lgl = F, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    second_arg_desc_chr = NA_character_, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    publish_dv_1L_lgl = F) 
+    is_generic_lgl = F, is_method_lgl = F, key_1L_chr = deprecated(), 
+    second_arg_desc_chr = NA_character_, server_1L_chr = deprecated(), 
+    publish_dv_1L_lgl = deprecated()) 
 {
     pkg_setup_ls$subsequent_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup %>% 
         add_rows_to_fn_type_lup(fn_type_nm_chr = pkg_setup_ls$problems_ls$missing_fn_types_chr, 
@@ -1290,8 +1290,8 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
     file_ids_int <- ready4::write_env_objs_to_dv(list(fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup), 
         descriptions_chr = c("Function types lookup table"), 
         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
-        server_1L_chr = server_1L_chr, publish_dv_1L_lgl = publish_dv_1L_lgl)
+        piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        publish_dv_1L_lgl = F)
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr = "missing_fn_types_chr")
     return(pkg_setup_ls)
 }
@@ -1301,12 +1301,12 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
 #' @param long_name_chr Long name (a character vector), Default: NULL
 #' @param atomic_element_lgl Atomic element (a logical vector), Default: F
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
-#' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
+#' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
-#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
+#' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: deprecated()
 #' @param pfx_rgx Prefix (a regular expression vector), Default: 'NA'
 #' @param r3_can_extend_lgl Ready4 S3 can extend (a logical vector), Default: F
-#' @param server_1L_chr Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")
+#' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
 #' @return Package setup (a list)
 #' @rdname write_new_obj_types
 #' @export 
@@ -1314,9 +1314,9 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
 #' @importFrom tibble tibble
 #' @importFrom ready4 write_env_objs_to_dv
 write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_element_lgl = F, 
-    custom_plural_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    no_plural_chr = NA_character_, publish_dv_1L_lgl = T, pfx_rgx = NA_character_, 
-    r3_can_extend_lgl = F, server_1L_chr = Sys.getenv("DATAVERSE_SERVER")) 
+    custom_plural_ls = NULL, key_1L_chr = deprecated(), no_plural_chr = NA_character_, 
+    publish_dv_1L_lgl = deprecated(), pfx_rgx = NA_character_, 
+    r3_can_extend_lgl = F, server_1L_chr = deprecated()) 
 {
     was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
     if (is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)) {
@@ -1398,8 +1398,8 @@ write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_elem
         append_ls), descriptions_chr = c("Object type lookup table", 
         words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr), 
         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, 
-        key_1L_chr = key_1L_chr, piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
-        server_1L_chr = server_1L_chr, publish_dv_1L_lgl = publish_dv_1L_lgl)
+        piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr, 
+        publish_dv_1L_lgl = F)
     return(pkg_setup_ls)
 }
 #' Write new words vector

@@ -10,10 +10,10 @@ write_new_fn_types(
   first_arg_desc_chr = NA_character_,
   is_generic_lgl = F,
   is_method_lgl = F,
-  key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+  key_1L_chr = deprecated(),
   second_arg_desc_chr = NA_character_,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER"),
-  publish_dv_1L_lgl = F
+  server_1L_chr = deprecated(),
+  publish_dv_1L_lgl = deprecated()
 )
 }
 \arguments{
@@ -27,13 +27,13 @@ write_new_fn_types(
 
 \item{is_method_lgl}{Is method (a logical vector), Default: F}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{second_arg_desc_chr}{Second argument description (a character vector), Default: 'NA'}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 
-\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: F}
+\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: deprecated()}
 }
 \value{
 Package setup (a list)

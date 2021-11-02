@@ -48,7 +48,8 @@ pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author an
                                                    urls_chr = c("https://ready4-dev.github.io/ready4fun/",
                                                                 "https://github.com/ready4-dev/ready4fun",
                                                                 "https://www.ready4-dev.com/"))
-pkg_ds_ls_ls <- list(ready4::get_rds_from_dv("object_type_lup") %>%
+pkg_ds_ls_ls <- list(fns_env_ls$fns_env$get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
+                                                  piggyback_to_1L_chr = "ready4-dev/ready4") %>%
                        fns_env_ls$fns_env$make_pkg_ds_ls(db_df = .,
                                                          abbreviations_lup = .,
                                                          db_1L_chr = "object_type_lup",

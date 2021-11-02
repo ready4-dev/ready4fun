@@ -10,7 +10,7 @@ write_new_abbrs(
   custom_plural_ls = NULL,
   key_1L_chr = deprecated(),
   no_plural_chr = NA_character_,
-  publish_dv_1L_lgl = T,
+  publish_dv_1L_lgl = deprecated(),
   pfx_rgx = NA_character_,
   server_1L_chr = deprecated()
 )
@@ -26,7 +26,7 @@ write_new_abbrs(
 
 \item{no_plural_chr}{No plural (a character vector), Default: 'NA'}
 
-\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: T}
+\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: deprecated()}
 
 \item{pfx_rgx}{Prefix (a regular expression vector), Default: 'NA'}
 

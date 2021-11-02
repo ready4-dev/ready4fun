@@ -9,12 +9,12 @@ write_new_obj_types(
   long_name_chr = NULL,
   atomic_element_lgl = F,
   custom_plural_ls = NULL,
-  key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
+  key_1L_chr = deprecated(),
   no_plural_chr = NA_character_,
-  publish_dv_1L_lgl = T,
+  publish_dv_1L_lgl = deprecated(),
   pfx_rgx = NA_character_,
   r3_can_extend_lgl = F,
-  server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+  server_1L_chr = deprecated()
 )
 }
 \arguments{
@@ -26,17 +26,17 @@ write_new_obj_types(
 
 \item{custom_plural_ls}{Custom plural (a list), Default: NULL}
 
-\item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
+\item{key_1L_chr}{Key (a character vector of length one), Default: deprecated()}
 
 \item{no_plural_chr}{No plural (a character vector), Default: 'NA'}
 
-\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: T}
+\item{publish_dv_1L_lgl}{Publish dataverse (a logical vector of length one), Default: deprecated()}
 
 \item{pfx_rgx}{Prefix (a regular expression vector), Default: 'NA'}
 
 \item{r3_can_extend_lgl}{Ready4 S3 can extend (a logical vector), Default: F}
 
-\item{server_1L_chr}{Server (a character vector of length one), Default: Sys.getenv("DATAVERSE_SERVER")}
+\item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \value{
 Package setup (a list)

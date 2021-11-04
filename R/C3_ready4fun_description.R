@@ -33,6 +33,7 @@ x
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname make_pt_ready4fun_description
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_description <- function(Package = character(0),
 Title = character(0),
@@ -43,7 +44,7 @@ args_ls <- list(Package = Package,
 Title = Title,
 Description = Description,
 License = License,
-URL = URL) %>% update_pt_fn_args_ls()
+URL = URL) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package description ready4 S3 class for declaring package description file data.

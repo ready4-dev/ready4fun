@@ -51,6 +51,7 @@ x
 #' @rdname make_pt_ready4fun_metadata_b
 #' @export 
 #' @importFrom tibble tibble
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_metadata_b <- function(abbreviations_lup = ready4fun_abbreviations(),
 addl_pkgs_ls = list(),
@@ -95,7 +96,7 @@ pkg_ds_ls_ls = pkg_ds_ls_ls,
 seed_obj_type_lup = seed_obj_type_lup,
 server_1L_chr = server_1L_chr,
 s4_fns_ls = s4_fns_ls,
-treat_as_words_chr = treat_as_words_chr) %>% update_pt_fn_args_ls()
+treat_as_words_chr = treat_as_words_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.

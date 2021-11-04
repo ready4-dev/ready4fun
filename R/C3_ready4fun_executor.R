@@ -30,11 +30,12 @@ x
 #' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname make_pt_ready4fun_executor
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_executor <- function(args_ls = list(),
 fn = identity){ 
 args_ls <- list(args_ls = args_ls,
-fn = fn) %>% update_pt_fn_args_ls()
+fn = fn) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package executor ready4 S3 class for list object specifying function arguments and function.

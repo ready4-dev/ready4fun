@@ -42,6 +42,7 @@ x
 #' @details ready4 S3 class for package metadata required for initial package set-up step.
 #' @rdname make_pt_ready4fun_metadata_a
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_metadata_a <- function(pkg_desc_ls = ready4fun_description(),
 copyright_holders_chr = character(0),
@@ -70,7 +71,7 @@ lifecycle_stage_1L_chr = lifecycle_stage_1L_chr,
 incr_ver_1L_lgl = incr_ver_1L_lgl,
 on_cran_1L_lgl = on_cran_1L_lgl,
 path_to_pkg_logo_1L_chr = path_to_pkg_logo_1L_chr,
-path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr) %>% update_pt_fn_args_ls()
+path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.

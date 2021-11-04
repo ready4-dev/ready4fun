@@ -38,6 +38,7 @@ x
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname make_pt_ready4fun_dataset
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_dataset <- function(db_df = data.frame(),
 db_1L_chr = character(0),
@@ -58,7 +59,7 @@ format_1L_chr = format_1L_chr,
 object_type_lup = object_type_lup,
 simple_lup_1L_lgl = simple_lup_1L_lgl,
 url_1L_chr = url_1L_chr,
-vars_ls = vars_ls) %>% update_pt_fn_args_ls()
+vars_ls = vars_ls) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package dataset ready4 S3 class for declaring package description file data..1

@@ -34,6 +34,7 @@ x
 #' @details ready4 S3 class for tibble object lookup table of badges metadata.
 #' @rdname make_pt_ready4fun_badges
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 #' @importFrom tibble tibble
 make_pt_ready4fun_badges <- function(badge_names_chr = character(0),
@@ -43,7 +44,7 @@ badges_chr = character(0)){
 args_ls <- list(badge_names_chr = badge_names_chr,
 label_names_chr = label_names_chr,
 colours_chr = colours_chr,
-badges_chr = badges_chr) %>% update_pt_fn_args_ls()
+badges_chr = badges_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(tibble::tibble,!!!args_ls)
 }
 #' Validate ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.

@@ -30,11 +30,12 @@ x
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname make_pt_ready4fun_manifest
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 make_pt_ready4fun_manifest <- function(initial_ls = ready4fun_metadata_a(),
 subsequent_ls = ready4fun_metadata_b()){ 
 args_ls <- list(initial_ls = initial_ls,
-subsequent_ls = subsequent_ls) %>% update_pt_fn_args_ls()
+subsequent_ls = subsequent_ls) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
 #' Validate ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.

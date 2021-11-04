@@ -33,6 +33,7 @@ x
 #' @details ready4 S3 class for tibble object lookup table of abbreviations.
 #' @rdname make_pt_ready4fun_abbreviations
 #' @export 
+#' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
 #' @importFrom tibble tibble
 make_pt_ready4fun_abbreviations <- function(short_name_chr = character(0),
@@ -40,7 +41,7 @@ long_name_chr = character(0),
 plural_lgl = logical(0)){ 
 args_ls <- list(short_name_chr = short_name_chr,
 long_name_chr = long_name_chr,
-plural_lgl = plural_lgl) %>% update_pt_fn_args_ls()
+plural_lgl = plural_lgl) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(tibble::tibble,!!!args_ls)
 }
 #' Validate ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.

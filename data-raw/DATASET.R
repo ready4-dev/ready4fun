@@ -27,8 +27,8 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                logo_path = "https://dataverse.harvard.edu/api/access/datafile/5244818",#"https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions for Open and Modular Mental Health Simulations",
-                                                   pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health simulations. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions for Open and Modular Mental Health Systems Models",
+                                                   pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health systems models. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
                                                    authors_prsn = c(utils::person(
                                                      given = "Matthew",family = "Hamilton",
                                                      email = "matthew.hamilton@orygen.org.au",

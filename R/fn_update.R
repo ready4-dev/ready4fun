@@ -445,11 +445,14 @@ update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr)
 #' @return Updated arguments (a list)
 #' @rdname update_pt_fn_args_ls
 #' @export 
+#' @importFrom lifecycle deprecate_soft
 #' @importFrom purrr map_dbl map2
 #' @importFrom stats setNames
 #' @keywords internal
 update_pt_fn_args_ls <- function (args_ls) 
 {
+    lifecycle::deprecate_soft("0.0.0.9466", "ready4::update_pt_fn_args_ls()", 
+        "ready4::update_pt_fn_args_ls()")
     arg_lgths_dbl <- args_ls %>% purrr::map_dbl(~length(.x))
     arg_max_lgth_1L_dbl <- max(arg_lgths_dbl)
     updated_args_ls <- purrr::map2(args_ls %>% unname(), unname(arg_lgths_dbl == 

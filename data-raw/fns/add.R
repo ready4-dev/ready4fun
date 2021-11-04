@@ -46,6 +46,10 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
                                                                   undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     new_nms_chr <- setdiff(method_nms_chr, pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr)
     if(!identical(character(0), new_nms_chr)){
+      if(nrow(pkg_setup_ls$subsequent_ls$fns_dmt_tb)==0){
+        data("fns_dmt_tb", package="ready4fun", envir = environment())
+        pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb[0,]
+      }
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- tibble::add_case(pkg_setup_ls$subsequent_ls$fns_dmt_tb,
                                                                 fns_chr = new_nms_chr,
                                                                 args_ls = list(character(0)))

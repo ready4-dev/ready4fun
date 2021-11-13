@@ -1,0 +1,19 @@
+citHeader("To cite ready4fun in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  doi      = "10.5281/zenodo.5611779",
+  title    = paste0(meta$Package,": ",meta$Title),
+  author   = c(person("Matthew", "Hamilton"), person("Glen", "Wiesner")),
+  year     = "2021",
+  note     = sprintf("R package version %s", meta$Version),
+  url      = "https://ready4-dev.github.io/ready4fun/",
+  textVersion = paste("Matthew Hamilton and Glen Wiesner, ",
+  "(2021).",
+  paste0(meta$Package,": ",meta$Title,
+  "."),
+  paste0(sprintf("Version %s", meta$Version),"."),
+  paste0("https://doi.org/",
+"10.5281/zenodo.5611779")
+  )
+)

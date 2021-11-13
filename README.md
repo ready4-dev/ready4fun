@@ -1,6 +1,6 @@
 # ready4fun <img src="man/figures/fav120.png" align="right" />
 
-## Author and Document Functions for Open and Modular Mental Health Simulations
+## Author and Document Functions for Open and Modular Mental Health Systems Models
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/ready4-dev/ready4fun/actions)
@@ -11,7 +11,7 @@
 
 ready4fun is a collection of functions for authoring and
 documenting code libraries of functions for use in modular,
-open-source mental health simulations. The current version of this
+open-source mental health systems models. The current version of this
 software is a development release, which you should only trial if you
 feel confident you understand what it does and have created a sandpit
 area in which you can safely undertake testing. If you have any

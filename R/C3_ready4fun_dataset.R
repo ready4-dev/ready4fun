@@ -70,6 +70,7 @@ rlang::exec(list,!!!args_ls)
 #' @rdname validate_ready4fun_dataset
 #' @export 
 #' @importFrom stringr str_detect str_c
+#' @importFrom ready4 transform_cls_type_ls
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
@@ -83,12 +84,12 @@ call. = FALSE)
 }
 
  if(!identical(make_pt_ready4fun_dataset() %>% 
-lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
+lapply(class) %>% ready4::transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
 dplyr::arrange(variable),
 x %>% 
-lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
+lapply(class) %>% ready4::transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class)) %>% 
 dplyr::filter(variable %in% names(make_pt_ready4fun_dataset())) %>% dplyr::arrange(variable))){
@@ -96,7 +97,7 @@ stop(paste0("LIST elements should be of the following classes: ",
 "",
 {
 class_lup <- make_pt_ready4fun_dataset() %>% 
-lapply(class) %>% transform_cls_type_ls() %>% tibble::as_tibble() %>% 
+lapply(class) %>% ready4::transform_cls_type_ls() %>% tibble::as_tibble() %>% 
  tidyr::gather(variable,class) %>% 
  dplyr::filter(!is.na(class))
   vars_chr <- class_lup %>% dplyr::pull(1) %>% unique()

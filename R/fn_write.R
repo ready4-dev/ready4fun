@@ -320,6 +320,73 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
             "/_pkgdown.yml"))
     }
 }
+#' Write citation file
+#' @description write_citation_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write citation file. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param pkg_setup_ls Package setup (a list)
+#' @return NULL
+#' @rdname write_citation_fl
+#' @export 
+#' @importFrom stringr str_detect str_locate str_sub str_remove
+#' @importFrom purrr map2_chr flatten_chr pluck map_chr
+#' @importFrom ready4 get_from_lup_obj make_list_phrase write_new_files
+#' @importFrom stringi stri_replace_last_regex
+#' @importFrom usethis use_citation
+#' @keywords internal
+write_citation_fl <- function (pkg_setup_ls) 
+{
+    template_chr <- system.file("CITATION", package = "ready4") %>% 
+        readLines()
+    authors_psn <- pkg_setup_ls$initial_ls$pkg_desc_ls$`Authors@R`
+    authors_psn <- authors_psn[authors_psn %>% stringr::str_detect("\\[aut") %>% 
+        suppressWarnings()]
+    end_pts_df <- authors_psn %>% stringr::str_locate(" \\<| \\[") %>% 
+        suppressWarnings()
+    authors_chr <- authors_psn %>% as.character() %>% purrr::map2_chr((end_pts_df[, 
+        1] - 1), ~.x %>% stringr::str_sub(end = .y))
+    url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+        strsplit(", ") %>% purrr::flatten_chr() %>% purrr::pluck(1)
+    authors_alg_1L_chr <- paste0("c(", authors_chr %>% purrr::map_chr(~{
+        split_chr <- .x %>% strsplit(" ") %>% purrr::flatten_chr()
+        paste0("person(\"", paste(split_chr[1:(length(split_chr) - 
+            1)], collapse = " "), "\", \"", split_chr[length(split_chr)], 
+            "\")")
+    }) %>% paste0(collapse = ", "), ")")
+    doi_idx_1L_int <- template_chr %>% startsWith("  doi      = \"") %>% 
+        which()
+    doi_badge_1L_chr <- pkg_setup_ls$initial_ls$badges_lup %>% 
+        ready4::get_from_lup_obj(match_value_xx = "DOI", match_var_nm_1L_chr = "badge_names_chr", 
+            target_var_nm_1L_chr = "badges_chr")
+    new_doi_1L_chr <- ifelse(!identical(doi_badge_1L_chr, character(0)), 
+        paste0("  doi      = \"", doi_badge_1L_chr %>% stringr::str_sub(start = (doi_badge_1L_chr %>% 
+            stringr::str_locate("https://doi.org/") %>% 1[2] %>% 
+            as.vector() + 1), end = -2), "\","), template_chr[doi_idx_1L_int])
+    citation_chr <- template_chr
+    citation_chr[doi_idx_1L_int] <- new_doi_1L_chr
+    author_idx_1L_int <- template_chr %>% startsWith("  author   = ") %>% 
+        which()
+    citation_chr[author_idx_1L_int] <- paste0("  author   = ", 
+        authors_alg_1L_chr, ",")
+    year_idx_1L_int <- template_chr %>% startsWith("  year     = \"") %>% 
+        which()
+    citation_chr[year_idx_1L_int] <- paste0("  year     = \"", 
+        format(Sys.Date(), "%Y"), "\",")
+    url_idx_1L_int <- template_chr %>% startsWith("  url      = \"") %>% 
+        which()
+    citation_chr[url_idx_1L_int] <- paste0("  url      = \"", 
+        url_1L_chr, "\",")
+    text_vrsn_idx_1L_int <- template_chr %>% startsWith("  textVersion = paste(\"") %>% 
+        which()
+    citation_chr[text_vrsn_idx_1L_int] <- paste0("  textVersion = paste(\"", 
+        ready4::make_list_phrase(authors_chr), ", \",")
+    doi_two_idx_1L_int <- 1 + (template_chr %>% startsWith("  paste0(\"https://doi.org/\"") %>% 
+        which())
+    citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>% stringr::str_remove("  doi      = ") %>% 
+        stringi::stri_replace_last_regex(",", ")")
+    if (!file.exists("inst/CITATION")) 
+        usethis::use_citation()
+    ready4::write_new_files("inst/CITATION", fl_nm_1L_chr = "CITATION", 
+        text_ls = list(citation_chr))
+}
 #' Write classes
 #' @description write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
@@ -1508,6 +1575,7 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1
     else {
         message("pkg_setup_ls has been validated. Proceeding to package set-up.")
         rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
+        write_citation_fl(pkg_setup_ls)
         pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
         pkg_setup_ls <- write_clss(pkg_setup_ls = pkg_setup_ls, 
             key_1L_chr = key_1L_chr, self_serve_1L_lgl = self_serve_1L_lgl, 

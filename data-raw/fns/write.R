@@ -351,7 +351,8 @@ write_citation_fl <- function(pkg_setup_ls){
   text_vrsn_idx_1L_int <- template_chr %>% startsWith("  textVersion = paste(\"") %>% which()
   citation_chr[text_vrsn_idx_1L_int] <- paste0("  textVersion = paste(\"",
                                                ready4::make_list_phrase(authors_chr),
-                                               ", \",")
+                                               " \",")
+  citation_chr[text_vrsn_idx_1L_int+1] <- paste0("  \"(",format(Sys.Date(), "%Y"),").\",")
   doi_two_idx_1L_int <- 1 + (template_chr %>% startsWith("  paste0(\"https://doi.org/\"") %>% which())
   citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>% stringr::str_remove("  doi      = ") %>% stringi::stri_replace_last_regex(",",")")
     if(!file.exists("inst/CITATION"))

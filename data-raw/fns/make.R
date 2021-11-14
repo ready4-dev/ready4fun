@@ -36,6 +36,7 @@ make_arg_desc <- function(fn_args_chr,
                                 dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
                                 key_1L_chr = key_1L_chr,
                                 server_1L_chr = server_1L_chr)
+  arg_desc_chr <- arg_desc_chr %>% stringr::str_remove(" \\(an additional arguments\\)")
   return(arg_desc_chr)
 }
 make_arg_desc_ls <- function(fn_nms_chr,

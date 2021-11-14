@@ -32,6 +32,7 @@ make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_
 #' @return Argument description (a character vector)
 #' @rdname make_arg_desc
 #' @export 
+#' @importFrom stringr str_remove
 #' @keywords internal
 make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lup = NULL, 
     dv_ds_nm_1L_chr = "ready4-dev/ready4", dv_url_pfx_1L_chr = deprecated(), 
@@ -47,6 +48,7 @@ make_arg_desc <- function (fn_args_chr, object_type_lup = NULL, abbreviations_lu
         abbreviations_lup = abbreviations_lup, fn = make_arg_desc_spine, 
         dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
         key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
+    arg_desc_chr <- arg_desc_chr %>% stringr::str_remove(" \\(an additional arguments\\)")
     return(arg_desc_chr)
 }
 #' Make argument description list

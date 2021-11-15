@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_ret_obj_desc}
 \alias{make_ret_obj_desc}
-\title{Make return object description}
+\title{make return object description}
 \usage{
 make_ret_obj_desc(
   fn,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{make_pt_ready4fun_manifest}
 \alias{make_pt_ready4fun_manifest}
-\title{Make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
 \usage{
 make_pt_ready4fun_manifest(
   initial_ls = ready4fun_metadata_a(),

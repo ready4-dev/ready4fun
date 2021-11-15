@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_import.R
 \name{import_xls_sheets}
 \alias{import_xls_sheets}
-\title{Import Excel workbook sheets}
+\title{import Excel workbook sheets}
 \usage{
 import_xls_sheets(range_1L_chr, sheet_names_chr, path_1L_chr)
 }

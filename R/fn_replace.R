@@ -1,4 +1,4 @@
-#' Replace abbreviation
+#' replace abbreviation
 #' @description replace_abbr() is a Replace function that edits an object, replacing a specified element with another specified element. Specifically, this function implements an algorithm to replace abbreviation. Function argument title_chr specifies the object to be updated. Argument abbreviations_lup provides the object to be updated. The function returns Title (a character vector).
 #' @param title_chr Title (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)

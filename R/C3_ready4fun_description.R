@@ -9,7 +9,7 @@
 ready4fun_description <- function(x = make_pt_ready4fun_description()){ 
 validate_ready4fun_description(make_new_ready4fun_description(x))
 }
-#' Make new ready4fun package description ready4 S3 class for declaring package description file data.
+#' make new ready4fun package description ready4 S3 class for declaring package description file data.
 #' @description Create a new unvalidated instance of the ready4 S3 class for declaring package description file data.
 #' @param x A prototype for the ready4 S3 class for declaring package description file data.
 #' @return An unvalidated instance of the ready4 S3 class for declaring package description file data.
@@ -22,7 +22,7 @@ class(x) <- append(c("ready4fun_description",setdiff(make_pt_ready4fun_descripti
 class(x))
 x
 }
-#' Make prototype ready4fun package description ready4 S3 class for declaring package description file data.
+#' make prototype ready4fun package description ready4 S3 class for declaring package description file data.
 #' @description Create a new prototype for the ready4 S3 class for declaring package description file data.
 #' @param Package PARAM_DESCRIPTION, Default: character(0)
 #' @param Title PARAM_DESCRIPTION, Default: character(0)
@@ -47,7 +47,7 @@ License = License,
 URL = URL) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' Validate ready4fun package description ready4 S3 class for declaring package description file data.
+#' validate ready4fun package description ready4 S3 class for declaring package description file data.
 #' @description Validate an instance of the ready4 S3 class for declaring package description file data.
 #' @param x An unvalidated instance of the ready4 S3 class for declaring package description file data.
 #' @return A prototpe for ready4 S3 class for declaring package description file data.
@@ -97,7 +97,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package description ready4 S3 class for declaring package description file data.
+#' is ready4fun package description ready4 S3 class for declaring package description file data.
 #' @description Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.

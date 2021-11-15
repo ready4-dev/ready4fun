@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_metadata_b.R
 \name{validate_ready4fun_metadata_b}
 \alias{validate_ready4fun_metadata_b}
-\title{Validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
+\title{validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
 \usage{
 validate_ready4fun_metadata_b(x)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fns_dmt_tb}
 \alias{update_fns_dmt_tb}
-\title{Update functions documentation tibble}
+\title{update functions documentation tibble}
 \usage{
 update_fns_dmt_tb(
   fns_dmt_tb,

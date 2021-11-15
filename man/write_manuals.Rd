@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_manuals}
 \alias{write_manuals}
-\title{Write manuals}
+\title{write manuals}
 \usage{
 write_manuals(
   pkg_setup_ls,

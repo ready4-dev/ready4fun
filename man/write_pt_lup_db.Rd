@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_pt_lup_db}
 \alias{write_pt_lup_db}
-\title{Write prototype lookup table database}
+\title{write prototype lookup table database}
 \usage{
 write_pt_lup_db(R_dir_1L_chr = "R")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_metadata_b.R
 \name{make_pt_ready4fun_metadata_b}
 \alias{make_pt_ready4fun_metadata_b}
-\title{Make prototype ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
+\title{make prototype ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
 \usage{
 make_pt_ready4fun_metadata_b(
   abbreviations_lup = ready4fun_abbreviations(),

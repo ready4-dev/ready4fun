@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_and_doc_ds}
 \alias{write_and_doc_ds}
-\title{Write and document dataset}
+\title{write and document dataset}
 \usage{
 write_and_doc_ds(
   db_df,

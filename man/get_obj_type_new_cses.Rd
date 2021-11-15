@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_obj_type_new_cses}
 \alias{get_obj_type_new_cses}
-\title{Get object type new cases}
+\title{get object type new cases}
 \usage{
 get_obj_type_new_cses(
   updated_obj_type_lup,

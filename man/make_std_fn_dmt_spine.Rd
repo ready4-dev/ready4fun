@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_std_fn_dmt_spine}
 \alias{make_std_fn_dmt_spine}
-\title{Make standard function documentation spine}
+\title{make standard function documentation spine}
 \usage{
 make_std_fn_dmt_spine(
   fn_name_1L_chr,

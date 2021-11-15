@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_desc}
 \alias{make_fn_desc}
-\title{Make function description}
+\title{make function description}
 \usage{
 make_fn_desc(
   fns_chr,

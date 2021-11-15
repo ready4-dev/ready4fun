@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_custom_dmt_ls}
 \alias{make_custom_dmt_ls}
-\title{Make custom documentation list}
+\title{make custom documentation list}
 \usage{
 make_custom_dmt_ls(
   args_ls_ls = NULL,

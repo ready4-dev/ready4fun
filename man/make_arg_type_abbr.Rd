@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_type_abbr}
 \alias{make_arg_type_abbr}
-\title{Make argument type abbreviation}
+\title{make argument type abbreviation}
 \usage{
 make_arg_type_abbr(
   fn_args_chr,

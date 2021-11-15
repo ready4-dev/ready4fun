@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_and_doc_fn_fls}
 \alias{write_and_doc_fn_fls}
-\title{Write and document function files}
+\title{write and document function files}
 \usage{
 write_and_doc_fn_fls(
   pkg_setup_ls,

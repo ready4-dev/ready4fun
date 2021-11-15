@@ -49,7 +49,7 @@ remove_obj_type_from_nm <- function(nms_chr,
                                             paste0(gnrc_part_1L_chr,
                                                    " - a method that ",
                                                    gnrc_part_1L_chr %>%
-                                                     Hmisc::capitalize() %>%
+                                                     #Hmisc::capitalize() %>%
                                               ready4::get_from_lup_obj(fn_types_lup,
                                                                        match_var_nm_1L_chr = "fn_type_nm_chr",
                                                                        match_value_xx = .,

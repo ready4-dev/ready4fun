@@ -365,7 +365,11 @@ make_fn_desc_spine <- function(fn,
                                abbreviations_lup,
                                is_generic_1L_lgl = NULL){
   fn_args_chr <- get_fn_args(fn)
-  pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(fn_types_lup$fn_type_nm_chr, ~ startsWith(fn_title_1L_chr %>% tools::toTitleCase(),.x))]
+  types_chr <- fn_types_lup$fn_type_nm_chr
+  substr(types_chr, 1, 1) <- tolower(substr(types_chr, 1, 1))
+  pfx_matches_chr <- fn_types_lup$fn_type_nm_chr[purrr::map_lgl(types_chr,#%>% Hmisc::capitalize()
+                                                                ~ startsWith(fn_title_1L_chr,#%>% tools::toTitleCase()
+                                                                             .x))]
   fn_type_chr <- pfx_matches_chr[nchar(pfx_matches_chr) == max(nchar(pfx_matches_chr))]
   text_elements_chr <- names(fn_types_lup)[2:4] %>%
     purrr::map_chr(~ ready4::get_from_lup_obj(fn_types_lup,
@@ -531,11 +535,13 @@ make_fn_dmt_tbl_tmpl <- function(fns_path_chr,
                                             object_type_lup = object_type_lup,
                                             is_generic_lgl = T#purrr::map_lgl(file_nm_chr, ~ .x == "generics.R") #is_generic_1L_lgl
     ))
+  fn_types_chr <- fn_types_lup$fn_type_nm_chr
+  substr(fn_types_chr, 1, 1) <- tolower(substr(fn_types_chr, 1, 1))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::filter(title_chr %>%
-                    tools::toTitleCase() %>%
+                    #tools::toTitleCase() %>%
                     purrr::map_lgl(~{
-                      startsWith(.x, fn_types_lup$fn_type_nm_chr) %>% any()
+                      startsWith(.x, fn_types_chr) %>% any()
                     }))
   fn_dmt_tbl_tb <- fn_dmt_tbl_tb %>%
     dplyr::mutate(output_chr = get_outp_obj_type(fns_chr,
@@ -583,10 +589,11 @@ make_fn_title <- function(fns_chr,
                                        fn_types_lup = fn_types_lup,
                                        is_generic_lgl = T) %>% # is_generic_lgl
     stringr::str_replace_all("_"," ") %>%
-    Hmisc::capitalize() %>%
+    #Hmisc::capitalize() %>%
     purrr::map_chr(~replace_abbr(.x,
                                  abbreviations_lup = abbreviations_lup) %>%
-                     stringi::stri_replace_last_fixed(" R",""))
+                     stringi::stri_replace_last_fixed(" R","")) %>%
+    stringi::stri_replace_last_regex("\\.","")
   return(title_chr)
 }
 make_fn_type_lup <- function(fn_type_nm_chr = character(0),

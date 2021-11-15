@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{is_ready4fun_manifest}
 \alias{is_ready4fun_manifest}
-\title{Is ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{is ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
 \usage{
 is_ready4fun_manifest(x)
 }

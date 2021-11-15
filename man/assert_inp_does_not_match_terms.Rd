@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_assert.R
 \name{assert_inp_does_not_match_terms}
 \alias{assert_inp_does_not_match_terms}
-\title{Assert input does not match terms}
+\title{assert input does not match terms}
 \usage{
 assert_inp_does_not_match_terms(input_chr, exclude_if_match_chr)
 }

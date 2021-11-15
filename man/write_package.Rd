@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_package}
 \alias{write_package}
-\title{Write package}
+\title{write package}
 \usage{
 write_package(
   pkg_setup_ls,

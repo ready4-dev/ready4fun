@@ -1,4 +1,4 @@
-#' Validate package setup
+#' validate package setup
 #' @description validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param is_method_1L_lgl Is method (a logical vector of length one), Default: F

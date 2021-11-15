@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_vignette}
 \alias{write_vignette}
-\title{Write vignette}
+\title{write vignette}
 \usage{
 write_vignette(package_1L_chr, pkg_rt_dir_chr = ".")
 }

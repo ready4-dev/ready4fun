@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_metadata_b.R
 \name{make_new_ready4fun_metadata_b}
 \alias{make_new_ready4fun_metadata_b}
-\title{Make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
+\title{make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
 \usage{
 make_new_ready4fun_metadata_b(x)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_validate.R
 \name{validate_pkg_setup}
 \alias{validate_pkg_setup}
-\title{Validate package setup}
+\title{validate package setup}
 \usage{
 validate_pkg_setup(pkg_setup_ls, is_method_1L_lgl = F)
 }

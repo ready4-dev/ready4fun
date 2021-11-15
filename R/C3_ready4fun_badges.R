@@ -10,7 +10,7 @@ setOldClass(c("ready4fun_badges","tbl_df", "tbl", "data.frame"))
 ready4fun_badges <- function(x = make_pt_ready4fun_badges()){ 
 validate_ready4fun_badges(make_new_ready4fun_badges(x))
 }
-#' Make new ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
+#' make new ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
 #' @description Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @return An unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
@@ -24,7 +24,7 @@ class(x) <- append(c("ready4fun_badges",setdiff(make_pt_ready4fun_badges() %>% c
 class(x))
 x
 }
-#' Make prototype ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
+#' make prototype ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
 #' @description Create a new prototype for the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param badge_names_chr Badge names (a character vector), Default: character(0)
 #' @param label_names_chr Label names (a character vector), Default: character(0)
@@ -47,7 +47,7 @@ colours_chr = colours_chr,
 badges_chr = badges_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(tibble::tibble,!!!args_ls)
 }
-#' Validate ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
+#' validate ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
 #' @description Validate an instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x An unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @return A prototpe for ready4 S3 class for tibble object lookup table of badges metadata.
@@ -95,7 +95,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
+#' is ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
 #' @description Check whether an object is a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.

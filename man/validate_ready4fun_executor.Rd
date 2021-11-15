@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_executor.R
 \name{validate_ready4fun_executor}
 \alias{validate_ready4fun_executor}
-\title{Validate ready4fun package executor ready4 S3 class for list object specifying function arguments and function.}
+\title{validate ready4fun package executor ready4 S3 class for list object specifying function arguments and function.}
 \usage{
 validate_ready4fun_executor(x)
 }

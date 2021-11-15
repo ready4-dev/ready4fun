@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_clss}
 \alias{write_clss}
-\title{Write classes}
+\title{write classes}
 \usage{
 write_clss(
   pkg_setup_ls,
@@ -33,6 +33,6 @@ write_clss(
 Package setup (a list)
 }
 \description{
-write_clss() is a Write Classes function that writes new classes. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
+write_clss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
 }
 \keyword{internal}

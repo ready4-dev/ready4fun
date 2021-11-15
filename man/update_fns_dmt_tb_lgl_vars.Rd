@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fns_dmt_tb_lgl_vars}
 \alias{update_fns_dmt_tb_lgl_vars}
-\title{Update functions documentation tibble logical vector variables}
+\title{update functions documentation tibble logical vector variables}
 \usage{
 update_fns_dmt_tb_lgl_vars(fns_dmt_tb, data_1L_chr, new_ls)
 }

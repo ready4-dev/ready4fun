@@ -1,5 +1,5 @@
-#' Remove labels from data.frame
-#' @description remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove labels from data.frame. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).
+#' remove labels from dataframe
+#' @description remove_lbls_from_df() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove labels from dataframe. Function argument data_df specifies the object to be updated. The function returns Unlabelled data (a data.frame).
 #' @param data_df Data (a data.frame)
 #' @return Unlabelled data (a data.frame)
 #' @rdname remove_lbls_from_df
@@ -19,7 +19,7 @@ remove_lbls_from_df <- function (data_df)
         })
     return(unlabelled_data_df)
 }
-#' Remove object type from name
+#' remove object type from name
 #' @description remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove object type from name. Function argument nms_chr specifies the object to be updated. Argument object_type_lup provides the object to be updated. The function returns Names (a character vector).
 #' @param nms_chr Names (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
@@ -35,7 +35,6 @@ remove_lbls_from_df <- function (data_df)
 #' @export 
 #' @importFrom purrr map2_chr map_lgl
 #' @importFrom stringr str_remove
-#' @importFrom Hmisc capitalize
 #' @importFrom ready4 get_from_lup_obj
 #' @importFrom stringi stri_replace_last_fixed
 #' @keywords internal
@@ -70,7 +69,7 @@ remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviati
                 ~endsWith(name_1L_chr, paste0(".", .x)))])), 
             "")
         ifelse(is_s3_mthd_1L_lgl, paste0(gnrc_part_1L_chr, " - a method that ", 
-            gnrc_part_1L_chr %>% Hmisc::capitalize() %>% ready4::get_from_lup_obj(fn_types_lup, 
+            gnrc_part_1L_chr %>% ready4::get_from_lup_obj(fn_types_lup, 
                 match_var_nm_1L_chr = "fn_type_nm_chr", match_value_xx = ., 
                 target_var_nm_1L_chr = "fn_type_desc_chr", evaluate_1L_lgl = F) %>% 
                 tolower()), ifelse(.y == "", .x, stringi::stri_replace_last_fixed(.x, 

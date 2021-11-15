@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_dataset.R
 \name{is_ready4fun_dataset}
 \alias{is_ready4fun_dataset}
-\title{Is ready4fun package dataset ready4 S3 class for declaring package description file data..1}
+\title{is ready4fun package dataset ready4 S3 class for declaring package description file data..1}
 \usage{
 is_ready4fun_dataset(x)
 }

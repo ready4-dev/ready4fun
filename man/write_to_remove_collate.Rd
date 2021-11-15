@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_to_remove_collate}
 \alias{write_to_remove_collate}
-\title{Write to remove collate}
+\title{write to remove collate}
 \usage{
 write_to_remove_collate(description_chr)
 }

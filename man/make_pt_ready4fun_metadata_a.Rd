@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_metadata_a.R
 \name{make_pt_ready4fun_metadata_a}
 \alias{make_pt_ready4fun_metadata_a}
-\title{Make prototype ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.}
+\title{make prototype ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.}
 \usage{
 make_pt_ready4fun_metadata_a(
   pkg_desc_ls = ready4fun_description(),

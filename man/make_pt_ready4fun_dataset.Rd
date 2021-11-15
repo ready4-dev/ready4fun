@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_dataset.R
 \name{make_pt_ready4fun_dataset}
 \alias{make_pt_ready4fun_dataset}
-\title{Make prototype ready4fun package dataset ready4 S3 class for declaring package description file data..1}
+\title{make prototype ready4fun package dataset ready4 S3 class for declaring package description file data..1}
 \usage{
 make_pt_ready4fun_dataset(
   db_df = data.frame(),

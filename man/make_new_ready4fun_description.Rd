@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{make_new_ready4fun_description}
 \alias{make_new_ready4fun_description}
-\title{Make new ready4fun package description ready4 S3 class for declaring package description file data.}
+\title{make new ready4fun package description ready4 S3 class for declaring package description file data.}
 \usage{
 make_new_ready4fun_description(x)
 }

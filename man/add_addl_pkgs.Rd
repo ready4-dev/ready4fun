@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_addl_pkgs}
 \alias{add_addl_pkgs}
-\title{Add additional packages}
+\title{add additional packages}
 \usage{
 add_addl_pkgs(addl_pkgs_ls)
 }

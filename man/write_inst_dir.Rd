@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_inst_dir}
 \alias{write_inst_dir}
-\title{Write instance directory}
+\title{write instance directory}
 \usage{
 write_inst_dir(path_to_pkg_rt_1L_chr = getwd())
 }

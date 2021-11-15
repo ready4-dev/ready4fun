@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_new_abbrs}
 \alias{get_new_abbrs}
-\title{Get new abbreviations}
+\title{get new abbreviations}
 \usage{
 get_new_abbrs(
   pkg_setup_ls,

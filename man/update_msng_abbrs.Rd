@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_msng_abbrs}
 \alias{update_msng_abbrs}
-\title{Update missing abbreviations}
+\title{update missing abbreviations}
 \usage{
 update_msng_abbrs(
   pkg_setup_ls,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_to_rpl_1L_and_indefL_sfcs}
 \alias{write_to_rpl_1L_and_indefL_sfcs}
-\title{Write to replace length one and indefinite length suffices}
+\title{write to replace length one and indefinite length suffices}
 \usage{
 write_to_rpl_1L_and_indefL_sfcs(
   indefL_arg_nm_1L_chr,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_short_long_nms_vec}
 \alias{make_short_long_nms_vec}
-\title{Make short long names vector}
+\title{make short long names vector}
 \usage{
 make_short_long_nms_vec(
   long_vecs_chr = character(0),

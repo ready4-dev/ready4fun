@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_manuals_to_dv}
 \alias{write_manuals_to_dv}
-\title{Write manuals to dataverse}
+\title{write manuals to dataverse}
 \usage{
 write_manuals_to_dv(
   package_1L_chr = get_dev_pkg_nm(getwd()),

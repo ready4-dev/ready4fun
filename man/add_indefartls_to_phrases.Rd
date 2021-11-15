@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_indefartls_to_phrases}
 \alias{add_indefartls_to_phrases}
-\title{Add indefinite articles to phrases}
+\title{add indefinite articles to phrases}
 \usage{
 add_indefartls_to_phrases(
   abbreviated_phrase_1L_chr,

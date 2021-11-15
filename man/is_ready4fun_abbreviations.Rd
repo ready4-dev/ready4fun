@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_abbreviations.R
 \name{is_ready4fun_abbreviations}
 \alias{is_ready4fun_abbreviations}
-\title{Is ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.}
+\title{is ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.}
 \usage{
 is_ready4fun_abbreviations(x)
 }

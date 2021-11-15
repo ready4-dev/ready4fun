@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_force.R
 \name{force_instl_of_reqd_pkg}
 \alias{force_instl_of_reqd_pkg}
-\title{Force install of required package}
+\title{force install of required package}
 \usage{
 force_instl_of_reqd_pkg(package_nm_1L_chr)
 }

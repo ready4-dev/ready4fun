@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_pkg_dss}
 \alias{write_pkg_dss}
-\title{Write package datasets}
+\title{write package datasets}
 \usage{
 write_pkg_dss(
   pkg_setup_ls,

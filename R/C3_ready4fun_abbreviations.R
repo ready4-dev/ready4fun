@@ -10,7 +10,7 @@ setOldClass(c("ready4fun_abbreviations","tbl_df", "tbl", "data.frame"))
 ready4fun_abbreviations <- function(x = make_pt_ready4fun_abbreviations()){ 
 validate_ready4fun_abbreviations(make_new_ready4fun_abbreviations(x))
 }
-#' Make new ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
+#' make new ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 #' @description Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @return An unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
@@ -24,7 +24,7 @@ class(x) <- append(c("ready4fun_abbreviations",setdiff(make_pt_ready4fun_abbrevi
 class(x))
 x
 }
-#' Make prototype ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
+#' make prototype ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 #' @description Create a new prototype for the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param short_name_chr Short name (a character vector), Default: character(0)
 #' @param long_name_chr Long name (a character vector), Default: character(0)
@@ -44,7 +44,7 @@ long_name_chr = long_name_chr,
 plural_lgl = plural_lgl) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(tibble::tibble,!!!args_ls)
 }
-#' Validate ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
+#' validate ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 #' @description Validate an instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x An unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @return A prototpe for ready4 S3 class for tibble object lookup table of abbreviations.
@@ -92,7 +92,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
+#' is ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 #' @description Check whether an object is a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_ns}
 \alias{update_ns}
-\title{Update namespace}
+\title{update namespace}
 \usage{
 update_ns(package_1L_chr)
 }

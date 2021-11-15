@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{validate_ready4fun_description}
 \alias{validate_ready4fun_description}
-\title{Validate ready4fun package description ready4 S3 class for declaring package description file data.}
+\title{validate ready4fun package description ready4 S3 class for declaring package description file data.}
 \usage{
 validate_ready4fun_description(x)
 }

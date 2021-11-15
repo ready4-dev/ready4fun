@@ -9,7 +9,7 @@
 ready4fun_metadata_b <- function(x = make_pt_ready4fun_metadata_b()){ 
 validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 }
-#' Make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
 #' @description Create a new unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step.
 #' @return An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
@@ -22,7 +22,7 @@ class(x) <- append(c("ready4fun_metadata_b",setdiff(make_pt_ready4fun_metadata_b
 class(x))
 x
 }
-#' Make prototype ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' make prototype ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
 #' @description Create a new prototype for the ready4 S3 class for package metadata required for second package set-up step.
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: ready4fun_abbreviations()
 #' @param addl_pkgs_ls Additional packages (a list), Default: list()
@@ -99,7 +99,7 @@ s4_fns_ls = s4_fns_ls,
 treat_as_words_chr = treat_as_words_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' Validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
 #' @description Validate an instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @return A prototpe for ready4 S3 class for package metadata required for second package set-up step.
@@ -149,7 +149,7 @@ call. = FALSE)
 }
 
 x}
-#' Is ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' is ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
 #' @description Check whether an object is a valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for second package set-up step.

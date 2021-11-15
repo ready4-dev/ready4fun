@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_arg_obj_type}
 \alias{get_arg_obj_type}
-\title{Get argument object type}
+\title{get argument object type}
 \usage{
 get_arg_obj_type(
   argument_nm_1L_chr,

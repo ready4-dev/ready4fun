@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_metadata_a.R
 \name{is_ready4fun_metadata_a}
 \alias{is_ready4fun_metadata_a}
-\title{Is ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.}
+\title{is ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.}
 \usage{
 is_ready4fun_metadata_a(x)
 }

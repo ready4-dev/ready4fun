@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_pkg}
 \alias{write_pkg}
-\title{Write package}
+\title{write package}
 \usage{
 write_pkg(package_1L_chr, R_dir_1L_chr = "R")
 }

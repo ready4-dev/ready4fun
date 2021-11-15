@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_executor.R
 \name{make_new_ready4fun_executor}
 \alias{make_new_ready4fun_executor}
-\title{Make new ready4fun package executor ready4 S3 class for list object specifying function arguments and function.}
+\title{make new ready4fun package executor ready4 S3 class for list object specifying function arguments and function.}
 \usage{
 make_new_ready4fun_executor(x)
 }

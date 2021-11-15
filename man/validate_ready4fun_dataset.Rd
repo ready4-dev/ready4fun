@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_dataset.R
 \name{validate_ready4fun_dataset}
 \alias{validate_ready4fun_dataset}
-\title{Validate ready4fun package dataset ready4 S3 class for declaring package description file data..1}
+\title{validate ready4fun package dataset ready4 S3 class for declaring package description file data..1}
 \usage{
 validate_ready4fun_dataset(x)
 }

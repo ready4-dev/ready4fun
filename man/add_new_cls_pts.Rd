@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_new_cls_pts}
 \alias{add_new_cls_pts}
-\title{Add new class prototypes}
+\title{add new class prototypes}
 \usage{
 add_new_cls_pts(
   pkg_setup_ls,

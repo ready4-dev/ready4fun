@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_abbrs}
 \alias{update_abbrs}
-\title{Update abbreviations}
+\title{update abbreviations}
 \usage{
 update_abbrs(
   pkg_setup_ls,

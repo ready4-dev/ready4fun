@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{validate_ready4fun_badges}
 \alias{validate_ready4fun_badges}
-\title{Validate ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{validate ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
 \usage{
 validate_ready4fun_badges(x)
 }

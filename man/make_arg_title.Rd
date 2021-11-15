@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_title}
 \alias{make_arg_title}
-\title{Make argument title}
+\title{make argument title}
 \usage{
 make_arg_title(
   args_chr,

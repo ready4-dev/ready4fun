@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_to_replace_sfx_pair}
 \alias{write_to_replace_sfx_pair}
-\title{Write to replace suffix pair}
+\title{write to replace suffix pair}
 \usage{
 write_to_replace_sfx_pair(
   args_nm_chr,

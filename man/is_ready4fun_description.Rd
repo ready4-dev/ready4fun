@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{is_ready4fun_description}
 \alias{is_ready4fun_description}
-\title{Is ready4fun package description ready4 S3 class for declaring package description file data.}
+\title{is ready4fun package description ready4 S3 class for declaring package description file data.}
 \usage{
 is_ready4fun_description(x)
 }

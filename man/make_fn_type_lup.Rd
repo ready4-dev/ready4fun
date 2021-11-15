@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_type_lup}
 \alias{make_fn_type_lup}
-\title{Make function type lookup table}
+\title{make function type lookup table}
 \usage{
 make_fn_type_lup(
   fn_type_nm_chr = character(0),

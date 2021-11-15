@@ -1,5 +1,7 @@
 library(lifecycle)
 library(ready4)
+#library(generics)
+#ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",
 #                           tag = "0.0.0.9461",
 #                           body = "First release indexed with a Zenodo DOI.",
@@ -186,3 +188,4 @@ manifest_ls <- pkg_desc_ls %>%
                                    zenodo_badge_1L_chr = "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)
+fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

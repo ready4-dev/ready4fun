@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_rds_from_pkg_dmt}
 \alias{get_rds_from_pkg_dmt}
-\title{Get rds from package documentation}
+\title{get rds from package documentation}
 \usage{
 get_rds_from_pkg_dmt(
   pkg_setup_ls = NULL,

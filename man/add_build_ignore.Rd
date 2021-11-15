@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_build_ignore}
 \alias{add_build_ignore}
-\title{Add build ignore}
+\title{add build ignore}
 \usage{
 add_build_ignore(build_ignore_ls)
 }

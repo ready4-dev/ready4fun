@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_desc_ls}
 \alias{make_arg_desc_ls}
-\title{Make argument description list}
+\title{make argument description list}
 \usage{
 make_arg_desc_ls(
   fn_nms_chr,

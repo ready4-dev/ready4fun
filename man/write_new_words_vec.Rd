@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_new_words_vec}
 \alias{write_new_words_vec}
-\title{Write new words vector}
+\title{write new words vector}
 \usage{
 write_new_words_vec(
   pkg_setup_ls,

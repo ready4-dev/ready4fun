@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_to_reset_pkg_files}
 \alias{write_to_reset_pkg_files}
-\title{Write to reset package files}
+\title{write to reset package files}
 \usage{
 write_to_reset_pkg_files(
   delete_contents_of_1L_chr,

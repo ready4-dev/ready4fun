@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_new_abbrs_cndts}
 \alias{get_new_abbrs_cndts}
-\title{Get new abbreviations candidates}
+\title{get new abbreviations candidates}
 \usage{
 get_new_abbrs_cndts(
   text_chr,

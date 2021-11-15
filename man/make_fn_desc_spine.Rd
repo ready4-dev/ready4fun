@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_desc_spine}
 \alias{make_fn_desc_spine}
-\title{Make function description spine}
+\title{make function description spine}
 \usage{
 make_fn_desc_spine(
   fn,

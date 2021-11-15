@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_title}
 \alias{make_fn_title}
-\title{Make function title}
+\title{make function title}
 \usage{
 make_fn_title(
   fns_chr,

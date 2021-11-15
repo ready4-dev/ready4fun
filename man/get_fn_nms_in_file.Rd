@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_fn_nms_in_file}
 \alias{get_fn_nms_in_file}
-\title{Get function names in file}
+\title{get function names in file}
 \usage{
 get_fn_nms_in_file(path_1L_chr)
 }

@@ -1,4 +1,4 @@
-#' Add additional packages
+#' add additional packages
 #' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
 #' @param addl_pkgs_ls Additional packages (a list)
 #' @return NULL
@@ -17,7 +17,7 @@ add_addl_pkgs <- function (addl_pkgs_ls)
                 type = type_1L_chr))
         })
 }
-#' Add build ignore
+#' add build ignore
 #' @description add_build_ignore() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add build ignore. Function argument build_ignore_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
 #' @param build_ignore_ls Build ignore (a list)
 #' @return NULL
@@ -36,7 +36,7 @@ add_build_ignore <- function (build_ignore_ls)
             escape = FALSE))
     }
 }
-#' Add functions documentation tibble
+#' add functions documentation tibble
 #' @description add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
@@ -133,7 +133,7 @@ add_fns_dmt_tb <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), fns_
     }
     return(pkg_setup_ls)
 }
-#' Add indefinite article to item
+#' add indefinite article to item
 #' @description add_indef_artl_to_item() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite article to item. Function argument phrase_chr specifies the object to be updated. The function returns Indefinite item (a character vector).
 #' @param phrase_chr Phrase (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
@@ -170,7 +170,7 @@ add_indef_artl_to_item <- function (phrase_chr, abbreviations_lup, ignore_phrs_n
     })
     return(indefinite_item_chr)
 }
-#' Add indefinite articles to phrases
+#' add indefinite articles to phrases
 #' @description add_indefartls_to_phrases() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add indefinite articles to phrases. Function argument abbreviated_phrase_1L_chr specifies the object to be updated. The function returns Phrases (a character vector).
 #' @param abbreviated_phrase_1L_chr Abbreviated phrase (a character vector of length one)
 #' @param abbreviations_lup Abbreviations (a lookup table)
@@ -208,7 +208,7 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
     })
     return(phrases_chr)
 }
-#' Add lookup tables
+#' add lookup tables
 #' @description add_lups() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add lookup tables. Function argument template_lup specifies the object to be updated. The function is called for its side effects and does not return a value.
 #' @param template_lup Template (a lookup table)
 #' @param new_lup New (a lookup table)
@@ -253,7 +253,7 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
         ncol(combined_lups), ]
     return(combined_lups)
 }
-#' Add new class prototypes
+#' add new class prototypes
 #' @description add_new_cls_pts() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add new class prototypes. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param addl_cls_pts_tb Additional class prototypes (a tibble), Default: NULL
@@ -282,7 +282,7 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_cls
     }
     return(pkg_setup_ls)
 }
-#' Add plurals to abbreviation lookup table
+#' add plurals to abbreviation lookup table
 #' @description add_plurals_to_abbr_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. Function argument abbr_tb specifies the object to be updated. The function returns Abbreviation (a tibble).
 #' @param abbr_tb Abbreviation (a tibble)
 #' @param no_plural_chr No plural (a character vector), Default: 'NA'
@@ -325,7 +325,7 @@ add_plurals_to_abbr_lup <- function (abbr_tb, no_plural_chr = NA_character_, cus
         dplyr::arrange(short_name_chr)
     return(abbr_tb)
 }
-#' Add rows to function type lookup table
+#' add rows to function type lookup table
 #' @description add_rows_to_fn_type_lup() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add rows to function type lookup table. Function argument fn_types_lup specifies the object to be updated. The function returns Updated function types (a lookup table).
 #' @param fn_types_lup Function types (a lookup table), Default: make_fn_type_lup()
 #' @param fn_type_nm_chr Function type name (a character vector), Default: 'NA'

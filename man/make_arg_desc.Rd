@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_desc}
 \alias{make_arg_desc}
-\title{Make argument description}
+\title{make argument description}
 \usage{
 make_arg_desc(
   fn_args_chr,

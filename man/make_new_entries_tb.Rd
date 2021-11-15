@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_new_entries_tb}
 \alias{make_new_entries_tb}
-\title{Make new entries tibble}
+\title{make new entries tibble}
 \usage{
 make_new_entries_tb(
   short_name_chr,

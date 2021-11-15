@@ -2,7 +2,7 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{make_new_ready4fun_manifest}
 \alias{make_new_ready4fun_manifest}
-\title{Make new ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{make new ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
 \usage{
 make_new_ready4fun_manifest(x)
 }

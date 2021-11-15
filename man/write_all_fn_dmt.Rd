@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_all_fn_dmt}
 \alias{write_all_fn_dmt}
-\title{Write all function documentation}
+\title{write all function documentation}
 \usage{
 write_all_fn_dmt(
   pkg_setup_ls,

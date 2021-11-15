@@ -268,20 +268,27 @@ get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S
                                                        purrr::map_lgl(~!endsWith(.x,"gnrcs"))],
                                   ~stringr::str_remove(.x,paste0(.y,"/")) %>% stringr::str_sub(end=-3)) %>%
     purrr::flatten_chr()
-  generics_dir_1L_chr <- undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
-                                              purrr::map_lgl(~endsWith(.x,"gnrcs"))]
-  if(!identical(generics_dir_1L_chr,
-                character(0)))
-  new_fn_types_chr <- new_fn_types_chr %>%
-    c(get_fn_nms_in_file(paste0(generics_dir_1L_chr,"/generics.R")))
-  new_fn_types_chr <- new_fn_types_chr %>%
+  methods_chr <- intersect(new_fn_types_chr,
+                           pkg_setup_ls$subsequent_ls$fn_types_lup %>%
+                             dplyr::filter(is_generic_lgl) %>%
+                             dplyr::pull(fn_type_nm_chr))
+  new_fn_types_chr <- c(new_fn_types_chr %>%
+    setdiff(methods_chr) %>%
     unique() %>%
     sort() %>%
     make_fn_title(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
                   fn_types_lup =  pkg_setup_ls$subsequent_ls$fn_types_lup,
                   object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
                   is_generic_lgl = T) %>%
-    tools::toTitleCase()
+    tools::toTitleCase(), methods_chr) %>% sort()
+  generics_dir_1L_chr <- undmtd_fns_dir_chr[undmtd_fns_dir_chr %>%
+                                              purrr::map_lgl(~endsWith(.x,"gnrcs"))]
+  if(!identical(generics_dir_1L_chr,
+                character(0)))
+  new_fn_types_chr <- new_fn_types_chr %>%
+    c(get_fn_nms_in_file(paste0(generics_dir_1L_chr,"/generics.R"))) %>%
+    unique() %>%
+    sort()
   if(!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup))
     new_fn_types_chr <- new_fn_types_chr %>%
     setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)

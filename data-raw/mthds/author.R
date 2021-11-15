@@ -19,7 +19,7 @@ author.ready4fun_manifest <- function(x,
                        key_1L_chr = key_1L_chr)
     ready4::authorFunctions(x,
                             list_generics_1L_lgl = list_generics_1L_lgl)
-    ready4::report(x,
+    ready4::authorReport(x,
                    key_1L_chr = key_1L_chr)
   }
   return(x)

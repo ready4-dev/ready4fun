@@ -91,3 +91,4 @@
 ^data-raw/seed_obj_lup_tb\.Rds$
 ^data-raw/seed_obj_type_lup\.Rds$
 ^data-raw/treat_as_words_chr\.Rds$
+^data-raw/mthds/authorReport\.R$

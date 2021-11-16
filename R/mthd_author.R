@@ -19,6 +19,7 @@ author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY
     else {
         message("Manifest has been validated. Proceeding to package set-up.")
         ready4::author(x$initial_ls)
+        write_citation_fl(x)
         x <- ready4::authorData(x)
         x <- ready4::authorClasses(x, key_1L_chr = key_1L_chr, 
             self_serve_1L_lgl = self_serve_1L_lgl, self_serve_fn_ls = self_serve_fn_ls)

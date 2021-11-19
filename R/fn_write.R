@@ -94,7 +94,7 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
             document_unexp_lgl = document_unexp_lgl)))
     devtools::document()
     devtools::load_all()
-    if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0 & document_unexp_lgl) {
+    if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0) {
         s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
         devtools::document()
@@ -301,8 +301,8 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
                     inc_for_main_user_lgl & file_pfx_chr == .x) %>% 
                     dplyr::pull(fns_chr)
                   if (.x == "mthd_" & !is.null(s4_mthds_ls_ls)) {
-                    fns_chr <- c(fns_chr, s4_mthds_ls_ls[[1]]$mthds_ls %>% 
-                      purrr::map2(names(s4_mthds_ls_ls[[1]]$mthds_ls), 
+                    fns_chr <- c(fns_chr, s4_mthds_ls_ls[[2]]$mthds_ls %>% 
+                      purrr::map2(names(s4_mthds_ls_ls[[2]]$mthds_ls), 
                         ~{
                           mthd_nm_1L_chr <- .y
                           s4_cls_nms_chr <- names(.x)

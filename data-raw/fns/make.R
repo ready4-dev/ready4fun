@@ -777,13 +777,13 @@ make_lines_for_fn_dmt <- function(fn_name_1L_chr,
                                abbreviations_lup = abbreviations_lup)
   writeLines(fn_tags_chr)
 }
-make_list_phrase <- function(items_chr){
-  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_list_phrase()", "ready4::make_list_phrase()")
-  list_phrase_1L_chr <- items_chr %>%
-    stringr::str_c(sep="",collapse=", ") %>%
-    stringi::stri_replace_last(fixed=",", replacement = " and")
-  return(list_phrase_1L_chr)
-}
+# make_list_phrase <- function(items_chr){
+#   lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_list_phrase()", "ready4::make_list_phrase()")
+#   list_phrase_1L_chr <- items_chr %>%
+#     stringr::str_c(sep="",collapse=", ") %>%
+#     stringi::stri_replace_last(fixed=",", replacement = " and")
+#   return(list_phrase_1L_chr)
+# }
 make_manifest <- function(pkg_desc_ls,
                           copyright_holders_chr,
                           pkg_dmt_dv_dss_chr = deprecated(),
@@ -1196,19 +1196,19 @@ make_pkg_ds_ls <- function(db_df,
                     vars_ls = vars_ls)
   return(pkg_ds_ls)
 }
-make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {
-  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_prompt()", "ready4::make_prompt()")
-  acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
-  con_conn <- getOption("prompt_opts.con", stdin())
-  options_1L_chr <- paste(options_chr, collapse = "|")
-  prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", options_1L_chr, "]\n")
-  cat(prompt_with_options_1L_chr)
-  response_1L_chr <- readLines(con = con_conn, n = 1)
-  if (!is.null(options_chr) & !response_1L_chr %in% options_chr & force_from_opts_1L_chr) {
-    response_1L_chr  <- ready4::make_prompt(prompt_1L_chr, options_chr, force_from_opts_1L_chr = T)
-  }
-  return(response_1L_chr)
-}
+# make_prompt <- function(prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) {
+#   lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_prompt()", "ready4::make_prompt()")
+#   acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
+#   con_conn <- getOption("prompt_opts.con", stdin())
+#   options_1L_chr <- paste(options_chr, collapse = "|")
+#   prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", options_1L_chr, "]\n")
+#   cat(prompt_with_options_1L_chr)
+#   response_1L_chr <- readLines(con = con_conn, n = 1)
+#   if (!is.null(options_chr) & !response_1L_chr %in% options_chr & force_from_opts_1L_chr) {
+#     response_1L_chr  <- ready4::make_prompt(prompt_1L_chr, options_chr, force_from_opts_1L_chr = T)
+#   }
+#   return(response_1L_chr)
+# }
 make_ret_obj_desc <- function(fn,
                               abbreviations_lup,
                               class_name_1L_chr = "",

@@ -884,25 +884,6 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
         abbreviations_lup = abbreviations_lup)
     writeLines(fn_tags_chr)
 }
-#' make list phrase
-#' @description make_list_phrase() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make list phrase. The function returns List phrase (a character vector of length one).
-#' @param items_chr Items (a character vector)
-#' @return List phrase (a character vector of length one)
-#' @rdname make_list_phrase
-#' @export 
-#' @importFrom lifecycle deprecate_soft
-#' @importFrom stringr str_c
-#' @importFrom stringi stri_replace_last
-#' @keywords internal
-make_list_phrase <- function (items_chr) 
-{
-    lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_list_phrase()", 
-        "ready4::make_list_phrase()")
-    list_phrase_1L_chr <- items_chr %>% stringr::str_c(sep = "", 
-        collapse = ", ") %>% stringi::stri_replace_last(fixed = ",", 
-        replacement = " and")
-    return(list_phrase_1L_chr)
-}
 #' make manifest
 #' @description make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make manifest. The function returns Manifest (a list).
 #' @param pkg_desc_ls Package description (a list)
@@ -1369,35 +1350,6 @@ make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbrevi
         simple_lup_1L_lgl = simple_lup_1L_lgl, url_1L_chr = url_1L_chr, 
         vars_ls = vars_ls)
     return(pkg_ds_ls)
-}
-#' make prompt
-#' @description make_prompt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make prompt. The function returns Response (a character vector of length one).
-#' @param prompt_1L_chr Prompt (a character vector of length one)
-#' @param options_chr Options (a character vector), Default: NULL
-#' @param force_from_opts_1L_chr Force from opts (a character vector of length one), Default: F
-#' @return Response (a character vector of length one)
-#' @rdname make_prompt
-#' @export 
-#' @importFrom lifecycle deprecate_soft
-#' @importFrom ready4 make_prompt
-#' @keywords internal
-make_prompt <- function (prompt_1L_chr, options_chr = NULL, force_from_opts_1L_chr = F) 
-{
-    lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::make_prompt()", 
-        "ready4::make_prompt()")
-    acknowledgement_1L_chr <- "This function is based on: https://debruine.github.io/posts/interactive-test/"
-    con_conn <- getOption("prompt_opts.con", stdin())
-    options_1L_chr <- paste(options_chr, collapse = "|")
-    prompt_with_options_1L_chr <- paste0(prompt_1L_chr, " [", 
-        options_1L_chr, "]\n")
-    cat(prompt_with_options_1L_chr)
-    response_1L_chr <- readLines(con = con_conn, n = 1)
-    if (!is.null(options_chr) & !response_1L_chr %in% options_chr & 
-        force_from_opts_1L_chr) {
-        response_1L_chr <- ready4::make_prompt(prompt_1L_chr, 
-            options_chr, force_from_opts_1L_chr = T)
-    }
-    return(response_1L_chr)
 }
 #' make return object description
 #' @description make_ret_obj_desc() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make return object description. The function returns Return object description (a character vector of length one).

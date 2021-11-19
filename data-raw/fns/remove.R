@@ -67,15 +67,15 @@ remove_obj_type_from_nm <- function(nms_chr,
   return(names_chr)
 
 }
-remove_lbls_from_df <- function(data_df){ # Adapted from: https://rdrr.io/github/dlindholm/doctoR/src/R/clear_labels.R
-  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::remove_lbls_from_df()", "ready4::remove_lbls_from_df()")
-  unlabelled_data_df <- purrr::reduce(1:ncol(data_df),
-                .init = data_df,
-                ~ {
-                  class(.x[[.y]]) <- setdiff(class(.x[[.y]]), 'labelled')
-                  attr(.x[[.y]],"label") <- NULL
-                  .x
-                }
-  )
-  return(unlabelled_data_df)
-  }
+# remove_lbls_from_df <- function(data_df){ # Adapted from: https://rdrr.io/github/dlindholm/doctoR/src/R/clear_labels.R
+#   lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::remove_lbls_from_df()", "ready4::remove_lbls_from_df()")
+#   unlabelled_data_df <- purrr::reduce(1:ncol(data_df),
+#                 .init = data_df,
+#                 ~ {
+#                   class(.x[[.y]]) <- setdiff(class(.x[[.y]]), 'labelled')
+#                   attr(.x[[.y]],"label") <- NULL
+#                   .x
+#                 }
+#   )
+#   return(unlabelled_data_df)
+#   }

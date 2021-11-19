@@ -335,7 +335,8 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
 #' @return New class prototypes (a character vector)
 #' @rdname get_new_cls_pts
 #' @export 
-#' @importFrom purrr flatten flatten_chr
+#' @importFrom purrr flatten flatten_chr pmap_chr
+#' @importFrom Hmisc capitalize
 #' @keywords internal
 get_new_cls_pts <- function (pkg_setup_ls) 
 {
@@ -345,8 +346,10 @@ get_new_cls_pts <- function (pkg_setup_ls)
     incdd_clss_chr <- incdd_clss_chr[incdd_clss_chr != ""]
     new_cls_pts_chr <- setdiff(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$pt_ls %>% 
         purrr::flatten() %>% purrr::flatten_chr() %>% unique(), 
-        c(incdd_clss_chr, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
-            "_", pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr)))
+        c(incdd_clss_chr, pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x %>% 
+            purrr::pmap_chr(~ifelse(..1, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                "_", ..2), paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>% 
+                Hmisc::capitalize(), ..2)))))
     return(new_cls_pts_chr)
 }
 #' get new function types

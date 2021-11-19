@@ -65,9 +65,8 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
                   ifelse(length(missing_cls_pts_chr) > 1, "s are", 
                     " is"), " not defined in the prototype_lup object: \n", 
                   missing_cls_pts_chr %>% ready4::make_list_phrase(), 
-                  ".\nAdd the missing object type definition", 
-                  ifelse(length(missing_cls_pts_chr) > 1, "s", 
-                    ""), " by using the ", ifelse(is_method_1L_lgl, 
+                  ".\nAdd the missing class prototypes", ifelse(length(missing_cls_pts_chr) > 
+                    1, "s", ""), " by using the ", ifelse(is_method_1L_lgl, 
                     "'renew' method", "'add_new_cls_pts' function.")))
                 pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
             }

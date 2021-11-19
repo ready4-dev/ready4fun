@@ -261,7 +261,7 @@ add_lups <- function (template_lup, new_lup, key_var_nm_1L_chr, priority_lup_for
 #' @return Package setup (a list)
 #' @rdname add_new_cls_pts
 #' @export 
-#' @importFrom dplyr filter
+#' @importFrom dplyr filter arrange
 #' @importFrom ready4 add_lups
 add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_clss_1L_lgl = T) 
 {
@@ -275,7 +275,8 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_cls
     }
     if (!is.null(addl_cls_pts_tb)) {
         pkg_setup_ls$subsequent_ls$prototype_lup <- ready4::add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 
-            new_lup = addl_cls_pts_tb, key_var_nm_1L_chr = "type_chr")
+            new_lup = addl_cls_pts_tb, key_var_nm_1L_chr = "type_chr") %>% 
+            dplyr::arrange(pt_ns_chr, type_chr)
         if (!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr)) 
             pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, 
                 list_element_1L_chr = "missing_cls_pts_chr")

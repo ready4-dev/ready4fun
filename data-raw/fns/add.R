@@ -258,7 +258,8 @@ add_new_cls_pts <- function(pkg_setup_ls,
   if(!is.null(addl_cls_pts_tb)){
     pkg_setup_ls$subsequent_ls$prototype_lup <- ready4::add_lups(pkg_setup_ls$subsequent_ls$prototype_lup,
                                                                  new_lup = addl_cls_pts_tb,
-                                                                 key_var_nm_1L_chr = "type_chr")
+                                                                 key_var_nm_1L_chr = "type_chr") %>%
+      dplyr::arrange(pt_ns_chr, type_chr)
     if(!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr))
       pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
                                             list_element_1L_chr = "missing_cls_pts_chr")

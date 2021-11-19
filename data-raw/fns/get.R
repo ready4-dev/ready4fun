@@ -255,8 +255,17 @@ get_new_cls_pts <- function(pkg_setup_ls){
                                    purrr::flatten_chr() %>%
                                    unique(),
                                  c(incdd_clss_chr,
-                                   paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_",
-                                          pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr)))
+                                   pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x %>%
+                                     purrr::pmap_chr(~ifelse(..1,
+                                                             paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+                                                                    "_",
+                                                                    ..2),
+                                                             paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>%
+                                                                      Hmisc::capitalize(),
+                                                                    ..2)))
+                                   # paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_",
+                                   #        pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x$name_stub_chr)
+                                   ))
   return(new_cls_pts_chr)
 }
 get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S4 generics and methods

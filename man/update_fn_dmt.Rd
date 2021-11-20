@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fn_dmt}
 \alias{update_fn_dmt}
-\title{update function documentation}
+\title{Update function documentation}
 \usage{
 update_fn_dmt(
   fn_tags_spine_ls,

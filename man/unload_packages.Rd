@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_unload.R
 \name{unload_packages}
 \alias{unload_packages}
-\title{unload packages}
+\title{Unload packages}
 \usage{
 unload_packages(package_chr)
 }

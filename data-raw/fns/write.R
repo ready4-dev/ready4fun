@@ -279,8 +279,8 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
                      dplyr::pull(fns_chr)
                    if(.x=="mthd_" & !is.null(s4_mthds_ls_ls)){
                      fns_chr <- c(fns_chr,
-                                  s4_mthds_ls_ls[[2]]$mthds_ls %>%
-                       purrr::map2(names(s4_mthds_ls_ls[[2]]$mthds_ls),
+                                  s4_mthds_ls_ls[[1]]$mthds_ls %>%
+                       purrr::map2(names(s4_mthds_ls_ls[[1]]$mthds_ls),
                                   ~{
                                     mthd_nm_1L_chr <- .y
                                     s4_cls_nms_chr <- names(.x)
@@ -719,7 +719,7 @@ write_fn_fl <- function(fns_env_ls,
                                                             fn = fn,
                                                             fn_desc_1L_chr = tb[[.x,3]],
                                                             fn_out_type_1L_chr = tb[[.x,6]],
-                                                            fn_title_1L_chr = tb[[.x,2]],
+                                                            fn_title_1L_chr = Hmisc::capitalize(tb[[.x,2]]),
                                                             example_1L_lgl = tb[[.x,7]],
                                                             export_1L_lgl = T,
                                                             class_name_1L_chr = "",

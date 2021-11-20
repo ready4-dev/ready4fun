@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_fn_fl}
 \alias{write_fn_fl}
-\title{write function file}
+\title{Write function file}
 \usage{
 write_fn_fl(
   fns_env_ls,

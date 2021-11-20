@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_type_abbr_spine}
 \alias{make_arg_type_abbr_spine}
-\title{make argument type abbreviation spine}
+\title{Make argument type abbreviation spine}
 \usage{
 make_arg_type_abbr_spine(argument_nm_1L_chr, object_type_lup)
 }

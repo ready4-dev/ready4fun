@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_fns_dmt_tb}
 \alias{add_fns_dmt_tb}
-\title{add functions documentation tibble}
+\title{Add functions documentation tibble}
 \usage{
 add_fns_dmt_tb(
   pkg_setup_ls,

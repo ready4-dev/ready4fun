@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_links_for_website}
 \alias{write_links_for_website}
-\title{write links for website}
+\title{Write links for website}
 \usage{
 write_links_for_website(
   path_to_pkg_rt_1L_chr = getwd(),

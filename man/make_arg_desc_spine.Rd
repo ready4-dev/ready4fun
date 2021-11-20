@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_arg_desc_spine}
 \alias{make_arg_desc_spine}
-\title{make argument description spine}
+\title{Make argument description spine}
 \usage{
 make_arg_desc_spine(
   argument_nm_1L_chr,

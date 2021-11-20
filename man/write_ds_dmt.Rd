@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_ds_dmt}
 \alias{write_ds_dmt}
-\title{write dataset documentation}
+\title{Write dataset documentation}
 \usage{
 write_ds_dmt(
   db_df,

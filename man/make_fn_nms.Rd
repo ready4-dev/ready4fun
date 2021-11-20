@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_nms}
 \alias{make_fn_nms}
-\title{make function names}
+\title{Make function names}
 \usage{
 make_fn_nms(path_1L_chr = "data-raw")
 }

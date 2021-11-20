@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fn_dmt_with_slots}
 \alias{update_fn_dmt_with_slots}
-\title{update function documentation with slots}
+\title{Update function documentation with slots}
 \usage{
 update_fn_dmt_with_slots(fn_name_1L_chr, fn_dmt_1L_chr)
 }

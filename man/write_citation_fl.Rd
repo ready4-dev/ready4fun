@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_citation_fl}
 \alias{write_citation_fl}
-\title{write citation file}
+\title{Write citation file}
 \usage{
 write_citation_fl(pkg_setup_ls)
 }

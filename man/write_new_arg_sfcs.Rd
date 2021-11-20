@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_new_arg_sfcs}
 \alias{write_new_arg_sfcs}
-\title{write new argument suffices}
+\title{Write new argument suffices}
 \usage{
 write_new_arg_sfcs(
   arg_nms_chr,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_fn_type_dirs}
 \alias{write_fn_type_dirs}
-\title{write function type directories}
+\title{Write function type directories}
 \usage{
 write_fn_type_dirs(path_1L_chr = "data-raw")
 }

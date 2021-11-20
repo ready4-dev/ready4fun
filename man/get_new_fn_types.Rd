@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_new_fn_types}
 \alias{get_new_fn_types}
-\title{get new function types}
+\title{Get new function types}
 \usage{
 get_new_fn_types(
   pkg_setup_ls,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_replace.R
 \name{replace_abbr}
 \alias{replace_abbr}
-\title{replace abbreviation}
+\title{Replace abbreviation}
 \usage{
 replace_abbr(title_chr, abbreviations_lup, collapse_lgl = T)
 }

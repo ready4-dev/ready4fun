@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_abbr_lup}
 \alias{update_abbr_lup}
-\title{update abbreviation lookup table}
+\title{Update abbreviation lookup table}
 \usage{
 update_abbr_lup(
   abbr_tb,

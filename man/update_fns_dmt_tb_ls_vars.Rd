@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_fns_dmt_tb_ls_vars}
 \alias{update_fns_dmt_tb_ls_vars}
-\title{update functions documentation tibble list variables}
+\title{Update functions documentation tibble list variables}
 \usage{
 update_fns_dmt_tb_ls_vars(fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl)
 }

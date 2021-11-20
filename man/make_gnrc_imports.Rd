@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_gnrc_imports}
 \alias{make_gnrc_imports}
-\title{make generic imports}
+\title{Make generic imports}
 \usage{
 make_gnrc_imports()
 }

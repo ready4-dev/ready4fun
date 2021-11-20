@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_pkg_desc_ls}
 \alias{make_pkg_desc_ls}
-\title{make package description list}
+\title{Make package description list}
 \usage{
 make_pkg_desc_ls(
   pkg_nm_1L_chr = get_dev_pkg_nm(),

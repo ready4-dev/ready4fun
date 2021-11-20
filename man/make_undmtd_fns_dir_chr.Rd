@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_undmtd_fns_dir_chr}
 \alias{make_undmtd_fns_dir_chr}
-\title{make undocumented functions directory character vector}
+\title{Make undocumented functions directory character vector}
 \usage{
 make_undmtd_fns_dir_chr(path_1L_chr = "data-raw", drop_empty_1L_lgl = F)
 }

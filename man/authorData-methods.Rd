@@ -3,7 +3,7 @@
 \name{authorData.ready4fun_manifest}
 \alias{authorData.ready4fun_manifest}
 \alias{authorData,ready4fun_manifest-method}
-\title{authorData - a method that authors and saves files necessary for creating and documenting datasets}
+\title{AuthorData - a method that authors and saves files necessary for creating and documenting datasets}
 \usage{
 authorData.ready4fun_manifest(x)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_new_fn_dmt}
 \alias{make_new_fn_dmt}
-\title{make new function documentation}
+\title{Make new function documentation}
 \usage{
 make_new_fn_dmt(
   fn_type_1L_chr,

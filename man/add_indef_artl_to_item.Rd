@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_indef_artl_to_item}
 \alias{add_indef_artl_to_item}
-\title{add indefinite article to item}
+\title{Add indefinite article to item}
 \usage{
 add_indef_artl_to_item(
   phrase_chr,

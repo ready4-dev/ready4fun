@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_pkg_setup_msgs}
 \alias{update_pkg_setup_msgs}
-\title{update package setup messages}
+\title{Update package setup messages}
 \usage{
 update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr)
 }

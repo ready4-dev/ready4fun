@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_update.R
 \name{update_first_word_case}
 \alias{update_first_word_case}
-\title{update first word case}
+\title{Update first word case}
 \usage{
 update_first_word_case(phrase_1L_chr, fn = tolower)
 }

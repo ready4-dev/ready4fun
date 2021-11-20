@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_manifest}
 \alias{make_manifest}
-\title{make manifest}
+\title{Make manifest}
 \usage{
 make_manifest(
   pkg_desc_ls,

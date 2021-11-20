@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_pkg_ds_ls}
 \alias{make_pkg_ds_ls}
-\title{make package dataset list}
+\title{Make package dataset list}
 \usage{
 make_pkg_ds_ls(
   db_df,

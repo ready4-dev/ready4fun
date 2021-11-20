@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_fns_to_split_dests}
 \alias{write_fns_to_split_dests}
-\title{write functions to split destinations}
+\title{Write functions to split destinations}
 \usage{
 write_fns_to_split_dests(
   pkg_depcy_ls,

@@ -3,7 +3,7 @@
 \name{authorReport.ready4fun_manifest}
 \alias{authorReport.ready4fun_manifest}
 \alias{authorReport,ready4fun_manifest-method}
-\title{authorReport - a method that authors and saves a report}
+\title{AuthorReport - a method that authors and saves a report}
 \usage{
 authorReport.ready4fun_manifest(x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"))
 

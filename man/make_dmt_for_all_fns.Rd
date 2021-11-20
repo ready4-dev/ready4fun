@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_dmt_for_all_fns}
 \alias{make_dmt_for_all_fns}
-\title{make documentation for all functions}
+\title{Make documentation for all functions}
 \usage{
 make_dmt_for_all_fns(
   paths_ls = make_fn_nms(),

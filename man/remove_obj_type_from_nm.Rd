@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_remove.R
 \name{remove_obj_type_from_nm}
 \alias{remove_obj_type_from_nm}
-\title{remove object type from name}
+\title{Remove object type from name}
 \usage{
 remove_obj_type_from_nm(
   nms_chr,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_obj_lup_spine}
 \alias{make_obj_lup_spine}
-\title{make object lookup table spine}
+\title{Make object lookup table spine}
 \usage{
 make_obj_lup_spine(
   seed_obj_type_lup = get_rds_from_pkg_dmt(fl_nm_1L_chr = "seed_obj_type_lup",

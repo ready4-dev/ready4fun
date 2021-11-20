@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_outp_obj_type}
 \alias{get_outp_obj_type}
-\title{get output object type}
+\title{Get output object type}
 \usage{
 get_outp_obj_type(
   fns_chr,

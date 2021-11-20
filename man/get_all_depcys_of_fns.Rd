@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_all_depcys_of_fns}
 \alias{get_all_depcys_of_fns}
-\title{get all dependencies of functions}
+\title{Get all dependencies of functions}
 \usage{
 get_all_depcys_of_fns(pkg_depcy_ls, fns_chr)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_new_cls_pts}
 \alias{get_new_cls_pts}
-\title{get new class prototypes}
+\title{Get new class prototypes}
 \usage{
 get_new_cls_pts(pkg_setup_ls)
 }

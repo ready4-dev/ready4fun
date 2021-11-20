@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_add.R
 \name{add_plurals_to_abbr_lup}
 \alias{add_plurals_to_abbr_lup}
-\title{add plurals to abbreviation lookup table}
+\title{Add plurals to abbreviation lookup table}
 \usage{
 add_plurals_to_abbr_lup(
   abbr_tb,

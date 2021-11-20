@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_close.R
 \name{close_open_sinks}
 \alias{close_open_sinks}
-\title{close open sinks}
+\title{Close open sinks}
 \usage{
 close_open_sinks()
 }

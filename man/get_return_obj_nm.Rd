@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_return_obj_nm}
 \alias{get_return_obj_nm}
-\title{get return object name}
+\title{Get return object name}
 \usage{
 get_return_obj_nm(fn)
 }

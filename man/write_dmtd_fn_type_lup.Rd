@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_dmtd_fn_type_lup}
 \alias{write_dmtd_fn_type_lup}
-\title{write documented function type lookup table}
+\title{Write documented function type lookup table}
 \usage{
 write_dmtd_fn_type_lup(
   fn_types_lup = make_fn_type_lup(),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_documented_fns}
 \alias{write_documented_fns}
-\title{write documented functions}
+\title{Write documented functions}
 \usage{
 write_documented_fns(tmp_fn_dir_1L_chr, R_dir_1L_chr)
 }

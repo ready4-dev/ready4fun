@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_gtr_str_dmt_spine}
 \alias{make_gtr_str_dmt_spine}
-\title{make getter setter documentation spine}
+\title{Make getter setter documentation spine}
 \usage{
 make_gtr_str_dmt_spine(
   fn_type_1L_chr,

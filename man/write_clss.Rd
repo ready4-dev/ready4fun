@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_clss}
 \alias{write_clss}
-\title{write classes}
+\title{Write classes}
 \usage{
 write_clss(
   pkg_setup_ls,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_pkg_setup_fls}
 \alias{write_pkg_setup_fls}
-\title{write package setup files}
+\title{Write package setup files}
 \usage{
 write_pkg_setup_fls(
   pkg_desc_ls,

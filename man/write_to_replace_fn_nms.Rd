@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_to_replace_fn_nms}
 \alias{write_to_replace_fn_nms}
-\title{write to replace function names}
+\title{Write to replace function names}
 \usage{
 write_to_replace_fn_nms(
   rename_tb,

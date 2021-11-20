@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_ns_imps_to_desc}
 \alias{write_ns_imps_to_desc}
-\title{write namespace imports to description}
+\title{Write namespace imports to description}
 \usage{
 write_ns_imps_to_desc(dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T)
 }

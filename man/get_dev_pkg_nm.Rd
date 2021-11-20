@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_dev_pkg_nm}
 \alias{get_dev_pkg_nm}
-\title{get development package name}
+\title{Get development package name}
 \usage{
 get_dev_pkg_nm(path_to_pkg_rt_1L_chr = ".")
 }

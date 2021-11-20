@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_new_fn_types}
 \alias{write_new_fn_types}
-\title{write new function types}
+\title{Write new function types}
 \usage{
 write_new_fn_types(
   pkg_setup_ls,

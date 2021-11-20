@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_std_imp}
 \alias{write_std_imp}
-\title{write standard import}
+\title{Write standard import}
 \usage{
 write_std_imp(R_dir_1L_chr = "R", package_1L_chr)
 }

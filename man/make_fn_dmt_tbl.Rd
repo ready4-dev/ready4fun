@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_dmt_tbl}
 \alias{make_fn_dmt_tbl}
-\title{make function documentation table}
+\title{Make function documentation table}
 \usage{
 make_fn_dmt_tbl(
   fns_path_chr,

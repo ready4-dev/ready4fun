@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_fn_args}
 \alias{get_fn_args}
-\title{get function arguments}
+\title{Get function arguments}
 \usage{
 get_fn_args(fn)
 }

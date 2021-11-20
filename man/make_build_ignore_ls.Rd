@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_build_ignore_ls}
 \alias{make_build_ignore_ls}
-\title{make build ignore list}
+\title{Make build ignore list}
 \usage{
 make_build_ignore_ls(file_nms_chr = NULL, regulars_rgx = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_depnt_fns_ls}
 \alias{make_depnt_fns_ls}
-\title{make dependent functions list}
+\title{Make dependent functions list}
 \usage{
 make_depnt_fns_ls(arg_ls, pkg_depcy_ls)
 }

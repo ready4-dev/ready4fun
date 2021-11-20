@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_make.R
 \name{make_fn_types}
 \alias{make_fn_types}
-\title{make function types}
+\title{Make function types}
 \usage{
 make_fn_types()
 }

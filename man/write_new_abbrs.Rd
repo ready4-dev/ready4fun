@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_write.R
 \name{write_new_abbrs}
 \alias{write_new_abbrs}
-\title{write new abbreviations}
+\title{Write new abbreviations}
 \usage{
 write_new_abbrs(
   pkg_setup_ls,

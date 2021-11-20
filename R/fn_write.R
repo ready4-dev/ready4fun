@@ -65,7 +65,6 @@ write_abbr_lup <- function (seed_lup = NULL, short_name_chr = NA_character_, lon
 #' @importFrom dplyr filter
 #' @importFrom stringr str_replace_all
 #' @importFrom ready4 write_new_files
-#' @importFrom devtools document load_all
 #' @importFrom rlang exec
 #' @keywords internal
 write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, fns_dmt_tb = deprecated()) 
@@ -92,12 +91,9 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
     ready4::write_new_files(paths_chr = paths_chr, custom_write_ls = list(fn = write_fn_fl, 
         args_ls = list(fns_env_ls = fns_env_ls, pkg_setup_ls = pkg_setup_ls, 
             document_unexp_lgl = document_unexp_lgl)))
-    devtools::document()
-    devtools::load_all()
     if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0 & document_unexp_lgl) {
         s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
-        devtools::document()
     }
     else {
         s4_mthds_ls <- NULL
@@ -401,8 +397,8 @@ write_citation_fl <- function (pkg_setup_ls)
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
-#' @importFrom ready4 write_env_objs_to_dv
 #' @importFrom devtools document load_all
+#' @importFrom ready4 write_env_objs_to_dv
 #' @keywords internal
 write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, cls_fn_ls = deprecated(), dv_url_pfx_1L_chr = deprecated(), 
@@ -433,6 +429,7 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
         }
         write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
             document_unexp_lgl = F)
+        devtools::document()
     }
     if (!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())) {
         if ("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 

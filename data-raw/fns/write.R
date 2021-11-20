@@ -78,15 +78,16 @@ write_all_fn_dmt <- function(pkg_setup_ls,
                                          args_ls = list(fns_env_ls = fns_env_ls,
                                                         pkg_setup_ls = pkg_setup_ls,
                                                         document_unexp_lgl = document_unexp_lgl)))
-  devtools::document()
-  devtools::load_all()
+  #devtools::document()
+  # devtools::load_all()
   if(length(pkg_setup_ls$subsequent_ls$s4_fns_ls)>0 & document_unexp_lgl){# & document_unexp_lgl
     s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
                                !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
-    devtools::document()
+    #devtools::document()
     # devtools::load_all()
   }else{
     s4_mthds_ls <- NULL
+    #devtools::load_all() #
   }
   return(s4_mthds_ls)
 }
@@ -396,6 +397,7 @@ write_clss <- function(pkg_setup_ls,
     write_all_fn_dmt(pkg_setup_ls,
                      fns_env_ls = fns_env_ls,
                      document_unexp_lgl = F)
+    devtools::document() ##
   }
   if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
     if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))

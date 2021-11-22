@@ -359,7 +359,8 @@ get_rds_from_pkg_dmt <- function (pkg_setup_ls = NULL, fl_nm_1L_chr, piggyback_t
         tag = piggyback_tag_1L_chr)
     dmt_url_1L_chr <- dmt_urls_chr[dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr, 
         ".RDS")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr, 
-        ".RDS"))]
+        ".Rds")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr, 
+        ".rds"))]
     r_object_xx <- readRDS(url(dmt_url_1L_chr))
     return(r_object_xx)
 }

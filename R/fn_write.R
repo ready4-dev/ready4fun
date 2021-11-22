@@ -91,7 +91,7 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
     ready4::write_new_files(paths_chr = paths_chr, custom_write_ls = list(fn = write_fn_fl, 
         args_ls = list(fns_env_ls = fns_env_ls, pkg_setup_ls = pkg_setup_ls, 
             document_unexp_lgl = document_unexp_lgl)))
-    if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0 & document_unexp_lgl) {
+    if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0) {
         s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn, 
             !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
     }

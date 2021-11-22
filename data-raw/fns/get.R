@@ -396,7 +396,7 @@ get_rds_from_pkg_dmt <- function(pkg_setup_ls = NULL,
   }
   dmt_urls_chr <- piggyback::pb_download_url(repo = piggyback_to_1L_chr,
                                              tag = piggyback_tag_1L_chr)
-  dmt_url_1L_chr <- dmt_urls_chr[dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".RDS")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".RDS"))]
+  dmt_url_1L_chr <- dmt_urls_chr[dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".RDS")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".Rds")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".rds"))]
   r_object_xx <- readRDS(url(dmt_url_1L_chr))
   return(r_object_xx)
 }

@@ -94,3 +94,5 @@
 ^data-raw/mthds/authorReport\.R$
 ^data-raw/rowbind\.R$
 ^data-raw/transform\.R$
+^doc$
+^Meta$

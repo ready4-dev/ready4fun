@@ -17,4 +17,9 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(ready4fun)
 ```
-This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. Currently there are no vignettes available.
+This development version of the ready4fun package has been made available as part of the process of testing and documenting the package. 
+
+A brief overview of the intended use of ready4fun classes and methods is available at:
+
+
+- [A Standardised Workflow For Authoring R Packages](V_01.html)

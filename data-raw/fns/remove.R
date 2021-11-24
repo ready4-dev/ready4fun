@@ -55,7 +55,7 @@ remove_obj_type_from_nm <- function(nms_chr,
                                                                        match_value_xx = .,
                                                                        target_var_nm_1L_chr = "fn_type_desc_chr",
                                                                        evaluate_1L_lgl = F) %>%
-                                                tolower()),
+                                                tolower()),#get_mthd_title(gnrc_part_1L_chr)
                                             ifelse(.y=="",
                                                    .x,
                                                    stringi::stri_replace_last_fixed(.x,

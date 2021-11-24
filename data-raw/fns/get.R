@@ -142,6 +142,18 @@ get_fn_nms_in_file <- function(path_1L_chr){
 #   }
 #   return(return_object_xx)
 # }
+get_mthd_title <- function(mthd_nm_1L_chr,
+                           pkg_nm_1L_chr = "ready4"){
+  gnrc_dmt_ls <- tools::Rd_db("ready4") %>%
+    purrr::pluck(paste0(mthd_nm_1L_chr,"-methods.Rd"))
+  mthd_title_1L_chr <- ifelse(!is.null(gnrc_dmt_ls),
+                              gnrc_dmt_ls %>%
+                                purrr::pluck(1) %>%
+                                purrr::pluck(1) %>%
+                                as.vector(),
+                              mthd_nm_1L_chr)
+  return(mthd_title_1L_chr)
+}
 get_new_abbrs <- function(pkg_setup_ls,
                           classes_to_make_tb = NULL,
                           inc_all_mthds_1L_lgl = T,

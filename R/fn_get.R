@@ -99,6 +99,25 @@ get_fn_nms_in_file <- function (path_1L_chr)
     local_chr <- local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text = .x))))]
     return(local_chr)
 }
+#' Get method title
+#' @description get_mthd_title() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get method title. Function argument mthd_nm_1L_chr specifies the where to look for the required object. The function returns Method title (a character vector of length one).
+#' @param mthd_nm_1L_chr Method name (a character vector of length one)
+#' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: 'ready4'
+#' @return Method title (a character vector of length one)
+#' @rdname get_mthd_title
+#' @export 
+#' @importFrom tools Rd_db
+#' @importFrom purrr pluck
+#' @keywords internal
+get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4") 
+{
+    gnrc_dmt_ls <- tools::Rd_db("ready4") %>% purrr::pluck(paste0(mthd_nm_1L_chr, 
+        "-methods.Rd"))
+    mthd_title_1L_chr <- ifelse(!is.null(gnrc_dmt_ls), gnrc_dmt_ls %>% 
+        purrr::pluck(1) %>% purrr::pluck(1) %>% as.vector(), 
+        mthd_nm_1L_chr)
+    return(mthd_title_1L_chr)
+}
 #' Get new abbreviations
 #' @description get_new_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New abbreviations (a character vector).
 #' @param pkg_setup_ls Package setup (a list)

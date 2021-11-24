@@ -1450,8 +1450,9 @@ make_std_fn_dmt_spine <- function (fn_name_1L_chr, fn_type_1L_chr, fn_title_1L_c
                 "export", NA_character_)) %>% purrr::discard(is.na)) %>% 
             stringr::str_replace("#' @title FUNCTION_TITLE\n", 
                 ifelse(fn_type_1L_chr != "meth_std_s4_mthd", 
-                  "", paste0("#' ", fn_name_1L_chr, "\n#' @name ", 
-                    fn_name_1L_chr, "-", class_name_1L_chr, "\n")))
+                  "", paste0("#' ", get_mthd_title(fn_name_1L_chr), 
+                    "\n#' @name ", fn_name_1L_chr, "-", class_name_1L_chr, 
+                    "\n")))
     }
     if (fn_type_1L_chr == "meth_std_s4_mthd") {
         fn_tags_1L_chr <- fn_tags_1L_chr %>% stringr::str_replace("@rdname fn", 

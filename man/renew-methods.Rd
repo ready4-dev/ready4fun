@@ -3,7 +3,7 @@
 \name{renew.ready4fun_manifest}
 \alias{renew.ready4fun_manifest}
 \alias{renew,ready4fun_manifest-method}
-\title{Renew - a method that renews an instance of a class by updating it with new data}
+\title{Renew an instance of a class by updating it with new data}
 \usage{
 renew.ready4fun_manifest(
   x,

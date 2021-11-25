@@ -18,7 +18,17 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ready4fun)
 ```
 
-ready4fun provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the [ready4 framework](https://www.ready4-dev.com/) for open and modular mental health systems models.
+`ready4fun` provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the [ready4 framework](https://www.ready4-dev.com/) for open and modular mental health systems models.
+
+ready4fun builds on `devtools` and other development workflow tools to ensure that R packages authored with it are:
+
+- *citable* (with a Zenodo generated DOI and an algorithm generated CITATION file);
+- *community-friendly* (applying deprecation conventions supported by `lifecycle`); 
+- *documented* (applying a function self-documenting algorithm that extends `sinew`, deploying a GitHub pages hosted and `pkgdown` generated website and authoring PDF manuals stored in a GitHub Release via `piggyback`);
+- *internally consistent* implementing automated checks to ensure consistency in naming conventions, etc; 
+- *licensed* (via a `usethis` generated GPL-3 license); 
+- *quality assured* (using continuous integration via GitHub actions and R-CMD-Check); and
+- *versioned* (applying `usethis` version increments).
 
 The main class exported as part of ready4fun is `ready4fun_manifest` in which the metadata for an R package is declared. In most cases, the methods associated with `ready4fun_manifest` do not need to be called directly by a user. Instead they are now incorporated in the methods of the [ready4pack](https://ready4-dev.github.io/ready4pack/) package. The two main functions from `ready4fun` that are most relevant to end users are `make_pkg_desc_ls` and `make_manifest` as using both of these functions together provides the optimal means of creating a valid instance of the `ready4fun_manifest` class.
 

@@ -700,7 +700,7 @@ write_fn_fl <- function(fns_env_ls,
                       purrr::walk(1:nrow(tb),
                                   ~
                                     {
-                                      if(!exists(tb[[.x,1]])){
+                                      if(!is.null(fns_env_ls$fns_env[[tb[[.x,1]]]])){#!exists(tb[[.x,1]])
                                         fn <- fns_env_ls$fns_env[[tb[[.x,1]]]]
                                       }else{
                                         fn <- eval(parse(text=tb[[.x,1]]))
@@ -718,7 +718,9 @@ write_fn_fl <- function(fns_env_ls,
                                                             fn = fn,
                                                             fn_desc_1L_chr = tb[[.x,3]],
                                                             fn_out_type_1L_chr = tb[[.x,6]],
-                                                            fn_title_1L_chr = Hmisc::capitalize(tb[[.x,2]]),
+                                                            fn_title_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
+                                                                                     get_mthd_title(tb[[.x,1]]),
+                                                                                     Hmisc::capitalize(tb[[.x,2]])),
                                                             example_1L_lgl = tb[[.x,7]],
                                                             export_1L_lgl = T,
                                                             class_name_1L_chr = "",

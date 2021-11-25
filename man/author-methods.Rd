@@ -5,7 +5,7 @@
 \alias{author,ready4fun_manifest-method}
 \alias{author.ready4fun_metadata_a}
 \alias{author,ready4fun_metadata_a-method}
-\title{Author - a method that authors and saves files to local or remote locations}
+\title{Author and save files to local or remote locations}
 \usage{
 author.ready4fun_manifest(
   x,

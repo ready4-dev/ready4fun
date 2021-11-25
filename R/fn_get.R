@@ -106,11 +106,17 @@ get_fn_nms_in_file <- function (path_1L_chr)
 #' @return Method title (a character vector of length one)
 #' @rdname get_mthd_title
 #' @export 
+#' @importFrom stringr str_sub
 #' @importFrom tools Rd_db
 #' @importFrom purrr pluck
 #' @keywords internal
 get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4") 
 {
+    df <- mthd_nm_1L_chr %>% str_locate("\\.")
+    if (!is.na(df[[1, 1]])) {
+        mthd_nm_1L_chr <- stringr::str_sub(mthd_nm_1L_chr, end = (df[[1, 
+            1]] - 1))
+    }
     gnrc_dmt_ls <- tools::Rd_db("ready4") %>% purrr::pluck(paste0(mthd_nm_1L_chr, 
         "-methods.Rd"))
     mthd_title_1L_chr <- ifelse(!is.null(gnrc_dmt_ls), gnrc_dmt_ls %>% 
@@ -341,7 +347,7 @@ get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "re
                 "NULL"
             }
             else {
-                if (!exists(.x)) {
+                if (!is.null(fns_env_ls$fns_env[[.x]])) {
                   fn <- fns_env_ls$fns_env[[.x]]
                 }
                 else {

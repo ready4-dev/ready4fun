@@ -1,4 +1,4 @@
-#' Author - a method that authors and saves files to local or remote locations
+#' Author and save files to local or remote locations
 #' @description author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
@@ -33,7 +33,7 @@ author.ready4fun_manifest <- function (x, key_1L_chr = Sys.getenv("DATAVERSE_KEY
 #' @aliases author,ready4fun_manifest-method
 #' @importFrom ready4 author
 methods::setMethod("author", methods::className("ready4fun_manifest", package = "ready4fun"), author.ready4fun_manifest)
-#' Author - a method that authors and saves files to local or remote locations
+#' Author and save files to local or remote locations
 #' @description author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for package metadata required for initial package set-up step.
 #' @return NULL

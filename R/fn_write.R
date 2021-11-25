@@ -666,7 +666,7 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
             dest_path_1L_chr <- paste0(r_dir_1L_chr, "/", tb$file_pfx_chr[1], 
                 .x)
             purrr::walk(1:nrow(tb), ~{
-                if (!exists(tb[[.x, 1]])) {
+                if (!is.null(fns_env_ls$fns_env[[tb[[.x, 1]]]])) {
                   fn <- fns_env_ls$fns_env[[tb[[.x, 1]]]]
                 }
                 else {
@@ -681,8 +681,9 @@ write_fn_fl <- function (fns_env_ls, pkg_setup_ls, document_unexp_lgl = T, conse
                   "mthd_", "meth_std_s3_mthd", ifelse(tb$file_pfx_chr[1] == 
                   "grp_", "gen_std_s3_mthd", "fn")), fn = fn, 
                   fn_desc_1L_chr = tb[[.x, 3]], fn_out_type_1L_chr = tb[[.x, 
-                    6]], fn_title_1L_chr = Hmisc::capitalize(tb[[.x, 
-                    2]]), example_1L_lgl = tb[[.x, 7]], export_1L_lgl = T, 
+                    6]], fn_title_1L_chr = ifelse(tb$file_pfx_chr[1] == 
+                    "mthd_", get_mthd_title(tb[[.x, 1]]), Hmisc::capitalize(tb[[.x, 
+                    2]])), example_1L_lgl = tb[[.x, 7]], export_1L_lgl = T, 
                   class_name_1L_chr = "", details_1L_chr = tb[[.x, 
                     4]], args_ls = tb$args_ls[[.x]] %>% as.list(), 
                   import_chr = NA_character_, import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr, 

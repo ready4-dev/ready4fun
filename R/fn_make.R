@@ -78,7 +78,7 @@ make_arg_desc_ls <- function (fn_nms_chr, fns_env_ls, abbreviations_lup = NULL, 
         object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
     arg_desc_ls <- purrr::map(fn_nms_chr, ~{
-        if (!exists(.x)) {
+        if (!is.null(fns_env_ls$fns_env[[.x]])) {
             fn <- fns_env_ls$fns_env[[.x]]
         }
         else {
@@ -421,7 +421,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_l
         fn_title_1L_chr <- ..2
         fn_output_1L_chr <- ..3
         is_generic_1L_lgl <- ..4
-        if (!exists(fn_name_1L_chr)) {
+        if (!is.null(fns_env_ls$fns_env[[fn_name_1L_chr]])) {
             fn <- fns_env_ls$fns_env[[fn_name_1L_chr]]
         }
         else {

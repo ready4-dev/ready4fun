@@ -112,12 +112,14 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                    ~{
                                      stringr::str_replace(.x,
                                                           paste0("@param ",names(new_tag_chr_ls$arg_desc_chr)[.y]," PARAM_DESCRIPTION"),
-                                                          paste0("@param ",names(new_tag_chr_ls$arg_desc_chr)[.y]," ",ifelse(new_tag_chr_ls$arg_desc_chr[.y]=="NO MATCH",
-                                                                                                                             ifelse(names(new_tag_chr_ls$arg_desc_chr[.y])!="x",
-                                                                                                                                    "PARAM_DESCRIPTION",
-                                                                                                                                    "An object"),
-                                                                                                                             #"PARAM_DESCRIPTION",
-                                                                                                                             new_tag_chr_ls$arg_desc_chr[.y])))
+                                                          paste0("@param ",names(new_tag_chr_ls$arg_desc_chr)[.y]," ",
+                                                                 ifelse(new_tag_chr_ls$arg_desc_chr[.y]=="NO MATCH",
+                                                                        ifelse(! names(new_tag_chr_ls$arg_desc_chr[.y]) %in% c(letters,
+                                                                                                                               LETTERS),#!="x" ## OBJECT LETTER CHANGE
+                                                                               "PARAM_DESCRIPTION",
+                                                                               "An object"),
+                                                                        #"PARAM_DESCRIPTION",
+                                                                        new_tag_chr_ls$arg_desc_chr[.y])))
                                    })
 
   }

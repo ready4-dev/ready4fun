@@ -1068,7 +1068,8 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     if(is.null(arg_desc_chr)){
       arg_desc_chr <- x_param_desc_1L_chr
     }else{
-      arg_desc_chr <- c(x_param_desc_1L_chr,arg_desc_chr[names(arg_desc_chr)!="x"])
+      arg_desc_chr <- c(x_param_desc_1L_chr,
+                        arg_desc_chr[names(arg_desc_chr)!="x"])
     }
   }
   new_fn_dmt_chr_ls <- list(desc_start_1L_chr = desc_start_1L_chr,

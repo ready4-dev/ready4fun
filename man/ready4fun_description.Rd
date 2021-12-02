@@ -2,15 +2,41 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{ready4fun_description}
 \alias{ready4fun_description}
+\alias{make_pt_ready4fun_description}
+\alias{is_ready4fun_description}
 \title{ready4 S3 class for declaring package description file data.}
 \usage{
 ready4fun_description(x = make_pt_ready4fun_description())
+
+make_pt_ready4fun_description(
+  Package = character(0),
+  Title = character(0),
+  Description = character(0),
+  License = logical(0),
+  URL = character(0)
+)
+
+is_ready4fun_description(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for declaring package description file data., Default: make_pt_ready4fun_description()}
+\item{x}{An object of any type}
+
+\item{Package}{PARAM_DESCRIPTION, Default: character(0)}
+
+\item{Title}{PARAM_DESCRIPTION, Default: character(0)}
+
+\item{Description}{PARAM_DESCRIPTION, Default: character(0)}
+
+\item{License}{PARAM_DESCRIPTION, Default: logical(0)}
+
+\item{URL}{PARAM_DESCRIPTION, Default: character(0)}
 }
 \value{
 A validated instance of the ready4 S3 class for declaring package description file data.
+
+A prototype for ready4 S3 class for declaring package description file data.
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
 }
 \description{
 Create a new valid instance of the ready4 S3 class for declaring package description file data.

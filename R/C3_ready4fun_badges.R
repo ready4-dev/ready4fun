@@ -32,7 +32,7 @@ x
 #' @param badges_chr Badges (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for tibble object lookup table of badges metadata.
 #' 
-#' @rdname make_pt_ready4fun_badges
+#' @rdname ready4fun_badges
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
@@ -100,6 +100,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' 
-#' @rdname is_ready4fun_badges
+#' @rdname ready4fun_badges
 #' @export 
 is_ready4fun_badges <- function(x) inherits(validate_ready4fun_badges(x), "ready4fun_badges")

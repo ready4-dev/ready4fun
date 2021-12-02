@@ -36,7 +36,7 @@ x
 #' @param vars_ls Variables (a list), Default: list()
 #' @return A prototype for ready4 S3 class for declaring package description file data..1
 #' 
-#' @rdname make_pt_ready4fun_dataset
+#' @rdname ready4fun_dataset
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
@@ -117,6 +117,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data..1
 #' 
-#' @rdname is_ready4fun_dataset
+#' @rdname ready4fun_dataset
 #' @export 
 is_ready4fun_dataset <- function(x) inherits(validate_ready4fun_dataset(x), "ready4fun_dataset")

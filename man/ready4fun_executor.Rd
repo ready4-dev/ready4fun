@@ -2,15 +2,29 @@
 % Please edit documentation in R/C3_ready4fun_executor.R
 \name{ready4fun_executor}
 \alias{ready4fun_executor}
+\alias{make_pt_ready4fun_executor}
+\alias{is_ready4fun_executor}
 \title{ready4 S3 class for list object specifying function arguments and function.}
 \usage{
 ready4fun_executor(x = make_pt_ready4fun_executor())
+
+make_pt_ready4fun_executor(args_ls = list(), fn = identity)
+
+is_ready4fun_executor(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for list object specifying function arguments and function., Default: make_pt_ready4fun_executor()}
+\item{x}{An object of any type}
+
+\item{args_ls}{Arguments (a list), Default: list()}
+
+\item{fn}{Function (a function), Default: identity}
 }
 \value{
 A validated instance of the ready4 S3 class for list object specifying function arguments and function.
+
+A prototype for ready4 S3 class for list object specifying function arguments and function.
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
 }
 \description{
 Create a new valid instance of the ready4 S3 class for list object specifying function arguments and function.

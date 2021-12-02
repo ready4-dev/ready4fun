@@ -48,7 +48,7 @@ x
 #' @param treat_as_words_chr Treat as words (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for second package set-up step.
 #' 
-#' @rdname make_pt_ready4fun_metadata_b
+#' @rdname ready4fun_metadata_b
 #' @export 
 #' @importFrom tibble tibble
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -154,6 +154,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' 
-#' @rdname is_ready4fun_metadata_b
+#' @rdname ready4fun_metadata_b
 #' @export 
 is_ready4fun_metadata_b <- function(x) inherits(validate_ready4fun_metadata_b(x), "ready4fun_metadata_b")

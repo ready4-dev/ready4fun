@@ -2,15 +2,32 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{ready4fun_manifest}
 \alias{ready4fun_manifest}
+\alias{make_pt_ready4fun_manifest}
+\alias{is_ready4fun_manifest}
 \title{ready4 S3 class for encapsulating the metadata required for package set-up.}
 \usage{
 ready4fun_manifest(x = make_pt_ready4fun_manifest())
+
+make_pt_ready4fun_manifest(
+  initial_ls = ready4fun_metadata_a(),
+  subsequent_ls = ready4fun_metadata_b()
+)
+
+is_ready4fun_manifest(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up., Default: make_pt_ready4fun_manifest()}
+\item{x}{An object of any type}
+
+\item{initial_ls}{Initial (a list), Default: ready4fun_metadata_a()}
+
+\item{subsequent_ls}{Subsequent (a list), Default: ready4fun_metadata_b()}
 }
 \value{
 A validated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+
+A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 }
 \description{
 Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.

@@ -2,15 +2,38 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{ready4fun_badges}
 \alias{ready4fun_badges}
+\alias{make_pt_ready4fun_badges}
+\alias{is_ready4fun_badges}
 \title{ready4 S3 class for tibble object lookup table of badges metadata.}
 \usage{
 ready4fun_badges(x = make_pt_ready4fun_badges())
+
+make_pt_ready4fun_badges(
+  badge_names_chr = character(0),
+  label_names_chr = character(0),
+  colours_chr = character(0),
+  badges_chr = character(0)
+)
+
+is_ready4fun_badges(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for tibble object lookup table of badges metadata., Default: make_pt_ready4fun_badges()}
+\item{x}{An object of any type}
+
+\item{badge_names_chr}{Badge names (a character vector), Default: character(0)}
+
+\item{label_names_chr}{Label names (a character vector), Default: character(0)}
+
+\item{colours_chr}{Colours (a character vector), Default: character(0)}
+
+\item{badges_chr}{Badges (a character vector), Default: character(0)}
 }
 \value{
 A validated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+
+A prototype for ready4 S3 class for tibble object lookup table of badges metadata.
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 }
 \description{
 Create a new valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.

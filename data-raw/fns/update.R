@@ -202,7 +202,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                                           "#' @description "))
     split_fn_dmt_chr <- split_fn_dmt_chr[-desc_idx_1L_int]
     rd_nm_idx_1L_int <- which(startsWith(split_fn_dmt_chr,
-                                        "#' rdname "))
+                                        "#' @rdname "))
     split_fn_dmt_chr[rd_nm_idx_1L_int] <- stringr::str_replace(split_fn_dmt_chr[rd_nm_idx_1L_int],
                                                                pattern = ifelse(fn_type_1L_chr == "s3_prototype",
                                                                                 "make_pt_",

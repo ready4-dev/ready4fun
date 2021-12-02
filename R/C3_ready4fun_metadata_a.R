@@ -40,7 +40,7 @@ x
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for initial package set-up step.
 #' 
-#' @rdname make_pt_ready4fun_metadata_a
+#' @rdname ready4fun_metadata_a
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
@@ -129,6 +129,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
 #' 
-#' @rdname is_ready4fun_metadata_a
+#' @rdname ready4fun_metadata_a
 #' @export 
 is_ready4fun_metadata_a <- function(x) inherits(validate_ready4fun_metadata_a(x), "ready4fun_metadata_a")

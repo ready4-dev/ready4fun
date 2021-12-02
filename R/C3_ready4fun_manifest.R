@@ -28,7 +28,7 @@ x
 #' @param subsequent_ls Subsequent (a list), Default: ready4fun_metadata_b()
 #' @return A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
 #' 
-#' @rdname make_pt_ready4fun_manifest
+#' @rdname ready4fun_manifest
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
@@ -93,6 +93,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' 
-#' @rdname is_ready4fun_manifest
+#' @rdname ready4fun_manifest
 #' @export 
 is_ready4fun_manifest <- function(x) inherits(validate_ready4fun_manifest(x), "ready4fun_manifest")

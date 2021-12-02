@@ -2,15 +2,35 @@
 % Please edit documentation in R/C3_ready4fun_abbreviations.R
 \name{ready4fun_abbreviations}
 \alias{ready4fun_abbreviations}
+\alias{make_pt_ready4fun_abbreviations}
+\alias{is_ready4fun_abbreviations}
 \title{ready4 S3 class for tibble object lookup table of abbreviations.}
 \usage{
 ready4fun_abbreviations(x = make_pt_ready4fun_abbreviations())
+
+make_pt_ready4fun_abbreviations(
+  short_name_chr = character(0),
+  long_name_chr = character(0),
+  plural_lgl = logical(0)
+)
+
+is_ready4fun_abbreviations(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for tibble object lookup table of abbreviations., Default: make_pt_ready4fun_abbreviations()}
+\item{x}{An object of any type}
+
+\item{short_name_chr}{Short name (a character vector), Default: character(0)}
+
+\item{long_name_chr}{Long name (a character vector), Default: character(0)}
+
+\item{plural_lgl}{Plural (a logical vector), Default: logical(0)}
 }
 \value{
 A validated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+
+A prototype for ready4 S3 class for tibble object lookup table of abbreviations.
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 }
 \description{
 Create a new valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.

@@ -28,7 +28,7 @@ x
 #' @param fn Function (a function), Default: identity
 #' @return A prototype for ready4 S3 class for list object specifying function arguments and function.
 #' 
-#' @rdname make_pt_ready4fun_executor
+#' @rdname ready4fun_executor
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
 #' @importFrom rlang exec
@@ -93,6 +93,6 @@ x}
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
 #' 
-#' @rdname is_ready4fun_executor
+#' @rdname ready4fun_executor
 #' @export 
 is_ready4fun_executor <- function(x) inherits(validate_ready4fun_executor(x), "ready4fun_executor")

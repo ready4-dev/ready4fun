@@ -2,15 +2,56 @@
 % Please edit documentation in R/C3_ready4fun_dataset.R
 \name{ready4fun_dataset}
 \alias{ready4fun_dataset}
+\alias{make_pt_ready4fun_dataset}
+\alias{is_ready4fun_dataset}
 \title{ready4 S3 class for declaring package description file data..1}
 \usage{
 ready4fun_dataset(x = make_pt_ready4fun_dataset())
+
+make_pt_ready4fun_dataset(
+  db_df = data.frame(),
+  db_1L_chr = character(0),
+  title_1L_chr = character(0),
+  desc_1L_chr = character(0),
+  abbreviations_lup = ready4fun_abbreviations(),
+  format_1L_chr = character(0),
+  object_type_lup = ready4fun_abbreviations(),
+  simple_lup_1L_lgl = logical(0),
+  url_1L_chr = character(0),
+  vars_ls = list()
+)
+
+is_ready4fun_dataset(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()}
+\item{x}{An object of any type}
+
+\item{db_df}{Database (a data.frame), Default: data.frame()}
+
+\item{db_1L_chr}{Database (a character vector of length one), Default: character(0)}
+
+\item{title_1L_chr}{Title (a character vector of length one), Default: character(0)}
+
+\item{desc_1L_chr}{Description (a character vector of length one), Default: character(0)}
+
+\item{abbreviations_lup}{Abbreviations (a lookup table), Default: ready4fun_abbreviations()}
+
+\item{format_1L_chr}{Format (a character vector of length one), Default: character(0)}
+
+\item{object_type_lup}{Object type (a lookup table), Default: ready4fun_abbreviations()}
+
+\item{simple_lup_1L_lgl}{Simple lookup table (a logical vector of length one), Default: logical(0)}
+
+\item{url_1L_chr}{Url (a character vector of length one), Default: character(0)}
+
+\item{vars_ls}{Variables (a list), Default: list()}
 }
 \value{
 A validated instance of the ready4 S3 class for declaring package description file data..1
+
+A prototype for ready4 S3 class for declaring package description file data..1
+
+A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data..1
 }
 \description{
 Create a new valid instance of the ready4 S3 class for declaring package description file data..1

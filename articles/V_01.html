@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ready4fun</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9490</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9492</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/ready4fun.html">Get started</a>
 </li>
@@ -71,7 +67,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ready4-dev/ready4fun/">
+  <a href="https://github.com/ready4-dev/ready4fun/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +88,7 @@
       <h1 data-toc-skip>A Standardised Workflow For Authoring R Packages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ready4-dev/ready4fun/blob/master/vignettes/V_01.Rmd"><code>vignettes/V_01.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ready4-dev/ready4fun/blob/HEAD/vignettes/V_01.Rmd" class="external-link"><code>vignettes/V_01.Rmd</code></a></small>
       <div class="hidden name"><code>V_01.Rmd</code></div>
 
     </div>
@@ -100,8 +96,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/">ready4fun</a></span><span class="op">)</span></code></pre></div>
-<p><code>ready4fun</code> provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the <a href="https://www.ready4-dev.com/">ready4 framework</a> for open and modular mental health systems models.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/" class="external-link">ready4fun</a></span><span class="op">)</span></code></pre></div>
+<p><code>ready4fun</code> provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the <a href="https://www.ready4-dev.com/" class="external-link">ready4 framework</a> for open and modular mental health systems models.</p>
 <p>ready4fun builds on <code>devtools</code> and other development workflow tools to ensure that R packages authored with it are:</p>
 <ul>
 <li>
@@ -119,8 +115,8 @@
 <li>
 <em>versioned</em> (applying <code>usethis</code> version increments).</li>
 </ul>
-<p>The main class exported as part of ready4fun is <code>ready4fun_manifest</code> in which the metadata for an R package is declared. In most cases, the methods associated with <code>ready4fun_manifest</code> do not need to be called directly by a user. Instead they are now incorporated in the methods of the <a href="https://ready4-dev.github.io/ready4pack/">ready4pack</a> package. The two main functions from <code>ready4fun</code> that are most relevant to end users are <code>make_pkg_desc_ls</code> and <code>make_manifest</code> as using both of these functions together provides the optimal means of creating a valid instance of the <code>ready4fun_manifest</code> class.</p>
-<p>Examples of how <code>ready4fun</code> functions integrate into package authoring workflows using <code>ready4pack</code> can be found in the DATASET file within the data-raw folder of any R package that extends the ready4 framework (see <a href="https://www.ready4-dev.com/toolkits/" class="uri">https://www.ready4-dev.com/toolkits/</a>). For example, to see how <code>ready4fun_manifest</code> is used in the workflow to author the <a href="https://ready4-dev.github.io/ready4show/">ready4show</a> package, view <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R">this file in the source code</a>.</p>
+<p>The main class exported as part of ready4fun is <code>ready4fun_manifest</code> in which the metadata for an R package is declared. In most cases, the methods associated with <code>ready4fun_manifest</code> do not need to be called directly by a user. Instead they are now incorporated in the methods of the <a href="https://ready4-dev.github.io/ready4pack/" class="external-link">ready4pack</a> package. The two main functions from <code>ready4fun</code> that are most relevant to end users are <code>make_pkg_desc_ls</code> and <code>make_manifest</code> as using both of these functions together provides the optimal means of creating a valid instance of the <code>ready4fun_manifest</code> class.</p>
+<p>The workflows supported by <code>ready4fun</code> functions are designed to be implemented after an empty R package has been created with draft functions, authored using the <code>ready4fun</code> house-style, saved in sub-directories of the package <code>data-raw</code> directory. Detailed instructions on applying the house style have yet to be released, but examples of how <code>ready4fun</code> functions integrate into package authoring workflows using <code>ready4pack</code> are available. These examples can be found in the DATASET file within the data-raw folder of any R package that extends the ready4 framework (see <a href="https://www.ready4-dev.com/toolkits/" class="external-link uri">https://www.ready4-dev.com/toolkits/</a>). For example, to see how <code>ready4fun_manifest</code> is used in the workflow to author the <a href="https://ready4-dev.github.io/ready4show/" class="external-link">ready4show</a> package, view <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R" class="external-link">this file in the source code</a>.</p>
 <p>A more detailed guide to using ready4fun will be created in 2022.</p>
   </div>
 
@@ -133,11 +129,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Matthew Hamilton, Glen Wiesner, Orygen, VicHealth, Victoria University.</p>
+  <p></p>
+<p>Developed by Matthew Hamilton, Glen Wiesner, Orygen, VicHealth, Victoria University.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
       </footer>
@@ -145,6 +143,8 @@
 
   
 
+
+  
 
   </body>
 </html>

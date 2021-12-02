@@ -16,6 +16,7 @@ validate_ready4fun_executor(make_new_ready4fun_executor(x))
 #' @details ready4 S3 class for list object specifying function arguments and function.
 #' @rdname make_new_ready4fun_executor
 #' @export 
+#' @keywords internal
 make_new_ready4fun_executor <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_executor",setdiff(make_pt_ready4fun_executor() %>% class(),class(x))),
@@ -23,11 +24,10 @@ class(x))
 x
 }
 #' make prototype ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
-#' @description Create a new prototype for the ready4 S3 class for list object specifying function arguments and function.
 #' @param args_ls Arguments (a list), Default: list()
 #' @param fn Function (a function), Default: identity
 #' @return A prototype for ready4 S3 class for list object specifying function arguments and function.
-#' @details ready4 S3 class for list object specifying function arguments and function.
+#' 
 #' @rdname make_pt_ready4fun_executor
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -51,6 +51,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_executor <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_executor())],
 names(make_pt_ready4fun_executor())))!=length(names(make_pt_ready4fun_executor()))){
@@ -89,10 +90,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
-#' @description Check whether an object is a valid instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @details ready4 S3 class for list object specifying function arguments and function.
+#' 
 #' @rdname is_ready4fun_executor
 #' @export 
 is_ready4fun_executor <- function(x) inherits(validate_ready4fun_executor(x), "ready4fun_executor")

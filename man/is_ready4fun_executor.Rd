@@ -13,8 +13,5 @@ is_ready4fun_executor(x)
 A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
 }
 \description{
-Check whether an object is a valid instance of the ready4 S3 class for list object specifying function arguments and function.
-}
-\details{
-ready4 S3 class for list object specifying function arguments and function.
+is ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
 }

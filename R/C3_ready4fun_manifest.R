@@ -16,6 +16,7 @@ validate_ready4fun_manifest(make_new_ready4fun_manifest(x))
 #' @details ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @rdname make_new_ready4fun_manifest
 #' @export 
+#' @keywords internal
 make_new_ready4fun_manifest <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_manifest",setdiff(make_pt_ready4fun_manifest() %>% class(),class(x))),
@@ -23,11 +24,10 @@ class(x))
 x
 }
 #' make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @description Create a new prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param initial_ls Initial (a list), Default: ready4fun_metadata_a()
 #' @param subsequent_ls Subsequent (a list), Default: ready4fun_metadata_b()
 #' @return A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @details ready4 S3 class for encapsulating the metadata required for package set-up.
+#' 
 #' @rdname make_pt_ready4fun_manifest
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -51,6 +51,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_manifest <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_manifest())],
 names(make_pt_ready4fun_manifest())))!=length(names(make_pt_ready4fun_manifest()))){
@@ -89,10 +90,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @description Check whether an object is a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @details ready4 S3 class for encapsulating the metadata required for package set-up.
+#' 
 #' @rdname is_ready4fun_manifest
 #' @export 
 is_ready4fun_manifest <- function(x) inherits(validate_ready4fun_manifest(x), "ready4fun_manifest")

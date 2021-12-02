@@ -107,7 +107,9 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
 {
     fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
     fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("FUNCTION_TITLE", 
-        fn_name_1L_chr) %>% stringr::str_replace("FUNCTION_DESCRIPTION", 
+        ifelse(fn_type_1L_chr == "s3_valid_instance", stringr::str_replace(fn_name_1L_chr, 
+            pattern = "ready4 S3 class ", replacement = ""), 
+            fn_name_1L_chr)) %>% stringr::str_replace("FUNCTION_DESCRIPTION", 
         paste0(ifelse(is.na(new_tag_chr_ls$desc_start_1L_chr), 
             "FUNCTION_DESCRIPTION", new_tag_chr_ls$desc_start_1L_chr), 
             ifelse((fn_type_1L_chr %in% c("fn", "gen_std_s3_mthd", 
@@ -116,8 +118,10 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
         stringr::str_replace("OUTPUT_DESCRIPTION", new_tag_chr_ls$output_txt_1L_chr)
     fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("@details DETAILS", 
         ifelse(fn_type_1L_chr == "s3_valid_instance" | ifelse(is.na(new_tag_chr_ls$fn_det_1L_chr), 
-            F, new_tag_chr_ls$fn_det_1L_chr != "DETAILS"), paste0("@details ", 
-            new_tag_chr_ls$fn_det_1L_chr), ""))
+            F, ifelse(fn_type_1L_chr %in% c("s3_prototype", "s3_checker"), 
+                F, new_tag_chr_ls$fn_det_1L_chr != "DETAILS")), 
+            paste0("@details ", new_tag_chr_ls$fn_det_1L_chr), 
+            ""))
     if (!is.null(new_tag_chr_ls$arg_desc_chr)) {
         fn_dmt_1L_chr <- purrr::reduce(1:length(new_tag_chr_ls$arg_desc_chr), 
             .init = fn_dmt_1L_chr, ~{
@@ -185,6 +189,16 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
             split_fn_dmt_chr <- c(split_fn_dmt_chr, import_txt_1L_chr)
         }
     }
+    if (fn_type_1L_chr %in% c("s3_prototype", "s3_checker")) {
+        desc_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 
+            "#' @description "))
+        split_fn_dmt_chr <- split_fn_dmt_chr[-desc_idx_1L_int]
+        rd_nm_idx_1L_int <- which(startsWith(split_fn_dmt_chr, 
+            "#' rdname "))
+        split_fn_dmt_chr[rd_nm_idx_1L_int] <- stringr::str_replace(split_fn_dmt_chr[rd_nm_idx_1L_int], 
+            pattern = ifelse(fn_type_1L_chr == "s3_prototype", 
+                "make_pt_", "is_"), replacement = "")
+    }
     fn_dmt_1L_chr <- paste0(split_fn_dmt_chr, collapse = "\n")
     if (fn_type_1L_chr == "gen_std_s3_mthd") {
         fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr, 
@@ -198,6 +212,8 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
                   stringr::str_locate(fn_name_1L_chr, "\\.")[1, 
                     1] %>% as.vector()), "-methods"))
     }
+    if (fn_type_1L_chr %in% c("s3_unvalidated_instance", "s3_validator")) 
+        fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @keywords internal")
     return(fn_dmt_1L_chr)
 }
 #' Update function documentation with slots

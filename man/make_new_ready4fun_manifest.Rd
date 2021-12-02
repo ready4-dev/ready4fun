@@ -18,3 +18,4 @@ Create a new unvalidated instance of the ready4 S3 class for encapsulating the m
 \details{
 ready4 S3 class for encapsulating the metadata required for package set-up.
 }
+\keyword{internal}

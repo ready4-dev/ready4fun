@@ -21,8 +21,5 @@ make_pt_ready4fun_abbreviations(
 A prototype for ready4 S3 class for tibble object lookup table of abbreviations.
 }
 \description{
-Create a new prototype for the ready4 S3 class for tibble object lookup table of abbreviations.
-}
-\details{
-ready4 S3 class for tibble object lookup table of abbreviations.
+make prototype ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 }

@@ -16,6 +16,7 @@ validate_ready4fun_metadata_a(make_new_ready4fun_metadata_a(x))
 #' @details ready4 S3 class for package metadata required for initial package set-up step.
 #' @rdname make_new_ready4fun_metadata_a
 #' @export 
+#' @keywords internal
 make_new_ready4fun_metadata_a <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_metadata_a",setdiff(make_pt_ready4fun_metadata_a() %>% class(),class(x))),
@@ -23,7 +24,6 @@ class(x))
 x
 }
 #' make prototype ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.
-#' @description Create a new prototype for the ready4 S3 class for package metadata required for initial package set-up step.
 #' @param pkg_desc_ls Package description (a list), Default: ready4fun_description()
 #' @param copyright_holders_chr Copyright holders (a character vector), Default: character(0)
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: character(0)
@@ -39,7 +39,7 @@ x
 #' @param path_to_pkg_logo_1L_chr Path to package logo (a character vector of length one), Default: character(0)
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: character(0)
 #' @return A prototype for ready4 S3 class for package metadata required for initial package set-up step.
-#' @details ready4 S3 class for package metadata required for initial package set-up step.
+#' 
 #' @rdname make_pt_ready4fun_metadata_a
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -87,6 +87,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_metadata_a <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_metadata_a())],
 names(make_pt_ready4fun_metadata_a())))!=length(names(make_pt_ready4fun_metadata_a()))){
@@ -125,10 +126,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.
-#' @description Check whether an object is a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
-#' @details ready4 S3 class for package metadata required for initial package set-up step.
+#' 
 #' @rdname is_ready4fun_metadata_a
 #' @export 
 is_ready4fun_metadata_a <- function(x) inherits(validate_ready4fun_metadata_a(x), "ready4fun_metadata_a")

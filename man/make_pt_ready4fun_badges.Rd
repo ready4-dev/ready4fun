@@ -24,8 +24,5 @@ make_pt_ready4fun_badges(
 A prototype for ready4 S3 class for tibble object lookup table of badges metadata.
 }
 \description{
-Create a new prototype for the ready4 S3 class for tibble object lookup table of badges metadata.
-}
-\details{
-ready4 S3 class for tibble object lookup table of badges metadata.
+make prototype ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
 }

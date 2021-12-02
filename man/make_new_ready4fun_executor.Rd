@@ -18,3 +18,4 @@ Create a new unvalidated instance of the ready4 S3 class for list object specify
 \details{
 ready4 S3 class for list object specifying function arguments and function.
 }
+\keyword{internal}

@@ -27,8 +27,5 @@ make_pt_ready4fun_description(
 A prototype for ready4 S3 class for declaring package description file data.
 }
 \description{
-Create a new prototype for the ready4 S3 class for declaring package description file data.
-}
-\details{
-ready4 S3 class for declaring package description file data.
+make prototype ready4fun package description ready4 S3 class for declaring package description file data.
 }

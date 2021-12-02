@@ -18,3 +18,4 @@ Validate an instance of the ready4 S3 class for declaring package description fi
 \details{
 ready4 S3 class for declaring package description file data.
 }
+\keyword{internal}

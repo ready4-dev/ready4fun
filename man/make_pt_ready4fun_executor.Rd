@@ -15,8 +15,5 @@ make_pt_ready4fun_executor(args_ls = list(), fn = identity)
 A prototype for ready4 S3 class for list object specifying function arguments and function.
 }
 \description{
-Create a new prototype for the ready4 S3 class for list object specifying function arguments and function.
-}
-\details{
-ready4 S3 class for list object specifying function arguments and function.
+make prototype ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
 }

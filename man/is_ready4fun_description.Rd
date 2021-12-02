@@ -13,8 +13,5 @@ is_ready4fun_description(x)
 A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
 }
 \description{
-Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data.
-}
-\details{
-ready4 S3 class for declaring package description file data.
+is ready4fun package description ready4 S3 class for declaring package description file data.
 }

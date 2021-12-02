@@ -13,8 +13,5 @@ is_ready4fun_manifest(x)
 A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 }
 \description{
-Check whether an object is a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-}
-\details{
-ready4 S3 class for encapsulating the metadata required for package set-up.
+is ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
 }

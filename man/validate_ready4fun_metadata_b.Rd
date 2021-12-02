@@ -18,3 +18,4 @@ Validate an instance of the ready4 S3 class for package metadata required for se
 \details{
 ready4 S3 class for package metadata required for second package set-up step.
 }
+\keyword{internal}

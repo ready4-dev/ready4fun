@@ -18,3 +18,4 @@ Validate an instance of the ready4 S3 class for tibble object lookup table of ba
 \details{
 ready4 S3 class for tibble object lookup table of badges metadata.
 }
+\keyword{internal}

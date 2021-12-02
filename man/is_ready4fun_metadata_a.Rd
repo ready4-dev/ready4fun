@@ -13,8 +13,5 @@ is_ready4fun_metadata_a(x)
 A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
 }
 \description{
-Check whether an object is a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
-}
-\details{
-ready4 S3 class for package metadata required for initial package set-up step.
+is ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.
 }

@@ -16,6 +16,7 @@ validate_ready4fun_dataset(make_new_ready4fun_dataset(x))
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname make_new_ready4fun_dataset
 #' @export 
+#' @keywords internal
 make_new_ready4fun_dataset <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_dataset",setdiff(make_pt_ready4fun_dataset() %>% class(),class(x))),
@@ -23,7 +24,6 @@ class(x))
 x
 }
 #' make prototype ready4fun package dataset ready4 S3 class for declaring package description file data..1
-#' @description Create a new prototype for the ready4 S3 class for declaring package description file data..1
 #' @param db_df Database (a data.frame), Default: data.frame()
 #' @param db_1L_chr Database (a character vector of length one), Default: character(0)
 #' @param title_1L_chr Title (a character vector of length one), Default: character(0)
@@ -35,7 +35,7 @@ x
 #' @param url_1L_chr Url (a character vector of length one), Default: character(0)
 #' @param vars_ls Variables (a list), Default: list()
 #' @return A prototype for ready4 S3 class for declaring package description file data..1
-#' @details ready4 S3 class for declaring package description file data.
+#' 
 #' @rdname make_pt_ready4fun_dataset
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -75,6 +75,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_dataset <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_dataset())],
 names(make_pt_ready4fun_dataset())))!=length(names(make_pt_ready4fun_dataset()))){
@@ -113,10 +114,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package dataset ready4 S3 class for declaring package description file data..1
-#' @description Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data..1
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data..1
-#' @details ready4 S3 class for declaring package description file data.
+#' 
 #' @rdname is_ready4fun_dataset
 #' @export 
 is_ready4fun_dataset <- function(x) inherits(validate_ready4fun_dataset(x), "ready4fun_dataset")

@@ -16,6 +16,7 @@ validate_ready4fun_description(make_new_ready4fun_description(x))
 #' @details ready4 S3 class for declaring package description file data.
 #' @rdname make_new_ready4fun_description
 #' @export 
+#' @keywords internal
 make_new_ready4fun_description <- function(x){ 
 stopifnot(is.list(x))
 class(x) <- append(c("ready4fun_description",setdiff(make_pt_ready4fun_description() %>% class(),class(x))),
@@ -23,14 +24,13 @@ class(x))
 x
 }
 #' make prototype ready4fun package description ready4 S3 class for declaring package description file data.
-#' @description Create a new prototype for the ready4 S3 class for declaring package description file data.
 #' @param Package PARAM_DESCRIPTION, Default: character(0)
 #' @param Title PARAM_DESCRIPTION, Default: character(0)
 #' @param Description PARAM_DESCRIPTION, Default: character(0)
 #' @param License PARAM_DESCRIPTION, Default: logical(0)
 #' @param URL PARAM_DESCRIPTION, Default: character(0)
 #' @return A prototype for ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' 
 #' @rdname make_pt_ready4fun_description
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -60,6 +60,7 @@ rlang::exec(list,!!!args_ls)
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter arrange pull
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_description <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_description())],
 names(make_pt_ready4fun_description())))!=length(names(make_pt_ready4fun_description()))){
@@ -98,10 +99,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package description ready4 S3 class for declaring package description file data.
-#' @description Check whether an object is a valid instance of the ready4 S3 class for declaring package description file data.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
-#' @details ready4 S3 class for declaring package description file data.
+#' 
 #' @rdname is_ready4fun_description
 #' @export 
 is_ready4fun_description <- function(x) inherits(validate_ready4fun_description(x), "ready4fun_description")

@@ -54,8 +54,5 @@ make_pt_ready4fun_metadata_a(
 A prototype for ready4 S3 class for package metadata required for initial package set-up step.
 }
 \description{
-Create a new prototype for the ready4 S3 class for package metadata required for initial package set-up step.
-}
-\details{
-ready4 S3 class for package metadata required for initial package set-up step.
+make prototype ready4fun package metadata a ready4 S3 class for package metadata required for initial package set-up step.
 }

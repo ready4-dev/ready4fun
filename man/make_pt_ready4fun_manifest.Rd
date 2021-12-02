@@ -18,8 +18,5 @@ make_pt_ready4fun_manifest(
 A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
 }
 \description{
-Create a new prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.
-}
-\details{
-ready4 S3 class for encapsulating the metadata required for package set-up.
+make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
 }

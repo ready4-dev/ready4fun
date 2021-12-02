@@ -18,6 +18,7 @@ validate_ready4fun_badges(make_new_ready4fun_badges(x))
 #' @rdname make_new_ready4fun_badges
 #' @export 
 #' @importFrom tibble is_tibble
+#' @keywords internal
 make_new_ready4fun_badges <- function(x){ 
 stopifnot(tibble::is_tibble(x))
 class(x) <- append(c("ready4fun_badges",setdiff(make_pt_ready4fun_badges() %>% class(),class(x))),
@@ -25,13 +26,12 @@ class(x))
 x
 }
 #' make prototype ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
-#' @description Create a new prototype for the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param badge_names_chr Badge names (a character vector), Default: character(0)
 #' @param label_names_chr Label names (a character vector), Default: character(0)
 #' @param colours_chr Colours (a character vector), Default: character(0)
 #' @param badges_chr Badges (a character vector), Default: character(0)
 #' @return A prototype for ready4 S3 class for tibble object lookup table of badges metadata.
-#' @details ready4 S3 class for tibble object lookup table of badges metadata.
+#' 
 #' @rdname make_pt_ready4fun_badges
 #' @export 
 #' @importFrom ready4 update_pt_fn_args_ls
@@ -58,6 +58,7 @@ rlang::exec(tibble::tibble,!!!args_ls)
 #' @importFrom dplyr summarise_all filter arrange pull
 #' @importFrom tidyr gather
 #' @importFrom purrr map_chr map2_chr
+#' @keywords internal
 validate_ready4fun_badges <- function(x){
 if(sum(stringr::str_detect(names(x)[names(x) %in% names(make_pt_ready4fun_badges())],
 names(make_pt_ready4fun_badges())))!=length(names(make_pt_ready4fun_badges()))){
@@ -96,10 +97,9 @@ call. = FALSE)
 
 x}
 #' is ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.
-#' @description Check whether an object is a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x An object of any type
 #' @return A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
-#' @details ready4 S3 class for tibble object lookup table of badges metadata.
+#' 
 #' @rdname is_ready4fun_badges
 #' @export 
 is_ready4fun_badges <- function(x) inherits(validate_ready4fun_badges(x), "ready4fun_badges")

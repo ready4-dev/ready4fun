@@ -18,3 +18,4 @@ Validate an instance of the ready4 S3 class for encapsulating the metadata requi
 \details{
 ready4 S3 class for encapsulating the metadata required for package set-up.
 }
+\keyword{internal}

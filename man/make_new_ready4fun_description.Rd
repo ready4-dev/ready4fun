@@ -18,3 +18,4 @@ Create a new unvalidated instance of the ready4 S3 class for declaring package d
 \details{
 ready4 S3 class for declaring package description file data.
 }
+\keyword{internal}

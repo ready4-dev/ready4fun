@@ -13,8 +13,5 @@ is_ready4fun_abbreviations(x)
 A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 }
 \description{
-Check whether an object is a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
-}
-\details{
-ready4 S3 class for tibble object lookup table of abbreviations.
+is ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.
 }

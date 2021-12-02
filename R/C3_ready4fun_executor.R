@@ -1,5 +1,5 @@
 
-#' for list object specifying function arguments and function.
+#' ready4 S3 class for list object specifying function arguments and function.
 #' @description Create a new valid instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @param x A prototype for the ready4 S3 class for list object specifying function arguments and function., Default: make_pt_ready4fun_executor()
 #' @return A validated instance of the ready4 S3 class for list object specifying function arguments and function.

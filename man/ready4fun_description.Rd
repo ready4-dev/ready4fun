@@ -4,7 +4,7 @@
 \alias{ready4fun_description}
 \alias{make_pt_ready4fun_description}
 \alias{is_ready4fun_description}
-\title{for declaring package description file data.}
+\title{ready4 S3 class for declaring package description file data.}
 \usage{
 ready4fun_description(x = make_pt_ready4fun_description())
 

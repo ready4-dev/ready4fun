@@ -4,7 +4,7 @@
 \alias{ready4fun_dataset}
 \alias{make_pt_ready4fun_dataset}
 \alias{is_ready4fun_dataset}
-\title{for declaring package description file data..1}
+\title{ready4 S3 class for declaring package description file data..1}
 \usage{
 ready4fun_dataset(x = make_pt_ready4fun_dataset())
 

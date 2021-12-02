@@ -1,6 +1,6 @@
 
 setOldClass(c("ready4fun_badges","tbl_df", "tbl", "data.frame"))
-#' for tibble object lookup table of badges metadata.
+#' ready4 S3 class for tibble object lookup table of badges metadata.
 #' @description Create a new valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of badges metadata., Default: make_pt_ready4fun_badges()
 #' @return A validated instance of the ready4 S3 class for tibble object lookup table of badges metadata.

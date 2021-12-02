@@ -1,5 +1,5 @@
 
-#' for encapsulating the metadata required for package set-up.
+#' ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @description Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param x A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up., Default: make_pt_ready4fun_manifest()
 #' @return A validated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.

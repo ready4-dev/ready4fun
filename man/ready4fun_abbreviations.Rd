@@ -4,7 +4,7 @@
 \alias{ready4fun_abbreviations}
 \alias{make_pt_ready4fun_abbreviations}
 \alias{is_ready4fun_abbreviations}
-\title{for tibble object lookup table of abbreviations.}
+\title{ready4 S3 class for tibble object lookup table of abbreviations.}
 \usage{
 ready4fun_abbreviations(x = make_pt_ready4fun_abbreviations())
 

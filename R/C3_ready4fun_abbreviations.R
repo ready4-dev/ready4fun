@@ -1,6 +1,6 @@
 
 setOldClass(c("ready4fun_abbreviations","tbl_df", "tbl", "data.frame"))
-#' for tibble object lookup table of abbreviations.
+#' ready4 S3 class for tibble object lookup table of abbreviations.
 #' @description Create a new valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of abbreviations., Default: make_pt_ready4fun_abbreviations()
 #' @return A validated instance of the ready4 S3 class for tibble object lookup table of abbreviations.

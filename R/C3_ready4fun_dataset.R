@@ -1,5 +1,5 @@
 
-#' for declaring package description file data..1
+#' ready4 S3 class for declaring package description file data..1
 #' @description Create a new valid instance of the ready4 S3 class for declaring package description file data..1
 #' @param x A prototype for the ready4 S3 class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()
 #' @return A validated instance of the ready4 S3 class for declaring package description file data..1

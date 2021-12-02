@@ -1,5 +1,5 @@
 
-#' ready4 S3 class for package metadata required for second package set-up step.
+#' for package metadata required for second package set-up step.
 #' @description Create a new valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step., Default: make_pt_ready4fun_metadata_b()
 #' @return A validated instance of the ready4 S3 class for package metadata required for second package set-up step.

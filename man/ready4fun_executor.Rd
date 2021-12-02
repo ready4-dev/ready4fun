@@ -4,7 +4,7 @@
 \alias{ready4fun_executor}
 \alias{make_pt_ready4fun_executor}
 \alias{is_ready4fun_executor}
-\title{ready4 S3 class for list object specifying function arguments and function.}
+\title{for list object specifying function arguments and function.}
 \usage{
 ready4fun_executor(x = make_pt_ready4fun_executor())
 

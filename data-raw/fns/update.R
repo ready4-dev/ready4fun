@@ -87,12 +87,8 @@ update_fn_dmt <- function(fn_tags_spine_ls,
                           fn_types_lup){
   fn_dmt_1L_chr <- fn_tags_spine_ls$fn_tags_1L_chr
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
-    stringr::str_replace("FUNCTION_TITLE",
-                         ifelse(fn_type_1L_chr == "s3_valid_instance",
-                                stringr::str_replace(fn_name_1L_chr,
-                                                     pattern = "ready4 S3 class ",
-                                                     replacement = ""),
-                                fn_name_1L_chr)) %>%
+    stringr::str_replace(pattern = "FUNCTION_TITLE",
+                         replacement = fn_name_1L_chr) %>%
     stringr::str_replace("FUNCTION_DESCRIPTION",
                          paste0(ifelse(is.na(new_tag_chr_ls$desc_start_1L_chr),
                                        "FUNCTION_DESCRIPTION",
@@ -137,7 +133,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
     if(fn_type_1L_chr == "s3_valid_instance"){
       fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
                                             names(new_tag_chr_ls$s3_class_main_1L_chr),
-                                            new_tag_chr_ls$s3_class_main_1L_chr)
+                                            stringr::str_replace(new_tag_chr_ls$s3_class_main_1L_chr,
+                                                                 pattern = "ready4 S3 class ",
+                                                                 replacement = "")
+                                            )
     }else{
       fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
         stringr::str_replace(names(new_tag_chr_ls$s3_class_main_1L_chr),

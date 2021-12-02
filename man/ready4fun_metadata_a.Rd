@@ -4,7 +4,7 @@
 \alias{ready4fun_metadata_a}
 \alias{make_pt_ready4fun_metadata_a}
 \alias{is_ready4fun_metadata_a}
-\title{ready4 S3 class for package metadata required for initial package set-up step.}
+\title{for package metadata required for initial package set-up step.}
 \usage{
 ready4fun_metadata_a(x = make_pt_ready4fun_metadata_a())
 

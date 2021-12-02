@@ -381,10 +381,11 @@ write_clss <- function(pkg_setup_ls,
                               "ready4fun::write_clss(dv_url_pfx_1L_chr)",
                               details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
   }
+  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+                                                        "/data-raw"),
+                                                 drop_empty_1L_lgl = T))
   if(self_serve_1L_lgl){
-    fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-                                                          "/data-raw"),
-                                                   drop_empty_1L_lgl = T))
+    # Moved fns_eng_ls setting
     if(!is.null(self_serve_fn_ls)){
       if("pkg_setup_ls" %in% formalArgs(self_serve_fn_ls$fn) & ! "pkg_setup_ls" %in% names(self_serve_fn_ls$args_ls))
         self_serve_fn_ls$args_ls <- append(list(pkg_setup_ls = pkg_setup_ls),
@@ -393,11 +394,12 @@ write_clss <- function(pkg_setup_ls,
                                   !!!self_serve_fn_ls$args_ls)
 
     }
-    write_all_fn_dmt(pkg_setup_ls,
-                     fns_env_ls = fns_env_ls,
-                     document_unexp_lgl = F)
-    devtools::document() ##
+    # Moved write_all_fn_dmt call
   }
+  write_all_fn_dmt(pkg_setup_ls,
+                   fns_env_ls = fns_env_ls,
+                   document_unexp_lgl = F)
+  devtools::document() ##
   if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
     if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$dev_pkg_ns_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package

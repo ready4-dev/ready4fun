@@ -4,7 +4,7 @@
 \alias{ready4fun_badges}
 \alias{make_pt_ready4fun_badges}
 \alias{is_ready4fun_badges}
-\title{ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{for tibble object lookup table of badges metadata.}
 \usage{
 ready4fun_badges(x = make_pt_ready4fun_badges())
 

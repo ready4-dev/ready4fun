@@ -4,7 +4,7 @@
 \alias{ready4fun_manifest}
 \alias{make_pt_ready4fun_manifest}
 \alias{is_ready4fun_manifest}
-\title{ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{for encapsulating the metadata required for package set-up.}
 \usage{
 ready4fun_manifest(x = make_pt_ready4fun_manifest())
 

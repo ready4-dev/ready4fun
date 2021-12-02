@@ -133,8 +133,7 @@ update_fn_dmt <- function(fn_tags_spine_ls,
     if(fn_type_1L_chr == "s3_valid_instance"){
       fn_dmt_1L_chr <- stringr::str_replace(fn_dmt_1L_chr,
                                             names(new_tag_chr_ls$s3_class_main_1L_chr),
-                                            new_tag_chr_ls$s3_class_main_1L_chr
-                                            #stringr::str_replace(new_tag_chr_ls$s3_class_main_1L_chr,"ready4 S3 class ", replacement = "")
+                                            stringr::str_replace(new_tag_chr_ls$s3_class_main_1L_chr,"ready4 S3 class ", replacement = "")
                                             )
     }else{
       fn_dmt_1L_chr <- fn_dmt_1L_chr %>%

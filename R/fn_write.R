@@ -432,8 +432,10 @@ write_clss <- function (pkg_setup_ls, key_1L_chr = NULL, self_serve_1L_lgl = F,
                 !!!self_serve_fn_ls$args_ls)
         }
     }
-    write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, document_unexp_lgl = F)
+    NULL_bin_ls <- write_all_fn_dmt(pkg_setup_ls, fns_env_ls = fns_env_ls, 
+        document_unexp_lgl = F)
     devtools::document()
+    devtools::load_all()
     if (!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())) {
         if ("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & 
             !"dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) 

@@ -396,10 +396,11 @@ write_clss <- function(pkg_setup_ls,
     }
     # Moved write_all_fn_dmt call
   }
-  write_all_fn_dmt(pkg_setup_ls,
-                   fns_env_ls = fns_env_ls,
-                   document_unexp_lgl = F)
+  NULL_bin_ls <- write_all_fn_dmt(pkg_setup_ls,
+                                  fns_env_ls = fns_env_ls,
+                                  document_unexp_lgl = F)
   devtools::document() ##
+  devtools::load_all()
   if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
     if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$dev_pkg_ns_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package

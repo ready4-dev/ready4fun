@@ -42,5 +42,5 @@ A logical value, TRUE if a valid instance of the ready4 S3 class for declaring p
 Create a new valid instance of the ready4 S3 class for declaring package description file data.
 }
 \details{
-ready4 S3 class for declaring package description file data.
+Package description metadata.
 }

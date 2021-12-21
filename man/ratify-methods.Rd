@@ -3,7 +3,7 @@
 \name{ratify.ready4fun_manifest}
 \alias{ratify.ready4fun_manifest}
 \alias{ratify,ready4fun_manifest-method}
-\title{Ratify that an instance of a class conforms to specified criteria}
+\title{Ratify (validate) an object}
 \usage{
 ratify.ready4fun_manifest(x)
 

@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for declaring package description
 Create a new unvalidated instance of the ready4 S3 class for declaring package description file data..1
 }
 \details{
-ready4 S3 class for declaring package description file data.
+Package datasets metadata.
 }
 \keyword{internal}

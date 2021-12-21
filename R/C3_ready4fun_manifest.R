@@ -3,7 +3,7 @@
 #' @description Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param x A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up., Default: make_pt_ready4fun_manifest()
 #' @return A validated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @details ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @details Package set-up manifest.
 #' @rdname ready4fun_manifest
 #' @export 
 ready4fun_manifest <- function(x = make_pt_ready4fun_manifest()){ 
@@ -13,7 +13,7 @@ validate_ready4fun_manifest(make_new_ready4fun_manifest(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param x A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @details ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @details Package set-up manifest.
 #' @rdname make_new_ready4fun_manifest
 #' @export 
 #' @keywords internal
@@ -42,7 +42,7 @@ rlang::exec(list,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param x An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return A prototpe for ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @details ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @details Package set-up manifest.
 #' @rdname validate_ready4fun_manifest
 #' @export 
 #' @importFrom stringr str_detect str_c

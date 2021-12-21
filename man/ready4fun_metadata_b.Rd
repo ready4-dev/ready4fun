@@ -93,5 +93,5 @@ A logical value, TRUE if a valid instance of the ready4 S3 class for package met
 Create a new valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 }
 \details{
-ready4 S3 class for package metadata required for second package set-up step.
+Package metadata (B).
 }

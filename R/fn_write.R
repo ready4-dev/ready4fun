@@ -962,6 +962,7 @@ write_manuals_to_dv <- function (package_1L_chr = get_dev_pkg_nm(getwd()), path_
 #' @importFrom Hmisc capitalize
 #' @importFrom stringr str_remove
 #' @importFrom testit assert
+#' @keywords internal
 write_new_abbrs <- function (pkg_setup_ls, long_name_chr = NULL, custom_plural_ls = NULL, 
     key_1L_chr = deprecated(), no_plural_chr = NA_character_, 
     publish_dv_1L_lgl = deprecated(), pfx_rgx = NA_character_, 
@@ -1079,6 +1080,7 @@ write_new_arg_sfcs <- function (arg_nms_chr, fn_type_1L_chr, dir_path_chr, rt_de
 #' @rdname write_new_fn_types
 #' @export 
 #' @importFrom ready4 write_env_objs_to_dv
+#' @keywords internal
 write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, first_arg_desc_chr = NA_character_, 
     is_generic_lgl = F, is_method_lgl = F, key_1L_chr = deprecated(), 
     second_arg_desc_chr = NA_character_, server_1L_chr = deprecated(), 
@@ -1115,6 +1117,7 @@ write_new_fn_types <- function (pkg_setup_ls, fn_type_desc_chr = NA_character_, 
 #' @importFrom testit assert
 #' @importFrom tibble tibble
 #' @importFrom ready4 write_env_objs_to_dv
+#' @keywords internal
 write_new_obj_types <- function (pkg_setup_ls, long_name_chr = NULL, atomic_element_lgl = F, 
     custom_plural_ls = NULL, key_1L_chr = deprecated(), no_plural_chr = NA_character_, 
     publish_dv_1L_lgl = deprecated(), pfx_rgx = NA_character_, 
@@ -1281,6 +1284,7 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @export 
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
+#' @keywords internal
 write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
     list_generics_1L_lgl = T, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
     self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 

@@ -3,7 +3,7 @@
 \name{authorFunctions.ready4fun_manifest}
 \alias{authorFunctions.ready4fun_manifest}
 \alias{authorFunctions,ready4fun_manifest-method}
-\title{Author and save files necessary for creating and documenting functions}
+\title{Author and document functions}
 \usage{
 authorFunctions.ready4fun_manifest(x, list_generics_1L_lgl = T)
 

@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for package metadata required for
 Create a new unvalidated instance of the ready4 S3 class for package metadata required for initial package set-up step.
 }
 \details{
-ready4 S3 class for package metadata required for initial package set-up step.
+Package metadata (A).
 }
 \keyword{internal}

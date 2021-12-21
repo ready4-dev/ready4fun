@@ -3,7 +3,7 @@
 \name{authorClasses.ready4fun_manifest}
 \alias{authorClasses.ready4fun_manifest}
 \alias{authorClasses,ready4fun_manifest-method}
-\title{Author and save files necessary for creating and documenting classes}
+\title{Author and document classes}
 \usage{
 authorClasses.ready4fun_manifest(
   x,

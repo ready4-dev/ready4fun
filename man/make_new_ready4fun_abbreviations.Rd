@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for tibble object lookup table of
 Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 }
 \details{
-ready4 S3 class for tibble object lookup table of abbreviations.
+Abbreviations lookup table.
 }
 \keyword{internal}

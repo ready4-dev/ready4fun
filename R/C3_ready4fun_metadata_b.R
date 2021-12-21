@@ -3,7 +3,7 @@
 #' @description Create a new valid instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step., Default: make_pt_ready4fun_metadata_b()
 #' @return A validated instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @details ready4 S3 class for package metadata required for second package set-up step.
+#' @details Package metadata (B).
 #' @rdname ready4fun_metadata_b
 #' @export 
 ready4fun_metadata_b <- function(x = make_pt_ready4fun_metadata_b()){ 
@@ -13,7 +13,7 @@ validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step.
 #' @return An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @details ready4 S3 class for package metadata required for second package set-up step.
+#' @details Package metadata (B).
 #' @rdname make_new_ready4fun_metadata_b
 #' @export 
 #' @keywords internal
@@ -103,7 +103,7 @@ rlang::exec(list,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @param x An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
 #' @return A prototpe for ready4 S3 class for package metadata required for second package set-up step.
-#' @details ready4 S3 class for package metadata required for second package set-up step.
+#' @details Package metadata (B).
 #' @rdname validate_ready4fun_metadata_b
 #' @export 
 #' @importFrom stringr str_detect str_c

@@ -4,7 +4,7 @@ setOldClass(c("ready4fun_badges","tbl_df", "tbl", "data.frame"))
 #' @description Create a new valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of badges metadata., Default: make_pt_ready4fun_badges()
 #' @return A validated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
-#' @details ready4 S3 class for tibble object lookup table of badges metadata.
+#' @details Badges lookup table.
 #' @rdname ready4fun_badges
 #' @export 
 ready4fun_badges <- function(x = make_pt_ready4fun_badges()){ 
@@ -14,7 +14,7 @@ validate_ready4fun_badges(make_new_ready4fun_badges(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @return An unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
-#' @details ready4 S3 class for tibble object lookup table of badges metadata.
+#' @details Badges lookup table.
 #' @rdname make_new_ready4fun_badges
 #' @export 
 #' @importFrom tibble is_tibble
@@ -51,7 +51,7 @@ rlang::exec(tibble::tibble,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @param x An unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 #' @return A prototpe for ready4 S3 class for tibble object lookup table of badges metadata.
-#' @details ready4 S3 class for tibble object lookup table of badges metadata.
+#' @details Badges lookup table.
 #' @rdname validate_ready4fun_badges
 #' @export 
 #' @importFrom stringr str_detect str_c

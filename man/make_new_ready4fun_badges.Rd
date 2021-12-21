@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for tibble object lookup table of
 Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
 }
 \details{
-ready4 S3 class for tibble object lookup table of badges metadata.
+Badges lookup table.
 }
 \keyword{internal}

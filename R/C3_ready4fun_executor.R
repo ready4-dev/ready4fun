@@ -3,7 +3,7 @@
 #' @description Create a new valid instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @param x A prototype for the ready4 S3 class for list object specifying function arguments and function., Default: make_pt_ready4fun_executor()
 #' @return A validated instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @details ready4 S3 class for list object specifying function arguments and function.
+#' @details Function and function arguments pair.
 #' @rdname ready4fun_executor
 #' @export 
 ready4fun_executor <- function(x = make_pt_ready4fun_executor()){ 
@@ -13,7 +13,7 @@ validate_ready4fun_executor(make_new_ready4fun_executor(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @param x A prototype for the ready4 S3 class for list object specifying function arguments and function.
 #' @return An unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @details ready4 S3 class for list object specifying function arguments and function.
+#' @details Function and function arguments pair.
 #' @rdname make_new_ready4fun_executor
 #' @export 
 #' @keywords internal
@@ -42,7 +42,7 @@ rlang::exec(list,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @param x An unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
 #' @return A prototpe for ready4 S3 class for list object specifying function arguments and function.
-#' @details ready4 S3 class for list object specifying function arguments and function.
+#' @details Function and function arguments pair.
 #' @rdname validate_ready4fun_executor
 #' @export 
 #' @importFrom stringr str_detect str_c

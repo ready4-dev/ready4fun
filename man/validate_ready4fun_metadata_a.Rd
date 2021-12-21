@@ -16,6 +16,6 @@ A prototpe for ready4 S3 class for package metadata required for initial package
 Validate an instance of the ready4 S3 class for package metadata required for initial package set-up step.
 }
 \details{
-ready4 S3 class for package metadata required for initial package set-up step.
+Package metadata (A).
 }
 \keyword{internal}

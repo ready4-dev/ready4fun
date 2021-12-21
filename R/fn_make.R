@@ -10,6 +10,7 @@
 #' @rdname make_addl_pkgs_ls
 #' @export 
 #' @importFrom purrr discard
+#' @keywords internal
 make_addl_pkgs_ls <- function (depends_chr = NULL, enhances_chr = NULL, imports_chr = NULL, 
     linking_to_chr = NULL, suggests_chr = NULL, append_ls = NULL) 
 {
@@ -300,6 +301,7 @@ make_arg_type_lup_ls <- function (object_type_lup = NULL, dv_ds_nm_1L_chr = "rea
 #' @return Build ignore (a list)
 #' @rdname make_build_ignore_ls
 #' @export 
+#' @keywords internal
 make_build_ignore_ls <- function (file_nms_chr = NULL, regulars_rgx = NULL) 
 {
     build_ignore_ls = list(file_nms_chr = file_nms_chr, regulars_rgx = regulars_rgx)
@@ -928,6 +930,7 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 #' @importFrom utils data
+#' @keywords internal
 make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr = deprecated(), 
     add_gh_site_1L_lgl = T, addl_badges_ls = list(), addl_pkgs_ls = make_addl_pkgs_ls(), 
     badges_lup = tibble::tibble(), build_ignore_ls = make_build_ignore_ls(), 
@@ -1310,6 +1313,7 @@ make_obj_lup_spine <- function (seed_obj_type_lup = get_rds_from_pkg_dmt(fl_nm_1
 #' @importFrom stringr str_detect str_sub str_locate str_trim
 #' @importFrom tools toTitleCase
 #' @importFrom usethis use_gpl3_license
+#' @keywords internal
 make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr, 
     pkg_desc_1L_chr, authors_prsn, urls_chr) 
 {
@@ -1340,6 +1344,7 @@ make_pkg_desc_ls <- function (pkg_nm_1L_chr = get_dev_pkg_nm(), pkg_title_1L_chr
 #' @return Package dataset (a list)
 #' @rdname make_pkg_ds_ls
 #' @export 
+#' @keywords internal
 make_pkg_ds_ls <- function (db_df, db_1L_chr, title_1L_chr, desc_1L_chr, abbreviations_lup = NULL, 
     format_1L_chr = "A tibble", object_type_lup = NULL, simple_lup_1L_lgl = F, 
     url_1L_chr = NA_character_, vars_ls = NULL) 

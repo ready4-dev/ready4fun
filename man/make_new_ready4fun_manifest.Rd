@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for encapsulating the metadata re
 Create a new unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 }
 \details{
-ready4 S3 class for encapsulating the metadata required for package set-up.
+Package set-up manifest.
 }
 \keyword{internal}

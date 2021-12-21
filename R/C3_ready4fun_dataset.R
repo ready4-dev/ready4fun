@@ -3,7 +3,7 @@
 #' @description Create a new valid instance of the ready4 S3 class for declaring package description file data..1
 #' @param x A prototype for the ready4 S3 class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()
 #' @return A validated instance of the ready4 S3 class for declaring package description file data..1
-#' @details ready4 S3 class for declaring package description file data.
+#' @details Package datasets metadata.
 #' @rdname ready4fun_dataset
 #' @export 
 ready4fun_dataset <- function(x = make_pt_ready4fun_dataset()){ 
@@ -13,7 +13,7 @@ validate_ready4fun_dataset(make_new_ready4fun_dataset(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for declaring package description file data..1
 #' @param x A prototype for the ready4 S3 class for declaring package description file data..1
 #' @return An unvalidated instance of the ready4 S3 class for declaring package description file data..1
-#' @details ready4 S3 class for declaring package description file data.
+#' @details Package datasets metadata.
 #' @rdname make_new_ready4fun_dataset
 #' @export 
 #' @keywords internal
@@ -66,7 +66,7 @@ rlang::exec(list,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for declaring package description file data..1
 #' @param x An unvalidated instance of the ready4 S3 class for declaring package description file data..1
 #' @return A prototpe for ready4 S3 class for declaring package description file data..1
-#' @details ready4 S3 class for declaring package description file data.
+#' @details Package datasets metadata.
 #' @rdname validate_ready4fun_dataset
 #' @export 
 #' @importFrom stringr str_detect str_c

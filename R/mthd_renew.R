@@ -1,4 +1,4 @@
-#' Renew an instance of a class by updating it with new data
+#' Renew (update) an object
 #' @description renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param type_1L_chr Type (a character vector of length one)

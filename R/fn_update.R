@@ -15,6 +15,7 @@
 #' @importFrom purrr map_chr
 #' @importFrom stringi stri_replace_first_regex
 #' @importFrom tibble tibble
+#' @keywords internal
 update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_chr = NA_character_, 
     custom_plural_ls = NULL, pfx_rgx = NA_character_) 
 {
@@ -401,6 +402,7 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
 #' @export 
 #' @importFrom testit assert
 #' @importFrom purrr discard
+#' @keywords internal
 update_msng_abbrs <- function (pkg_setup_ls, are_words_chr = NA_character_, tf_to_singular_chr = NA_character_, 
     not_obj_type_chr = NA_character_) 
 {

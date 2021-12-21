@@ -33,5 +33,5 @@ A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulati
 Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
 }
 \details{
-ready4 S3 class for encapsulating the metadata required for package set-up.
+Package set-up manifest.
 }

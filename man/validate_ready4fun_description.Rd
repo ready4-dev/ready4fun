@@ -16,6 +16,6 @@ A prototpe for ready4 S3 class for declaring package description file data.
 Validate an instance of the ready4 S3 class for declaring package description file data.
 }
 \details{
-ready4 S3 class for declaring package description file data.
+Package description metadata.
 }
 \keyword{internal}

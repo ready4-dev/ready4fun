@@ -16,6 +16,6 @@ An unvalidated instance of the ready4 S3 class for list object specifying functi
 Create a new unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
 }
 \details{
-ready4 S3 class for list object specifying function arguments and function.
+Function and function arguments pair.
 }
 \keyword{internal}

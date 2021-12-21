@@ -3,7 +3,7 @@
 \name{procure.ready4fun_manifest}
 \alias{procure.ready4fun_manifest}
 \alias{procure,ready4fun_manifest-method}
-\title{Procure data by executing a search and retrieval algorithm using data contained in an instance of a class}
+\title{Procure (get) data}
 \usage{
 procure.ready4fun_manifest(x, type_1L_chr)
 

@@ -36,5 +36,5 @@ A logical value, TRUE if a valid instance of the ready4 S3 class for tibble obje
 Create a new valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 }
 \details{
-ready4 S3 class for tibble object lookup table of abbreviations.
+Abbreviations lookup table.
 }

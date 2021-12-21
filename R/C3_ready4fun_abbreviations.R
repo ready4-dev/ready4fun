@@ -4,7 +4,7 @@ setOldClass(c("ready4fun_abbreviations","tbl_df", "tbl", "data.frame"))
 #' @description Create a new valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of abbreviations., Default: make_pt_ready4fun_abbreviations()
 #' @return A validated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
-#' @details ready4 S3 class for tibble object lookup table of abbreviations.
+#' @details Abbreviations lookup table.
 #' @rdname ready4fun_abbreviations
 #' @export 
 ready4fun_abbreviations <- function(x = make_pt_ready4fun_abbreviations()){ 
@@ -14,7 +14,7 @@ validate_ready4fun_abbreviations(make_new_ready4fun_abbreviations(x))
 #' @description Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x A prototype for the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @return An unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
-#' @details ready4 S3 class for tibble object lookup table of abbreviations.
+#' @details Abbreviations lookup table.
 #' @rdname make_new_ready4fun_abbreviations
 #' @export 
 #' @importFrom tibble is_tibble
@@ -48,7 +48,7 @@ rlang::exec(tibble::tibble,!!!args_ls)
 #' @description Validate an instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param x An unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
 #' @return A prototpe for ready4 S3 class for tibble object lookup table of abbreviations.
-#' @details ready4 S3 class for tibble object lookup table of abbreviations.
+#' @details Abbreviations lookup table.
 #' @rdname validate_ready4fun_abbreviations
 #' @export 
 #' @importFrom stringr str_detect str_c

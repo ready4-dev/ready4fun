@@ -23,3 +23,4 @@ Package setup (a list)
 \description{
 add_new_cls_pts() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add new class prototypes. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
 }
+\keyword{internal}

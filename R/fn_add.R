@@ -218,6 +218,7 @@ add_indefartls_to_phrases <- function (abbreviated_phrase_1L_chr, abbreviations_
 #' @export 
 #' @importFrom dplyr filter arrange
 #' @importFrom ready4 add_lups
+#' @keywords internal
 add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_clss_1L_lgl = T) 
 {
     if (is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {

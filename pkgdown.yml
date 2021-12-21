@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.0.0
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   V_01: V_01.html
   ready4fun: ready4fun.html
-last_built: 2021-12-03T00:15Z
+last_built: 2021-12-21T01:26Z
 

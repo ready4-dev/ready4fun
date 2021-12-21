@@ -1,5 +1,5 @@
 ---
-title: "A Standardised Workflow For Authoring R Packages"
+title: "Author R Package Functions That Extend The Ready4 Framework"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -7,7 +7,7 @@ output:
     highlight: null
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{A Standardised Workflow For R Package Creation}
+  %\VignetteIndexEntry{Author R Package Functions That Extend The Ready4 Framework}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -20,7 +20,7 @@ library(ready4fun)
 
 `ready4fun` provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the [ready4 framework](https://www.ready4-dev.com/) for open and modular mental health systems models.
 
-ready4fun builds on `devtools` and other development workflow tools to ensure that the ready4 framework R packages authored with it are:
+`ready4fun` builds on existing development workflow tools (e.g. `devtools`) to ensure that ready4 framework R packages are:
 
 - *citable* (with a Zenodo generated DOI and an algorithm generated CITATION file);
 - *community-friendly* (applying deprecation conventions supported by `lifecycle`); 
@@ -30,10 +30,8 @@ ready4fun builds on `devtools` and other development workflow tools to ensure th
 - *quality assured* (using continuous integration via GitHub actions and R-CMD-Check); and
 - *versioned* (applying `usethis` version increments).
 
-The main class exported as part of ready4fun is `ready4fun_manifest` in which the metadata for an R package is declared. In most cases, the methods associated with `ready4fun_manifest` do not need to be called directly by a user. Instead they are now incorporated in the methods of the [ready4pack](https://ready4-dev.github.io/ready4pack/) package. The two main functions from `ready4fun` that are most relevant to end users are `make_pkg_desc_ls` and `make_manifest` as using both of these functions together provides the optimal means of creating a valid instance of the `ready4fun_manifest` class.
+The main class exported as part of ready4fun is `ready4fun_manifest` in which the metadata for an R package is declared. The two main functions from `ready4fun` that are most relevant to end users are `make_pkg_desc_ls` and `make_manifest` as using both of these functions together provides the optimal means of creating a valid instance of the `ready4fun_manifest` class. The `ready4fun_manifest` class and `make_pkg_desc_ls` and `make_manifest` functions are designed to be used as part of [the workflow supported by the ready4pack package](https://ready4-dev.github.io/ready4pack/articles/V_01.html).
 
-The workflows supported by `ready4fun` functions are designed to be implemented after an empty R package has been created with draft functions, authored using the `ready4fun` house-style, saved in sub-directories of the package `data-raw` directory. Detailed instructions on applying the house style have yet to be released, but examples of how `ready4fun` functions integrate into package authoring workflows using `ready4pack` are available. 
+## Future documentation
 
-These examples can be found in the DATASET file within the data-raw folder of any R package that extends the ready4 framework (see https://www.ready4-dev.com/toolkits/). For example, to see how `ready4fun_manifest` is used in the workflow to author the [ready4show](https://ready4-dev.github.io/ready4show/) package, view [this file in the source code](https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R).
-
-A more detailed guide to using ready4fun will be created in 2022.
+It is important to note that the workflows supported by `ready4fun` functions are designed to be implemented after an empty R package has been created with undocumented functions, authored using the `ready4fun` house-style, that are saved in sub-directories of your package's `data-raw` directory. Guidance for how to apply the house style has yet to be published, but more detailed documentation on using `ready4fun` will be created in 2022.

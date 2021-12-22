@@ -287,7 +287,7 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
                                   }) %>% purrr::flatten_chr()) %>% sort()
                    }
                    if(length(fns_chr)>0){
-                    txt_chr  <- c( paste0("- title: \"",.y,"\""),
+                    txt_chr  <- c(paste0("- title: \"",.y,"\""),
                         "- contents:",
                         paste0("  - ",
                                fns_chr))
@@ -873,9 +873,11 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
   }
 }
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
+                                    pkg_url_1L_chr,
                                     developer_manual_url_1L_chr = NA_character_,
                                     user_manual_url_1L_chr = NA_character_,
-                                    project_website_url_1L_chr = NA_character_){
+                                    project_website_url_1L_chr = NA_character_,
+                                    theme_1L_chr = "journal"){
   ready4::write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
                         "/_pkgdown.yml"),
                  dest_paths_chr = paste0(path_to_pkg_rt_1L_chr,
@@ -891,7 +893,14 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                                       any(txt_chr == "  - text: Project website"))
                      txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr==T])*2))]
                    }
-                   c("home:",
+                   c(paste0("url: ", # NOT IDEAL FUNCTION FROM WHICH TO WRITE THIS TEXT - PRAGMATIC FOR NOW
+                            pkg_url_1L_chr),#https://ready4-dev.github.io/ready4/
+                     "",
+                     "template:",
+                     "  bootstrap: 5",
+                     paste0("  bootswatch: ",theme_1L_chr),
+                     "",
+                     "home:",
                      "  links:",
                      ifelse(!is.na(user_manual_url_1L_chr), "  - text: Manual - User (PDF)", NA_character_),
                      ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
@@ -929,13 +938,16 @@ write_manuals <- function(pkg_setup_ls,
                       piggyback_to_1L_chr = pkg_setup_ls$initial_ls$gh_repo_1L_chr)
   dmt_urls_chr <- piggyback::pb_download_url(repo = pkg_setup_ls$initial_ls$gh_repo_1L_chr,
                                              tag = "Documentation_0.0")
-  project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
+  pkg_urls_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
     strsplit(",") %>%
-    unlist() %>%
+    unlist()
+  project_url_1L_chr <- pkg_urls_chr %>%
     purrr::pluck(3)
   if(is.null(project_url_1L_chr))
     project_url_1L_chr <-  NA_character_
-  write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2],
+  write_links_for_website(pkg_url_1L_chr = pkg_urls_chr %>%
+                            purrr::pluck(1),
+                          user_manual_url_1L_chr = dmt_urls_chr[2],
                           developer_manual_url_1L_chr = dmt_urls_chr[1],
                           project_website_url_1L_chr = project_url_1L_chr)
 }
@@ -1629,7 +1641,8 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                          dev_pkg_nm_1L_chr,
                          ifelse(is.na(path_to_pkg_logo_1L_chr),
                                 "",
-                                " <img src=\"man/figures/fav120.png\" align=\"right\" />")),
+                                " <img src=\"man/figures/fav120.png\" align=\"right\" />")
+                         ),
                   "",
                   paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,
                                                          fields ="Title") %>%

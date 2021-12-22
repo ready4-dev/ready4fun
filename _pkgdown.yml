@@ -1,3 +1,9 @@
+url: https://ready4-dev.github.io/ready4fun/
+
+template:
+  bootstrap: 5
+  bootswatch: journal
+
 home:
   links:
   - text: Manual - User (PDF)

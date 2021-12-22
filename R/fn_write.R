@@ -813,17 +813,20 @@ write_inst_dir <- function (path_to_pkg_rt_1L_chr = getwd())
 #' Write links for website
 #' @description write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: getwd()
+#' @param pkg_url_1L_chr Package url (a character vector of length one)
 #' @param developer_manual_url_1L_chr Developer manual url (a character vector of length one), Default: 'NA'
 #' @param user_manual_url_1L_chr User manual url (a character vector of length one), Default: 'NA'
 #' @param project_website_url_1L_chr Project website url (a character vector of length one), Default: 'NA'
+#' @param theme_1L_chr Theme (a character vector of length one), Default: 'journal'
 #' @return NULL
 #' @rdname write_links_for_website
 #' @export 
 #' @importFrom ready4 write_from_tmp
 #' @importFrom stats na.omit
 #' @keywords internal
-write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_manual_url_1L_chr = NA_character_, 
-    user_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_) 
+write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), pkg_url_1L_chr, developer_manual_url_1L_chr = NA_character_, 
+    user_manual_url_1L_chr = NA_character_, project_website_url_1L_chr = NA_character_, 
+    theme_1L_chr = "journal") 
 {
     ready4::write_from_tmp(paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
         dest_paths_chr = paste0(path_to_pkg_rt_1L_chr, "/_pkgdown.yml"), 
@@ -837,8 +840,10 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), developer_
                 txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr == 
                   T]) * 2))]
             }
-            c("home:", "  links:", ifelse(!is.na(user_manual_url_1L_chr), 
-                "  - text: Manual - User (PDF)", NA_character_), 
+            c(paste0("url: ", pkg_url_1L_chr), "", "template:", 
+                "  bootstrap: 5", paste0("  bootswatch: ", theme_1L_chr), 
+                "", "home:", "  links:", ifelse(!is.na(user_manual_url_1L_chr), 
+                  "  - text: Manual - User (PDF)", NA_character_), 
                 ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", 
                   user_manual_url_1L_chr), NA_character_), ifelse(!is.na(developer_manual_url_1L_chr), 
                   "  - text: Manual - Developer (PDF)", NA_character_), 
@@ -886,11 +891,13 @@ write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(),
         publish_dv_1L_lgl = publish_dv_1L_lgl, piggyback_to_1L_chr = pkg_setup_ls$initial_ls$gh_repo_1L_chr)
     dmt_urls_chr <- piggyback::pb_download_url(repo = pkg_setup_ls$initial_ls$gh_repo_1L_chr, 
         tag = "Documentation_0.0")
-    project_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
-        strsplit(",") %>% unlist() %>% purrr::pluck(3)
+    pkg_urls_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
+        strsplit(",") %>% unlist()
+    project_url_1L_chr <- pkg_urls_chr %>% purrr::pluck(3)
     if (is.null(project_url_1L_chr)) 
         project_url_1L_chr <- NA_character_
-    write_links_for_website(user_manual_url_1L_chr = dmt_urls_chr[2], 
+    write_links_for_website(pkg_url_1L_chr = pkg_urls_chr %>% 
+        purrr::pluck(1), user_manual_url_1L_chr = dmt_urls_chr[2], 
         developer_manual_url_1L_chr = dmt_urls_chr[1], project_website_url_1L_chr = project_url_1L_chr)
 }
 #' Write manuals to dataverse

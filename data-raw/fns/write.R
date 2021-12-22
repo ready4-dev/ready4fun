@@ -906,7 +906,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                      ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", NA_character_),
+                     ifelse(!is.na(project_website_url_1L_chr), "  - text: ready4 framework", NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
                      txt_chr) %>% stats::na.omit()
                  }),
@@ -1638,10 +1638,10 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
     cran_install_chr <- character(0)
   }
   readme_chr <- c(paste0("# ",
-                         dev_pkg_nm_1L_chr,
-                         ifelse(is.na(path_to_pkg_logo_1L_chr),
-                                "",
-                                " <img src=\"man/figures/fav120.png\" align=\"right\" />")
+                         dev_pkg_nm_1L_chr#,
+                         # ifelse(is.na(path_to_pkg_logo_1L_chr),
+                         #        "",
+                         #        " <img src=\"man/figures/fav120.png\" align=\"right\" />")
                          ),
                   "",
                   paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,

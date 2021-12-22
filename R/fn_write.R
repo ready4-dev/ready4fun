@@ -849,7 +849,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), pkg_url_1L
                   "  - text: Manual - Developer (PDF)", NA_character_), 
                 ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", 
                   developer_manual_url_1L_chr), NA_character_), 
-                ifelse(!is.na(project_website_url_1L_chr), "  - text: Project website", 
+                ifelse(!is.na(project_website_url_1L_chr), "  - text: ready4 framework", 
                   NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
                   paste0("    href: ", project_website_url_1L_chr), 
                   NA_character_), txt_chr) %>% stats::na.omit()
@@ -1524,13 +1524,11 @@ write_pkg_setup_fls <- function (pkg_desc_ls, copyright_holders_chr, gh_repo_1L_
     else {
         cran_install_chr <- character(0)
     }
-    readme_chr <- c(paste0("# ", dev_pkg_nm_1L_chr, ifelse(is.na(path_to_pkg_logo_1L_chr), 
-        "", " <img src=\"man/figures/fav120.png\" align=\"right\" />")), 
-        "", paste0("## ", utils::packageDescription(dev_pkg_nm_1L_chr, 
-            fields = "Title") %>% stringr::str_replace_all("\n", 
-            " ")), "", "<!-- badges: start -->", "<!-- badges: end -->", 
-        "", utils::packageDescription(dev_pkg_nm_1L_chr, fields = "Description"), 
-        "", cran_install_chr, "To install a development version of this software, run the following commands in your R console:", 
+    readme_chr <- c(paste0("# ", dev_pkg_nm_1L_chr), "", paste0("## ", 
+        utils::packageDescription(dev_pkg_nm_1L_chr, fields = "Title") %>% 
+            stringr::str_replace_all("\n", " ")), "", "<!-- badges: start -->", 
+        "<!-- badges: end -->", "", utils::packageDescription(dev_pkg_nm_1L_chr, 
+            fields = "Description"), "", cran_install_chr, "To install a development version of this software, run the following commands in your R console:", 
         "", "```r", "utils::install.packages(\"devtools\")", 
         "", paste0("devtools::install_github(\"", gh_repo_1L_chr, 
             "\")"), "", "```")

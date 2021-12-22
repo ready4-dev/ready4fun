@@ -1,4 +1,4 @@
-# ready4fun 
+# ready4fun
 
 ## Author and Document Functions for Open and Modular Mental Health Systems Models
 

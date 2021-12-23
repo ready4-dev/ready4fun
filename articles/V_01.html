@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="ready4fun">
-<title>Author R Package Functions That Extend The Ready4 Framework • ready4fun</title>
+<title>Workflow Tools To Make 'Under The Hood' Code More Transparent • ready4fun</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Author R Package Functions That Extend The Ready4 Framework">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Workflow Tools To Make 'Under The Hood' Code More Transparent">
 <meta property="og:description" content="ready4fun">
 <meta property="og:image" content="https://ready4-dev.github.io/ready4fun/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ready4fun</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9500</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9504</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/V_01.html">Author R Package Functions That Extend The Ready4 Framework</a>
+    <a class="dropdown-item" href="../articles/V_01.html">Workflow Tools To Make 'Under The Hood' Code More Transparent</a>
   </div>
 </li>
       </ul>
@@ -72,9 +72,10 @@
     
   </div>
 </nav><div class="container template-article">
-<script src="V_01_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="V_01_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="V_01_files/kePrint-0.0.1/kePrint.js"></script><link href="V_01_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <main id="main"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Author R Package Functions That Extend The Ready4 Framework</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Workflow Tools To Make 'Under The Hood' Code More Transparent</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ready4-dev/ready4fun/blob/HEAD/vignettes/V_01.Rmd" class="external-link"><code>vignettes/V_01.Rmd</code></a></small>
@@ -84,32 +85,625 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/">ready4fun</a></span><span class="op">)</span></code></pre></div>
-<p><code>ready4fun</code> provides classes, methods and functions to support highly standardised approaches to authoring R packages that extend the <a href="https://www.ready4-dev.com/" class="external-link">ready4 framework</a> for open and modular mental health systems models.</p>
-<p><code>ready4fun</code> builds on existing development workflow tools (e.g. <code>devtools</code>) to ensure that ready4 framework R packages are:</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/">ready4fun</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4use/" class="external-link">ready4use</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4show/" class="external-link">ready4show</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
+<p>The <a href="https://www.ready4-dev.com/" class="external-link">ready4 framework</a> for open and modular mental health systems models is <a href="https://ready4-dev.github.io/ready4class/articles/V_01.html" class="external-link">implemented using an object-oriented programming (OOP) approach</a>. One motivation for using OOP is the concept of “abstraction” - making things as simple as possible for end-users of <code>ready4</code> “methods” (algorithms) by exposing the minimal amount of code required to implement each method.</p>
+<p>However, some users of the <code>ready4</code> framework will want to “look under the hood” and examine the code that implements methods in much more detail. Reasons to do so include to:</p>
 <ul>
-<li>
-<em>citable</em> (with a Zenodo generated DOI and an algorithm generated CITATION file);</li>
-<li>
-<em>community-friendly</em> (applying deprecation conventions supported by <code>lifecycle</code>);</li>
-<li>
-<em>documented</em> (applying a function self-documenting algorithm that extends <code>sinew</code>, deploying a GitHub pages hosted and <code>pkgdown</code> generated website and authoring PDF manuals stored in a GitHub Release via <code>piggyback</code>);</li>
-<li>
-<em>internally consistent</em> implementing automated checks to ensure consistency in naming conventions, etc;</li>
-<li>
-<em>licensed</em> (via a <code>usethis</code> generated GPL-3 license);</li>
-<li>
-<em>quality assured</em> (using continuous integration via GitHub actions and R-CMD-Check); and</li>
-<li>
-<em>versioned</em> (applying <code>usethis</code> version increments).</li>
+<li>gain detailed insight into how methods are implemented;</li>
+<li>test individual sub-components (“functions”) of methods as part of code verification and model validation checks;</li>
+<li>re-use functions when authoring new methods.</li>
 </ul>
-<p>The main class exported as part of ready4fun is <code>ready4fun_manifest</code> in which the metadata for an R package is declared. The two main functions from <code>ready4fun</code> that are most relevant to end users are <code>make_pkg_desc_ls</code> and <code>make_manifest</code> as using both of these functions together provides the optimal means of creating a valid instance of the <code>ready4fun_manifest</code> class. The <code>ready4fun_manifest</code> class and <code>make_pkg_desc_ls</code> and <code>make_manifest</code> functions are designed to be used as part of <a href="https://ready4-dev.github.io/ready4pack/articles/V_01.html" class="external-link">the workflow supported by the ready4pack package</a>.</p>
+<p>Therefore when authoring code libraries that extend the <code>ready4</code> framework, it is important to ensure that “under the hood” code can be readily understood. Two ways for achieving this goal is to ensure that all functions (even those not intended for use by modeller end-users) are adequately documented and adopt a consistent house style (e.g. naming conventions). ready4fun provides workflow tools (classes, methods, functions and datasets) to achieve these goals.</p>
+</div>
+<div class="section level2">
+<h2 id="ready4fun-function-authoring-taxonomies-abbreviations-and-workflow">ready4fun function authoring taxonomies, abbreviations and workflow<a class="anchor" aria-label="anchor" href="#ready4fun-function-authoring-taxonomies-abbreviations-and-workflow"></a>
+</h2>
+<p>The <code>ready4fun</code> package uses a dataset of taxonomies and abbreviations to ensure standardised function code style and documentation. A copy of this dataset (<code>x</code>) can be downloaded from a repository associated with the <a href="https://ready4-dev.github.io/ready4/" class="external-link">ready4 package</a> using tools from the <a href="https://ready4-dev.github.io/ready4use/" class="external-link">ready4use package</a> package.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ready4use</span><span class="fu">::</span><span class="fu"><a href="https://ready4-dev.github.io/ready4use/reference/Ready4useRepos-class.html" class="external-link">Ready4useRepos</a></span><span class="op">(</span>gh_repo_1L_chr <span class="op">=</span> <span class="st">"ready4-dev/ready4"</span>,
+                               gh_tag_1L_chr <span class="op">=</span> <span class="st">"Documentation_0.0"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/ingest-methods.html" class="external-link">ingest</a></span><span class="op">(</span>metadata_1L_lgl <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="function-names-begin-with-a-meaningful-verb">Function names begin with a meaningful verb<a class="anchor" aria-label="anchor" href="#function-names-begin-with-a-meaningful-verb"></a>
+</h3>
+<p>Consistent with a naming convention popular in the R development community, all <code>ready4</code> framework functions begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word “fit” will fit a model of a specified type to a dataset. The definitions of all meaningful verbs currently used by ready4 functions (excluding methods) are stored in element <code>fn_types_lup</code> of <code>x</code>, the key features of which are reproduced below.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">fn_types_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">is_generic_lgl</span> <span class="op">&amp;</span><span class="op">!</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">fn_type_nm_chr</span>,pattern <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Verb <span class="op">=</span> <span class="va">fn_type_nm_chr</span>,
+                Description <span class="op">=</span> <span class="va">fn_type_desc_chr</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ready4show</span><span class="fu">::</span><span class="fu"><a href="https://ready4-dev.github.io/ready4show/reference/print_table.html" class="external-link">print_table</a></span><span class="op">(</span>caption_1L_chr <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_current</a></span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="st">"tab.cap"</span><span class="op">)</span>,
+                          output_type_1L_chr <span class="op">=</span> <span class="st">"HTML"</span>,
+                          mkdn_tbl_ref_1L_chr <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_current</a></span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="st">"tab.id"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table  lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;'>
+<caption>
+Meaningful verbs
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Verb
+</th>
+<th style="text-align:right;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Add
+</td>
+<td style="text-align:right;">
+Updates an object by adding data to that object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Assert
+</td>
+<td style="text-align:right;">
+Validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bind
+</td>
+<td style="text-align:right;">
+Binds two objects together to create a composite object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Calculate
+</td>
+<td style="text-align:right;">
+Performs a numeric calculation.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Close
+</td>
+<td style="text-align:right;">
+Closes specified connections.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Extract
+</td>
+<td style="text-align:right;">
+Extracts data from an object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fit
+</td>
+<td style="text-align:right;">
+Fits a model of a specified type to a dataset
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Force
+</td>
+<td style="text-align:right;">
+Checks if a specified local or global environmental condition is met and if not, updates the specified environment to comply with the condition.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Format
+</td>
+<td style="text-align:right;">
+Modifies the format of an output.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Get
+</td>
+<td style="text-align:right;">
+Retrieves a pre-existing data object from memory, local file system or online repository.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Import
+</td>
+<td style="text-align:right;">
+Reads a data object in its native format and converts it to an R object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Impute
+</td>
+<td style="text-align:right;">
+Imputes data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Knit
+</td>
+<td style="text-align:right;">
+Knits a rmarkdown file
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Make
+</td>
+<td style="text-align:right;">
+Creates a new R object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plot
+</td>
+<td style="text-align:right;">
+Plots data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Predict
+</td>
+<td style="text-align:right;">
+Makes predictions from data using a specified statistical model.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Print
+</td>
+<td style="text-align:right;">
+Prints output to console
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Randomise
+</td>
+<td style="text-align:right;">
+Randomly samples from data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Read
+</td>
+<td style="text-align:right;">
+Reads an R script into memory.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Remove
+</td>
+<td style="text-align:right;">
+Edits an object, removing a specified element or elements.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rename
+</td>
+<td style="text-align:right;">
+Renames elements of an object based on a pre-speccified schema.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Reorder
+</td>
+<td style="text-align:right;">
+Reorders an object to conform to a pre-specified schema.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Replace
+</td>
+<td style="text-align:right;">
+Edits an object, replacing a specified element with another specified element.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Reset
+</td>
+<td style="text-align:right;">
+Edits an object, overwriting the current version with a default version.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rowbind
+</td>
+<td style="text-align:right;">
+Performs custom rowbind operations on table objects.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Scramble
+</td>
+<td style="text-align:right;">
+Randomly reorders an object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Transform
+</td>
+<td style="text-align:right;">
+Edits an object in such a way that core object attributes - e.g. shape, dimensions, elements, type - are altered.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Unload
+</td>
+<td style="text-align:right;">
+Performs a custom detaching of a package from the search path.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Update
+</td>
+<td style="text-align:right;">
+Edits an object, while preserving core object attributes.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Validate
+</td>
+<td style="text-align:right;">
+Validates that an object conforms to required criteria.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Write
+</td>
+<td style="text-align:right;">
+Writes a file to a specified local directory.
+</td>
+</tr>
+</tbody>
+<tfoot><tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup>
+</td>
+</tr></tfoot>
+</table>
+</div>
+<div class="section level3">
+<h3 id="function-inputs-and-outputs-have-meaningful-suffices">Function inputs and outputs have meaningful suffices<a class="anchor" aria-label="anchor" href="#function-inputs-and-outputs-have-meaningful-suffices"></a>
+</h3>
+<p>The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. The meaningful suffices currently used by to describe objects in the ready4 framework are stored in element <code>seed_obj_lup_tb</code> of <code>x</code>, the key features of which are reproduced below.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">seed_obj_lup_tb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Suffix <span class="op">=</span> <span class="va">short_name_chr</span>,
+                Description <span class="op">=</span> <span class="va">long_name_chr</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ready4show</span><span class="fu">::</span><span class="fu"><a href="https://ready4-dev.github.io/ready4show/reference/print_table.html" class="external-link">print_table</a></span><span class="op">(</span>caption_1L_chr <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_current</a></span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="st">"tab.cap"</span><span class="op">)</span>,
+                          output_type_1L_chr <span class="op">=</span> <span class="st">"HTML"</span>,
+                          mkdn_tbl_ref_1L_chr <span class="op">=</span> <span class="st">"fnstb"</span><span class="op">)</span></code></pre></div>
+<table class="table  lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;'>
+<caption>
+Meaningful suffices
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Suffix
+</th>
+<th style="text-align:right;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+arr
+</td>
+<td style="text-align:right;">
+array
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chr
+</td>
+<td style="text-align:right;">
+character
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbl
+</td>
+<td style="text-align:right;">
+double
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+df
+</td>
+<td style="text-align:right;">
+data.frame
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dtm
+</td>
+<td style="text-align:right;">
+date
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+env
+</td>
+<td style="text-align:right;">
+environment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fct
+</td>
+<td style="text-align:right;">
+factor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fn
+</td>
+<td style="text-align:right;">
+function
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+int
+</td>
+<td style="text-align:right;">
+integer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgl
+</td>
+<td style="text-align:right;">
+logical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ls
+</td>
+<td style="text-align:right;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lup
+</td>
+<td style="text-align:right;">
+lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mat
+</td>
+<td style="text-align:right;">
+matrix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdl
+</td>
+<td style="text-align:right;">
+model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plt
+</td>
+<td style="text-align:right;">
+plot
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prsn
+</td>
+<td style="text-align:right;">
+person
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r3
+</td>
+<td style="text-align:right;">
+ready4 S3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r4
+</td>
+<td style="text-align:right;">
+ready4 S4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgx
+</td>
+<td style="text-align:right;">
+regular expression
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s3
+</td>
+<td style="text-align:right;">
+S3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s4
+</td>
+<td style="text-align:right;">
+S4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sf
+</td>
+<td style="text-align:right;">
+simple features object
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb
+</td>
+<td style="text-align:right;">
+tibble
+</td>
+</tr>
+</tbody>
+<tfoot><tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup>
+</td>
+</tr></tfoot>
+</table>
+</div>
+<div class="section level3">
+<h3 id="consistent-use-of-abbreviations">Consistent use of abbreviations<a class="anchor" aria-label="anchor" href="#consistent-use-of-abbreviations"></a>
+</h3>
+<p>Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used throughout the <code>ready4</code> framework is maintained in the <code>abbreviations_lup</code> element of <code>x</code>. The list of abbreviations is now quite extensive and continues to grow as the <code>ready4</code> suite of software expands. The initial few entries of <code>abbreviations_lup</code> are reproduced below.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">abbreviations_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Abbreviation <span class="op">=</span> <span class="va">short_name_chr</span>,
+                Description <span class="op">=</span> <span class="va">long_name_chr</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">ready4show</span><span class="fu">::</span><span class="fu"><a href="https://ready4-dev.github.io/ready4show/reference/print_table.html" class="external-link">print_table</a></span><span class="op">(</span>caption_1L_chr <span class="op">=</span> <span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_current</a></span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="st">"tab.cap"</span><span class="op">)</span>,
+                          output_type_1L_chr <span class="op">=</span> <span class="st">"HTML"</span>,
+                          mkdn_tbl_ref_1L_chr <span class="op">=</span> <span class="st">"fnstb"</span><span class="op">)</span></code></pre></div>
+<table class="table  lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;'>
+<caption>
+Abbreviations
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Abbreviation
+</th>
+<th style="text-align:right;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+additional arguments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L
+</td>
+<td style="text-align:right;">
+length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_chr
+</td>
+<td style="text-align:right;">
+character vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_chr_ls
+</td>
+<td style="text-align:right;">
+list of character vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_chr_r4
+</td>
+<td style="text-align:right;">
+ready4 S4 collection of character vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_dbl
+</td>
+<td style="text-align:right;">
+double vector of length one
+</td>
+</tr>
+</tbody>
+<tfoot><tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup>
+</td>
+</tr></tfoot>
+</table>
+</div>
+<div class="section level3">
+<h3 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
+</h3>
+<p>The main class exported as part of ready4fun is <code>ready4fun_manifest</code> which is used to specify metadata (including details of the repository in which the <code>fn_types_lup</code>, <code>seed_obj_lup_tb</code> and <code>abbreviations_lup</code> objects are stored) for an R package that is being authored. A <code>ready4fun_manifest</code> object is created with the aid of the <code>make_pkg_desc_ls</code> and <code>make_manifest</code> functions and is designed to be used as part of <a href="https://ready4-dev.github.io/ready4pack/articles/V_01.html" class="external-link">the ready4pack R package authoring workflow package</a>.</p>
+<p>That vignette includes links to two examples of where the <code>ready4pack</code> workflow has been used to author R package. To illustrate how <code>readyfun</code> tools used as part of that workflow are used to document functions, we are just going to focus on <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R" class="external-link">the program used to create the ready4show package</a>.</p>
+<p>That program makes use of <code>ready4fun</code> tools that read all <a href="https://github.com/ready4-dev/ready4show/tree/main/data-raw/fns" class="external-link">undocumented package functions</a>, performs automated checks to ensure that these functions appropriately use the taxonomies and abbreviations mentioned previously (prompting authors to make specific amendments if they do not) and then rewrites these functions to the <a href="https://github.com/ready4-dev/ready4show/tree/main/R" class="external-link">package R directory</a>, appending tags (with the aid of the <code>sinew</code> package) that will generate meaningful documentation.</p>
+<p>For example, one of the functions to be documented is the <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/fns/knit.R" class="external-link">knit_from_tmpl</a>, which is transformed to a <a href="https://github.com/ready4-dev/ready4show/blob/main/R/fn_knit.R" class="external-link">version with tags</a>. The tags added to all functions are then used to generate the package documentation, including the package manual. Two versions of the <code>ready4show</code> package manual are generated - <a href="https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_User.pdf" class="external-link">a slimmed down version for end-users</a> and <a href="https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_Developer.pdf" class="external-link">a more detailed inventory of contents intended for developers</a>.</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="future-documentation">Future documentation<a class="anchor" aria-label="anchor" href="#future-documentation"></a>
 </h2>
-<p>It is important to note that the workflows supported by <code>ready4fun</code> functions are designed to be implemented after an empty R package has been created with undocumented functions, authored using the <code>ready4fun</code> house-style, that are saved in sub-directories of your package’s <code>data-raw</code> directory. Guidance for how to apply the house style has yet to be published, but more detailed documentation on using <code>ready4fun</code> will be created in 2022.</p>
+<p>Detailed guidance for how to apply <code>ready4fun</code> workflow tools has yet to be prepared but will be released in 2022.</p>
 </div>
-  </main>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

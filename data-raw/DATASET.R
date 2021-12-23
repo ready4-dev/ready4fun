@@ -165,7 +165,8 @@ constructor_r3 <- dplyr::bind_rows(
                                                                    "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
   ready4class::ready4class_constructor()
 manifest_ls <- pkg_desc_ls %>%
-  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(depends_chr = c("ready4","ready4show","ready4use"),
+  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(depends_chr = c("ready4"),
+                                                                                       imports_chr = c("ready4show","ready4use"),
                                                                                        suggests_chr = c("rmarkdown")),
                                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
                                    check_type_1L_chr = "standard",

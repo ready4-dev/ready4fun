@@ -177,7 +177,9 @@ manifest_ls <- pkg_desc_ls %>%
                                      #                         "update_abbr_lup", "update_msng_abbrs", "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package")
                                                                                          ),
                                    copyright_holders_chr = "Orygen",
-                                   dev_pkgs_chr = "ready4",
+                                   dev_pkgs_chr = c("ready4",
+                                                    "ready4use",
+                                                    "ready4show"),
                                    inc_pkg_meta_data_1L_lgl = T, ###
                                    lifecycle_stage_1L_chr = "experimental",
                                    path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",

@@ -4,7 +4,7 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Author and Document Functions for Open and Modular Mental Health Systems Models}
+\title{ready4fun: Author and Document R Package Functions that Extend the Ready4 Framework}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 

@@ -1,6 +1,6 @@
 # ready4fun
 
-## Author and Document Functions for Open and Modular Mental Health Systems Models
+## Author and Document R Package Functions that Extend the Ready4 Framework
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/workflows/R-CMD-check/badge.svg)](https://github.com/ready4-dev/ready4fun/actions)

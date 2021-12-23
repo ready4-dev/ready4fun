@@ -16,6 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r results='hide', message=FALSE}
 library(ready4fun)
+library(ready4use)
+library(ready4show)
 ```
 
 ## Motivation
@@ -91,7 +93,7 @@ That vignette includes links to two examples of where the `ready4pack` workflow 
 
 That program makes use of `ready4fun` tools that read all [undocumented package functions](https://github.com/ready4-dev/ready4show/tree/main/data-raw/fns), performs automated checks to ensure that these functions appropriately use the taxonomies and abbreviations mentioned previously (prompting authors to make specific amendments if they do not) and then rewrites these functions to the [package R directory](https://github.com/ready4-dev/ready4show/tree/main/R), appending tags (with the aid of the `sinew` package) that will generate meaningful documentation. 
 
-For example, one of the functions to be documented is the [knit_from_tmpl](https://github.com/ready4-dev/ready4show/blob/main/data-raw/fns/knit.R), which is transformed to a [version with tags](https://github.com/ready4-dev/ready4show/blob/main/R/fn_knit.R). Two versions of the ready4show package manual are generated - [a slimmed down version for end-users](https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_User.pdf) and [a more detailed inventory of contents intended for developers](https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_Developer.pdf).
+For example, one of the functions to be documented is the [knit_from_tmpl](https://github.com/ready4-dev/ready4show/blob/main/data-raw/fns/knit.R), which is transformed to a [version with tags](https://github.com/ready4-dev/ready4show/blob/main/R/fn_knit.R). The tags added to all functions are then used to generate the package documentation, including the package manual. Two versions of the `ready4show` package manual are generated - [a slimmed down version for end-users](https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_User.pdf) and [a more detailed inventory of contents intended for developers](https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_Developer.pdf).
 
 
 ## Future documentation

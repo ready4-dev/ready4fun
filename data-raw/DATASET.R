@@ -30,7 +30,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                browser_preview = F,
                                                to_clipboard = F)))
 pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document R Package Functions that Extend the Ready4 Framework" %>% tools::toTitleCase(),
-                                                   pkg_desc_1L_chr = "ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health systems models. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+                                                   pkg_desc_1L_chr = "ready4fun is a toolkit for implementing a standardised workflow to author and document functions that extend the ready4 framework for open science computational models of mental health systems. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
                                                    authors_prsn = c(utils::person(
                                                      given = "Matthew",family = "Hamilton",
                                                      email = "matthew.hamilton@orygen.org.au",

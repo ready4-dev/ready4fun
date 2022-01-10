@@ -947,8 +947,8 @@ write_manuals <- function(pkg_setup_ls,
     project_url_1L_chr <-  NA_character_
   write_links_for_website(pkg_url_1L_chr = pkg_urls_chr %>%
                             purrr::pluck(1),
-                          user_manual_url_1L_chr = dmt_urls_chr[2],
-                          developer_manual_url_1L_chr = dmt_urls_chr[1],
+                          user_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr,paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_User.pdf")))],
+                          developer_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr,paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_Developer.pdf")))],
                           project_website_url_1L_chr = project_url_1L_chr)
 }
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),

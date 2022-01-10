@@ -8,11 +8,11 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health systems models. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for implementing a standardised workflow to author and document functions that extend the ready4 framework for open science computational models of mental health systems. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-ready4fun is a collection of functions for authoring and documenting code libraries of functions for use in modular, open-source mental health systems models. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for implementing a standardised workflow to author and document functions that extend the ready4 framework for open science computational models of mental health systems. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 }
 \seealso{
 Useful links:

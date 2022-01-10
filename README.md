@@ -9,14 +9,14 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)
 <!-- badges: end -->
 
-ready4fun is a collection of functions for authoring and
-documenting code libraries of functions for use in modular,
-open-source mental health systems models. The current version of this
-software is a development release, which you should only trial if you
-feel confident you understand what it does and have created a sandpit
-area in which you can safely undertake testing. If you have any
-questions, please contact the authors
-(matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for implementing a standardised
+workflow to author and document functions that extend the ready4
+framework for open science computational models of mental health
+systems. The current version of this software is a development
+release, which you should only trial if you feel confident you
+understand what it does and have created a sandpit area in which you
+can safely undertake testing. If you have any questions, please
+contact the authors (matthew.hamilton@orygen.org.au).
 
 To install a development version of this software, run the following commands in your R console:
 

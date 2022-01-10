@@ -39,8 +39,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show,
-    ready4use,
+    ready4show (>= 0.0.0.9063),
+    ready4use (>= 0.0.0.9209),
     rlang,
     sinew,
     stats,
@@ -61,5 +61,7 @@ Depends:
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes: 
-    ready4-dev/ready4
+Remotes:  
+    ready4-dev/ready4,
+    ready4-dev/ready4use,
+    ready4-dev/ready4show

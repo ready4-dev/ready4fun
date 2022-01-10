@@ -8,7 +8,8 @@ get_rds_from_pkg_dmt(
   pkg_setup_ls = NULL,
   fl_nm_1L_chr,
   piggyback_to_1L_chr = character(0),
-  piggyback_tag_1L_chr = "Documentation_0.0"
+  piggyback_tag_1L_chr = "Documentation_0.0",
+  piggyback_token_1L_chr = ""
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ get_rds_from_pkg_dmt(
 \item{piggyback_to_1L_chr}{Piggyback to (a character vector of length one), Default: character(0)}
 
 \item{piggyback_tag_1L_chr}{Piggyback tag (a character vector of length one), Default: 'Documentation_0.0'}
+
+\item{piggyback_token_1L_chr}{Piggyback token (a character vector of length one), Default: ''}
 }
 \value{
 R object (an output object of multiple potential types)

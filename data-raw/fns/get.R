@@ -407,12 +407,14 @@ get_outp_obj_type <- function(fns_chr,
 get_rds_from_pkg_dmt <- function(pkg_setup_ls = NULL,
                                  fl_nm_1L_chr,
                                  piggyback_to_1L_chr = character(0),
-                                 piggyback_tag_1L_chr = "Documentation_0.0"){
+                                 piggyback_tag_1L_chr = "Documentation_0.0",
+                                 piggyback_token_1L_chr = ""){
   if(!is.null(pkg_setup_ls)){
     piggyback_to_1L_chr <- pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr
   }
   dmt_urls_chr <- piggyback::pb_download_url(repo = piggyback_to_1L_chr,
-                                             tag = piggyback_tag_1L_chr)
+                                             tag = piggyback_tag_1L_chr,
+                                             .token = piggyback_token_1L_chr)
   dmt_url_1L_chr <- dmt_urls_chr[dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".RDS")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".Rds")) | dmt_urls_chr %>% endsWith(paste0(fl_nm_1L_chr,".rds"))]
   r_object_xx <- readRDS(url(dmt_url_1L_chr))
   return(r_object_xx)

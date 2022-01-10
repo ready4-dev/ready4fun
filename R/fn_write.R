@@ -897,8 +897,11 @@ write_manuals <- function (pkg_setup_ls, path_to_dmt_dir_1L_chr = deprecated(),
     if (is.null(project_url_1L_chr)) 
         project_url_1L_chr <- NA_character_
     write_links_for_website(pkg_url_1L_chr = pkg_urls_chr %>% 
-        purrr::pluck(1), user_manual_url_1L_chr = dmt_urls_chr[2], 
-        developer_manual_url_1L_chr = dmt_urls_chr[1], project_website_url_1L_chr = project_url_1L_chr)
+        purrr::pluck(1), user_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr, 
+        paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, "_User.pdf")))], 
+        developer_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr, 
+            paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, 
+                "_Developer.pdf")))], project_website_url_1L_chr = project_url_1L_chr)
 }
 #' Write manuals to dataverse
 #' @description write_manuals_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour

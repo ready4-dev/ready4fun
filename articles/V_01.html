@@ -118,7 +118,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dataset_ls</span><span class="op">$</span><span class="va">fn_types_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/ready4fun_functions.html">ready4fun_functions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/renew-methods.html" class="external-link">renew</a></span><span class="op">(</span>filter_cdn_1L_chr <span class="op">=</span> <span class="st">"!is_generic_lgl &amp; !stringr::str_detect(fn_type_nm_chr,pattern = ' ')"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/renew-methods.html" class="external-link">renew</a></span><span class="op">(</span>filter_cdn_1L_chr <span class="op">=</span> <span class="st">"!is_generic_lgl &amp; !stringr::str_detect(fn_type_nm_chr, pattern = ' ')"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span>select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <table class="table  lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;'>
 <caption>
@@ -691,193 +691,17 @@ double vector of length one
 <h3 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h3>
 <div class="section level4">
-<h4 id="ready4fun_manifest">ready4fun_manifest<a class="anchor" aria-label="anchor" href="#ready4fun_manifest"></a>
+<h4 id="manifest">Manifest<a class="anchor" aria-label="anchor" href="#manifest"></a>
 </h4>
 <p>The main class exported as part of ready4fun is the <a href="https://ready4-dev.github.io/ready4/articles/V_01.html" class="external-link">ready4 sub-module</a> <code>ready4fun_manifest</code> which is used to specify metadata (including details of the repository in which the <code>fn_types_lup</code>, <code>seed_obj_lup_tb</code> and <code>abbreviations_lup</code> objects are stored) for the functions being authored and the R package that will contain them.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ready4fun_manifest.html">ready4fun_manifest</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## $initial_ls</span>
-<span class="co">## $pkg_desc_ls</span>
-<span class="co">## $Package</span>
-<span class="co">## character(0)</span>
-<span class="co">## </span>
-<span class="co">## $Title</span>
-<span class="co">## character(0)</span>
-<span class="co">## </span>
-<span class="co">## $Description</span>
-<span class="co">## character(0)</span>
-<span class="co">## </span>
-<span class="co">## $License</span>
-<span class="co">## logical(0)</span>
-<span class="co">## </span>
-<span class="co">## $URL</span>
-<span class="co">## character(0)</span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_description" "list"                 </span>
-<span class="co">## </span>
-<span class="co">## $copyright_holders_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $gh_repo_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $add_gh_site_1L_lgl</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $addl_badges_ls</span>
-<span class="co">## $addl_badges_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $badges_lup</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 4</span></span>
-<span class="co">## <span style="color: #949494;"># … with 4 variables: badge_names_chr &lt;chr&gt;, label_names_chr &lt;chr&gt;,</span></span>
-<span class="co">## <span style="color: #949494;">#   colours_chr &lt;chr&gt;, badges_chr &lt;chr&gt;</span></span>
-<span class="co">## </span>
-<span class="co">## $check_type_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $delete_r_dir_cnts_1L_lgl</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $dev_pkg_nm_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $lifecycle_stage_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $incr_ver_1L_lgl</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $on_cran_1L_lgl</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $path_to_pkg_logo_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $path_to_pkg_rt_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_metadata_a" "list"                </span>
-<span class="co">## </span>
-<span class="co">## $subsequent_ls</span>
-<span class="co">## $abbreviations_lup</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 3</span></span>
-<span class="co">## <span style="color: #949494;"># … with 3 variables: short_name_chr &lt;chr&gt;, long_name_chr &lt;chr&gt;,</span></span>
-<span class="co">## <span style="color: #949494;">#   plural_lgl &lt;lgl&gt;</span></span>
-<span class="co">## </span>
-<span class="co">## $addl_pkgs_ls</span>
-<span class="co">## $addl_pkgs_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $build_ignore_ls</span>
-<span class="co">## $build_ignore_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $cls_fn_ls</span>
-<span class="co">## $args_ls</span>
-<span class="co">## $args_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $fn</span>
-<span class="co">## function (x) </span>
-<span class="co">## x</span>
-<span class="co">## &lt;bytecode: 0x5578bc72c690&gt;</span>
-<span class="co">## &lt;environment: namespace:base&gt;</span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_executor" "list"              </span>
-<span class="co">## </span>
-<span class="co">## $custom_dmt_ls</span>
-<span class="co">## $custom_dmt_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $dev_pkgs_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $dss_records_ls</span>
-<span class="co">## $dss_records_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $dv_ds_nm_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $dv_url_pfx_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $fn_types_lup</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 0</span></span>
-<span class="co">## </span>
-<span class="co">## $fns_dmt_tb</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 0</span></span>
-<span class="co">## </span>
-<span class="co">## $import_from_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $inc_pkg_meta_data_1L_lgl</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $object_type_lup</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 3</span></span>
-<span class="co">## <span style="color: #949494;"># … with 3 variables: short_name_chr &lt;chr&gt;, long_name_chr &lt;chr&gt;,</span></span>
-<span class="co">## <span style="color: #949494;">#   plural_lgl &lt;lgl&gt;</span></span>
-<span class="co">## </span>
-<span class="co">## $path_to_dmt_dir_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $piggyback_to_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $pkg_dmt_dv_dss_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $pkg_ds_ls_ls</span>
-<span class="co">## $pkg_ds_ls_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $seed_obj_type_lup</span>
-<span class="co">## <span style="color: #949494;"># A tibble: 0 × 0</span></span>
-<span class="co">## </span>
-<span class="co">## $server_1L_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## $s4_fns_ls</span>
-<span class="co">## $args_ls</span>
-<span class="co">## $args_ls[[1]]</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## $fn</span>
-<span class="co">## function (x) </span>
-<span class="co">## x</span>
-<span class="co">## &lt;bytecode: 0x5578bc72c690&gt;</span>
-<span class="co">## &lt;environment: namespace:base&gt;</span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_executor" "list"              </span>
-<span class="co">## </span>
-<span class="co">## $treat_as_words_chr</span>
-<span class="co">## [1] NA</span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_metadata_b" "list"                </span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "ready4fun_manifest" "list"</span></code></pre>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ready4fun_manifest.html">ready4fun_manifest</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="typical-usage">Typical Usage<a class="anchor" aria-label="anchor" href="#typical-usage"></a>
 </h4>
-<p>A <code>ready4fun_manifest</code> object is most efficiently created with the aid of the <code>make_pkg_desc_ls</code> and <code>make_manifest</code> functions.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>A <code>ready4fun_manifest</code> object is most efficiently created with the aid of the <code>make_pkg_desc_ls</code> and <code>make_manifest</code> functions rather than a direct call to the <code><a href="../reference/ready4fun_manifest.html">ready4fun_manifest()</a></code> function.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Not run</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ready4fun</span><span class="fu">::</span><span class="fu"><a href="../reference/make_pkg_desc_ls.html">make_pkg_desc_ls</a></span><span class="op">(</span>pkg_title_1L_chr <span class="op">=</span> <span class="st">"Your Package Title"</span>,
                                  pkg_desc_1L_chr <span class="op">=</span> <span class="st">"Your Package Description."</span>,
@@ -894,11 +718,15 @@ double vector of length one
                            piggyback_to_1L_chr <span class="op">=</span> <span class="st">"GitHub Release Repository to which supporting files will be uploaded"</span>,
                            ready4_type_1L_chr <span class="op">=</span> <span class="st">"authoring"</span>,
                            zenodo_badge_1L_chr <span class="op">=</span> <span class="st">"DOI badge details go here"</span><span class="op">)</span></code></pre></div>
+<p>The main method defined for <code>ready4fun_manifest</code> is <code>author</code> which, assuming the raw undocumented function files are saved in the appropriate directories, will author an R package in which all functions are consistently documented.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Not run</span>
+<span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/author-methods.html" class="external-link">author</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h4>
-<p>The <code>ready4fun_manifest</code> sub-module and <code>make_pkg_desc_ls</code> and <code>make_manifest</code>functions are designed to be used as part of <a href="https://ready4-dev.github.io/ready4pack/articles/V_01.html" class="external-link">the ready4pack R package authoring workflow package</a>. That vignette includes links to two examples of where the <code>ready4pack</code> workflow has been used to author R package. To illustrate how <code>readyfun</code> tools used as part of that workflow are used to document functions, we are just going to focus on <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R" class="external-link">the program used to create the ready4show package</a>.</p>
+<p>The <code>ready4fun_manifest</code> sub-module and its methods along with the <code>make_pkg_desc_ls</code> and <code>make_manifest</code>functions are designed to be used as part of <a href="https://ready4-dev.github.io/ready4pack/articles/V_01.html" class="external-link">the ready4pack R package authoring workflow</a>. That vignette includes links to two examples of where the <code>ready4pack</code> workflow has been used to author R package. To illustrate how <code>readyfun</code> tools used as part of that workflow are used to document functions, we are just going to focus on <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R" class="external-link">the program used to create the ready4show package</a>.</p>
 <p>That program makes use of <code>ready4fun</code> tools that read all <a href="https://github.com/ready4-dev/ready4show/tree/main/data-raw/fns" class="external-link">undocumented package functions</a>, performs automated checks to ensure that these functions appropriately use the taxonomies and abbreviations mentioned previously (prompting authors to make specific amendments if they do not) and then rewrites these functions to the <a href="https://github.com/ready4-dev/ready4show/tree/main/R" class="external-link">package R directory</a>, appending tags (with the aid of the <code>sinew</code> package) that will generate meaningful documentation.</p>
 <p>For example, one of the functions to be documented is the <a href="https://github.com/ready4-dev/ready4show/blob/main/data-raw/fns/knit.R" class="external-link">knit_from_tmpl</a>, which is transformed to a <a href="https://github.com/ready4-dev/ready4show/blob/main/R/fn_knit.R" class="external-link">version with tags</a>. The tags added to all functions are then used to generate the package documentation, including the package manual. Two versions of the <code>ready4show</code> package manual are generated - <a href="https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_User.pdf" class="external-link">a slimmed down version for end-users</a> and <a href="https://github.com/ready4-dev/ready4show/releases/download/Documentation_0.0/ready4show_Developer.pdf" class="external-link">a more detailed inventory of contents intended for developers</a>.</p>
 </div>

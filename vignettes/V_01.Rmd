@@ -49,7 +49,7 @@ Consistent with a naming convention popular in the R development community, all 
 ```{r fnstb, tab.cap='Meaningful verbs', tab.id = 'fnstb', results="asis"}
 dataset_ls$fn_types_lup %>% 
   ready4fun_functions() %>%
-  renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr,pattern = ' ')") %>%
+  renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr, pattern = ' ')") %>%
   exhibit(select_int = 1:2)
 ```
 
@@ -75,15 +75,15 @@ dataset_ls$abbreviations_lup %>%
 
 ### Workflow
 
-#### ready4fun_manifest
+#### Manifest
 The main class exported as part of ready4fun is the [ready4 sub-module](https://ready4-dev.github.io/ready4/articles/V_01.html) `ready4fun_manifest` which is used to specify metadata (including details of the repository in which the `fn_types_lup`, `seed_obj_lup_tb` and `abbreviations_lup` objects are stored) for the functions being authored and the R package that will contain them. 
 
 ```{r}
-ready4fun_manifest()
+x <- ready4fun_manifest()
 ```
 
 #### Typical Usage
-A `ready4fun_manifest` object is most efficiently created with the aid of the `make_pkg_desc_ls` and `make_manifest` functions.
+A `ready4fun_manifest` object is most efficiently created with the aid of the `make_pkg_desc_ls` and `make_manifest` functions rather than a direct call to the `ready4fun_manifest()` function.
 
 ```{r eval = F}
 ## Not run
@@ -104,8 +104,15 @@ x <- ready4fun::make_pkg_desc_ls(pkg_title_1L_chr = "Your Package Title",
                            zenodo_badge_1L_chr = "DOI badge details go here")
 ```
 
+The main method defined for `ready4fun_manifest` is `author` which, assuming the raw undocumented function files are saved in the appropriate directories, will author an R package in which all functions are consistently documented.
+
+```{r eval=FALSE}
+## Not run
+author(x)
+```
+
 #### Examples
-The `ready4fun_manifest` sub-module and `make_pkg_desc_ls` and `make_manifest`functions are designed to be used as part of [the ready4pack R package authoring workflow package](https://ready4-dev.github.io/ready4pack/articles/V_01.html). That vignette includes links to two examples of where the `ready4pack` workflow has been used to author R package. To illustrate how `readyfun` tools used as part of that workflow are used to document functions, we are just going to focus on [the program used to create the ready4show package](https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R).
+The `ready4fun_manifest` sub-module and its methods along with the `make_pkg_desc_ls` and `make_manifest`functions are designed to be used as part of [the ready4pack R package authoring workflow](https://ready4-dev.github.io/ready4pack/articles/V_01.html). That vignette includes links to two examples of where the `ready4pack` workflow has been used to author R package. To illustrate how `readyfun` tools used as part of that workflow are used to document functions, we are just going to focus on [the program used to create the ready4show package](https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R).
 
 That program makes use of `ready4fun` tools that read all [undocumented package functions](https://github.com/ready4-dev/ready4show/tree/main/data-raw/fns), performs automated checks to ensure that these functions appropriately use the taxonomies and abbreviations mentioned previously (prompting authors to make specific amendments if they do not) and then rewrites these functions to the [package R directory](https://github.com/ready4-dev/ready4show/tree/main/R), appending tags (with the aid of the `sinew` package) that will generate meaningful documentation. 
 

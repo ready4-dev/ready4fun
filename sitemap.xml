@@ -79,6 +79,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/deprecated.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/exhibit-methods.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/fn_types_lup.html</loc>
   </url>
   <url>
@@ -235,6 +238,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/make_new_ready4fun_executor.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/make_new_ready4fun_functions.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/make_new_ready4fun_manifest.html</loc>
   </url>
   <url>
@@ -242,6 +248,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/make_new_ready4fun_metadata_b.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/make_new_ready4fun_objects.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/make_obj_lup.html</loc>
@@ -301,6 +310,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/ready4fun_executor.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/ready4fun_functions.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/ready4fun_manifest.html</loc>
   </url>
   <url>
@@ -308,6 +320,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/ready4fun_metadata_b.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/ready4fun_objects.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/remove_obj_type_from_nm.html</loc>
@@ -376,6 +391,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/validate_ready4fun_executor.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/validate_ready4fun_functions.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/validate_ready4fun_manifest.html</loc>
   </url>
   <url>
@@ -383,6 +401,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/validate_ready4fun_metadata_b.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/validate_ready4fun_objects.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/write_abbr_lup.html</loc>

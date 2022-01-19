@@ -1,5 +1,5 @@
 ---
-title: "Workflow Tools To Make 'Under The Hood' Code More Transparent"
+title: "Author Transparent Functions To Extend The Ready4 Framework"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -7,7 +7,7 @@ output:
     highlight: null
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{Workflow Tools To Make 'Under The Hood' Code More Transparent}
+  %\VignetteIndexEntry{Author Transparent Functions To Extend The Ready4 Framework}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -34,62 +34,78 @@ Therefore when authoring code libraries that extend the `ready4` framework, it i
 
 ## ready4fun function authoring taxonomies, abbreviations and workflow
 
-The `ready4fun` package uses a dataset of taxonomies and abbreviations to ensure standardised function code style and documentation. A copy of this dataset (`x`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package.
+The `ready4fun` package uses a dataset of taxonomies and abbreviations to ensure standardised function code style and documentation. A copy of this dataset (`dataset_ls`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package.
 
 ```{r}
-x <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4",
+dataset_ls <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4",
                                gh_tag_1L_chr = "Documentation_0.0") %>%
   ingest(metadata_1L_lgl = F)
 ```
 
 ### Function names begin with a meaningful verb
 
-Consistent with a naming convention popular in the R development community, all `ready4` framework functions begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word "fit" will fit a model of a specified type to a dataset. The definitions of all meaningful verbs currently used by ready4 functions (excluding methods) are stored in element `fn_types_lup` of `x`, the key features of which are reproduced below.
+Consistent with a naming convention popular in the R development community, all `ready4` framework functions begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word "fit" will fit a model of a specified type to a dataset. The definitions of all meaningful verbs currently used by ready4 functions (excluding methods) are stored in element `fn_types_lup` of `dataset_ls`, the key features of which are reproduced below.
 
 ```{r fnstb, tab.cap='Meaningful verbs', tab.id = 'fnstb', results="asis"}
-x$fn_types_lup %>% 
-  dplyr::filter(!is_generic_lgl &!stringr::str_detect(fn_type_nm_chr,pattern = " ")) %>% dplyr::select(1:2) %>%
-  dplyr::rename(Verb = fn_type_nm_chr,
-                Description = fn_type_desc_chr) %>%
-  ready4show::print_table(caption_1L_chr = knitr::opts_current$get("tab.cap"),
-                          output_type_1L_chr = "HTML",
-                          mkdn_tbl_ref_1L_chr = knitr::opts_current$get("tab.id"))
+dataset_ls$fn_types_lup %>% 
+  ready4fun_functions() %>%
+  renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr,pattern = ' ')") %>%
+  exhibit(select_int = 1:2)
 ```
 
 ### Function inputs and outputs have meaningful suffices
 
-The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. The meaningful suffices currently used by to describe objects in the ready4 framework are stored in element `seed_obj_lup_tb` of `x`, the key features of which are reproduced below.
+The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. The meaningful suffices currently used by to describe objects in the ready4 framework are stored in element `seed_obj_type_lup` of `dataset_ls`, the key features of which are reproduced below.
 
 ```{r sfcstb, tab.cap='Meaningful suffices', tab.id = 'sfcstb', results="asis"}
-x$seed_obj_lup_tb %>% 
-dplyr::select(1:2) %>%
-  dplyr::rename(Suffix = short_name_chr,
-                Description = long_name_chr) %>%
-  ready4show::print_table(caption_1L_chr = knitr::opts_current$get("tab.cap"),
-                          output_type_1L_chr = "HTML",
-                          mkdn_tbl_ref_1L_chr = "fnstb")
+dataset_ls$seed_obj_type_lup %>% 
+  ready4fun_objects() %>%
+  exhibit(select_int = 1:2)
 ```
 
 ### Consistent use of abbreviations
 
-Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used throughout the `ready4` framework is maintained in the `abbreviations_lup` element of `x`. The list of abbreviations is now quite extensive and continues to grow as the `ready4` suite of software expands. The initial few entries of `abbreviations_lup` are reproduced below.
+Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used throughout the `ready4` framework is maintained in the `abbreviations_lup` element of `dataset_ls`. The list of abbreviations is now quite extensive and continues to grow as the `ready4` suite of software expands. The initial few entries of `abbreviations_lup` are reproduced below.
 
 ```{r abbs, tab.cap='Abbreviations', tab.id = 'abbs', results="asis"}
-x$abbreviations_lup %>% 
-dplyr::select(1:2) %>%
-  dplyr::rename(Abbreviation = short_name_chr,
-                Description = long_name_chr) %>%
+dataset_ls$abbreviations_lup %>% 
   head() %>%
-  ready4show::print_table(caption_1L_chr = knitr::opts_current$get("tab.cap"),
-                          output_type_1L_chr = "HTML",
-                          mkdn_tbl_ref_1L_chr = "fnstb")
+  exhibit(select_int = 1:2)
 ```
 
 ### Workflow
 
-The main class exported as part of ready4fun is `ready4fun_manifest` which is used to specify metadata (including details of the repository in which the `fn_types_lup`, `seed_obj_lup_tb` and `abbreviations_lup` objects are stored) for an R package that is being authored. A `ready4fun_manifest` object is created with the aid of the `make_pkg_desc_ls` and `make_manifest` functions and is designed to be used as part of [the ready4pack R package authoring workflow package](https://ready4-dev.github.io/ready4pack/articles/V_01.html). 
+#### ready4fun_manifest
+The main class exported as part of ready4fun is the [ready4 sub-module](https://ready4-dev.github.io/ready4/articles/V_01.html) `ready4fun_manifest` which is used to specify metadata (including details of the repository in which the `fn_types_lup`, `seed_obj_lup_tb` and `abbreviations_lup` objects are stored) for the functions being authored and the R package that will contain them. 
 
-That vignette includes links to two examples of where the `ready4pack` workflow has been used to author R package. To illustrate how `readyfun` tools used as part of that workflow are used to document functions, we are just going to focus on [the program used to create the ready4show package](https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R).
+```{r}
+ready4fun_manifest()
+```
+
+#### Typical Usage
+A `ready4fun_manifest` object is most efficiently created with the aid of the `make_pkg_desc_ls` and `make_manifest` functions.
+
+```{r eval = F}
+## Not run
+x <- ready4fun::make_pkg_desc_ls(pkg_title_1L_chr = "Your Package Title",
+                                 pkg_desc_1L_chr = "Your Package Description.",
+                                 authors_prsn = c(utils::person("Author 1 Name",
+                                                                role = c("aut", "cre")),
+                                                  utils::person("Author 2 Name", role = c("cph"))),
+                                 urls_chr = c("Package website url",
+                                              "Package source code url",
+                                              "Project website")) %>%
+  ready4fun::make_manifest(copyright_holders_chr = "Organisation name",
+                           custom_dmt_ls = ready4fun::make_custom_dmt_ls(user_manual_fns_chr = c("Functions to be included in main user manual are itemised here")),
+                           dev_pkgs_chr = c("Any development package dependencies go here"),
+                           path_to_pkg_logo_1L_chr = "Local path to package logo goes here",
+                           piggyback_to_1L_chr = "GitHub Release Repository to which supporting files will be uploaded",
+                           ready4_type_1L_chr = "authoring",
+                           zenodo_badge_1L_chr = "DOI badge details go here")
+```
+
+#### Examples
+The `ready4fun_manifest` sub-module and `make_pkg_desc_ls` and `make_manifest`functions are designed to be used as part of [the ready4pack R package authoring workflow package](https://ready4-dev.github.io/ready4pack/articles/V_01.html). That vignette includes links to two examples of where the `ready4pack` workflow has been used to author R package. To illustrate how `readyfun` tools used as part of that workflow are used to document functions, we are just going to focus on [the program used to create the ready4show package](https://github.com/ready4-dev/ready4show/blob/main/data-raw/DATASET.R).
 
 That program makes use of `ready4fun` tools that read all [undocumented package functions](https://github.com/ready4-dev/ready4show/tree/main/data-raw/fns), performs automated checks to ensure that these functions appropriately use the taxonomies and abbreviations mentioned previously (prompting authors to make specific amendments if they do not) and then rewrites these functions to the [package R directory](https://github.com/ready4-dev/ready4show/tree/main/R), appending tags (with the aid of the `sinew` package) that will generate meaningful documentation. 
 

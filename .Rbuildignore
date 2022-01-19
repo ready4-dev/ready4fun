@@ -96,3 +96,4 @@
 ^data-raw/transform\.R$
 ^doc$
 ^Meta$
+^data-raw/mthds/exhibit\.R$

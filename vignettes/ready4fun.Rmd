@@ -21,4 +21,4 @@ This development version of the `ready4fun` package has been made available as p
 
 A brief overview of the intended use of `ready4fun` classes and methods is available at:
 
-- [Author R Package Functions That Extend The Ready4 Framework](V_01.html)
+- [Author Transparent Functions To Extend The Ready4 Framework](V_01.html)

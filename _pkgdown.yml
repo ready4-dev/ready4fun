@@ -26,6 +26,8 @@ reference:
 - contents:
   - ready4fun_badges
   - ready4fun_abbreviations
+  - ready4fun_objects
+  - ready4fun_functions
   - ready4fun_executor
   - ready4fun_description
   - ready4fun_metadata_a
@@ -40,6 +42,12 @@ reference:
   - authorData.ready4fun_manifest
   - authorFunctions.ready4fun_manifest
   - authorReport.ready4fun_manifest
+  - exhibit.ready4fun_abbreviations
+  - exhibit.ready4fun_functions
+  - exhibit.ready4fun_objects
   - procure.ready4fun_manifest
   - ratify.ready4fun_manifest
+  - renew.ready4fun_abbreviations
+  - renew.ready4fun_functions
   - renew.ready4fun_manifest
+  - renew.ready4fun_objects

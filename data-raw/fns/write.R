@@ -869,7 +869,7 @@ write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
     ready4::write_to_delete_dirs(inst_dir_1L_chr)
     ready4::write_new_dirs(inst_dir_1L_chr)
     ready4::write_new_files(inst_dir_1L_chr,
-                    source_paths_ls = list(source_inst_dir_1L_chr))
+                            source_paths_ls = list(source_inst_dir_1L_chr))
   }
 }
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),

@@ -3,7 +3,7 @@
 \name{authorData.ready4fun_manifest}
 \alias{authorData.ready4fun_manifest}
 \alias{authorData,ready4fun_manifest-method}
-\title{Author and document package datasets}
+\title{Author and document datasets}
 \usage{
 authorData.ready4fun_manifest(x)
 

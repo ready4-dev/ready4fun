@@ -626,7 +626,7 @@ make_fn_nms <- function(path_1L_chr = "data-raw"){
                                  })]
   fns_1L_chr_ls <- undmtd_fns_dir_chr %>%
     purrr::map(~list.files(.x,
-                           pattern = "*.R$",
+                           pattern = "\\.R$",
                            full.names = TRUE,
                            ignore.case = TRUE) ) %>%
     stats::setNames(fn_types_chr)

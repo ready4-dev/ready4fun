@@ -10,7 +10,7 @@
 #' @keywords internal
 read_fns <- function (fns_dir_1L_chr = "data-raw/fns/", fns_env = NULL, use_env_1L_lgl = T) 
 {
-    fns_path_chr <- list.files(fns_dir_1L_chr, pattern = "*.R$", 
+    fns_path_chr <- list.files(fns_dir_1L_chr, pattern = "\\.R$", 
         full.names = TRUE, ignore.case = TRUE)
     if (use_env_1L_lgl) {
         if (is.null(fns_env)) 

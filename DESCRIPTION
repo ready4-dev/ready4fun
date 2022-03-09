@@ -1,6 +1,6 @@
 Package: ready4fun
 Title: Author and Document Functions that Extend the Ready4 Framework
-Version: 0.0.0.9508
+Version: 0.0.0.9509
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -38,8 +38,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show (>= 0.0.0.9084),
-    ready4use (>= 0.0.0.9212),
+    ready4show,
+    ready4use,
     rlang,
     sinew,
     stats,
@@ -55,12 +55,10 @@ Imports:
     xfun
 VignetteBuilder: knitr
 Depends: 
-    ready4,
-    R (>= 2.10)
+    R (>= 2.10),
+    ready4
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes:  
-    ready4-dev/ready4,
-    ready4-dev/ready4use,
-    ready4-dev/ready4show
+Remotes: 
+    ready4-dev/ready4

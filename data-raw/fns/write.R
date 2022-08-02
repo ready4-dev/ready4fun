@@ -1681,15 +1681,15 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
       ready4::write_from_tmp(system.file("R-CMD-check.yaml", package="ready4fun"),
                      dest_paths_chr = paste0(path_to_pkg_rt_1L_chr,
                                              "/.github/workflows/R-CMD-check.yaml"))
-
+      #use_github_actions_badge("R-CMD-check.yaml") # Trial
     }
   }
   if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
     pkgdown::build_favicons()
   }
   ready4::write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
-                  source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
-                  fl_nm_1L_chr = "fav120.png")
+                          source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
+                          fl_nm_1L_chr = "fav120.png")
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
   if(!identical(addl_badges_ls,list())){

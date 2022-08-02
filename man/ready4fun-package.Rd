@@ -6,11 +6,11 @@
 \alias{ready4fun-package}
 \title{ready4fun: Author and Document Functions that Extend the Ready4 Framework}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 ready4fun is a toolkit for implementing a standardised workflow to author and document functions that extend the ready4 framework for open science computational models of mental health systems. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 ready4fun is a toolkit for implementing a standardised workflow to author and document functions that extend the ready4 framework for open science computational models of mental health systems. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 }
@@ -32,21 +32,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton@orygen.org.au} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
-
-Authors:
-\itemize{
-  \item Glen Wiesner \email{Glen.Wiesner@vu.edu.au} (\href{https://orcid.org/0000-0002-0071-130X}{ORCID})
-}
-
-Other contributors:
-\itemize{
-  \item Orygen [copyright holder, funder]
-  \item VicHealth [funder]
-  \item Victoria University [funder]
-}
-
-
 \strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton@orygen.org.au} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
 
 Authors:

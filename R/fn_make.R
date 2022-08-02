@@ -930,6 +930,8 @@ make_lines_for_fn_dmt <- function (fn_name_1L_chr, fn_type_1L_chr, fn = NULL, fn
 #' @importFrom purrr pluck discard
 #' @importFrom stringr str_trim str_remove
 #' @importFrom utils data
+#' @importFrom gert git_branch_list
+#' @importFrom dplyr pull
 #' @keywords internal
 make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_chr = deprecated(), 
     add_gh_site_1L_lgl = T, addl_badges_ls = list(), addl_pkgs_ls = make_addl_pkgs_ls(), 
@@ -961,6 +963,37 @@ make_manifest <- function (pkg_desc_ls, copyright_holders_chr, pkg_dmt_dv_dss_ch
     }
     if (identical(badges_lup, tibble::tibble())) {
         utils::data("badges_lup", package = "ready4fun", envir = environment())
+    }
+    if (check_type_1L_chr == "ready4") {
+        CI_url_1L_chr <- paste0("https://github.com/", gh_repo_1L_chr, 
+            "/actions/workflows/", "R-CMD-check.yaml")
+        CI_img_1L_chr <- paste0(CI_url_1L_chr, "/badge.svg")
+        CI_badge_1L_chr <- paste0("[![", "R-CMD-check", "](", 
+            CI_img_1L_chr, ")](", CI_url_1L_chr, ")")
+        badges_lup <- badges_lup %>% tibble::add_case(badge_names_chr = "R-CMD-check", 
+            label_names_chr = "CI", badges_chr = CI_badge_1L_chr)
+        append_ls <- append(append_ls, list(`R-CMD-check` = "CI"))
+    }
+    if (dir.exists(paste0(path_to_pkg_rt_1L_chr, "/tests"))) {
+        testcov_url_1L_chr <- paste0("https://github.com/", gh_repo_1L_chr, 
+            "/actions/workflows/", "test-coverage.yaml")
+        testcov_img_1L_chr <- paste0(testcov_url_1L_chr, "/badge.svg")
+        testcov_badge_1L_chr <- paste0("[![", "test-coverage", 
+            "](", testcov_img_1L_chr, ")](", testcov_url_1L_chr, 
+            ")")
+        codecov_url_1L_chr <- paste0("https://codecov.io/gh/", 
+            gh_repo_1L_chr)
+        codecov_img_1L_chr <- paste0(codecov_url_1L_chr, "/branch/", 
+            ifelse("main" %in% (gert::git_branch_list() %>% dplyr::pull(name)), 
+                "main", "master"), "/graph/badge.svg")
+        codecov_badge_1L_chr <- paste0("[![", "codecov", "](", 
+            codecov_img_1L_chr, ")](", codecov_url_1L_chr, ")")
+        badges_lup <- badges_lup %>% tibble::add_case(badge_names_chr = "test-coverage", 
+            label_names_chr = "Tests", badges_chr = testcov_badge_1L_chr) %>% 
+            tibble::add_case(badge_names_chr = "codecov", label_names_chr = "Coverage", 
+                badges_chr = codecov_badge_1L_chr)
+        append_ls <- append(append_ls, list(`test-coverage` = "Tests", 
+            codecov = "Coverage"))
     }
     if (!identical(zenodo_badge_1L_chr, character(0))) {
         badges_lup <- badges_lup %>% tibble::add_case(badge_names_chr = "DOI", 

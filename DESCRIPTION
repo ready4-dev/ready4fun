@@ -1,6 +1,6 @@
 Package: ready4fun
 Title: Author and Document Functions that Extend the Ready4 Framework
-Version: 0.0.0.9509
+Version: 0.0.0.9510
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -23,11 +23,12 @@ URL: https://ready4-dev.github.io/ready4fun/,
     https://github.com/ready4-dev/ready4fun, https://www.ready4-dev.com/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     desc,
     devtools,
     dplyr,
+    gert,
     Hmisc,
     knitr,
     lifecycle,
@@ -38,8 +39,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show (>= 0.0.0.9095),
-    ready4use (>= 0.0.0.9220),
+    ready4show,
+    ready4use,
     rlang,
     sinew,
     stats,
@@ -60,7 +61,5 @@ Depends:
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes:  
-    ready4-dev/ready4,
-    ready4-dev/ready4use,
-    ready4-dev/ready4show
+Remotes: 
+    ready4-dev/ready4

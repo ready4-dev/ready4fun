@@ -104,29 +104,6 @@ write_all_fn_dmt <- function (pkg_setup_ls, fns_env_ls, document_unexp_lgl = F, 
     }
     return(s4_mthds_ls)
 }
-#' Write all tibbles in tibbles ready4 S4 to comma separated variables files
-#' @description write_all_tbs_in_tbs_r4_to_csvs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all tibbles in tibbles ready4 s4 to comma separated variables files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
-#' @param tbs_r4 Tibbles (a ready4 S4)
-#' @param r4_name_1L_chr Ready4 S4 name (a character vector of length one)
-#' @param lup_dir_1L_chr Lookup table directory (a character vector of length one)
-#' @param pfx_1L_chr Prefix (a character vector of length one)
-#' @return NULL
-#' @rdname write_all_tbs_in_tbs_r4_to_csvs
-#' @export 
-#' @importFrom lifecycle deprecate_soft
-#' @importFrom purrr walk
-#' @importFrom methods getSlots
-#' @importFrom ready4 write_tb_to_csv
-#' @keywords internal
-write_all_tbs_in_tbs_r4_to_csvs <- function (tbs_r4, r4_name_1L_chr, lup_dir_1L_chr, pfx_1L_chr) 
-{
-    lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::write_all_tbs_in_tbs_r4_to_csvs()", 
-        "ready4::write_all_tbs_in_tbs_r4_to_csvs()")
-    purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(), 
-        ~ready4::write_tb_to_csv(tbs_r4 = tbs_r4, slot_nm_1L_chr = .x, 
-            r4_name_1L_chr = r4_name_1L_chr, lup_dir_1L_chr = lup_dir_1L_chr, 
-            pfx_1L_chr = pfx_1L_chr))
-}
 #' Write and document dataset
 #' @description write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
 #' @param db_df Database (a data.frame)
@@ -849,7 +826,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), pkg_url_1L
                   "  - text: Manual - Developer (PDF)", NA_character_), 
                 ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", 
                   developer_manual_url_1L_chr), NA_character_), 
-                ifelse(!is.na(project_website_url_1L_chr), "  - text: ready4 framework", 
+                ifelse(!is.na(project_website_url_1L_chr), "  - text: readyforwhatsnext", 
                   NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
                   paste0("    href: ", project_website_url_1L_chr), 
                   NA_character_), txt_chr) %>% stats::na.omit()

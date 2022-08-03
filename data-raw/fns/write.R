@@ -90,18 +90,18 @@ write_all_fn_dmt <- function(pkg_setup_ls,
   }
   return(s4_mthds_ls)
 }
-write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
-                                            r4_name_1L_chr,
-                                            lup_dir_1L_chr,
-                                            pfx_1L_chr){
-  lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::write_all_tbs_in_tbs_r4_to_csvs()", "ready4::write_all_tbs_in_tbs_r4_to_csvs()")
-  purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(),
-              ~ ready4::write_tb_to_csv(tbs_r4 = tbs_r4,
-                                slot_nm_1L_chr = .x,
-                                r4_name_1L_chr = r4_name_1L_chr,
-                                lup_dir_1L_chr = lup_dir_1L_chr,
-                                pfx_1L_chr = pfx_1L_chr))
-}
+# write_all_tbs_in_tbs_r4_to_csvs <- function(tbs_r4,
+#                                             r4_name_1L_chr,
+#                                             lup_dir_1L_chr,
+#                                             pfx_1L_chr){
+#   lifecycle::deprecate_soft("0.0.0.9446", "ready4fun::write_all_tbs_in_tbs_r4_to_csvs()", "ready4::write_all_tbs_in_tbs_r4_to_csvs()")
+#   purrr::walk(methods::getSlots(r4_name_1L_chr) %>% names(),
+#               ~ ready4::write_tb_to_csv(tbs_r4 = tbs_r4,
+#                                 slot_nm_1L_chr = .x,
+#                                 r4_name_1L_chr = r4_name_1L_chr,
+#                                 lup_dir_1L_chr = lup_dir_1L_chr,
+#                                 pfx_1L_chr = pfx_1L_chr))
+# }
 write_and_doc_ds <- function(db_df,
                              overwrite_1L_lgl = T,
                              db_1L_chr,
@@ -906,7 +906,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                      ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(project_website_url_1L_chr), "  - text: ready4 framework", NA_character_),
+                     ifelse(!is.na(project_website_url_1L_chr), "  - text: readyforwhatsnext", NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
                      txt_chr) %>% stats::na.omit()
                  }),

@@ -1,6 +1,6 @@
 # ready4fun
 
-## Author and Document Functions that Extend the Ready4 Framework
+## Author and Document Functions that Apply and Extend the Readyforwhatsnext Model
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml)
@@ -9,13 +9,15 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)
 <!-- badges: end -->
 
-ready4fun is a toolkit for implementing a standardised
-workflow to author and document functions that extend the ready4
-framework for open science computational models of mental health
-systems. The current version of this software is a development
-release, which you should only trial if you feel confident you
-understand what it does and have created a sandpit area in which you
-can safely undertake testing. If you have any questions, please
+ready4fun is a toolkit for authoring and documenting
+functions that extend the readyforwhatsnext open source health
+economic model of systems shaping mental health and wellbeing in young
+people. The toolkit aims to help all developers contributing to the
+readyforwhatsnext model to adopt a common house style in authoring and
+documenting functions. The current version of this software is a
+development release, which you should only trial if you feel confident
+you understand what it does and have created a sandpit area in which
+you can safely undertake testing. If you have any questions, please
 contact the authors (matthew.hamilton@orygen.org.au).
 
 To install a development version of this software, run the following commands in your R console:

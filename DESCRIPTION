@@ -1,6 +1,7 @@
 Package: ready4fun
-Title: Author and Document Functions that Extend the Ready4 Framework
-Version: 0.0.0.9510
+Title: Author and Document Functions that Apply and Extend the
+    Readyforwhatsnext Model
+Version: 0.0.0.9511
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -10,20 +11,22 @@ Authors@R: c(
     person("VicHealth", role = "fnd"),
     person("Victoria University", role = "fnd")
   )
-Description: ready4fun is a toolkit for implementing a standardised
-    workflow to author and document functions that extend the ready4
-    framework for open science computational models of mental health
-    systems. The current version of this software is a development
-    release, which you should only trial if you feel confident you
-    understand what it does and have created a sandpit area in which you
-    can safely undertake testing. If you have any questions, please
+Description: ready4fun is a toolkit for authoring and documenting
+    functions that extend the readyforwhatsnext open source health
+    economic model of systems shaping mental health and wellbeing in young
+    people. The toolkit aims to help all developers contributing to the
+    readyforwhatsnext model to adopt a common house style in authoring and
+    documenting functions. The current version of this software is a
+    development release, which you should only trial if you feel confident
+    you understand what it does and have created a sandpit area in which
+    you can safely undertake testing. If you have any questions, please
     contact the authors (matthew.hamilton@orygen.org.au).
 License: GPL-3 + file LICENSE
 URL: https://ready4-dev.github.io/ready4fun/,
     https://github.com/ready4-dev/ready4fun, https://www.ready4-dev.com/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Imports: 
     desc,
     devtools,
@@ -39,8 +42,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show (>= 0.0.0.9096),
-    ready4use (>= 0.0.0.9220),
+    ready4show,
+    ready4use,
     rlang,
     sinew,
     stats,
@@ -61,7 +64,5 @@ Depends:
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes:  
-    ready4-dev/ready4,
-    ready4-dev/ready4use,
-    ready4-dev/ready4show
+Remotes: 
+    ready4-dev/ready4

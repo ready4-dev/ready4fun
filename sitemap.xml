@@ -91,6 +91,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/force_instl_of_reqd_pkg.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/get_abbrs.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/get_all_depcys_of_fns.html</loc>
   </url>
   <url>
@@ -437,6 +440,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/write_fn_type_dirs.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/write_fns_dmt_tb.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/write_fns_to_split_dests.html</loc>

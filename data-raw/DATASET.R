@@ -1,6 +1,6 @@
 library(lifecycle)
 library(ready4)
-library(ready4show) # Check if this obviates last call to add dev pkg to DESCRIPTION
+library(ready4show)
 library(generics)
 #ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",
@@ -217,6 +217,5 @@ manifest_ls <- pkg_desc_ls %>%
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)
 devtools::build_vignettes()
-#usethis::use_dev_package("ready4use",remote = "ready4-dev/ready4use")
 usethis::use_dev_package("ready4show",remote = "ready4-dev/ready4show")
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

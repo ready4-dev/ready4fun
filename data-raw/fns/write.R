@@ -674,7 +674,7 @@ write_fns_dmt_tb <- function(pkg_setup_ls,
                              gh_repo_desc_1L_chr = "Supplementary Files",
                              gh_tag_1L_chr = "Documentation_0.0"){
   fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb
-  gh_repo_1L_chr <- pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr
+  gh_repo_1L_chr <- pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1]
   fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(file_nm_chr = basename(file_nm_chr))
   ready4::write_env_objs_to_dv(env_objects_ls = list(fns_dmt_tb = fns_dmt_tb),
                                descriptions_chr = NULL,
@@ -1235,6 +1235,8 @@ write_package <- function(pkg_setup_ls,
                      gh_prerelease_1L_lgl = gh_prerelease_1L_lgl,
                      gh_repo_desc_1L_chr = gh_repo_desc_1L_chr ,
                      gh_tag_1L_chr = gh_tag_1L_chr)
+    ready4::write_citation_cff(packageDescription(pkg_setup_ls$initial_ls$pkg_desc_ls$Package),
+                               citation_chr = readLines("inst/CITATION"))
   }
   return(pkg_setup_ls)
 }

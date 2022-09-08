@@ -1,5 +1,6 @@
 library(lifecycle)
 library(ready4)
+library(ready4show) # Check if this obviates last call to add dev pkg to DESCRIPTION
 library(generics)
 #ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",

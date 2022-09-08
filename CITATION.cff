@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Matthew Hamilton and Glen Wiesner  (2022). ready4fun: Author and Document Functions Using the Ready4 Framework House
+Style. Version 0.0.0.9514. Zenodo. https://doi.org/10.5281/zenodo.5611779"
+authors:
+  - family-names: "Hamilton"
+    given-names: "Matthew"
+  - family-names: "Wiesner"
+    given-names: "Glen"
+title: "ready4fun: Author and Document Functions Using the Ready4 Framework House
+Style"
+version: 0.0.0.9514
+doi: 10.5281/zenodo.5611779
+date-released: 2022-09-08
+url: "https://ready4-dev.github.io/ready4fun/"

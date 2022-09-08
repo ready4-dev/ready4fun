@@ -1,6 +1,6 @@
 library(lifecycle)
 library(ready4)
-#library(generics)
+library(generics)
 #ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",
 #                           tag = "0.0.0.9461",
@@ -29,7 +29,7 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                logo_path = "https://github.com/ready4-dev/ready4/releases/download/Documentation_0.0/favicon-16x16.png",#"https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions That Apply and Extend the Readyforwhatsnext Model" %>% tools::toTitleCase(),
+pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions Using The Ready4 Framework House Style" %>% tools::toTitleCase(),
                                                    pkg_desc_1L_chr = "ready4fun is a toolkit for authoring and documenting functions that extend the readyforwhatsnext open source health economic model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to the readyforwhatsnext model to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
                                                    authors_prsn = c(utils::person(
                                                      given = "Matthew",family = "Hamilton",
@@ -189,7 +189,7 @@ constructor_r3 <- dplyr::bind_rows(
                                                                    "format_1L_chr", "object_type_lup", "simple_lup_1L_lgl", "url_1L_chr", "vars_ls")) %>% list())) %>%
   ready4class::ready4class_constructor()
 manifest_ls <- pkg_desc_ls %>%
-  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(depends_chr = c("ready4"),
+  fns_env_ls$fns_env$make_manifest(addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(depends_chr = c("ready4", "generics"),
                                                                                        imports_chr = c("ready4show","ready4use"),
                                                                                        suggests_chr = c("rmarkdown")),
                                    build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #
@@ -216,6 +216,6 @@ manifest_ls <- pkg_desc_ls %>%
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)
 devtools::build_vignettes()
-usethis::use_dev_package("ready4use",remote = "ready4-dev/ready4use")
+#usethis::use_dev_package("ready4use",remote = "ready4-dev/ready4use")
 usethis::use_dev_package("ready4show",remote = "ready4-dev/ready4show")
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

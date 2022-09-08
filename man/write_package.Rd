@@ -7,6 +7,9 @@
 write_package(
   pkg_setup_ls,
   dv_url_pfx_1L_chr = character(0),
+  gh_prerelease_1L_lgl = T,
+  gh_repo_desc_1L_chr = "Supplementary Files",
+  gh_tag_1L_chr = "Documentation_0.0",
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = T,
   publish_dv_1L_lgl = T,
@@ -23,6 +26,12 @@ write_package(
 \item{pkg_setup_ls}{Package setup (a list)}
 
 \item{dv_url_pfx_1L_chr}{Dataverse url prefix (a character vector of length one), Default: character(0)}
+
+\item{gh_prerelease_1L_lgl}{Github prerelease (a logical vector of length one), Default: T}
+
+\item{gh_repo_desc_1L_chr}{Github repository description (a character vector of length one), Default: 'Supplementary Files'}
+
+\item{gh_tag_1L_chr}{Github tag (a character vector of length one), Default: 'Documentation_0.0'}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 

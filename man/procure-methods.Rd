@@ -3,7 +3,7 @@
 \name{procure.ready4fun_manifest}
 \alias{procure.ready4fun_manifest}
 \alias{procure,ready4fun_manifest-method}
-\title{Procure (get) data}
+\title{Procure items from a dataset}
 \usage{
 procure.ready4fun_manifest(x, type_1L_chr)
 

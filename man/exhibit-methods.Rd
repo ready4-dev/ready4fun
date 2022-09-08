@@ -7,7 +7,7 @@
 \alias{exhibit,ready4fun_functions-method}
 \alias{exhibit.ready4fun_objects}
 \alias{exhibit,ready4fun_objects-method}
-\title{Exhibit (print to console) features of a ready4 framework module (or sub-module)}
+\title{Exhibit features of a dataset by printing them to the R console}
 \usage{
 exhibit.ready4fun_abbreviations(
   x,

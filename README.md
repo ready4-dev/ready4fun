@@ -1,6 +1,6 @@
 # ready4fun
 
-## Author and Document Functions that Apply and Extend the Readyforwhatsnext Model
+## Author and Document Functions Using the Ready4 Framework House Style
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml)

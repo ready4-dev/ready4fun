@@ -1,3 +1,33 @@
+#' Get abbreviations
+#' @description get_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get abbreviations. Function argument text_1L_chr specifies the where to look for the required object. The function returns Abbreviations (a lookup table).
+#' @param text_1L_chr Text (a character vector of length one)
+#' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param search_descs_1L_lgl Search descriptions (a logical vector of length one), Default: T
+#' @return Abbreviations (a lookup table)
+#' @rdname get_abbrs
+#' @export 
+#' @importFrom ready4use Ready4useRepos
+#' @importFrom dplyr filter
+#' @importFrom purrr map_lgl
+#' @importFrom stringr str_detect
+#' @keywords internal
+get_abbrs <- function (text_1L_chr, abbreviations_lup = NULL, search_descs_1L_lgl = T) 
+{
+    if (is.null(abbreviations_lup)) {
+        abbreviations_lup <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4", 
+            gh_tag_1L_chr = "Documentation_0.0") %>% ingest(fls_to_ingest_chr = c("abbreviations_lup"), 
+            metadata_1L_lgl = F)
+    }
+    if (!search_descs_1L_lgl) {
+        abbreviations_lup <- abbreviations_lup %>% dplyr::filter(short_name_chr %>% 
+            purrr::map_lgl(~startsWith(.x, text_1L_chr)))
+    }
+    else {
+        abbreviations_lup <- abbreviations_lup %>% dplyr::filter(long_name_chr %>% 
+            purrr::map_lgl(~stringr::str_detect(.x, text_1L_chr)))
+    }
+    return(abbreviations_lup)
+}
 #' Get all dependencies of functions
 #' @description get_all_depcys_of_fns() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get all dependencies of functions. Function argument pkg_depcy_ls specifies the where to look for the required object. The function returns Functions to keep (a character vector).
 #' @param pkg_depcy_ls Package dependency (a list)

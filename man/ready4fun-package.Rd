@@ -4,7 +4,7 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Author and Document Functions that Apply and Extend the Readyforwhatsnext Model}
+\title{ready4fun: Author and Document Functions Using the Ready4 Framework House Style}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

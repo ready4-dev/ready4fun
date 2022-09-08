@@ -9,7 +9,7 @@
 \alias{renew,ready4fun_manifest-method}
 \alias{renew.ready4fun_objects}
 \alias{renew,ready4fun_objects-method}
-\title{Renew (update) a ready4 framework module (or sub-module)}
+\title{Renew values in a dataset}
 \usage{
 renew.ready4fun_abbreviations(
   x,

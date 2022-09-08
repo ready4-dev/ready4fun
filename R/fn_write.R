@@ -712,6 +712,29 @@ write_fn_type_dirs <- function (path_1L_chr = "data-raw")
     undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
     ready4::write_new_dirs(undocumented_fns_dir_chr)
 }
+#' Write functions documentation tibble
+#' @description write_fns_dmt_tb() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions documentation tibble. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+#' @param pkg_setup_ls Package setup (a list)
+#' @param gh_prerelease_1L_lgl Github prerelease (a logical vector of length one), Default: T
+#' @param gh_repo_desc_1L_chr Github repository description (a character vector of length one), Default: 'Supplementary Files'
+#' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
+#' @return NULL
+#' @rdname write_fns_dmt_tb
+#' @export 
+#' @importFrom dplyr mutate
+#' @importFrom ready4 write_env_objs_to_dv
+#' @keywords internal
+write_fns_dmt_tb <- function (pkg_setup_ls, gh_prerelease_1L_lgl = T, gh_repo_desc_1L_chr = "Supplementary Files", 
+    gh_tag_1L_chr = "Documentation_0.0") 
+{
+    fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb
+    gh_repo_1L_chr <- pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr
+    fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(file_nm_chr = basename(file_nm_chr))
+    ready4::write_env_objs_to_dv(env_objects_ls = list(fns_dmt_tb = fns_dmt_tb), 
+        descriptions_chr = NULL, ds_url_1L_chr = character(0), 
+        piggyback_desc_1L_chr = gh_repo_desc_1L_chr, piggyback_tag_1L_chr = gh_tag_1L_chr, 
+        piggyback_to_1L_chr = gh_repo_1L_chr, prerelease_1L_lgl = gh_prerelease_1L_lgl)
+}
 #' Write functions to split destinations
 #' @description write_fns_to_split_dests() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions to split destinations. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
 #' @param pkg_depcy_ls Package dependency (a list)
@@ -826,7 +849,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), pkg_url_1L
                   "  - text: Manual - Developer (PDF)", NA_character_), 
                 ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", 
                   developer_manual_url_1L_chr), NA_character_), 
-                ifelse(!is.na(project_website_url_1L_chr), "  - text: readyforwhatsnext", 
+                ifelse(!is.na(project_website_url_1L_chr), "  - text: Framework", 
                   NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
                   paste0("    href: ", project_website_url_1L_chr), 
                   NA_character_), txt_chr) %>% stats::na.omit()
@@ -1256,6 +1279,9 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @description write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: character(0)
+#' @param gh_prerelease_1L_lgl Github prerelease (a logical vector of length one), Default: T
+#' @param gh_repo_desc_1L_chr Github repository description (a character vector of length one), Default: 'Supplementary Files'
+#' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: T
 #' @param publish_dv_1L_lgl Publish dataverse (a logical vector of length one), Default: T
@@ -1272,11 +1298,13 @@ write_ns_imps_to_desc <- function (dev_pkgs_chr = NA_character_, incr_ver_1L_lgl
 #' @importFrom lifecycle is_present deprecate_warn
 #' @importFrom rlang exec
 #' @keywords internal
-write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    list_generics_1L_lgl = T, publish_dv_1L_lgl = T, self_serve_1L_lgl = F, 
-    self_serve_fn_ls = NULL, server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), 
-    cls_fn_ls = deprecated(), path_to_dmt_dir_1L_chr = deprecated(), 
-    pkg_desc_ls = deprecated(), pkg_ds_ls_ls = deprecated()) 
+write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), gh_prerelease_1L_lgl = T, 
+    gh_repo_desc_1L_chr = "Supplementary Files", gh_tag_1L_chr = "Documentation_0.0", 
+    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), list_generics_1L_lgl = T, 
+    publish_dv_1L_lgl = T, self_serve_1L_lgl = F, self_serve_fn_ls = NULL, 
+    server_1L_chr = Sys.getenv("DATAVERSE_SERVER"), cls_fn_ls = deprecated(), 
+    path_to_dmt_dir_1L_chr = deprecated(), pkg_desc_ls = deprecated(), 
+    pkg_ds_ls_ls = deprecated()) 
 {
     if (lifecycle::is_present(pkg_desc_ls)) {
         lifecycle::deprecate_warn("0.0.0.9333", "ready4fun::write_package(pkg_desc_ls)", 
@@ -1312,6 +1340,8 @@ write_package <- function (pkg_setup_ls, dv_url_pfx_1L_chr = character(0), key_1
             list_generics_1L_lgl = list_generics_1L_lgl)
         write_manuals(pkg_setup_ls = pkg_setup_ls, key_1L_chr = key_1L_chr, 
             server_1L_chr = server_1L_chr)
+        write_fns_dmt_tb(pkg_setup_ls, gh_prerelease_1L_lgl = gh_prerelease_1L_lgl, 
+            gh_repo_desc_1L_chr = gh_repo_desc_1L_chr, gh_tag_1L_chr = gh_tag_1L_chr)
     }
     return(pkg_setup_ls)
 }

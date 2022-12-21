@@ -6,7 +6,7 @@
 #' @param plural_lgl Plural (a logical vector), Default: NA
 #' @param filter_cdn_1L_chr Filter condition (a character vector of length one), Default: 'NA'
 #' @param new_cases_r3 New cases (a ready4 S3), Default: NULL
-#' @param slice_idxs_int Slice indices (an integer vector), Default: NA
+#' @param slice_indcs_int Slice indices (an integer vector), Default: NA
 #' @return x (An object)
 #' @rdname renew-methods
 #' @export 
@@ -15,10 +15,10 @@
 #' @importFrom tibble tibble
 renew.ready4fun_abbreviations <- function (x, short_name_chr = NA_character_, long_name_chr = NA_character_, 
     plural_lgl = NA, filter_cdn_1L_chr = NA_character_, new_cases_r3 = NULL, 
-    slice_idxs_int = NA_integer_) 
+    slice_indcs_int = NA_integer_) 
 {
     x <- ready4::update_tb_r3(x, filter_cdn_1L_chr = filter_cdn_1L_chr, 
-        slice_idxs_int = slice_idxs_int)
+        slice_indcs_int = slice_indcs_int)
     x <- dplyr::bind_rows(x, tibble::tibble(short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, plural_lgl = plural_lgl))
     if (!is.null(new_cases_r3)) {
@@ -41,7 +41,7 @@ methods::setMethod("renew", methods::className("ready4fun_abbreviations", packag
 #' @param is_method_lgl Is method (a logical vector), Default: NA
 #' @param filter_cdn_1L_chr Filter condition (a character vector of length one), Default: 'NA'
 #' @param new_cases_r3 New cases (a ready4 S3), Default: NULL
-#' @param slice_idxs_int Slice indices (an integer vector), Default: NA
+#' @param slice_indcs_int Slice indices (an integer vector), Default: NA
 #' @return x (An object)
 #' @rdname renew-methods
 #' @export 
@@ -51,10 +51,10 @@ methods::setMethod("renew", methods::className("ready4fun_abbreviations", packag
 renew.ready4fun_functions <- function (x, fn_type_nm_chr = NA_character_, fn_type_desc_chr = NA_character_, 
     first_arg_desc_chr = NA_character_, second_arg_desc_chr = NA_character_, 
     is_generic_lgl = NA, is_method_lgl = NA, filter_cdn_1L_chr = NA_character_, 
-    new_cases_r3 = NULL, slice_idxs_int = NA_integer_) 
+    new_cases_r3 = NULL, slice_indcs_int = NA_integer_) 
 {
     x <- ready4::update_tb_r3(x, filter_cdn_1L_chr = filter_cdn_1L_chr, 
-        slice_idxs_int = slice_idxs_int)
+        slice_indcs_int = slice_indcs_int)
     x <- dplyr::bind_rows(x, tibble::tibble(fn_type_nm_chr = fn_type_nm_chr, 
         fn_type_desc_chr = fn_type_desc_chr, first_arg_desc_chr = first_arg_desc_chr, 
         second_arg_desc_chr = second_arg_desc_chr, is_generic_lgl = is_generic_lgl, 
@@ -131,7 +131,7 @@ methods::setMethod("renew", methods::className("ready4fun_manifest", package = "
 #' @param r3_can_extend_lgl Ready4 S3 can extend (a logical vector), Default: NA
 #' @param filter_cdn_1L_chr Filter condition (a character vector of length one), Default: 'NA'
 #' @param new_cases_r3 New cases (a ready4 S3), Default: NULL
-#' @param slice_idxs_int Slice indices (an integer vector), Default: NA
+#' @param slice_indcs_int Slice indices (an integer vector), Default: NA
 #' @return x (An object)
 #' @rdname renew-methods
 #' @export 
@@ -140,10 +140,10 @@ methods::setMethod("renew", methods::className("ready4fun_manifest", package = "
 #' @importFrom tibble tibble
 renew.ready4fun_objects <- function (x, short_name_chr = NA_character_, long_name_chr = NA_character_, 
     atomic_element_lgl = NA, r3_can_extend_lgl = NA, filter_cdn_1L_chr = NA_character_, 
-    new_cases_r3 = NULL, slice_idxs_int = NA_integer_) 
+    new_cases_r3 = NULL, slice_indcs_int = NA_integer_) 
 {
     x <- ready4::update_tb_r3(x, filter_cdn_1L_chr = filter_cdn_1L_chr, 
-        slice_idxs_int = slice_idxs_int)
+        slice_indcs_int = slice_indcs_int)
     x <- dplyr::bind_rows(x, tibble::tibble(short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr, atomic_element_lgl = atomic_element_lgl, 
         r3_can_extend_lgl = r3_can_extend_lgl))

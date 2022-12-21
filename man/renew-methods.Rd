@@ -18,7 +18,7 @@ renew.ready4fun_abbreviations(
   plural_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 
 \S4method{renew}{ready4fun_abbreviations}(
@@ -28,7 +28,7 @@ renew.ready4fun_abbreviations(
   plural_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 
 renew.ready4fun_functions(
@@ -41,7 +41,7 @@ renew.ready4fun_functions(
   is_method_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 
 \S4method{renew}{ready4fun_functions}(
@@ -54,7 +54,7 @@ renew.ready4fun_functions(
   is_method_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 
 renew.ready4fun_manifest(
@@ -91,7 +91,7 @@ renew.ready4fun_objects(
   r3_can_extend_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 
 \S4method{renew}{ready4fun_objects}(
@@ -102,7 +102,7 @@ renew.ready4fun_objects(
   r3_can_extend_lgl = NA,
   filter_cdn_1L_chr = NA_character_,
   new_cases_r3 = NULL,
-  slice_idxs_int = NA_integer_
+  slice_indcs_int = NA_integer_
 )
 }
 \arguments{
@@ -118,7 +118,7 @@ renew.ready4fun_objects(
 
 \item{new_cases_r3}{New cases (a ready4 S3), Default: NULL}
 
-\item{slice_idxs_int}{Slice indices (an integer vector), Default: NA}
+\item{slice_indcs_int}{Slice indices (an integer vector), Default: NA}
 
 \item{fn_type_nm_chr}{Function type name (a character vector), Default: 'NA'}
 

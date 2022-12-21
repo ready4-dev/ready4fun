@@ -287,34 +287,26 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
   }
 }
 write_citation_fl <- function(pkg_setup_ls){
-  template_chr <- system.file("CITATION",package = "ready4") %>% readLines()
+  template_chr <- system.file("CITATION", package = "ready4") %>%
+    readLines()
   authors_psn <- pkg_setup_ls$initial_ls$pkg_desc_ls$`Authors@R`
-  authors_psn <- authors_psn[authors_psn %>% stringr::str_detect("\\[aut") %>% suppressWarnings()]
-  end_pts_df <- authors_psn %>% stringr::str_locate(" \\<| \\[") %>% suppressWarnings()
-  authors_chr <- authors_psn %>%
-    as.character() %>%
-    purrr::map2_chr((end_pts_df[,1]-1),
-                    ~ .x %>% stringr::str_sub(end = .y)
-    )
-  url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% strsplit(", ") %>% purrr::flatten_chr() %>% purrr::pluck(1)
-  authors_alg_1L_chr <- paste0("c(",
-                               authors_chr %>%
-                                 purrr::map_chr( ~{
-                                   split_chr <- .x %>%
-                                     strsplit(" ") %>%
-                                     purrr::flatten_chr()
-                                   paste0("person(\"",
-                                          paste(split_chr[1:(length(split_chr)-1)],
-                                                collapse = " "),
-                                          "\", \"",
-                                          split_chr[length(split_chr)],
-                                          "\")")
-                                 }) %>%
-                                 paste0(collapse = ", "),")")
-  doi_idx_1L_int <- template_chr %>% startsWith("  doi      = \"") %>% which()
+  authors_psn <- authors_psn[authors_psn %>% purrr::map_lgl(~"aut" %in% .x$role)]#
+  # end_pts_df <- authors_psn %>% stringr::str_locate(" \\<| \\[") %>%
+  #   suppressWarnings()
+  authors_chr <- authors_psn %>% as.character() #%>% purrr::map2_chr((end_pts_df[,
+  #                               1] - 1), ~.x %>% stringr::str_sub(end = .y))
+  url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
+    strsplit(", ") %>% purrr::flatten_chr() %>% purrr::pluck(1)
+  authors_alg_1L_chr <- paste0("c(", authors_chr %>% purrr::map_chr(~{
+    split_chr <- .x %>% strsplit(" ") %>% purrr::flatten_chr()
+    paste0("person(\"", paste(split_chr[1:(length(split_chr) -
+                                             1)], collapse = " "), "\", \"", split_chr[length(split_chr)],
+           "\")")
+  }) %>% paste0(collapse = ", "), ")")
+  doi_idx_1L_int <- template_chr %>% startsWith("  doi      = \"") %>%
+    which()
   doi_badge_1L_chr <- pkg_setup_ls$initial_ls$badges_lup %>%
-    ready4::get_from_lup_obj(match_value_xx = "DOI",
-                             match_var_nm_1L_chr = "badge_names_chr",
+    ready4::get_from_lup_obj(match_value_xx = "DOI", match_var_nm_1L_chr = "badge_names_chr",
                              target_var_nm_1L_chr = "badges_chr")
   new_doi_1L_chr <- ifelse(!identical(doi_badge_1L_chr, character(0)),
                            paste0("  doi      = \"",
@@ -328,24 +320,32 @@ write_citation_fl <- function(pkg_setup_ls){
                            template_chr[doi_idx_1L_int])
   citation_chr <- template_chr
   citation_chr[doi_idx_1L_int] <- new_doi_1L_chr
-  author_idx_1L_int <- template_chr %>% startsWith("  author   = ") %>% which()
-  citation_chr[author_idx_1L_int] <- paste0("  author   = ",authors_alg_1L_chr,",")
-  year_idx_1L_int <- template_chr %>% startsWith("  year     = \"")  %>% which()
-  citation_chr[year_idx_1L_int] <- paste0("  year     = \"",format(Sys.Date(), "%Y"),"\",")
-  url_idx_1L_int <- template_chr %>% startsWith("  url      = \"") %>% which()
+  author_idx_1L_int <- template_chr %>% startsWith("  author   = ") %>%
+    which()
+  citation_chr[author_idx_1L_int] <- paste0("  author   = ",
+                                            authors_alg_1L_chr, ",")
+  year_idx_1L_int <- template_chr %>% startsWith("  year     = \"") %>%
+    which()
+  citation_chr[year_idx_1L_int] <- paste0("  year     = \"",
+                                          format(Sys.Date(), "%Y"), "\",")
+  url_idx_1L_int <- template_chr %>% startsWith("  url      = \"") %>%
+    which()
   citation_chr[url_idx_1L_int] <- paste0("  url      = \"",
-                                         url_1L_chr,
-                                         "\",")
-  text_vrsn_idx_1L_int <- template_chr %>% startsWith("  textVersion = paste(\"") %>% which()
+                                         url_1L_chr, "\",")
+  text_vrsn_idx_1L_int <- template_chr %>% startsWith("  textVersion = paste(\"") %>%
+    which()
   citation_chr[text_vrsn_idx_1L_int] <- paste0("  textVersion = paste(\"",
-                                               ready4::make_list_phrase(authors_chr),
-                                               " \",")
-  citation_chr[text_vrsn_idx_1L_int+1] <- paste0("  \"(",format(Sys.Date(), "%Y"),").\",")
-  doi_two_idx_1L_int <- 1 + (template_chr %>% startsWith("  paste0(\"https://doi.org/\"") %>% which())
-  citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>% stringr::str_remove("  doi      = ") %>% stringi::stri_replace_last_regex(",",")")
-    if(!file.exists("inst/CITATION"))
+                                               ready4::make_list_phrase(authors_chr), " \",")
+  citation_chr[text_vrsn_idx_1L_int + 1] <- paste0("  \"(",
+                                                   format(Sys.Date(), "%Y"), ").\",")
+  doi_two_idx_1L_int <- 1 + (template_chr %>% startsWith("  paste0(\"https://doi.org/\"") %>%
+                               which())
+  citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>% stringr::str_remove("  doi      = ") %>%
+    stringi::stri_replace_last_regex(",", ")")
+  if (!file.exists("inst/CITATION"))
     usethis::use_citation()
-  ready4::write_new_files("inst/CITATION", fl_nm_1L_chr = "CITATION", text_ls = list(citation_chr))
+  ready4::write_new_files("inst/CITATION", fl_nm_1L_chr = "CITATION",
+                          text_ls = list(citation_chr))
 }
 write_clss <- function(pkg_setup_ls,
                        key_1L_chr = NULL,
@@ -786,7 +786,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                      ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
                      ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(project_website_url_1L_chr), "  - text: Framework", NA_character_),
+                     ifelse(!is.na(project_website_url_1L_chr), "  - text: Model", NA_character_),
                      ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
                      txt_chr) %>% stats::na.omit()
                  }),

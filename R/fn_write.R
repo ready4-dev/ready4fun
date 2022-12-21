@@ -301,9 +301,9 @@ write_and_doc_fn_fls <- function (pkg_setup_ls, make_pdfs_1L_lgl = T, update_pkg
 #' @return NULL
 #' @rdname write_citation_fl
 #' @export 
-#' @importFrom stringr str_detect str_locate str_sub str_remove
-#' @importFrom purrr map2_chr flatten_chr pluck map_chr
+#' @importFrom purrr map_lgl flatten_chr pluck map_chr
 #' @importFrom ready4 get_from_lup_obj make_list_phrase write_new_files
+#' @importFrom stringr str_sub str_locate str_remove
 #' @importFrom stringi stri_replace_last_regex
 #' @importFrom usethis use_citation
 #' @keywords internal
@@ -312,12 +312,9 @@ write_citation_fl <- function (pkg_setup_ls)
     template_chr <- system.file("CITATION", package = "ready4") %>% 
         readLines()
     authors_psn <- pkg_setup_ls$initial_ls$pkg_desc_ls$`Authors@R`
-    authors_psn <- authors_psn[authors_psn %>% stringr::str_detect("\\[aut") %>% 
-        suppressWarnings()]
-    end_pts_df <- authors_psn %>% stringr::str_locate(" \\<| \\[") %>% 
-        suppressWarnings()
-    authors_chr <- authors_psn %>% as.character() %>% purrr::map2_chr((end_pts_df[, 
-        1] - 1), ~.x %>% stringr::str_sub(end = .y))
+    authors_psn <- authors_psn[authors_psn %>% purrr::map_lgl(~"aut" %in% 
+        .x$role)]
+    authors_chr <- authors_psn %>% as.character()
     url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>% 
         strsplit(", ") %>% purrr::flatten_chr() %>% purrr::pluck(1)
     authors_alg_1L_chr <- paste0("c(", authors_chr %>% purrr::map_chr(~{
@@ -849,7 +846,7 @@ write_links_for_website <- function (path_to_pkg_rt_1L_chr = getwd(), pkg_url_1L
                   "  - text: Manual - Developer (PDF)", NA_character_), 
                 ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", 
                   developer_manual_url_1L_chr), NA_character_), 
-                ifelse(!is.na(project_website_url_1L_chr), "  - text: Framework", 
+                ifelse(!is.na(project_website_url_1L_chr), "  - text: Model", 
                   NA_character_), ifelse(!is.na(project_website_url_1L_chr), 
                   paste0("    href: ", project_website_url_1L_chr), 
                   NA_character_), txt_chr) %>% stats::na.omit()

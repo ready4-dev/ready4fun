@@ -4,10 +4,10 @@ renew.ready4fun_abbreviations <- function(x,
                                           plural_lgl = NA,
                                           filter_cdn_1L_chr = NA_character_,
                                           new_cases_r3 = NULL,
-                                          slice_idxs_int = NA_integer_){
+                                          slice_indcs_int = NA_integer_){
   x <- ready4::update_tb_r3(x,
                             filter_cdn_1L_chr = filter_cdn_1L_chr,
-                            slice_idxs_int = slice_idxs_int)
+                            slice_indcs_int = slice_indcs_int)
   x <- dplyr::bind_rows(x,
                         tibble::tibble(short_name_chr = short_name_chr,
                                        long_name_chr =long_name_chr,
@@ -28,10 +28,10 @@ renew.ready4fun_functions <- function(x,
                                       is_method_lgl = NA,
                                       filter_cdn_1L_chr = NA_character_,
                                       new_cases_r3 = NULL,
-                                      slice_idxs_int = NA_integer_){
+                                      slice_indcs_int = NA_integer_){
   x <- ready4::update_tb_r3(x,
                             filter_cdn_1L_chr = filter_cdn_1L_chr,
-                            slice_idxs_int = slice_idxs_int)
+                            slice_indcs_int = slice_indcs_int)
   x <- dplyr::bind_rows(x,
                         tibble::tibble(fn_type_nm_chr = fn_type_nm_chr,
                                        fn_type_desc_chr = fn_type_desc_chr,
@@ -98,10 +98,10 @@ renew.ready4fun_objects <- function(x,
                                     r3_can_extend_lgl = NA,
                                     filter_cdn_1L_chr = NA_character_,
                                     new_cases_r3 = NULL,
-                                    slice_idxs_int = NA_integer_){
+                                    slice_indcs_int = NA_integer_){
   x <- ready4::update_tb_r3(x,
                             filter_cdn_1L_chr = filter_cdn_1L_chr,
-                            slice_idxs_int = slice_idxs_int)
+                            slice_indcs_int = slice_indcs_int)
   x <- dplyr::bind_rows(x,
                         tibble::tibble(short_name_chr = short_name_chr,
                                        long_name_chr = long_name_chr,

@@ -4,15 +4,15 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Author and Document Functions Using the Ready4 Framework House Style}
+\title{ready4fun: Author and Document Functions Using the Ready4 House Style}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-ready4fun is a toolkit for authoring and documenting functions that extend the readyforwhatsnext open source health economic model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to the readyforwhatsnext model to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for authoring and documenting functions that extend the ready4 model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-ready4fun is a toolkit for authoring and documenting functions that extend the readyforwhatsnext open source health economic model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to the readyforwhatsnext model to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for authoring and documenting functions that extend the ready4 model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
 }
 \seealso{
 Useful links:

@@ -1,5 +1,5 @@
 ---
-title: "Author Transparent Functions To Extend The Ready4 Framework"
+title: "Author Transparent Functions FOR Ready4 Modules"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -7,7 +7,7 @@ output:
     highlight: null
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{Author Transparent Functions To Extend The Ready4 Framework}
+  %\VignetteIndexEntry{Author Transparent Functions FOR Ready4 Modules}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -22,15 +22,15 @@ library(ready4show)
 
 ## Motivation
 
-The [ready4 framework](https://www.ready4-dev.com/) for open and modular mental health systems models is [implemented using an object-oriented programming (OOP) approach](https://ready4-dev.github.io/ready4class/articles/V_01.html). One motivation for using OOP is the concept of "abstraction" - making things as simple as possible for end-users of `ready4` "methods" (algorithms) by exposing the minimal amount of code required to implement each method.
+The [ready4 youth mental health systems model](https://www.ready4-dev.com/) is [implemented using an object-oriented programming (OOP) approach](https://ready4-dev.github.io/ready4class/articles/V_01.html). One motivation for using OOP is the concept of "abstraction" - making things as simple as possible for end-users of `ready4` modules by exposing the minimal amount of code required to implement each method.
 
-However, some users of the `ready4` framework will want to "look under the hood" and examine the code that implements methods in much more detail. Reasons to do so include to:
+However, some users of the `ready4` modules will want to "look under the hood" and examine the code that implements module algorithms in much more detail. Reasons to do so include to:
 
  - gain detailed insight into how methods are implemented;
  - test individual sub-components ("functions") of methods as part of code verification and model validation checks;
  - re-use functions when authoring new methods.
 
-Therefore when authoring code libraries that extend the `ready4` framework, it is important to ensure that "under the hood" code can be readily understood. Two ways for achieving this goal is to ensure that all functions (even those not intended for use by modeller end-users) are adequately documented and adopt a consistent house style (e.g. naming conventions). ready4fun provides workflow tools (classes, methods, functions and datasets) to achieve these goals.
+Therefore when authoring `ready4` code libraries, it is important to ensure that "under the hood" code can be readily understood. Two ways for achieving this goal is to ensure that all functions (even those not intended for use by modeller end-users) are adequately documented and adopt a consistent house style (e.g. naming conventions). ready4fun provides workflow tools (classes, methods, functions and datasets) to achieve these goals.
 
 ## ready4fun function authoring taxonomies, abbreviations and workflow
 
@@ -50,7 +50,8 @@ Consistent with a naming convention popular in the R development community, all 
 dataset_ls$fn_types_lup %>% 
   ready4fun_functions() %>%
   renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr, pattern = ' ')") %>%
-  exhibit(select_int = 1:2)
+  exhibit(select_int = 1:2,
+          scroll_box_args_ls = list(width = "100%"))
 ```
 
 ### Function inputs and outputs have meaningful suffices
@@ -60,7 +61,8 @@ The type of input (arguments) required and output (return) produced by a functio
 ```{r sfcstb, tab.cap='Meaningful suffices', tab.id = 'sfcstb', results="asis"}
 dataset_ls$seed_obj_type_lup %>% 
   ready4fun_objects() %>%
-  exhibit(select_int = 1:2)
+  exhibit(select_int = 1:2,
+          scroll_box_args_ls = list(width = "100%"))
 ```
 
 ### Consistent use of abbreviations
@@ -70,7 +72,8 @@ Further information about the purpose of a function and the nature of its inputs
 ```{r abbs, tab.cap='Abbreviations', tab.id = 'abbs', results="asis"}
 dataset_ls$abbreviations_lup %>% 
   head() %>%
-  exhibit(select_int = 1:2)
+  exhibit(select_int = 1:2,
+          scroll_box_args_ls = list(width = "100%"))
 ```
 
 ### Workflow

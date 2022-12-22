@@ -15,7 +15,8 @@ exhibit.ready4fun_abbreviations(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 
 \S4method{exhibit}{ready4fun_abbreviations}(
@@ -24,7 +25,8 @@ exhibit.ready4fun_abbreviations(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 
 exhibit.ready4fun_functions(
@@ -33,7 +35,8 @@ exhibit.ready4fun_functions(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 
 \S4method{exhibit}{ready4fun_functions}(
@@ -42,7 +45,8 @@ exhibit.ready4fun_functions(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 
 exhibit.ready4fun_objects(
@@ -51,7 +55,8 @@ exhibit.ready4fun_objects(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 
 \S4method{exhibit}{ready4fun_objects}(
@@ -60,7 +65,8 @@ exhibit.ready4fun_objects(
   mkdn_tbl_ref_1L_chr = NULL,
   output_type_1L_chr = "HTML",
   select_int = NA_integer_,
-  use_lbls_as_col_nms_1L_lgl = T
+  use_lbls_as_col_nms_1L_lgl = T,
+  ...
 )
 }
 \arguments{
@@ -75,6 +81,8 @@ exhibit.ready4fun_objects(
 \item{select_int}{Select (an integer vector), Default: NA}
 
 \item{use_lbls_as_col_nms_1L_lgl}{Use labels as column names (a logical vector of length one), Default: T}
+
+\item{...}{Additional arguments}
 }
 \description{
 exhibit.ready4fun_abbreviations() is an exhibit method that exhibits features of a class instance by printing to console. This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.

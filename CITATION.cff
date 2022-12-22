@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "Matthew Hamilton <matthew.hamilton@orygen.org.au> [aut, cre] (<https://orcid.org/0000-0001-7407-9194>) and Glen Wiesner <Glen.Wiesner@vu.edu.au> [aut] (<https://orcid.org/0000-0002-0071-130X>)  (2022). ready4fun: Author and Document Functions Using the Ready4 House Style. Version 0.0.0.9517. Zenodo. https://doi.org/10.5281/zenodo.5611779"
+message: "Matthew Hamilton <matthew.hamilton@orygen.org.au> [aut, cre] (<https://orcid.org/0000-0001-7407-9194>) and Glen Wiesner <Glen.Wiesner@vu.edu.au> [aut] (<https://orcid.org/0000-0002-0071-130X>)  (2022). ready4fun: Author and Document Functions Using the Ready4 House Style. Version 0.0.0.9520. Zenodo. https://doi.org/10.5281/zenodo.5611779"
 authors:
   - family-names: "(<https://orcid.org/0000-0001-7407-9194>)"
     given-names: "Matthew Hamilton <matthew.hamilton@orygen.org.au> [aut, cre]"
   - family-names: "(<https://orcid.org/0000-0002-0071-130X>)"
     given-names: "Glen Wiesner <Glen.Wiesner@vu.edu.au> [aut]"
 title: "ready4fun: Author and Document Functions Using the Ready4 House Style"
-version: 0.0.0.9517
+version: 0.0.0.9520
 doi: 10.5281/zenodo.5611779
 date-released: 2022-12-22
 url: "https://ready4-dev.github.io/ready4fun/"

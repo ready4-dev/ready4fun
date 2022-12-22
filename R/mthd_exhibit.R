@@ -6,13 +6,15 @@
 #' @param output_type_1L_chr Output type (a character vector of length one), Default: 'HTML'
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
+#' @param ... Additional arguments
 #' @return NULL
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select
 #' @importFrom ready4 exhibit
 exhibit.ready4fun_abbreviations <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_1L_chr = NULL, 
-    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T) 
+    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T, 
+    ...) 
 {
     var_desc_chr <- c("Abbreviation", "Description", "Plural")
     if (!is.na(select_int[1])) {
@@ -21,7 +23,7 @@ exhibit.ready4fun_abbreviations <- function (x, caption_1L_chr = NULL, mkdn_tbl_
     }
     x %>% print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr, 
         output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl, 
-        var_desc_chr = var_desc_chr)
+        var_desc_chr = var_desc_chr, ...)
 }
 #' @rdname exhibit-methods
 #' @aliases exhibit,ready4fun_abbreviations-method
@@ -35,13 +37,15 @@ methods::setMethod("exhibit", methods::className("ready4fun_abbreviations", pack
 #' @param output_type_1L_chr Output type (a character vector of length one), Default: 'HTML'
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
+#' @param ... Additional arguments
 #' @return NULL
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select
 #' @importFrom ready4 exhibit
 exhibit.ready4fun_functions <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_1L_chr = NULL, 
-    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T) 
+    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T, 
+    ...) 
 {
     var_desc_chr = c("Verb", "Description", "Argument One", "Argument Two", 
         "Generic", "Method")
@@ -51,7 +55,7 @@ exhibit.ready4fun_functions <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_
     }
     x %>% print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr, 
         output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl, 
-        var_desc_chr = var_desc_chr)
+        var_desc_chr = var_desc_chr, ...)
 }
 #' @rdname exhibit-methods
 #' @aliases exhibit,ready4fun_functions-method
@@ -65,13 +69,15 @@ methods::setMethod("exhibit", methods::className("ready4fun_functions", package 
 #' @param output_type_1L_chr Output type (a character vector of length one), Default: 'HTML'
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
+#' @param ... Additional arguments
 #' @return NULL
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select
 #' @importFrom ready4 exhibit
 exhibit.ready4fun_objects <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_1L_chr = NULL, 
-    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T) 
+    output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T, 
+    ...) 
 {
     var_desc_chr = c("Suffix", "Description", "Atomic", "Extendable")
     if (!is.na(select_int[1])) {
@@ -80,7 +86,7 @@ exhibit.ready4fun_objects <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_1L
     }
     x %>% print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr, 
         output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl, 
-        var_desc_chr = var_desc_chr)
+        var_desc_chr = var_desc_chr, ...)
 }
 #' @rdname exhibit-methods
 #' @aliases exhibit,ready4fun_objects-method

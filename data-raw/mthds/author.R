@@ -1,4 +1,5 @@
 author.ready4fun_manifest <- function(x,
+                                      consent_1L_chr = "",
                                       key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                                       list_generics_1L_lgl = T,
                                       self_serve_1L_lgl = F,
@@ -21,7 +22,39 @@ author.ready4fun_manifest <- function(x,
     ready4::authorFunctions(x,
                             list_generics_1L_lgl = list_generics_1L_lgl)
     ready4::authorReport(x,
-                   key_1L_chr = key_1L_chr)
+                         key_1L_chr = key_1L_chr)
+    write_fns_dmt_tb(x)
+    if (!consent_1L_chr %in% c("Y", "N")) {
+      consent_1_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to edit the file ",
+                                                           ".github/workflows/R-CMD-check.yaml ?"),
+                                    options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
+    }else{
+      consent_1_1L_chr <- consent_1L_chr
+    }
+    if (consent_1_1L_chr %in% c("Y")) {
+      readLines(".github/workflows/R-CMD-check.yaml") %>%
+        stringr::str_replace_all("r-lib/actions/setup-r@master","r-lib/actions/setup-r@v2") %>%
+        stringr::str_replace_all("r-lib/actions/setup-pandoc@master","r-lib/actions/setup-pandoc@v2") %>%
+        writeLines(con = ".github/workflows/R-CMD-check.yaml")
+    }else {
+      warning("Write request cancelled - no new files have been written.")
+    }
+
+    if(!file.exists("pkgdown/extra.css")){
+      if (!consent_1L_chr %in% c("Y", "N")) {
+        consent_2_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to edit the file ",
+                                                               "pkgdown/extra.css ?"),
+                                        options_chr = c("Y", "N"), force_from_opts_1L_chr = T)
+      }else{
+        consent_2_1L_chr <- consent_1L_chr
+      }
+      if (consent_2_1L_chr %in% c("Y")) {
+        writeLines(c("main table {","  display: table;","}"),
+                   con = "pkgdown/extra.css")
+      }else {
+        warning("Write request cancelled - no new files have been written.")
+      }
+    }
   }
   return(x)
 }

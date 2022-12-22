@@ -39,6 +39,7 @@ renew.ready4fun_functions <- function(x,
                                        second_arg_desc_chr = second_arg_desc_chr,
                                        is_generic_lgl = is_generic_lgl,
                                        is_method_lgl = is_method_lgl))
+  x <- dplyr::filter(x,!is.na(fn_type_nm_chr))
   if(!is.null(new_cases_r3)){
     x <- ready4::add_lups(x,
                           new_lup = new_cases_r3,

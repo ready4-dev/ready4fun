@@ -216,6 +216,8 @@ manifest_ls <- pkg_desc_ls %>%
                                    zenodo_badge_1L_chr = "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)
+# writeLines(c("main table {","  display: table;","}"),
+#            con = "pkgdown/extra.css")
 devtools::build_vignettes()
 usethis::use_dev_package("ready4show",remote = "ready4-dev/ready4show")
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

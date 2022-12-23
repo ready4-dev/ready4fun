@@ -14,11 +14,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, results='hide', message=FALSE, warning=FALSE}
 library(ready4fun)
 ```
+The tools in ready4fun are designed to make it easier to author the functions that implement module algorithms for [ready4 - an open source health economic model of the systems shaping mental health and wellbeing in young people](https://www.ready4-dev.com).
+
 This development version of the `ready4fun` package has been made available as part of the process of testing and documenting the package. 
 
 A brief overview of the intended use of `ready4fun` classes and methods is available at:
 
-- [Author Transparent Functions To Extend The Ready4 Framework](V_01.html)
+- [Author Functions For Ready4 Module Algorithms](V_01.html)

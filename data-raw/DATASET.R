@@ -30,8 +30,9 @@ badges_lup <- tibble::tibble(badge_names_chr = "ready4",
                                                logo_path = "https://github.com/ready4-dev/ready4/releases/download/Documentation_0.0/favicon-16x16.png",#"https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
                                                browser_preview = F,
                                                to_clipboard = F)))
-pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions Using The Ready4 House Style" %>% tools::toTitleCase(),
-                                                   pkg_desc_1L_chr = "ready4fun is a toolkit for authoring and documenting functions that extend the ready4 model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author and Document Functions To Implement Ready4 Algorithms" %>% tools::toTitleCase(),
+                                                   pkg_desc_1L_chr = "ready4fun is a toolkit for authoring and documenting functions that implement algorithms for the ready4 youth mental health systems model (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions.
+                                                   The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
                                                    authors_prsn = c(utils::person(
                                                      given = "Matthew",family = "Hamilton",
                                                      email = "matthew.hamilton@orygen.org.au",
@@ -46,6 +47,7 @@ pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(pkg_title_1L_chr = "Author an
                                                      #person("Jonathan", "Karnon", email ="Jonathan.Karnon@flinders.edu.au", role = c("rev"), comment =c(ORCID = "0000-0003-3220-2099")),
                                                      #person("Petra","Plencnerova", email = "Petra.Plencnerova@vu.edu.au", role =c("rev"), comment = c(ORCID = "0000-0001-9698-9084")),
                                                      utils::person("Orygen", role = c("cph", "fnd")),
+                                                     utils::person("Australian Government Research Training Program", role =c("fnd")),
                                                      utils::person("VicHealth",role = c("fnd")),
                                                      utils::person("Victoria University", role =c("fnd"))),
                                                    urls_chr = c("https://ready4-dev.github.io/ready4fun/",
@@ -216,8 +218,7 @@ manifest_ls <- pkg_desc_ls %>%
                                    zenodo_badge_1L_chr = "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5611779.svg)](https://doi.org/10.5281/zenodo.5611779)")
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
                                                 self_serve_1L_lgl = T)
-# writeLines(c("main table {","  display: table;","}"),
-#            con = "pkgdown/extra.css")
+ready4::write_extra_pkgs_to_actions() # Add to author method once consent has been added to function.
 devtools::build_vignettes()
 usethis::use_dev_package("ready4show",remote = "ready4-dev/ready4show")
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

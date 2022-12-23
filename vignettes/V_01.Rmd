@@ -1,5 +1,5 @@
 ---
-title: "Author Transparent Functions FOR Ready4 Modules"
+title: "Author Functions For Ready4 Module Algorithms"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -7,14 +7,14 @@ output:
     highlight: null
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{Author Transparent Functions FOR Ready4 Modules}
+  %\VignetteIndexEntry{Author Functions For Ready4 Module Algorithms}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
 ```{r echo = F}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r results='hide', message=FALSE}
+```{r results='hide', message=FALSE, warning=FALSE}
 library(ready4fun)
 library(ready4use)
 library(ready4show)

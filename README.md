@@ -1,6 +1,6 @@
 # ready4fun
 
-## Author and Document Functions Using the Ready4 House Style
+## Author and Document Functions to Implement Ready4 Algorithms
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ready4-dev/ready4fun/actions/workflows/R-CMD-check.yaml)
@@ -10,10 +10,10 @@
 <!-- badges: end -->
 
 ready4fun is a toolkit for authoring and documenting
-functions that extend the ready4 model of systems shaping mental
-health and wellbeing in young people. The toolkit aims to help all
-developers contributing to ready4 to adopt a common house style in
-authoring and documenting functions. The current version of this
+functions that implement algorithms for the ready4 youth mental health
+systems model (https://www.ready4-dev.com/). The toolkit aims to help
+all developers contributing to ready4 to adopt a common house style in
+authoring and documenting functions.  The current version of this
 software is a development release, which you should only trial if you
 feel confident you understand what it does and have created a sandpit
 area in which you can safely undertake testing. If you have any

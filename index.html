@@ -6,16 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="ready4fun is a toolkit for authoring and documenting
-    functions that extend the ready4 model of systems shaping mental
-    health and wellbeing in young people. The toolkit aims to help all
-    developers contributing to ready4 to adopt a common house style in
-    authoring and documenting functions. The current version of this
+    functions that implement algorithms for the ready4 youth mental health
+    systems model (https://www.ready4-dev.com/). The toolkit aims to help
+    all developers contributing to ready4 to adopt a common house style in
+    authoring and documenting functions.  The current version of this
     software is a development release, which you should only trial if you
     feel confident you understand what it does and have created a sandpit
     area in which you can safely undertake testing. If you have any
     questions, please contact the authors
     (matthew.hamilton@orygen.org.au).">
-<title>Author and Document Functions Using the Ready4 House Style • ready4fun</title>
+<title>Author and Document Functions to Implement Ready4 Algorithms • ready4fun</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -27,12 +27,12 @@
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Author and Document Functions Using the Ready4 House Style">
+<meta property="og:title" content="Author and Document Functions to Implement Ready4 Algorithms">
 <meta property="og:description" content="ready4fun is a toolkit for authoring and documenting
-    functions that extend the ready4 model of systems shaping mental
-    health and wellbeing in young people. The toolkit aims to help all
-    developers contributing to ready4 to adopt a common house style in
-    authoring and documenting functions. The current version of this
+    functions that implement algorithms for the ready4 youth mental health
+    systems model (https://www.ready4-dev.com/). The toolkit aims to help
+    all developers contributing to ready4 to adopt a common house style in
+    authoring and documenting functions.  The current version of this
     software is a development release, which you should only trial if you
     feel confident you understand what it does and have created a sandpit
     area in which you can safely undertake testing. If you have any
@@ -52,7 +52,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ready4fun</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9520</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9521</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,7 +70,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/V_01.html">Author Transparent Functions FOR Ready4 Modules</a>
+    <a class="dropdown-item" href="articles/V_01.html">Author Functions For Ready4 Module Algorithms</a>
   </div>
 </li>
       </ul>
@@ -98,11 +98,11 @@
 </h1>
 </div>
 <div class="section level2">
-<h2 id="author-and-document-functions-using-the-ready4-house-style">Author and Document Functions Using the Ready4 House Style<a class="anchor" aria-label="anchor" href="#author-and-document-functions-using-the-ready4-house-style"></a>
+<h2 id="author-and-document-functions-to-implement-ready4-algorithms">Author and Document Functions to Implement Ready4 Algorithms<a class="anchor" aria-label="anchor" href="#author-and-document-functions-to-implement-ready4-algorithms"></a>
 </h2>
 <!-- badges: start -->
 
-<p>ready4fun is a toolkit for authoring and documenting functions that extend the ready4 model of systems shaping mental health and wellbeing in young people. The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (<a href="mailto:matthew.hamilton@orygen.org.au" class="email">matthew.hamilton@orygen.org.au</a>).</p>
+<p>ready4fun is a toolkit for authoring and documenting functions that implement algorithms for the ready4 youth mental health systems model (<a href="https://www.ready4-dev.com/" class="external-link uri">https://www.ready4-dev.com/</a>). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (<a href="mailto:matthew.hamilton@orygen.org.au" class="email">matthew.hamilton@orygen.org.au</a>).</p>
 <p>To install a development version of this software, run the following commands in your R console:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
@@ -142,6 +142,7 @@
 <li>Matthew Hamilton <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7407-9194" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Glen Wiesner <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-0071-130X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Orygen <br><small class="roles"> Copyright holder, funder </small>  </li>
+<li>Australian Government Research Training Program <br><small class="roles"> Funder </small>  </li>
 <li>VicHealth <br><small class="roles"> Funder </small>  </li>
 <li>Victoria University <br><small class="roles"> Funder </small>  </li>
 </ul>
@@ -163,7 +164,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Matthew Hamilton, Glen Wiesner, Orygen, VicHealth, Victoria University.</p>
+<p>Developed by Matthew Hamilton, Glen Wiesner, Orygen, Australian Government Research Training Program, VicHealth, Victoria University.</p>
 </div>
 
 <div class="pkgdown-footer-right">

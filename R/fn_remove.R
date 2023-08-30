@@ -22,15 +22,18 @@ remove_obj_type_from_nm <- function (nms_chr, object_type_lup = NULL, abbreviati
     fn_types_lup = NULL, is_generic_lgl = F, key_1L_chr = deprecated(), 
     server_1L_chr = deprecated()) 
 {
-    if (is.null(abbreviations_lup)) 
+    if (is.null(abbreviations_lup)) {
         abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
-    if (is.null(fn_types_lup)) 
+    }
+    if (is.null(fn_types_lup)) {
         fn_types_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "fn_types_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
-    if (is.null(object_type_lup)) 
+    }
+    if (is.null(object_type_lup)) {
         object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+    }
     output_chr <- make_arg_type_abbr(nms_chr, abbreviations_lup = abbreviations_lup, 
         object_type_lup = object_type_lup, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, key_1L_chr = key_1L_chr, 

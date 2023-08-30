@@ -3,12 +3,11 @@
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return NA ()
 #' @rdname authorData-methods
-#' @export 
+#' @export
 #' @importFrom ready4 authorData
-authorData.ready4fun_manifest <- function (x) 
-{
-    x <- write_pkg_dss(x)
-    return(x)
+authorData.ready4fun_manifest <- function(x) {
+  x <- write_pkg_dss(x)
+  return(x)
 }
 #' @rdname authorData-methods
 #' @aliases authorData,ready4fun_manifest-method

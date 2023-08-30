@@ -11,10 +11,12 @@
 #                                                      is_generic_lgl = T,
 #                                                      publish_dv_1L_lgl = T)
 manifest_ls <- fns_env_ls$fns_env$update_msng_abbrs(manifest_ls,
-                                                     are_words_chr = c("zenodo"))
+  are_words_chr = c("zenodo")
+)
 manifest_ls <- fns_env_ls$fns_env$write_new_words_vec(manifest_ls)
 manifest_ls <- fns_env_ls$fns_env$update_pkg_setup_msgs(manifest_ls,
-                                                        list_element_1L_chr = "missing_abbrs_chr")
+  list_element_1L_chr = "missing_abbrs_chr"
+)
 # manifest_ls <- fns_env_ls$fns_env$update_msng_abbrs(manifest_ls,
 #                                                      are_words_chr = c("cran", "lifecycle", "pdf",
 #                                                                        "pdfs","pkgdown",

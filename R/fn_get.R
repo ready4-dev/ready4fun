@@ -68,9 +68,10 @@ get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "ready4-dev/
     dv_url_pfx_1L_chr = deprecated(), key_1L_chr = deprecated(), 
     object_type_lup = NULL, server_1L_chr = deprecated()) 
 {
-    if (is.null(object_type_lup)) 
+    if (is.null(object_type_lup)) {
         object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+    }
     nchar_int <- nchar(object_type_lup$short_name_chr)
     match_chr <- object_type_lup$long_name_chr[endsWith(argument_nm_1L_chr, 
         paste0(ifelse(nchar(argument_nm_1L_chr) == nchar_int, 
@@ -181,13 +182,14 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
         lifecycle::deprecate_warn("0.0.0.9421", "ready4fun::get_new_abbrs(fns_dmt_tb)", 
             details = "Please use `ready4fun::get_new_abbrs(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
     }
-    if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) 
+    if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) {
         pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
             custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, 
             fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
             inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
             undocumented_fns_dir_chr = undocumented_fns_dir_chr)
+    }
     if (is.null(use_last_1L_int)) {
         new_fn_abbrs_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr %>% 
             get_new_abbrs_cndts(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
@@ -248,10 +250,12 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
     new_abbrs_cndts_chr <- text_chr %>% purrr::map(~{
         candidates_chr <- strsplit(.x, "_")[[1]] %>% purrr::map(~strsplit(.x, 
             "\\.")[[1]]) %>% purrr::flatten_chr()
-        if (drop_first_1L_lgl) 
+        if (drop_first_1L_lgl) {
             candidates_chr <- candidates_chr[-1]
-        if (!is.null(use_last_1L_int)) 
+        }
+        if (!is.null(use_last_1L_int)) {
             candidates_chr <- candidates_chr %>% tail(use_last_1L_int)
+        }
         candidates_chr
     }) %>% purrr::flatten_chr() %>% unique() %>% sort() %>% setdiff(abbreviations_lup$short_name_chr)
     data("GradyAugmented", package = "qdapDictionaries", envir = environment())
@@ -313,11 +317,13 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
         sort()
     generics_dir_1L_chr <- undmtd_fns_dir_chr[undmtd_fns_dir_chr %>% 
         purrr::map_lgl(~endsWith(.x, "gnrcs"))]
-    if (!identical(generics_dir_1L_chr, character(0))) 
+    if (!identical(generics_dir_1L_chr, character(0))) {
         new_fn_types_chr <- new_fn_types_chr %>% c(get_fn_nms_in_file(paste0(generics_dir_1L_chr, 
             "/generics.R"))) %>% unique() %>% sort()
-    if (!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup)) 
+    }
+    if (!is.null(pkg_setup_ls$subsequent_ls$fn_types_lup)) {
         new_fn_types_chr <- new_fn_types_chr %>% setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)
+    }
     return(new_fn_types_chr)
 }
 #' Get object type new cases
@@ -338,14 +344,16 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "read
     dv_url_pfx_1L_chr = deprecated(), excluded_chr = NA_character_, 
     key_1L_chr = deprecated(), old_obj_type_lup = NULL, server_1L_chr = deprecated()) 
 {
-    if (is.null(old_obj_type_lup)) 
+    if (is.null(old_obj_type_lup)) {
         old_obj_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+    }
     obj_type_lup_new_cses_tb <- updated_obj_type_lup %>% dplyr::filter(!short_name_chr %in% 
         old_obj_type_lup$short_name_chr)
-    if (!is.na(excluded_chr[1])) 
+    if (!is.na(excluded_chr[1])) {
         obj_type_lup_new_cses_tb <- obj_type_lup_new_cses_tb %>% 
             dplyr::filter(!short_name_chr %in% excluded_chr)
+    }
     return(obj_type_lup_new_cses_tb)
 }
 #' Get output object type
@@ -368,9 +376,10 @@ get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "re
     dv_url_pfx_1L_chr = deprecated(), fns_env_ls, is_generic_lgl = F, 
     key_1L_chr = deprecated(), object_type_lup = NULL, server_1L_chr = deprecated()) 
 {
-    if (is.null(object_type_lup)) 
+    if (is.null(object_type_lup)) {
         object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup", 
             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+    }
     outp_obj_type_chr <- purrr::map2_chr(fns_chr, is_generic_lgl, 
         ~{
             if (.y) {

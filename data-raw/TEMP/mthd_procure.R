@@ -4,13 +4,13 @@
 #' @param type_1L_chr Type (a character vector of length one)
 #' @return Value (an output object of multiple potential types)
 #' @rdname procure-methods
-#' @export 
+#' @export
 #' @importFrom ready4 procure
-procure.ready4fun_manifest <- function (x, type_1L_chr) 
-{
-    if (type_1L_chr == "problems") 
-        value_xx <- x$problems_ls
-    return(value_xx)
+procure.ready4fun_manifest <- function(x, type_1L_chr) {
+  if (type_1L_chr == "problems") {
+    value_xx <- x$problems_ls
+  }
+  return(value_xx)
 }
 #' @rdname procure-methods
 #' @aliases procure,ready4fun_manifest-method

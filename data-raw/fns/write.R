@@ -5,87 +5,113 @@ write_abbr_lup <- function(seed_lup = NULL,
                            custom_plural_ls = NULL,
                            overwrite_1L_lgl = T,
                            object_type_lup = NULL,
-                           pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
-                                                       title_chr = character(0),
-                                                       desc_chr = character(0),
-                                                       url_chr = character(0)),
+                           pkg_dss_tb = tibble::tibble(
+                             ds_obj_nm_chr = character(0),
+                             title_chr = character(0),
+                             desc_chr = character(0),
+                             url_chr = character(0)
+                           ),
                            pkg_nm_1L_chr = get_dev_pkg_nm(),
                            dv_ds_nm_1L_chr = "ready4-dev/ready4",
                            dv_url_pfx_1L_chr = deprecated(),
                            key_1L_chr = deprecated(),
                            server_1L_chr = deprecated(),
-                           url_1L_chr = deprecated()){
+                           url_1L_chr = deprecated()) {
   if (lifecycle::is_present(url_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9323",
-                              "ready4fun::write_abbr_lup(url_1L_chr)",
-                              details = "Please use `ready4fun::write_abbr_lup(dv_ds_nm_1L_chr)` instead.")
+      "ready4fun::write_abbr_lup(url_1L_chr)",
+      details = "Please use `ready4fun::write_abbr_lup(dv_ds_nm_1L_chr)` instead."
+    )
   }
-  if(is.null(seed_lup)){
-    seed_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
-                                      piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+  if (is.null(seed_lup)) {
+    seed_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "object_type_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
   }
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
-                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+  if (is.null(object_type_lup)) {
+    object_type_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "object_type_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
   pkg_dss_tb <- update_abbr_lup(seed_lup,
-                  short_name_chr = short_name_chr,
-                  long_name_chr = long_name_chr,
-                  no_plural_chr = no_plural_chr,
-                  custom_plural_ls = custom_plural_ls) %>%
-    write_and_doc_ds(db_df = .,
-                     overwrite_1L_lgl = overwrite_1L_lgl,
-                     db_1L_chr = "abbreviations_lup",
-                     title_1L_chr = "Common abbreviations lookup table",
-                     desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ",pkg_nm_1L_chr,"package."),
-                     format_1L_chr = "A tibble",
-                     url_1L_chr = dv_ds_nm_1L_chr,
-                     abbreviations_lup = .,
-                     object_type_lup = object_type_lup,
-                     pkg_dss_tb = pkg_dss_tb,
-                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                     key_1L_chr = key_1L_chr,
-                     server_1L_chr = server_1L_chr)
+    short_name_chr = short_name_chr,
+    long_name_chr = long_name_chr,
+    no_plural_chr = no_plural_chr,
+    custom_plural_ls = custom_plural_ls
+  ) %>%
+    write_and_doc_ds(
+      db_df = .,
+      overwrite_1L_lgl = overwrite_1L_lgl,
+      db_1L_chr = "abbreviations_lup",
+      title_1L_chr = "Common abbreviations lookup table",
+      desc_1L_chr = paste0("A lookup table for abbreviations commonly used in object names in the ", pkg_nm_1L_chr, "package."),
+      format_1L_chr = "A tibble",
+      url_1L_chr = dv_ds_nm_1L_chr,
+      abbreviations_lup = .,
+      object_type_lup = object_type_lup,
+      pkg_dss_tb = pkg_dss_tb,
+      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+      key_1L_chr = key_1L_chr,
+      server_1L_chr = server_1L_chr
+    )
   return(pkg_dss_tb)
 }
 write_all_fn_dmt <- function(pkg_setup_ls,
                              fns_env_ls,
                              document_unexp_lgl = F,
-                             fns_dmt_tb = deprecated()){
-  if(lifecycle::is_present(fns_dmt_tb)) {
+                             fns_dmt_tb = deprecated()) {
+  if (lifecycle::is_present(fns_dmt_tb)) {
     lifecycle::deprecate_warn("0.0.0.9421",
-                              "ready4fun::write_all_fn_dmt(fns_dmt_tb)",
-                              details = "Please use `ready4fun::write_all_fn_dmt(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+      "ready4fun::write_all_fn_dmt(fns_dmt_tb)",
+      details = "Please use `ready4fun::write_all_fn_dmt(pkg_desc_ls)` to pass the fns_dmt_tb object to this function."
+    )
   }
   pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
     dplyr::filter(!is.na(file_nm_chr))
-  if(!document_unexp_lgl){
+  if (!document_unexp_lgl) {
     pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
       dplyr::filter(file_pfx_chr != "mthd_")
   }
   pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>%
-    stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/"),"")
-  if(file.exists(paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
-                        "/grp_generics.R"))){
+    stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/"), "")
+  if (file.exists(paste0(
+    paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/R"),
+    "/grp_generics.R"
+  ))) {
     pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
       dplyr::filter(file_nm_chr != "generics.R")
   }
-  paths_chr <- paste0(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R"),
-                      "/",
-                      pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_pfx_chr,
-                      pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>%
-                        stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/"),
-                                                 "")) %>%
+  paths_chr <- paste0(
+    paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/R"),
+    "/",
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_pfx_chr,
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>%
+      stringr::str_replace_all(
+        paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/"),
+        ""
+      )
+  ) %>%
     unique()
-  ready4::write_new_files(paths_chr = paths_chr,
-                  custom_write_ls = list(fn = write_fn_fl,
-                                         args_ls = list(fns_env_ls = fns_env_ls,
-                                                        pkg_setup_ls = pkg_setup_ls,
-                                                        document_unexp_lgl = document_unexp_lgl)))
-  if(length(pkg_setup_ls$subsequent_ls$s4_fns_ls)>0 & document_unexp_lgl){# & document_unexp_lgl
-    s4_mthds_ls <- rlang::exec(pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
-                               !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls)
-  }else{
+  ready4::write_new_files(
+    paths_chr = paths_chr,
+    custom_write_ls = list(
+      fn = write_fn_fl,
+      args_ls = list(
+        fns_env_ls = fns_env_ls,
+        pkg_setup_ls = pkg_setup_ls,
+        document_unexp_lgl = document_unexp_lgl
+      )
+    )
+  )
+  if (length(pkg_setup_ls$subsequent_ls$s4_fns_ls) > 0 & document_unexp_lgl) { # & document_unexp_lgl
+    s4_mthds_ls <- rlang::exec(
+      pkg_setup_ls$subsequent_ls$s4_fns_ls$fn,
+      !!!pkg_setup_ls$subsequent_ls$s4_fns_ls$args_ls
+    )
+  } else {
     s4_mthds_ls <- NULL
   }
   return(s4_mthds_ls)
@@ -102,48 +128,61 @@ write_and_doc_ds <- function(db_df,
                              simple_lup_1L_lgl = F,
                              abbreviations_lup = NULL,
                              object_type_lup = NULL,
-                             pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
-                                                         title_chr = character(0),
-                                                         desc_chr = character(0),
-                                                         url_chr = character(0)),
+                             pkg_dss_tb = tibble::tibble(
+                               ds_obj_nm_chr = character(0),
+                               title_chr = character(0),
+                               desc_chr = character(0),
+                               url_chr = character(0)
+                             ),
                              dv_ds_nm_1L_chr = "ready4-dev/ready4",
                              dv_url_pfx_1L_chr = deprecated(),
                              key_1L_chr = deprecated(),
-                             server_1L_chr = deprecated()){
-  if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup",
-                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
-                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
-  eval(parse(text=paste0(db_1L_chr,"<-db_df")))
-  eval(parse(text=paste0("usethis::use_data(",
-                         db_1L_chr,
-                         ", overwrite = overwrite_1L_lgl)")))
-  sink(paste0(R_dir_1L_chr,"/db_",db_1L_chr,".R"), append = F)
-  write_ds_dmt(db_df = db_df,
-               db_1L_chr = db_1L_chr,
-               title_1L_chr = title_1L_chr,
-               desc_1L_chr = desc_1L_chr,
-               format_1L_chr = format_1L_chr,
-               vars_ls = vars_ls,
-               url_1L_chr = url_1L_chr,
-               R_dir_1L_chr = R_dir_1L_chr,
-               simple_lup_1L_lgl = simple_lup_1L_lgl,
-               abbreviations_lup = abbreviations_lup,
-               object_type_lup = object_type_lup,
-               dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-               dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-               key_1L_chr = key_1L_chr,
-               server_1L_chr = server_1L_chr)
+                             server_1L_chr = deprecated()) {
+  if (is.null(abbreviations_lup)) {
+    abbreviations_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "abbreviations_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
+  if (is.null(object_type_lup)) {
+    object_type_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "object_type_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
+  eval(parse(text = paste0(db_1L_chr, "<-db_df")))
+  eval(parse(text = paste0(
+    "usethis::use_data(",
+    db_1L_chr,
+    ", overwrite = overwrite_1L_lgl)"
+  )))
+  sink(paste0(R_dir_1L_chr, "/db_", db_1L_chr, ".R"), append = F)
+  write_ds_dmt(
+    db_df = db_df,
+    db_1L_chr = db_1L_chr,
+    title_1L_chr = title_1L_chr,
+    desc_1L_chr = desc_1L_chr,
+    format_1L_chr = format_1L_chr,
+    vars_ls = vars_ls,
+    url_1L_chr = url_1L_chr,
+    R_dir_1L_chr = R_dir_1L_chr,
+    simple_lup_1L_lgl = simple_lup_1L_lgl,
+    abbreviations_lup = abbreviations_lup,
+    object_type_lup = object_type_lup,
+    dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+    dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+    key_1L_chr = key_1L_chr,
+    server_1L_chr = server_1L_chr
+  )
   close_open_sinks()
   devtools::document()
   devtools::load_all()
   pkg_dss_tb <- tibble::add_case(pkg_dss_tb,
-                                 ds_obj_nm_chr = db_1L_chr,
-                                 title_chr = title_1L_chr,
-                                 desc_chr = desc_1L_chr,
-                                 url_chr = url_1L_chr)
+    ds_obj_nm_chr = db_1L_chr,
+    title_chr = title_1L_chr,
+    desc_chr = desc_1L_chr,
+    url_chr = url_1L_chr
+  )
   return(pkg_dss_tb)
 }
 write_and_doc_fn_fls <- function(pkg_setup_ls,
@@ -152,200 +191,279 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
                                  list_generics_1L_lgl = F,
                                  dev_pkgs_chr = deprecated(),
                                  fns_dmt_tb = deprecated(),
-                                 path_to_dmt_dir_1L_chr = deprecated(),##
+                                 path_to_dmt_dir_1L_chr = deprecated(), ##
                                  path_to_dvpr_dmt_dir_1L_chr = deprecated(),
                                  path_to_pkg_rt_1L_chr = deprecated(),
                                  path_to_user_dmt_dir_1L_chr = deprecated(),
-                                 r_dir_1L_chr = deprecated()
-                                 ){
-  if(lifecycle::is_present(fns_dmt_tb)) {
+                                 r_dir_1L_chr = deprecated()) {
+  if (lifecycle::is_present(fns_dmt_tb)) {
     lifecycle::deprecate_warn("0.0.0.9421",
-                              "ready4fun::write_and_doc_fn_fls(fns_dmt_tb)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+      "ready4fun::write_and_doc_fn_fls(fns_dmt_tb)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_desc_ls)` to pass the fns_dmt_tb object to this function."
+    )
   }
   if (lifecycle::is_present(path_to_dvpr_dmt_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9307",
-                              "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+      "ready4fun::write_and_doc_fn_fls(path_to_dvpr_dmt_dir_1L_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written."
+    )
   }
   if (lifecycle::is_present(path_to_user_dmt_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9307",
-                              "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written.")
+      "ready4fun::write_and_doc_fn_fls(path_to_user_dmt_dir_1L_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to specify the directory to which both 'Developer' and 'User' documentation sub-directories will be written."
+    )
   }
   if (lifecycle::is_present(dev_pkgs_chr)) {
     lifecycle::deprecate_warn("0.0.0.9327",
-                              "ready4fun::write_and_doc_fn_fls(dev_pkgs_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+      "ready4fun::write_and_doc_fn_fls(dev_pkgs_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead."
+    )
   }
   if (lifecycle::is_present(r_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9327",
-                              "ready4fun::write_and_doc_fn_fls(r_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+      "ready4fun::write_and_doc_fn_fls(r_dir_1L_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead."
+    )
   }
   if (lifecycle::is_present(path_to_pkg_rt_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9327",
-                              "ready4fun::write_and_doc_fn_fls(path_to_pkg_rt_1L_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead.")
+      "ready4fun::write_and_doc_fn_fls(path_to_pkg_rt_1L_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` instead."
+    )
   }
   if (lifecycle::is_present(path_to_dmt_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
+      "ready4fun::write_and_doc_fn_fls(path_to_dmt_dir_1L_chr)",
+      details = "Please use `ready4fun::write_and_doc_fn_fls(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function."
+    )
   }
   add_build_ignore(pkg_setup_ls$subsequent_ls$build_ignore_ls)
   add_addl_pkgs(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)
   dev_pkgs_chr <- pkg_setup_ls$subsequent_ls$dev_pkgs_chr
-  r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R")
-  ready4::write_new_dirs(c(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
-                   paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
-                   paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")))
-  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-                                                        "/data-raw"),
-                                                 drop_empty_1L_lgl = T))
-  s4_mthds_ls_ls <- purrr::map2(list(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/Developer"),
-                                     paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,"/User")),
-                                c(T,F),
-                                ~ {
-                                  s4_mthds_ls <- write_all_fn_dmt(pkg_setup_ls,
-                                                                  fns_env_ls = fns_env_ls,
-                                                                  document_unexp_lgl = .y)
-                                  write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr,
-                                                        incr_ver_1L_lgl = .y)
-                                  # devtools::load_all()
-                                  if(make_pdfs_1L_lgl)
-                                    devtools::build_manual(path = .x)
-                                  s4_mthds_ls
-                                })
-  if(update_pkgdown_1L_lgl){
-    datasets_chr <- utils::data(package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr),
-                                envir = environment())$results[,3]
-    writeLines(c("development:",
-                 "  mode: auto",
-                 "reference:",
-                 {
-                   if(length(datasets_chr)>0){
-                   c(paste0("- title: \"",
-                            "Datasets",
-                            "\""),
-                            "- contents:",
-                          paste0("  - ", datasets_chr))
-                     }
-                   },
-                 {
-                   if(!is.null(pkg_setup_ls$subsequent_ls$prototype_lup)){
-                     classes_tb <- pkg_setup_ls$subsequent_ls$prototype_lup %>% dplyr::filter(pt_ns_chr == pkg_setup_ls$initial_ls$pkg_desc_ls$Package)
-                     purrr::map(c("S3","S4"),
-                                 ~ {
-                                   fns_chr <- classes_tb %>% dplyr::filter(old_class_lgl == (.x=="S3")) %>%
-                                     dplyr::pull(fn_to_call_chr)
-                                   if(length(fns_chr)>0){
-                                     txt_chr <- c(paste0("- title: \"",
-                                                         paste0(.x," Classes"),
-                                                         "\""),
-                                                  "- contents:",
-                                                  paste0("  - ", fns_chr))
-                                   }else{
-                                     txt_chr <- ""
-                                   }
-                                   txt_chr
-                                 }) %>%
-                       purrr::flatten_chr() %>%
-                       purrr::discard(~.x=="")
-
-                   }
-                 },
-                 purrr::map2(c("fn_",
-                               ifelse(!list_generics_1L_lgl,NA_character_,"grp_"),
-                               "mthd_") %>% purrr::discard(is.na),
-                             c("Functions",
-                               ifelse(!list_generics_1L_lgl,NA_character_,"Generics"),
-                               "Methods")  %>% purrr::discard(is.na),
-                             ~{
-                   fns_chr <- dplyr::filter(pkg_setup_ls$subsequent_ls$fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
-                     dplyr::pull(fns_chr)
-                   if(.x=="mthd_" & !is.null(s4_mthds_ls_ls)){
-                     fns_chr <- c(fns_chr,
-                                  s4_mthds_ls_ls[[1]]$mthds_ls %>%
-                       purrr::map2(names(s4_mthds_ls_ls[[1]]$mthds_ls),
-                                  ~{
-                                    mthd_nm_1L_chr <- .y
-                                    s4_cls_nms_chr <- names(.x)
-                                   paste0(mthd_nm_1L_chr,"-",s4_cls_nms_chr)
-                                  }) %>% purrr::flatten_chr()) %>% sort()
-                   }
-                   if(length(fns_chr)>0){
-                    txt_chr  <- c(paste0("- title: \"",.y,"\""),
-                        "- contents:",
-                        paste0("  - ",
-                               fns_chr))
-                   }else{
-                     txt_chr  <- ""
-                   }
-                 }) %>% purrr::flatten_chr() %>% purrr::discard(~.x=="")),
-               con = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/_pkgdown.yml"))
+  r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/R")
+  ready4::write_new_dirs(c(
+    pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
+    paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, "/Developer"),
+    paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, "/User")
+  ))
+  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(
+    paste0(
+      pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+      "/data-raw"
+    ),
+    drop_empty_1L_lgl = T
+  ))
+  s4_mthds_ls_ls <- purrr::map2(
+    list(
+      normalizePath(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, "/Developer")),
+      normalizePath(paste0(pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr, "/User"))
+    ),
+    c(T, F),
+    ~ {
+      s4_mthds_ls <- write_all_fn_dmt(pkg_setup_ls,
+        fns_env_ls = fns_env_ls,
+        document_unexp_lgl = .y
+      )
+      write_ns_imps_to_desc(
+        dev_pkgs_chr = dev_pkgs_chr,
+        incr_ver_1L_lgl = .y
+      )
+      # devtools::load_all()
+      if (make_pdfs_1L_lgl) {
+        devtools::build_manual(path = gsub("\\\\", "/", .x))
+      } # .x)
+      s4_mthds_ls
+    }
+  )
+  if (update_pkgdown_1L_lgl) {
+    datasets_chr <- utils::data(
+      package = get_dev_pkg_nm(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr),
+      envir = environment()
+    )$results[, 3]
+    writeLines(
+      c(
+        "development:",
+        "  mode: auto",
+        "reference:",
+        {
+          if (length(datasets_chr) > 0) {
+            c(
+              paste0(
+                "- title: \"",
+                "Datasets",
+                "\""
+              ),
+              "- contents:",
+              paste0("  - ", datasets_chr)
+            )
+          }
+        },
+        {
+          if (!is.null(pkg_setup_ls$subsequent_ls$prototype_lup)) {
+            classes_tb <- pkg_setup_ls$subsequent_ls$prototype_lup %>% dplyr::filter(pt_ns_chr == pkg_setup_ls$initial_ls$pkg_desc_ls$Package)
+            purrr::map(
+              c("S3", "S4"),
+              ~ {
+                fns_chr <- classes_tb %>%
+                  dplyr::filter(old_class_lgl == (.x == "S3")) %>%
+                  dplyr::pull(fn_to_call_chr)
+                if (length(fns_chr) > 0) {
+                  txt_chr <- c(
+                    paste0(
+                      "- title: \"",
+                      paste0(.x, " Classes"),
+                      "\""
+                    ),
+                    "- contents:",
+                    paste0("  - ", fns_chr)
+                  )
+                } else {
+                  txt_chr <- ""
+                }
+                txt_chr
+              }
+            ) %>%
+              purrr::flatten_chr() %>%
+              purrr::discard(~ .x == "")
+          }
+        },
+        purrr::map2(
+          c(
+            "fn_",
+            ifelse(!list_generics_1L_lgl, NA_character_, "grp_"),
+            "mthd_"
+          ) %>% purrr::discard(is.na),
+          c(
+            "Functions",
+            ifelse(!list_generics_1L_lgl, NA_character_, "Generics"),
+            "Methods"
+          ) %>% purrr::discard(is.na),
+          ~ {
+            fns_chr <- dplyr::filter(pkg_setup_ls$subsequent_ls$fns_dmt_tb, inc_for_main_user_lgl & file_pfx_chr == .x) %>%
+              dplyr::pull(fns_chr)
+            if (.x == "mthd_" & !is.null(s4_mthds_ls_ls)) {
+              fns_chr <- c(
+                fns_chr,
+                s4_mthds_ls_ls[[1]]$mthds_ls %>%
+                  purrr::map2(
+                    names(s4_mthds_ls_ls[[1]]$mthds_ls),
+                    ~ {
+                      mthd_nm_1L_chr <- .y
+                      s4_cls_nms_chr <- names(.x)
+                      paste0(mthd_nm_1L_chr, "-", s4_cls_nms_chr)
+                    }
+                  ) %>% purrr::flatten_chr()
+              ) %>% sort()
+            }
+            if (length(fns_chr) > 0) {
+              txt_chr <- c(
+                paste0("- title: \"", .y, "\""),
+                "- contents:",
+                paste0(
+                  "  - ",
+                  fns_chr
+                )
+              )
+            } else {
+              txt_chr <- ""
+            }
+          }
+        ) %>% purrr::flatten_chr() %>% purrr::discard(~ .x == "")
+      ),
+      con = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/_pkgdown.yml")
+    )
   }
 }
-write_citation_fl <- function(pkg_setup_ls){
+write_citation_fl <- function(pkg_setup_ls) {
   template_chr <- system.file("CITATION", package = "ready4") %>%
     readLines()
   authors_psn <- pkg_setup_ls$initial_ls$pkg_desc_ls$`Authors@R`
-  authors_psn <- authors_psn[authors_psn %>% purrr::map_lgl(~"aut" %in% .x$role)]#
+  authors_psn <- authors_psn[authors_psn %>% purrr::map_lgl(~ "aut" %in% .x$role)] #
   # end_pts_df <- authors_psn %>% stringr::str_locate(" \\<| \\[") %>%
   #   suppressWarnings()
-  authors_chr <- authors_psn %>% as.character() #%>% purrr::map2_chr((end_pts_df[,
+  authors_chr <- authors_psn %>% as.character() # %>% purrr::map2_chr((end_pts_df[,
   #                               1] - 1), ~.x %>% stringr::str_sub(end = .y))
   url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
-    strsplit(", ") %>% purrr::flatten_chr() %>% purrr::pluck(1)
-  authors_alg_1L_chr <- paste0("c(", authors_chr %>% purrr::map_chr(~{
-    split_chr <- .x %>% strsplit(" ") %>% purrr::flatten_chr()
-    paste0("person(\"", paste(split_chr[1:(length(split_chr) -
-                                             1)], collapse = " "), "\", \"", split_chr[length(split_chr)],
-           "\")")
+    strsplit(", ") %>%
+    purrr::flatten_chr() %>%
+    purrr::pluck(1)
+  authors_alg_1L_chr <- paste0("c(", authors_chr %>% purrr::map_chr(~ {
+    split_chr <- .x %>%
+      strsplit(" ") %>%
+      purrr::flatten_chr()
+    paste0(
+      "person(\"", paste(split_chr[1:(length(split_chr) -
+        1)], collapse = " "), "\", \"", split_chr[length(split_chr)],
+      "\")"
+    )
   }) %>% paste0(collapse = ", "), ")")
-  doi_idx_1L_int <- template_chr %>% startsWith("  doi      = \"") %>%
+  doi_idx_1L_int <- template_chr %>%
+    startsWith("  doi      = \"") %>%
     which()
   doi_badge_1L_chr <- pkg_setup_ls$initial_ls$badges_lup %>%
-    ready4::get_from_lup_obj(match_value_xx = "DOI", match_var_nm_1L_chr = "badge_names_chr",
-                             target_var_nm_1L_chr = "badges_chr")
+    ready4::get_from_lup_obj(
+      match_value_xx = "DOI", match_var_nm_1L_chr = "badge_names_chr",
+      target_var_nm_1L_chr = "badges_chr"
+    )
   new_doi_1L_chr <- ifelse(!identical(doi_badge_1L_chr, character(0)),
-                           paste0("  doi      = \"",
-                                  doi_badge_1L_chr %>%
-                                    stringr::str_sub(start = (doi_badge_1L_chr %>%
-                                                                stringr::str_locate("https://doi.org/") %>%
-                                                                `[`(1,2) %>%
-                                                                as.vector()+1), end = -2),
-                                  "\","
-                           ),
-                           template_chr[doi_idx_1L_int])
+    paste0(
+      "  doi      = \"",
+      doi_badge_1L_chr %>%
+        stringr::str_sub(start = (doi_badge_1L_chr %>%
+          stringr::str_locate("https://doi.org/") %>%
+          `[`(1, 2) %>%
+          as.vector() + 1), end = -2),
+      "\","
+    ),
+    template_chr[doi_idx_1L_int]
+  )
   citation_chr <- template_chr
   citation_chr[doi_idx_1L_int] <- new_doi_1L_chr
-  author_idx_1L_int <- template_chr %>% startsWith("  author   = ") %>%
+  author_idx_1L_int <- template_chr %>%
+    startsWith("  author   = ") %>%
     which()
-  citation_chr[author_idx_1L_int] <- paste0("  author   = ",
-                                            authors_alg_1L_chr, ",")
-  year_idx_1L_int <- template_chr %>% startsWith("  year     = \"") %>%
+  citation_chr[author_idx_1L_int] <- paste0(
+    "  author   = ",
+    authors_alg_1L_chr, ","
+  )
+  year_idx_1L_int <- template_chr %>%
+    startsWith("  year     = \"") %>%
     which()
-  citation_chr[year_idx_1L_int] <- paste0("  year     = \"",
-                                          format(Sys.Date(), "%Y"), "\",")
-  url_idx_1L_int <- template_chr %>% startsWith("  url      = \"") %>%
+  citation_chr[year_idx_1L_int] <- paste0(
+    "  year     = \"",
+    format(Sys.Date(), "%Y"), "\","
+  )
+  url_idx_1L_int <- template_chr %>%
+    startsWith("  url      = \"") %>%
     which()
-  citation_chr[url_idx_1L_int] <- paste0("  url      = \"",
-                                         url_1L_chr, "\",")
-  text_vrsn_idx_1L_int <- template_chr %>% startsWith("  textVersion = paste(\"") %>%
+  citation_chr[url_idx_1L_int] <- paste0(
+    "  url      = \"",
+    url_1L_chr, "\","
+  )
+  text_vrsn_idx_1L_int <- template_chr %>%
+    startsWith("  textVersion = paste(\"") %>%
     which()
-  citation_chr[text_vrsn_idx_1L_int] <- paste0("  textVersion = paste(\"",
-                                               ready4::make_list_phrase(authors_chr), " \",")
-  citation_chr[text_vrsn_idx_1L_int + 1] <- paste0("  \"(",
-                                                   format(Sys.Date(), "%Y"), ").\",")
+  citation_chr[text_vrsn_idx_1L_int] <- paste0(
+    "  textVersion = paste(\"",
+    ready4::make_list_phrase(authors_chr), " \","
+  )
+  citation_chr[text_vrsn_idx_1L_int + 1] <- paste0(
+    "  \"(",
+    format(Sys.Date(), "%Y"), ").\","
+  )
   doi_two_idx_1L_int <- 1 + (template_chr %>% startsWith("  paste0(\"https://doi.org/\"") %>%
-                               which())
-  citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>% stringr::str_remove("  doi      = ") %>%
+    which())
+  citation_chr[doi_two_idx_1L_int] <- new_doi_1L_chr %>%
+    stringr::str_remove("  doi      = ") %>%
     stringi::stri_replace_last_regex(",", ")")
-  if (!file.exists("inst/CITATION"))
+  if (!file.exists("inst/CITATION")) {
     usethis::use_citation()
-  ready4::write_new_files("inst/CITATION", fl_nm_1L_chr = "CITATION",
-                          text_ls = list(citation_chr))
+  }
+  ready4::write_new_files("inst/CITATION",
+    fl_nm_1L_chr = "CITATION",
+    text_ls = list(citation_chr)
+  )
 }
 write_clss <- function(pkg_setup_ls,
                        key_1L_chr = NULL,
@@ -353,69 +471,94 @@ write_clss <- function(pkg_setup_ls,
                        self_serve_fn_ls = NULL,
                        cls_fn_ls = deprecated(),
                        dv_url_pfx_1L_chr = deprecated(),
-                       dss_records_ls = deprecated()){
+                       dss_records_ls = deprecated()) {
   if (lifecycle::is_present(cls_fn_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_clss(cls_fn_ls)",
-                              details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the cls_fn_ls object to this function.")
+      "ready4fun::write_clss(cls_fn_ls)",
+      details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the cls_fn_ls object to this function."
+    )
   }
   if (lifecycle::is_present(dss_records_ls)) {
     lifecycle::deprecate_warn("0.0.0.9421",
-                              "ready4fun::write_clss(dss_records_ls)",
-                              details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dss_records_ls object to this function.")
+      "ready4fun::write_clss(dss_records_ls)",
+      details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dss_records_ls object to this function."
+    )
   }
   if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9442",
-                              "ready4fun::write_clss(dv_url_pfx_1L_chr)",
-                              details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
+      "ready4fun::write_clss(dv_url_pfx_1L_chr)",
+      details = "Please use `ready4fun::write_clss(pkg_desc_ls)` to pass the dv_url_pfx_1L_chr object to this function."
+    )
   }
-  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-                                                        "/data-raw"),
-                                                 drop_empty_1L_lgl = T))
-  if(self_serve_1L_lgl){
+  fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(
+    paste0(
+      pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+      "/data-raw"
+    ),
+    drop_empty_1L_lgl = T
+  ))
+  if (self_serve_1L_lgl) {
     # Moved fns_eng_ls setting
-    if(!is.null(self_serve_fn_ls)){
-      if("pkg_setup_ls" %in% formalArgs(self_serve_fn_ls$fn) & ! "pkg_setup_ls" %in% names(self_serve_fn_ls$args_ls))
-        self_serve_fn_ls$args_ls <- append(list(pkg_setup_ls = pkg_setup_ls),
-                                           self_serve_fn_ls$args_ls)
-      pkg_setup_ls <- rlang::exec(self_serve_fn_ls$fn,
-                                  !!!self_serve_fn_ls$args_ls)
-
+    if (!is.null(self_serve_fn_ls)) {
+      if ("pkg_setup_ls" %in% formalArgs(self_serve_fn_ls$fn) & !"pkg_setup_ls" %in% names(self_serve_fn_ls$args_ls)) {
+        self_serve_fn_ls$args_ls <- append(
+          list(pkg_setup_ls = pkg_setup_ls),
+          self_serve_fn_ls$args_ls
+        )
+      }
+      pkg_setup_ls <- rlang::exec(
+        self_serve_fn_ls$fn,
+        !!!self_serve_fn_ls$args_ls
+      )
     }
     # Moved write_all_fn_dmt call
   }
   NULL_bin_ls <- write_all_fn_dmt(pkg_setup_ls,
-                                  fns_env_ls = fns_env_ls,
-                                  document_unexp_lgl = F)
+    fns_env_ls = fns_env_ls,
+    document_unexp_lgl = F
+  )
   devtools::document() ##
   devtools::load_all()
-  if(!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())){
-    if("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+  if (!identical(pkg_setup_ls$subsequent_ls$cls_fn_ls, list())) {
+    if ("dev_pkg_ns_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"dev_pkg_ns_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$dev_pkg_ns_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$Package
-    if("name_pfx_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "name_pfx_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
-      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_")
-    if("output_dir_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "output_dir_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
-      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$output_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R")
-    if("abbreviations_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "abbreviations_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+    }
+    if ("name_pfx_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"name_pfx_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$name_pfx_1L_chr <- paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, "_")
+    }
+    if ("output_dir_1L_chr" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"output_dir_1L_chr" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$output_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/R")
+    }
+    if ("abbreviations_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"abbreviations_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
-    if("fn_types_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "fn_types_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+    }
+    if ("fn_types_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"fn_types_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup
-    if("object_type_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "object_type_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+    }
+    if ("object_type_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"object_type_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
-    if("init_class_pt_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & ! "init_class_pt_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls))
+    }
+    if ("init_class_pt_lup" %in% formalArgs(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn) & !"init_class_pt_lup" %in% names(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)) {
       pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$init_class_pt_lup <- pkg_setup_ls$subsequent_ls$prototype_lup
-    prototype_lup <- rlang::exec(pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
-                                 !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls)
+    }
+    prototype_lup <- rlang::exec(
+      pkg_setup_ls$subsequent_ls$cls_fn_ls$fn,
+      !!!pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls
+    )
     pkg_setup_ls$subsequent_ls$prototype_lup <- prototype_lup # Check this
     current_lup <- get_rds_from_pkg_dmt(pkg_setup_ls,
-                                         fl_nm_1L_chr = "prototype_lup")
-    if(!identical(current_lup,
-                  prototype_lup) & !is.null(current_lup)){
+      fl_nm_1L_chr = "prototype_lup"
+    )
+    if (!identical(
+      current_lup,
+      prototype_lup
+    ) & !is.null(current_lup)) {
       ready4::write_env_objs_to_dv(list(prototype_lup = prototype_lup),
-                                   descriptions_chr = "Class prototype lookup table",
-                                   ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
-                                   piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                   publish_dv_1L_lgl = F)
+        descriptions_chr = "Class prototype lookup table",
+        ds_url_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[2],
+        piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+        publish_dv_1L_lgl = F
+      )
     }
   }
   devtools::document()
@@ -428,58 +571,75 @@ write_dmtd_fn_type_lup <- function(fn_types_lup = make_fn_type_lup(),
                                    url_1L_chr = deprecated(),
                                    abbreviations_lup = NULL,
                                    object_type_lup = NULL,
-                                   pkg_dss_tb = tibble::tibble(ds_obj_nm_chr = character(0),
-                                                               title_chr = character(0),
-                                                               desc_chr = character(0),
-                                                               url_chr = character(0)),
+                                   pkg_dss_tb = tibble::tibble(
+                                     ds_obj_nm_chr = character(0),
+                                     title_chr = character(0),
+                                     desc_chr = character(0),
+                                     url_chr = character(0)
+                                   ),
                                    dv_ds_nm_1L_chr = "ready4-dev/ready4",
                                    dv_url_pfx_1L_chr = deprecated(),
                                    key_1L_chr = deprecated(),
-                                   server_1L_chr = deprecated()){
+                                   server_1L_chr = deprecated()) {
   if (lifecycle::is_present(url_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9323",
-                              "ready4fun::write_dmtd_fn_type_lup(url_1L_chr)",
-                              details = "Please use `ready4fun::write_dmtd_fn_type_lup(dv_ds_nm_1L_chr)` instead.")
+      "ready4fun::write_dmtd_fn_type_lup(url_1L_chr)",
+      details = "Please use `ready4fun::write_dmtd_fn_type_lup(dv_ds_nm_1L_chr)` instead."
+    )
   }
-  if(is.null(abbreviations_lup))
+  if (is.null(abbreviations_lup)) {
     utils::data("abbreviations_lup", # Replace with ready4::get_rds_from_dv ?
-                package="ready4fun",envir = environment())
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
-                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+      package = "ready4fun", envir = environment()
+    )
+  }
+  if (is.null(object_type_lup)) {
+    object_type_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "object_type_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
   fn_types_lup %>%
-    write_and_doc_ds(overwrite_1L_lgl = overwrite_1L_lgl,
-                     db_1L_chr = "fn_types_lup",
-                     title_1L_chr = "Function type lookup table",
-                     desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ",pkg_nm_1L_chr," package suite."),
-                     format_1L_chr = "A tibble",
-                     url_1L_chr = dv_ds_nm_1L_chr,
-                     abbreviations_lup = abbreviations_lup,
-                     object_type_lup = object_type_lup,
-                     pkg_dss_tb = pkg_dss_tb,
-                     dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                     dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                     key_1L_chr = key_1L_chr,
-                     server_1L_chr = server_1L_chr)
+    write_and_doc_ds(
+      overwrite_1L_lgl = overwrite_1L_lgl,
+      db_1L_chr = "fn_types_lup",
+      title_1L_chr = "Function type lookup table",
+      desc_1L_chr = paste0("A lookup table to find descriptions for different types of functions used within the ", pkg_nm_1L_chr, " package suite."),
+      format_1L_chr = "A tibble",
+      url_1L_chr = dv_ds_nm_1L_chr,
+      abbreviations_lup = abbreviations_lup,
+      object_type_lup = object_type_lup,
+      pkg_dss_tb = pkg_dss_tb,
+      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+      key_1L_chr = key_1L_chr,
+      server_1L_chr = server_1L_chr
+    )
 }
 write_documented_fns <- function(tmp_fn_dir_1L_chr,
-                                   R_dir_1L_chr){
+                                 R_dir_1L_chr) {
   sinew::makeOxyFile(tmp_fn_dir_1L_chr,
-                     verbose = F)
+    verbose = F
+  )
   files_chr <- list.files(tmp_fn_dir_1L_chr) %>%
-    purrr::map_chr(~{
-      ifelse(startsWith(.x,"oxy-"),.x,NA_character_)
-    }) %>% purrr::discard(is.na)
-  purrr::walk(files_chr,
-              ~{
-                target_chr <- paste0(R_dir_1L_chr,"/fn_",.x %>% stringr::str_sub(start=5))
-                original_chr <- paste0(tmp_fn_dir_1L_chr,"/",.x)
-                if(file.exists(target_chr))
-                  file.remove(target_chr)
-                file.copy(original_chr,
-                          target_chr)
-              })
-  do.call(file.remove, list(paste0(tmp_fn_dir_1L_chr,"/",files_chr)))
+    purrr::map_chr(~ {
+      ifelse(startsWith(.x, "oxy-"), .x, NA_character_)
+    }) %>%
+    purrr::discard(is.na)
+  purrr::walk(
+    files_chr,
+    ~ {
+      target_chr <- paste0(R_dir_1L_chr, "/fn_", .x %>% stringr::str_sub(start = 5))
+      original_chr <- paste0(tmp_fn_dir_1L_chr, "/", .x)
+      if (file.exists(target_chr)) {
+        file.remove(target_chr)
+      }
+      file.copy(
+        original_chr,
+        target_chr
+      )
+    }
+  )
+  do.call(file.remove, list(paste0(tmp_fn_dir_1L_chr, "/", files_chr)))
 }
 write_ds_dmt <- function(db_df,
                          db_1L_chr,
@@ -495,195 +655,234 @@ write_ds_dmt <- function(db_df,
                          dv_url_pfx_1L_chr = deprecated(),
                          key_1L_chr = deprecated(),
                          object_type_lup = NULL,
-                         server_1L_chr = deprecated()){
-  if(is.null(abbreviations_lup))
-    abbreviations_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "abbreviations_lup",
-                                               piggyback_to_1L_chr = dv_ds_nm_1L_chr)
-  if(is.null(object_type_lup))
-    object_type_lup <- get_rds_from_pkg_dmt(fl_nm_1L_chr = "object_type_lup",
-                                             piggyback_to_1L_chr = dv_ds_nm_1L_chr)
+                         server_1L_chr = deprecated()) {
+  if (is.null(abbreviations_lup)) {
+    abbreviations_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "abbreviations_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
+  if (is.null(object_type_lup)) {
+    object_type_lup <- get_rds_from_pkg_dmt(
+      fl_nm_1L_chr = "object_type_lup",
+      piggyback_to_1L_chr = dv_ds_nm_1L_chr
+    )
+  }
   auto_vars_ls <- names(db_df) %>%
     purrr::map(~ ifelse(simple_lup_1L_lgl,
-                        ready4::get_from_lup_obj(abbreviations_lup,
-                                         target_var_nm_1L_chr = "long_name_chr",
-                                         match_var_nm_1L_chr = "short_name_chr",
-                                         match_value_xx = .x,
-                                         evaluate_1L_lgl = F),
-                        make_arg_desc(.x,
-                                      object_type_lup = object_type_lup,
-                                      abbreviations_lup = abbreviations_lup,
-                                      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
-                                      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                      key_1L_chr = key_1L_chr,
-                                      server_1L_chr = server_1L_chr))) %>%
+      ready4::get_from_lup_obj(abbreviations_lup,
+        target_var_nm_1L_chr = "long_name_chr",
+        match_var_nm_1L_chr = "short_name_chr",
+        match_value_xx = .x,
+        evaluate_1L_lgl = F
+      ),
+      make_arg_desc(.x,
+        object_type_lup = object_type_lup,
+        abbreviations_lup = abbreviations_lup,
+        dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+        dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+        key_1L_chr = key_1L_chr,
+        server_1L_chr = server_1L_chr
+      )
+    )) %>%
     stats::setNames(names(db_df))
-  if(is.null(vars_ls)){
+  if (is.null(vars_ls)) {
     vars_ls <- auto_vars_ls
-  }else{
-    keep_auto_nms_chr <- setdiff(names(auto_vars_ls),names(vars_ls))
+  } else {
+    keep_auto_nms_chr <- setdiff(names(auto_vars_ls), names(vars_ls))
     vars_ls <- auto_vars_ls %>%
-      purrr::map2(names(auto_vars_ls),
-                 ~{
-                   if(.y %in% keep_auto_nms_chr){
-                     .x
-                   }else{
-                     vars_ls %>% purrr::pluck(.y)
-                   }
-                 })
+      purrr::map2(
+        names(auto_vars_ls),
+        ~ {
+          if (.y %in% keep_auto_nms_chr) {
+            .x
+          } else {
+            vars_ls %>% purrr::pluck(.y)
+          }
+        }
+      )
   }
-  writeLines(paste0("#' ",title_1L_chr,"\n",
-                    "#' \n",
-                    "#' ",desc_1L_chr,"\n",
-                    "#' \n",
-                    "#' ",format_1L_chr,"\n",
-                    "#' \n",
-                    paste0("#' \\describe{\n",
-                                  purrr::map2_chr(vars_ls,
-                                                  names(vars_ls),
-                                                  ~ paste0("#'   \\item{",.y,"}{",.x,"}")) %>%
-                                    paste0(collapse = "\n"),
-                                  "\n#' }\n"),
-                    ifelse(is.na(url_1L_chr),
-                           "",
-                           paste0("#' @source \\url{",url_1L_chr,"}\n")),
-                    "\"",db_1L_chr,"\""))
+  writeLines(paste0(
+    "#' ", title_1L_chr, "\n",
+    "#' \n",
+    "#' ", desc_1L_chr, "\n",
+    "#' \n",
+    "#' ", format_1L_chr, "\n",
+    "#' \n",
+    paste0(
+      "#' \\describe{\n",
+      purrr::map2_chr(
+        vars_ls,
+        names(vars_ls),
+        ~ paste0("#'   \\item{", .y, "}{", .x, "}")
+      ) %>%
+        paste0(collapse = "\n"),
+      "\n#' }\n"
+    ),
+    ifelse(is.na(url_1L_chr),
+      "",
+      paste0("#' @source \\url{", url_1L_chr, "}\n")
+    ),
+    "\"", db_1L_chr, "\""
+  ))
 }
 write_fn_fl <- function(fns_env_ls,
                         pkg_setup_ls,
                         document_unexp_lgl = T,
                         consent_1L_chr = NULL,
                         fns_dmt_tb = deprecated(),
-                        r_dir_1L_chr = deprecated()){
-  if(lifecycle::is_present(fns_dmt_tb)) {
+                        r_dir_1L_chr = deprecated()) {
+  if (lifecycle::is_present(fns_dmt_tb)) {
     lifecycle::deprecate_warn("0.0.0.9421",
-                              "ready4fun::write_fn_fl(fns_dmt_tb)",
-                              details = "Please use `ready4fun::write_fn_fl(pkg_desc_ls)` to pass the fns_dmt_tb object to this function.")
+      "ready4fun::write_fn_fl(fns_dmt_tb)",
+      details = "Please use `ready4fun::write_fn_fl(pkg_desc_ls)` to pass the fns_dmt_tb object to this function."
+    )
   }
   if (lifecycle::is_present(r_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9199",
-                              "ready4fun::write_fn_fl(r_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_fn_fl(pkg_setup_ls)` to pass the R directory path to this function.")
+      "ready4fun::write_fn_fl(r_dir_1L_chr)",
+      details = "Please use `ready4fun::write_fn_fl(pkg_setup_ls)` to pass the R directory path to this function."
+    )
   }
-  r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/R")
+  r_dir_1L_chr <- paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/R")
   pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>%
-    stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/"),"")
+    stringr::str_replace_all(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/"), "")
   file_nms_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$file_nm_chr %>% unique()
-  if(is.null(consent_1L_chr)){
-    consent_1L_chr <- ready4::make_prompt(prompt_1L_chr=paste0("Do you confirm ('Y') that you want to write the files ",
-                                                       file_nms_chr %>%
-                                                         paste0(collapse = ", ") %>%
-                                                         stringi::stri_replace_last(fixed = ",", " and"),
-                                                       " to the ",
-                                                       r_dir_1L_chr,
-                                                       " directory?"),
-                                  options_chr = c("Y", "N"),
-                                  force_from_opts_1L_chr = T)
+  if (is.null(consent_1L_chr)) {
+    consent_1L_chr <- ready4::make_prompt(
+      prompt_1L_chr = paste0(
+        "Do you confirm ('Y') that you want to write the files ",
+        file_nms_chr %>%
+          paste0(collapse = ", ") %>%
+          stringi::stri_replace_last(fixed = ",", " and"),
+        " to the ",
+        r_dir_1L_chr,
+        " directory?"
+      ),
+      options_chr = c("Y", "N"),
+      force_from_opts_1L_chr = T
+    )
   }
-  if(consent_1L_chr == "Y"){
+  if (consent_1L_chr == "Y") {
     file_nms_chr %>%
-      purrr::walk(~
-                    {
-                      tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
-                        dplyr::filter(file_nm_chr == .x)
-                      first_lgl_vec <- c(T,rep(F,nrow(tb)-1))
-                      dest_path_1L_chr <- paste0(r_dir_1L_chr,"/",tb$file_pfx_chr[1],.x)
-                      purrr::walk(1:nrow(tb),
-                                  ~
-                                    {
-                                      if(!is.null(fns_env_ls$fns_env[[tb[[.x,1]]]])){#!exists(tb[[.x,1]])
-                                        fn <- fns_env_ls$fns_env[[tb[[.x,1]]]]
-                                      }else{
-                                        fn <- eval(parse(text=tb[[.x,1]]))
-                                      }
-                                      # fn <- eval(parse(text=tb[[.x,1]]))
-                                      fn_chr <- deparse(fn)
-                                      fn_and_cls_chr <- tb[[.x,1]] %>% strsplit("\\.") %>% purrr::pluck(1)
-                                      sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
-                                      make_lines_for_fn_dmt(fn_name_1L_chr = tb[[.x,1]],
-                                                            fn_type_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
-                                                                                    "meth_std_s3_mthd",
-                                                                                    ifelse(tb$file_pfx_chr[1]=="grp_",
-                                                                                           "gen_std_s3_mthd",
-                                                                                           "fn")),
-                                                            fn = fn,
-                                                            fn_desc_1L_chr = tb[[.x,3]],
-                                                            fn_out_type_1L_chr = tb[[.x,6]],
-                                                            fn_title_1L_chr = ifelse(tb$file_pfx_chr[1]=="mthd_",
-                                                                                     get_mthd_title(tb[[.x,1]]),
-                                                                                     Hmisc::capitalize(tb[[.x,2]])),
-                                                            example_1L_lgl = tb[[.x,7]],
-                                                            export_1L_lgl = T,
-                                                            class_name_1L_chr = "",
-                                                            details_1L_chr = tb[[.x,4]],
-                                                            args_ls = tb$args_ls[[.x]] %>% as.list(),
-                                                            import_chr = NA_character_,
-                                                            import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr,
-                                                            doc_in_class_1L_lgl = F,
-                                                            abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                                            fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
-                                                            object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
-                                      if(tb[[.x,5]] + document_unexp_lgl == 0){
-                                        writeLines(paste0("#' @keywords internal"))
-                                      }
-                                      writeLines(paste0(tb[[.x,1]]," <- ",fn_chr[1]))
-                                      writeLines(fn_chr[2:length(fn_chr)])
-                                      if(tb$file_pfx_chr[1]=="grp_"){
-                                        writeLines(paste0("methods::setGeneric(\"",
-                                                          tb[[.x,1]],
-                                                          "\")"))
-                                      }
-                                      if(tb$file_pfx_chr[1]=="mthd_"){
-                                        writeLines(paste0("#' @rdname ",fn_and_cls_chr[1],"-methods"))
-                                        writeLines(paste0("#' @aliases ",fn_and_cls_chr[1],",",fn_and_cls_chr[2],"-method"))
-                                        {
-                                          if(fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)){
-                                          writeLines(paste0("#' @importFrom ",
-                                                            unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
-                                                            " ",
-                                                            fn_and_cls_chr[1]))
-                                          }
-                                          }
-                                        writeLines(paste0('methods::setMethod(\"',
-                                                          fn_and_cls_chr[1],
-                                                          '\"',
-                                                          ', ',
-                                                          "methods::className(",
-                                                          paste0('\"',
-                                                                 fn_and_cls_chr[2],
-                                                                 '\"',
-                                                                 ', package = \"',
-                                                                 pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                                                                 '\"'),
-                                                          ")",
-                                                          ', ',
-                                                          tb[[.x,1]],
-                                                          ')'))
-                                      }
-                                      close_open_sinks()
-                                    })
-                    }
-      )
+      purrr::walk(~ {
+        tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
+          dplyr::filter(file_nm_chr == .x)
+        first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
+        dest_path_1L_chr <- paste0(r_dir_1L_chr, "/", tb$file_pfx_chr[1], .x)
+        purrr::walk(
+          1:nrow(tb),
+          ~ {
+            if (!is.null(fns_env_ls$fns_env[[tb[[.x, 1]]]])) { # !exists(tb[[.x,1]])
+              fn <- fns_env_ls$fns_env[[tb[[.x, 1]]]]
+            } else {
+              fn <- eval(parse(text = tb[[.x, 1]]))
+            }
+            # fn <- eval(parse(text=tb[[.x,1]]))
+            fn_chr <- deparse(fn)
+            fn_and_cls_chr <- tb[[.x, 1]] %>%
+              strsplit("\\.") %>%
+              purrr::pluck(1)
+            sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
+            make_lines_for_fn_dmt(
+              fn_name_1L_chr = tb[[.x, 1]],
+              fn_type_1L_chr = ifelse(tb$file_pfx_chr[1] == "mthd_",
+                "meth_std_s3_mthd",
+                ifelse(tb$file_pfx_chr[1] == "grp_",
+                  "gen_std_s3_mthd",
+                  "fn"
+                )
+              ),
+              fn = fn,
+              fn_desc_1L_chr = tb[[.x, 3]],
+              fn_out_type_1L_chr = tb[[.x, 6]],
+              fn_title_1L_chr = ifelse(tb$file_pfx_chr[1] == "mthd_",
+                get_mthd_title(tb[[.x, 1]]),
+                Hmisc::capitalize(tb[[.x, 2]])
+              ),
+              example_1L_lgl = tb[[.x, 7]],
+              export_1L_lgl = T,
+              class_name_1L_chr = "",
+              details_1L_chr = tb[[.x, 4]],
+              args_ls = tb$args_ls[[.x]] %>% as.list(),
+              import_chr = NA_character_,
+              import_from_chr = pkg_setup_ls$subsequent_ls$import_from_chr,
+              doc_in_class_1L_lgl = F,
+              abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+              fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
+              object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup
+            )
+            if (tb[[.x, 5]] + document_unexp_lgl == 0) {
+              writeLines(paste0("#' @keywords internal"))
+            }
+            writeLines(paste0(tb[[.x, 1]], " <- ", fn_chr[1]))
+            writeLines(fn_chr[2:length(fn_chr)])
+            if (tb$file_pfx_chr[1] == "grp_") {
+              writeLines(paste0(
+                "methods::setGeneric(\"",
+                tb[[.x, 1]],
+                "\")"
+              ))
+            }
+            if (tb$file_pfx_chr[1] == "mthd_") {
+              writeLines(paste0("#' @rdname ", fn_and_cls_chr[1], "-methods"))
+              writeLines(paste0("#' @aliases ", fn_and_cls_chr[1], ",", fn_and_cls_chr[2], "-method"))
+              {
+                if (fn_and_cls_chr[1] %in% names(pkg_setup_ls$subsequent_ls$import_from_chr)) {
+                  writeLines(paste0(
+                    "#' @importFrom ",
+                    unname(pkg_setup_ls$subsequent_ls$import_from_chr)[names(pkg_setup_ls$subsequent_ls$import_from_chr) == fn_and_cls_chr[1]],
+                    " ",
+                    fn_and_cls_chr[1]
+                  ))
+                }
+              }
+              writeLines(paste0(
+                'methods::setMethod(\"',
+                fn_and_cls_chr[1],
+                '\"',
+                ", ",
+                "methods::className(",
+                paste0(
+                  '\"',
+                  fn_and_cls_chr[2],
+                  '\"',
+                  ', package = \"',
+                  pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+                  '\"'
+                ),
+                ")",
+                ", ",
+                tb[[.x, 1]],
+                ")"
+              ))
+            }
+            close_open_sinks()
+          }
+        )
+      })
   }
 }
-write_fn_type_dirs <- function(path_1L_chr = "data-raw"){
+write_fn_type_dirs <- function(path_1L_chr = "data-raw") {
   undocumented_fns_dir_chr <- make_undmtd_fns_dir_chr(path_1L_chr)
   ready4::write_new_dirs(undocumented_fns_dir_chr)
 }
 write_fns_dmt_tb <- function(pkg_setup_ls,
                              gh_prerelease_1L_lgl = T,
                              gh_repo_desc_1L_chr = "Supplementary Files",
-                             gh_tag_1L_chr = "Documentation_0.0"){
+                             gh_tag_1L_chr = "Documentation_0.0") {
   fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb
   gh_repo_1L_chr <- pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1]
   fns_dmt_tb <- fns_dmt_tb %>% dplyr::mutate(file_nm_chr = basename(file_nm_chr))
-  ready4::write_env_objs_to_dv(env_objects_ls = list(fns_dmt_tb = fns_dmt_tb),
-                               descriptions_chr = NULL,
-                               ds_url_1L_chr = character(0),
-                               piggyback_desc_1L_chr = gh_repo_desc_1L_chr,
-                               piggyback_tag_1L_chr = gh_tag_1L_chr,
-                               piggyback_to_1L_chr = gh_repo_1L_chr,
-                               prerelease_1L_lgl = gh_prerelease_1L_lgl)
-
+  ready4::write_env_objs_to_dv(
+    env_objects_ls = list(fns_dmt_tb = fns_dmt_tb),
+    descriptions_chr = NULL,
+    ds_url_1L_chr = character(0),
+    piggyback_desc_1L_chr = gh_repo_desc_1L_chr,
+    piggyback_tag_1L_chr = gh_tag_1L_chr,
+    piggyback_to_1L_chr = gh_repo_1L_chr,
+    prerelease_1L_lgl = gh_prerelease_1L_lgl
+  )
 }
 write_fns_to_split_dests <- function(pkg_depcy_ls,
                                      pkg_1_core_fns_chr,
@@ -692,64 +891,76 @@ write_fns_to_split_dests <- function(pkg_depcy_ls,
                                      pkg_1_nm_1L_chr = "package_1",
                                      pkg_2_nm_1L_chr = "package_2",
                                      tmp_dir_path_1L_chr = "data-raw/pkg_migration",
-                                     path_to_fns_dir_1L_chr = "data-raw/fns"){
+                                     path_to_fns_dir_1L_chr = "data-raw/fns") {
   # utils::data("fns_dmt_tb",
   #             package = original_pkg_nm_1L_chr,
   #             envir = environment())
   read_fns(path_to_fns_dir_1L_chr)
-  fns_for_pkg_1_chr <- get_all_depcys_of_fns(pkg_depcy_ls = pkg_depcy_ls,
-                                             fns_chr = pkg_1_core_fns_chr)
+  fns_for_pkg_1_chr <- get_all_depcys_of_fns(
+    pkg_depcy_ls = pkg_depcy_ls,
+    fns_chr = pkg_1_core_fns_chr
+  )
   fns_for_pkg_2_chr <- setdiff(pkg_depcy_ls$Nomfun$label, fns_for_pkg_1_chr)
-  migrate_ls <- list(fns_for_pkg_1_chr = fns_for_pkg_1_chr,
-                     fns_for_pkg_2_chr = fns_for_pkg_2_chr)
-  if(!dir.exists(tmp_dir_path_1L_chr))
+  migrate_ls <- list(
+    fns_for_pkg_1_chr = fns_for_pkg_1_chr,
+    fns_for_pkg_2_chr = fns_for_pkg_2_chr
+  )
+  if (!dir.exists(tmp_dir_path_1L_chr)) {
     dir.create(tmp_dir_path_1L_chr)
-  new_dest_dir_chr <- purrr::map_chr(c(pkg_1_nm_1L_chr,pkg_2_nm_1L_chr),
-                                     ~ {
-                                       new_dir_1L_chr <- paste0(tmp_dir_path_1L_chr,
-                                                                "/",
-                                                                .x)
-                                       if(!dir.exists(new_dir_1L_chr))
-                                         dir.create(new_dir_1L_chr)
-                                       new_dir_1L_chr
-                                     })
+  }
+  new_dest_dir_chr <- purrr::map_chr(
+    c(pkg_1_nm_1L_chr, pkg_2_nm_1L_chr),
+    ~ {
+      new_dir_1L_chr <- paste0(
+        tmp_dir_path_1L_chr,
+        "/",
+        .x
+      )
+      if (!dir.exists(new_dir_1L_chr)) {
+        dir.create(new_dir_1L_chr)
+      }
+      new_dir_1L_chr
+    }
+  )
   migrate_ls %>%
-    purrr::walk2(new_dest_dir_chr,
-                 ~{
-                   fns_tb <- fns_dmt_tb %>%
-                     dplyr::filter(fns_chr %in% .x) %>%
-                     dplyr::select(fns_chr, file_nm_chr)
-                   file_nms_chr <- fns_tb$file_nm_chr %>% unique()
-                   new_dest_dir_1L_chr <- .y
-                   file_nms_chr %>%
-                     purrr::walk(~
-                                   {
-                                     tb <- fns_tb %>%
-                                       dplyr::filter(file_nm_chr == .x)
-                                     first_lgl_vec <- c(T,rep(F,nrow(tb)-1))
-                                     dest_path_1L_chr <- paste0(new_dest_dir_1L_chr,"/",.x)
-                                     purrr::walk(1:nrow(tb),
-                                                 ~
-                                                   {
-                                                     fn <- eval(parse(text=tb[[.x,1]]))
-                                                     fn_chr <- deparse(fn)
-                                                     sink(dest_path_1L_chr, append =  !first_lgl_vec[.x])
-                                                     writeLines(paste0(tb[[.x,1]]," <- ",fn_chr[1]))
-                                                     writeLines(fn_chr[2:length(fn_chr)])
-                                                     close_open_sinks()
-                                                   })
-                                   }
-                     )
-                 })
+    purrr::walk2(
+      new_dest_dir_chr,
+      ~ {
+        fns_tb <- fns_dmt_tb %>%
+          dplyr::filter(fns_chr %in% .x) %>%
+          dplyr::select(fns_chr, file_nm_chr)
+        file_nms_chr <- fns_tb$file_nm_chr %>% unique()
+        new_dest_dir_1L_chr <- .y
+        file_nms_chr %>%
+          purrr::walk(~ {
+            tb <- fns_tb %>%
+              dplyr::filter(file_nm_chr == .x)
+            first_lgl_vec <- c(T, rep(F, nrow(tb) - 1))
+            dest_path_1L_chr <- paste0(new_dest_dir_1L_chr, "/", .x)
+            purrr::walk(
+              1:nrow(tb),
+              ~ {
+                fn <- eval(parse(text = tb[[.x, 1]]))
+                fn_chr <- deparse(fn)
+                sink(dest_path_1L_chr, append = !first_lgl_vec[.x])
+                writeLines(paste0(tb[[.x, 1]], " <- ", fn_chr[1]))
+                writeLines(fn_chr[2:length(fn_chr)])
+                close_open_sinks()
+              }
+            )
+          })
+      }
+    )
 }
-write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()){
-  source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr,"/data-raw/inst")
-  if(dir.exists(source_inst_dir_1L_chr)){
-    inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr,"/inst")
+write_inst_dir <- function(path_to_pkg_rt_1L_chr = getwd()) {
+  source_inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/data-raw/inst")
+  if (dir.exists(source_inst_dir_1L_chr)) {
+    inst_dir_1L_chr <- paste0(path_to_pkg_rt_1L_chr, "/inst")
     ready4::write_to_delete_dirs(inst_dir_1L_chr)
     ready4::write_new_dirs(inst_dir_1L_chr)
     ready4::write_new_files(inst_dir_1L_chr,
-                            source_paths_ls = list(source_inst_dir_1L_chr))
+      source_paths_ls = list(source_inst_dir_1L_chr)
+    )
   }
 }
 write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
@@ -757,42 +968,56 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
                                     developer_manual_url_1L_chr = NA_character_,
                                     user_manual_url_1L_chr = NA_character_,
                                     project_website_url_1L_chr = NA_character_,
-                                    theme_1L_chr = "journal"){
-  ready4::write_from_tmp(paste0(path_to_pkg_rt_1L_chr,
-                        "/_pkgdown.yml"),
-                 dest_paths_chr = paste0(path_to_pkg_rt_1L_chr,
-                                           "/_pkgdown.yml"),
-                 edit_fn_ls = list(function(txt_chr,
-                                            user_manual_url_1L_chr,
-                                            developer_manual_url_1L_chr,
-                                            project_website_url_1L_chr){
-                   idx_1L_int <- which(txt_chr=="home:")
-                   if(!identical(idx_1L_int,integer(0))){
-                     changes_chr <- c(any(txt_chr == "  - text: User manual (PDF)"),
-                                      any(txt_chr == "  - text: Developer version of usual manual (PDF)"),
-                                      any(txt_chr == "  - text: Project website"))
-                     txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr==T])*2))]
-                   }
-                   c(paste0("url: ", # NOT IDEAL FUNCTION FROM WHICH TO WRITE THIS TEXT - PRAGMATIC FOR NOW
-                            pkg_url_1L_chr),#https://ready4-dev.github.io/ready4/
-                     "",
-                     "template:",
-                     "  bootstrap: 5",
-                     paste0("  bootswatch: ",theme_1L_chr),
-                     "",
-                     "home:",
-                     "  links:",
-                     ifelse(!is.na(user_manual_url_1L_chr), "  - text: Manual - User (PDF)", NA_character_),
-                     ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
-                     ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
-                     ifelse(!is.na(project_website_url_1L_chr), "  - text: Model", NA_character_),
-                     ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
-                     txt_chr) %>% stats::na.omit()
-                 }),
-                 args_ls_ls = list(list(user_manual_url_1L_chr = user_manual_url_1L_chr,
-                                        developer_manual_url_1L_chr = developer_manual_url_1L_chr,
-                                        project_website_url_1L_chr = project_website_url_1L_chr)))
+                                    theme_1L_chr = "journal") {
+  ready4::write_from_tmp(
+    paste0(
+      path_to_pkg_rt_1L_chr,
+      "/_pkgdown.yml"
+    ),
+    dest_paths_chr = paste0(
+      path_to_pkg_rt_1L_chr,
+      "/_pkgdown.yml"
+    ),
+    edit_fn_ls = list(function(txt_chr,
+                               user_manual_url_1L_chr,
+                               developer_manual_url_1L_chr,
+                               project_website_url_1L_chr) {
+      idx_1L_int <- which(txt_chr == "home:")
+      if (!identical(idx_1L_int, integer(0))) {
+        changes_chr <- c(
+          any(txt_chr == "  - text: User manual (PDF)"),
+          any(txt_chr == "  - text: Developer version of usual manual (PDF)"),
+          any(txt_chr == "  - text: Project website")
+        )
+        txt_chr <- txt_chr[-(1:(length(changes_chr[changes_chr == T]) * 2))]
+      }
+      c(
+        paste0(
+          "url: ", # NOT IDEAL FUNCTION FROM WHICH TO WRITE THIS TEXT - PRAGMATIC FOR NOW
+          pkg_url_1L_chr
+        ), # https://ready4-dev.github.io/ready4/
+        "",
+        "template:",
+        "  bootstrap: 5",
+        paste0("  bootswatch: ", theme_1L_chr),
+        "",
+        "home:",
+        "  links:",
+        ifelse(!is.na(user_manual_url_1L_chr), "  - text: Manual - User (PDF)", NA_character_),
+        ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
+        ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
+        ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
+        ifelse(!is.na(project_website_url_1L_chr), "  - text: Model", NA_character_),
+        ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
+        txt_chr
+      ) %>% stats::na.omit()
+    }),
+    args_ls_ls = list(list(
+      user_manual_url_1L_chr = user_manual_url_1L_chr,
+      developer_manual_url_1L_chr = developer_manual_url_1L_chr,
+      project_website_url_1L_chr = project_website_url_1L_chr
+    ))
+  )
 }
 write_manuals <- function(pkg_setup_ls,
                           path_to_dmt_dir_1L_chr = deprecated(), ##
@@ -800,36 +1025,45 @@ write_manuals <- function(pkg_setup_ls,
                           key_1L_chr = NULL,
                           publish_dv_1L_lgl = T,
                           server_1L_chr = deprecated(),
-                          pkg_desc_ls = deprecated()){
+                          pkg_desc_ls = deprecated()) {
   if (lifecycle::is_present(pkg_desc_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_manuals(pkg_desc_ls)",
-                              details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+      "ready4fun::write_manuals(pkg_desc_ls)",
+      details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the pkg_desc_ls object to this function."
+    )
   }
   if (lifecycle::is_present(dv_url_pfx_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9445",
-                              "ready4fun::write_manuals(dv_url_pfx_1L_chr)",
-                              details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the dv_url_pfx_1L_chr object to this function.")
+      "ready4fun::write_manuals(dv_url_pfx_1L_chr)",
+      details = "Please use `ready4fun::write_manuals(pkg_setup_ls)` to pass the dv_url_pfx_1L_chr object to this function."
+    )
   }
-  write_manuals_to_dv(package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                      path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
-                      pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
-                      publish_dv_1L_lgl = publish_dv_1L_lgl,
-                      piggyback_to_1L_chr = pkg_setup_ls$initial_ls$gh_repo_1L_chr)
-  dmt_urls_chr <- piggyback::pb_download_url(repo = pkg_setup_ls$initial_ls$gh_repo_1L_chr,
-                                             tag = "Documentation_0.0")
+  write_manuals_to_dv(
+    package_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+    path_to_dmt_dir_1L_chr = pkg_setup_ls$subsequent_ls$path_to_dmt_dir_1L_chr,
+    pkg_dmt_dv_ds_1L_chr = pkg_setup_ls$subsequent_ls$pkg_dmt_dv_dss_chr[1],
+    publish_dv_1L_lgl = publish_dv_1L_lgl,
+    piggyback_to_1L_chr = pkg_setup_ls$initial_ls$gh_repo_1L_chr
+  )
+  dmt_urls_chr <- piggyback::pb_download_url(
+    repo = pkg_setup_ls$initial_ls$gh_repo_1L_chr,
+    tag = "Documentation_0.0"
+  )
   pkg_urls_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
     strsplit(",") %>%
     unlist()
   project_url_1L_chr <- pkg_urls_chr %>%
     purrr::pluck(3)
-  if(is.null(project_url_1L_chr))
-    project_url_1L_chr <-  NA_character_
-  write_links_for_website(pkg_url_1L_chr = pkg_urls_chr %>%
-                            purrr::pluck(1),
-                          user_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr,paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_User.pdf")))],
-                          developer_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr,paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_Developer.pdf")))],
-                          project_website_url_1L_chr = project_url_1L_chr)
+  if (is.null(project_url_1L_chr)) {
+    project_url_1L_chr <- NA_character_
+  }
+  write_links_for_website(
+    pkg_url_1L_chr = pkg_urls_chr %>%
+      purrr::pluck(1),
+    user_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, "_User.pdf")))],
+    developer_manual_url_1L_chr = dmt_urls_chr[which(endsWith(dmt_urls_chr, paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, "_Developer.pdf")))],
+    project_website_url_1L_chr = project_url_1L_chr
+  )
 }
 write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                 path_to_dmt_dir_1L_chr,
@@ -837,53 +1071,70 @@ write_manuals_to_dv <- function(package_1L_chr = get_dev_pkg_nm(getwd()),
                                 publish_dv_1L_lgl = F,
                                 piggyback_desc_1L_chr = "Latest package manual PDFs.",
                                 piggyback_tag_1L_chr = "Documentation_0.0",
-                                piggyback_to_1L_chr = character(0)){
+                                piggyback_to_1L_chr = character(0)) {
   version_1L_chr <- utils::packageDescription(package_1L_chr)$Version
-  purrr::walk(c("Developer","User"),
-              ~{
-                dir_1L_chr <- paste0(path_to_dmt_dir_1L_chr,
-                                     "/",
-                                     .x)
-                original_1L_chr <- paste0(dir_1L_chr,
-                                          "/",
-                                          package_1L_chr,
-                                          "_",
-                                          version_1L_chr,
-                                          ".pdf")
-                fl_nm_1L_chr <- paste0(package_1L_chr,
-                                       "_",
-                                       .x,
-                                       ".pdf")
-                copy_1L_chr <- paste0(dir_1L_chr,
-                                      "/",
-                                      fl_nm_1L_chr)
-                if(file.exists(original_1L_chr)){
-                  ready4::write_new_files(dir_1L_chr,
-                                  source_paths_ls = list(original_1L_chr),
-                                  fl_nm_1L_chr = fl_nm_1L_chr)
-                }
-                if(!identical(piggyback_to_1L_chr,character(0))){
-                  releases_df <- piggyback::pb_list(repo = piggyback_to_1L_chr)
-                  if(!piggyback_tag_1L_chr %in% releases_df$tag)
-                    piggyback::pb_new_release(piggyback_to_1L_chr,
-                                            tag = piggyback_tag_1L_chr,
-                                            body = piggyback_desc_1L_chr,
-                                            prerelease = T)
-                  piggyback::pb_upload(copy_1L_chr,
-                                       repo = piggyback_to_1L_chr,
-                                       tag = piggyback_tag_1L_chr)
-                }else{ # USUALLY NOT RECOMMENDED
-                  ready4::write_fls_to_dv(copy_1L_chr,
-                                          descriptions_chr = paste0("Manual (",
-                                                                    .x %>% tolower(),
-                                                                    " version)",
-                                                                    " describing the contents of the ",
-                                                                    package_1L_chr,
-                                                                    " R package."),
-                                          ds_url_1L_chr = pkg_dmt_dv_ds_1L_chr)
-                }
-              })
-  if(publish_dv_1L_lgl & identical(piggyback_to_1L_chr,character(0))){
+  purrr::walk(
+    c("Developer", "User"),
+    ~ {
+      dir_1L_chr <- paste0(
+        path_to_dmt_dir_1L_chr,
+        "/",
+        .x
+      )
+      original_1L_chr <- paste0(
+        dir_1L_chr,
+        "/",
+        package_1L_chr,
+        "_",
+        version_1L_chr,
+        ".pdf"
+      )
+      fl_nm_1L_chr <- paste0(
+        package_1L_chr,
+        "_",
+        .x,
+        ".pdf"
+      )
+      copy_1L_chr <- paste0(
+        dir_1L_chr,
+        "/",
+        fl_nm_1L_chr
+      )
+      if (file.exists(original_1L_chr)) {
+        ready4::write_new_files(dir_1L_chr,
+          source_paths_ls = list(original_1L_chr),
+          fl_nm_1L_chr = fl_nm_1L_chr
+        )
+      }
+      if (!identical(piggyback_to_1L_chr, character(0))) {
+        releases_df <- piggyback::pb_list(repo = piggyback_to_1L_chr) # Will fail if no releases / no docs
+        if (!piggyback_tag_1L_chr %in% releases_df$tag) {
+          piggyback::pb_new_release(piggyback_to_1L_chr,
+            tag = piggyback_tag_1L_chr,
+            body = piggyback_desc_1L_chr,
+            prerelease = T
+          )
+        }
+        piggyback::pb_upload(copy_1L_chr,
+          repo = piggyback_to_1L_chr,
+          tag = piggyback_tag_1L_chr
+        )
+      } else { # USUALLY NOT RECOMMENDED
+        ready4::write_fls_to_dv(copy_1L_chr,
+          descriptions_chr = paste0(
+            "Manual (",
+            .x %>% tolower(),
+            " version)",
+            " describing the contents of the ",
+            package_1L_chr,
+            " R package."
+          ),
+          ds_url_1L_chr = pkg_dmt_dv_ds_1L_chr
+        )
+      }
+    }
+  )
+  if (publish_dv_1L_lgl & identical(piggyback_to_1L_chr, character(0))) {
     ready4::write_to_publish_dv_ds(dv_ds_1L_chr = pkg_dmt_dv_ds_1L_chr)
   }
 }
@@ -894,104 +1145,150 @@ write_new_abbrs <- function(pkg_setup_ls,
                             no_plural_chr = NA_character_,
                             publish_dv_1L_lgl = deprecated(),
                             pfx_rgx = NA_character_,
-                            server_1L_chr = deprecated()){
+                            server_1L_chr = deprecated()) {
   # Add 1st Nov 2021 deprecations
-  if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
+  if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
     pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
     was_null_abbrs_1L_lgl <- T
   }
-  if(!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr) & !is.null(long_name_chr)){
+  if (!is.null(pkg_setup_ls$problems_ls$missing_abbrs_chr) & !is.null(long_name_chr)) {
     pkg_setup_ls <- update_abbrs(pkg_setup_ls,
-                                 short_name_chr = pkg_setup_ls$problems_ls$missing_abbrs_chr,
-                                 long_name_chr = long_name_chr,
-                                 no_plural_chr = no_plural_chr,
-                                 custom_plural_ls = custom_plural_ls,
-                                 pfx_rgx = pfx_rgx)
+      short_name_chr = pkg_setup_ls$problems_ls$missing_abbrs_chr,
+      long_name_chr = long_name_chr,
+      no_plural_chr = no_plural_chr,
+      custom_plural_ls = custom_plural_ls,
+      pfx_rgx = pfx_rgx
+    )
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                          list_element_1L_chr = "missing_abbrs_chr")
+      list_element_1L_chr = "missing_abbrs_chr"
+    )
   }
-  if(!is.null(pkg_setup_ls$problems_ls$missing_class_abbrs_chr)){
+  if (!is.null(pkg_setup_ls$problems_ls$missing_class_abbrs_chr)) {
     class_desc_chr <- pkg_setup_ls$problems_ls$missing_class_abbrs_chr %>%
       purrr::map_chr(~ ready4::get_from_lup_obj(pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
-                                        match_value_xx = ifelse(startsWith(.x,
-                                                                           pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>%
-                                                                             Hmisc::capitalize()),
-                                                                           stringr::str_remove(.x,
-                                                                                               pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>%
-                                                                                                 Hmisc::capitalize()),
-                                                                           stringr::str_remove(.x,
-                                                                             paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package,"_"))),
-                                        match_var_nm_1L_chr = "name_stub_chr",
-                                        target_var_nm_1L_chr = "class_desc_chr",
-                                        evaluate_1L_lgl = F))
-    short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
-                                 pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr)
-    long_dupls_chr <- intersect(class_desc_chr,
-                                pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr)
-    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class name values from 'classes_to_make_tb' to the short_name_chr column:\n",
-                          short_dupls_chr %>% ready4::make_list_phrase()),
-                   identical(short_dupls_chr, character(0)))
-    testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class description values from 'classes_to_make_tb' to the long_name_chr column:\n",
-                          long_dupls_chr %>% ready4::make_list_phrase()),
-                   identical(long_dupls_chr, character(0)))
+        match_value_xx = ifelse(startsWith(
+          .x,
+          pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>%
+            Hmisc::capitalize()
+        ),
+        stringr::str_remove(
+          .x,
+          pkg_setup_ls$initial_ls$pkg_desc_ls$Package %>%
+            Hmisc::capitalize()
+        ),
+        stringr::str_remove(
+          .x,
+          paste0(pkg_setup_ls$initial_ls$pkg_desc_ls$Package, "_")
+        )
+        ),
+        match_var_nm_1L_chr = "name_stub_chr",
+        target_var_nm_1L_chr = "class_desc_chr",
+        evaluate_1L_lgl = F
+      ))
+    short_dupls_chr <- intersect(
+      pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
+      pkg_setup_ls$subsequent_ls$abbreviations_lup$short_name_chr
+    )
+    long_dupls_chr <- intersect(
+      class_desc_chr,
+      pkg_setup_ls$subsequent_ls$abbreviations_lup$long_name_chr
+    )
+    testit::assert(
+      paste0(
+        "No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class name values from 'classes_to_make_tb' to the short_name_chr column:\n",
+        short_dupls_chr %>% ready4::make_list_phrase()
+      ),
+      identical(short_dupls_chr, character(0))
+    )
+    testit::assert(
+      paste0(
+        "No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate class description values from 'classes_to_make_tb' to the long_name_chr column:\n",
+        long_dupls_chr %>% ready4::make_list_phrase()
+      ),
+      identical(long_dupls_chr, character(0))
+    )
     pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
-      update_abbr_lup(short_name_chr = pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
-                      long_name_chr = class_desc_chr,
-                      no_plural_chr = class_desc_chr,
-                      custom_plural_ls = NULL,
-                      pfx_rgx = NA_character_)
+      update_abbr_lup(
+        short_name_chr = pkg_setup_ls$problems_ls$missing_class_abbrs_chr,
+        long_name_chr = class_desc_chr,
+        no_plural_chr = class_desc_chr,
+        custom_plural_ls = NULL,
+        pfx_rgx = NA_character_
+      )
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                          list_element_1L_chr = "missing_class_abbrs_chr")
+      list_element_1L_chr = "missing_class_abbrs_chr"
+    )
   }
-  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
-   append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
-                                            pkg_setup_ls$problems_ls$missing_words_chr))
-   words_desc_1L_chr <- "Additional words for dictionary"
-   pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                         list_element_1L_chr = "missing_words_chr")
-  }else{
+  if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+    append_ls <- list(treat_as_words_chr = c(
+      pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+      pkg_setup_ls$problems_ls$missing_words_chr
+    ))
+    words_desc_1L_chr <- "Additional words for dictionary"
+    pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
+      list_element_1L_chr = "missing_words_chr"
+    )
+  } else {
     append_ls <- words_desc_1L_chr <- NULL
   }
-  file_ids_int <- ready4::write_env_objs_to_dv(append(list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup),
-                                              append_ls),
-                                       descriptions_chr = c("Abbreviations lookup table", words_desc_1L_chr),
-                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                       #key_1L_chr = key_1L_chr,
-                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                       #server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
-                                       publish_dv_1L_lgl = F)
+  file_ids_int <- ready4::write_env_objs_to_dv(
+    append(
+      list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup),
+      append_ls
+    ),
+    descriptions_chr = c("Abbreviations lookup table", words_desc_1L_chr),
+    ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+    # key_1L_chr = key_1L_chr,
+    piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+    # server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
+    publish_dv_1L_lgl = F
+  )
   return(pkg_setup_ls)
 }
 write_new_arg_sfcs <- function(arg_nms_chr,
-                                 fn_type_1L_chr,
-                                 dir_path_chr,
-                                 rt_dev_dir_path_1L_chr = normalizePath("../../../"),
-                                 pkg_nm_1L_chr,
-                                 inc_fns_idx_dbl = NA_real_){
-  if(is.na(inc_fns_idx_dbl))
-    inc_fns_idx_dbl <- 1:length(ls(paste0("package:",pkg_nm_1L_chr))[ls(paste0("package:",pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)])
-  purrr::walk(arg_nms_chr[order(nchar(arg_nms_chr), arg_nms_chr,  decreasing=T )] %>% unique(),
-              ~ write_to_rpl_1L_and_indefL_sfcs(.x,
-                                             file_path_chr = paste0(dir_path_chr,"/",fn_type_1L_chr,".R")))
-  updated_fns_chr <- ls(paste0("package:",pkg_nm_1L_chr))[ls(paste0("package:",pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)][inc_fns_idx_dbl]
-  updated_sfcs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>% stringr::str_sub(start=-8) %>% unique()
-  fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% stringr::str_sub(start=-8) %in% updated_sfcs_chr]
-  if(ifelse(identical(fn_nms_to_upd_chr, character(0)),
-            F,
-            !is.na(fn_nms_to_upd_chr)
-  )){
-    purrr::walk(fn_nms_to_upd_chr,
-                ~ write_to_rpl_1L_and_indefL_sfcs(.x,
-                                               dir_path_chr = dir_path_chr))
-    purrr::walk(paste0(pkg_nm_1L_chr,"::",fn_nms_to_upd_chr),
-                ~ write_to_rpl_1L_and_indefL_sfcs(.x,
-                                               dir_path_chr = rt_dev_dir_path_1L_chr))
+                               fn_type_1L_chr,
+                               dir_path_chr,
+                               rt_dev_dir_path_1L_chr = normalizePath("../../../"),
+                               pkg_nm_1L_chr,
+                               inc_fns_idx_dbl = NA_real_) {
+  if (is.na(inc_fns_idx_dbl)) {
+    inc_fns_idx_dbl <- 1:length(ls(paste0("package:", pkg_nm_1L_chr))[ls(paste0("package:", pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)])
   }
-  fn_args_to_rnm_ls <- purrr::map(updated_fns_chr,
-                                  ~ {
-                                    fn_args_chr <- get_fn_args_chr(eval(parse(text=.x)))
-                                    fn_args_chr[purrr::map_lgl(fn_args_chr, ~ .x %in% c(arg_nms_chr,arg_nms_chr %>% stringr::str_sub(end=-5)))]
-                                  }) %>% stats::setNames(updated_fns_chr)
+  purrr::walk(
+    arg_nms_chr[order(nchar(arg_nms_chr), arg_nms_chr, decreasing = T)] %>% unique(),
+    ~ write_to_rpl_1L_and_indefL_sfcs(.x,
+      file_path_chr = paste0(dir_path_chr, "/", fn_type_1L_chr, ".R")
+    )
+  )
+  updated_fns_chr <- ls(paste0("package:", pkg_nm_1L_chr))[ls(paste0("package:", pkg_nm_1L_chr)) %>% startsWith(fn_type_1L_chr)][inc_fns_idx_dbl]
+  updated_sfcs_chr <- arg_nms_chr[arg_nms_chr %>% endsWith("_vec")] %>%
+    stringr::str_sub(start = -8) %>%
+    unique()
+  fn_nms_to_upd_chr <- updated_fns_chr[updated_fns_chr %>% stringr::str_sub(start = -8) %in% updated_sfcs_chr]
+  if (ifelse(identical(fn_nms_to_upd_chr, character(0)),
+    F,
+    !is.na(fn_nms_to_upd_chr)
+  )) {
+    purrr::walk(
+      fn_nms_to_upd_chr,
+      ~ write_to_rpl_1L_and_indefL_sfcs(.x,
+        dir_path_chr = dir_path_chr
+      )
+    )
+    purrr::walk(
+      paste0(pkg_nm_1L_chr, "::", fn_nms_to_upd_chr),
+      ~ write_to_rpl_1L_and_indefL_sfcs(.x,
+        dir_path_chr = rt_dev_dir_path_1L_chr
+      )
+    )
+  }
+  fn_args_to_rnm_ls <- purrr::map(
+    updated_fns_chr,
+    ~ {
+      fn_args_chr <- get_fn_args_chr(eval(parse(text = .x)))
+      fn_args_chr[purrr::map_lgl(fn_args_chr, ~ .x %in% c(arg_nms_chr, arg_nms_chr %>% stringr::str_sub(end = -5)))]
+    }
+  ) %>% stats::setNames(updated_fns_chr)
 
   return(fn_args_to_rnm_ls)
 }
@@ -1000,29 +1297,32 @@ write_new_fn_types <- function(pkg_setup_ls,
                                first_arg_desc_chr = NA_character_,
                                is_generic_lgl = F,
                                is_method_lgl = F,
-                               #is_type_lgl = F,
+                               # is_type_lgl = F,
                                key_1L_chr = deprecated(),
                                second_arg_desc_chr = NA_character_,
                                server_1L_chr = deprecated(),
-                               publish_dv_1L_lgl = deprecated()){
-  #Add deprecated 1st Nov 2021
+                               publish_dv_1L_lgl = deprecated()) {
+  # Add deprecated 1st Nov 2021
   pkg_setup_ls$subsequent_ls$fn_types_lup <- pkg_setup_ls$subsequent_ls$fn_types_lup %>%
-    add_rows_to_fn_type_lup(fn_type_nm_chr = pkg_setup_ls$problems_ls$missing_fn_types_chr,
-                            fn_type_desc_chr = fn_type_desc_chr,
-                            first_arg_desc_chr = first_arg_desc_chr,
-                            second_arg_desc_chr = second_arg_desc_chr,
-                            is_generic_lgl = is_generic_lgl,
-                            is_method_lgl = is_method_lgl#,is_type_lgl = is_type_lgl
-                            )
+    add_rows_to_fn_type_lup(
+      fn_type_nm_chr = pkg_setup_ls$problems_ls$missing_fn_types_chr,
+      fn_type_desc_chr = fn_type_desc_chr,
+      first_arg_desc_chr = first_arg_desc_chr,
+      second_arg_desc_chr = second_arg_desc_chr,
+      is_generic_lgl = is_generic_lgl,
+      is_method_lgl = is_method_lgl # ,is_type_lgl = is_type_lgl
+    )
   file_ids_int <- ready4::write_env_objs_to_dv(list(fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup),
-                                       descriptions_chr = c("Function types lookup table"),
-                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                       #key_1L_chr = key_1L_chr,
-                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                       #server_1L_chr = server_1L_chr,
-                                       publish_dv_1L_lgl = F)
+    descriptions_chr = c("Function types lookup table"),
+    ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+    # key_1L_chr = key_1L_chr,
+    piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+    # server_1L_chr = server_1L_chr,
+    publish_dv_1L_lgl = F
+  )
   pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                        list_element_1L_chr = "missing_fn_types_chr")
+    list_element_1L_chr = "missing_fn_types_chr"
+  )
   return(pkg_setup_ls)
 }
 write_new_obj_types <- function(pkg_setup_ls,
@@ -1034,144 +1334,191 @@ write_new_obj_types <- function(pkg_setup_ls,
                                 publish_dv_1L_lgl = deprecated(),
                                 pfx_rgx = NA_character_,
                                 r3_can_extend_lgl = F,
-                                server_1L_chr = deprecated()){
+                                server_1L_chr = deprecated()) {
   # Add deprecated 1st Nov 2021
   was_null_seed_1L_lgl <- was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- F
-  if(is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)){
+  if (is.null(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)) {
     pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine()
     was_null_seed_1L_lgl <- T
   }
-  if(is.null(pkg_setup_ls$subsequent_ls$object_type_lup)){
+  if (is.null(pkg_setup_ls$subsequent_ls$object_type_lup)) {
     pkg_setup_ls$subsequent_ls$object_type_lup <- make_obj_lup(obj_lup_spine = pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
     was_null_obj_type_1L_lgl <- update_abbrs_1L_lgl <- T
   }
-  if(!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr)){
-    short_dupls_chr <- intersect(pkg_setup_ls$problems_ls$missing_obj_types_chr,
-                                 pkg_setup_ls$subsequent_ls$object_type_lup$short_name_chr)
-    long_dupls_chr <- intersect(long_name_chr,
-                                pkg_setup_ls$subsequent_ls$object_type_lup$long_name_chr)
-    testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
-                          short_dupls_chr %>% make_list_phrase()),
-                   identical(short_dupls_chr, character(0)))
-    testit::assert(paste0("No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
-                          long_dupls_chr %>% make_list_phrase()),
-                   identical(long_dupls_chr, character(0)))
+  if (!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr)) {
+    short_dupls_chr <- intersect(
+      pkg_setup_ls$problems_ls$missing_obj_types_chr,
+      pkg_setup_ls$subsequent_ls$object_type_lup$short_name_chr
+    )
+    long_dupls_chr <- intersect(
+      long_name_chr,
+      pkg_setup_ls$subsequent_ls$object_type_lup$long_name_chr
+    )
+    testit::assert(
+      paste0(
+        "No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values to the short_name_chr column:\n",
+        short_dupls_chr %>% make_list_phrase()
+      ),
+      identical(short_dupls_chr, character(0))
+    )
+    testit::assert(
+      paste0(
+        "No duplicates are allowed in the object type lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n",
+        long_dupls_chr %>% make_list_phrase()
+      ),
+      identical(long_dupls_chr, character(0))
+    )
     pkg_setup_ls$subsequent_ls$seed_obj_type_lup <- make_obj_lup_spine(pkg_setup_ls$subsequent_ls$seed_obj_type_lup,
-                                                                       new_entries_tb = tibble::tibble(short_name_chr = pkg_setup_ls$problems_ls$missing_obj_types_chr,
-                                                                                                       long_name_chr = long_name_chr,
-                                                                                                       atomic_element_lgl = atomic_element_lgl,
-                                                                                                       r3_can_extend_lgl = r3_can_extend_lgl))
+      new_entries_tb = tibble::tibble(
+        short_name_chr = pkg_setup_ls$problems_ls$missing_obj_types_chr,
+        long_name_chr = long_name_chr,
+        atomic_element_lgl = atomic_element_lgl,
+        r3_can_extend_lgl = r3_can_extend_lgl
+      )
+    )
 
     updated_obj_type_lup <- make_obj_lup(pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
-    obj_type_new_cses_tb <- get_obj_type_new_cses(updated_obj_type_lup = updated_obj_type_lup,
-                                                  old_obj_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
+    obj_type_new_cses_tb <- get_obj_type_new_cses(
+      updated_obj_type_lup = updated_obj_type_lup,
+      old_obj_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup
+    )
 
 
     pkg_setup_ls$subsequent_ls$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup %>%
-      update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr,
-                      long_name_chr = obj_type_new_cses_tb$long_name_chr,
-                      no_plural_chr = obj_type_new_cses_tb$long_name_chr,
-                      custom_plural_ls = custom_plural_ls,
-                      pfx_rgx = pfx_rgx)
+      update_abbr_lup(
+        short_name_chr = obj_type_new_cses_tb$short_name_chr,
+        long_name_chr = obj_type_new_cses_tb$long_name_chr,
+        no_plural_chr = obj_type_new_cses_tb$long_name_chr,
+        custom_plural_ls = custom_plural_ls,
+        pfx_rgx = pfx_rgx
+      )
     update_abbrs_1L_lgl <- T
   }
-  if(update_abbrs_1L_lgl){
-    if(was_null_obj_type_1L_lgl){
+  if (update_abbrs_1L_lgl) {
+    if (was_null_obj_type_1L_lgl) {
       obj_type_new_cses_tb <- pkg_setup_ls$subsequent_ls$object_type_lup
     }
-    if(is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)){
+    if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
       pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
-    }else{
+    } else {
       pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>%
-        update_abbr_lup(short_name_chr = obj_type_new_cses_tb$short_name_chr,
-                        long_name_chr = obj_type_new_cses_tb$long_name_chr,
-                        no_plural_chr = obj_type_new_cses_tb$long_name_chr,
-                        custom_plural_ls = custom_plural_ls,
-                        pfx_rgx = pfx_rgx)
+        update_abbr_lup(
+          short_name_chr = obj_type_new_cses_tb$short_name_chr,
+          long_name_chr = obj_type_new_cses_tb$long_name_chr,
+          no_plural_chr = obj_type_new_cses_tb$long_name_chr,
+          custom_plural_ls = custom_plural_ls,
+          pfx_rgx = pfx_rgx
+        )
     }
-    if(!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr))
+    if (!is.null(pkg_setup_ls$problems_ls$missing_obj_types_chr) & !is.null(long_name_chr)) {
       pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                            list_element_1L_chr = "missing_obj_types_chr")
+        list_element_1L_chr = "missing_obj_types_chr"
+      )
+    }
   }
-  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
-    append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
-                                             pkg_setup_ls$problems_ls$missing_words_chr))
+  if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+    append_ls <- list(treat_as_words_chr = c(
+      pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+      pkg_setup_ls$problems_ls$missing_words_chr
+    ))
     words_desc_1L_chr <- "Additional words for dictionary"
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                          list_element_1L_chr = "missing_words_chr")
-  }else{
+      list_element_1L_chr = "missing_words_chr"
+    )
+  } else {
     append_ls <- words_desc_1L_chr <- NULL
   }
-  if(was_null_seed_1L_lgl){
-    append_ls <- append(append_ls,
-                        list(seed_obj_type_lup = pkg_setup_ls$subsequent_ls$seed_obj_type_lup))
+  if (was_null_seed_1L_lgl) {
+    append_ls <- append(
+      append_ls,
+      list(seed_obj_type_lup = pkg_setup_ls$subsequent_ls$seed_obj_type_lup)
+    )
     seed_desc_1L_chr <- "Seed object type lookup table"
-  }else{
+  } else {
     seed_desc_1L_chr <- NULL
   }
-  if(update_abbrs_1L_lgl){
-    append_ls <- append(append_ls,
-                        list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup))
+  if (update_abbrs_1L_lgl) {
+    append_ls <- append(
+      append_ls,
+      list(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup)
+    )
     abbrs_desc_1L_chr <- "Abbreviations lookup table"
-  }else{
+  } else {
     abbrs_desc_1L_chr <- NULL
   }
-  file_ids_int <- ready4::write_env_objs_to_dv(append(list(object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup),
-                                              append_ls),
-                                       descriptions_chr = c("Object type lookup table",
-                                                            words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr),
-                                       ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                       #key_1L_chr = key_1L_chr,
-                                       piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                      #server_1L_chr = server_1L_chr,
-                                       publish_dv_1L_lgl = F)
+  file_ids_int <- ready4::write_env_objs_to_dv(
+    append(
+      list(object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup),
+      append_ls
+    ),
+    descriptions_chr = c(
+      "Object type lookup table",
+      words_desc_1L_chr, seed_desc_1L_chr, abbrs_desc_1L_chr
+    ),
+    ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+    # key_1L_chr = key_1L_chr,
+    piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+    # server_1L_chr = server_1L_chr,
+    publish_dv_1L_lgl = F
+  )
   return(pkg_setup_ls)
 }
 write_new_words_vec <- function(pkg_setup_ls,
                                 key_1L_chr = deprecated(),
-                                publish_dv_1L_lgl = deprecated()){
-  if(!is.null(pkg_setup_ls$problems_ls$missing_words_chr)){
-    append_ls <- list(treat_as_words_chr = c(pkg_setup_ls$subsequent_ls$treat_as_words_chr,
-                                             pkg_setup_ls$problems_ls$missing_words_chr))
+                                publish_dv_1L_lgl = deprecated()) {
+  if (!is.null(pkg_setup_ls$problems_ls$missing_words_chr)) {
+    append_ls <- list(treat_as_words_chr = c(
+      pkg_setup_ls$subsequent_ls$treat_as_words_chr,
+      pkg_setup_ls$problems_ls$missing_words_chr
+    ))
     words_desc_1L_chr <- "Additional words for dictionary"
     pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls,
-                                          list_element_1L_chr = "missing_words_chr")
+      list_element_1L_chr = "missing_words_chr"
+    )
     file_ids_int <- ready4::write_env_objs_to_dv(append_ls,
-                                         descriptions_chr = c(words_desc_1L_chr),
-                                         ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                         #key_1L_chr = key_1L_chr,
-                                         piggyback_tag_1L_chr = "Documentation_0.0",
-                                         piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
-                                         #server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
-                                         publish_dv_1L_lgl = F)
+      descriptions_chr = c(words_desc_1L_chr),
+      ds_url_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+      # key_1L_chr = key_1L_chr,
+      piggyback_tag_1L_chr = "Documentation_0.0",
+      piggyback_to_1L_chr = pkg_setup_ls$subsequent_ls$piggyback_to_1L_chr,
+      # server_1L_chr = pkg_setup_ls$subsequent_ls$server_1L_chr,
+      publish_dv_1L_lgl = F
+    )
     pkg_setup_ls$subsequent_ls$treat_as_words_chr <- append_ls$treat_as_words_chr
   }
   return(pkg_setup_ls)
 }
 write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
-                                  incr_ver_1L_lgl = T){
+                                  incr_ver_1L_lgl = T) {
   devtools::document()
   packages_chr <- readLines("NAMESPACE") %>%
-    purrr::map_chr(~ifelse(startsWith(.x,"import"),
-                           ifelse(startsWith(.x,"importFrom"),
-                                  stringr::str_replace(.x,"importFrom\\(","") %>%
-                                    stringr::str_sub(end=stringr::str_locate(.,",")[1,1]-1),
-                                  stringr::str_replace(.x,"import\\(","") %>%
-                                    stringr::str_sub(end=-2)),
-                           NA_character_)) %>%
+    purrr::map_chr(~ ifelse(startsWith(.x, "import"),
+      ifelse(startsWith(.x, "importFrom"),
+        stringr::str_replace(.x, "importFrom\\(", "") %>%
+          stringr::str_sub(end = stringr::str_locate(., ",")[1, 1] - 1),
+        stringr::str_replace(.x, "import\\(", "") %>%
+          stringr::str_sub(end = -2)
+      ),
+      NA_character_
+    )) %>%
     purrr::discard(is.na) %>%
     unique()
-  if(!is.na(dev_pkgs_chr[1])){
-    dev_pkgs_chr <- intersect(packages_chr,dev_pkgs_chr) %>% sort()
-    packages_chr <- setdiff(packages_chr,dev_pkgs_chr) %>% sort()
-    purrr::walk(dev_pkgs_chr,
-                ~usethis::use_dev_package(.x))
+  if (!is.na(dev_pkgs_chr[1])) {
+    dev_pkgs_chr <- intersect(packages_chr, dev_pkgs_chr) %>% sort()
+    packages_chr <- setdiff(packages_chr, dev_pkgs_chr) %>% sort()
+    purrr::walk(
+      dev_pkgs_chr,
+      ~ usethis::use_dev_package(.x)
+    )
   }
-  purrr::walk(packages_chr,
-              ~usethis::use_package(.x))
+  purrr::walk(
+    packages_chr,
+    ~ usethis::use_package(.x)
+  )
   devtools::document()
-  if(incr_ver_1L_lgl)
+  if (incr_ver_1L_lgl) {
     usethis::use_version()
+  }
 }
 write_package <- function(pkg_setup_ls,
                           dv_url_pfx_1L_chr = character(0),
@@ -1187,79 +1534,95 @@ write_package <- function(pkg_setup_ls,
                           cls_fn_ls = deprecated(),
                           path_to_dmt_dir_1L_chr = deprecated(),
                           pkg_desc_ls = deprecated(),
-                          pkg_ds_ls_ls = deprecated()){
+                          pkg_ds_ls_ls = deprecated()) {
   if (lifecycle::is_present(pkg_desc_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_package(pkg_desc_ls)",
-                              details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_desc_ls object to this function.")
+      "ready4fun::write_package(pkg_desc_ls)",
+      details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_desc_ls object to this function."
+    )
   }
   if (lifecycle::is_present(pkg_ds_ls_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_package(pkg_ds_ls_ls)",
-                              details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_ds_ls_ls object to this function.")
+      "ready4fun::write_package(pkg_ds_ls_ls)",
+      details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the pkg_ds_ls_ls object to this function."
+    )
   }
   if (lifecycle::is_present(cls_fn_ls)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_package(cls_fn_ls)",
-                              details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the cls_fn_ls object to this function.")
+      "ready4fun::write_package(cls_fn_ls)",
+      details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the cls_fn_ls object to this function."
+    )
   }
   if (lifecycle::is_present(path_to_dmt_dir_1L_chr)) {
     lifecycle::deprecate_warn("0.0.0.9333",
-                              "ready4fun::write_package(path_to_dmt_dir_1L_chr)",
-                              details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function.")
+      "ready4fun::write_package(path_to_dmt_dir_1L_chr)",
+      details = "Please use `ready4fun::write_package(pkg_setup_ls)` to pass the path_to_dmt_dir_1L_chr object to this function."
+    )
   }
   # message("Validating pkg_setup_ls. This may take a couple of minutes.")
   pkg_setup_ls <- validate_pkg_setup(pkg_setup_ls)
-  if(!is.null(pkg_setup_ls$problems_ls)){
+  if (!is.null(pkg_setup_ls$problems_ls)) {
     message("Execution halted - fix issues with pkg_setup_ls before making a new call to write_package.")
-  }else{
+  } else {
     message("pkg_setup_ls has been validated. Proceeding to package set-up.")
     rlang::exec(write_pkg_setup_fls, !!!pkg_setup_ls$initial_ls)
     write_citation_fl(pkg_setup_ls)
     pkg_setup_ls <- write_pkg_dss(pkg_setup_ls)
-    pkg_setup_ls <- write_clss(pkg_setup_ls = pkg_setup_ls,
-                               key_1L_chr = key_1L_chr,
-                               self_serve_1L_lgl = self_serve_1L_lgl,
-                               self_serve_fn_ls = self_serve_fn_ls)
-    pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls = pkg_setup_ls,
-                                   fns_env_ls = NULL,
-                                   inc_methods_1L_lgl = T,
-                                   key_1L_chr = key_1L_chr)
-    write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls,
-                         update_pkgdown_1L_lgl = T,
-                         list_generics_1L_lgl = list_generics_1L_lgl)
-    write_manuals(pkg_setup_ls = pkg_setup_ls,
-                  key_1L_chr = key_1L_chr,
-                  server_1L_chr = server_1L_chr)
+    pkg_setup_ls <- write_clss(
+      pkg_setup_ls = pkg_setup_ls,
+      key_1L_chr = key_1L_chr,
+      self_serve_1L_lgl = self_serve_1L_lgl,
+      self_serve_fn_ls = self_serve_fn_ls
+    )
+    pkg_setup_ls <- add_fns_dmt_tb(
+      pkg_setup_ls = pkg_setup_ls,
+      fns_env_ls = NULL,
+      inc_methods_1L_lgl = T,
+      key_1L_chr = key_1L_chr
+    )
+    write_and_doc_fn_fls(
+      pkg_setup_ls = pkg_setup_ls,
+      update_pkgdown_1L_lgl = T,
+      list_generics_1L_lgl = list_generics_1L_lgl
+    )
+    write_manuals(
+      pkg_setup_ls = pkg_setup_ls,
+      key_1L_chr = key_1L_chr,
+      server_1L_chr = server_1L_chr
+    )
     write_fns_dmt_tb(pkg_setup_ls,
-                     gh_prerelease_1L_lgl = gh_prerelease_1L_lgl,
-                     gh_repo_desc_1L_chr = gh_repo_desc_1L_chr ,
-                     gh_tag_1L_chr = gh_tag_1L_chr)
+      gh_prerelease_1L_lgl = gh_prerelease_1L_lgl,
+      gh_repo_desc_1L_chr = gh_repo_desc_1L_chr,
+      gh_tag_1L_chr = gh_tag_1L_chr
+    )
     ready4::write_citation_cff(packageDescription(pkg_setup_ls$initial_ls$pkg_desc_ls$Package),
-                               citation_chr = readLines("inst/CITATION"))
+      citation_chr = readLines("inst/CITATION")
+    )
   }
   return(pkg_setup_ls)
 }
 write_pkg <- function(package_1L_chr,
-                        R_dir_1L_chr = "R"){
+                      R_dir_1L_chr = "R") {
   lifecycle::deprecate_soft("0.0.0.9298",
-                            what = "ready4fun::write_pkg()")
-  ready4::write_from_tmp(system.file("pkg_tmp.R", package="ready4fun"),
-                 dest_paths_chr = paste0(R_dir_1L_chr,"/pkg_",package_1L_chr,".R"),
-                 edit_fn_ls = list(function(txt_chr,
-                                    package_1L_chr){
-                     pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-                     # txt_chr <- purrr::map_chr(txt_chr,
-                     #                           ~ stringr::str_replace_all(.x,
-                     #                                                      "ready4fun",
-                     #                                                      package_1L_chr))
-                     # txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title %>%
-                     #                        stringr::str_replace_all("\n","\n#' "))
-                     # txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description %>%
-                     #                        stringr::str_replace_all("\n","\n#' "))
-                     txt_chr
-                   }),
-                   args_ls_ls = list(list(package_1L_chr = package_1L_chr)))
+    what = "ready4fun::write_pkg()"
+  )
+  ready4::write_from_tmp(system.file("pkg_tmp.R", package = "ready4fun"),
+    dest_paths_chr = paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, ".R"),
+    edit_fn_ls = list(function(txt_chr,
+                               package_1L_chr) {
+      pkg_desc_ls <- utils::packageDescription(package_1L_chr)
+      # txt_chr <- purrr::map_chr(txt_chr,
+      #                           ~ stringr::str_replace_all(.x,
+      #                                                      "ready4fun",
+      #                                                      package_1L_chr))
+      # txt_chr[1] <- paste0("#' ",package_1L_chr,": ",pkg_desc_ls$Title %>%
+      #                        stringr::str_replace_all("\n","\n#' "))
+      # txt_chr[3] <- paste0("#' ",pkg_desc_ls$Description %>%
+      #                        stringr::str_replace_all("\n","\n#' "))
+      txt_chr
+    }),
+    args_ls_ls = list(list(package_1L_chr = package_1L_chr))
+  )
 }
 write_pkg_dss <- function(pkg_setup_ls,
                           args_ls_ls = NULL,
@@ -1275,57 +1638,77 @@ write_pkg_dss <- function(pkg_setup_ls,
                           dv_ds_nm_1L_chr = deprecated(),
                           inc_pkg_meta_data_1L_lgl = deprecated(),
                           pkg_ds_ls_ls = deprecated(),
-                          pkg_url_1L_chr = deprecated()){
+                          pkg_url_1L_chr = deprecated()) {
   # pkg_url_1L_chr <- pkg_setup_ls$initial_ls$pkg_desc_ls$URL %>%
   #   strsplit(",") %>%
   #   unlist() %>%
   #   purrr::pluck(1)
-  if(dir.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-                       "/data"))){
-    list.files(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
-                      "/data"),
-               full.names = T) %>%
+  if (dir.exists(paste0(
+    pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+    "/data"
+  ))) {
+    list.files(
+      paste0(
+        pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,
+        "/data"
+      ),
+      full.names = T
+    ) %>%
       ready4::write_to_delete_fls()
   }
-  pkg_dss_tb <- tibble::tibble(ds_obj_nm_chr = character(0),
-                               title_chr = character(0), desc_chr = character(0), url_chr = character(0))
-  if(pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl){
-    pkg_dss_tb <- write_abbr_lup(seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                                 pkg_dss_tb = pkg_dss_tb,
-                                 pkg_nm_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
-                                 dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                 object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup)
+  pkg_dss_tb <- tibble::tibble(
+    ds_obj_nm_chr = character(0),
+    title_chr = character(0), desc_chr = character(0), url_chr = character(0)
+  )
+  if (pkg_setup_ls$subsequent_ls$inc_pkg_meta_data_1L_lgl) {
+    pkg_dss_tb <- write_abbr_lup(
+      seed_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+      pkg_dss_tb = pkg_dss_tb,
+      pkg_nm_1L_chr = pkg_setup_ls$initial_ls$pkg_desc_ls$Package,
+      dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup
+    )
     pkg_dss_tb <- pkg_setup_ls$subsequent_ls$fn_types_lup %>%
-      write_dmtd_fn_type_lup(abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-                             object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-                             pkg_dss_tb = pkg_dss_tb,
-                             dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,#url_1L_chr,
-                             dv_url_pfx_1L_chr = character(0),
-                             key_1L_chr = NULL,
-                             server_1L_chr = Sys.getenv("DATAVERSE_SERVER"))
+      write_dmtd_fn_type_lup(
+        abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+        object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+        pkg_dss_tb = pkg_dss_tb,
+        dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr, # url_1L_chr,
+        dv_url_pfx_1L_chr = character(0),
+        key_1L_chr = NULL,
+        server_1L_chr = Sys.getenv("DATAVERSE_SERVER")
+      )
     # utils::data("fn_types_lup", envir = environment())
   }
-  if(!is.null(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)){
+  if (!is.null(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)) {
     pkg_dss_tb <- purrr::reduce(pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls,
-                                .init = pkg_dss_tb,
-                                ~ {
-                                  if(is.null(.y$abbreviations_lup))
-                                    .y$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
-                                  if(is.null(.y$object_type_lup))
-                                    .y$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
-                                  args_ls <- append(.y,
-                                                    list(overwrite_1L_lgl = T,
-                                                         pkg_dss_tb = .x,
-                                                         R_dir_1L_chr = R_dir_1L_chr,
-                                                         dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
-                                                         dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
-                                                         key_1L_chr = key_1L_chr,
-                                                         server_1L_chr = server_1L_chr))
-                                  rlang::exec(write_and_doc_ds,!!!args_ls)
-                                })
+      .init = pkg_dss_tb,
+      ~ {
+        if (is.null(.y$abbreviations_lup)) {
+          .y$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup
+        }
+        if (is.null(.y$object_type_lup)) {
+          .y$object_type_lup <- pkg_setup_ls$subsequent_ls$object_type_lup
+        }
+        args_ls <- append(
+          .y,
+          list(
+            overwrite_1L_lgl = T,
+            pkg_dss_tb = .x,
+            R_dir_1L_chr = R_dir_1L_chr,
+            dv_ds_nm_1L_chr = pkg_setup_ls$subsequent_ls$dv_ds_nm_1L_chr,
+            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+            key_1L_chr = key_1L_chr,
+            server_1L_chr = server_1L_chr
+          )
+        )
+        rlang::exec(write_and_doc_ds, !!!args_ls)
+      }
+    )
   }
-  pkg_setup_ls$subsequent_ls$dss_records_ls <- list(pkg_dss_tb = pkg_dss_tb#, fns_dmt_tb = fns_dmt_tb
-                                                    )
+  pkg_setup_ls$subsequent_ls$dss_records_ls <- list(
+    pkg_dss_tb = pkg_dss_tb # , fns_dmt_tb = fns_dmt_tb
+  )
   return(pkg_setup_ls)
 }
 write_pkg_setup_fls <- function(pkg_desc_ls,
@@ -1341,294 +1724,393 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
                                 path_to_pkg_logo_1L_chr = NA_character_,
                                 add_gh_site_1L_lgl = T,
                                 dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
-                                path_to_pkg_rt_1L_chr = getwd()){
+                                path_to_pkg_rt_1L_chr = getwd()) {
   options(usethis.description = pkg_desc_ls)
-  use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c("gh","full",
-                                                       "ready4",
-                                                       "release","standard"))
-  if(is.null(badges_lup)){
+  use_gh_cmd_check_1L_lgl <- (check_type_1L_chr %in% c(
+    "gh", "full",
+    "ready4",
+    "release", "standard"
+  ))
+  if (is.null(badges_lup)) {
     utils::data("badges_lup", package = "ready4fun", envir = environment())
   }
-  if(delete_r_dir_cnts_1L_lgl)
-    write_to_reset_pkg_files(delete_contents_of_1L_chr = "R",
-                             package_1L_chr = dev_pkg_nm_1L_chr,
-                             package_dir_1L_chr = path_to_pkg_rt_1L_chr)
-  update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
-  if(!update_desc_fl_1L_lgl)
-    dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
-  devtools::load_all(path_to_pkg_rt_1L_chr)
-  write_std_imp(paste0(path_to_pkg_rt_1L_chr,"/R"),
-                package_1L_chr = dev_pkg_nm_1L_chr)
-  if(update_desc_fl_1L_lgl){
-    desc_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr,"/DESCRIPTION"))
-    desc_1L_chr[1] <- paste0("Package: ",dev_pkg_nm_1L_chr)
-    ready4::write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/DESCRIPTION"),
-                    text_ls = list(desc_1L_chr))
+  if (delete_r_dir_cnts_1L_lgl) {
+    write_to_reset_pkg_files(
+      delete_contents_of_1L_chr = "R",
+      package_1L_chr = dev_pkg_nm_1L_chr,
+      package_dir_1L_chr = path_to_pkg_rt_1L_chr
+    )
   }
-  if(!file.exists(paste0(path_to_pkg_rt_1L_chr,
-                         "/vignettes/",
-                         get_dev_pkg_nm(),
-                         ".Rmd")))
+  update_desc_fl_1L_lgl <- !is.na(dev_pkg_nm_1L_chr)
+  if (!update_desc_fl_1L_lgl) {
+    dev_pkg_nm_1L_chr <- get_dev_pkg_nm(path_to_pkg_rt_1L_chr)
+  }
+  devtools::load_all(path_to_pkg_rt_1L_chr)
+  write_std_imp(paste0(path_to_pkg_rt_1L_chr, "/R"),
+    package_1L_chr = dev_pkg_nm_1L_chr
+  )
+  if (update_desc_fl_1L_lgl) {
+    desc_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, "/DESCRIPTION"))
+    desc_1L_chr[1] <- paste0("Package: ", dev_pkg_nm_1L_chr)
+    ready4::write_new_files(
+      paths_chr = paste0(path_to_pkg_rt_1L_chr, "/DESCRIPTION"),
+      text_ls = list(desc_1L_chr)
+    )
+  }
+  if (!file.exists(paste0(
+    path_to_pkg_rt_1L_chr,
+    "/vignettes/",
+    get_dev_pkg_nm(),
+    ".Rmd"
+  ))) {
     write_vignette(dev_pkg_nm_1L_chr, pkg_rt_dir_chr = path_to_pkg_rt_1L_chr)
-  if(incr_ver_1L_lgl){
+  }
+  if (incr_ver_1L_lgl) {
     usethis::use_version()
   }
   write_inst_dir(path_to_pkg_rt_1L_chr = path_to_pkg_rt_1L_chr)
   usethis::use_gpl3_license()
-  license_1L_chr <- c(paste0(dev_pkg_nm_1L_chr,
-                          " - ",
-                          desc::desc_get("Title") %>%
-                            as.vector()),
-    readLines(paste0(path_to_pkg_rt_1L_chr,"/License.md"))[556:569]) %>%
-    purrr::map_chr(~stringr::str_trim(.x) %>%
-                     stringr::str_replace_all("<year>",as.character(Sys.Date() %>% lubridate::year())) %>%
-                     stringr::str_replace_all("<name of author>",paste0(copyright_holders_chr,collapse = "and "))) %>%
+  license_1L_chr <- c(
+    paste0(
+      dev_pkg_nm_1L_chr,
+      " - ",
+      desc::desc_get("Title") %>%
+        as.vector()
+    ),
+    readLines(paste0(path_to_pkg_rt_1L_chr, "/License.md"))[556:569]
+  ) %>%
+    purrr::map_chr(~ stringr::str_trim(.x) %>%
+      stringr::str_replace_all("<year>", as.character(Sys.Date() %>% lubridate::year())) %>%
+      stringr::str_replace_all("<name of author>", paste0(copyright_holders_chr, collapse = "and "))) %>%
     paste0(collapse = "\n")
-  ready4::write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/LICENSE"),
-                  text_ls = list(license_1L_chr))
+  ready4::write_new_files(
+    paths_chr = paste0(path_to_pkg_rt_1L_chr, "/LICENSE"),
+    text_ls = list(license_1L_chr)
+  )
   desc::desc_set("License", "GPL-3 + file LICENSE")
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
   usethis::use_package("testthat")
   usethis::use_package("knitr")
   desc::desc_set("VignetteBuilder", "knitr")
-  usethis::use_build_ignore(paste0(paste0("data-raw/"),
-                            list.files(paste0(path_to_pkg_rt_1L_chr,"/data-raw"), recursive = T)))
-  if(!is.na(path_to_pkg_logo_1L_chr)){
-    ready4::write_new_dirs(paste0(path_to_pkg_rt_1L_chr,"/man/figures/"))
-    ready4::write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
-                    source_paths_ls = list(path_to_pkg_logo_1L_chr),
-                    fl_nm_1L_chr = "logo.png")
+  usethis::use_build_ignore(paste0(
+    paste0("data-raw/"),
+    list.files(paste0(path_to_pkg_rt_1L_chr, "/data-raw"), recursive = T)
+  ))
+  if (!is.na(path_to_pkg_logo_1L_chr)) {
+    ready4::write_new_dirs(paste0(path_to_pkg_rt_1L_chr, "/man/figures/"))
+    ready4::write_new_files(paste0(path_to_pkg_rt_1L_chr, "/man/figures"),
+      source_paths_ls = list(path_to_pkg_logo_1L_chr),
+      fl_nm_1L_chr = "logo.png"
+    )
   }
-  if(on_cran_1L_lgl){
-    cran_install_chr <- c("To install the latest production version of this software, run the following command in your R console:",
-                          "",
-                          "```r",
-                          "utils::install.packages(\"",
-                          dev_pkg_nm_1L_chr,
-                          "\")",
-                          "",
-                          "```",
-                          "")
-  }else{
+  if (on_cran_1L_lgl) {
+    cran_install_chr <- c(
+      "To install the latest production version of this software, run the following command in your R console:",
+      "",
+      "```r",
+      "utils::install.packages(\"",
+      dev_pkg_nm_1L_chr,
+      "\")",
+      "",
+      "```",
+      ""
+    )
+  } else {
     cran_install_chr <- character(0)
   }
-  readme_chr <- c(paste0("# ",
-                         dev_pkg_nm_1L_chr#,
-                         # ifelse(is.na(path_to_pkg_logo_1L_chr),
-                         #        "",
-                         #        " <img src=\"man/figures/fav120.png\" align=\"right\" />")
-                         ),
-                  "",
-                  paste0("## ",utils::packageDescription(dev_pkg_nm_1L_chr,
-                                                         fields ="Title") %>%
-                           stringr::str_replace_all("\n"," ")),
-                  "",
-                  "<!-- badges: start -->",
-                  "<!-- badges: end -->" ,
-                  "",
-                  utils::packageDescription(dev_pkg_nm_1L_chr,fields ="Description"),
-                  "",
-                  cran_install_chr,
-                  "To install a development version of this software, run the following commands in your R console:",
-                  "",
-                  "```r",
-                  "utils::install.packages(\"devtools\")",
-                  "",
-                  paste0("devtools::install_github(\"",gh_repo_1L_chr,"\")"),
-                  "",
-                  "```")
-  ready4::write_new_files(paths_chr = paste0(path_to_pkg_rt_1L_chr,"/README.md"),
-                  text_ls = list(readme_chr))
-  if(add_gh_site_1L_lgl)
+  readme_chr <- c(
+    paste0(
+      "# ",
+      dev_pkg_nm_1L_chr # ,
+      # ifelse(is.na(path_to_pkg_logo_1L_chr),
+      #        "",
+      #        " <img src=\"man/figures/fav120.png\" align=\"right\" />")
+    ),
+    "",
+    paste0("## ", utils::packageDescription(dev_pkg_nm_1L_chr,
+      fields = "Title"
+    ) %>%
+      stringr::str_replace_all("\n", " ")),
+    "",
+    "<!-- badges: start -->",
+    "<!-- badges: end -->",
+    "",
+    utils::packageDescription(dev_pkg_nm_1L_chr, fields = "Description"),
+    "",
+    cran_install_chr,
+    "To install a development version of this software, run the following commands in your R console:",
+    "",
+    "```r",
+    "utils::install.packages(\"devtools\")",
+    "",
+    paste0("devtools::install_github(\"", gh_repo_1L_chr, "\")"),
+    "",
+    "```"
+  )
+  ready4::write_new_files(
+    paths_chr = paste0(path_to_pkg_rt_1L_chr, "/README.md"),
+    text_ls = list(readme_chr)
+  )
+  if (add_gh_site_1L_lgl) {
     usethis::use_github_action("pkgdown")
-  if(check_type_1L_chr %in% c("gh","full","release","standard")){
-    if(check_type_1L_chr %in% c("gh","standard")){
-      usethis::use_github_action_check_standard()
-    }else{
-      if(check_type_1L_chr == "full"){
-        usethis::use_github_action_check_full()
-      }else{
-        usethis::use_github_action_check_release()
-      }
+  }
+  if (check_type_1L_chr %in% c("gh", "full", "release", "standard")) {
+    if (check_type_1L_chr %in% c("gh", "standard")) {
+      usethis::use_github_action("check-standard") # usethis::use_github_action_check_standard()
+    } else {
+      # if(check_type_1L_chr == "full"){
+      #   usethis::use_github_action_check_full()
+      # }else{
+      usethis::use_github_action("check-release") #  usethis::use_github_action_check_release()
+      # }
     }
-  }else{
-    if(check_type_1L_chr == "ready4"){
-      ready4::write_from_tmp(system.file("R-CMD-check.yaml", package="ready4fun"),
-                     dest_paths_chr = paste0(path_to_pkg_rt_1L_chr,
-                                             "/.github/workflows/R-CMD-check.yaml"))
-      #use_github_actions_badge("R-CMD-check.yaml") # Trial
+  } else {
+    if (check_type_1L_chr == "ready4") {
+      ready4::write_from_tmp(system.file("R-CMD-check.yaml", package = "ready4fun"),
+        dest_paths_chr = paste0(
+          path_to_pkg_rt_1L_chr,
+          "/.github/workflows/R-CMD-check.yaml"
+        )
+      )
+      # use_github_actions_badge("R-CMD-check.yaml") # Trial
     }
   }
-  if(!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png"))){
+  if (!is.na(path_to_pkg_logo_1L_chr) & !file.exists(paste0(path_to_pkg_rt_1L_chr, "/pkgdown/favicon/apple-touch-icon-120x120.png"))) {
     pkgdown::build_favicons()
   }
-  ready4::write_new_files(paste0(path_to_pkg_rt_1L_chr,"/man/figures"),
-                          source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr,"/pkgdown/favicon/apple-touch-icon-120x120.png")),
-                          fl_nm_1L_chr = "fav120.png")
+  ready4::write_new_files(paste0(path_to_pkg_rt_1L_chr, "/man/figures"),
+    source_paths_ls = list(paste0(path_to_pkg_rt_1L_chr, "/pkgdown/favicon/apple-touch-icon-120x120.png")),
+    fl_nm_1L_chr = "fav120.png"
+  )
   usethis::use_lifecycle()
   usethis::use_lifecycle_badge(lifecycle_stage_1L_chr)
-  if(!identical(addl_badges_ls,list())){
-    badges_chr <- purrr::map2_chr(addl_badges_ls,
-                      names(addl_badges_ls),
-                      ~{
-                        badges_lup %>%
-                          dplyr::filter(badge_names_chr == .y) %>%
-                          ready4::get_from_lup_obj(match_value_xx = .x,
-                                           match_var_nm_1L_chr = "label_names_chr",
-                                           target_var_nm_1L_chr = "badges_chr",
-                                           evaluate_1L_lgl = F)
-                      }) %>% unname()
-    purrr::walk2(badges_chr,
-                 names(addl_badges_ls),
-                ~ {
-                  badge_1L_chr <- .x
-                  badge_nm_1L_chr <- .y
-                  break_points_ls <- badge_1L_chr  %>% stringr::str_locate_all("\\]\\(")
-                  purrr::walk(break_points_ls,
-                              ~ {
-                                src_1L_chr <- stringr::str_sub(badge_1L_chr, start = .x[1,2] %>% as.vector() + 1,
-                                                 end = .x[2,1] %>% as.vector() - 2)
-                                href_1L_chr <- stringr::str_sub(badge_1L_chr, start = .x[2,2] %>% as.vector() + 1,
-                                                                end = -2)
-                                usethis::use_badge(badge_name = badge_nm_1L_chr,
-                                                   src = src_1L_chr,
-                                                   href = href_1L_chr)
-                              })
-                })
-
+  if (!identical(addl_badges_ls, list())) {
+    badges_chr <- purrr::map2_chr(
+      addl_badges_ls,
+      names(addl_badges_ls),
+      ~ {
+        badges_lup %>%
+          dplyr::filter(badge_names_chr == .y) %>%
+          ready4::get_from_lup_obj(
+            match_value_xx = .x,
+            match_var_nm_1L_chr = "label_names_chr",
+            target_var_nm_1L_chr = "badges_chr",
+            evaluate_1L_lgl = F
+          )
+      }
+    ) %>% unname()
+    purrr::walk2(
+      badges_chr,
+      names(addl_badges_ls),
+      ~ {
+        badge_1L_chr <- .x
+        badge_nm_1L_chr <- .y
+        break_points_ls <- badge_1L_chr %>% stringr::str_locate_all("\\]\\(")
+        purrr::walk(
+          break_points_ls,
+          ~ {
+            src_1L_chr <- stringr::str_sub(badge_1L_chr,
+              start = .x[1, 2] %>% as.vector() + 1,
+              end = .x[2, 1] %>% as.vector() - 2
+            )
+            href_1L_chr <- stringr::str_sub(badge_1L_chr,
+              start = .x[2, 2] %>% as.vector() + 1,
+              end = -2
+            )
+            usethis::use_badge(
+              badge_name = badge_nm_1L_chr,
+              src = src_1L_chr,
+              href = href_1L_chr
+            )
+          }
+        )
+      }
+    )
   }
   devtools::document()
   devtools::load_all()
 }
-write_pt_lup_db <- function(R_dir_1L_chr = "R"){
-  ready4::write_from_tmp(system.file("db_pt_lup.R",package="ready4fun"),
-                 dest_paths_chr = paste0(R_dir_1L_chr,"/db_pt_lup.R"))
-}
-write_std_imp <- function(R_dir_1L_chr = "R",
-                          package_1L_chr){
-  ready4::write_from_tmp(c(system.file("pkg_tmp.R", package="ready4fun"),
-                   system.file("imp_fns_tmp.R",package="ready4fun"),
-                   system.file("imp_mthds_tmp.R",package="ready4fun")),
-                 dest_paths_chr = c(paste0(R_dir_1L_chr,"/pkg_",package_1L_chr,".R"),
-                                    paste0(R_dir_1L_chr,"/imp_fns.R"),
-                                    paste0(R_dir_1L_chr,"/imp_mthds.R")),
-                 edit_fn_ls = list(function(txt_chr,
-                                            package_1L_chr){
-                   pkg_desc_ls <- utils::packageDescription(package_1L_chr)
-                   txt_chr
-                   },
-                   NULL,
-                   NULL),
-                 args_ls_ls = list(list(package_1L_chr = package_1L_chr),
-                                   NULL,
-                                   NULL)
+write_pt_lup_db <- function(R_dir_1L_chr = "R") {
+  ready4::write_from_tmp(system.file("db_pt_lup.R", package = "ready4fun"),
+    dest_paths_chr = paste0(R_dir_1L_chr, "/db_pt_lup.R")
   )
 }
-write_to_remove_collate <- function(description_chr){
-  if(!identical(which(description_chr=="Collate: "),integer(0)))
-    description_chr <- description_chr[1:(which(description_chr=="Collate: ")-1)]
+write_std_imp <- function(R_dir_1L_chr = "R",
+                          package_1L_chr) {
+  ready4::write_from_tmp(
+    c(
+      system.file("pkg_tmp.R", package = "ready4fun"),
+      system.file("imp_fns_tmp.R", package = "ready4fun"),
+      system.file("imp_mthds_tmp.R", package = "ready4fun")
+    ),
+    dest_paths_chr = c(
+      paste0(R_dir_1L_chr, "/pkg_", package_1L_chr, ".R"),
+      paste0(R_dir_1L_chr, "/imp_fns.R"),
+      paste0(R_dir_1L_chr, "/imp_mthds.R")
+    ),
+    edit_fn_ls = list(
+      function(txt_chr,
+               package_1L_chr) {
+        pkg_desc_ls <- utils::packageDescription(package_1L_chr)
+        txt_chr
+      },
+      NULL,
+      NULL
+    ),
+    args_ls_ls = list(
+      list(package_1L_chr = package_1L_chr),
+      NULL,
+      NULL
+    )
+  )
+}
+write_to_remove_collate <- function(description_chr) {
+  if (!identical(which(description_chr == "Collate: "), integer(0))) {
+    description_chr <- description_chr[1:(which(description_chr == "Collate: ") - 1)]
+  }
   return(description_chr)
 }
 write_to_replace_fn_nms <- function(rename_tb,
                                     undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(),
                                     rt_dev_dir_path_1L_chr = normalizePath("../../../"),
-                                    dev_pkg_nm_1L_chr = get_dev_pkg_nm()){
-  if(any(rename_tb$duplicated_lgl))
+                                    dev_pkg_nm_1L_chr = get_dev_pkg_nm()) {
+  if (any(rename_tb$duplicated_lgl)) {
     stop("Duplicates in rename table")
+  }
   rename_tb <- rename_tb %>%
     dplyr::filter(fns_chr != new_nm) %>%
-    dplyr::select(fns_chr,new_nm)
-  purrr::pwalk(rename_tb, ~  {
+    dplyr::select(fns_chr, new_nm)
+  purrr::pwalk(rename_tb, ~ {
     pattern_1L_chr <- ..1
     replacement_1L_chr <- ..2
-    purrr::walk(undocumented_fns_dir_chr,
-                ~ xfun::gsub_dir(undocumented_fns_dir_chr,
-                                 pattern = pattern_1L_chr,
-                                 replacement = replacement_1L_chr))
-    xfun::gsub_dir(dir = rt_dev_dir_path_1L_chr,
-                   pattern = paste0(dev_pkg_nm_1L_chr,"::",pattern_1L_chr),
-                   replacement = paste0(dev_pkg_nm_1L_chr,"::",replacement_1L_chr),
-                   ext = "R",
-                   fixed = T)
+    purrr::walk(
+      undocumented_fns_dir_chr,
+      ~ xfun::gsub_dir(undocumented_fns_dir_chr,
+        pattern = pattern_1L_chr,
+        replacement = replacement_1L_chr
+      )
+    )
+    xfun::gsub_dir(
+      dir = rt_dev_dir_path_1L_chr,
+      pattern = paste0(dev_pkg_nm_1L_chr, "::", pattern_1L_chr),
+      replacement = paste0(dev_pkg_nm_1L_chr, "::", replacement_1L_chr),
+      ext = "R",
+      fixed = T
+    )
   })
 }
 write_to_replace_sfx_pair <- function(args_nm_chr,
                                       sfcs_chr,
                                       replacements_chr,
                                       file_path_1L_chr = NA_character_,
-                                      dir_path_1L_chr = NA_character_){
-  fn <- ifelse(is.na(file_path_1L_chr),xfun::gsub_dir,xfun::gsub_file)
-  path_chr <- ifelse(is.na(file_path_1L_chr),dir_path_1L_chr,file_path_1L_chr)
-  args_ls <- list(pattern = paste0(args_nm_chr[1],
-                                   "(?!",
-                                   stringr::str_remove(sfcs_chr[2],
-                                                       sfcs_chr[1]),
-                                   ")"),
-                  replacement = paste0(stringr::str_remove(args_nm_chr[1],
-                                                           sfcs_chr[1]),
-                                       replacements_chr[1]),
-                  perl=T)
+                                      dir_path_1L_chr = NA_character_) {
+  fn <- ifelse(is.na(file_path_1L_chr), xfun::gsub_dir, xfun::gsub_file)
+  path_chr <- ifelse(is.na(file_path_1L_chr), dir_path_1L_chr, file_path_1L_chr)
+  args_ls <- list(
+    pattern = paste0(
+      args_nm_chr[1],
+      "(?!",
+      stringr::str_remove(
+        sfcs_chr[2],
+        sfcs_chr[1]
+      ),
+      ")"
+    ),
+    replacement = paste0(
+      stringr::str_remove(
+        args_nm_chr[1],
+        sfcs_chr[1]
+      ),
+      replacements_chr[1]
+    ),
+    perl = T
+  )
   rlang::exec(fn, path_chr, !!!args_ls)
-  args_ls <- list(pattern = args_nm_chr[2],
-                  replacement = paste0(stringr::str_remove(args_nm_chr[2],
-                                                           sfcs_chr[2]),
-                                       replacements_chr[2]),
-                  perl=T)
+  args_ls <- list(
+    pattern = args_nm_chr[2],
+    replacement = paste0(
+      stringr::str_remove(
+        args_nm_chr[2],
+        sfcs_chr[2]
+      ),
+      replacements_chr[2]
+    ),
+    perl = T
+  )
   rlang::exec(fn, path_chr, !!!args_ls)
 }
 write_to_rpl_1L_and_indefL_sfcs <- function(indefL_arg_nm_1L_chr,
                                             file_path_1L_chr = NA_character_,
-                                            dir_path_1L_chr = NA_character_){
-  sfcs_chr <- c(indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end=-5),
-                indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8))
-  write_to_replace_sfx_pair(args_nm_chr =   paste0(indefL_arg_nm_1L_chr %>% stringr::str_sub(end=-9),
-                                                   sfcs_chr),
-                            sfcs_chr = sfcs_chr,
-                            replacements_chr = paste0(c("_1L",""),sfcs_chr[1]),
-                            file_path_1L_chr = file_path_1L_chr,
-                            dir_path_1L_chr = dir_path_1L_chr)
-
+                                            dir_path_1L_chr = NA_character_) {
+  sfcs_chr <- c(
+    indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8, end = -5),
+    indefL_arg_nm_1L_chr %>% stringr::str_sub(start = -8)
+  )
+  write_to_replace_sfx_pair(
+    args_nm_chr = paste0(
+      indefL_arg_nm_1L_chr %>% stringr::str_sub(end = -9),
+      sfcs_chr
+    ),
+    sfcs_chr = sfcs_chr,
+    replacements_chr = paste0(c("_1L", ""), sfcs_chr[1]),
+    file_path_1L_chr = file_path_1L_chr,
+    dir_path_1L_chr = dir_path_1L_chr
+  )
 }
 write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
                                      package_1L_chr = get_dev_pkg_nm(getwd()),
                                      package_dir_1L_chr = getwd(),
                                      description_ls = NULL,
-                                     keep_version_lgl = T
-                                     ){
+                                     keep_version_lgl = T) {
   devtools::load_all()
-  if(keep_version_lgl){
+  if (keep_version_lgl) {
     desc_ls <- utils::packageDescription(package_1L_chr)
     description_ls$Version <- desc_ls$Version
   }
   usethis::use_description(fields = description_ls)
-  #file.remove(paste0(package_dir_1L_chr,"/NAMESPACE"))
-  file_paths_chr <- c(paste0(package_dir_1L_chr,"/NAMESPACE"),
-                         list.files(paste0(package_dir_1L_chr,"/",delete_contents_of_1L_chr), full.names = TRUE))
+  # file.remove(paste0(package_dir_1L_chr,"/NAMESPACE"))
+  file_paths_chr <- c(
+    paste0(package_dir_1L_chr, "/NAMESPACE"),
+    list.files(paste0(package_dir_1L_chr, "/", delete_contents_of_1L_chr), full.names = TRUE)
+  )
   ready4::write_to_delete_fls(file_paths_chr)
   # do.call(file.remove, fl_paths_chr)
   devtools::document()
   devtools::load_all()
 }
 write_vignette <- function(package_1L_chr,
-                           pkg_rt_dir_chr = "."){
-  ready4::write_new_dirs(paste0(pkg_rt_dir_chr,"/vignettes"))
-  ready4::write_from_tmp(c(system.file("ready4fun.Rmd",package="ready4fun"),
-                   system.file(".gitignore",package="ready4fun")),
-                 dest_paths_chr = c(paste0(pkg_rt_dir_chr,"/vignettes/",package_1L_chr,".Rmd"),
-                                    paste0(pkg_rt_dir_chr,"/vignettes/",".gitignore")),
-                 edit_fn_ls = list(function(txt_chr,
-                                            package_1L_chr){
-                   txt_chr <- purrr::map_chr(txt_chr,
-                                             ~ stringr::str_replace_all(.x,
-                                                                        "ready4fun",
-                                                                        package_1L_chr))
-                   txt_chr
-                   },
-                   function(txt_chr, package_1L_chr){
-                   txt_chr
-                     }),
-                 args_ls_ls = list(list(package_1L_chr = package_1L_chr),
-                                   list(list(package_1L_chr = package_1L_chr)))
-                 )
+                           pkg_rt_dir_chr = ".") {
+  ready4::write_new_dirs(paste0(pkg_rt_dir_chr, "/vignettes"))
+  ready4::write_from_tmp(
+    c(
+      system.file("ready4fun.Rmd", package = "ready4fun"),
+      system.file(".gitignore", package = "ready4fun")
+    ),
+    dest_paths_chr = c(
+      paste0(pkg_rt_dir_chr, "/vignettes/", package_1L_chr, ".Rmd"),
+      paste0(pkg_rt_dir_chr, "/vignettes/", ".gitignore")
+    ),
+    edit_fn_ls = list(
+      function(txt_chr,
+               package_1L_chr) {
+        txt_chr <- purrr::map_chr(
+          txt_chr,
+          ~ stringr::str_replace_all(
+            .x,
+            "ready4fun",
+            package_1L_chr
+          )
+        )
+        txt_chr
+      },
+      function(txt_chr, package_1L_chr) {
+        txt_chr
+      }
+    ),
+    args_ls_ls = list(
+      list(package_1L_chr = package_1L_chr),
+      list(list(package_1L_chr = package_1L_chr))
+    )
+  )
 }

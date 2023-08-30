@@ -37,8 +37,10 @@ Therefore when authoring `ready4` code libraries, it is important to ensure that
 The `ready4fun` package uses a dataset of taxonomies and abbreviations to ensure standardised function code style and documentation. A copy of this dataset (`dataset_ls`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package.
 
 ```{r}
-dataset_ls <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4",
-                               gh_tag_1L_chr = "Documentation_0.0") %>%
+dataset_ls <- ready4use::Ready4useRepos(
+  gh_repo_1L_chr = "ready4-dev/ready4",
+  gh_tag_1L_chr = "Documentation_0.0"
+) %>%
   ingest(metadata_1L_lgl = F)
 ```
 
@@ -47,11 +49,13 @@ dataset_ls <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4",
 Consistent with a naming convention popular in the R development community, all `ready4` framework functions begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word "fit" will fit a model of a specified type to a dataset. The definitions of all meaningful verbs currently used by ready4 functions (excluding methods) are stored in element `fn_types_lup` of `dataset_ls`, the key features of which are reproduced below.
 
 ```{r fnstb, tab.cap='Meaningful verbs', tab.id = 'fnstb', results="asis"}
-dataset_ls$fn_types_lup %>% 
+dataset_ls$fn_types_lup %>%
   ready4fun_functions() %>%
   renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr, pattern = ' ')") %>%
-  exhibit(select_int = 1:2,
-          scroll_box_args_ls = list(width = "100%"))
+  exhibit(
+    select_int = 1:2,
+    scroll_box_args_ls = list(width = "100%")
+  )
 ```
 
 ### Function inputs and outputs have meaningful suffices
@@ -59,10 +63,12 @@ dataset_ls$fn_types_lup %>%
 The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. The meaningful suffices currently used by to describe objects in the ready4 framework are stored in element `seed_obj_type_lup` of `dataset_ls`, the key features of which are reproduced below.
 
 ```{r sfcstb, tab.cap='Meaningful suffices', tab.id = 'sfcstb', results="asis"}
-dataset_ls$seed_obj_type_lup %>% 
+dataset_ls$seed_obj_type_lup %>%
   ready4fun_objects() %>%
-  exhibit(select_int = 1:2,
-          scroll_box_args_ls = list(width = "100%"))
+  exhibit(
+    select_int = 1:2,
+    scroll_box_args_ls = list(width = "100%")
+  )
 ```
 
 ### Consistent use of abbreviations
@@ -70,10 +76,12 @@ dataset_ls$seed_obj_type_lup %>%
 Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used throughout the `ready4` framework is maintained in the `abbreviations_lup` element of `dataset_ls`. The list of abbreviations is now quite extensive and continues to grow as the `ready4` suite of software expands. The initial few entries of `abbreviations_lup` are reproduced below.
 
 ```{r abbs, tab.cap='Abbreviations', tab.id = 'abbs', results="asis"}
-dataset_ls$abbreviations_lup %>% 
+dataset_ls$abbreviations_lup %>%
   head() %>%
-  exhibit(select_int = 1:2,
-          scroll_box_args_ls = list(width = "100%"))
+  exhibit(
+    select_int = 1:2,
+    scroll_box_args_ls = list(width = "100%")
+  )
 ```
 
 ### Workflow
@@ -90,21 +98,30 @@ A `ready4fun_manifest` object is most efficiently created with the aid of the `m
 
 ```{r eval = F}
 ## Not run
-x <- ready4fun::make_pkg_desc_ls(pkg_title_1L_chr = "Your Package Title",
-                                 pkg_desc_1L_chr = "Your Package Description.",
-                                 authors_prsn = c(utils::person("Author 1 Name",
-                                                                role = c("aut", "cre")),
-                                                  utils::person("Author 2 Name", role = c("cph"))),
-                                 urls_chr = c("Package website url",
-                                              "Package source code url",
-                                              "Project website")) %>%
-  ready4fun::make_manifest(copyright_holders_chr = "Organisation name",
-                           custom_dmt_ls = ready4fun::make_custom_dmt_ls(user_manual_fns_chr = c("Functions to be included in main user manual are itemised here")),
-                           dev_pkgs_chr = c("Any development package dependencies go here"),
-                           path_to_pkg_logo_1L_chr = "Local path to package logo goes here",
-                           piggyback_to_1L_chr = "GitHub Release Repository to which supporting files will be uploaded",
-                           ready4_type_1L_chr = "authoring",
-                           zenodo_badge_1L_chr = "DOI badge details go here")
+x <- ready4fun::make_pkg_desc_ls(
+  pkg_title_1L_chr = "Your Package Title",
+  pkg_desc_1L_chr = "Your Package Description.",
+  authors_prsn = c(
+    utils::person("Author 1 Name",
+      role = c("aut", "cre")
+    ),
+    utils::person("Author 2 Name", role = c("cph"))
+  ),
+  urls_chr = c(
+    "Package website url",
+    "Package source code url",
+    "Project website"
+  )
+) %>%
+  ready4fun::make_manifest(
+    copyright_holders_chr = "Organisation name",
+    custom_dmt_ls = ready4fun::make_custom_dmt_ls(user_manual_fns_chr = c("Functions to be included in main user manual are itemised here")),
+    dev_pkgs_chr = c("Any development package dependencies go here"),
+    path_to_pkg_logo_1L_chr = "Local path to package logo goes here",
+    piggyback_to_1L_chr = "GitHub Release Repository to which supporting files will be uploaded",
+    ready4_type_1L_chr = "authoring",
+    zenodo_badge_1L_chr = "DOI badge details go here"
+  )
 ```
 
 The main method defined for `ready4fun_manifest` is `author` which, assuming the raw undocumented function files are saved in the appropriate directories, will author an R package in which all functions are consistently documented.

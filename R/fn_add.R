@@ -9,13 +9,14 @@
 #' @keywords internal
 add_addl_pkgs <- function (addl_pkgs_ls) 
 {
-    if (!is.null(addl_pkgs_ls)) 
+    if (!is.null(addl_pkgs_ls)) {
         addl_pkgs_ls %>% purrr::walk2(names(addl_pkgs_ls), ~{
             pkgs_chr <- .x
             type_1L_chr <- .y
             pkgs_chr %>% purrr::walk(~usethis::use_package(.x, 
                 type = type_1L_chr))
         })
+    }
 }
 #' Add build ignore
 #' @description add_build_ignore() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add build ignore. Function argument build_ignore_ls specifies the object to be updated. The function is called for its side effects and does not return a value.
@@ -233,9 +234,10 @@ add_new_cls_pts <- function (pkg_setup_ls, addl_cls_pts_tb = NULL, purge_pkg_cls
         pkg_setup_ls$subsequent_ls$prototype_lup <- ready4::add_lups(pkg_setup_ls$subsequent_ls$prototype_lup, 
             new_lup = addl_cls_pts_tb, key_var_nm_1L_chr = "type_chr") %>% 
             dplyr::arrange(pt_ns_chr, type_chr)
-        if (!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr)) 
+        if (!is.null(pkg_setup_ls$problems_ls$missing_cls_pts_chr)) {
             pkg_setup_ls <- update_pkg_setup_msgs(pkg_setup_ls, 
                 list_element_1L_chr = "missing_cls_pts_chr")
+        }
     }
     return(pkg_setup_ls)
 }

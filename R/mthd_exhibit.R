@@ -47,8 +47,8 @@ exhibit.ready4fun_functions <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_
     output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T, 
     ...) 
 {
-    var_desc_chr = c("Verb", "Description", "Argument One", "Argument Two", 
-        "Generic", "Method")
+    var_desc_chr <- c("Verb", "Description", "Argument One", 
+        "Argument Two", "Generic", "Method")
     if (!is.na(select_int[1])) {
         x <- dplyr::select(x, select_int)
         var_desc_chr <- var_desc_chr[select_int]
@@ -79,7 +79,7 @@ exhibit.ready4fun_objects <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_1L
     output_type_1L_chr = "HTML", select_int = NA_integer_, use_lbls_as_col_nms_1L_lgl = T, 
     ...) 
 {
-    var_desc_chr = c("Suffix", "Description", "Atomic", "Extendable")
+    var_desc_chr <- c("Suffix", "Description", "Atomic", "Extendable")
     if (!is.na(select_int[1])) {
         x <- dplyr::select(x, select_int)
         var_desc_chr <- var_desc_chr[select_int]

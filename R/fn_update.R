@@ -25,11 +25,13 @@ update_abbr_lup <- function (abbr_tb, short_name_chr, long_name_chr, no_plural_c
     testit::assert(paste0("No duplicates are allowed in an abbreviations lookup table. The following duplicates are in the long_name_chr column:\n", 
         abbr_tb$long_name_chr[duplicated(abbr_tb$long_name_chr)] %>% 
             ready4::make_list_phrase()), !any(duplicated(abbr_tb$long_name_chr)))
-    if (!"plural_lgl" %in% names(abbr_tb)) 
+    if (!"plural_lgl" %in% names(abbr_tb)) {
         abbr_tb <- dplyr::mutate(abbr_tb, plural_lgl = NA)
-    if (!is.na(pfx_rgx)) 
+    }
+    if (!is.na(pfx_rgx)) {
         abbr_tb <- abbr_tb %>% dplyr::mutate(long_name_chr = purrr::map_chr(long_name_chr, 
             ~stringi::stri_replace_first_regex(.x, pfx_rgx, "")))
+    }
     new_tb <- tibble::tibble(short_name_chr = short_name_chr, 
         long_name_chr = long_name_chr) %>% add_plurals_to_abbr_lup(no_plural_chr = no_plural_chr, 
         custom_plural_ls = custom_plural_ls)
@@ -62,9 +64,10 @@ update_abbrs <- function (pkg_setup_ls, short_name_chr, long_name_chr, no_plural
     testit::assert(paste0("No duplicates are allowed in the abbreviations lookup table. You are attempting to add the following duplicate values from the 'long_name_chr' argument to the long_name_chr column of the abbreviations lookup tbale:\n", 
         long_dupls_chr %>% ready4::make_list_phrase()), identical(long_dupls_chr, 
         character(0)))
-    if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) 
+    if (is.null(pkg_setup_ls$subsequent_ls$abbreviations_lup)) {
         pkg_setup_ls$subsequent_ls$abbreviations_lup <- make_obj_lup(obj_lup_spine = make_obj_lup_spine(NULL)) %>% 
             dplyr::filter(F)
+    }
     pkg_setup_ls$subsequent_ls$abbreviations_lup <- pkg_setup_ls$subsequent_ls$abbreviations_lup %>% 
         update_abbr_lup(short_name_chr = short_name_chr, long_name_chr = long_name_chr, 
             no_plural_chr = no_plural_chr, custom_plural_ls = custom_plural_ls, 
@@ -83,7 +86,7 @@ update_abbrs <- function (pkg_setup_ls, short_name_chr, long_name_chr, no_plural
 update_first_word_case <- function (phrase_1L_chr, fn = tolower) 
 {
     phrase_1L_chr <- paste0(phrase_1L_chr %>% stringr::str_sub(end = 1) %>% 
-        fn, phrase_1L_chr %>% stringr::str_sub(start = 2))
+        fn(), phrase_1L_chr %>% stringr::str_sub(start = 2))
     return(phrase_1L_chr)
 }
 #' Update function documentation
@@ -211,8 +214,9 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
                   stringr::str_locate(fn_name_1L_chr, "\\.")[1, 
                     1] %>% as.vector()), "-methods"))
     }
-    if (fn_type_1L_chr %in% c("s3_unvalidated_instance", "s3_validator")) 
+    if (fn_type_1L_chr %in% c("s3_unvalidated_instance", "s3_validator")) {
         fn_dmt_1L_chr <- paste0(fn_dmt_1L_chr, "\n#' @keywords internal")
+    }
     return(fn_dmt_1L_chr)
 }
 #' Update function documentation with slots
@@ -278,8 +282,9 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
                   eval(parse(text = paste0("new_ls <- ", input_ls[[2]])))
                   args_ls <- list(.x, data_1L_chr = input_ls[[1]], 
                     new_ls = new_ls, append_1L_lgl = append_1L_lgl)
-                  if (idx_1L_dbl == 2) 
+                  if (idx_1L_dbl == 2) {
                     args_ls$append_1L_lgl <- NULL
+                  }
                   rlang::exec(fn, !!!args_ls)
                 })
         }
@@ -370,11 +375,12 @@ update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1
                   fn_nm_1L_chr <- .y
                   old_args_chr <- fns_dmt_tb$args_ls[fns_dmt_tb$fns_chr == 
                     fn_nm_1L_chr][[1]]
-                  if (!append_1L_lgl) 
+                  if (!append_1L_lgl) {
                     testit::assert("When not appending, each function whose argument description text is being updated must have new argument descriptions for ALL arguments.", 
                       ifelse(length(old_args_chr) == length(fn_args_chr), 
                         names(old_args_chr) %>% sort() == names(fn_args_chr) %>% 
                           sort(), F))
+                  }
                   new_args_chr <- purrr::map2_chr(fn_args_chr, 
                     names(fn_args_chr), ~{
                       if (append_1L_lgl) {
@@ -452,7 +458,8 @@ update_pkg_setup_msgs <- function (pkg_setup_ls, list_element_1L_chr)
 {
     pkg_setup_ls$problems_ls[[which(names(pkg_setup_ls$problems_ls) == 
         list_element_1L_chr)]] <- NULL
-    if (length(pkg_setup_ls$problems_ls) == 0) 
+    if (length(pkg_setup_ls$problems_ls) == 0) {
         pkg_setup_ls[[which(names(pkg_setup_ls) == "problems_ls")]] <- NULL
+    }
     return(pkg_setup_ls)
 }

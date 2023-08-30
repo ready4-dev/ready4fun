@@ -3,12 +3,11 @@
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @return X (ready4 S3 class for encapsulating the metadata required for package set-up.)
 #' @rdname ratify-methods
-#' @export 
+#' @export
 #' @importFrom ready4 ratify
-ratify.ready4fun_manifest <- function (x) 
-{
-    x_ready4fun_manifest <- validate_pkg_setup(x, is_method_1L_lgl = T)
-    return(x_ready4fun_manifest)
+ratify.ready4fun_manifest <- function(x) {
+  x_ready4fun_manifest <- validate_pkg_setup(x, is_method_1L_lgl = T)
+  return(x_ready4fun_manifest)
 }
 #' @rdname ratify-methods
 #' @aliases ratify,ready4fun_manifest-method

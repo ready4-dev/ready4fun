@@ -260,7 +260,7 @@ constructor_r3 <- dplyr::bind_rows(
 manifest_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_manifest(
     addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(
-      depends_chr = c("ready4", "generics"),
+      #depends_chr = c("ready4", "generics"),
       imports_chr = c("ready4show", "ready4use"),
       suggests_chr = c("rmarkdown")
     ),
@@ -305,7 +305,9 @@ write_to_edit_workflow("pkgdown.yaml") # In other packages, run for "test-covera
 readLines("_pkgdown.yml") %>%
   stringr::str_replace_all("  - text: Model", "  - text: Framework & Model") %>%
   writeLines(con = "_pkgdown.yml")
-usethis::use_dev_package("ready4", type = "depends", remote = "ready4-dev/ready4")
+# usethis::use_dev_package("ready4",
+#                          #type = "depends",
+#                          remote = "ready4-dev/ready4")
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
 devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

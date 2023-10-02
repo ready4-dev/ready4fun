@@ -1,11 +1,12 @@
 ---
 title: "Author Health Economic Model Algorithms As Functions"
-output: 
-  rmarkdown::html_vignette:
-    toc: true
-  pdf_document:
-    highlight: null
-    number_sections: yes
+output: rmarkdown::html_vignette
+# output: 
+#   rmarkdown::html_vignette:
+#     toc: true
+#   pdf_document:
+#     highlight: null
+#     number_sections: yes
 vignette: >
   %\VignetteIndexEntry{Author Health Economic Model Algorithms As Functions}
   %\VignetteEncoding{UTF-8}

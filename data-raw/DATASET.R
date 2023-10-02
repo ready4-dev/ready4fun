@@ -261,7 +261,8 @@ manifest_ls <- pkg_desc_ls %>%
   fns_env_ls$fns_env$make_manifest(
     addl_pkgs_ls = fns_env_ls$fns_env$make_addl_pkgs_ls(
       #depends_chr = c("ready4", "generics"),
-      imports_chr = c("ready4show", "ready4use"),
+      imports_chr = c("ready4",
+                      "ready4show", "ready4use"),
       suggests_chr = c("rmarkdown")
     ),
     build_ignore_ls = fns_env_ls$fns_env$make_build_ignore_ls(file_nms_chr = c("initial_setup.R")), #

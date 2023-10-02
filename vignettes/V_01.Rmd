@@ -1,5 +1,5 @@
 ---
-title: "Author Functions For Ready4 Module Algorithms"
+title: "Author Health Economic Model Algorithms As Functions"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -7,7 +7,7 @@ output:
     highlight: null
     number_sections: yes
 vignette: >
-  %\VignetteIndexEntry{Author Functions For Ready4 Module Algorithms}
+  %\VignetteIndexEntry{Author Health Economic Model Algorithms As Functions}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -22,15 +22,15 @@ library(ready4show)
 
 ## Motivation
 
-The [ready4 youth mental health systems model](https://www.ready4-dev.com/) is [implemented using an object-oriented programming (OOP) approach](https://ready4-dev.github.io/ready4class/articles/V_01.html). One motivation for using OOP is the concept of "abstraction" - making things as simple as possible for end-users of `ready4` modules by exposing the minimal amount of code required to implement each method.
+The [ready4 framework](https://www.ready4-dev.com/) uses [an object-oriented programming (OOP) approach](https://ready4-dev.github.io/ready4class/articles/V_01.html) to implement computational health economic models. One motivation for using OOP is the concept of "abstraction" - making things as simple as possible for end-users of `ready4` modules by exposing the minimal amount of code required to implement each method.
 
 However, some users of the `ready4` modules will want to "look under the hood" and examine the code that implements module algorithms in much more detail. Reasons to do so include to:
 
  - gain detailed insight into how methods are implemented;
- - test individual sub-components ("functions") of methods as part of code verification and model validation checks;
- - re-use functions when authoring new methods.
+ - test individual sub-components of methods as part of code verification and model validation checks;
+ - re-use sub-components of existing methods when authoring new methods.
 
-Therefore when authoring `ready4` code libraries, it is important to ensure that "under the hood" code can be readily understood. Two ways for achieving this goal is to ensure that all functions (even those not intended for use by modeller end-users) are adequately documented and adopt a consistent house style (e.g. naming conventions). ready4fun provides workflow tools (classes, methods, functions and datasets) to achieve these goals.
+To help facilitate achieving these objectives, methods associated with ready4 modules can be de-composed into functions that can be used independent of ready4 modules. However, these functions need to be documented and will be easier to comprehend if they adopt a consistent house style (e.g. naming conventions). ready4fun provides workflow tools (classes, methods, functions and datasets) to achieve these goals.
 
 ## ready4fun function authoring taxonomies, abbreviations and workflow
 

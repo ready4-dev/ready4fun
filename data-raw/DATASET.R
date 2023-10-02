@@ -1,7 +1,7 @@
 library(lifecycle)
 library(ready4)
 library(ready4show)
-library(generics)
+#library(generics)
 # ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",
 #                           tag = "0.0.0.9461",
@@ -305,9 +305,8 @@ write_to_edit_workflow("pkgdown.yaml") # In other packages, run for "test-covera
 readLines("_pkgdown.yml") %>%
   stringr::str_replace_all("  - text: Model", "  - text: Framework & Model") %>%
   writeLines(con = "_pkgdown.yml")
-# usethis::use_dev_package("ready4",
-#                          #type = "depends",
-#                          remote = "ready4-dev/ready4")
+readLines("inst/R-CMD-check.yaml") %>% writeLines(con = ".github/workflows/R-CMD-check.yaml")
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
+# usethis::use_dev_package("ready4", type = "depends",remote = "ready4-dev/ready4")
 devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

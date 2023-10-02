@@ -1,10 +1,11 @@
 Package: ready4fun
-Title: Author and Document Functions to Implement Ready4 Algorithms
-Version: 0.0.0.9523
+Title: Author and Document Functions that Implement Transferable Health
+    Economic Model Algorithms
+Version: 0.0.0.9524
 Authors@R: c(
-    person("Matthew", "Hamilton", , "matthew.hamilton@orygen.org.au", role = c("aut", "cre"),
+    person("Matthew", "Hamilton", , "matthew.hamilton1@monash.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
-    person("Glen", "Wiesner", , "Glen.Wiesner@vu.edu.au", role = "aut",
+    person("Glen", "Wiesner", role = "aut",
            comment = c(ORCID = "0000-0002-0071-130X")),
     person("Orygen", role = c("cph", "fnd")),
     person("Australian Government Research Training Program", role = "fnd"),
@@ -12,15 +13,15 @@ Authors@R: c(
     person("Victoria University", role = "fnd")
   )
 Description: ready4fun is a toolkit for authoring and documenting
-    functions that implement algorithms for the ready4 youth mental health
-    systems model (https://www.ready4-dev.com/). The toolkit aims to help
-    all developers contributing to ready4 to adopt a common house style in
-    authoring and documenting functions.  The current version of this
-    software is a development release, which you should only trial if you
-    feel confident you understand what it does and have created a sandpit
-    area in which you can safely undertake testing. If you have any
-    questions, please contact the authors
-    (matthew.hamilton@orygen.org.au).
+    functions that implement algorithms for models developed with the
+    ready4 framework (https://www.ready4-dev.com/). The toolkit aims to
+    help all developers contributing to ready4 to adopt a common house
+    style in authoring and documenting functions.  The current version of
+    this software is a development release, which you should only trial if
+    you feel confident you understand what it does and have created a
+    sandpit area in which you can safely undertake testing. If you have
+    any questions, please contact the authors
+    (matthew.hamilton1@monash.edu).
 License: GPL-3 + file LICENSE
 URL: https://ready4-dev.github.io/ready4fun/,
     https://github.com/ready4-dev/ready4fun, https://www.ready4-dev.com/
@@ -42,8 +43,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show (>= 0.0.0.9109),
-    ready4use (>= 0.0.0.9229),
+    ready4show,
+    ready4use (>= 0.0.0.9230),
     rlang,
     sinew,
     stats,
@@ -65,7 +66,6 @@ Depends:
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes:  
+Remotes: 
     ready4-dev/ready4,
-    ready4-dev/ready4use,
-    ready4-dev/ready4show
+    ready4-dev/ready4use

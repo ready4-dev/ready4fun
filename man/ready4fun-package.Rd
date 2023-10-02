@@ -4,15 +4,15 @@
 \name{ready4fun-package}
 \alias{ready4fun}
 \alias{ready4fun-package}
-\title{ready4fun: Author and Document Functions to Implement Ready4 Algorithms}
+\title{ready4fun: Author and Document Functions that Implement Transferable Health Economic Model Algorithms}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-ready4fun is a toolkit for authoring and documenting functions that implement algorithms for the ready4 youth mental health systems model (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for authoring and documenting functions that implement algorithms for models developed with the ready4 framework (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton1@monash.edu).
 
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-ready4fun is a toolkit for authoring and documenting functions that implement algorithms for the ready4 youth mental health systems model (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).
+ready4fun is a toolkit for authoring and documenting functions that implement algorithms for models developed with the ready4 framework (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions. The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton1@monash.edu).
 }
 \seealso{
 Useful links:
@@ -32,11 +32,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton@orygen.org.au} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
+\strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton1@monash.edu} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
 
 Authors:
 \itemize{
-  \item Glen Wiesner \email{Glen.Wiesner@vu.edu.au} (\href{https://orcid.org/0000-0002-0071-130X}{ORCID})
+  \item Glen Wiesner (\href{https://orcid.org/0000-0002-0071-130X}{ORCID})
 }
 
 Other contributors:

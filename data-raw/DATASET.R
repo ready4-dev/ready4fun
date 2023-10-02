@@ -31,25 +31,25 @@ badges_lup <- tibble::tibble(
       message = .x,
       color = .y,
       label_color = "black",
-      md_link = "https://www.ready4-dev.com/toolkits/",
+      md_link = ifelse(.x %in% c("foundation", "authoring"), "https://www.ready4-dev.com/docs/software/libraries/types/framework/", "https://www.ready4-dev.com/docs/software/libraries/types/module/"),
       logo_path = "https://github.com/ready4-dev/ready4/releases/download/Documentation_0.0/favicon-16x16.png", # "https://raw.githubusercontent.com/ready4-dev/ready4fun/dev/data-raw/favicon-16x16.png",
       browser_preview = F,
       to_clipboard = F
     )
   ))
 pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(
-  pkg_title_1L_chr = "Author and Document Functions To Implement Ready4 Algorithms" %>% tools::toTitleCase(),
-  pkg_desc_1L_chr = "ready4fun is a toolkit for authoring and documenting functions that implement algorithms for the ready4 youth mental health systems model (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions.
-                                                   The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton@orygen.org.au).",
+  pkg_title_1L_chr = "Author and Document Functions That Implement Transferable Health Economic Model Algorithms" %>% tools::toTitleCase(),
+  pkg_desc_1L_chr = "ready4fun is a toolkit for authoring and documenting functions that implement algorithms for models developed with the ready4 framework (https://www.ready4-dev.com/). The toolkit aims to help all developers contributing to ready4 to adopt a common house style in authoring and documenting functions.
+                                                   The current version of this software is a development release, which you should only trial if you feel confident you understand what it does and have created a sandpit area in which you can safely undertake testing. If you have any questions, please contact the authors (matthew.hamilton1@monash.edu).",
   authors_prsn = c(
     utils::person(
       given = "Matthew", family = "Hamilton",
-      email = "matthew.hamilton@orygen.org.au",
+      email = "matthew.hamilton1@monash.edu",
       role = c("aut", "cre"),
       comment = c(ORCID = "0000-0001-7407-9194")
     ),
     utils::person("Glen", "Wiesner",
-      email = "Glen.Wiesner@vu.edu.au",
+      #email = "Glen.Wiesner@vu.edu.au",
       role = c("aut"),
       comment = c(ORCID = "0000-0002-0071-130X")
     ),
@@ -294,6 +294,17 @@ manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
   self_serve_1L_lgl = T
 )
 ready4::write_extra_pkgs_to_actions() # Add to author method once consent has been added to function.
-devtools::build_vignettes()
+readLines(".github/workflows/R-CMD-check.yaml") %>%
+  #stringr::str_replace_all("r-lib/actions/setup-r@master", "r-lib/actions/setup-r@v2") %>%
+  #stringr::str_replace_all("r-lib/actions/setup-pandoc@master", "r-lib/actions/setup-pandoc@v2") %>%
+  stringr::str_replace_all("- \\{os: windows-latest, r: '3.6'\\}", "#- \\{os: windows-latest, r: '3.6'\\}") %>%
+  stringr::str_replace_all("- \\{os: ubuntu-20.04,   r: 'oldrel', ", "#- \\{os: ubuntu-20.04,   r: 'oldrel', ") %>%
+  purrr::discard_at(2:4) %>%
+  writeLines(con = ".github/workflows/R-CMD-check.yaml")
+write_to_edit_workflow("pkgdown.yaml") # In other packages, run for "test-coverage.yaml" as well.
+readLines("_pkgdown.yml") %>%
+  stringr::str_replace_all("  - text: Model", "  - text: Framework & Model") %>%
+  writeLines(con = "_pkgdown.yml")
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
+devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

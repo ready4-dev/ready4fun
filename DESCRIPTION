@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Author and Document Functions that Implement Transferable Health
     Economic Model Algorithms
-Version: 0.0.0.9525
+Version: 0.0.0.9526
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton1@monash.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -43,7 +43,8 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4show (>= 0.0.0.9111),
+    ready4 (>= 0.0.0.9125),
+    ready4show,
     ready4use (>= 0.0.0.9231),
     rlang,
     sinew,
@@ -60,13 +61,10 @@ Imports:
     xfun
 VignetteBuilder: knitr
 Depends: 
-    generics,
-    R (>= 2.10),
-    ready4 (>= 0.0.0.9125)
+    R (>= 2.10)
 LazyData: true
 Suggests: 
     rmarkdown
-Remotes:  
+Remotes: 
     ready4-dev/ready4,
-    ready4-dev/ready4use,
-    ready4-dev/ready4show
+    ready4-dev/ready4use

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ready4fun</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9528</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9530</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,25 +58,34 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_dmt_for_all_fns</span><span class="op">(</span></span>
-<span>  paths_ls <span class="op">=</span> <span class="fu"><a href="make_fn_nms.html">make_fn_nms</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  undocumented_fns_dir_chr <span class="op">=</span> <span class="fu"><a href="make_undmtd_fns_dir_chr.html">make_undmtd_fns_dir_chr</a></span><span class="op">(</span>drop_empty_1L_lgl <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  <span class="va">abbreviations_lup</span>,</span>
+<span>  <span class="va">fn_types_lup</span>,</span>
+<span>  <span class="va">object_type_lup</span>,</span>
+<span>  append_1L_lgl <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>  custom_dmt_ls <span class="op">=</span> <span class="fu"><a href="make_custom_dmt_ls.html">make_custom_dmt_ls</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  fns_env_ls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">fn_types_lup</span>,</span>
-<span>  <span class="va">abbreviations_lup</span>,</span>
-<span>  <span class="va">object_type_lup</span>,</span>
-<span>  inc_all_mthds_1L_lgl <span class="op">=</span> <span class="cn">T</span></span>
+<span>  inc_all_mthds_1L_lgl <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  paths_ls <span class="op">=</span> <span class="fu"><a href="make_fn_nms.html">make_fn_nms</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  undocumented_fns_dir_chr <span class="op">=</span> <span class="fu"><a href="make_undmtd_fns_dir_chr.html">make_undmtd_fns_dir_chr</a></span><span class="op">(</span>drop_empty_1L_lgl <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>paths_ls</dt>
-<dd><p>Paths (a list), Default: make_fn_nms()</p></dd>
+    <dl><dt>abbreviations_lup</dt>
+<dd><p>Abbreviations (a lookup table)</p></dd>
 
 
-<dt>undocumented_fns_dir_chr</dt>
-<dd><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)</p></dd>
+<dt>fn_types_lup</dt>
+<dd><p>Function types (a lookup table)</p></dd>
+
+
+<dt>object_type_lup</dt>
+<dd><p>Object type (a lookup table)</p></dd>
+
+
+<dt>append_1L_lgl</dt>
+<dd><p>Append (a logical vector of length one), Default: T</p></dd>
 
 
 <dt>custom_dmt_ls</dt>
@@ -87,20 +96,16 @@
 <dd><p>Functions (a list of environments), Default: NULL</p></dd>
 
 
-<dt>fn_types_lup</dt>
-<dd><p>Function types (a lookup table)</p></dd>
-
-
-<dt>abbreviations_lup</dt>
-<dd><p>Abbreviations (a lookup table)</p></dd>
-
-
-<dt>object_type_lup</dt>
-<dd><p>Object type (a lookup table)</p></dd>
-
-
 <dt>inc_all_mthds_1L_lgl</dt>
 <dd><p>Include all methods (a logical vector of length one), Default: T</p></dd>
+
+
+<dt>paths_ls</dt>
+<dd><p>Paths (a list), Default: make_fn_nms()</p></dd>
+
+
+<dt>undocumented_fns_dir_chr</dt>
+<dd><p>Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)</p></dd>
 
 </dl></div>
     <div class="section level2">

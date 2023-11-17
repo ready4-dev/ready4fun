@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ready4fun</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9530</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9531</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,7 +175,7 @@ Description
 Add
 </td>
 <td style="text-align:right;">
-Updates an object by adding data to that object.
+Updates an object by adding new values to new or empty fields
 </td>
 </tr>
 <tr>
@@ -185,7 +185,7 @@ Assert
 <td style="text-align:right;">
 Validates that an object conforms to required condition(s). If the
 object does not meet all required conditions, program execution will be
-stopped and an error message provided.
+stopped and an error message provided
 </td>
 </tr>
 <tr>
@@ -193,7 +193,7 @@ stopped and an error message provided.
 Bind
 </td>
 <td style="text-align:right;">
-Binds two objects together to create a composite object.
+Binds two objects together to create a composite object
 </td>
 </tr>
 <tr>
@@ -201,7 +201,7 @@ Binds two objects together to create a composite object.
 Calculate
 </td>
 <td style="text-align:right;">
-Performs a numeric calculation.
+Performs a numeric calculation
 </td>
 </tr>
 <tr>
@@ -209,7 +209,7 @@ Performs a numeric calculation.
 Close
 </td>
 <td style="text-align:right;">
-Closes specified connections.
+Closes specified connections
 </td>
 </tr>
 <tr>
@@ -217,7 +217,8 @@ Closes specified connections.
 Extract
 </td>
 <td style="text-align:right;">
-Extracts data from an object.
+Extracts data from a field (Deprecated naming convention - use get
+instead)
 </td>
 </tr>
 <tr>
@@ -234,7 +235,7 @@ Force
 </td>
 <td style="text-align:right;">
 Checks if a specified local or global environmental condition is met and
-if not, updates the specified environment to comply with the condition.
+if not, updates the specified environment to comply with the condition
 </td>
 </tr>
 <tr>
@@ -242,7 +243,7 @@ if not, updates the specified environment to comply with the condition.
 Format
 </td>
 <td style="text-align:right;">
-Modifies the format of an output.
+Modifies the format of an object
 </td>
 </tr>
 <tr>
@@ -250,8 +251,7 @@ Modifies the format of an output.
 Get
 </td>
 <td style="text-align:right;">
-Retrieves a pre-existing data object from memory, local file system or
-online repository.
+Extracts data from an object
 </td>
 </tr>
 <tr>
@@ -259,7 +259,7 @@ online repository.
 Import
 </td>
 <td style="text-align:right;">
-Reads a data object in its native format and converts it to an R object.
+Reads a data object in its native format and converts it to an R object
 </td>
 </tr>
 <tr>
@@ -267,7 +267,7 @@ Reads a data object in its native format and converts it to an R object.
 Impute
 </td>
 <td style="text-align:right;">
-Imputes data.
+Imputes data
 </td>
 </tr>
 <tr>
@@ -275,7 +275,7 @@ Imputes data.
 Knit
 </td>
 <td style="text-align:right;">
-Knits a rmarkdown file
+Knits an RMD or Rmarkdown file
 </td>
 </tr>
 <tr>
@@ -283,7 +283,7 @@ Knits a rmarkdown file
 Launch
 </td>
 <td style="text-align:right;">
-Launches an application
+Launches an R Shiny app
 </td>
 </tr>
 <tr>
@@ -291,7 +291,7 @@ Launches an application
 Make
 </td>
 <td style="text-align:right;">
-Creates a new R object.
+Creates a new R object
 </td>
 </tr>
 <tr>
@@ -307,7 +307,7 @@ Plots data
 Predict
 </td>
 <td style="text-align:right;">
-Makes predictions from data using a specified statistical model.
+Applies a model to make predictions
 </td>
 </tr>
 <tr>
@@ -323,7 +323,7 @@ Prints output to console
 Randomise
 </td>
 <td style="text-align:right;">
-Randomly samples from data.
+Randomly samples from data
 </td>
 </tr>
 <tr>
@@ -331,7 +331,7 @@ Randomly samples from data.
 Read
 </td>
 <td style="text-align:right;">
-Reads an R script into memory.
+Reads an R script into memory
 </td>
 </tr>
 <tr>
@@ -339,7 +339,7 @@ Reads an R script into memory.
 Remove
 </td>
 <td style="text-align:right;">
-Edits an object, removing a specified element or elements.
+Edits an object, removing a specified element or elements
 </td>
 </tr>
 <tr>
@@ -347,7 +347,7 @@ Edits an object, removing a specified element or elements.
 Rename
 </td>
 <td style="text-align:right;">
-Renames elements of an object based on a pre-speccified schema.
+Renames elements of an object based on a pre-specified schema
 </td>
 </tr>
 <tr>
@@ -355,7 +355,7 @@ Renames elements of an object based on a pre-speccified schema.
 Reorder
 </td>
 <td style="text-align:right;">
-Reorders an object to conform to a pre-specified schema.
+Reorders an object to conform to a pre-specified schema
 </td>
 </tr>
 <tr>
@@ -364,7 +364,7 @@ Replace
 </td>
 <td style="text-align:right;">
 Edits an object, replacing a specified element with another specified
-element.
+element
 </td>
 </tr>
 <tr>
@@ -372,7 +372,7 @@ element.
 Reset
 </td>
 <td style="text-align:right;">
-Edits an object, overwriting the current version with a default version.
+Edits an object, overwriting the current version with a default version
 </td>
 </tr>
 <tr>
@@ -380,7 +380,7 @@ Edits an object, overwriting the current version with a default version.
 Rowbind
 </td>
 <td style="text-align:right;">
-Performs custom rowbind operations on table objects.
+Performs custom rowbind operations on table objects
 </td>
 </tr>
 <tr>
@@ -388,7 +388,7 @@ Performs custom rowbind operations on table objects.
 Scramble
 </td>
 <td style="text-align:right;">
-Randomly reorders an object.
+Randomly reorders an object
 </td>
 </tr>
 <tr>
@@ -397,7 +397,7 @@ Transform
 </td>
 <td style="text-align:right;">
 Edits an object in such a way that core object attributes - e.g. shape,
-dimensions, elements, type - are altered.
+dimensions, elements, type - are altered
 </td>
 </tr>
 <tr>
@@ -405,7 +405,7 @@ dimensions, elements, type - are altered.
 Unload
 </td>
 <td style="text-align:right;">
-Performs a custom detaching of a package from the search path.
+Performs a custom detaching of a package from the search path
 </td>
 </tr>
 <tr>
@@ -413,7 +413,7 @@ Performs a custom detaching of a package from the search path.
 Update
 </td>
 <td style="text-align:right;">
-Edits an object, while preserving core object attributes.
+Edits an object, while preserving core object attributes
 </td>
 </tr>
 <tr>
@@ -421,7 +421,7 @@ Edits an object, while preserving core object attributes.
 Validate
 </td>
 <td style="text-align:right;">
-Validates that an object conforms to required criteria.
+Validates that an object conforms to required criteria
 </td>
 </tr>
 <tr>
@@ -429,7 +429,7 @@ Validates that an object conforms to required criteria.
 Write
 </td>
 <td style="text-align:right;">
-Writes a file to a specified local directory.
+Writes a file to a specified local directory
 </td>
 </tr>
 </tbody>

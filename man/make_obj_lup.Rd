@@ -13,6 +13,6 @@ make_obj_lup(obj_lup_spine = make_obj_lup_spine())
 Object (a tibble)
 }
 \description{
-make_obj_lup() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table. The function returns Object (a tibble).
+make_obj_lup() is a Make function that creates a new R object Specifically, this function implements an algorithm to make object lookup table. The function returns Object (a tibble).
 }
 \keyword{internal}

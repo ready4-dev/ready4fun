@@ -10,6 +10,6 @@ write_pt_lup_db(R_dir_1L_chr = "R")
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 }
 \description{
-write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write prototype lookup table database. The function is called for its side effects and does not return a value.
+write_pt_lup_db() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write prototype lookup table database. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

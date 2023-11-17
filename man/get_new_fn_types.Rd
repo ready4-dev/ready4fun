@@ -21,6 +21,6 @@ get_new_fn_types(
 New function types (a character vector)
 }
 \description{
-get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).
+get_new_fn_types() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
 }
 \keyword{internal}

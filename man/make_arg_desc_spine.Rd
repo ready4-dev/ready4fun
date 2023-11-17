@@ -36,6 +36,6 @@ make_arg_desc_spine(
 Argument description spine (a character vector of length one)
 }
 \description{
-make_arg_desc_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make argument description spine. The function returns Argument description spine (a character vector of length one).
+make_arg_desc_spine() is a Make function that creates a new R object Specifically, this function implements an algorithm to make argument description spine. The function returns Argument description spine (a character vector of length one).
 }
 \keyword{internal}

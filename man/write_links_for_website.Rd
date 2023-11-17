@@ -27,6 +27,6 @@ write_links_for_website(
 \item{theme_1L_chr}{Theme (a character vector of length one), Default: 'journal'}
 }
 \description{
-write_links_for_website() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value.
+write_links_for_website() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write links for website. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

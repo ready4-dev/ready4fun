@@ -10,6 +10,6 @@ write_fn_type_dirs(path_1L_chr = "data-raw")
 \item{path_1L_chr}{Path (a character vector of length one), Default: 'data-raw'}
 }
 \description{
-write_fn_type_dirs() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function type directories. The function is called for its side effects and does not return a value.
+write_fn_type_dirs() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write function type directories. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

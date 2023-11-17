@@ -1,5 +1,5 @@
 #' Add additional packagesGet house style abbreviations
-#' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
+#' @description add_addl_pkgs() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add additional packages. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
 #' @param text_1L_chr Text (a character vector of length one), Default: character(0)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'ready4-dev/ready4'
@@ -35,7 +35,7 @@ get_abbrs <- function (text_1L_chr = character(0), abbreviations_lup = NULL,
     return(abbreviations_lup)
 }
 #' Get all dependencies of functions
-#' @description get_all_depcys_of_fns() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get all dependencies of functions. Function argument pkg_depcy_ls specifies the where to look for the required object. The function returns Functions to keep (a character vector).
+#' @description get_all_depcys_of_fns() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get all dependencies of functions. The function returns Functions to keep (a character vector).
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @param fns_chr Functions (a character vector)
 #' @return Functions to keep (a character vector)
@@ -58,7 +58,7 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
     return(fns_to_keep_chr)
 }
 #' Get argument object type
-#' @description get_arg_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get argument object type. Function argument argument_nm_1L_chr specifies the where to look for the required object. The function returns Argument object type (a character vector of length one).
+#' @description get_arg_obj_type() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get argument object type. The function returns Argument object type (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
@@ -93,7 +93,7 @@ get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "ready4-dev/
     return(arg_obj_type_1L_chr)
 }
 #' Get development package name
-#' @description get_dev_pkg_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get development package name. Function argument path_to_pkg_rt_1L_chr specifies the where to look for the required object. The function returns Development package name (a character vector of length one).
+#' @description get_dev_pkg_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get development package name. The function returns Development package name (a character vector of length one).
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
 #' @return Development package name (a character vector of length one)
 #' @rdname get_dev_pkg_nm
@@ -107,7 +107,7 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
     return(dev_pkg_nm_1L_chr)
 }
 #' Get function arguments
-#' @description get_fn_args() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get function arguments. Function argument fn specifies the where to look for the required object. The function returns Function arguments (a character vector).
+#' @description get_fn_args() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get function arguments. The function returns Function arguments (a character vector).
 #' @param fn Function (a function)
 #' @return Function arguments (a character vector)
 #' @rdname get_fn_args
@@ -122,7 +122,7 @@ get_fn_args <- function (fn)
     return(fn_args_chr)
 }
 #' Get function names in file
-#' @description get_fn_nms_in_file() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get function names in file. Function argument path_1L_chr specifies the where to look for the required object. The function returns Local (a character vector).
+#' @description get_fn_nms_in_file() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get function names in file. The function returns Local (a character vector).
 #' @param path_1L_chr Path (a character vector of length one)
 #' @return Local (a character vector)
 #' @rdname get_fn_nms_in_file
@@ -137,7 +137,7 @@ get_fn_nms_in_file <- function (path_1L_chr)
     return(local_chr)
 }
 #' Get method title
-#' @description get_mthd_title() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get method title. Function argument mthd_nm_1L_chr specifies the where to look for the required object. The function returns Method title (a character vector of length one).
+#' @description get_mthd_title() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get method title. The function returns Method title (a character vector of length one).
 #' @param mthd_nm_1L_chr Method name (a character vector of length one)
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: 'ready4'
 #' @return Method title (a character vector of length one)
@@ -162,7 +162,7 @@ get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4")
     return(mthd_title_1L_chr)
 }
 #' Get new abbreviations
-#' @description get_new_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New abbreviations (a character vector).
+#' @description get_new_abbrs() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations. The function returns New abbreviations (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
@@ -239,7 +239,7 @@ get_new_abbrs <- function (pkg_setup_ls, append_1L_lgl = T, classes_to_make_tb =
     return(new_abbrs_chr)
 }
 #' Get new abbreviations candidates
-#' @description get_new_abbrs_cndts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations candidates. Function argument text_chr specifies the where to look for the required object. The function returns New abbreviations candidates (a character vector).
+#' @description get_new_abbrs_cndts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations candidates. The function returns New abbreviations candidates (a character vector).
 #' @param text_chr Text (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param drop_first_1L_lgl Drop first (a logical vector of length one), Default: F
@@ -273,7 +273,7 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
     return(new_abbrs_cndts_chr)
 }
 #' Get new class prototypes
-#' @description get_new_cls_pts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new class prototypes. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New class prototypes (a character vector).
+#' @description get_new_cls_pts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new class prototypes. The function returns New class prototypes (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @return New class prototypes (a character vector)
 #' @rdname get_new_cls_pts
@@ -296,7 +296,7 @@ get_new_cls_pts <- function (pkg_setup_ls)
     return(new_cls_pts_chr)
 }
 #' Get new function types
-#' @description get_new_fn_types() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new function types. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New function types (a character vector).
+#' @description get_new_fn_types() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param fn_nms_ls Function names (a list), Default: make_fn_nms()
 #' @param undmtd_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
@@ -334,7 +334,7 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
     return(new_fn_types_chr)
 }
 #' Get object type new cases
-#' @description get_obj_type_new_cses() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get object type new cases. Function argument updated_obj_type_lup specifies the where to look for the required object. The function returns Object type lookup table new cases (a tibble).
+#' @description get_obj_type_new_cses() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get object type new cases. The function returns Object type lookup table new cases (a tibble).
 #' @param updated_obj_type_lup Updated object type (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
@@ -364,7 +364,7 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "read
     return(obj_type_lup_new_cses_tb)
 }
 #' Get output object type
-#' @description get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).
+#' @description get_outp_obj_type() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get output object type. The function returns Output object type (a character vector).
 #' @param fns_chr Functions (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
@@ -410,7 +410,7 @@ get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "re
     return(outp_obj_type_chr)
 }
 #' Get rds from package documentation
-#' @description get_rds_from_pkg_dmt() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get rds from package documentation. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns R object (an output object of multiple potential types).
+#' @description get_rds_from_pkg_dmt() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get rds from package documentation. The function returns R object (an output object of multiple potential types).
 #' @param pkg_setup_ls Package setup (a list), Default: NULL
 #' @param fl_nm_1L_chr File name (a character vector of length one)
 #' @param piggyback_to_1L_chr Piggyback to (a character vector of length one), Default: character(0)
@@ -437,7 +437,7 @@ get_rds_from_pkg_dmt <- function (pkg_setup_ls = NULL, fl_nm_1L_chr, piggyback_t
     return(r_object_xx)
 }
 #' Get return object name
-#' @description get_return_obj_nm() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get return object name. Function argument fn specifies the where to look for the required object. The function returns Return (a character vector of length one).
+#' @description get_return_obj_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get return object name. The function returns Return (a character vector of length one).
 #' @param fn Function (a function)
 #' @return Return (a character vector of length one)
 #' @rdname get_return_obj_nm

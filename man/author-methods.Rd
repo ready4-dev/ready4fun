@@ -50,7 +50,7 @@ author.ready4fun_metadata_a(x, consent_1L_chr = "", self_serve_1L_lgl = F)
 x (An object)
 }
 \description{
-author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 
-author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
+author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 }

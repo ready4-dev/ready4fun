@@ -30,6 +30,6 @@ write_manuals_to_dv(
 \item{piggyback_to_1L_chr}{Piggyback to (a character vector of length one), Default: character(0)}
 }
 \description{
-write_manuals_to_dv() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value.
+write_manuals_to_dv() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write manuals to dataverse. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

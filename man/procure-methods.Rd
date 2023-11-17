@@ -18,5 +18,5 @@ procure.ready4fun_manifest(x, type_1L_chr)
 Value (an output object of multiple potential types)
 }
 \description{
-procure.ready4fun_manifest() is a procure method that procures data by executing a search and retrieval algorithm using data contained in an instance of a class. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function returns Value (an output object of multiple potential types).
+procure.ready4fun_manifest() is a procure method that procures data by executing a search and retrieval algorithm using data contained in an instance of a class This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function returns Value (an output object of multiple potential types).
 }

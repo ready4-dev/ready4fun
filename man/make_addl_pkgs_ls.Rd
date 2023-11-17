@@ -30,6 +30,6 @@ make_addl_pkgs_ls(
 Additional packages (a list)
 }
 \description{
-make_addl_pkgs_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make additional packages list. The function returns Additional packages (a list).
+make_addl_pkgs_ls() is a Make function that creates a new R object Specifically, this function implements an algorithm to make additional packages list. The function returns Additional packages (a list).
 }
 \keyword{internal}

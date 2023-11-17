@@ -16,5 +16,5 @@ authorData.ready4fun_manifest(x)
 x (An object)
 }
 \description{
-authorData.ready4fun_manifest() is an authorData method that authors and saves files necessary for creating and documenting datasets. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+authorData.ready4fun_manifest() is an authorData method that authors and saves files necessary for creating and documenting datasets This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

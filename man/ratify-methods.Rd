@@ -18,5 +18,5 @@ ratify.ready4fun_manifest(x, append_1L_lgl = F)
 X (ready4 S3 class for encapsulating the metadata required for package set-up.)
 }
 \description{
-ratify.ready4fun_manifest() is a ratify method that ratifies that an instance of a class conforms to specified criteria. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+ratify.ready4fun_manifest() is a ratify method that ratifies that an instance of a class conforms to specified criteria This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

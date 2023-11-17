@@ -27,6 +27,6 @@ get_new_abbrs_cndts(
 New abbreviations candidates (a character vector)
 }
 \description{
-get_new_abbrs_cndts() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations candidates. Function argument text_chr specifies the where to look for the required object. The function returns New abbreviations candidates (a character vector).
+get_new_abbrs_cndts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations candidates. The function returns New abbreviations candidates (a character vector).
 }
 \keyword{internal}

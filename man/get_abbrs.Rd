@@ -27,7 +27,7 @@ get_abbrs(
 Abbreviations (a lookup table)
 }
 \description{
-add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with \code{get_abbrs}.
+add_addl_pkgs() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add additional packages. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with \code{get_abbrs}.
 }
 \examples{
 # Get current table of abbreviations

@@ -27,6 +27,6 @@ make_pkg_desc_ls(
 Package description (a list)
 }
 \description{
-make_pkg_desc_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).
+make_pkg_desc_ls() is a Make function that creates a new R object Specifically, this function implements an algorithm to make package description list. The function returns Package description (a list).
 }
 \keyword{internal}

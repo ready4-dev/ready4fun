@@ -17,6 +17,6 @@ import_xls_sheets(range_1L_chr, sheet_names_chr, path_1L_chr)
 Tibble list (a list of tibbles)
 }
 \description{
-import_xls_sheets() is an Import function that reads a data object in its native format and converts it to an R object. Specifically, this function implements an algorithm to import excel workbook sheets. The function returns Tibble list (a list of tibbles).
+import_xls_sheets() is an Import function that reads a data object in its native format and converts it to an R object Specifically, this function implements an algorithm to import excel workbook sheets. The function returns Tibble list (a list of tibbles).
 }
 \keyword{internal}

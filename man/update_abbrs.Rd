@@ -30,6 +30,6 @@ update_abbrs(
 Package setup (a list)
 }
 \description{
-update_abbrs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update abbreviations. Function argument pkg_setup_ls specifies the object to be updated. Argument short_name_chr provides the object to be updated. The function returns Package setup (a list).
+update_abbrs() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update abbreviations. The function returns Package setup (a list).
 }
 \keyword{internal}

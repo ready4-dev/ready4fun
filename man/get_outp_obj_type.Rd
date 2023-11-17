@@ -39,6 +39,6 @@ get_outp_obj_type(
 Output object type (a character vector)
 }
 \description{
-get_outp_obj_type() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get output object type. Function argument fns_chr specifies the where to look for the required object. The function returns Output object type (a character vector).
+get_outp_obj_type() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get output object type. The function returns Output object type (a character vector).
 }
 \keyword{internal}

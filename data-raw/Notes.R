@@ -1,4 +1,38 @@
+library(ready4)
+library(ready4use)
+X <- Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4",
+                    gh_tag_1L_chr = "Documentation_0.0")
+Y <- ingest(X)
+# Only needed occationally....
+Z <- Ready4useRepos(dv_nm_1L_chr = "ready4fw",
+                    dv_server_1L_chr = "dataverse.harvard.edu",
+                    dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/RIQTKK") %>%
+  ingest()
+fn_types_lup <- Y@b_Ready4useIngest@objects_ls$fn_types_lup
+fn_types_lup$first_arg_desc_chr <- fn_types_lup$second_arg_desc_chr <- NA_character_
+fn_types_lup <- fn_types_lup %>%
+  dplyr::arrange(fn_type_nm_chr) %>%
+  dplyr::mutate(fn_type_desc_chr = dplyr::case_when(fn_type_nm_chr == "Add" ~ "Updates an object by adding new values to new or empty fields",
+                                                    fn_type_nm_chr == "Extract" ~ "Extracts data from a field (Deprecated naming convention - use get instead)",
+                                                    fn_type_nm_chr == "Format" ~ "Modifies the format of an object",
+                                                    fn_type_nm_chr == "Get" ~ "Extracts data from an object",
+                                                    fn_type_nm_chr == "Knit" ~ "Knits an RMD or Rmarkdown file",
+                                                    fn_type_nm_chr == "Launch" ~ "Launches an R Shiny app",
+                                                    fn_type_nm_chr == "Make Dataverse Import Lookup Table" ~ "Makes a Dataverse import lookup table",
+                                                    fn_type_nm_chr == "Plot" ~ "Plots data",
+                                                    fn_type_nm_chr == "Predict" ~ "Applies a model to make predictions",
+                                                    fn_type_nm_chr == "Print" ~ "Prints output to console",
+                                                    fn_type_nm_chr == "Rename" ~ "Renames elements of an object based on a pre-specified schema",
+                                                    T ~ fn_type_desc_chr))
+fn_types_lup$fn_type_desc_chr <- sub("[.]$", "", fn_types_lup$fn_type_desc_chr)
+Y <- renewSlot(Y,
+               new_val_xx = Ready4useIngest(objects_ls = list(fn_types_lup = fn_types_lup)),
+               slot_nm_1L_chr = "b_Ready4useIngest")
+Y <- share(Y,
+           type_1L_chr = "prefer_gh")
+
 ## Note files to be rewritten cannot be open in RStudio.
+
 ## Empty dataverse dataset must be published first.
 #
 # manifest_ls <- fns_env_ls$fns_env$write_new_abbrs(manifest_ls,

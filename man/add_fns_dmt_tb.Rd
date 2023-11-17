@@ -30,6 +30,6 @@ add_fns_dmt_tb(
 Package setup (a list)
 }
 \description{
-add_fns_dmt_tb() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add functions documentation tibble. Function argument pkg_setup_ls specifies the object to be updated. The function returns Package setup (a list).
+add_fns_dmt_tb() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add functions documentation tibble. The function returns Package setup (a list).
 }
 \keyword{internal}

@@ -27,6 +27,6 @@ write_fn_fl(
 \item{r_dir_1L_chr}{R directory (a character vector of length one), Default: deprecated()}
 }
 \description{
-write_fn_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value.
+write_fn_fl() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write function file. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

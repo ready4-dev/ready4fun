@@ -15,6 +15,6 @@ get_mthd_title(mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4")
 Method title (a character vector of length one)
 }
 \description{
-get_mthd_title() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get method title. Function argument mthd_nm_1L_chr specifies the where to look for the required object. The function returns Method title (a character vector of length one).
+get_mthd_title() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get method title. The function returns Method title (a character vector of length one).
 }
 \keyword{internal}

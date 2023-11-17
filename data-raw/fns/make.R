@@ -1081,7 +1081,7 @@ make_manifest <- function(pkg_desc_ls,
     testcov_url_1L_chr <- paste0("https://github.com/", gh_repo_1L_chr, "/actions/workflows/", "test-coverage.yaml")
     testcov_img_1L_chr <- paste0(testcov_url_1L_chr, "/badge.svg")
     testcov_badge_1L_chr <- paste0("[![", "test-coverage", "](", testcov_img_1L_chr, ")](", testcov_url_1L_chr, ")")
-    codecov_url_1L_chr <- paste0("https://codecov.io/gh/", gh_repo_1L_chr)
+    codecov_url_1L_chr <- paste0("https://app.codecov.io/gh/", gh_repo_1L_chr)
     codecov_img_1L_chr <- paste0(
       codecov_url_1L_chr,
       "/branch/",

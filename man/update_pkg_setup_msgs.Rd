@@ -15,6 +15,6 @@ update_pkg_setup_msgs(pkg_setup_ls, list_element_1L_chr)
 Package setup (a list)
 }
 \description{
-update_pkg_setup_msgs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update package setup messages. Function argument pkg_setup_ls specifies the object to be updated. Argument list_element_1L_chr provides the object to be updated. The function returns Package setup (a list).
+update_pkg_setup_msgs() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update package setup messages. The function returns Package setup (a list).
 }
 \keyword{internal}

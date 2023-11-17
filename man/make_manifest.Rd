@@ -117,6 +117,6 @@ make_manifest(
 Manifest (a list)
 }
 \description{
-make_manifest() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make manifest. The function returns Manifest (a list).
+make_manifest() is a Make function that creates a new R object Specifically, this function implements an algorithm to make manifest. The function returns Manifest (a list).
 }
 \keyword{internal}

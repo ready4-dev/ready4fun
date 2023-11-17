@@ -166,11 +166,11 @@ x (An object)
 x (An object)
 }
 \description{
-renew.ready4fun_abbreviations() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
+renew.ready4fun_abbreviations() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_functions() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
+renew.ready4fun_functions() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_objects() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
+renew.ready4fun_objects() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
 }

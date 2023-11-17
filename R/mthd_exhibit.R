@@ -1,5 +1,5 @@
 #' Exhibit features of a dataset by printing them to the R console
-#' @description exhibit.ready4fun_abbreviations() is an exhibit method that exhibits features of a class instance by printing to console. This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
+#' @description exhibit.ready4fun_abbreviations() is an exhibit method that exhibits features of a class instance by printing to console This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for tibble object lookup table of abbreviations.
 #' @param caption_1L_chr Caption (a character vector of length one), Default: NULL
 #' @param mkdn_tbl_ref_1L_chr Markdown table reference (a character vector of length one), Default: NULL
@@ -30,7 +30,7 @@ exhibit.ready4fun_abbreviations <- function (x, caption_1L_chr = NULL, mkdn_tbl_
 #' @importFrom ready4 exhibit
 methods::setMethod("exhibit", methods::className("ready4fun_abbreviations", package = "ready4fun"), exhibit.ready4fun_abbreviations)
 #' Exhibit features of a dataset by printing them to the R console
-#' @description exhibit.ready4fun_functions() is an exhibit method that exhibits features of a class instance by printing to console. This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
+#' @description exhibit.ready4fun_functions() is an exhibit method that exhibits features of a class instance by printing to console This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
 #' @param x An instance of Function types lookup table.
 #' @param caption_1L_chr Caption (a character vector of length one), Default: NULL
 #' @param mkdn_tbl_ref_1L_chr Markdown table reference (a character vector of length one), Default: NULL
@@ -62,7 +62,7 @@ exhibit.ready4fun_functions <- function (x, caption_1L_chr = NULL, mkdn_tbl_ref_
 #' @importFrom ready4 exhibit
 methods::setMethod("exhibit", methods::className("ready4fun_functions", package = "ready4fun"), exhibit.ready4fun_functions)
 #' Exhibit features of a dataset by printing them to the R console
-#' @description exhibit.ready4fun_objects() is an exhibit method that exhibits features of a class instance by printing to console. This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
+#' @description exhibit.ready4fun_objects() is an exhibit method that exhibits features of a class instance by printing to console This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
 #' @param x An instance of Object types lookup table.
 #' @param caption_1L_chr Caption (a character vector of length one), Default: NULL
 #' @param mkdn_tbl_ref_1L_chr Markdown table reference (a character vector of length one), Default: NULL

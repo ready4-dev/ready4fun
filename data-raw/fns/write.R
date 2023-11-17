@@ -966,7 +966,7 @@ write_links_for_website <- function(path_to_pkg_rt_1L_chr = getwd(),
         ifelse(!is.na(user_manual_url_1L_chr), paste0("    href: ", user_manual_url_1L_chr), NA_character_),
         ifelse(!is.na(developer_manual_url_1L_chr), "  - text: Manual - Developer (PDF)", NA_character_),
         ifelse(!is.na(developer_manual_url_1L_chr), paste0("    href: ", developer_manual_url_1L_chr), NA_character_),
-        ifelse(!is.na(project_website_url_1L_chr), "  - text: Model", NA_character_),
+        ifelse(!is.na(project_website_url_1L_chr), "  - text: Framework and Model", NA_character_),
         ifelse(!is.na(project_website_url_1L_chr), paste0("    href: ", project_website_url_1L_chr), NA_character_),
         txt_chr
       ) %>% stats::na.omit()
@@ -1511,8 +1511,10 @@ write_package <- function(pkg_setup_ls,
     write_and_doc_fn_fls(pkg_setup_ls = pkg_setup_ls, update_pkgdown_1L_lgl = T, list_generics_1L_lgl = list_generics_1L_lgl)
     write_manuals(pkg_setup_ls = pkg_setup_ls, key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     write_fns_dmt_tb(pkg_setup_ls, gh_prerelease_1L_lgl = gh_prerelease_1L_lgl, gh_repo_desc_1L_chr = gh_repo_desc_1L_chr, gh_tag_1L_chr = gh_tag_1L_chr)
-    ready4::write_citation_cff(packageDescription(pkg_setup_ls$initial_ls$pkg_desc_ls$Package), citation_chr = readLines("inst/CITATION")
-    )
+    ready4::write_citation_cff(packageDescription(pkg_setup_ls$initial_ls$pkg_desc_ls$Package), citation_chr = readLines("inst/CITATION"))
+    ready4::write_extra_pkgs_to_actions()
+    ready4::write_to_edit_workflow("pkgdown.yaml")
+    readLines("inst/R-CMD-check.yaml") %>% writeLines(con = ".github/workflows/R-CMD-check.yaml")
   }
   return(pkg_setup_ls)
 }
@@ -1708,8 +1710,8 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
   desc::desc_set("License", "GPL-3 + file LICENSE")
   usethis::use_pkgdown()
   usethis::use_build_ignore(files = "_pkgdown.yml")
-  usethis::use_package("testthat")
-  usethis::use_package("knitr")
+  usethis::use_package("testthat", type = "Suggests")
+  usethis::use_package("knitr", type = "Suggests")
   desc::desc_set("VignetteBuilder", "knitr")
   usethis::use_build_ignore(paste0(
     paste0("data-raw/"),
@@ -1846,6 +1848,7 @@ write_pkg_setup_fls <- function(pkg_desc_ls,
       }
     )
   }
+  usethis::use_cran_badge()
   devtools::document()
   devtools::load_all()
 }

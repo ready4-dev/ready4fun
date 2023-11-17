@@ -10,6 +10,6 @@ write_citation_fl(pkg_setup_ls)
 \item{pkg_setup_ls}{Package setup (a list)}
 }
 \description{
-write_citation_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write citation file. The function is called for its side effects and does not return a value.
+write_citation_fl() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write citation file. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

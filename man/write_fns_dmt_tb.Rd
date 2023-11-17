@@ -21,6 +21,6 @@ write_fns_dmt_tb(
 \item{gh_tag_1L_chr}{Github tag (a character vector of length one), Default: 'Documentation_0.0'}
 }
 \description{
-write_fns_dmt_tb() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write functions documentation tibble. The function is called for its side effects and does not return a value.
+write_fns_dmt_tb() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write functions documentation tibble. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

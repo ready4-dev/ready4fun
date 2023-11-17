@@ -15,5 +15,5 @@ authorReport.ready4fun_manifest(x, key_1L_chr = Sys.getenv("DATAVERSE_KEY"))
 \item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 }
 \description{
-authorReport.ready4fun_manifest() is an authorReport method that authors and saves a report. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+authorReport.ready4fun_manifest() is an authorReport method that authors and saves a report This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

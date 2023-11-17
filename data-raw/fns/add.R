@@ -23,6 +23,7 @@ add_build_ignore <- function(build_ignore_ls) {
   }
 }
 add_fns_dmt_tb <- function(pkg_setup_ls,
+                           append_1L_lgl = T,
                            dv_url_pfx_1L_chr = character(0),
                            fns_env_ls = NULL,
                            inc_methods_1L_lgl = F,
@@ -39,16 +40,11 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
     } else {
       method_nms_chr <- character(0)
     }
-    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(
-      paths_ls = paths_ls,
-      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-      custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
-      fns_env_ls = fns_env_ls,
-      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
-      inc_all_mthds_1L_lgl = T,
-      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-      undocumented_fns_dir_chr = undocumented_fns_dir_chr
-    )
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                                                                  append_1L_lgl = append_1L_lgl, custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
+                                                                  fns_env_ls = fns_env_ls, fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
+                                                                  inc_all_mthds_1L_lgl = T, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
+                                                                  undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     new_nms_chr <- setdiff(method_nms_chr, pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr)
     if (!identical(character(0), new_nms_chr)) {
       if (nrow(pkg_setup_ls$subsequent_ls$fns_dmt_tb) == 0) {
@@ -70,23 +66,13 @@ add_fns_dmt_tb <- function(pkg_setup_ls,
       undocumented_fns_dir_chr <- undocumented_fns_dir_chr[undocumented_fns_dir_chr %>%
         purrr::map_lgl(~ endsWith(.x, "mthds"))]
     }
-    fns_dmt_tb <- make_dmt_for_all_fns(
-      paths_ls = paths_ls,
-      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-      custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
-      fns_env_ls = fns_env_ls,
-      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
-      inc_all_mthds_1L_lgl = T,
-      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-      undocumented_fns_dir_chr = undocumented_fns_dir_chr
-    )
+    fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, append_1L_lgl = append_1L_lgl,
+                                       custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, fns_env_ls = fns_env_ls, fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, inc_all_mthds_1L_lgl = T,
+                                       object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
     if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble()) | !"mthds" %in% names(paths_ls)) {
       pkg_setup_ls$subsequent_ls$fns_dmt_tb <- fns_dmt_tb
     } else {
-      pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(
-        pkg_setup_ls$subsequent_ls$fns_dmt_tb,
-        fns_dmt_tb
-      )
+      pkg_setup_ls$subsequent_ls$fns_dmt_tb <- dplyr::bind_rows(pkg_setup_ls$subsequent_ls$fns_dmt_tb, fns_dmt_tb)
     }
     pkg_setup_ls$subsequent_ls$fns_dmt_tb <- pkg_setup_ls$subsequent_ls$fns_dmt_tb %>%
       dplyr::distinct()

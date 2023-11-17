@@ -1,6 +1,7 @@
 #' Author and save files
 #' @description author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @param append_1L_lgl Append (a logical vector of length one), Default: F
 #' @param consent_1L_chr Consent (a character vector of length one), Default: ''
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: T
@@ -11,10 +12,10 @@
 #' @export 
 #' @importFrom ready4 ratify author authorData authorClasses renew authorFunctions authorReport
 #' @importFrom stringr str_replace_all
-author.ready4fun_manifest <- function (x, consent_1L_chr = "", key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = "", key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
     list_generics_1L_lgl = T, self_serve_1L_lgl = F, self_serve_fn_ls = NULL) 
 {
-    x <- ready4::ratify(x)
+    x <- ready4::ratify(x, append_1L_lgl = append_1L_lgl)
     if (!is.null(x$problems_ls)) {
         message("Execution halted - fix issues with manifest before making a new call to author.")
     }
@@ -25,7 +26,8 @@ author.ready4fun_manifest <- function (x, consent_1L_chr = "", key_1L_chr = Sys.
         x <- ready4::authorData(x)
         x <- ready4::authorClasses(x, key_1L_chr = key_1L_chr, 
             self_serve_1L_lgl = self_serve_1L_lgl, self_serve_fn_ls = self_serve_fn_ls)
-        x <- ready4::renew(x, type_1L_chr = "fns_dmt", key_1L_chr = key_1L_chr)
+        x <- ready4::renew(x, append_1L_lgl = append_1L_lgl, 
+            type_1L_chr = "fns_dmt", key_1L_chr = key_1L_chr)
         ready4::authorFunctions(x, list_generics_1L_lgl = list_generics_1L_lgl)
         ready4::authorReport(x, key_1L_chr = key_1L_chr)
         write_fns_dmt_tb(x)
@@ -73,14 +75,17 @@ methods::setMethod("author", methods::className("ready4fun_manifest", package = 
 #' Author and save files
 #' @description author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for package metadata required for initial package set-up step.
+#' @param consent_1L_chr Consent (a character vector of length one), Default: ''
+#' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @return NULL
 #' @rdname author-methods
 #' @export 
 #' @importFrom rlang exec
 #' @importFrom ready4 author
-author.ready4fun_metadata_a <- function (x) 
+author.ready4fun_metadata_a <- function (x, consent_1L_chr = "", self_serve_1L_lgl = F) 
 {
-    rlang::exec(write_pkg_setup_fls, !!!x)
+    rlang::exec(write_pkg_setup_fls, !!!x, consent_1L_chr = consent_1L_chr, 
+        self_serve_1L_lgl = self_serve_1L_lgl)
 }
 #' @rdname author-methods
 #' @aliases author,ready4fun_metadata_a-method

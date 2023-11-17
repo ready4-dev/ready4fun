@@ -9,6 +9,7 @@
 \usage{
 author.ready4fun_manifest(
   x,
+  append_1L_lgl = F,
   consent_1L_chr = "",
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = T,
@@ -18,6 +19,7 @@ author.ready4fun_manifest(
 
 \S4method{author}{ready4fun_manifest}(
   x,
+  append_1L_lgl = F,
   consent_1L_chr = "",
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = T,
@@ -25,12 +27,14 @@ author.ready4fun_manifest(
   self_serve_fn_ls = NULL
 )
 
-author.ready4fun_metadata_a(x)
+author.ready4fun_metadata_a(x, consent_1L_chr = "", self_serve_1L_lgl = F)
 
-\S4method{author}{ready4fun_metadata_a}(x)
+\S4method{author}{ready4fun_metadata_a}(x, consent_1L_chr = "", self_serve_1L_lgl = F)
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for package metadata required for initial package set-up step.}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 
 \item{consent_1L_chr}{Consent (a character vector of length one), Default: ''}
 

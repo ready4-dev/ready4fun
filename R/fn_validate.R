@@ -1,6 +1,7 @@
 #' Validate package setup
 #' @description validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
+#' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param is_method_1L_lgl Is method (a logical vector of length one), Default: F
 #' @return Package setup (a list)
 #' @rdname validate_pkg_setup
@@ -10,7 +11,7 @@
 #' @importFrom stringr str_sub
 #' @importFrom Hmisc capitalize
 #' @keywords internal
-validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F) 
+validate_pkg_setup <- function (pkg_setup_ls, append_1L_lgl = T, is_method_1L_lgl = F) 
 {
     message(paste0("Validating ", ifelse(is_method_1L_lgl, "manifest", 
         "pkg_setup_ls"), ". This may take a couple of minutes."))
@@ -73,9 +74,10 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
         }
         fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
             "/data-raw"), drop_empty_1L_lgl = T))
-        pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls, fns_env_ls = fns_env_ls)
+        pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls, append_1L_lgl = append_1L_lgl, 
+            fns_env_ls = fns_env_ls)
         missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls, 
-            classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
+            append_1L_lgl = append_1L_lgl, classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
             pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls, 
             use_last_1L_int = 1)
         if (!identical(missing_obj_types_chr, character(0))) {
@@ -92,7 +94,7 @@ validate_pkg_setup <- function (pkg_setup_ls, is_method_1L_lgl = F)
         }
         else {
             missing_abbrs_chr <- get_new_abbrs(pkg_setup_ls, 
-                classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
+                append_1L_lgl = append_1L_lgl, classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x, 
                 pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls)
             if (!identical(missing_abbrs_chr, character(0))) {
                 message(paste0("The following potential abbreviation", 

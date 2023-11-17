@@ -60,6 +60,7 @@ renew.ready4fun_functions(
 renew.ready4fun_manifest(
   x,
   type_1L_chr,
+  append_1L_lgl = F,
   are_words_chr = character(0),
   custom_plural_ls = NULL,
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
@@ -73,6 +74,7 @@ renew.ready4fun_manifest(
 \S4method{renew}{ready4fun_manifest}(
   x,
   type_1L_chr,
+  append_1L_lgl = F,
   are_words_chr = character(0),
   custom_plural_ls = NULL,
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
@@ -133,6 +135,8 @@ renew.ready4fun_objects(
 \item{is_method_lgl}{Is method (a logical vector), Default: NA}
 
 \item{type_1L_chr}{Type (a character vector of length one)}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 
 \item{are_words_chr}{Are words (a character vector), Default: character(0)}
 

@@ -5,32 +5,35 @@
 \title{Make documentation for all functions}
 \usage{
 make_dmt_for_all_fns(
-  paths_ls = make_fn_nms(),
-  undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
+  abbreviations_lup,
+  fn_types_lup,
+  object_type_lup,
+  append_1L_lgl = T,
   custom_dmt_ls = make_custom_dmt_ls(),
   fns_env_ls = NULL,
-  fn_types_lup,
-  abbreviations_lup,
-  object_type_lup,
-  inc_all_mthds_1L_lgl = T
+  inc_all_mthds_1L_lgl = T,
+  paths_ls = make_fn_nms(),
+  undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 )
 }
 \arguments{
-\item{paths_ls}{Paths (a list), Default: make_fn_nms()}
+\item{abbreviations_lup}{Abbreviations (a lookup table)}
 
-\item{undocumented_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
+\item{fn_types_lup}{Function types (a lookup table)}
+
+\item{object_type_lup}{Object type (a lookup table)}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
 
 \item{custom_dmt_ls}{Custom documentation (a list), Default: make_custom_dmt_ls()}
 
 \item{fns_env_ls}{Functions (a list of environments), Default: NULL}
 
-\item{fn_types_lup}{Function types (a lookup table)}
-
-\item{abbreviations_lup}{Abbreviations (a lookup table)}
-
-\item{object_type_lup}{Object type (a lookup table)}
-
 \item{inc_all_mthds_1L_lgl}{Include all methods (a logical vector of length one), Default: T}
+
+\item{paths_ls}{Paths (a list), Default: make_fn_nms()}
+
+\item{undocumented_fns_dir_chr}{Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)}
 }
 \value{
 All functions documentation (a tibble)

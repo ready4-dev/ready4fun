@@ -73,6 +73,7 @@ methods::setMethod("renew", methods::className("ready4fun_functions", package = 
 #' @description renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
 #' @param type_1L_chr Type (a character vector of length one)
+#' @param append_1L_lgl Append (a logical vector of length one), Default: F
 #' @param are_words_chr Are words (a character vector), Default: character(0)
 #' @param custom_plural_ls Custom plural (a list), Default: NULL
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
@@ -85,14 +86,15 @@ methods::setMethod("renew", methods::className("ready4fun_functions", package = 
 #' @rdname renew-methods
 #' @export 
 #' @importFrom ready4 renew
-renew.ready4fun_manifest <- function (x, type_1L_chr, are_words_chr = character(0), custom_plural_ls = NULL, 
-    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), long_name_chr = character(0), 
-    no_plural_chr = character(0), not_obj_type_chr = character(0), 
-    pfx_rgx = character(0), tf_to_singular_chr = character(0)) 
+renew.ready4fun_manifest <- function (x, type_1L_chr, append_1L_lgl = F, are_words_chr = character(0), 
+    custom_plural_ls = NULL, key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
+    long_name_chr = character(0), no_plural_chr = character(0), 
+    not_obj_type_chr = character(0), pfx_rgx = character(0), 
+    tf_to_singular_chr = character(0)) 
 {
     if (type_1L_chr == "fns_dmt") {
-        x <- add_fns_dmt_tb(pkg_setup_ls = x, fns_env_ls = NULL, 
-            inc_methods_1L_lgl = T)
+        x <- add_fns_dmt_tb(append_1L_lgl = append_1L_lgl, pkg_setup_ls = x, 
+            fns_env_ls = NULL, inc_methods_1L_lgl = T)
     }
     if (!identical(are_words_chr, character(0)) | !identical(tf_to_singular_chr, 
         character(0)) | !identical(not_obj_type_chr, character(0))) {

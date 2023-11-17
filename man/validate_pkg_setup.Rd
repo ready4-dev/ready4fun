@@ -4,10 +4,12 @@
 \alias{validate_pkg_setup}
 \title{Validate package setup}
 \usage{
-validate_pkg_setup(pkg_setup_ls, is_method_1L_lgl = F)
+validate_pkg_setup(pkg_setup_ls, append_1L_lgl = T, is_method_1L_lgl = F)
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
 
 \item{is_method_1L_lgl}{Is method (a logical vector of length one), Default: F}
 }

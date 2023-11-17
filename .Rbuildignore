@@ -97,3 +97,4 @@
 ^doc$
 ^Meta$
 ^data-raw/mthds/exhibit\.R$
+^data-raw/examples/get_abbrs\.R$

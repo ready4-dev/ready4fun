@@ -1,22 +1,26 @@
-get_abbrs <- function(text_1L_chr, # Move to ready4fun and make method.
+get_abbrs <- function(text_1L_chr = character(0), # Move to ready4fun and make method.
                       abbreviations_lup = NULL,
+                      gh_repo_1L_chr = "ready4-dev/ready4",
+                      gh_tag_1L_chr = "Documentation_0.0",
                       search_descs_1L_lgl = T) {
-  if (is.null(abbreviations_lup)) {
+    if (is.null(abbreviations_lup)) {
     abbreviations_lup <- ready4use::Ready4useRepos(
-      gh_repo_1L_chr = "ready4-dev/ready4",
-      gh_tag_1L_chr = "Documentation_0.0"
+      gh_repo_1L_chr = gh_repo_1L_chr,
+      gh_tag_1L_chr = gh_tag_1L_chr
     ) %>%
       ingest(
         fls_to_ingest_chr = c("abbreviations_lup"),
         metadata_1L_lgl = F
       )
-  }
-  if (!search_descs_1L_lgl) {
-    abbreviations_lup <- abbreviations_lup %>%
-      dplyr::filter(short_name_chr %>% purrr::map_lgl(~ startsWith(.x, text_1L_chr)))
-  } else {
-    abbreviations_lup <- abbreviations_lup %>%
-      dplyr::filter(long_name_chr %>% purrr::map_lgl(~ stringr::str_detect(.x, text_1L_chr)))
+    }
+  if(!identical(text_1L_chr, character(0))){
+    if (!search_descs_1L_lgl) {
+      abbreviations_lup <- abbreviations_lup %>%
+        dplyr::filter(short_name_chr %>% purrr::map_lgl(~ startsWith(.x, text_1L_chr)))
+    } else {
+      abbreviations_lup <- abbreviations_lup %>%
+        dplyr::filter(long_name_chr %>% purrr::map_lgl(~ stringr::str_detect(.x, text_1L_chr)))
+    }
   }
   return(abbreviations_lup)
 }
@@ -112,6 +116,7 @@ get_mthd_title <- function(mthd_nm_1L_chr,
   return(mthd_title_1L_chr)
 }
 get_new_abbrs <- function(pkg_setup_ls,
+                          append_1L_lgl = T,
                           classes_to_make_tb = NULL,
                           inc_all_mthds_1L_lgl = T,
                           paths_ls = make_fn_nms(),
@@ -127,15 +132,10 @@ get_new_abbrs <- function(pkg_setup_ls,
     )
   }
   if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) {
-    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(
-      paths_ls = paths_ls,
-      abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
-      custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
-      fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup,
-      inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
-      object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup,
-      undocumented_fns_dir_chr = undocumented_fns_dir_chr
-    )
+    pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup,
+                                                                  append_1L_lgl = append_1L_lgl, custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls,
+                                                                  fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl,
+                                                                  object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, undocumented_fns_dir_chr = undocumented_fns_dir_chr)
   }
   if (is.null(use_last_1L_int)) {
     new_fn_abbrs_chr <- pkg_setup_ls$subsequent_ls$fns_dmt_tb$fns_chr %>%

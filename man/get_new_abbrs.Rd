@@ -6,6 +6,7 @@
 \usage{
 get_new_abbrs(
   pkg_setup_ls,
+  append_1L_lgl = T,
   classes_to_make_tb = NULL,
   inc_all_mthds_1L_lgl = T,
   paths_ls = make_fn_nms(),
@@ -18,6 +19,8 @@ get_new_abbrs(
 }
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
 
 \item{classes_to_make_tb}{Classes to make (a tibble), Default: NULL}
 

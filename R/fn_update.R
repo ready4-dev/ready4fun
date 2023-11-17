@@ -279,8 +279,8 @@ update_fns_dmt_tb <- function (fns_dmt_tb, title_ls = NULL, desc_ls = NULL, deta
             input_ls <- input_ls_ls[[idx_1L_dbl]] %>% purrr::map(~.x[lgl_vecs_ls[[idx_1L_dbl]]])
             updated_fns_dmt_tb <- purrr::reduce(1:length(lgl_vecs_ls[[idx_1L_dbl]]), 
                 .init = updated_fns_dmt_tb, ~{
-                  eval(parse(text = paste0("new_ls <- ", input_ls[[2]])))
-                  args_ls <- list(.x, data_1L_chr = input_ls[[1]], 
+                  eval(parse(text = paste0("new_ls <- ", input_ls[[2]][.y])))
+                  args_ls <- list(.x, data_1L_chr = input_ls[[1]][.y], 
                     new_ls = new_ls, append_1L_lgl = append_1L_lgl)
                   if (idx_1L_dbl == 2) {
                     args_ls$append_1L_lgl <- NULL
@@ -312,13 +312,13 @@ update_fns_dmt_tb_chr_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_
     }
     else {
         fns_dmt_tb <- dplyr::mutate(fns_dmt_tb, `:=`(!!rlang::sym(data_1L_chr), 
-            dplyr::case_when(fns_chr %in% names(new_ls) ~ paste0(ifelse(append_1L_lgl, 
-                paste0(ifelse(is.na(!!rlang::sym(data_1L_chr)), 
+            dplyr::case_when(.data$fns_chr %in% names(new_ls) ~ 
+                paste0(ifelse(append_1L_lgl, paste0(ifelse(is.na(!!rlang::sym(data_1L_chr)), 
                   "", !!rlang::sym(data_1L_chr)), ""), ""), fns_chr %>% 
-                purrr::map_chr(~{
-                  ifelse(.x %in% names(new_ls), new_ls[[.x]], 
-                    NA_character_)
-                })), TRUE ~ !!rlang::sym(data_1L_chr))))
+                  purrr::map_chr(~{
+                    ifelse(.x %in% names(new_ls), new_ls[[.x]], 
+                      NA_character_)
+                  })), TRUE ~ !!rlang::sym(data_1L_chr))))
     }
     return(fns_dmt_tb)
 }
@@ -363,7 +363,7 @@ update_fns_dmt_tb_lgl_vars <- function (fns_dmt_tb, data_1L_chr, new_ls)
 #' @keywords internal
 update_fns_dmt_tb_ls_vars <- function (fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl) 
 {
-    if (is.na(data_1L_chr)) {
+    if (is.na(data_1L_chr[1])) {
         fns_dmt_tb <- fns_dmt_tb
     }
     else {

@@ -2,14 +2,24 @@
 % Please edit documentation in R/fn_get.R
 \name{get_abbrs}
 \alias{get_abbrs}
-\title{Get abbreviations}
+\title{Add additional packagesGet house style abbreviations}
 \usage{
-get_abbrs(text_1L_chr, abbreviations_lup = NULL, search_descs_1L_lgl = T)
+get_abbrs(
+  text_1L_chr = character(0),
+  abbreviations_lup = NULL,
+  gh_repo_1L_chr = "ready4-dev/ready4",
+  gh_tag_1L_chr = "Documentation_0.0",
+  search_descs_1L_lgl = T
+)
 }
 \arguments{
-\item{text_1L_chr}{Text (a character vector of length one)}
+\item{text_1L_chr}{Text (a character vector of length one), Default: character(0)}
 
 \item{abbreviations_lup}{Abbreviations (a lookup table), Default: NULL}
+
+\item{gh_repo_1L_chr}{Github repository (a character vector of length one), Default: 'ready4-dev/ready4'}
+
+\item{gh_tag_1L_chr}{Github tag (a character vector of length one), Default: 'Documentation_0.0'}
 
 \item{search_descs_1L_lgl}{Search descriptions (a logical vector of length one), Default: T}
 }
@@ -17,6 +27,16 @@ get_abbrs(text_1L_chr, abbreviations_lup = NULL, search_descs_1L_lgl = T)
 Abbreviations (a lookup table)
 }
 \description{
-get_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get abbreviations. Function argument text_1L_chr specifies the where to look for the required object. The function returns Abbreviations (a lookup table).
+add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with \code{get_abbrs}.
 }
-\keyword{internal}
+\examples{
+# Get current table of abbreviations
+abbreviations_lup <- get_abbrs(gh_repo_1L_chr = "ready4-dev/ready4")
+abbreviations_lup \%>\% head()
+# Find abbreviations for a word
+get_abbrs("template", abbreviations_lup = abbreviations_lup)
+# Find possible whole word meanings associated with an abbreviation
+get_abbrs("df", abbreviations_lup = abbreviations_lup, search_descs_1L_lgl = F)
+
+
+}

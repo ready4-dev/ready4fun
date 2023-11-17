@@ -11,11 +11,13 @@ write_pkg_setup_fls(
   addl_badges_ls = list(),
   badges_lup = NULL,
   check_type_1L_chr = "none",
+  consent_1L_chr = "",
   delete_r_dir_cnts_1L_lgl = F,
   lifecycle_stage_1L_chr = "experimental",
   incr_ver_1L_lgl = T,
   on_cran_1L_lgl = F,
   path_to_pkg_logo_1L_chr = NA_character_,
+  self_serve_1L_lgl = F,
   add_gh_site_1L_lgl = T,
   dev_pkg_nm_1L_chr = get_dev_pkg_nm(getwd()),
   path_to_pkg_rt_1L_chr = getwd()
@@ -34,6 +36,8 @@ write_pkg_setup_fls(
 
 \item{check_type_1L_chr}{Check type (a character vector of length one), Default: 'none'}
 
+\item{consent_1L_chr}{Consent (a character vector of length one), Default: ''}
+
 \item{delete_r_dir_cnts_1L_lgl}{Delete r directory contents (a logical vector of length one), Default: F}
 
 \item{lifecycle_stage_1L_chr}{Lifecycle stage (a character vector of length one), Default: 'experimental'}
@@ -44,6 +48,8 @@ write_pkg_setup_fls(
 
 \item{path_to_pkg_logo_1L_chr}{Path to package logo (a character vector of length one), Default: 'NA'}
 
+\item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
+
 \item{add_gh_site_1L_lgl}{Add github site (a logical vector of length one), Default: T}
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
@@ -51,6 +57,6 @@ write_pkg_setup_fls(
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 }
 \description{
-write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

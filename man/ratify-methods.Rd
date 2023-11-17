@@ -5,12 +5,14 @@
 \alias{ratify,ready4fun_manifest-method}
 \title{Ratify that a dataset meets validity criteria}
 \usage{
-ratify.ready4fun_manifest(x)
+ratify.ready4fun_manifest(x, append_1L_lgl = F)
 
-\S4method{ratify}{ready4fun_manifest}(x)
+\S4method{ratify}{ready4fun_manifest}(x, append_1L_lgl = F)
 }
 \arguments{
 \item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
+
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 }
 \value{
 X (ready4 S3 class for encapsulating the metadata required for package set-up.)

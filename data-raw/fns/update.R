@@ -375,10 +375,10 @@ update_fns_dmt_tb <- function(fns_dmt_tb,
           .init = updated_fns_dmt_tb,
           ~ {
             eval(parse(text = paste0(
-              "new_ls <- ", input_ls[[2]] # [.y]
+              "new_ls <- ", input_ls[[2]][.y]
             )))
             args_ls <- list(.x,
-              data_1L_chr = input_ls[[1]], # [.y],
+              data_1L_chr = input_ls[[1]][.y],
               new_ls = new_ls,
               append_1L_lgl = append_1L_lgl
             )
@@ -397,11 +397,27 @@ update_fns_dmt_tb <- function(fns_dmt_tb,
   )
   return(fns_dmt_tb)
 }
+update_fns_dmt_tb_chr_vars <- function(fns_dmt_tb,
+                                       data_1L_chr,
+                                       new_ls,
+                                       append_1L_lgl) {
+  if (is.na(data_1L_chr)) {
+    fns_dmt_tb <- fns_dmt_tb
+  } else {
+    fns_dmt_tb <- dplyr::mutate(fns_dmt_tb, !!rlang::sym(data_1L_chr) := dplyr::case_when(.data$fns_chr %in% names(new_ls)
+                                                                                          ~ paste0(ifelse(append_1L_lgl,
+                                                                                                          paste0(ifelse(is.na(!!rlang::sym(data_1L_chr)), "", !!rlang::sym(data_1L_chr)),""),
+                                                                                                          ""),
+                                                                                                   fns_chr %>% purrr::map_chr(~ {ifelse(.x %in% names(new_ls), new_ls[[.x]], NA_character_) })),
+                                                                                          TRUE ~ !!rlang::sym(data_1L_chr)))
+    }
+  return(fns_dmt_tb)
+}
 update_fns_dmt_tb_ls_vars <- function(fns_dmt_tb,
-                                      data_1L_chr,
+                                      data_1L_chr, # Need to update to data_chr (take care not to disrupt related fn calls)
                                       new_ls,
                                       append_1L_lgl) {
-  if (is.na(data_1L_chr)) {
+  if (is.na(data_1L_chr[1])) {
     fns_dmt_tb <- fns_dmt_tb
   } else {
     fns_dmt_tb <- dplyr::mutate(fns_dmt_tb, !!rlang::sym(data_1L_chr) := dplyr::case_when(
@@ -458,37 +474,7 @@ update_fns_dmt_tb_lgl_vars <- function(fns_dmt_tb,
   }
   return(fns_dmt_tb)
 }
-update_fns_dmt_tb_chr_vars <- function(fns_dmt_tb,
-                                       data_1L_chr,
-                                       new_ls,
-                                       append_1L_lgl) {
-  if (is.na(data_1L_chr)) {
-    fns_dmt_tb <- fns_dmt_tb
-  } else {
-    fns_dmt_tb <- dplyr::mutate(fns_dmt_tb, !!rlang::sym(data_1L_chr) := dplyr::case_when(
-      fns_chr %in% names(new_ls) ~ paste0(
-        ifelse(append_1L_lgl,
-          paste0(
-            ifelse(is.na(!!rlang::sym(data_1L_chr)),
-              "",
-              !!rlang::sym(data_1L_chr)
-            ),
-            ""
-          ),
-          ""
-        ),
-        fns_chr %>% purrr::map_chr(~ {
-          ifelse(.x %in% names(new_ls),
-            new_ls[[.x]],
-            NA_character_
-          )
-        })
-      ),
-      TRUE ~ !!rlang::sym(data_1L_chr)
-    ))
-  }
-  return(fns_dmt_tb)
-}
+
 update_msng_abbrs <- function(pkg_setup_ls,
                               are_words_chr = NA_character_,
                               tf_to_singular_chr = NA_character_,

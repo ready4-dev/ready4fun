@@ -371,14 +371,15 @@ make_depnt_fns_ls <- function(arg_ls,
   )
   return(arg_ls)
 }
-make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
-                                 undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T),
+make_dmt_for_all_fns <- function(abbreviations_lup,
+                                 fn_types_lup,
+                                 object_type_lup,
+                                 append_1L_lgl = T,
                                  custom_dmt_ls = make_custom_dmt_ls(),
                                  fns_env_ls = NULL,
-                                 fn_types_lup,
-                                 abbreviations_lup,
-                                 object_type_lup,
-                                 inc_all_mthds_1L_lgl = T) {
+                                 inc_all_mthds_1L_lgl = T,
+                                 paths_ls = make_fn_nms(),
+                                 undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) {
   # add assert - same length inputs to purrr
   if (is.null(abbreviations_lup)) {
     utils::data("abbreviations_lup",
@@ -396,7 +397,7 @@ make_dmt_for_all_fns <- function(paths_ls = make_fn_nms(),
       fns_dmt_tb <- make_fn_dmt_tbl(.x,
         fns_dir_chr = .y,
         custom_dmt_ls = custom_dmt_ls,
-        append_1L_lgl = T,
+        append_1L_lgl = append_1L_lgl,
         fns_env_ls = fns_env_ls,
         fn_types_lup = fn_types_lup,
         abbreviations_lup = abbreviations_lup,
@@ -420,7 +421,7 @@ make_fn_desc <- function(fns_chr,
                          fns_env_ls,
                          fn_types_lup = NULL,
                          abbreviations_lup,
-                         test_for_write_R_warning_fn = NULL,
+                         test_for_write_R_warning_fn = NULL, # deprecate once tested
                          is_generic_lgl = F) {
   if (is.null(test_for_write_R_warning_fn)) {
     test_for_write_R_warning_fn <- function(x) {
@@ -458,10 +459,10 @@ make_fn_desc <- function(fns_chr,
             "",
             paste0(
               " The function is called for its side effects and does not return a value.",
-              ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn(), # startsWith(fn_name_1L_chr,"write"),
-                " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
+              # ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn(), # startsWith(fn_name_1L_chr,"write"),
+              #   " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour",
                 ""
-              )
+              #)
             )
           ),
           paste0(
@@ -639,13 +640,8 @@ make_fn_dmt_tbl <- function(fns_path_chr,
       piggyback_to_1L_chr = dv_ds_nm_1L_chr
     )
   }
-  fn_dmt_tbl_tb <- make_fn_dmt_tbl_tmpl(fns_path_chr,
-    fns_dir_chr = fns_dir_chr,
-    fns_env_ls = fns_env_ls,
-    fn_types_lup = fn_types_lup,
-    abbreviations_lup = abbreviations_lup,
-    object_type_lup = object_type_lup,
-    test_for_write_R_warning_fn = test_for_write_R_warning_fn
+  fn_dmt_tbl_tb <- make_fn_dmt_tbl_tmpl(fns_path_chr, fns_dir_chr = fns_dir_chr, fns_env_ls = fns_env_ls, fn_types_lup = fn_types_lup,
+                                        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn
   )
   if (purrr::map_lgl(
     custom_dmt_ls,

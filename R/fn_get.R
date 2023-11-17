@@ -1,7 +1,9 @@
-#' Get abbreviations
-#' @description get_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get abbreviations. Function argument text_1L_chr specifies the where to look for the required object. The function returns Abbreviations (a lookup table).
-#' @param text_1L_chr Text (a character vector of length one)
+#' Add additional packagesGet house style abbreviations
+#' @description add_addl_pkgs() is an Add function that updates an object by adding data to that object. Specifically, this function implements an algorithm to add additional packages. Function argument addl_pkgs_ls specifies the object to be updated. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
+#' @param text_1L_chr Text (a character vector of length one), Default: character(0)
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
+#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
 #' @param search_descs_1L_lgl Search descriptions (a logical vector of length one), Default: T
 #' @return Abbreviations (a lookup table)
 #' @rdname get_abbrs
@@ -10,21 +12,25 @@
 #' @importFrom dplyr filter
 #' @importFrom purrr map_lgl
 #' @importFrom stringr str_detect
-#' @keywords internal
-get_abbrs <- function (text_1L_chr, abbreviations_lup = NULL, search_descs_1L_lgl = T) 
+#' @example man/examples/get_abbrs.R
+get_abbrs <- function (text_1L_chr = character(0), abbreviations_lup = NULL, 
+    gh_repo_1L_chr = "ready4-dev/ready4", gh_tag_1L_chr = "Documentation_0.0", 
+    search_descs_1L_lgl = T) 
 {
     if (is.null(abbreviations_lup)) {
-        abbreviations_lup <- ready4use::Ready4useRepos(gh_repo_1L_chr = "ready4-dev/ready4", 
-            gh_tag_1L_chr = "Documentation_0.0") %>% ingest(fls_to_ingest_chr = c("abbreviations_lup"), 
+        abbreviations_lup <- ready4use::Ready4useRepos(gh_repo_1L_chr = gh_repo_1L_chr, 
+            gh_tag_1L_chr = gh_tag_1L_chr) %>% ingest(fls_to_ingest_chr = c("abbreviations_lup"), 
             metadata_1L_lgl = F)
     }
-    if (!search_descs_1L_lgl) {
-        abbreviations_lup <- abbreviations_lup %>% dplyr::filter(short_name_chr %>% 
-            purrr::map_lgl(~startsWith(.x, text_1L_chr)))
-    }
-    else {
-        abbreviations_lup <- abbreviations_lup %>% dplyr::filter(long_name_chr %>% 
-            purrr::map_lgl(~stringr::str_detect(.x, text_1L_chr)))
+    if (!identical(text_1L_chr, character(0))) {
+        if (!search_descs_1L_lgl) {
+            abbreviations_lup <- abbreviations_lup %>% dplyr::filter(short_name_chr %>% 
+                purrr::map_lgl(~startsWith(.x, text_1L_chr)))
+        }
+        else {
+            abbreviations_lup <- abbreviations_lup %>% dplyr::filter(long_name_chr %>% 
+                purrr::map_lgl(~stringr::str_detect(.x, text_1L_chr)))
+        }
     }
     return(abbreviations_lup)
 }
@@ -158,6 +164,7 @@ get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4")
 #' Get new abbreviations
 #' @description get_new_abbrs() is a Get function that retrieves a pre-existing data object from memory, local file system or online repository. Specifically, this function implements an algorithm to get new abbreviations. Function argument pkg_setup_ls specifies the where to look for the required object. The function returns New abbreviations (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
+#' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
 #' @param paths_ls Paths (a list), Default: make_fn_nms()
@@ -173,9 +180,9 @@ get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4")
 #' @importFrom tibble tibble
 #' @importFrom purrr map flatten_chr discard
 #' @keywords internal
-get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthds_1L_lgl = T, 
-    paths_ls = make_fn_nms(), pkg_ds_ls_ls = NULL, transformations_chr = NULL, 
-    undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+get_new_abbrs <- function (pkg_setup_ls, append_1L_lgl = T, classes_to_make_tb = NULL, 
+    inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), pkg_ds_ls_ls = NULL, 
+    transformations_chr = NULL, undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
     use_last_1L_int = NULL, fns_dmt_tb = deprecated()) 
 {
     if (lifecycle::is_present(fns_dmt_tb)) {
@@ -185,7 +192,7 @@ get_new_abbrs <- function (pkg_setup_ls, classes_to_make_tb = NULL, inc_all_mthd
     if (identical(pkg_setup_ls$subsequent_ls$fns_dmt_tb, tibble::tibble())) {
         pkg_setup_ls$subsequent_ls$fns_dmt_tb <- make_dmt_for_all_fns(paths_ls = paths_ls, 
             abbreviations_lup = pkg_setup_ls$subsequent_ls$abbreviations_lup, 
-            custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, 
+            append_1L_lgl = append_1L_lgl, custom_dmt_ls = pkg_setup_ls$subsequent_ls$custom_dmt_ls, 
             fn_types_lup = pkg_setup_ls$subsequent_ls$fn_types_lup, 
             inc_all_mthds_1L_lgl = inc_all_mthds_1L_lgl, object_type_lup = pkg_setup_ls$subsequent_ls$object_type_lup, 
             undocumented_fns_dir_chr = undocumented_fns_dir_chr)

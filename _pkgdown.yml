@@ -34,6 +34,9 @@ reference:
   - ready4fun_metadata_b
   - ready4fun_manifest
   - ready4fun_dataset
+- title: "Functions"
+- contents:
+  - get_abbrs
 - title: "Methods"
 - contents:
   - author.ready4fun_manifest

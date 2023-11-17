@@ -6,24 +6,30 @@
 \usage{
 write_to_reset_pkg_files(
   delete_contents_of_1L_chr,
+  consent_1L_chr = "",
+  description_ls = NULL,
+  keep_version_lgl = T,
   package_1L_chr = get_dev_pkg_nm(getwd()),
   package_dir_1L_chr = getwd(),
-  description_ls = NULL,
-  keep_version_lgl = T
+  self_serve_1L_lgl = F
 )
 }
 \arguments{
 \item{delete_contents_of_1L_chr}{Delete contents of (a character vector of length one)}
 
-\item{package_1L_chr}{Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
-
-\item{package_dir_1L_chr}{Package directory (a character vector of length one), Default: getwd()}
+\item{consent_1L_chr}{Consent (a character vector of length one), Default: ''}
 
 \item{description_ls}{Description (a list), Default: NULL}
 
 \item{keep_version_lgl}{Keep version (a logical vector), Default: T}
+
+\item{package_1L_chr}{Package (a character vector of length one), Default: get_dev_pkg_nm(getwd())}
+
+\item{package_dir_1L_chr}{Package directory (a character vector of length one), Default: getwd()}
+
+\item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
 }
 \description{
-write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files. The function is called for its side effects and does not return a value. WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour
+write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

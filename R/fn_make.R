@@ -375,14 +375,15 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 }
 #' Make documentation for all functions
 #' @description make_dmt_for_all_fns() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make documentation for all functions. The function returns All functions documentation (a tibble).
-#' @param paths_ls Paths (a list), Default: make_fn_nms()
-#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
+#' @param abbreviations_lup Abbreviations (a lookup table)
+#' @param fn_types_lup Function types (a lookup table)
+#' @param object_type_lup Object type (a lookup table)
+#' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param custom_dmt_ls Custom documentation (a list), Default: make_custom_dmt_ls()
 #' @param fns_env_ls Functions (a list of environments), Default: NULL
-#' @param fn_types_lup Function types (a lookup table)
-#' @param abbreviations_lup Abbreviations (a lookup table)
-#' @param object_type_lup Object type (a lookup table)
 #' @param inc_all_mthds_1L_lgl Include all methods (a logical vector of length one), Default: T
+#' @param paths_ls Paths (a list), Default: make_fn_nms()
+#' @param undocumented_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
 #' @return All functions documentation (a tibble)
 #' @rdname make_dmt_for_all_fns
 #' @export 
@@ -390,9 +391,9 @@ make_depnt_fns_ls <- function (arg_ls, pkg_depcy_ls)
 #' @importFrom purrr map2_dfr
 #' @importFrom dplyr mutate case_when
 #' @keywords internal
-make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T), 
+make_dmt_for_all_fns <- function (abbreviations_lup, fn_types_lup, object_type_lup, append_1L_lgl = T, 
     custom_dmt_ls = make_custom_dmt_ls(), fns_env_ls = NULL, 
-    fn_types_lup, abbreviations_lup, object_type_lup, inc_all_mthds_1L_lgl = T) 
+    inc_all_mthds_1L_lgl = T, paths_ls = make_fn_nms(), undocumented_fns_dir_chr = make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)) 
 {
     if (is.null(abbreviations_lup)) {
         utils::data("abbreviations_lup", package = "ready4fun", 
@@ -404,7 +405,7 @@ make_dmt_for_all_fns <- function (paths_ls = make_fn_nms(), undocumented_fns_dir
     all_fns_dmt_tb <- purrr::map2_dfr(paths_ls, undocumented_fns_dir_chr, 
         ~{
             fns_dmt_tb <- make_fn_dmt_tbl(.x, fns_dir_chr = .y, 
-                custom_dmt_ls = custom_dmt_ls, append_1L_lgl = T, 
+                custom_dmt_ls = custom_dmt_ls, append_1L_lgl = append_1L_lgl, 
                 fns_env_ls = fns_env_ls, fn_types_lup = fn_types_lup, 
                 abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup)
             if (inc_all_mthds_1L_lgl) {
@@ -457,9 +458,7 @@ make_fn_desc <- function (fns_chr, title_chr, output_chr, fns_env_ls, fn_types_l
             abbreviations_lup = abbreviations_lup, is_generic_1L_lgl = is_generic_1L_lgl), 
             ifelse(fn_output_1L_chr == "NULL", ifelse(is_generic_1L_lgl, 
                 "", paste0(" The function is called for its side effects and does not return a value.", 
-                  ifelse(fn_name_1L_chr %>% test_for_write_R_warning_fn(), 
-                    " WARNING: This function writes R scripts to your local environment. Make sure to only use if you want this behaviour", 
-                    ""))), paste0(" The function returns ", make_ret_obj_desc(fn, 
+                  "")), paste0(" The function returns ", make_ret_obj_desc(fn, 
                 abbreviations_lup = abbreviations_lup, starts_sentence_1L_lgl = T), 
                 ".")))
     })

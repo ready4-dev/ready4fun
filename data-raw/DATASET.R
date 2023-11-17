@@ -273,8 +273,13 @@ manifest_ls <- pkg_desc_ls %>%
     ),
     classify_1L_lgl = F, ###
     custom_dmt_ls = fns_env_ls$fns_env$make_custom_dmt_ls(
-      # user_manual_fns_chr = c("add_new_cls_pts","make_addl_pkgs_ls","make_build_ignore_ls", "make_pkg_desc_ls", "make_pkg_ds_ls","make_manifest",
-      #                         "update_abbr_lup", "update_msng_abbrs", "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package")
+      title_ls = list(get_abbrs = "Get house style abbreviations"),
+      desc_ls = list(get_abbrs = "An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`."),
+      user_manual_fns_chr = c(#"add_new_cls_pts",
+        "get_abbrs"
+      #"make_addl_pkgs_ls","make_build_ignore_ls", "make_pkg_desc_ls", "make_pkg_ds_ls","make_manifest",
+      #                         "update_abbr_lup", "update_msng_abbrs", "write_new_abbrs","write_new_fn_types","write_new_obj_types","write_package"
+      )
     ),
     copyright_holders_chr = "Orygen",
     dev_pkgs_chr = c(
@@ -294,20 +299,50 @@ manifest_ls <- pkg_desc_ls %>%
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls,
   self_serve_1L_lgl = T
 )
-ready4::write_extra_pkgs_to_actions() # Add to author method once consent has been added to function.
-#readLines(".github/workflows/R-CMD-check.yaml") %>%
-  #stringr::str_replace_all("r-lib/actions/setup-r@master", "r-lib/actions/setup-r@v2") %>%
-  #stringr::str_replace_all("r-lib/actions/setup-pandoc@master", "r-lib/actions/setup-pandoc@v2") %>%
-  # stringr::str_replace_all("- \\{os: windows-latest, r: '3.6'\\}", "#- \\{os: windows-latest, r: '3.6'\\}") %>%
-  # stringr::str_replace_all("- \\{os: ubuntu-20.04,   r: 'oldrel', ", "#- \\{os: ubuntu-20.04,   r: 'oldrel', ") %>%
-  # purrr::discard_at(2:4) %>%
-  # writeLines(con = ".github/workflows/R-CMD-check.yaml")
-write_to_edit_workflow("pkgdown.yaml") # In other packages, run for "test-coverage.yaml" as well.
+ready4::write_extra_pkgs_to_actions(consent_1L_chr = "Y") # Add to author method once consent has been added to function.
+write_to_edit_workflow("pkgdown.yaml", consent_1L_chr = "Y") # In other packages, run for "test-coverage.yaml" as well.
 readLines("_pkgdown.yml") %>%
   stringr::str_replace_all("  - text: Model", "  - text: Framework & Model") %>%
   writeLines(con = "_pkgdown.yml")
 readLines("inst/R-CMD-check.yaml") %>% writeLines(con = ".github/workflows/R-CMD-check.yaml")
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
+citation_chr <- readLines("inst/CITATION") # update in ready4fun
+citation_chr[3] <- stringr::str_replace(citation_chr[3], "citEntry", "bibentry")
+citation_chr[4] <- stringr::str_replace(citation_chr[4], "entry", "bibtype")
+# citation_chr[8] <- stringr::str_replace(citation_chr[8], "2021", "2023")
+# citation_chr[12] <- stringr::str_replace(citation_chr[12], "2021", "2023")
+citation_chr  %>%
+  writeLines(con = "inst/CITATION")
+readLines("README.md") %>% # update in ready4fun
+  stringr::str_replace_all("svg\\)]\\(https://codecov.io","svg\\)]\\(https://app.codecov.io") %>%
+  gsub(pattern = "arXiv:([^&]+)", replacement = "https://arxiv.org/abs/\\1") %>%
+  writeLines(con = "README.md")
+c(readLines("R/imp_fns.R"), # update in ready4fun
+  " ",
+  "#' NSE equals function",
+  "#'",
+  "#' Import of non standard evaluation equals function for use in dplyr calls.",
+  "#'",
+  "#' @importFrom rlang :=",
+  "#' @name :=",
+  "#' @rdname nseequals",
+  "#' @export",
+  "#' @keywords internal",
+  "NULL",
+  " ",
+  "#' Dot Data function",
+  "#'",
+  "#' Import of .data function for use in dataset manipulation within functions.",
+  "#'",
+  "#' @importFrom rlang .data",
+  "#' @name .data",
+  "#' @rdname dotdata",
+  "#' @export",
+  "#' @keywords internal",
+  "NULL"
+) %>%
+  writeLines("R/imp_fns.R")
 # usethis::use_dev_package("ready4", type = "depends",remote = "ready4-dev/ready4")
+usethis::use_cran_badge() # Export to ready4fun
 devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)

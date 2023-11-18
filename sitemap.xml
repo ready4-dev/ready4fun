@@ -79,9 +79,6 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/deprecated.html</loc>
   </url>
   <url>
-    <loc>https://ready4-dev.github.io/ready4fun/reference/dotdata.html</loc>
-  </url>
-  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/exhibit-methods.html</loc>
   </url>
   <url>
@@ -112,6 +109,9 @@
     <loc>https://ready4-dev.github.io/ready4fun/reference/get_fn_nms_in_file.html</loc>
   </url>
   <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/get_fn_types.html</loc>
+  </url>
+  <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/get_mthd_title.html</loc>
   </url>
   <url>
@@ -128,6 +128,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/get_obj_type_new_cses.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/get_obj_types.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/get_outp_obj_type.html</loc>
@@ -281,9 +284,6 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/make_undmtd_fns_dir_chr.html</loc>
-  </url>
-  <url>
-    <loc>https://ready4-dev.github.io/ready4fun/reference/nseequals.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/object_type_lup.html</loc>

@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ready4fun</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9531</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9533</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,9 +90,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4/" class="external-link">ready4</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/">ready4fun</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4use/" class="external-link">ready4use</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4show/" class="external-link">ready4show</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/ready4fun/">ready4fun</a></span><span class="op">)</span></span></code></pre></div>
+<!-- library(ready4show) -->
+<!-- library(ready4use) -->
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
@@ -124,38 +124,30 @@ house style (e.g. naming conventions). ready4fun provides workflow tools
 <h2 id="ready4fun-function-authoring-taxonomies-abbreviations-and-workflow">ready4fun function authoring taxonomies, abbreviations and
 workflow<a class="anchor" aria-label="anchor" href="#ready4fun-function-authoring-taxonomies-abbreviations-and-workflow"></a>
 </h2>
-<p>The <code>ready4fun</code> package uses a dataset of taxonomies and
-abbreviations to ensure standardised function code style and
-documentation. A copy of this dataset (<code>dataset_ls</code>) can be
-downloaded from a repository associated with the <a href="https://ready4-dev.github.io/ready4/" class="external-link">ready4 package</a> using
-tools from the <a href="https://ready4-dev.github.io/ready4use/" class="external-link">ready4use package</a>
-package.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dataset_ls</span> <span class="op">&lt;-</span> <span class="fu">ready4use</span><span class="fu">::</span><span class="fu"><a href="https://ready4-dev.github.io/ready4use/reference/Ready4useRepos-class.html" class="external-link">Ready4useRepos</a></span><span class="op">(</span></span>
-<span>  gh_repo_1L_chr <span class="op">=</span> <span class="st">"ready4-dev/ready4"</span>,</span>
-<span>  gh_tag_1L_chr <span class="op">=</span> <span class="st">"Documentation_0.0"</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/ingest-methods.html" class="external-link">ingest</a></span><span class="op">(</span>metadata_1L_lgl <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>ready4fun</code> package uses taxonomy and abbreviation
+datasets to ensure standardised function code style and documentation.
+<!-- A copy of this dataset (`dataset_ls`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package. --></p>
 <div class="section level3">
 <h3 id="function-names-begin-with-a-meaningful-verb">Function names begin with a meaningful verb<a class="anchor" aria-label="anchor" href="#function-names-begin-with-a-meaningful-verb"></a>
 </h3>
 <p>Consistent with a naming convention popular in the R development
-community, all <code>ready4</code> framework functions begin with a
-verb. Furthermore, the choice of verb is meaningful - it communicates
-something about the type of task a function implements. For example, all
-functions beginning with the word “fit” will fit a model of a specified
-type to a dataset. The definitions of all meaningful verbs currently
-used by ready4 functions (excluding methods) are stored in element
-<code>fn_types_lup</code> of <code>dataset_ls</code>, the key features
-of which are reproduced below.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dataset_ls</span><span class="op">$</span><span class="va">fn_types_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/ready4fun_functions.html">ready4fun_functions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/renew-methods.html" class="external-link">renew</a></span><span class="op">(</span>filter_cdn_1L_chr <span class="op">=</span> <span class="st">"!is_generic_lgl &amp; !stringr::str_detect(fn_type_nm_chr, pattern = ' ')"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span></span>
-<span>    select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span>    scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+community, all functions authored with the <code>ready4</code> framework
+need to begin with a verb. Furthermore, the choice of verb is meaningful
+- it communicates something about the type of task a function
+implements. For example, all functions beginning with the word “fit”
+will fit a model of a specified type to a dataset. The definitions of
+all meaningful verbs used in functions authored for a ready4 framework
+model implementation can be retrieved using <code><a href="../reference/get_fn_types.html">get_fn_types()</a></code>,
+which by default returns a dataset instance of the
+<code>ready4fun_functions</code> submodule.</p>
+<!-- element `fn_types_lup` of `dataset_ls`, the key features of which are reproduced below. -->
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_fn_types.html">get_fn_types</a></span><span class="op">(</span>gh_repo_1L_chr <span class="op">=</span> <span class="st">"ready4-dev/ready4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "ready4fun_functions" "tbl_df"              "tbl"                </span></span>
+<span><span class="co">## [4] "data.frame"</span></span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span><span class="va">x</span>,select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table  lightable-paper lightable-hover lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
@@ -175,7 +167,7 @@ Description
 Add
 </td>
 <td style="text-align:right;">
-Updates an object by adding new values to new or empty fields
+Updates an object by adding new values to new or empty fields.
 </td>
 </tr>
 <tr>
@@ -185,7 +177,7 @@ Assert
 <td style="text-align:right;">
 Validates that an object conforms to required condition(s). If the
 object does not meet all required conditions, program execution will be
-stopped and an error message provided
+stopped and an error message provided.
 </td>
 </tr>
 <tr>
@@ -193,7 +185,7 @@ stopped and an error message provided
 Bind
 </td>
 <td style="text-align:right;">
-Binds two objects together to create a composite object
+Binds two objects together to create a composite object.
 </td>
 </tr>
 <tr>
@@ -201,7 +193,7 @@ Binds two objects together to create a composite object
 Calculate
 </td>
 <td style="text-align:right;">
-Performs a numeric calculation
+Performs a numeric calculation.
 </td>
 </tr>
 <tr>
@@ -209,16 +201,7 @@ Performs a numeric calculation
 Close
 </td>
 <td style="text-align:right;">
-Closes specified connections
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Extract
-</td>
-<td style="text-align:right;">
-Extracts data from a field (Deprecated naming convention - use get
-instead)
+Closes specified connections.
 </td>
 </tr>
 <tr>
@@ -226,7 +209,7 @@ instead)
 Fit
 </td>
 <td style="text-align:right;">
-Fits a model of a specified type to a dataset
+Fits a model of a specified type to a dataset.
 </td>
 </tr>
 <tr>
@@ -235,7 +218,7 @@ Force
 </td>
 <td style="text-align:right;">
 Checks if a specified local or global environmental condition is met and
-if not, updates the specified environment to comply with the condition
+if not, updates the specified environment to comply with the condition.
 </td>
 </tr>
 <tr>
@@ -243,7 +226,7 @@ if not, updates the specified environment to comply with the condition
 Format
 </td>
 <td style="text-align:right;">
-Modifies the format of an object
+Modifies the format of an object.
 </td>
 </tr>
 <tr>
@@ -251,7 +234,7 @@ Modifies the format of an object
 Get
 </td>
 <td style="text-align:right;">
-Extracts data from an object
+Extracts data from an object.
 </td>
 </tr>
 <tr>
@@ -259,7 +242,7 @@ Extracts data from an object
 Import
 </td>
 <td style="text-align:right;">
-Reads a data object in its native format and converts it to an R object
+Reads a data object in its native format and converts it to an R object.
 </td>
 </tr>
 <tr>
@@ -267,7 +250,7 @@ Reads a data object in its native format and converts it to an R object
 Impute
 </td>
 <td style="text-align:right;">
-Imputes data
+Imputes data.
 </td>
 </tr>
 <tr>
@@ -275,7 +258,7 @@ Imputes data
 Knit
 </td>
 <td style="text-align:right;">
-Knits an RMD or Rmarkdown file
+Knits an RMD or Rmarkdown file.
 </td>
 </tr>
 <tr>
@@ -283,7 +266,7 @@ Knits an RMD or Rmarkdown file
 Launch
 </td>
 <td style="text-align:right;">
-Launches an R Shiny app
+Launches an R Shiny app.
 </td>
 </tr>
 <tr>
@@ -291,7 +274,7 @@ Launches an R Shiny app
 Make
 </td>
 <td style="text-align:right;">
-Creates a new R object
+Creates a new R object.
 </td>
 </tr>
 <tr>
@@ -299,7 +282,7 @@ Creates a new R object
 Plot
 </td>
 <td style="text-align:right;">
-Plots data
+Plots data.
 </td>
 </tr>
 <tr>
@@ -307,7 +290,7 @@ Plots data
 Predict
 </td>
 <td style="text-align:right;">
-Applies a model to make predictions
+Applies a model to make predictions.
 </td>
 </tr>
 <tr>
@@ -315,7 +298,7 @@ Applies a model to make predictions
 Print
 </td>
 <td style="text-align:right;">
-Prints output to console
+Prints output to console.
 </td>
 </tr>
 <tr>
@@ -323,7 +306,7 @@ Prints output to console
 Randomise
 </td>
 <td style="text-align:right;">
-Randomly samples from data
+Randomly samples from data.
 </td>
 </tr>
 <tr>
@@ -331,7 +314,7 @@ Randomly samples from data
 Read
 </td>
 <td style="text-align:right;">
-Reads an R script into memory
+Reads an R script into memory.
 </td>
 </tr>
 <tr>
@@ -339,7 +322,7 @@ Reads an R script into memory
 Remove
 </td>
 <td style="text-align:right;">
-Edits an object, removing a specified element or elements
+Edits an object, removing a specified element or elements.
 </td>
 </tr>
 <tr>
@@ -347,7 +330,7 @@ Edits an object, removing a specified element or elements
 Rename
 </td>
 <td style="text-align:right;">
-Renames elements of an object based on a pre-specified schema
+Renames elements of an object based on a pre-specified schema.
 </td>
 </tr>
 <tr>
@@ -355,7 +338,7 @@ Renames elements of an object based on a pre-specified schema
 Reorder
 </td>
 <td style="text-align:right;">
-Reorders an object to conform to a pre-specified schema
+Reorders an object to conform to a pre-specified schema.
 </td>
 </tr>
 <tr>
@@ -364,7 +347,7 @@ Replace
 </td>
 <td style="text-align:right;">
 Edits an object, replacing a specified element with another specified
-element
+element.
 </td>
 </tr>
 <tr>
@@ -372,7 +355,7 @@ element
 Reset
 </td>
 <td style="text-align:right;">
-Edits an object, overwriting the current version with a default version
+Edits an object, overwriting the current version with a default version.
 </td>
 </tr>
 <tr>
@@ -380,7 +363,7 @@ Edits an object, overwriting the current version with a default version
 Rowbind
 </td>
 <td style="text-align:right;">
-Performs custom rowbind operations on table objects
+Performs custom rowbind operations on table objects.
 </td>
 </tr>
 <tr>
@@ -388,7 +371,7 @@ Performs custom rowbind operations on table objects
 Scramble
 </td>
 <td style="text-align:right;">
-Randomly reorders an object
+Randomly reorders an object.
 </td>
 </tr>
 <tr>
@@ -397,7 +380,7 @@ Transform
 </td>
 <td style="text-align:right;">
 Edits an object in such a way that core object attributes - e.g. shape,
-dimensions, elements, type - are altered
+dimensions, elements, type - are altered.
 </td>
 </tr>
 <tr>
@@ -405,7 +388,7 @@ dimensions, elements, type - are altered
 Unload
 </td>
 <td style="text-align:right;">
-Performs a custom detaching of a package from the search path
+Performs a custom detaching of a package from the search path.
 </td>
 </tr>
 <tr>
@@ -413,7 +396,7 @@ Performs a custom detaching of a package from the search path
 Update
 </td>
 <td style="text-align:right;">
-Edits an object, while preserving core object attributes
+Edits an object, while preserving core object attributes.
 </td>
 </tr>
 <tr>
@@ -421,7 +404,7 @@ Edits an object, while preserving core object attributes
 Validate
 </td>
 <td style="text-align:right;">
-Validates that an object conforms to required criteria
+Validates that an object conforms to required criteria.
 </td>
 </tr>
 <tr>
@@ -429,7 +412,7 @@ Validates that an object conforms to required criteria
 Write
 </td>
 <td style="text-align:right;">
-Writes a file to a specified local directory
+Writes a file to a specified local directory.
 </td>
 </tr>
 </tbody>
@@ -447,18 +430,18 @@ Writes a file to a specified local directory
 <p>The type of input (arguments) required and output (return) produced
 by a function can be efficiently communicated by using meaningful
 suffices. For example all objects ending in “_chr” are character vectors
-and all objects ending in “_int” are integer vectors. The meaningful
-suffices currently used by to describe objects in the ready4 framework
-are stored in element <code>seed_obj_type_lup</code> of
-<code>dataset_ls</code>, the key features of which are reproduced
-below.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dataset_ls</span><span class="op">$</span><span class="va">seed_obj_type_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/ready4fun_objects.html">ready4fun_objects</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span></span>
-<span>    select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span>    scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+and all objects ending in “_int” are integer vectors. Definitions of all
+meaningful suffices used in functions authored for a ready4 framework
+model implementation can be retrieved using
+<code><a href="../reference/get_obj_types.html">get_obj_types()</a></code>, which by default returns a dataset
+instance of the <code>ready4fun_objects</code> submodule.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_obj_types.html">get_obj_types</a></span><span class="op">(</span>gh_repo_1L_chr <span class="op">=</span> <span class="st">"ready4-dev/ready4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "ready4fun_objects" "tbl_df"            "tbl"              </span></span>
+<span><span class="co">## [4] "data.frame"</span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span><span class="va">y</span>, select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table  lightable-paper lightable-hover lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
@@ -606,7 +589,7 @@ person
 r3
 </td>
 <td style="text-align:right;">
-ready4 S3
+ready4 submodule
 </td>
 </tr>
 <tr>
@@ -614,7 +597,7 @@ ready4 S3
 r4
 </td>
 <td style="text-align:right;">
-ready4 S4
+ready4 module
 </td>
 </tr>
 <tr>
@@ -672,19 +655,17 @@ tibble
 <p>Further information about the purpose of a function and the nature of
 its inputs and outputs can be encoded by using naming conventions that
 make consistent use of abbreviations. A master table of the
-abbreviations used throughout the <code>ready4</code> framework is
-maintained in the <code>abbreviations_lup</code> element of
-<code>dataset_ls</code>. The list of abbreviations is now quite
-extensive and continues to grow as the <code>ready4</code> suite of
-software expands. The initial few entries of
-<code>abbreviations_lup</code> are reproduced below.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dataset_ls</span><span class="op">$</span><span class="va">abbreviations_lup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span></span>
-<span>    select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
-<span>    scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+abbreviations used in a ready4 framework model implementation can be
+retrieved using <code><a href="../reference/get_abbrs.html">get_abbrs()</a></code>, which by default returns a
+dataset instance of the <code>ready4fun_abbreviations</code>
+submodule.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_abbrs.html">get_abbrs</a></span><span class="op">(</span>gh_repo_1L_chr <span class="op">=</span> <span class="st">"ready4-dev/ready4"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "ready4fun_abbreviations" "tbl_df"                 </span></span>
+<span><span class="co">## [3] "tbl"                     "data.frame"</span></span></code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/exhibit-methods.html" class="external-link">exhibit</a></span><span class="op">(</span><span class="va">z</span>, select_int <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,scroll_box_args_ls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table  lightable-paper lightable-hover lightable-paper" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
 <caption>
@@ -733,18 +714,6193 @@ list of character vectors of length one
 </tr>
 <tr>
 <td style="text-align:left;">
-1L_chr_r4
-</td>
-<td style="text-align:right;">
-ready4 S4 collection of character vectors of length one
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 1L_dbl
 </td>
 <td style="text-align:right;">
 double vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_dbl_ls
+</td>
+<td style="text-align:right;">
+list of double vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_dtm
+</td>
+<td style="text-align:right;">
+date vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_dtm_ls
+</td>
+<td style="text-align:right;">
+list of date vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_fct
+</td>
+<td style="text-align:right;">
+factor vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_fct_ls
+</td>
+<td style="text-align:right;">
+list of factor vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_int
+</td>
+<td style="text-align:right;">
+integer vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_int_ls
+</td>
+<td style="text-align:right;">
+list of integer vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_lgl
+</td>
+<td style="text-align:right;">
+logical vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_lgl_ls
+</td>
+<td style="text-align:right;">
+list of logical vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_rgx
+</td>
+<td style="text-align:right;">
+regular expression vector of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1L_rgx_ls
+</td>
+<td style="text-align:right;">
+list of regular expression vectors of length one
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1Ls
+</td>
+<td style="text-align:right;">
+length ones
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8d
+</td>
+<td style="text-align:right;">
+8 Dimension
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8ds
+</td>
+<td style="text-align:right;">
+8 Dimensions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusACT
+</td>
+<td style="text-align:right;">
+Meta data for processing ACT population projections.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusHeadspace
+</td>
+<td style="text-align:right;">
+Meta data for constructing Headspace Centre geometries.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusLookup
+</td>
+<td style="text-align:right;">
+Lookup tables for Australian geometry and spatial attribute data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusOrygen
+</td>
+<td style="text-align:right;">
+Meta data for constructing OYH Specialist Mental Health Catchment
+geometries.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusProjections
+</td>
+<td style="text-align:right;">
+Meta data for constructing custom Australian population projections
+boundary.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AusTasmania
+</td>
+<td style="text-align:right;">
+Meta data for processing Tasmanian population projections.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlyCorrespondences
+</td>
+<td style="text-align:right;">
+Collection of input, standards definition and results datasets for
+projects to generate standardised costing datasets.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlyCountries
+</td>
+<td style="text-align:right;">
+Collection of input, standards definition and results datasets for
+projects to generate standardised country data for use in costing
+datasets.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlyCurrencies
+</td>
+<td style="text-align:right;">
+Collection of input, standards definition and results datasets for
+projects to generate standardised currency data for use in costing
+datasets.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlySeed
+</td>
+<td style="text-align:right;">
+Original (non-standardised) dataset (and metadata).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlySource
+</td>
+<td style="text-align:right;">
+Input dataset (and metadata) for generating standardised costing
+datasets.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CostlyStandards
+</td>
+<td style="text-align:right;">
+Dataset (and metadata) defining the allowable values of specified
+variables.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OLS
+</td>
+<td style="text-align:right;">
+ordinary least squares
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OOS
+</td>
+<td style="text-align:right;">
+occasion of service
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OOSs
+</td>
+<td style="text-align:right;">
+occasion of services
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4showPaths
+</td>
+<td style="text-align:right;">
+Metadata about paths to Markdown input and output
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4showSynopsis
+</td>
+<td style="text-align:right;">
+Metadata about a scientific summary manuscript.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useArguments
+</td>
+<td style="text-align:right;">
+ready4 module class containing data to be passed to a function that
+constructs a spatial object from a lookup table.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useDyad
+</td>
+<td style="text-align:right;">
+A dataset and data dictionary pair.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useFiles
+</td>
+<td style="text-align:right;">
+ready4 module class defining data to be saved in local directory.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useIngest
+</td>
+<td style="text-align:right;">
+Ingested data and descriptive metadata.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4usePointer
+</td>
+<td style="text-align:right;">
+Metadata on local and remote data storage locations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useProcessed
+</td>
+<td style="text-align:right;">
+ready4 module class defining data to be saved in local directory in a
+processed (R) format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useRaw
+</td>
+<td style="text-align:right;">
+ready4 module class defining data to be saved in local directory in a
+raw (unprocessed) format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useRecord
+</td>
+<td style="text-align:right;">
+Ingested data, descriptive metadata and provenance details.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ready4useRepos
+</td>
+<td style="text-align:right;">
+Metadata about online data repositories.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ScorzAqol6
+</td>
+<td style="text-align:right;">
+A dataset and the required information to implement an AQoL-6D scoring
+algorithm.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ScorzAqol6Adol
+</td>
+<td style="text-align:right;">
+A dataset and the required information to implement an AQoL-6D scoring
+algorithm..1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ScorzAqol6Adult
+</td>
+<td style="text-align:right;">
+A dataset and metadata to support implementation of a scoring algorithm
+for the adult version of AQoL-6D.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ScorzEuroQol5
+</td>
+<td style="text-align:right;">
+A dataset and metadata to support implementation of an EQ-5D scoring
+algorithm.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ScorzProfile
+</td>
+<td style="text-align:right;">
+A dataset to be scored, its associated metadata and details of the
+scoring instrument.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificConverter
+</td>
+<td style="text-align:right;">
+Container for seed objects used for creating SpecificModels modules.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificFixed
+</td>
+<td style="text-align:right;">
+Modelling project dataset, input parameters and complete fixed models
+results.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificInitiator
+</td>
+<td style="text-align:right;">
+Modelling project dataset, input parameters and empty results
+placeholder.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificMixed
+</td>
+<td style="text-align:right;">
+Modelling project dataset, input parameters and complete mixed models
+results.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificModels
+</td>
+<td style="text-align:right;">
+Modelling project dataset, input parameters and model comparison
+results.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificParameters
+</td>
+<td style="text-align:right;">
+Input parameters that specify candidate models to be explored.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificPredictors
+</td>
+<td style="text-align:right;">
+Modelling project dataset, input parameters and predictor comparison
+results.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificPrivate
+</td>
+<td style="text-align:right;">
+Analysis outputs not intended for public dissemination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificProject
+</td>
+<td style="text-align:right;">
+Modelling project input parameters and results output.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificResults
+</td>
+<td style="text-align:right;">
+Analysis results.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificShareable
+</td>
+<td style="text-align:right;">
+Analysis outputs intended for public dissemination.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SpecificSynopsis
+</td>
+<td style="text-align:right;">
+Results and manuscript metadata.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTUParameters
+</td>
+<td style="text-align:right;">
+Input Parameters For Generating Utility Mapping Models.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTUProject
+</td>
+<td style="text-align:right;">
+Input And Output Data For Undertaking and Reporting Utility Mapping
+Studies.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTUReports
+</td>
+<td style="text-align:right;">
+Metadata to produce utility mapping study reports.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTUSynopsis
+</td>
+<td style="text-align:right;">
+Input, Output and Authorship Data For Generating Utility Mapping Study
+Reports.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTU_predictors_lup
+</td>
+<td style="text-align:right;">
+TTU S3 class for candidate predictors lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTU_predictors_lups
+</td>
+<td style="text-align:right;">
+TTU S3 class for candidate predictors lookup tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityArguments
+</td>
+<td style="text-align:right;">
+Function arguments for constructing a spatial object.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityLocal
+</td>
+<td style="text-align:right;">
+Object defining data to be saved in local directory.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityLocalProcessed
+</td>
+<td style="text-align:right;">
+Object defining data to be saved in local directory in a processed (R)
+format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityLocalRaw
+</td>
+<td style="text-align:right;">
+Object defining data to be saved in local directory in a raw
+(unprocessed) format.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityLookup
+</td>
+<td style="text-align:right;">
+Look up tables for spatiotemporal data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityMacro
+</td>
+<td style="text-align:right;">
+Macro level context
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityMesoArea
+</td>
+<td style="text-align:right;">
+Meso level context - area
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityMesoRegion
+</td>
+<td style="text-align:right;">
+Meso level context - region
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityMicro
+</td>
+<td style="text-align:right;">
+Micro level context
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinityProfile
+</td>
+<td style="text-align:right;">
+Information to create a profiled area object
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VicinitySpaceTime
+</td>
+<td style="text-align:right;">
+Spatiotemporal environment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YouthvarsDescriptives
+</td>
+<td style="text-align:right;">
+Metadata about descriptive statistics to be generated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YouthvarsProfile
+</td>
+<td style="text-align:right;">
+A dataset and its associated dictionary, descriptive statistics and
+metadata.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YouthvarsSeries
+</td>
+<td style="text-align:right;">
+A longitudinal dataset and its associated dictionary, descriptive
+statistics and metadata.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abbr
+</td>
+<td style="text-align:right;">
+abbreviation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abbrs
+</td>
+<td style="text-align:right;">
+abbreviations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abs
+</td>
+<td style="text-align:right;">
+absolute
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abss
+</td>
+<td style="text-align:right;">
+absolutes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+addl
+</td>
+<td style="text-align:right;">
+additional
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+addls
+</td>
+<td style="text-align:right;">
+additionals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adol
+</td>
+<td style="text-align:right;">
+adolescent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adol6d
+</td>
+<td style="text-align:right;">
+Assessment of Quality of Life Six Dimension (Adolescent version)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adols
+</td>
+<td style="text-align:right;">
+adolescents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alg
+</td>
+<td style="text-align:right;">
+algorithm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+algs
+</td>
+<td style="text-align:right;">
+algorithms
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+altv
+</td>
+<td style="text-align:right;">
+alternative
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+anlys
+</td>
+<td style="text-align:right;">
+analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+anlyss
+</td>
+<td style="text-align:right;">
+analyses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aqol
+</td>
+<td style="text-align:right;">
+Assessment of Quality of Life
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aqol6d
+</td>
+<td style="text-align:right;">
+Assessment of Quality of Life Six Dimension
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aqol6dU
+</td>
+<td style="text-align:right;">
+Assessment of Quality of Life Six Dimension Health Utility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arg
+</td>
+<td style="text-align:right;">
+argument
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+args
+</td>
+<td style="text-align:right;">
+arguments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr
+</td>
+<td style="text-align:right;">
+array
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr_ls
+</td>
+<td style="text-align:right;">
+list of arrays
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of array
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arr_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of arrays
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+artl
+</td>
+<td style="text-align:right;">
+article
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+artls
+</td>
+<td style="text-align:right;">
+articles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+att
+</td>
+<td style="text-align:right;">
+attribute
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+atts
+</td>
+<td style="text-align:right;">
+attributes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aus
+</td>
+<td style="text-align:right;">
+Australia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+auto
+</td>
+<td style="text-align:right;">
+automatic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+autos
+</td>
+<td style="text-align:right;">
+automatics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ax
+</td>
+<td style="text-align:right;">
+assessment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b0
+</td>
+<td style="text-align:right;">
+regression model intercept
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b0s
+</td>
+<td style="text-align:right;">
+regression model intercepts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b1
+</td>
+<td style="text-align:right;">
+regression model coefficient
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+b1s
+</td>
+<td style="text-align:right;">
+regression model coefficients
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bir
+</td>
+<td style="text-align:right;">
+birth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+birs
+</td>
+<td style="text-align:right;">
+births
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bl
+</td>
+<td style="text-align:right;">
+baseline
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bls
+</td>
+<td style="text-align:right;">
+baselines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bndy
+</td>
+<td style="text-align:right;">
+boundary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bndys
+</td>
+<td style="text-align:right;">
+boundaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bnml
+</td>
+<td style="text-align:right;">
+binomial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bnmls
+</td>
+<td style="text-align:right;">
+binomials
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+brm
+</td>
+<td style="text-align:right;">
+bayesian regression model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+brms
+</td>
+<td style="text-align:right;">
+bayesian regression models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+btwn
+</td>
+<td style="text-align:right;">
+between
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bw
+</td>
+<td style="text-align:right;">
+black and white
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bws
+</td>
+<td style="text-align:right;">
+black and whites
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+calc
+</td>
+<td style="text-align:right;">
+calculation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+calcs
+</td>
+<td style="text-align:right;">
+calculations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cdn
+</td>
+<td style="text-align:right;">
+condition
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cdns
+</td>
+<td style="text-align:right;">
+conditions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cf
+</td>
+<td style="text-align:right;">
+counter-factual
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cfs
+</td>
+<td style="text-align:right;">
+counter-factuals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chkr
+</td>
+<td style="text-align:right;">
+checker
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chkrs
+</td>
+<td style="text-align:right;">
+checkers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chr
+</td>
+<td style="text-align:right;">
+character vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chr_ls
+</td>
+<td style="text-align:right;">
+list of character vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chr_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of character vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chr_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of character vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clg
+</td>
+<td style="text-align:right;">
+complementary log
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clgs
+</td>
+<td style="text-align:right;">
+complementary logs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cll
+</td>
+<td style="text-align:right;">
+complementary log log
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clls
+</td>
+<td style="text-align:right;">
+complementary log logs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cls
+</td>
+<td style="text-align:right;">
+class
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clss
+</td>
+<td style="text-align:right;">
+classes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cmprsn
+</td>
+<td style="text-align:right;">
+comparison
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cmprsns
+</td>
+<td style="text-align:right;">
+comparisons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cmpst
+</td>
+<td style="text-align:right;">
+composite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cmpsts
+</td>
+<td style="text-align:right;">
+composites
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cndt
+</td>
+<td style="text-align:right;">
+candidate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cndts
+</td>
+<td style="text-align:right;">
+candidates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnstr
+</td>
+<td style="text-align:right;">
+constraint
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnstrs
+</td>
+<td style="text-align:right;">
+constraints
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnstv
+</td>
+<td style="text-align:right;">
+consecutive
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnt
+</td>
+<td style="text-align:right;">
+content
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cntrl
+</td>
+<td style="text-align:right;">
+control
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cntrls
+</td>
+<td style="text-align:right;">
+controls
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cnts
+</td>
+<td style="text-align:right;">
+contents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coef
+</td>
+<td style="text-align:right;">
+coefficient
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coefs
+</td>
+<td style="text-align:right;">
+coefficients
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coi
+</td>
+<td style="text-align:right;">
+conflict of interest
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cois
+</td>
+<td style="text-align:right;">
+conflict of interests
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+col
+</td>
+<td style="text-align:right;">
+column
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cols
+</td>
+<td style="text-align:right;">
+columns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+con
+</td>
+<td style="text-align:right;">
+constant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cons
+</td>
+<td style="text-align:right;">
+constants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cont
+</td>
+<td style="text-align:right;">
+continuous
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cor
+</td>
+<td style="text-align:right;">
+correlation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cors
+</td>
+<td style="text-align:right;">
+correlations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+corstar
+</td>
+<td style="text-align:right;">
+starred correlation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+corstars
+</td>
+<td style="text-align:right;">
+starred correlations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+covar
+</td>
+<td style="text-align:right;">
+covariate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+covars
+</td>
+<td style="text-align:right;">
+covariates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+crs
+</td>
+<td style="text-align:right;">
+coordinates reference system
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cs
+</td>
+<td style="text-align:right;">
+cross-section
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cse
+</td>
+<td style="text-align:right;">
+case
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cses
+</td>
+<td style="text-align:right;">
+cases
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csnl
+</td>
+<td style="text-align:right;">
+cross-sectional
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csp
+</td>
+<td style="text-align:right;">
+complete study program
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csps
+</td>
+<td style="text-align:right;">
+complete study programs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+css
+</td>
+<td style="text-align:right;">
+cross-sections
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cst
+</td>
+<td style="text-align:right;">
+cost
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csts
+</td>
+<td style="text-align:right;">
+costs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csv
+</td>
+<td style="text-align:right;">
+comma separated variables file
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+csvs
+</td>
+<td style="text-align:right;">
+comma separated variables files
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctg
+</td>
+<td style="text-align:right;">
+category
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctgl
+</td>
+<td style="text-align:right;">
+categorical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctgls
+</td>
+<td style="text-align:right;">
+categoricals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctgs
+</td>
+<td style="text-align:right;">
+categories
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctlg
+</td>
+<td style="text-align:right;">
+catalogue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ctlgs
+</td>
+<td style="text-align:right;">
+catalogues
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+curr
+</td>
+<td style="text-align:right;">
+current
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+currs
+</td>
+<td style="text-align:right;">
+currents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cvdn
+</td>
+<td style="text-align:right;">
+cross-validation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cvdns
+</td>
+<td style="text-align:right;">
+cross-validations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+db
+</td>
+<td style="text-align:right;">
+database
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbl
+</td>
+<td style="text-align:right;">
+double vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbl_ls
+</td>
+<td style="text-align:right;">
+list of double vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbl_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of double vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbl_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of double vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbs
+</td>
+<td style="text-align:right;">
+databases
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dce
+</td>
+<td style="text-align:right;">
+discrete choice experiment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+depcy
+</td>
+<td style="text-align:right;">
+dependency
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+depcys
+</td>
+<td style="text-align:right;">
+dependencies
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+depnt
+</td>
+<td style="text-align:right;">
+dependent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+depnts
+</td>
+<td style="text-align:right;">
+dependents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+desc
+</td>
+<td style="text-align:right;">
+description
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+descs
+</td>
+<td style="text-align:right;">
+descriptions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+descv
+</td>
+<td style="text-align:right;">
+descriptive
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+descvs
+</td>
+<td style="text-align:right;">
+descriptives
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dest
+</td>
+<td style="text-align:right;">
+destination
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dests
+</td>
+<td style="text-align:right;">
+destinations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det
+</td>
+<td style="text-align:right;">
+detail
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dets
+</td>
+<td style="text-align:right;">
+details
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dev
+</td>
+<td style="text-align:right;">
+development
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+devs
+</td>
+<td style="text-align:right;">
+developments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+df
+</td>
+<td style="text-align:right;">
+data.frame
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+df_ls
+</td>
+<td style="text-align:right;">
+list of data.frames
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+df_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of data.frame
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+df_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of data.frames
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfidx
+</td>
+<td style="text-align:right;">
+indexed data frame
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfidx_ls
+</td>
+<td style="text-align:right;">
+list of indexed data frames
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfidx_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of indexed data frame
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dfidx_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of indexed data frames
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diag
+</td>
+<td style="text-align:right;">
+diagonal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diags
+</td>
+<td style="text-align:right;">
+diagonals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dict
+</td>
+<td style="text-align:right;">
+dictionary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dicts
+</td>
+<td style="text-align:right;">
+dictionaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dif
+</td>
+<td style="text-align:right;">
+different
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diff
+</td>
+<td style="text-align:right;">
+difference
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diffs
+</td>
+<td style="text-align:right;">
+differences
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+difs
+</td>
+<td style="text-align:right;">
+differents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dim
+</td>
+<td style="text-align:right;">
+dimension
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dims
+</td>
+<td style="text-align:right;">
+dimensions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dir
+</td>
+<td style="text-align:right;">
+directory
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dirs
+</td>
+<td style="text-align:right;">
+directories
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dist
+</td>
+<td style="text-align:right;">
+distance
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dists
+</td>
+<td style="text-align:right;">
+distancess
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+disv
+</td>
+<td style="text-align:right;">
+disvalue
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+disvs
+</td>
+<td style="text-align:right;">
+disvalues
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dmd
+</td>
+<td style="text-align:right;">
+demand
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dmds
+</td>
+<td style="text-align:right;">
+demands
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dmt
+</td>
+<td style="text-align:right;">
+documentation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dmtd
+</td>
+<td style="text-align:right;">
+documented
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dnst
+</td>
+<td style="text-align:right;">
+density
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dnsts
+</td>
+<td style="text-align:right;">
+densitys
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dob
+</td>
+<td style="text-align:right;">
+date of birth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doc
+</td>
+<td style="text-align:right;">
+document
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+docs
+</td>
+<td style="text-align:right;">
+documents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doi
+</td>
+<td style="text-align:right;">
+digital object identifier
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dois
+</td>
+<td style="text-align:right;">
+digital object identifiers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+drvd
+</td>
+<td style="text-align:right;">
+derived
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ds
+</td>
+<td style="text-align:right;">
+dataset
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dsn
+</td>
+<td style="text-align:right;">
+design
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dss
+</td>
+<td style="text-align:right;">
+datasets
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dstr
+</td>
+<td style="text-align:right;">
+distribution
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dstrs
+</td>
+<td style="text-align:right;">
+distributions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dtm
+</td>
+<td style="text-align:right;">
+date vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dtm_ls
+</td>
+<td style="text-align:right;">
+list of date vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dtm_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of date vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dtm_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of date vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dupl
+</td>
+<td style="text-align:right;">
+duplicate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dupls
+</td>
+<td style="text-align:right;">
+duplicates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dur
+</td>
+<td style="text-align:right;">
+duration
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dv
+</td>
+<td style="text-align:right;">
+dataverse
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dvQ
+</td>
+<td style="text-align:right;">
+questionnaire dimension item
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dvQs
+</td>
+<td style="text-align:right;">
+questionnaire dimension items
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dvpr
+</td>
+<td style="text-align:right;">
+developer
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dvprs
+</td>
+<td style="text-align:right;">
+developers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dvs
+</td>
+<td style="text-align:right;">
+dataverses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ec
+</td>
+<td style="text-align:right;">
+economic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ecs
+</td>
+<td style="text-align:right;">
+economics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+efcn
+</td>
+<td style="text-align:right;">
+effectiveness
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+efnt
+</td>
+<td style="text-align:right;">
+efficient
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eftv
+</td>
+<td style="text-align:right;">
+effective
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+elmt
+</td>
+<td style="text-align:right;">
+element
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+elmts
+</td>
+<td style="text-align:right;">
+elements
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+env
+</td>
+<td style="text-align:right;">
+environment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+env_ls
+</td>
+<td style="text-align:right;">
+list of environments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+envs
+</td>
+<td style="text-align:right;">
+environments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+epsd
+</td>
+<td style="text-align:right;">
+episode
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+epsds
+</td>
+<td style="text-align:right;">
+episodes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eq
+</td>
+<td style="text-align:right;">
+equation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eq5d
+</td>
+<td style="text-align:right;">
+EQ5D
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eqs
+</td>
+<td style="text-align:right;">
+equations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+erp
+</td>
+<td style="text-align:right;">
+Estimated Resident Population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+expdr
+</td>
+<td style="text-align:right;">
+expenditure
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+expdrs
+</td>
+<td style="text-align:right;">
+expenditures
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ext
+</td>
+<td style="text-align:right;">
+extension
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exts
+</td>
+<td style="text-align:right;">
+extensions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fam
+</td>
+<td style="text-align:right;">
+family
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fams
+</td>
+<td style="text-align:right;">
+families
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fct
+</td>
+<td style="text-align:right;">
+factor vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fct_ls
+</td>
+<td style="text-align:right;">
+list of factor vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fct_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of factor vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fct_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of factor vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fctr
+</td>
+<td style="text-align:right;">
+factor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fctrs
+</td>
+<td style="text-align:right;">
+factors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fem
+</td>
+<td style="text-align:right;">
+female
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fems
+</td>
+<td style="text-align:right;">
+females
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fl
+</td>
+<td style="text-align:right;">
+file
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fls
+</td>
+<td style="text-align:right;">
+files
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fml
+</td>
+<td style="text-align:right;">
+formula
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fmt
+</td>
+<td style="text-align:right;">
+format
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fmts
+</td>
+<td style="text-align:right;">
+formats
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fn
+</td>
+<td style="text-align:right;">
+function
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fn_ls
+</td>
+<td style="text-align:right;">
+list of functions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fns
+</td>
+<td style="text-align:right;">
+functions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fnss
+</td>
+<td style="text-align:right;">
+functionss
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fup
+</td>
+<td style="text-align:right;">
+follow-up
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fups
+</td>
+<td style="text-align:right;">
+follow-ups
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gad7
+</td>
+<td style="text-align:right;">
+GAD-7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gad7s
+</td>
+<td style="text-align:right;">
+GAD-7s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gen
+</td>
+<td style="text-align:right;">
+generate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gens
+</td>
+<td style="text-align:right;">
+generates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+geom
+</td>
+<td style="text-align:right;">
+geometry
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+geomc
+</td>
+<td style="text-align:right;">
+geometric
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+geoms
+</td>
+<td style="text-align:right;">
+geometries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gh
+</td>
+<td style="text-align:right;">
+github
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ghs
+</td>
+<td style="text-align:right;">
+githubs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glm
+</td>
+<td style="text-align:right;">
+generalised linear model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glms
+</td>
+<td style="text-align:right;">
+generalised linear models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gmnl
+</td>
+<td style="text-align:right;">
+generalised mutinomial logit model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gndr
+</td>
+<td style="text-align:right;">
+gender
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gndrs
+</td>
+<td style="text-align:right;">
+genders
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gnrc
+</td>
+<td style="text-align:right;">
+generic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gnrcs
+</td>
+<td style="text-align:right;">
+generics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+grp
+</td>
+<td style="text-align:right;">
+group
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+grps
+</td>
+<td style="text-align:right;">
+groups
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+grpx
+</td>
+<td style="text-align:right;">
+graphics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gsn
+</td>
+<td style="text-align:right;">
+gaussian
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gtr
+</td>
+<td style="text-align:right;">
+getter
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gtrs
+</td>
+<td style="text-align:right;">
+getters
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hline
+</td>
+<td style="text-align:right;">
+horizonal line
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hlines
+</td>
+<td style="text-align:right;">
+horizonal lines
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hlth
+</td>
+<td style="text-align:right;">
+health
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hlths
+</td>
+<td style="text-align:right;">
+healths
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hr
+</td>
+<td style="text-align:right;">
+hour
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hrs
+</td>
+<td style="text-align:right;">
+hours
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+id
+</td>
+<td style="text-align:right;">
+identity
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ids
+</td>
+<td style="text-align:right;">
+identities
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+idx
+</td>
+<td style="text-align:right;">
+index
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+imp
+</td>
+<td style="text-align:right;">
+import
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+imps
+</td>
+<td style="text-align:right;">
+imports
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inc
+</td>
+<td style="text-align:right;">
+include
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+incld
+</td>
+<td style="text-align:right;">
+included
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+incr
+</td>
+<td style="text-align:right;">
+increment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+incrs
+</td>
+<td style="text-align:right;">
+increments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+incs
+</td>
+<td style="text-align:right;">
+includes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indcs
+</td>
+<td style="text-align:right;">
+indices
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indef
+</td>
+<td style="text-align:right;">
+indefinite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indefL
+</td>
+<td style="text-align:right;">
+indefinite length
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indefLs
+</td>
+<td style="text-align:right;">
+indefinite lengths
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indefartl
+</td>
+<td style="text-align:right;">
+indefinite article
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indefartls
+</td>
+<td style="text-align:right;">
+indefinite articles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indefs
+</td>
+<td style="text-align:right;">
+indefinites
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indl
+</td>
+<td style="text-align:right;">
+individual
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indls
+</td>
+<td style="text-align:right;">
+individuals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indpnt
+</td>
+<td style="text-align:right;">
+independent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+indpnts
+</td>
+<td style="text-align:right;">
+independents
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inhtc
+</td>
+<td style="text-align:right;">
+inheritance
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inhtcs
+</td>
+<td style="text-align:right;">
+inheritances
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+init
+</td>
+<td style="text-align:right;">
+initial
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inits
+</td>
+<td style="text-align:right;">
+initials
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inp
+</td>
+<td style="text-align:right;">
+input
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inps
+</td>
+<td style="text-align:right;">
+inputs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inst
+</td>
+<td style="text-align:right;">
+instance
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+instl
+</td>
+<td style="text-align:right;">
+install
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+instls
+</td>
+<td style="text-align:right;">
+installs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+insts
+</td>
+<td style="text-align:right;">
+instances
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+int
+</td>
+<td style="text-align:right;">
+integer vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+int_ls
+</td>
+<td style="text-align:right;">
+list of integer vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+int_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of integer vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+int_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of integer vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+intv
+</td>
+<td style="text-align:right;">
+intervention
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+intvl
+</td>
+<td style="text-align:right;">
+interval
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+intvs
+</td>
+<td style="text-align:right;">
+interventions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+iter
+</td>
+<td style="text-align:right;">
+iteration
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+iters
+</td>
+<td style="text-align:right;">
+iterations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+itm
+</td>
+<td style="text-align:right;">
+item
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+itms
+</td>
+<td style="text-align:right;">
+items
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+k10
+</td>
+<td style="text-align:right;">
+K10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+k6
+</td>
+<td style="text-align:right;">
+K-6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+k6s
+</td>
+<td style="text-align:right;">
+K-6s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kD
+</td>
+<td style="text-align:right;">
+dimension scaling constant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kDs
+</td>
+<td style="text-align:right;">
+dimension scaling constants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kbl
+</td>
+<td style="text-align:right;">
+kable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+km
+</td>
+<td style="text-align:right;">
+kilometre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kmean
+</td>
+<td style="text-align:right;">
+k-means clustering
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kmeans
+</td>
+<td style="text-align:right;">
+k-means clusterings
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kms
+</td>
+<td style="text-align:right;">
+kilometres
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lbl
+</td>
+<td style="text-align:right;">
+label
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lbls
+</td>
+<td style="text-align:right;">
+labels
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgd
+</td>
+<td style="text-align:right;">
+legend
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgds
+</td>
+<td style="text-align:right;">
+legends
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgl
+</td>
+<td style="text-align:right;">
+logical vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgl_ls
+</td>
+<td style="text-align:right;">
+list of logical vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgl_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of logical vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgl_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of logical vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lgt
+</td>
+<td style="text-align:right;">
+logit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lm
+</td>
+<td style="text-align:right;">
+linear model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lms
+</td>
+<td style="text-align:right;">
+linear models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lng
+</td>
+<td style="text-align:right;">
+longitude
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lngl
+</td>
+<td style="text-align:right;">
+longitudinal
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lnr
+</td>
+<td style="text-align:right;">
+linear
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lnrs
+</td>
+<td style="text-align:right;">
+linears
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lnt
+</td>
+<td style="text-align:right;">
+length
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lnts
+</td>
+<td style="text-align:right;">
+lengths
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+loc
+</td>
+<td style="text-align:right;">
+local
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+locs
+</td>
+<td style="text-align:right;">
+locals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ls
+</td>
+<td style="text-align:right;">
+list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ls_ls
+</td>
+<td style="text-align:right;">
+list of lists
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ls_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of list
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ls_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of lists
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lup
+</td>
+<td style="text-align:right;">
+lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lup_ls
+</td>
+<td style="text-align:right;">
+list of lookup tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lup_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lup_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of lookup tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lups
+</td>
+<td style="text-align:right;">
+lookup tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lvl
+</td>
+<td style="text-align:right;">
+level
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lvls
+</td>
+<td style="text-align:right;">
+levels
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mape
+</td>
+<td style="text-align:right;">
+mean absolute prediction error
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mapes
+</td>
+<td style="text-align:right;">
+mean absolute prediction errors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mat
+</td>
+<td style="text-align:right;">
+matrix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mat_ls
+</td>
+<td style="text-align:right;">
+list of matrices
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mat_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of matrix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mat_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of matrices
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+maui
+</td>
+<td style="text-align:right;">
+multi-attribute utility instrument
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mauis
+</td>
+<td style="text-align:right;">
+multi-attribute utility instruments
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max
+</td>
+<td style="text-align:right;">
+maximum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+maxs
+</td>
+<td style="text-align:right;">
+maximums
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mde
+</td>
+<td style="text-align:right;">
+mode
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdes
+</td>
+<td style="text-align:right;">
+modes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdl
+</td>
+<td style="text-align:right;">
+model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdl_ls
+</td>
+<td style="text-align:right;">
+list of models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdl_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdl_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdlng
+</td>
+<td style="text-align:right;">
+modelling
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mdls
+</td>
+<td style="text-align:right;">
+models
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+min
+</td>
+<td style="text-align:right;">
+minimum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mins
+</td>
+<td style="text-align:right;">
+minimums
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mk
+</td>
+<td style="text-align:right;">
+make
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mkdn
+</td>
+<td style="text-align:right;">
+markdown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mkdns
+</td>
+<td style="text-align:right;">
+markdowns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mks
+</td>
+<td style="text-align:right;">
+makes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mkt
+</td>
+<td style="text-align:right;">
+market
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mlogit
+</td>
+<td style="text-align:right;">
+mlogit package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mnl
+</td>
+<td style="text-align:right;">
+multinomial logit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ms
+</td>
+<td style="text-align:right;">
+manuscript
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+msg
+</td>
+<td style="text-align:right;">
+message
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+msgs
+</td>
+<td style="text-align:right;">
+messages
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+msng
+</td>
+<td style="text-align:right;">
+missing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+msrmnt
+</td>
+<td style="text-align:right;">
+measurement
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+msrmnts
+</td>
+<td style="text-align:right;">
+measurements
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mss
+</td>
+<td style="text-align:right;">
+manuscripts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mthd
+</td>
+<td style="text-align:right;">
+method
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mthds
+</td>
+<td style="text-align:right;">
+methods
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+multpl
+</td>
+<td style="text-align:right;">
+multiplier
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+multpls
+</td>
+<td style="text-align:right;">
+multipliers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mvar
+</td>
+<td style="text-align:right;">
+variables that enter the mean of random parameters
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mxd
+</td>
+<td style="text-align:right;">
+mixed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nbr
+</td>
+<td style="text-align:right;">
+number
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nbrs
+</td>
+<td style="text-align:right;">
+numbers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ncol
+</td>
+<td style="text-align:right;">
+number of columns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+newdata
+</td>
+<td style="text-align:right;">
+New dataset (for prediction)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+newdata_ls
+</td>
+<td style="text-align:right;">
+list of New dataset (for prediction)s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nm
+</td>
+<td style="text-align:right;">
+name
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nmd
+</td>
+<td style="text-align:right;">
+named
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nms
+</td>
+<td style="text-align:right;">
+names
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ns
+</td>
+<td style="text-align:right;">
+namespace
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nse
+</td>
+<td style="text-align:right;">
+non-standard evaluation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nss
+</td>
+<td style="text-align:right;">
+namespaces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+num
+</td>
+<td style="text-align:right;">
+numeric
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obj
+</td>
+<td style="text-align:right;">
+object
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+objs
+</td>
+<td style="text-align:right;">
+objects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+obsd
+</td>
+<td style="text-align:right;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+occupcy
+</td>
+<td style="text-align:right;">
+occupancy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+org
+</td>
+<td style="text-align:right;">
+organisation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+orgs
+</td>
+<td style="text-align:right;">
+organisations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ori
+</td>
+<td style="text-align:right;">
+orientation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+oris
+</td>
+<td style="text-align:right;">
+orientations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+outp
+</td>
+<td style="text-align:right;">
+output
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+outps
+</td>
+<td style="text-align:right;">
+outputs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+param
+</td>
+<td style="text-align:right;">
+parameter
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+params
+</td>
+<td style="text-align:right;">
+parameters
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pca
+</td>
+<td style="text-align:right;">
+principal component analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pcas
+</td>
+<td style="text-align:right;">
+principal component analysiss
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pdef
+</td>
+<td style="text-align:right;">
+positive definite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pfx
+</td>
+<td style="text-align:right;">
+prefix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pfxs
+</td>
+<td style="text-align:right;">
+prefixes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+phq9
+</td>
+<td style="text-align:right;">
+PHQ-9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+phq9s
+</td>
+<td style="text-align:right;">
+PHQ-9s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+phr
+</td>
+<td style="text-align:right;">
+phrase
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+phrs
+</td>
+<td style="text-align:right;">
+phrases
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pkg
+</td>
+<td style="text-align:right;">
+package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pkgs
+</td>
+<td style="text-align:right;">
+packages
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plt
+</td>
+<td style="text-align:right;">
+plot
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plt_ls
+</td>
+<td style="text-align:right;">
+list of plots
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plts
+</td>
+<td style="text-align:right;">
+plots
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pnts
+</td>
+<td style="text-align:right;">
+points
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+popl
+</td>
+<td style="text-align:right;">
+population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ppr
+</td>
+<td style="text-align:right;">
+population projection
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pred
+</td>
+<td style="text-align:right;">
+predict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predd
+</td>
+<td style="text-align:right;">
+predicted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predds
+</td>
+<td style="text-align:right;">
+predicteds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predn
+</td>
+<td style="text-align:right;">
+prediction
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predns
+</td>
+<td style="text-align:right;">
+preductions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predr
+</td>
+<td style="text-align:right;">
+predictor
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+predrs
+</td>
+<td style="text-align:right;">
+predictors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+preds
+</td>
+<td style="text-align:right;">
+predicts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prefd
+</td>
+<td style="text-align:right;">
+preferred
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prj
+</td>
+<td style="text-align:right;">
+project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prjs
+</td>
+<td style="text-align:right;">
+projects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prmry
+</td>
+<td style="text-align:right;">
+primary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prmrys
+</td>
+<td style="text-align:right;">
+primaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prob
+</td>
+<td style="text-align:right;">
+probability
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+probs
+</td>
+<td style="text-align:right;">
+probabilities
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+proc
+</td>
+<td style="text-align:right;">
+process
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+procs
+</td>
+<td style="text-align:right;">
+processs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prpn
+</td>
+<td style="text-align:right;">
+proportion
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prpns
+</td>
+<td style="text-align:right;">
+proportions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prsn
+</td>
+<td style="text-align:right;">
+person
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prsn_ls
+</td>
+<td style="text-align:right;">
+list of persons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prsn_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of person
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+prsn_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of persons
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pt
+</td>
+<td style="text-align:right;">
+prototype
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ptrn
+</td>
+<td style="text-align:right;">
+pattern
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ptrns
+</td>
+<td style="text-align:right;">
+patterns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pts
+</td>
+<td style="text-align:right;">
+prototypes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+q
+</td>
+<td style="text-align:right;">
+question
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qaly
+</td>
+<td style="text-align:right;">
+Quality Adjusted Life Year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qalys
+</td>
+<td style="text-align:right;">
+Quality Adjusted Life Years
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qltv
+</td>
+<td style="text-align:right;">
+qualitative
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qs
+</td>
+<td style="text-align:right;">
+questions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qual
+</td>
+<td style="text-align:right;">
+qualification
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+quals
+</td>
+<td style="text-align:right;">
+qualifications
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r2
+</td>
+<td style="text-align:right;">
+R squared
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r2s
+</td>
+<td style="text-align:right;">
+R squareds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r3
+</td>
+<td style="text-align:right;">
+ready4 submodule
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodules
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r4
+</td>
+<td style="text-align:right;">
+ready4 module
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+r4_ls
+</td>
+<td style="text-align:right;">
+list of ready4 modules
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rcp
+</td>
+<td style="text-align:right;">
+recipient
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rcps
+</td>
+<td style="text-align:right;">
+recipients
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rcrd
+</td>
+<td style="text-align:right;">
+record
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rcrds
+</td>
+<td style="text-align:right;">
+records
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+re
+</td>
+<td style="text-align:right;">
+result
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4class_constructor
+</td>
+<td style="text-align:right;">
+Class constructor table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4class_manifest
+</td>
+<td style="text-align:right;">
+Class creation manifest
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4class_pt_lup
+</td>
+<td style="text-align:right;">
+Class prototype lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun
+</td>
+<td style="text-align:right;">
+ready4fun R package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_abbreviations
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of abbreviations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_badges
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of badges
+metadata.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_dataset
+</td>
+<td style="text-align:right;">
+ready4 submodule class for declaring package description file data..1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_description
+</td>
+<td style="text-align:right;">
+ready4 submodule class for declaring package description file data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_executor
+</td>
+<td style="text-align:right;">
+ready4 submodule class for list object specifying function arguments and
+function.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_functions
+</td>
+<td style="text-align:right;">
+Function types lookup table.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_manifest
+</td>
+<td style="text-align:right;">
+ready4 submodule class for encapsulating the metadata required for
+package set-up.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_metadata_a
+</td>
+<td style="text-align:right;">
+ready4 submodule class for package metadata required for initial package
+set-up step.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_metadata_b
+</td>
+<td style="text-align:right;">
+ready4 submodule class for package metadata required for second package
+set-up step.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_objects
+</td>
+<td style="text-align:right;">
+Object types lookup table.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_pkg_desc
+</td>
+<td style="text-align:right;">
+ready4 module class for declaring package description file data.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_pkg_ds
+</td>
+<td style="text-align:right;">
+ready4 module class for declaring package description file data..1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_pkg_setup
+</td>
+<td style="text-align:right;">
+ready4 module class for package metadata required for package set-up.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_pkg_setup_one
+</td>
+<td style="text-align:right;">
+ready4 module class for package metadata required for initial package
+set-up step.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4fun_pkg_setup_two
+</td>
+<td style="text-align:right;">
+ready4 module class for package metadata required for second package
+set-up step.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4pack_manifest
+</td>
+<td style="text-align:right;">
+ready4 s3 class Manifest for packages containing datasets.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4show_authors
+</td>
+<td style="text-align:right;">
+ready4 submodule class for authors lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4show_correspondences
+</td>
+<td style="text-align:right;">
+Name correspondences lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4show_institutes
+</td>
+<td style="text-align:right;">
+ready4 submodule class for institutes lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use
+</td>
+<td style="text-align:right;">
+ready4use R package
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_dataverses
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of files to be
+imported from a dataverse.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_dictionary
+</td>
+<td style="text-align:right;">
+ready4 s3 class defining a data dictionary tibble.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_distributions
+</td>
+<td style="text-align:right;">
+ready4 submodule class for list object that summarises the parameters of
+each distribution
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_imports
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of sources of raw
+(un-processed) data to import.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_manifest
+</td>
+<td style="text-align:right;">
+ready4 s3 class defining a manifest of data required to create an R
+package.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ready4use_mapes
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object that stores simulation
+structural parameters relating to Mean Absolute Prediction Errors.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ref
+</td>
+<td style="text-align:right;">
+reference
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+refs
+</td>
+<td style="text-align:right;">
+references
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+repln
+</td>
+<td style="text-align:right;">
+replication
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+replns
+</td>
+<td style="text-align:right;">
+replications
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+repo
+</td>
+<td style="text-align:right;">
+repository
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+repos
+</td>
+<td style="text-align:right;">
+repositories
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+req
+</td>
+<td style="text-align:right;">
+require
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reqd
+</td>
+<td style="text-align:right;">
+required
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reqds
+</td>
+<td style="text-align:right;">
+requireds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reqs
+</td>
+<td style="text-align:right;">
+requires
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+res
+</td>
+<td style="text-align:right;">
+results
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+resc
+</td>
+<td style="text-align:right;">
+resource
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rescs
+</td>
+<td style="text-align:right;">
+resources
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+resp
+</td>
+<td style="text-align:right;">
+response
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+resps
+</td>
+<td style="text-align:right;">
+responses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ret
+</td>
+<td style="text-align:right;">
+return
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rets
+</td>
+<td style="text-align:right;">
+returns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgx
+</td>
+<td style="text-align:right;">
+regular expression vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgx_ls
+</td>
+<td style="text-align:right;">
+list of regular expression vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgx_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of regular expression vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgx_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of regular expression vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ri
+</td>
+<td style="text-align:right;">
+Rand Index
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ris
+</td>
+<td style="text-align:right;">
+Rand Indices
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rltv
+</td>
+<td style="text-align:right;">
+relative
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rltvs
+</td>
+<td style="text-align:right;">
+relatives
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmd
+</td>
+<td style="text-align:right;">
+R Markdown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmds
+</td>
+<td style="text-align:right;">
+R Markdowns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmse
+</td>
+<td style="text-align:right;">
+root mean square error
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmses
+</td>
+<td style="text-align:right;">
+root mean square errors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmv
+</td>
+<td style="text-align:right;">
+remove
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rmvs
+</td>
+<td style="text-align:right;">
+removes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rnd
+</td>
+<td style="text-align:right;">
+round
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rndrd
+</td>
+<td style="text-align:right;">
+rendered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rnds
+</td>
+<td style="text-align:right;">
+rounds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rpl
+</td>
+<td style="text-align:right;">
+replace
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rpls
+</td>
+<td style="text-align:right;">
+replaces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rprt
+</td>
+<td style="text-align:right;">
+report
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rprts
+</td>
+<td style="text-align:right;">
+reports
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rsl
+</td>
+<td style="text-align:right;">
+resolution
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rsls
+</td>
+<td style="text-align:right;">
+resolutions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rt
+</td>
+<td style="text-align:right;">
+root
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rts
+</td>
+<td style="text-align:right;">
+roots
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s3
+</td>
+<td style="text-align:right;">
+S3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s3_ls
+</td>
+<td style="text-align:right;">
+list of S3s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s4
+</td>
+<td style="text-align:right;">
+S4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+s4_ls
+</td>
+<td style="text-align:right;">
+list of S4s
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sa2
+</td>
+<td style="text-align:right;">
+Statistical Area 2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sa3
+</td>
+<td style="text-align:right;">
+Statistical Area 3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scl
+</td>
+<td style="text-align:right;">
+scale
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sclg
+</td>
+<td style="text-align:right;">
+scaling
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sclgs
+</td>
+<td style="text-align:right;">
+scalings
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scls
+</td>
+<td style="text-align:right;">
+scales
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scndry
+</td>
+<td style="text-align:right;">
+secondary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scndrys
+</td>
+<td style="text-align:right;">
+secondaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scrg
+</td>
+<td style="text-align:right;">
+scoring
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+scrgs
+</td>
+<td style="text-align:right;">
+scorings
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sctr
+</td>
+<td style="text-align:right;">
+scatter
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sctrs
+</td>
+<td style="text-align:right;">
+scatters
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sd
+</td>
+<td style="text-align:right;">
+standard deviation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sds
+</td>
+<td style="text-align:right;">
+standard deviations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+se
+</td>
+<td style="text-align:right;">
+standard error
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+seifa
+</td>
+<td style="text-align:right;">
+Socio-Economic Indices for Areas
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ses
+</td>
+<td style="text-align:right;">
+standard errors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sf
+</td>
+<td style="text-align:right;">
+simple features object
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sf_ls
+</td>
+<td style="text-align:right;">
+list of simple features objects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sf_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of simple features object
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sf_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of simple features objects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sfcs
+</td>
+<td style="text-align:right;">
+suffices
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sfs
+</td>
+<td style="text-align:right;">
+simple features objects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sfx
+</td>
+<td style="text-align:right;">
+suffix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shp
+</td>
+<td style="text-align:right;">
+shape
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shps
+</td>
+<td style="text-align:right;">
+shapes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shrble
+</td>
+<td style="text-align:right;">
+shareable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shrbles
+</td>
+<td style="text-align:right;">
+shareables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sias
+</td>
+<td style="text-align:right;">
+Social Interaction Anxiety Scale
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+signft
+</td>
+<td style="text-align:right;">
+significant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smnl
+</td>
+<td style="text-align:right;">
+Scaled Multinomial Logit Model
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smry
+</td>
+<td style="text-align:right;">
+summary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smrys
+</td>
+<td style="text-align:right;">
+summarys
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sngl
+</td>
+<td style="text-align:right;">
+single
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sngls
+</td>
+<td style="text-align:right;">
+singles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+spec
+</td>
+<td style="text-align:right;">
+specification
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specific_models
+</td>
+<td style="text-align:right;">
+Candidate models lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specific_predictors
+</td>
+<td style="text-align:right;">
+Candidate predictors lookup table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sqd
+</td>
+<td style="text-align:right;">
+squared
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+src
+</td>
+<td style="text-align:right;">
+source
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+srcs
+</td>
+<td style="text-align:right;">
+sources
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+srvc
+</td>
+<td style="text-align:right;">
+service
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+srvcs
+</td>
+<td style="text-align:right;">
+services
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stat
+</td>
+<td style="text-align:right;">
+statistic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stats
+</td>
+<td style="text-align:right;">
+statistics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+std
+</td>
+<td style="text-align:right;">
+standard
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stds
+</td>
+<td style="text-align:right;">
+standards
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+str
+</td>
+<td style="text-align:right;">
+setter
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+strs
+</td>
+<td style="text-align:right;">
+setters
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+suplry
+</td>
+<td style="text-align:right;">
+supplementary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+suplrys
+</td>
+<td style="text-align:right;">
+supplementaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+synth
+</td>
+<td style="text-align:right;">
+synthetic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+synths
+</td>
+<td style="text-align:right;">
+synthetics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb
+</td>
+<td style="text-align:right;">
+tibble
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb_ls
+</td>
+<td style="text-align:right;">
+list of tibbles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb_r3
+</td>
+<td style="text-align:right;">
+ready4 submodule extension of tibble
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb_r3_ls
+</td>
+<td style="text-align:right;">
+list of ready4 submodule extension of tibbles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tbl
+</td>
+<td style="text-align:right;">
+table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tbls
+</td>
+<td style="text-align:right;">
+tables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tbs
+</td>
+<td style="text-align:right;">
+tibbles
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tbss
+</td>
+<td style="text-align:right;">
+tibbless
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tf
+</td>
+<td style="text-align:right;">
+transform
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tfd
+</td>
+<td style="text-align:right;">
+transformed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tfmn
+</td>
+<td style="text-align:right;">
+transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tfmns
+</td>
+<td style="text-align:right;">
+transformations
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tfs
+</td>
+<td style="text-align:right;">
+transforms
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmp
+</td>
+<td style="text-align:right;">
+temporary
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmpl
+</td>
+<td style="text-align:right;">
+template
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmpls
+</td>
+<td style="text-align:right;">
+templates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmpt
+</td>
+<td style="text-align:right;">
+time point
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tmpts
+</td>
+<td style="text-align:right;">
+time points
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tot
+</td>
+<td style="text-align:right;">
+total
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tots
+</td>
+<td style="text-align:right;">
+totals
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ts
+</td>
+<td style="text-align:right;">
+time series
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tstng
+</td>
+<td style="text-align:right;">
+testing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ttu
+</td>
+<td style="text-align:right;">
+transfer to utility algorithm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ttus
+</td>
+<td style="text-align:right;">
+transfer to utility algorithms
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+txt
+</td>
+<td style="text-align:right;">
+text
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ui
+</td>
+<td style="text-align:right;">
+user interface
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uid
+</td>
+<td style="text-align:right;">
+unique identifier
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uids
+</td>
+<td style="text-align:right;">
+unique identifiers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uis
+</td>
+<td style="text-align:right;">
+user interfaces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+uncnstrd
+</td>
+<td style="text-align:right;">
+unconstrained
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+undmtd
+</td>
+<td style="text-align:right;">
+undocumented
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unexp
+</td>
+<td style="text-align:right;">
+unexported
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unscrd
+</td>
+<td style="text-align:right;">
+unscored
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unscrds
+</td>
+<td style="text-align:right;">
+unscoreds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unvld
+</td>
+<td style="text-align:right;">
+unvalidated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unwtd
+</td>
+<td style="text-align:right;">
+unweighted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unwtds
+</td>
+<td style="text-align:right;">
+unweighteds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upd
+</td>
+<td style="text-align:right;">
+update
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+upds
+</td>
+<td style="text-align:right;">
+updates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+utl
+</td>
+<td style="text-align:right;">
+utility
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+utls
+</td>
+<td style="text-align:right;">
+utilities
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+val
+</td>
+<td style="text-align:right;">
+value
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vals
+</td>
+<td style="text-align:right;">
+values
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+var
+</td>
+<td style="text-align:right;">
+variable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vars
+</td>
+<td style="text-align:right;">
+variables
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vec
+</td>
+<td style="text-align:right;">
+vector
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vecs
+</td>
+<td style="text-align:right;">
+vectors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ver
+</td>
+<td style="text-align:right;">
+version
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vers
+</td>
+<td style="text-align:right;">
+versions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_abbreviations
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table for spatial data
+abbreviations.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_identifiers
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of unique feature
+identifiers used for different spatial objects.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_mapes
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object that stores spatial simulation
+parameters relating to Mean Absolute Prediction Errors.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_parameters
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object that stores simulation
+structural parameters relating to the spatial environment.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_points
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of the longitude
+and latitude cordinates of sites of services / homes.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_processed
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of meta-data for
+spatial data packs (imported and pre-processed data).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_raw
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of metadata about
+raw (un-processed) spatial data to import.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_resolutions
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table of the relative
+resolutions of different spatial objects.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_templates
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object lookup table for base file used
+in creation of certain spatial objects.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vicinity_values
+</td>
+<td style="text-align:right;">
+ready4 submodule class for tibble object that stores simulation
+parameter values for each iteration.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vld
+</td>
+<td style="text-align:right;">
+valid
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vldd
+</td>
+<td style="text-align:right;">
+validated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vldn
+</td>
+<td style="text-align:right;">
+validation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wkly
+</td>
+<td style="text-align:right;">
+weekly
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wrst
+</td>
+<td style="text-align:right;">
+worst
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ws
+</td>
+<td style="text-align:right;">
+workspace
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wss
+</td>
+<td style="text-align:right;">
+workspaces
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wt
+</td>
+<td style="text-align:right;">
+weight
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wtd
+</td>
+<td style="text-align:right;">
+weighted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wtp
+</td>
+<td style="text-align:right;">
+willingness to pay
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wtpt
+</td>
+<td style="text-align:right;">
+willingness to pay threshold
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wtpts
+</td>
+<td style="text-align:right;">
+willingness to pay thresholds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wts
+</td>
+<td style="text-align:right;">
+weights
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xls
+</td>
+<td style="text-align:right;">
+Excel workbook
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xlss
+</td>
+<td style="text-align:right;">
+Excel workbooks
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xx
+</td>
+<td style="text-align:right;">
+output object of multiple potential types
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ymdhms
+</td>
+<td style="text-align:right;">
+years months days hours minutes seconds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ymwd
+</td>
+<td style="text-align:right;">
+years month weeks days
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_aqol6d_adol
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Assessment of Quality of Life
+Six Dimension Health Utility - Adolescent Version (AQoL6d Adolescent)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_bads
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Behavioural Activation for
+Depression Scale (BADS) scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_chu9d_adolaus
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Child Health Utility Nine
+Dimension Health Utility - Australian Adolescent Scoring (CHU-9D
+Australian Adolescent)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_gad7
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Generalised Anxiety Disorder
+Scale (GAD-7) scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_k10
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Kessler Psychological
+Distress Scale (K10) - US Scoring System scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_k10_aus
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Kessler Psychological
+Distress Scale (K10) - Australian Scoring System scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_k6
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Kessler Psychological
+Distress Scale (K6) - US Scoring System scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_k6_aus
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class)for Kessler Psychological Distress
+Scale (K6) - Australian Scoring System scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_oasis
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Overall Anxiety Severity and
+Impairment Scale (OASIS) scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_phq9
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Patient Health Questionnaire
+(PHQ-9) scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_scared
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Screen for Child Anxiety
+Related Disorders (SCARED) scores
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+youthvars_sofas
+</td>
+<td style="text-align:right;">
+youthvars ready4 sub-module (S3 class) for Social and Occupational
+Functioning Assessment Scale (SOFAS)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+yr
+</td>
+<td style="text-align:right;">
+year
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+yrs
+</td>
+<td style="text-align:right;">
+years
 </td>
 </tr>
 </tbody>
@@ -755,6 +6911,28 @@ double vector of length one
 </tr></tfoot>
 </table>
 </div>
+<p>The <code>ready4fun_abbreviations</code> submodule is searchable. It
+is therefore possible to see if an abbreviation has been defined for an
+existing word or phrase…</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/procure-methods.html" class="external-link">procure</a></span><span class="op">(</span><span class="va">z</span>,<span class="st">"template"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
+<span><span class="co">##   short_name_chr long_name_chr plural_lgl</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> tmpl           template      FALSE     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> tmpls          templates     TRUE</span></span></code></pre>
+<p>…and to look-up the meaning of an abbreviation…</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/procure-methods.html" class="external-link">procure</a></span><span class="op">(</span><span class="va">z</span>,<span class="st">"org"</span>,type_1L_chr <span class="op">=</span> <span class="st">"extension"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
+<span><span class="co">##   short_name_chr long_name_chr plural_lgl</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> org            organisation  FALSE     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> orgs           organisations TRUE</span></span></code></pre>
+<p>…or whether a potential abbreviation has already been defined.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/procure-methods.html" class="external-link">procure</a></span><span class="op">(</span><span class="va">z</span>,<span class="st">"org"</span>, type_1L_chr <span class="op">=</span> <span class="st">"extension"</span>, what_1L_chr <span class="op">=</span> <span class="st">"string"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "org"  "orgs"</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
@@ -768,7 +6946,7 @@ metadata (including details of the repository in which the
 <code>fn_types_lup</code>, <code>seed_obj_lup_tb</code> and
 <code>abbreviations_lup</code> objects are stored) for the functions
 being authored and the R package that will contain them.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ready4fun_manifest.html">ready4fun_manifest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -778,7 +6956,7 @@ being authored and the R package that will contain them.</p>
 with the aid of the <code>make_pkg_desc_ls</code> and
 <code>make_manifest</code> functions rather than a direct call to the
 <code><a href="../reference/ready4fun_manifest.html">ready4fun_manifest()</a></code> function.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Not run</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ready4fun</span><span class="fu">::</span><span class="fu"><a href="../reference/make_pkg_desc_ls.html">make_pkg_desc_ls</a></span><span class="op">(</span></span>
 <span>  pkg_title_1L_chr <span class="op">=</span> <span class="st">"Your Package Title"</span>,</span>
@@ -808,7 +6986,7 @@ with the aid of the <code>make_pkg_desc_ls</code> and
 <code>author</code> which, assuming the raw undocumented function files
 are saved in the appropriate directories, will author an R package in
 which all functions are consistently documented.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Not run</span></span>
 <span><span class="fu"><a href="https://ready4-dev.github.io/ready4/reference/author-methods.html" class="external-link">author</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -847,7 +7025,7 @@ more detailed inventory of contents intended for developers</a>.</p>
 <h2 id="future-documentation">Future documentation<a class="anchor" aria-label="anchor" href="#future-documentation"></a>
 </h2>
 <p>Detailed guidance for how to apply <code>ready4fun</code> workflow
-tools has yet to be prepared but will be released in 2022.</p>
+tools has yet to be prepared but is planned for 2024.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

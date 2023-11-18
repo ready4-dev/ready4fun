@@ -21,6 +21,6 @@ add_indefartls_to_phrases(
 Phrases (a character vector)
 }
 \description{
-add_indefartls_to_phrases() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add indefinite articles to phrases. The function returns Phrases (a character vector).
+add_indefartls_to_phrases() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add indefinite articles to phrases. The function returns Phrases (a character vector).
 }
 \keyword{internal}

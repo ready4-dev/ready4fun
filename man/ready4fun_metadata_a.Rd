@@ -4,7 +4,7 @@
 \alias{ready4fun_metadata_a}
 \alias{make_pt_ready4fun_metadata_a}
 \alias{is_ready4fun_metadata_a}
-\title{ready4 S3 class for package metadata required for initial package set-up step.}
+\title{ready4 submodule class for package metadata required for initial package set-up step.}
 \usage{
 ready4fun_metadata_a(x = make_pt_ready4fun_metadata_a())
 
@@ -59,14 +59,14 @@ is_ready4fun_metadata_a(x)
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: character(0)}
 }
 \value{
-A validated instance of the ready4 S3 class for package metadata required for initial package set-up step.
+A validated instance of the ready4 submodule class for package metadata required for initial package set-up step.
 
-A prototype for ready4 S3 class for package metadata required for initial package set-up step.
+A prototype for ready4 submodule class for package metadata required for initial package set-up step.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
+A logical value, TRUE if a valid instance of the ready4 submodule class for package metadata required for initial package set-up step.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for package metadata required for initial package set-up step.
+Create a new valid instance of the ready4 submodule class for package metadata required for initial package set-up step.
 }
 \details{
 Package metadata (A).

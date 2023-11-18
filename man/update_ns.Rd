@@ -13,6 +13,6 @@ update_ns(package_1L_chr)
 Package name (a character vector)
 }
 \description{
-update_ns() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update namespace. The function returns Package name (a character vector).
+update_ns() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update namespace. The function returns Package name (a character vector).
 }
 \keyword{internal}

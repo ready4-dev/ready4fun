@@ -10,13 +10,13 @@ ratify.ready4fun_manifest(x, append_1L_lgl = F)
 \S4method{ratify}{ready4fun_manifest}(x, append_1L_lgl = F)
 }
 \arguments{
-\item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
+\item{x}{An instance of \code{ready4fun_manifest}, a ready4 submodule class for encapsulating the metadata required for package set-up.}
 
 \item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 }
 \value{
-X (ready4 S3 class for encapsulating the metadata required for package set-up.)
+X (ready4 submodule class for encapsulating the metadata required for package set-up.)
 }
 \description{
-ratify.ready4fun_manifest() is a ratify method that ratifies that an instance of a class conforms to specified criteria This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+ratify.ready4fun_manifest() is a ratify method that ratifies that an instance of a class conforms to specified criteria. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

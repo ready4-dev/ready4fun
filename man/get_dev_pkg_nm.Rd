@@ -13,6 +13,6 @@ get_dev_pkg_nm(path_to_pkg_rt_1L_chr = ".")
 Development package name (a character vector of length one)
 }
 \description{
-get_dev_pkg_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get development package name. The function returns Development package name (a character vector of length one).
+get_dev_pkg_nm() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get development package name. The function returns Development package name (a character vector of length one).
 }
 \keyword{internal}

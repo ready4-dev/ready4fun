@@ -65,6 +65,6 @@ desc_chr = character(0), url_chr = character(0))}
 Package datasets (a tibble)
 }
 \description{
-write_and_doc_ds() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
+write_and_doc_ds() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write and document dataset. The function returns Package datasets (a tibble).
 }
 \keyword{internal}

@@ -18,10 +18,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r results='hide', message=FALSE, warning=FALSE}
 library(ready4)
 library(ready4fun)
-library(ready4use)
-library(ready4show)
 ```
-
+<!-- library(ready4show) -->
+<!-- library(ready4use) -->
 ## Motivation
 
 The [ready4 framework](https://www.ready4-dev.com/) uses [an object-oriented programming (OOP) approach](https://ready4-dev.github.io/ready4class/articles/V_01.html) to implement computational health economic models. One motivation for using OOP is the concept of "abstraction" - making things as simple as possible for end-users of `ready4` modules by exposing the minimal amount of code required to implement each method.
@@ -36,54 +35,75 @@ To help facilitate achieving these objectives, methods associated with ready4 mo
 
 ## ready4fun function authoring taxonomies, abbreviations and workflow
 
-The `ready4fun` package uses a dataset of taxonomies and abbreviations to ensure standardised function code style and documentation. A copy of this dataset (`dataset_ls`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package.
+The `ready4fun` package uses taxonomy and abbreviation datasets to ensure standardised function code style and documentation. 
+<!-- A copy of this dataset (`dataset_ls`) can be downloaded from a repository associated with the [ready4 package](https://ready4-dev.github.io/ready4/) using tools from the [ready4use package](https://ready4-dev.github.io/ready4use/) package. -->
 
-```{r}
-dataset_ls <- ready4use::Ready4useRepos(
-  gh_repo_1L_chr = "ready4-dev/ready4",
-  gh_tag_1L_chr = "Documentation_0.0"
-) %>%
-  ingest(metadata_1L_lgl = F)
+```{r echo=FALSE, eval=FALSE}
+# dataset_ls <- ready4use::Ready4useRepos(
+#   gh_repo_1L_chr = "ready4-dev/ready4",
+#   gh_tag_1L_chr = "Documentation_0.0"
+# ) %>%
+#   ingest(metadata_1L_lgl = F)
 ```
 
 ### Function names begin with a meaningful verb
 
-Consistent with a naming convention popular in the R development community, all `ready4` framework functions begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word "fit" will fit a model of a specified type to a dataset. The definitions of all meaningful verbs currently used by ready4 functions (excluding methods) are stored in element `fn_types_lup` of `dataset_ls`, the key features of which are reproduced below.
+Consistent with a naming convention popular in the R development community, all functions authored with the `ready4` framework need to begin with a verb. Furthermore, the choice of verb is meaningful - it communicates something about the type of task a function implements. For example, all functions beginning with the word "fit" will fit a model of a specified type to a dataset. The definitions of all meaningful verbs used in functions authored for a ready4 framework model implementation can be retrieved using `get_fn_types()`, which by default returns a dataset instance of the `ready4fun_functions` submodule.
+
+<!-- element `fn_types_lup` of `dataset_ls`, the key features of which are reproduced below. -->
+```{r}
+x <- get_fn_types(gh_repo_1L_chr = "ready4-dev/ready4")
+class(x)
+```
 
 ```{r fnstb, tab.cap='Meaningful verbs', tab.id = 'fnstb', results="asis"}
-dataset_ls$fn_types_lup %>%
-  ready4fun_functions() %>%
-  renew(filter_cdn_1L_chr = "!is_generic_lgl & !stringr::str_detect(fn_type_nm_chr, pattern = ' ')") %>%
-  exhibit(
-    select_int = 1:2,
-    scroll_box_args_ls = list(width = "100%")
-  )
+exhibit(x,select_int = 1:2, scroll_box_args_ls = list(width = "100%"))
 ```
 
 ### Function inputs and outputs have meaningful suffices
 
-The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. The meaningful suffices currently used by to describe objects in the ready4 framework are stored in element `seed_obj_type_lup` of `dataset_ls`, the key features of which are reproduced below.
+The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. For example all objects ending in "_chr" are character vectors and all objects ending in "_int" are integer vectors. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using `get_obj_types()`, which by default returns a dataset instance of the `ready4fun_objects` submodule.
+
+```{r}
+y <- get_obj_types(gh_repo_1L_chr = "ready4-dev/ready4")
+class(y)
+```
 
 ```{r sfcstb, tab.cap='Meaningful suffices', tab.id = 'sfcstb', results="asis"}
-dataset_ls$seed_obj_type_lup %>%
-  ready4fun_objects() %>%
-  exhibit(
-    select_int = 1:2,
-    scroll_box_args_ls = list(width = "100%")
-  )
+exhibit(y, select_int = 1:2, scroll_box_args_ls = list(width = "100%"))
 ```
+
 
 ### Consistent use of abbreviations
 
-Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used throughout the `ready4` framework is maintained in the `abbreviations_lup` element of `dataset_ls`. The list of abbreviations is now quite extensive and continues to grow as the `ready4` suite of software expands. The initial few entries of `abbreviations_lup` are reproduced below.
+Further information about the purpose of a function and the nature of its inputs and outputs can be encoded by using naming conventions that make consistent use of abbreviations. A master table of the abbreviations used in a ready4 framework model implementation can be retrieved using `get_abbrs()`, which by default returns a dataset instance of the `ready4fun_abbreviations` submodule.
+
+
+```{r}
+z <- get_abbrs(gh_repo_1L_chr = "ready4-dev/ready4")
+class(z)
+```
 
 ```{r abbs, tab.cap='Abbreviations', tab.id = 'abbs', results="asis"}
-dataset_ls$abbreviations_lup %>%
-  head() %>%
-  exhibit(
-    select_int = 1:2,
-    scroll_box_args_ls = list(width = "100%")
-  )
+exhibit(z, select_int = 1:2,scroll_box_args_ls = list(width = "100%"))
+```
+
+The `ready4fun_abbreviations` submodule is searchable. It is therefore possible to see if an abbreviation has been defined for an existing word or phrase...
+
+```{r}
+procure(z,"template")
+```
+
+...and to look-up the meaning of an abbreviation...
+
+```{r}
+procure(z,"org",type_1L_chr = "extension")
+```
+
+...or whether a potential abbreviation has already been defined.
+
+```{r}
+procure(z,"org", type_1L_chr = "extension", what_1L_chr = "string")
 ```
 
 ### Workflow
@@ -143,4 +163,4 @@ For example, one of the functions to be documented is the [knit_from_tmpl](https
 
 ## Future documentation
 
-Detailed guidance for how to apply `ready4fun` workflow tools has yet to be prepared but will be released in 2022.
+Detailed guidance for how to apply `ready4fun` workflow tools has yet to be prepared but is planned for 2024.

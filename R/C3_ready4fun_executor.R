@@ -1,18 +1,18 @@
 
-#' ready4 S3 class for list object specifying function arguments and function.
-#' @description Create a new valid instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @param x A prototype for the ready4 S3 class for list object specifying function arguments and function., Default: make_pt_ready4fun_executor()
-#' @return A validated instance of the ready4 S3 class for list object specifying function arguments and function.
+#' ready4 submodule class for list object specifying function arguments and function.
+#' @description Create a new valid instance of the ready4 submodule class for list object specifying function arguments and function.
+#' @param x A prototype for the ready4 submodule class for list object specifying function arguments and function., Default: make_pt_ready4fun_executor()
+#' @return A validated instance of the ready4 submodule class for list object specifying function arguments and function.
 #' @details Function and function arguments pair.
 #' @rdname ready4fun_executor
 #' @export 
 ready4fun_executor <- function(x = make_pt_ready4fun_executor()){ 
 validate_ready4fun_executor(make_new_ready4fun_executor(x))
 }
-#' make new ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
-#' @description Create a new unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @param x A prototype for the ready4 S3 class for list object specifying function arguments and function.
-#' @return An unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
+#' make new ready4fun package executor ready4 submodule class for list object specifying function arguments and function.
+#' @description Create a new unvalidated instance of the ready4 submodule class for list object specifying function arguments and function.
+#' @param x A prototype for the ready4 submodule class for list object specifying function arguments and function.
+#' @return An unvalidated instance of the ready4 submodule class for list object specifying function arguments and function.
 #' @details Function and function arguments pair.
 #' @rdname make_new_ready4fun_executor
 #' @export 
@@ -23,10 +23,10 @@ class(x) <- append(c("ready4fun_executor",setdiff(make_pt_ready4fun_executor() %
 class(x))
 x
 }
-#' make prototype ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
+#' make prototype ready4fun package executor ready4 submodule class for list object specifying function arguments and function.
 #' @param args_ls Arguments (a list), Default: list()
 #' @param fn Function (a function), Default: identity
-#' @return A prototype for ready4 S3 class for list object specifying function arguments and function.
+#' @return A prototype for ready4 submodule class for list object specifying function arguments and function.
 #' 
 #' @rdname ready4fun_executor
 #' @export 
@@ -38,10 +38,10 @@ args_ls <- list(args_ls = args_ls,
 fn = fn) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' validate ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
-#' @description Validate an instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @param x An unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.
-#' @return A prototpe for ready4 S3 class for list object specifying function arguments and function.
+#' validate ready4fun package executor ready4 submodule class for list object specifying function arguments and function.
+#' @description Validate an instance of the ready4 submodule class for list object specifying function arguments and function.
+#' @param x An unvalidated instance of the ready4 submodule class for list object specifying function arguments and function.
+#' @return A prototpe for ready4 submodule class for list object specifying function arguments and function.
 #' @details Function and function arguments pair.
 #' @rdname validate_ready4fun_executor
 #' @export 
@@ -89,9 +89,9 @@ call. = FALSE)
 }
 
 x}
-#' is ready4fun package executor ready4 S3 class for list object specifying function arguments and function.
+#' is ready4fun package executor ready4 submodule class for list object specifying function arguments and function.
 #' @param x An object of any type
-#' @return A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
+#' @return A logical value, TRUE if a valid instance of the ready4 submodule class for list object specifying function arguments and function.
 #' 
 #' @rdname ready4fun_executor
 #' @export 

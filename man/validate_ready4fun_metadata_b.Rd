@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_metadata_b.R
 \name{validate_ready4fun_metadata_b}
 \alias{validate_ready4fun_metadata_b}
-\title{validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
+\title{validate ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.}
 \usage{
 validate_ready4fun_metadata_b(x)
 }
 \arguments{
-\item{x}{An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.}
+\item{x}{An unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.}
 }
 \value{
-A prototpe for ready4 S3 class for package metadata required for second package set-up step.
+A prototpe for ready4 submodule class for package metadata required for second package set-up step.
 }
 \description{
-Validate an instance of the ready4 S3 class for package metadata required for second package set-up step.
+Validate an instance of the ready4 submodule class for package metadata required for second package set-up step.
 }
 \details{
 Package metadata (B).

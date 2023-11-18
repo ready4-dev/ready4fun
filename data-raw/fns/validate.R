@@ -1,5 +1,5 @@
 validate_pkg_setup <- function(pkg_setup_ls,
-                               append_1L_lgl = T,
+                               append_1L_lgl = F,
                                is_method_1L_lgl = F) {
   message(paste0(
     "Validating ",
@@ -84,10 +84,7 @@ validate_pkg_setup <- function(pkg_setup_ls,
         pkg_setup_ls$problems_ls$missing_cls_pts_chr <- missing_cls_pts_chr
       }
     }
-    fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(
-      path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/data-raw"),
-      drop_empty_1L_lgl = T
-    ))
+    fns_env_ls <- read_fns(make_undmtd_fns_dir_chr(path_1L_chr = paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, "/data-raw"),drop_empty_1L_lgl = T))
     pkg_setup_ls <- add_fns_dmt_tb(pkg_setup_ls, append_1L_lgl = append_1L_lgl, fns_env_ls = fns_env_ls)
     missing_obj_types_chr <- get_new_abbrs(pkg_setup_ls, append_1L_lgl = append_1L_lgl, classes_to_make_tb = pkg_setup_ls$subsequent_ls$cls_fn_ls$args_ls$x,
                                            pkg_ds_ls_ls = pkg_setup_ls$subsequent_ls$pkg_ds_ls_ls, use_last_1L_int = 1)

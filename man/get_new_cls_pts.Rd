@@ -13,6 +13,6 @@ get_new_cls_pts(pkg_setup_ls)
 New class prototypes (a character vector)
 }
 \description{
-get_new_cls_pts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new class prototypes. The function returns New class prototypes (a character vector).
+get_new_cls_pts() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new class prototypes. The function returns New class prototypes (a character vector).
 }
 \keyword{internal}

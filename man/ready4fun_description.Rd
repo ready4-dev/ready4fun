@@ -4,7 +4,7 @@
 \alias{ready4fun_description}
 \alias{make_pt_ready4fun_description}
 \alias{is_ready4fun_description}
-\title{ready4 S3 class for declaring package description file data.}
+\title{ready4 submodule class for declaring package description file data.}
 \usage{
 ready4fun_description(x = make_pt_ready4fun_description())
 
@@ -32,14 +32,14 @@ is_ready4fun_description(x)
 \item{URL}{PARAM_DESCRIPTION, Default: character(0)}
 }
 \value{
-A validated instance of the ready4 S3 class for declaring package description file data.
+A validated instance of the ready4 submodule class for declaring package description file data.
 
-A prototype for ready4 S3 class for declaring package description file data.
+A prototype for ready4 submodule class for declaring package description file data.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
+A logical value, TRUE if a valid instance of the ready4 submodule class for declaring package description file data.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for declaring package description file data.
+Create a new valid instance of the ready4 submodule class for declaring package description file data.
 }
 \details{
 Package description metadata.

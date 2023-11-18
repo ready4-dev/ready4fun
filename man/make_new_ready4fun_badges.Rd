@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_badges.R
 \name{make_new_ready4fun_badges}
 \alias{make_new_ready4fun_badges}
-\title{make new ready4fun package badges ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{make new ready4fun package badges ready4 submodule class for tibble object lookup table of badges metadata.}
 \usage{
 make_new_ready4fun_badges(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for tibble object lookup table of badges metadata.}
+\item{x}{A prototype for the ready4 submodule class for tibble object lookup table of badges metadata.}
 }
 \value{
-An unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+An unvalidated instance of the ready4 submodule class for tibble object lookup table of badges metadata.
 }
 \description{
-Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+Create a new unvalidated instance of the ready4 submodule class for tibble object lookup table of badges metadata.
 }
 \details{
 Badges lookup table.

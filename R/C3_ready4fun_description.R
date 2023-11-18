@@ -1,18 +1,18 @@
 
-#' ready4 S3 class for declaring package description file data.
-#' @description Create a new valid instance of the ready4 S3 class for declaring package description file data.
-#' @param x A prototype for the ready4 S3 class for declaring package description file data., Default: make_pt_ready4fun_description()
-#' @return A validated instance of the ready4 S3 class for declaring package description file data.
+#' ready4 submodule class for declaring package description file data.
+#' @description Create a new valid instance of the ready4 submodule class for declaring package description file data.
+#' @param x A prototype for the ready4 submodule class for declaring package description file data., Default: make_pt_ready4fun_description()
+#' @return A validated instance of the ready4 submodule class for declaring package description file data.
 #' @details Package description metadata.
 #' @rdname ready4fun_description
 #' @export 
 ready4fun_description <- function(x = make_pt_ready4fun_description()){ 
 validate_ready4fun_description(make_new_ready4fun_description(x))
 }
-#' make new ready4fun package description ready4 S3 class for declaring package description file data.
-#' @description Create a new unvalidated instance of the ready4 S3 class for declaring package description file data.
-#' @param x A prototype for the ready4 S3 class for declaring package description file data.
-#' @return An unvalidated instance of the ready4 S3 class for declaring package description file data.
+#' make new ready4fun package description ready4 submodule class for declaring package description file data.
+#' @description Create a new unvalidated instance of the ready4 submodule class for declaring package description file data.
+#' @param x A prototype for the ready4 submodule class for declaring package description file data.
+#' @return An unvalidated instance of the ready4 submodule class for declaring package description file data.
 #' @details Package description metadata.
 #' @rdname make_new_ready4fun_description
 #' @export 
@@ -23,13 +23,13 @@ class(x) <- append(c("ready4fun_description",setdiff(make_pt_ready4fun_descripti
 class(x))
 x
 }
-#' make prototype ready4fun package description ready4 S3 class for declaring package description file data.
+#' make prototype ready4fun package description ready4 submodule class for declaring package description file data.
 #' @param Package PARAM_DESCRIPTION, Default: character(0)
 #' @param Title PARAM_DESCRIPTION, Default: character(0)
 #' @param Description PARAM_DESCRIPTION, Default: character(0)
 #' @param License PARAM_DESCRIPTION, Default: logical(0)
 #' @param URL PARAM_DESCRIPTION, Default: character(0)
-#' @return A prototype for ready4 S3 class for declaring package description file data.
+#' @return A prototype for ready4 submodule class for declaring package description file data.
 #' 
 #' @rdname ready4fun_description
 #' @export 
@@ -47,10 +47,10 @@ License = License,
 URL = URL) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' validate ready4fun package description ready4 S3 class for declaring package description file data.
-#' @description Validate an instance of the ready4 S3 class for declaring package description file data.
-#' @param x An unvalidated instance of the ready4 S3 class for declaring package description file data.
-#' @return A prototpe for ready4 S3 class for declaring package description file data.
+#' validate ready4fun package description ready4 submodule class for declaring package description file data.
+#' @description Validate an instance of the ready4 submodule class for declaring package description file data.
+#' @param x An unvalidated instance of the ready4 submodule class for declaring package description file data.
+#' @return A prototpe for ready4 submodule class for declaring package description file data.
 #' @details Package description metadata.
 #' @rdname validate_ready4fun_description
 #' @export 
@@ -98,9 +98,9 @@ call. = FALSE)
 }
 
 x}
-#' is ready4fun package description ready4 S3 class for declaring package description file data.
+#' is ready4fun package description ready4 submodule class for declaring package description file data.
 #' @param x An object of any type
-#' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data.
+#' @return A logical value, TRUE if a valid instance of the ready4 submodule class for declaring package description file data.
 #' 
 #' @rdname ready4fun_description
 #' @export 

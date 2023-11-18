@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{validate_ready4fun_manifest}
 \alias{validate_ready4fun_manifest}
-\title{validate ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{validate ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.}
 \usage{
 validate_ready4fun_manifest(x)
 }
 \arguments{
-\item{x}{An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.}
+\item{x}{An unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.}
 }
 \value{
-A prototpe for ready4 S3 class for encapsulating the metadata required for package set-up.
+A prototpe for ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \description{
-Validate an instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+Validate an instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \details{
 Package set-up manifest.

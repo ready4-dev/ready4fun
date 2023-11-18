@@ -21,6 +21,6 @@ get_new_fn_types(
 New function types (a character vector)
 }
 \description{
-get_new_fn_types() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
+get_new_fn_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
 }
 \keyword{internal}

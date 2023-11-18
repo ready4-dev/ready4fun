@@ -1,41 +1,57 @@
-#' Add additional packagesGet house style abbreviations
-#' @description add_addl_pkgs() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add additional packages. The function is called for its side effects and does not return a value.An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
-#' @param text_1L_chr Text (a character vector of length one), Default: character(0)
+#' Get house style abbreviations
+#' @description An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
+#' @param what_1L_chr What (a character vector of length one), Default: character(0)
+#' @param type_1L_chr Type (a character vector of length one), Default: c("abbreviation", "extension")
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
 #' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'ready4-dev/ready4'
 #' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
-#' @param search_descs_1L_lgl Search descriptions (a logical vector of length one), Default: T
+#' @param dv_nm_1L_chr Dataverse name (a character vector of length one), Default: 'NA'
+#' @param dv_ds_metadata_ls Dataverse dataset metadata (a list), Default: list(list())
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'NA'
+#' @param dv_server_1L_chr Dataverse server (a character vector of length one), Default: 'NA'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'NA'
+#' @param search_descs_1L_lgl Search descriptions (a logical vector of length one), Default: deprecated()
 #' @return Abbreviations (a lookup table)
 #' @rdname get_abbrs
 #' @export 
 #' @importFrom ready4use Ready4useRepos
+#' @importFrom ready4 ingest
 #' @importFrom dplyr filter
 #' @importFrom purrr map_lgl
 #' @importFrom stringr str_detect
 #' @example man/examples/get_abbrs.R
-get_abbrs <- function (text_1L_chr = character(0), abbreviations_lup = NULL, 
-    gh_repo_1L_chr = "ready4-dev/ready4", gh_tag_1L_chr = "Documentation_0.0", 
-    search_descs_1L_lgl = T) 
+get_abbrs <- function (what_1L_chr = character(0), type_1L_chr = c("abbreviation", 
+    "extension"), abbreviations_lup = NULL, gh_repo_1L_chr = "ready4-dev/ready4", 
+    gh_tag_1L_chr = "Documentation_0.0", dv_nm_1L_chr = NA_character_, 
+    dv_ds_metadata_ls = list(list()), dv_ds_nm_1L_chr = NA_character_, 
+    dv_server_1L_chr = NA_character_, dv_url_pfx_1L_chr = NA_character_, 
+    search_descs_1L_lgl = deprecated()) 
 {
+    type_1L_chr <- match.arg(type_1L_chr)
+    search_descs_1L_lgl <- ifelse(type_1L_chr == "extension", 
+        F, T)
     if (is.null(abbreviations_lup)) {
-        abbreviations_lup <- ready4use::Ready4useRepos(gh_repo_1L_chr = gh_repo_1L_chr, 
-            gh_tag_1L_chr = gh_tag_1L_chr) %>% ingest(fls_to_ingest_chr = c("abbreviations_lup"), 
-            metadata_1L_lgl = F)
+        abbreviations_lup <- ready4use::Ready4useRepos(dv_nm_1L_chr = dv_nm_1L_chr, 
+            dv_ds_metadata_ls = dv_ds_metadata_ls, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+            dv_server_1L_chr = dv_server_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+            gh_repo_1L_chr = gh_repo_1L_chr, gh_tag_1L_chr = gh_tag_1L_chr) %>% 
+            ready4::ingest(fls_to_ingest_chr = c("abbreviations_lup"), 
+                metadata_1L_lgl = F)
     }
-    if (!identical(text_1L_chr, character(0))) {
+    if (!identical(what_1L_chr, character(0))) {
         if (!search_descs_1L_lgl) {
             abbreviations_lup <- abbreviations_lup %>% dplyr::filter(short_name_chr %>% 
-                purrr::map_lgl(~startsWith(.x, text_1L_chr)))
+                purrr::map_lgl(~startsWith(.x, what_1L_chr)))
         }
         else {
             abbreviations_lup <- abbreviations_lup %>% dplyr::filter(long_name_chr %>% 
-                purrr::map_lgl(~stringr::str_detect(.x, text_1L_chr)))
+                purrr::map_lgl(~stringr::str_detect(.x, what_1L_chr)))
         }
     }
     return(abbreviations_lup)
 }
 #' Get all dependencies of functions
-#' @description get_all_depcys_of_fns() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get all dependencies of functions. The function returns Functions to keep (a character vector).
+#' @description get_all_depcys_of_fns() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get all dependencies of functions. The function returns Functions to keep (a character vector).
 #' @param pkg_depcy_ls Package dependency (a list)
 #' @param fns_chr Functions (a character vector)
 #' @return Functions to keep (a character vector)
@@ -58,7 +74,7 @@ get_all_depcys_of_fns <- function (pkg_depcy_ls, fns_chr)
     return(fns_to_keep_chr)
 }
 #' Get argument object type
-#' @description get_arg_obj_type() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get argument object type. The function returns Argument object type (a character vector of length one).
+#' @description get_arg_obj_type() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get argument object type. The function returns Argument object type (a character vector of length one).
 #' @param argument_nm_1L_chr Argument name (a character vector of length one)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
@@ -93,7 +109,7 @@ get_arg_obj_type <- function (argument_nm_1L_chr, dv_ds_nm_1L_chr = "ready4-dev/
     return(arg_obj_type_1L_chr)
 }
 #' Get development package name
-#' @description get_dev_pkg_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get development package name. The function returns Development package name (a character vector of length one).
+#' @description get_dev_pkg_nm() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get development package name. The function returns Development package name (a character vector of length one).
 #' @param path_to_pkg_rt_1L_chr Path to package root (a character vector of length one), Default: '.'
 #' @return Development package name (a character vector of length one)
 #' @rdname get_dev_pkg_nm
@@ -107,7 +123,7 @@ get_dev_pkg_nm <- function (path_to_pkg_rt_1L_chr = ".")
     return(dev_pkg_nm_1L_chr)
 }
 #' Get function arguments
-#' @description get_fn_args() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get function arguments. The function returns Function arguments (a character vector).
+#' @description get_fn_args() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function arguments. The function returns Function arguments (a character vector).
 #' @param fn Function (a function)
 #' @return Function arguments (a character vector)
 #' @rdname get_fn_args
@@ -122,7 +138,7 @@ get_fn_args <- function (fn)
     return(fn_args_chr)
 }
 #' Get function names in file
-#' @description get_fn_nms_in_file() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get function names in file. The function returns Local (a character vector).
+#' @description get_fn_nms_in_file() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function names in file. The function returns Local (a character vector).
 #' @param path_1L_chr Path (a character vector of length one)
 #' @return Local (a character vector)
 #' @rdname get_fn_nms_in_file
@@ -136,8 +152,60 @@ get_fn_nms_in_file <- function (path_1L_chr)
     local_chr <- local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text = .x))))]
     return(local_chr)
 }
+#' Get function types
+#' @description get_fn_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function types. The function returns Function types (a lookup table).
+#' @param dv_nm_1L_chr Dataverse name (a character vector of length one), Default: 'NA'
+#' @param dv_ds_metadata_ls Dataverse dataset metadata (a list), Default: list(list())
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'NA'
+#' @param dv_server_1L_chr Dataverse server (a character vector of length one), Default: 'NA'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'NA'
+#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
+#' @param type_1L_chr Type (a character vector of length one), Default: c("submodule", "simple", "partial")
+#' @param what_1L_chr What (a character vector of length one), Default: c("regular", "method", "all")
+#' @return Function types (a lookup table)
+#' @rdname get_fn_types
+#' @export 
+#' @importFrom ready4use Ready4useRepos
+#' @importFrom ready4 ingest
+#' @importFrom dplyr filter select
+#' @keywords internal
+get_fn_types <- function (dv_nm_1L_chr = NA_character_, dv_ds_metadata_ls = list(list()), 
+    dv_ds_nm_1L_chr = NA_character_, dv_server_1L_chr = NA_character_, 
+    dv_url_pfx_1L_chr = NA_character_, gh_repo_1L_chr = "ready4-dev/ready4", 
+    gh_tag_1L_chr = "Documentation_0.0", type_1L_chr = c("submodule", 
+        "simple", "partial"), what_1L_chr = c("regular", "method", 
+        "all")) 
+{
+    type_1L_chr <- match.arg(type_1L_chr)
+    what_1L_chr <- match.arg(what_1L_chr)
+    fn_types_lup <- ready4use::Ready4useRepos(dv_nm_1L_chr = dv_nm_1L_chr, 
+        dv_ds_metadata_ls = dv_ds_metadata_ls, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+        dv_server_1L_chr = dv_server_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+        fl_nms_chr = "fn_types_lup", gh_repo_1L_chr = gh_repo_1L_chr, 
+        gh_tag_1L_chr = gh_tag_1L_chr) %>% ready4::ingest(fls_to_ingest_chr = "fn_types_lup", 
+        metadata_1L_lgl = F)
+    if (what_1L_chr %in% c("regular")) {
+        fn_types_lup <- dplyr::filter(fn_types_lup, !is_generic_lgl)
+    }
+    if (what_1L_chr == "method") {
+        fn_types_lup <- dplyr::filter(fn_types_lup, is_generic_lgl)
+    }
+    if (type_1L_chr == "submodule") {
+        fn_types_lup <- ready4fun_functions(fn_types_lup)
+    }
+    if (type_1L_chr == "partial") {
+        fn_types_lup <- fn_types_lup %>% dplyr::select(fn_type_nm_chr, 
+            fn_type_desc_chr, is_method_lgl)
+    }
+    if (type_1L_chr == "simple") {
+        fn_types_lup <- fn_types_lup %>% dplyr::select(fn_type_nm_chr, 
+            fn_type_desc_chr)
+    }
+    return(fn_types_lup)
+}
 #' Get method title
-#' @description get_mthd_title() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get method title. The function returns Method title (a character vector of length one).
+#' @description get_mthd_title() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get method title. The function returns Method title (a character vector of length one).
 #' @param mthd_nm_1L_chr Method name (a character vector of length one)
 #' @param pkg_nm_1L_chr Package name (a character vector of length one), Default: 'ready4'
 #' @return Method title (a character vector of length one)
@@ -162,7 +230,7 @@ get_mthd_title <- function (mthd_nm_1L_chr, pkg_nm_1L_chr = "ready4")
     return(mthd_title_1L_chr)
 }
 #' Get new abbreviations
-#' @description get_new_abbrs() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations. The function returns New abbreviations (a character vector).
+#' @description get_new_abbrs() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new abbreviations. The function returns New abbreviations (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param append_1L_lgl Append (a logical vector of length one), Default: T
 #' @param classes_to_make_tb Classes to make (a tibble), Default: NULL
@@ -239,7 +307,7 @@ get_new_abbrs <- function (pkg_setup_ls, append_1L_lgl = T, classes_to_make_tb =
     return(new_abbrs_chr)
 }
 #' Get new abbreviations candidates
-#' @description get_new_abbrs_cndts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations candidates. The function returns New abbreviations candidates (a character vector).
+#' @description get_new_abbrs_cndts() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new abbreviations candidates. The function returns New abbreviations candidates (a character vector).
 #' @param text_chr Text (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param drop_first_1L_lgl Drop first (a logical vector of length one), Default: F
@@ -273,7 +341,7 @@ get_new_abbrs_cndts <- function (text_chr, abbreviations_lup, drop_first_1L_lgl 
     return(new_abbrs_cndts_chr)
 }
 #' Get new class prototypes
-#' @description get_new_cls_pts() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new class prototypes. The function returns New class prototypes (a character vector).
+#' @description get_new_cls_pts() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new class prototypes. The function returns New class prototypes (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @return New class prototypes (a character vector)
 #' @rdname get_new_cls_pts
@@ -296,7 +364,7 @@ get_new_cls_pts <- function (pkg_setup_ls)
     return(new_cls_pts_chr)
 }
 #' Get new function types
-#' @description get_new_fn_types() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
+#' @description get_new_fn_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new function types. The function returns New function types (a character vector).
 #' @param pkg_setup_ls Package setup (a list)
 #' @param fn_nms_ls Function names (a list), Default: make_fn_nms()
 #' @param undmtd_fns_dir_chr Undocumented functions directory (a character vector), Default: make_undmtd_fns_dir_chr(drop_empty_1L_lgl = T)
@@ -334,7 +402,7 @@ get_new_fn_types <- function (pkg_setup_ls, fn_nms_ls = make_fn_nms(), undmtd_fn
     return(new_fn_types_chr)
 }
 #' Get object type new cases
-#' @description get_obj_type_new_cses() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get object type new cases. The function returns Object type lookup table new cases (a tibble).
+#' @description get_obj_type_new_cses() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get object type new cases. The function returns Object type lookup table new cases (a tibble).
 #' @param updated_obj_type_lup Updated object type (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
 #' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: deprecated()
@@ -363,8 +431,50 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "read
     }
     return(obj_type_lup_new_cses_tb)
 }
+#' Get object types
+#' @description get_obj_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get object types. The function returns Object type (a lookup table).
+#' @param dv_nm_1L_chr Dataverse name (a character vector of length one), Default: 'NA'
+#' @param dv_ds_metadata_ls Dataverse dataset metadata (a list), Default: list(list())
+#' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'NA'
+#' @param dv_server_1L_chr Dataverse server (a character vector of length one), Default: 'NA'
+#' @param dv_url_pfx_1L_chr Dataverse url prefix (a character vector of length one), Default: 'NA'
+#' @param gh_repo_1L_chr Github repository (a character vector of length one), Default: 'ready4-dev/ready4'
+#' @param gh_tag_1L_chr Github tag (a character vector of length one), Default: 'Documentation_0.0'
+#' @param type_1L_chr Type (a character vector of length one), Default: c("submodule", "tibble")
+#' @param what_1L_chr What (a character vector of length one), Default: c("seed", "all")
+#' @return Object type (a lookup table)
+#' @rdname get_obj_types
+#' @export 
+#' @importFrom ready4use Ready4useRepos
+#' @importFrom ready4 ingest
+#' @keywords internal
+get_obj_types <- function (dv_nm_1L_chr = NA_character_, dv_ds_metadata_ls = list(list()), 
+    dv_ds_nm_1L_chr = NA_character_, dv_server_1L_chr = NA_character_, 
+    dv_url_pfx_1L_chr = NA_character_, gh_repo_1L_chr = "ready4-dev/ready4", 
+    gh_tag_1L_chr = "Documentation_0.0", type_1L_chr = c("submodule", 
+        "tibble"), what_1L_chr = c("seed", "all")) 
+{
+    type_1L_chr <- match.arg(type_1L_chr)
+    what_1L_chr <- match.arg(what_1L_chr)
+    obj_type_lup <- ready4use::Ready4useRepos(dv_nm_1L_chr = dv_nm_1L_chr, 
+        dv_ds_metadata_ls = dv_ds_metadata_ls, dv_ds_nm_1L_chr = dv_ds_nm_1L_chr, 
+        dv_server_1L_chr = dv_server_1L_chr, dv_url_pfx_1L_chr = dv_url_pfx_1L_chr, 
+        fl_nms_chr = ifelse(what_1L_chr == "seed", "seed_obj_type_lup", 
+            "object_type_lup"), gh_repo_1L_chr = gh_repo_1L_chr, 
+        gh_tag_1L_chr = gh_tag_1L_chr) %>% ready4::ingest(fls_to_ingest_chr = ifelse(what_1L_chr == 
+        "seed", "seed_obj_type_lup", "object_type_lup"), metadata_1L_lgl = F)
+    if (type_1L_chr == "submodule") {
+        if (what_1L_chr == "seed") {
+            obj_type_lup <- ready4fun_objects(obj_type_lup)
+        }
+        else {
+            obj_type_lup <- ready4fun_abbreviations(obj_type_lup)
+        }
+    }
+    return(obj_type_lup)
+}
 #' Get output object type
-#' @description get_outp_obj_type() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get output object type. The function returns Output object type (a character vector).
+#' @description get_outp_obj_type() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get output object type. The function returns Output object type (a character vector).
 #' @param fns_chr Functions (a character vector)
 #' @param abbreviations_lup Abbreviations (a lookup table)
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'ready4-dev/ready4'
@@ -410,7 +520,7 @@ get_outp_obj_type <- function (fns_chr, abbreviations_lup, dv_ds_nm_1L_chr = "re
     return(outp_obj_type_chr)
 }
 #' Get rds from package documentation
-#' @description get_rds_from_pkg_dmt() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get rds from package documentation. The function returns R object (an output object of multiple potential types).
+#' @description get_rds_from_pkg_dmt() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get rds from package documentation. The function returns R object (an output object of multiple potential types).
 #' @param pkg_setup_ls Package setup (a list), Default: NULL
 #' @param fl_nm_1L_chr File name (a character vector of length one)
 #' @param piggyback_to_1L_chr Piggyback to (a character vector of length one), Default: character(0)
@@ -437,7 +547,7 @@ get_rds_from_pkg_dmt <- function (pkg_setup_ls = NULL, fl_nm_1L_chr, piggyback_t
     return(r_object_xx)
 }
 #' Get return object name
-#' @description get_return_obj_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get return object name. The function returns Return (a character vector of length one).
+#' @description get_return_obj_nm() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get return object name. The function returns Return (a character vector of length one).
 #' @param fn Function (a function)
 #' @return Return (a character vector of length one)
 #' @rdname get_return_obj_nm

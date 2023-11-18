@@ -29,7 +29,7 @@ x
 #' @param short_name_chr Short name (a character vector), Default: character(0)
 #' @param long_name_chr Long name (a character vector), Default: character(0)
 #' @param atomic_element_lgl Atomic element (a logical vector), Default: logical(0)
-#' @param r3_can_extend_lgl Ready4 S3 can extend (a logical vector), Default: logical(0)
+#' @param r3_can_extend_lgl Ready4 submodule can extend (a logical vector), Default: logical(0)
 #' @return A prototype for Object types lookup table.
 #' 
 #' @rdname ready4fun_objects

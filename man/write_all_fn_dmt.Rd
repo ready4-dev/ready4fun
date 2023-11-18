@@ -24,6 +24,6 @@ write_all_fn_dmt(
 a S4 methods (a list)
 }
 \description{
-write_all_fn_dmt() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write all function documentation. The function returns a S4 methods (a list).
+write_all_fn_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write all function documentation. The function returns a S4 methods (a list).
 }
 \keyword{internal}

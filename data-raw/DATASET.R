@@ -1,7 +1,6 @@
 library(lifecycle)
 library(ready4)
 library(ready4show)
-#library(generics)
 # ready4fun::fns_dmt_tb -> fns_dmt_tb
 # piggyback::pb_new_release("ready4-dev/ready4fun",
 #                           tag = "0.0.0.9461",
@@ -267,9 +266,11 @@ manifest_ls <- pkg_desc_ls %>%
       args_ls = list(x = constructor_r3)
     ),
     classify_1L_lgl = F, ###
-    custom_dmt_ls = fns_env_ls$fns_env$make_custom_dmt_ls(title_ls = list(get_abbrs = "Get house style abbreviations"),
-                                                          desc_ls = list(get_abbrs = "An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`."),
-                                                          user_manual_fns_chr = c("get_abbrs")),
+    custom_dmt_ls = fns_env_ls$fns_env$make_custom_dmt_ls(title_ls = list(get_abbrs = "Get house style abbreviations", get_fn_types = "Get supported function types", get_obj_types = "Get supported object types"),
+                                                          desc_ls = list(get_abbrs = "An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs()`.",
+                                                                         get_fn_types = "All functions authored with the `ready4` framework need to begin with a verb. The definitions of all meaningful verbs used in functions authored for a ready4 framework model implementation can be retrieved using `get_fn_types()`.",
+                                                                         get_obj_types ="The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using `get_obj_types()`."),
+                                                          user_manual_fns_chr = c("get_abbrs", "get_fn_types", "get_obj_types")),
     copyright_holders_chr = "Orygen",
     dev_pkgs_chr = c("ready4", "ready4use", "ready4show"),
     inc_pkg_meta_data_1L_lgl = T, ###

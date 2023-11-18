@@ -1,18 +1,18 @@
 
-#' ready4 S3 class for package metadata required for second package set-up step.
-#' @description Create a new valid instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step., Default: make_pt_ready4fun_metadata_b()
-#' @return A validated instance of the ready4 S3 class for package metadata required for second package set-up step.
+#' ready4 submodule class for package metadata required for second package set-up step.
+#' @description Create a new valid instance of the ready4 submodule class for package metadata required for second package set-up step.
+#' @param x A prototype for the ready4 submodule class for package metadata required for second package set-up step., Default: make_pt_ready4fun_metadata_b()
+#' @return A validated instance of the ready4 submodule class for package metadata required for second package set-up step.
 #' @details Package metadata (B).
 #' @rdname ready4fun_metadata_b
 #' @export 
 ready4fun_metadata_b <- function(x = make_pt_ready4fun_metadata_b()){ 
 validate_ready4fun_metadata_b(make_new_ready4fun_metadata_b(x))
 }
-#' make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
-#' @description Create a new unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @param x A prototype for the ready4 S3 class for package metadata required for second package set-up step.
-#' @return An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
+#' make new ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.
+#' @description Create a new unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.
+#' @param x A prototype for the ready4 submodule class for package metadata required for second package set-up step.
+#' @return An unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.
 #' @details Package metadata (B).
 #' @rdname make_new_ready4fun_metadata_b
 #' @export 
@@ -23,7 +23,7 @@ class(x) <- append(c("ready4fun_metadata_b",setdiff(make_pt_ready4fun_metadata_b
 class(x))
 x
 }
-#' make prototype ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' make prototype ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: ready4fun_abbreviations()
 #' @param addl_pkgs_ls Additional packages (a list), Default: list()
 #' @param build_ignore_ls Build ignore (a list), Default: list()
@@ -46,7 +46,7 @@ x
 #' @param server_1L_chr Server (a character vector of length one), Default: character(0)
 #' @param s4_fns_ls S4 functions (a list), Default: ready4fun_executor()
 #' @param treat_as_words_chr Treat as words (a character vector), Default: character(0)
-#' @return A prototype for ready4 S3 class for package metadata required for second package set-up step.
+#' @return A prototype for ready4 submodule class for package metadata required for second package set-up step.
 #' 
 #' @rdname ready4fun_metadata_b
 #' @export 
@@ -99,10 +99,10 @@ s4_fns_ls = s4_fns_ls,
 treat_as_words_chr = treat_as_words_chr) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' validate ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
-#' @description Validate an instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @param x An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
-#' @return A prototpe for ready4 S3 class for package metadata required for second package set-up step.
+#' validate ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.
+#' @description Validate an instance of the ready4 submodule class for package metadata required for second package set-up step.
+#' @param x An unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.
+#' @return A prototpe for ready4 submodule class for package metadata required for second package set-up step.
 #' @details Package metadata (B).
 #' @rdname validate_ready4fun_metadata_b
 #' @export 
@@ -150,9 +150,9 @@ call. = FALSE)
 }
 
 x}
-#' is ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.
+#' is ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.
 #' @param x An object of any type
-#' @return A logical value, TRUE if a valid instance of the ready4 S3 class for package metadata required for second package set-up step.
+#' @return A logical value, TRUE if a valid instance of the ready4 submodule class for package metadata required for second package set-up step.
 #' 
 #' @rdname ready4fun_metadata_b
 #' @export 

@@ -24,6 +24,6 @@ update_msng_abbrs(
 Package setup (a list)
 }
 \description{
-update_msng_abbrs() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update missing abbreviations. The function returns Package setup (a list).
+update_msng_abbrs() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update missing abbreviations. The function returns Package setup (a list).
 }
 \keyword{internal}

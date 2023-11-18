@@ -4,7 +4,7 @@
 \alias{ready4fun_badges}
 \alias{make_pt_ready4fun_badges}
 \alias{is_ready4fun_badges}
-\title{ready4 S3 class for tibble object lookup table of badges metadata.}
+\title{ready4 submodule class for tibble object lookup table of badges metadata.}
 \usage{
 ready4fun_badges(x = make_pt_ready4fun_badges())
 
@@ -29,14 +29,14 @@ is_ready4fun_badges(x)
 \item{badges_chr}{Badges (a character vector), Default: character(0)}
 }
 \value{
-A validated instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+A validated instance of the ready4 submodule class for tibble object lookup table of badges metadata.
 
-A prototype for ready4 S3 class for tibble object lookup table of badges metadata.
+A prototype for ready4 submodule class for tibble object lookup table of badges metadata.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+A logical value, TRUE if a valid instance of the ready4 submodule class for tibble object lookup table of badges metadata.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for tibble object lookup table of badges metadata.
+Create a new valid instance of the ready4 submodule class for tibble object lookup table of badges metadata.
 }
 \details{
 Badges lookup table.

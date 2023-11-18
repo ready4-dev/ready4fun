@@ -30,6 +30,6 @@ update_abbr_lup(
 Abbreviation (a tibble)
 }
 \description{
-update_abbr_lup() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update abbreviation lookup table. The function returns Abbreviation (a tibble).
+update_abbr_lup() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update abbreviation lookup table. The function returns Abbreviation (a tibble).
 }
 \keyword{internal}

@@ -36,6 +36,6 @@ update_fn_dmt(
 Function documentation (a character vector of length one)
 }
 \description{
-update_fn_dmt() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update function documentation. The function returns Function documentation (a character vector of length one).
+update_fn_dmt() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update function documentation. The function returns Function documentation (a character vector of length one).
 }
 \keyword{internal}

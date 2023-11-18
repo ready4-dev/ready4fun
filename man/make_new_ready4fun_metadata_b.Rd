@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_metadata_b.R
 \name{make_new_ready4fun_metadata_b}
 \alias{make_new_ready4fun_metadata_b}
-\title{make new ready4fun package metadata b ready4 S3 class for package metadata required for second package set-up step.}
+\title{make new ready4fun package metadata b ready4 submodule class for package metadata required for second package set-up step.}
 \usage{
 make_new_ready4fun_metadata_b(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for package metadata required for second package set-up step.}
+\item{x}{A prototype for the ready4 submodule class for package metadata required for second package set-up step.}
 }
 \value{
-An unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
+An unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.
 }
 \description{
-Create a new unvalidated instance of the ready4 S3 class for package metadata required for second package set-up step.
+Create a new unvalidated instance of the ready4 submodule class for package metadata required for second package set-up step.
 }
 \details{
 Package metadata (B).

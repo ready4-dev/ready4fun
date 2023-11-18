@@ -54,6 +54,6 @@ write_ds_dmt(
 \item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
 \description{
-write_ds_dmt() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write dataset documentation. The function is called for its side effects and does not return a value.
+write_ds_dmt() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write dataset documentation. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

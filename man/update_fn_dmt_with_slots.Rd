@@ -15,6 +15,6 @@ update_fn_dmt_with_slots(fn_name_1L_chr, fn_dmt_1L_chr)
 Function documentation (a character vector of length one)
 }
 \description{
-update_fn_dmt_with_slots() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update function documentation with slots. The function returns Function documentation (a character vector of length one).
+update_fn_dmt_with_slots() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update function documentation with slots. The function returns Function documentation (a character vector of length one).
 }
 \keyword{internal}

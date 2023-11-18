@@ -1,7 +1,7 @@
 #' Validate package setup
-#' @description validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
+#' @description validate_pkg_setup() is a Validate function that validates that an object conforms to required criteria. Specifically, this function implements an algorithm to validate package setup. The function returns Package setup (a list).
 #' @param pkg_setup_ls Package setup (a list)
-#' @param append_1L_lgl Append (a logical vector of length one), Default: T
+#' @param append_1L_lgl Append (a logical vector of length one), Default: F
 #' @param is_method_1L_lgl Is method (a logical vector of length one), Default: F
 #' @return Package setup (a list)
 #' @rdname validate_pkg_setup
@@ -11,7 +11,7 @@
 #' @importFrom stringr str_sub
 #' @importFrom Hmisc capitalize
 #' @keywords internal
-validate_pkg_setup <- function (pkg_setup_ls, append_1L_lgl = T, is_method_1L_lgl = F) 
+validate_pkg_setup <- function (pkg_setup_ls, append_1L_lgl = F, is_method_1L_lgl = F) 
 {
     message(paste0("Validating ", ifelse(is_method_1L_lgl, "manifest", 
         "pkg_setup_ls"), ". This may take a couple of minutes."))

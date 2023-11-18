@@ -21,6 +21,6 @@ add_plurals_to_abbr_lup(
 Abbreviation (a tibble)
 }
 \description{
-add_plurals_to_abbr_lup() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. The function returns Abbreviation (a tibble).
+add_plurals_to_abbr_lup() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add plurals to abbreviation lookup table. The function returns Abbreviation (a tibble).
 }
 \keyword{internal}

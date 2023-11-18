@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{make_new_ready4fun_description}
 \alias{make_new_ready4fun_description}
-\title{make new ready4fun package description ready4 S3 class for declaring package description file data.}
+\title{make new ready4fun package description ready4 submodule class for declaring package description file data.}
 \usage{
 make_new_ready4fun_description(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for declaring package description file data.}
+\item{x}{A prototype for the ready4 submodule class for declaring package description file data.}
 }
 \value{
-An unvalidated instance of the ready4 S3 class for declaring package description file data.
+An unvalidated instance of the ready4 submodule class for declaring package description file data.
 }
 \description{
-Create a new unvalidated instance of the ready4 S3 class for declaring package description file data.
+Create a new unvalidated instance of the ready4 submodule class for declaring package description file data.
 }
 \details{
 Package description metadata.

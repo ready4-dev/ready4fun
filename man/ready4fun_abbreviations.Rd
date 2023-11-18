@@ -4,7 +4,7 @@
 \alias{ready4fun_abbreviations}
 \alias{make_pt_ready4fun_abbreviations}
 \alias{is_ready4fun_abbreviations}
-\title{ready4 S3 class for tibble object lookup table of abbreviations.}
+\title{ready4 submodule class for tibble object lookup table of abbreviations.}
 \usage{
 ready4fun_abbreviations(x = make_pt_ready4fun_abbreviations())
 
@@ -26,14 +26,14 @@ is_ready4fun_abbreviations(x)
 \item{plural_lgl}{Plural (a logical vector), Default: logical(0)}
 }
 \value{
-A validated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+A validated instance of the ready4 submodule class for tibble object lookup table of abbreviations.
 
-A prototype for ready4 S3 class for tibble object lookup table of abbreviations.
+A prototype for ready4 submodule class for tibble object lookup table of abbreviations.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+A logical value, TRUE if a valid instance of the ready4 submodule class for tibble object lookup table of abbreviations.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+Create a new valid instance of the ready4 submodule class for tibble object lookup table of abbreviations.
 }
 \details{
 Abbreviations lookup table.

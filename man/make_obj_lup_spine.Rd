@@ -19,6 +19,6 @@ make_obj_lup_spine(
 obj_lup_spine (An object)
 }
 \description{
-make_obj_lup_spine() is a Make function that creates a new R object Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
+make_obj_lup_spine() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make object lookup table spine. The function is called for its side effects and does not return a value.
 }
 \keyword{internal}

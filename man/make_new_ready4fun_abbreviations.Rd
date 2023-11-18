@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_abbreviations.R
 \name{make_new_ready4fun_abbreviations}
 \alias{make_new_ready4fun_abbreviations}
-\title{make new ready4fun package abbreviations ready4 S3 class for tibble object lookup table of abbreviations.}
+\title{make new ready4fun package abbreviations ready4 submodule class for tibble object lookup table of abbreviations.}
 \usage{
 make_new_ready4fun_abbreviations(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for tibble object lookup table of abbreviations.}
+\item{x}{A prototype for the ready4 submodule class for tibble object lookup table of abbreviations.}
 }
 \value{
-An unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+An unvalidated instance of the ready4 submodule class for tibble object lookup table of abbreviations.
 }
 \description{
-Create a new unvalidated instance of the ready4 S3 class for tibble object lookup table of abbreviations.
+Create a new unvalidated instance of the ready4 submodule class for tibble object lookup table of abbreviations.
 }
 \details{
 Abbreviations lookup table.

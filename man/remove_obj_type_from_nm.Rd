@@ -39,6 +39,6 @@ remove_obj_type_from_nm(
 Names (a character vector)
 }
 \description{
-remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements Specifically, this function implements an algorithm to remove object type from name. The function returns Names (a character vector).
+remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove object type from name. The function returns Names (a character vector).
 }
 \keyword{internal}

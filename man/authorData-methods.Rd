@@ -10,11 +10,11 @@ authorData.ready4fun_manifest(x)
 \S4method{authorData}{ready4fun_manifest}(x)
 }
 \arguments{
-\item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
+\item{x}{An instance of \code{ready4fun_manifest}, a ready4 submodule class for encapsulating the metadata required for package set-up.}
 }
 \value{
 x (An object)
 }
 \description{
-authorData.ready4fun_manifest() is an authorData method that authors and saves files necessary for creating and documenting datasets This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+authorData.ready4fun_manifest() is an authorData method that authors and saves files necessary for creating and documenting datasets. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

@@ -27,6 +27,6 @@ get_rds_from_pkg_dmt(
 R object (an output object of multiple potential types)
 }
 \description{
-get_rds_from_pkg_dmt() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get rds from package documentation. The function returns R object (an output object of multiple potential types).
+get_rds_from_pkg_dmt() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get rds from package documentation. The function returns R object (an output object of multiple potential types).
 }
 \keyword{internal}

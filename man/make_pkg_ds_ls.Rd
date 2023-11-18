@@ -42,6 +42,6 @@ make_pkg_ds_ls(
 Package dataset (a list)
 }
 \description{
-make_pkg_ds_ls() is a Make function that creates a new R object Specifically, this function implements an algorithm to make package dataset list. The function returns Package dataset (a list).
+make_pkg_ds_ls() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make package dataset list. The function returns Package dataset (a list).
 }
 \keyword{internal}

@@ -1,18 +1,18 @@
 
-#' ready4 S3 class for declaring package description file data..1
-#' @description Create a new valid instance of the ready4 S3 class for declaring package description file data..1
-#' @param x A prototype for the ready4 S3 class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()
-#' @return A validated instance of the ready4 S3 class for declaring package description file data..1
+#' ready4 submodule class for declaring package description file data..1
+#' @description Create a new valid instance of the ready4 submodule class for declaring package description file data..1
+#' @param x A prototype for the ready4 submodule class for declaring package description file data..1, Default: make_pt_ready4fun_dataset()
+#' @return A validated instance of the ready4 submodule class for declaring package description file data..1
 #' @details Package datasets metadata.
 #' @rdname ready4fun_dataset
 #' @export 
 ready4fun_dataset <- function(x = make_pt_ready4fun_dataset()){ 
 validate_ready4fun_dataset(make_new_ready4fun_dataset(x))
 }
-#' make new ready4fun package dataset ready4 S3 class for declaring package description file data..1
-#' @description Create a new unvalidated instance of the ready4 S3 class for declaring package description file data..1
-#' @param x A prototype for the ready4 S3 class for declaring package description file data..1
-#' @return An unvalidated instance of the ready4 S3 class for declaring package description file data..1
+#' make new ready4fun package dataset ready4 submodule class for declaring package description file data..1
+#' @description Create a new unvalidated instance of the ready4 submodule class for declaring package description file data..1
+#' @param x A prototype for the ready4 submodule class for declaring package description file data..1
+#' @return An unvalidated instance of the ready4 submodule class for declaring package description file data..1
 #' @details Package datasets metadata.
 #' @rdname make_new_ready4fun_dataset
 #' @export 
@@ -23,7 +23,7 @@ class(x) <- append(c("ready4fun_dataset",setdiff(make_pt_ready4fun_dataset() %>%
 class(x))
 x
 }
-#' make prototype ready4fun package dataset ready4 S3 class for declaring package description file data..1
+#' make prototype ready4fun package dataset ready4 submodule class for declaring package description file data..1
 #' @param db_df Database (a data.frame), Default: data.frame()
 #' @param db_1L_chr Database (a character vector of length one), Default: character(0)
 #' @param title_1L_chr Title (a character vector of length one), Default: character(0)
@@ -34,7 +34,7 @@ x
 #' @param simple_lup_1L_lgl Simple lookup table (a logical vector of length one), Default: logical(0)
 #' @param url_1L_chr Url (a character vector of length one), Default: character(0)
 #' @param vars_ls Variables (a list), Default: list()
-#' @return A prototype for ready4 S3 class for declaring package description file data..1
+#' @return A prototype for ready4 submodule class for declaring package description file data..1
 #' 
 #' @rdname ready4fun_dataset
 #' @export 
@@ -62,10 +62,10 @@ url_1L_chr = url_1L_chr,
 vars_ls = vars_ls) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' validate ready4fun package dataset ready4 S3 class for declaring package description file data..1
-#' @description Validate an instance of the ready4 S3 class for declaring package description file data..1
-#' @param x An unvalidated instance of the ready4 S3 class for declaring package description file data..1
-#' @return A prototpe for ready4 S3 class for declaring package description file data..1
+#' validate ready4fun package dataset ready4 submodule class for declaring package description file data..1
+#' @description Validate an instance of the ready4 submodule class for declaring package description file data..1
+#' @param x An unvalidated instance of the ready4 submodule class for declaring package description file data..1
+#' @return A prototpe for ready4 submodule class for declaring package description file data..1
 #' @details Package datasets metadata.
 #' @rdname validate_ready4fun_dataset
 #' @export 
@@ -113,9 +113,9 @@ call. = FALSE)
 }
 
 x}
-#' is ready4fun package dataset ready4 S3 class for declaring package description file data..1
+#' is ready4fun package dataset ready4 submodule class for declaring package description file data..1
 #' @param x An object of any type
-#' @return A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data..1
+#' @return A logical value, TRUE if a valid instance of the ready4 submodule class for declaring package description file data..1
 #' 
 #' @rdname ready4fun_dataset
 #' @export 

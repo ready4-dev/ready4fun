@@ -33,6 +33,6 @@ get_obj_type_new_cses(
 Object type lookup table new cases (a tibble)
 }
 \description{
-get_obj_type_new_cses() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get object type new cases. The function returns Object type lookup table new cases (a tibble).
+get_obj_type_new_cses() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get object type new cases. The function returns Object type lookup table new cases (a tibble).
 }
 \keyword{internal}

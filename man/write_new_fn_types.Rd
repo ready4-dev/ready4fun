@@ -39,6 +39,6 @@ write_new_fn_types(
 Package setup (a list)
 }
 \description{
-write_new_fn_types() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write new function types. The function returns Package setup (a list).
+write_new_fn_types() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new function types. The function returns Package setup (a list).
 }
 \keyword{internal}

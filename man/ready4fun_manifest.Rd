@@ -4,7 +4,7 @@
 \alias{ready4fun_manifest}
 \alias{make_pt_ready4fun_manifest}
 \alias{is_ready4fun_manifest}
-\title{ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{ready4 submodule class for encapsulating the metadata required for package set-up.}
 \usage{
 ready4fun_manifest(x = make_pt_ready4fun_manifest())
 
@@ -23,14 +23,14 @@ is_ready4fun_manifest(x)
 \item{subsequent_ls}{Subsequent (a list), Default: ready4fun_metadata_b()}
 }
 \value{
-A validated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+A validated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 
-A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
+A prototype for ready4 submodule class for encapsulating the metadata required for package set-up.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+A logical value, TRUE if a valid instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+Create a new valid instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \details{
 Package set-up manifest.

@@ -21,6 +21,6 @@ add_indef_artl_to_item(
 Indefinite item (a character vector)
 }
 \description{
-add_indef_artl_to_item() is an Add function that updates an object by adding new values to new or empty fields Specifically, this function implements an algorithm to add indefinite article to item. The function returns Indefinite item (a character vector).
+add_indef_artl_to_item() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add indefinite article to item. The function returns Indefinite item (a character vector).
 }
 \keyword{internal}

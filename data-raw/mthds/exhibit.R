@@ -14,14 +14,9 @@ exhibit.ready4fun_abbreviations <- function(x,
     var_desc_chr <- var_desc_chr[select_int]
   }
   x %>%
-    print_from_chunk(
-      caption_1L_chr = caption_1L_chr,
-      mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
-      output_type_1L_chr = output_type_1L_chr,
-      use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
-      var_desc_chr = var_desc_chr,
-      ...
-    )
+    ready4show::print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
+                                 output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
+                                 var_desc_chr = var_desc_chr, ...)
 }
 exhibit.ready4fun_functions <- function(x,
                                         caption_1L_chr = NULL,
@@ -39,14 +34,9 @@ exhibit.ready4fun_functions <- function(x,
     var_desc_chr <- var_desc_chr[select_int]
   }
   x %>%
-    print_from_chunk(
-      caption_1L_chr = caption_1L_chr,
-      mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
-      output_type_1L_chr = output_type_1L_chr,
-      use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
-      var_desc_chr = var_desc_chr,
-      ...
-    )
+    ready4show::print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
+                                 output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
+                                 var_desc_chr = var_desc_chr, ...)
 }
 exhibit.ready4fun_objects <- function(x,
                                       caption_1L_chr = NULL,
@@ -64,12 +54,7 @@ exhibit.ready4fun_objects <- function(x,
     var_desc_chr <- var_desc_chr[select_int]
   }
   x %>%
-    print_from_chunk(
-      caption_1L_chr = caption_1L_chr,
-      mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
-      output_type_1L_chr = output_type_1L_chr,
-      use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
-      var_desc_chr = var_desc_chr,
-      ...
-    )
+    ready4show::print_from_chunk(caption_1L_chr = caption_1L_chr, mkdn_tbl_ref_1L_chr = mkdn_tbl_ref_1L_chr,
+                                 output_type_1L_chr = output_type_1L_chr, use_lbls_as_col_nms_1L_lgl = use_lbls_as_col_nms_1L_lgl,
+                                 var_desc_chr = var_desc_chr, ...)
 }

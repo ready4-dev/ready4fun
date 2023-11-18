@@ -4,7 +4,7 @@
 \alias{ready4fun_executor}
 \alias{make_pt_ready4fun_executor}
 \alias{is_ready4fun_executor}
-\title{ready4 S3 class for list object specifying function arguments and function.}
+\title{ready4 submodule class for list object specifying function arguments and function.}
 \usage{
 ready4fun_executor(x = make_pt_ready4fun_executor())
 
@@ -20,14 +20,14 @@ is_ready4fun_executor(x)
 \item{fn}{Function (a function), Default: identity}
 }
 \value{
-A validated instance of the ready4 S3 class for list object specifying function arguments and function.
+A validated instance of the ready4 submodule class for list object specifying function arguments and function.
 
-A prototype for ready4 S3 class for list object specifying function arguments and function.
+A prototype for ready4 submodule class for list object specifying function arguments and function.
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for list object specifying function arguments and function.
+A logical value, TRUE if a valid instance of the ready4 submodule class for list object specifying function arguments and function.
 }
 \description{
-Create a new valid instance of the ready4 S3 class for list object specifying function arguments and function.
+Create a new valid instance of the ready4 submodule class for list object specifying function arguments and function.
 }
 \details{
 Function and function arguments pair.

@@ -1,25 +1,35 @@
-get_abbrs <- function(text_1L_chr = character(0), # Move to ready4fun and make method.
+get_abbrs <- function(what_1L_chr = character(0),
+                      type_1L_chr = c("abbreviation","extension"),
                       abbreviations_lup = NULL,
                       gh_repo_1L_chr = "ready4-dev/ready4",
                       gh_tag_1L_chr = "Documentation_0.0",
-                      search_descs_1L_lgl = T) {
+                      dv_nm_1L_chr = NA_character_,
+                      dv_ds_metadata_ls = list(list()),
+                      dv_ds_nm_1L_chr = NA_character_,
+                      dv_server_1L_chr = NA_character_,
+                      dv_url_pfx_1L_chr = NA_character_,
+                      search_descs_1L_lgl = deprecated()) {
+  type_1L_chr <- match.arg(type_1L_chr)
+  search_descs_1L_lgl <- ifelse(type_1L_chr == "extension",F,T)
     if (is.null(abbreviations_lup)) {
     abbreviations_lup <- ready4use::Ready4useRepos(
+      dv_nm_1L_chr = dv_nm_1L_chr,
+      dv_ds_metadata_ls = dv_ds_metadata_ls,
+      dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+      dv_server_1L_chr = dv_server_1L_chr,
+      dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
       gh_repo_1L_chr = gh_repo_1L_chr,
       gh_tag_1L_chr = gh_tag_1L_chr
     ) %>%
-      ingest(
-        fls_to_ingest_chr = c("abbreviations_lup"),
-        metadata_1L_lgl = F
-      )
+      ready4::ingest(fls_to_ingest_chr = c("abbreviations_lup"), metadata_1L_lgl = F)
     }
-  if(!identical(text_1L_chr, character(0))){
+  if(!identical(what_1L_chr, character(0))){
     if (!search_descs_1L_lgl) {
       abbreviations_lup <- abbreviations_lup %>%
-        dplyr::filter(short_name_chr %>% purrr::map_lgl(~ startsWith(.x, text_1L_chr)))
+        dplyr::filter(short_name_chr %>% purrr::map_lgl(~ startsWith(.x, what_1L_chr)))
     } else {
       abbreviations_lup <- abbreviations_lup %>%
-        dplyr::filter(long_name_chr %>% purrr::map_lgl(~ stringr::str_detect(.x, text_1L_chr)))
+        dplyr::filter(long_name_chr %>% purrr::map_lgl(~ stringr::str_detect(.x, what_1L_chr)))
     }
   }
   return(abbreviations_lup)
@@ -81,7 +91,6 @@ get_dev_pkg_nm <- function(path_to_pkg_rt_1L_chr = ".") {
   dev_pkg_nm_1L_chr <- readLines(paste0(path_to_pkg_rt_1L_chr, "/DESCRIPTION"))[1] %>% stringr::str_sub(start = 10)
   return(dev_pkg_nm_1L_chr)
 }
-
 get_fn_args <- function(fn) {
   fn_args_chr <- as.list(args(fn)) %>%
     names() %>%
@@ -95,6 +104,43 @@ get_fn_nms_in_file <- function(path_1L_chr) {
   local_chr <- ls()
   local_chr <- local_chr[local_chr %>% purrr::map_lgl(~ is.function(eval(parse(text = .x))))]
   return(local_chr)
+}
+get_fn_types <- function(dv_nm_1L_chr = NA_character_,
+                         dv_ds_metadata_ls = list(list()),
+                         dv_ds_nm_1L_chr = NA_character_,
+                         dv_server_1L_chr = NA_character_,
+                         dv_url_pfx_1L_chr = NA_character_,
+                         gh_repo_1L_chr = "ready4-dev/ready4",
+                         gh_tag_1L_chr = "Documentation_0.0",
+                         type_1L_chr = c("submodule","simple","partial"),
+                         what_1L_chr = c("regular","method","all")){
+  type_1L_chr <- match.arg(type_1L_chr)
+  what_1L_chr <- match.arg(what_1L_chr)
+  fn_types_lup <- ready4use::Ready4useRepos(dv_nm_1L_chr = dv_nm_1L_chr,
+                                            dv_ds_metadata_ls = dv_ds_metadata_ls,
+                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                            dv_server_1L_chr = dv_server_1L_chr,
+                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                            fl_nms_chr = "fn_types_lup",
+                                            gh_repo_1L_chr = gh_repo_1L_chr,
+                                            gh_tag_1L_chr = gh_tag_1L_chr) %>%
+    ready4::ingest(fls_to_ingest_chr = "fn_types_lup", metadata_1L_lgl = F)
+  if(what_1L_chr %in% c("regular")){
+    fn_types_lup <- dplyr::filter(fn_types_lup, !is_generic_lgl)
+  }
+  if(what_1L_chr == "method"){
+    fn_types_lup <- dplyr::filter(fn_types_lup, is_generic_lgl)
+  }
+  if(type_1L_chr == "submodule"){
+    fn_types_lup <- ready4fun_functions(fn_types_lup)
+  }
+  if(type_1L_chr == "partial"){
+    fn_types_lup <- fn_types_lup %>% dplyr::select(fn_type_nm_chr, fn_type_desc_chr, is_method_lgl)
+  }
+  if(type_1L_chr == "simple"){
+    fn_types_lup <- fn_types_lup %>% dplyr::select(fn_type_nm_chr, fn_type_desc_chr)
+  }
+  return(fn_types_lup)
 }
 get_mthd_title <- function(mthd_nm_1L_chr,
                            pkg_nm_1L_chr = "ready4") {
@@ -316,6 +362,35 @@ get_new_fn_types <- function(pkg_setup_ls, # NOTE: Needs to be updated to read S
       setdiff(pkg_setup_ls$subsequent_ls$fn_types_lup$fn_type_nm_chr)
   }
   return(new_fn_types_chr)
+}
+get_obj_types <- function(dv_nm_1L_chr = NA_character_,
+                          dv_ds_metadata_ls = list(list()),
+                          dv_ds_nm_1L_chr = NA_character_,
+                          dv_server_1L_chr = NA_character_,
+                          dv_url_pfx_1L_chr = NA_character_,
+                          gh_repo_1L_chr = "ready4-dev/ready4",
+                          gh_tag_1L_chr = "Documentation_0.0",
+                          type_1L_chr = c("submodule","tibble"),
+                          what_1L_chr = c("seed","all")){
+  type_1L_chr <- match.arg(type_1L_chr)
+  what_1L_chr <- match.arg(what_1L_chr)
+  obj_type_lup <- ready4use::Ready4useRepos(dv_nm_1L_chr = dv_nm_1L_chr,
+                                            dv_ds_metadata_ls = dv_ds_metadata_ls,
+                                            dv_ds_nm_1L_chr = dv_ds_nm_1L_chr,
+                                            dv_server_1L_chr = dv_server_1L_chr,
+                                            dv_url_pfx_1L_chr = dv_url_pfx_1L_chr,
+                                            fl_nms_chr = ifelse(what_1L_chr == "seed","seed_obj_type_lup","object_type_lup"),
+                                            gh_repo_1L_chr = gh_repo_1L_chr,
+                                            gh_tag_1L_chr = gh_tag_1L_chr) %>%
+    ready4::ingest(fls_to_ingest_chr = ifelse(what_1L_chr == "seed","seed_obj_type_lup","object_type_lup"), metadata_1L_lgl = F)
+  if(type_1L_chr == "submodule"){
+    if(what_1L_chr == "seed"){
+      obj_type_lup <- ready4fun_objects(obj_type_lup)
+    }else{
+      obj_type_lup <- ready4fun_abbreviations(obj_type_lup)
+    }
+  }
+  return(obj_type_lup)
 }
 get_obj_type_new_cses <- function(updated_obj_type_lup,
                                   dv_ds_nm_1L_chr = "ready4-dev/ready4",

@@ -1,18 +1,18 @@
 
-#' ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @description Create a new valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @param x A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up., Default: make_pt_ready4fun_manifest()
-#' @return A validated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+#' ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @description Create a new valid instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @param x A prototype for the ready4 submodule class for encapsulating the metadata required for package set-up., Default: make_pt_ready4fun_manifest()
+#' @return A validated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @details Package set-up manifest.
 #' @rdname ready4fun_manifest
 #' @export 
 ready4fun_manifest <- function(x = make_pt_ready4fun_manifest()){ 
 validate_ready4fun_manifest(make_new_ready4fun_manifest(x))
 }
-#' make new ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @description Create a new unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @param x A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @return An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+#' make new ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @description Create a new unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @param x A prototype for the ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @return An unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @details Package set-up manifest.
 #' @rdname make_new_ready4fun_manifest
 #' @export 
@@ -23,10 +23,10 @@ class(x) <- append(c("ready4fun_manifest",setdiff(make_pt_ready4fun_manifest() %
 class(x))
 x
 }
-#' make prototype ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
+#' make prototype ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param initial_ls Initial (a list), Default: ready4fun_metadata_a()
 #' @param subsequent_ls Subsequent (a list), Default: ready4fun_metadata_b()
-#' @return A prototype for ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @return A prototype for ready4 submodule class for encapsulating the metadata required for package set-up.
 #' 
 #' @rdname ready4fun_manifest
 #' @export 
@@ -38,10 +38,10 @@ args_ls <- list(initial_ls = initial_ls,
 subsequent_ls = subsequent_ls) %>% ready4::update_pt_fn_args_ls()
 rlang::exec(list,!!!args_ls)
 }
-#' validate ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @description Validate an instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @param x An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
-#' @return A prototpe for ready4 S3 class for encapsulating the metadata required for package set-up.
+#' validate ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @description Validate an instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @param x An unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
+#' @return A prototpe for ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @details Package set-up manifest.
 #' @rdname validate_ready4fun_manifest
 #' @export 
@@ -89,9 +89,9 @@ call. = FALSE)
 }
 
 x}
-#' is ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.
+#' is ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param x An object of any type
-#' @return A logical value, TRUE if a valid instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @return A logical value, TRUE if a valid instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 #' 
 #' @rdname ready4fun_manifest
 #' @export 

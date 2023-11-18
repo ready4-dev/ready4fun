@@ -26,7 +26,7 @@ is_ready4fun_objects(x)
 
 \item{atomic_element_lgl}{Atomic element (a logical vector), Default: logical(0)}
 
-\item{r3_can_extend_lgl}{Ready4 S3 can extend (a logical vector), Default: logical(0)}
+\item{r3_can_extend_lgl}{Ready4 submodule can extend (a logical vector), Default: logical(0)}
 }
 \value{
 A validated instance of the Object types lookup table.

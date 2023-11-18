@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_description.R
 \name{validate_ready4fun_description}
 \alias{validate_ready4fun_description}
-\title{validate ready4fun package description ready4 S3 class for declaring package description file data.}
+\title{validate ready4fun package description ready4 submodule class for declaring package description file data.}
 \usage{
 validate_ready4fun_description(x)
 }
 \arguments{
-\item{x}{An unvalidated instance of the ready4 S3 class for declaring package description file data.}
+\item{x}{An unvalidated instance of the ready4 submodule class for declaring package description file data.}
 }
 \value{
-A prototpe for ready4 S3 class for declaring package description file data.
+A prototpe for ready4 submodule class for declaring package description file data.
 }
 \description{
-Validate an instance of the ready4 S3 class for declaring package description file data.
+Validate an instance of the ready4 submodule class for declaring package description file data.
 }
 \details{
 Package description metadata.

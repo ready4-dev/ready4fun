@@ -7,21 +7,13 @@ renew.ready4fun_abbreviations <- function(x,
                                           slice_indcs_int = NA_integer_) {
   x <- ready4::update_tb_r3(x,
     filter_cdn_1L_chr = filter_cdn_1L_chr,
-    slice_indcs_int = slice_indcs_int
-  )
-  x <- dplyr::bind_rows(
-    x,
-    tibble::tibble(
-      short_name_chr = short_name_chr,
-      long_name_chr = long_name_chr,
-      plural_lgl = plural_lgl
-    )
-  )
+    slice_indcs_int = slice_indcs_int)
+  x <- dplyr::bind_rows(x,
+                        tibble::tibble(short_name_chr = short_name_chr, long_name_chr = long_name_chr, plural_lgl = plural_lgl))
+  x <- dplyr::filter(x, !is.na(.data$short_name_chr))
+  x <- dplyr::filter(x, !is.na(.data$long_name_chr))
   if (!is.null(new_cases_r3)) {
-    x <- ready4::add_lups(x,
-      new_lup = new_cases_r3,
-      key_var_nm_1L_chr = "short_name_chr"
-    )
+    x <- ready4::add_lups(x, new_lup = new_cases_r3, key_var_nm_1L_chr = "short_name_chr")
   }
   return(x)
 }
@@ -50,7 +42,7 @@ renew.ready4fun_functions <- function(x,
       is_method_lgl = is_method_lgl
     )
   )
-  x <- dplyr::filter(x, !is.na(fn_type_nm_chr))
+  x <- dplyr::filter(x, !is.na(.data$fn_type_nm_chr))
   if (!is.null(new_cases_r3)) {
     x <- ready4::add_lups(x,
       new_lup = new_cases_r3,

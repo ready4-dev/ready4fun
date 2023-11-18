@@ -4,7 +4,7 @@
 \alias{ready4fun_dataset}
 \alias{make_pt_ready4fun_dataset}
 \alias{is_ready4fun_dataset}
-\title{ready4 S3 class for declaring package description file data..1}
+\title{ready4 submodule class for declaring package description file data..1}
 \usage{
 ready4fun_dataset(x = make_pt_ready4fun_dataset())
 
@@ -47,14 +47,14 @@ is_ready4fun_dataset(x)
 \item{vars_ls}{Variables (a list), Default: list()}
 }
 \value{
-A validated instance of the ready4 S3 class for declaring package description file data..1
+A validated instance of the ready4 submodule class for declaring package description file data..1
 
-A prototype for ready4 S3 class for declaring package description file data..1
+A prototype for ready4 submodule class for declaring package description file data..1
 
-A logical value, TRUE if a valid instance of the ready4 S3 class for declaring package description file data..1
+A logical value, TRUE if a valid instance of the ready4 submodule class for declaring package description file data..1
 }
 \description{
-Create a new valid instance of the ready4 S3 class for declaring package description file data..1
+Create a new valid instance of the ready4 submodule class for declaring package description file data..1
 }
 \details{
 Package datasets metadata.

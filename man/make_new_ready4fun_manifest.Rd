@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_manifest.R
 \name{make_new_ready4fun_manifest}
 \alias{make_new_ready4fun_manifest}
-\title{make new ready4fun package manifest ready4 S3 class for encapsulating the metadata required for package set-up.}
+\title{make new ready4fun package manifest ready4 submodule class for encapsulating the metadata required for package set-up.}
 \usage{
 make_new_ready4fun_manifest(x)
 }
 \arguments{
-\item{x}{A prototype for the ready4 S3 class for encapsulating the metadata required for package set-up.}
+\item{x}{A prototype for the ready4 submodule class for encapsulating the metadata required for package set-up.}
 }
 \value{
-An unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+An unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \description{
-Create a new unvalidated instance of the ready4 S3 class for encapsulating the metadata required for package set-up.
+Create a new unvalidated instance of the ready4 submodule class for encapsulating the metadata required for package set-up.
 }
 \details{
 Package set-up manifest.

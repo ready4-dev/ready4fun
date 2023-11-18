@@ -13,6 +13,6 @@ get_fn_nms_in_file(path_1L_chr)
 Local (a character vector)
 }
 \description{
-get_fn_nms_in_file() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get function names in file. The function returns Local (a character vector).
+get_fn_nms_in_file() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function names in file. The function returns Local (a character vector).
 }
 \keyword{internal}

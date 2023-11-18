@@ -13,6 +13,6 @@ get_return_obj_nm(fn)
 Return (a character vector of length one)
 }
 \description{
-get_return_obj_nm() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get return object name. The function returns Return (a character vector of length one).
+get_return_obj_nm() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get return object name. The function returns Return (a character vector of length one).
 }
 \keyword{internal}

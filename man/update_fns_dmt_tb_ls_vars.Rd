@@ -19,6 +19,6 @@ update_fns_dmt_tb_ls_vars(fns_dmt_tb, data_1L_chr, new_ls, append_1L_lgl)
 Functions documentation (a tibble)
 }
 \description{
-update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes Specifically, this function implements an algorithm to update functions documentation tibble list variables. The function returns Functions documentation (a tibble).
+update_fns_dmt_tb_ls_vars() is an Update function that edits an object, while preserving core object attributes. Specifically, this function implements an algorithm to update functions documentation tibble list variables. The function returns Functions documentation (a tibble).
 }
 \keyword{internal}

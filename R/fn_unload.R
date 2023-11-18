@@ -1,5 +1,5 @@
 #' Unload packages
-#' @description unload_packages() is an Unload function that performs a custom detaching of a package from the search path Specifically, this function implements an algorithm to unload packages. The function is called for its side effects and does not return a value.
+#' @description unload_packages() is an Unload function that performs a custom detaching of a package from the search path. Specifically, this function implements an algorithm to unload packages. The function is called for its side effects and does not return a value.
 #' @param package_chr Package (a character vector)
 #' @return NULL
 #' @rdname unload_packages

@@ -10,10 +10,10 @@ authorFunctions.ready4fun_manifest(x, list_generics_1L_lgl = T)
 \S4method{authorFunctions}{ready4fun_manifest}(x, list_generics_1L_lgl = T)
 }
 \arguments{
-\item{x}{An instance of ready4 S3 class for encapsulating the metadata required for package set-up.}
+\item{x}{An instance of \code{ready4fun_manifest}, a ready4 submodule class for encapsulating the metadata required for package set-up.}
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: T}
 }
 \description{
-authorFunctions.ready4fun_manifest() is an authorFunctions method that authors and saves files necessary for creating and documenting functions This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+authorFunctions.ready4fun_manifest() is an authorFunctions method that authors and saves files necessary for creating and documenting functions. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 }

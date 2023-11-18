@@ -34,7 +34,7 @@ write_new_obj_types(
 
 \item{pfx_rgx}{Prefix (a regular expression vector), Default: 'NA'}
 
-\item{r3_can_extend_lgl}{Ready4 S3 can extend (a logical vector), Default: F}
+\item{r3_can_extend_lgl}{Ready4 submodule can extend (a logical vector), Default: F}
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
@@ -42,6 +42,6 @@ write_new_obj_types(
 Package setup (a list)
 }
 \description{
-write_new_obj_types() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write new object types. The function returns Package setup (a list).
+write_new_obj_types() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write new object types. The function returns Package setup (a list).
 }
 \keyword{internal}

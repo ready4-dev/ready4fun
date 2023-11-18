@@ -33,6 +33,6 @@ write_clss(
 Package setup (a list)
 }
 \description{
-write_clss() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
+write_clss() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write classes. The function returns Package setup (a list).
 }
 \keyword{internal}

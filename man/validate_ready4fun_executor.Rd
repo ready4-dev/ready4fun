@@ -2,18 +2,18 @@
 % Please edit documentation in R/C3_ready4fun_executor.R
 \name{validate_ready4fun_executor}
 \alias{validate_ready4fun_executor}
-\title{validate ready4fun package executor ready4 S3 class for list object specifying function arguments and function.}
+\title{validate ready4fun package executor ready4 submodule class for list object specifying function arguments and function.}
 \usage{
 validate_ready4fun_executor(x)
 }
 \arguments{
-\item{x}{An unvalidated instance of the ready4 S3 class for list object specifying function arguments and function.}
+\item{x}{An unvalidated instance of the ready4 submodule class for list object specifying function arguments and function.}
 }
 \value{
-A prototpe for ready4 S3 class for list object specifying function arguments and function.
+A prototpe for ready4 submodule class for list object specifying function arguments and function.
 }
 \description{
-Validate an instance of the ready4 S3 class for list object specifying function arguments and function.
+Validate an instance of the ready4 submodule class for list object specifying function arguments and function.
 }
 \details{
 Function and function arguments pair.

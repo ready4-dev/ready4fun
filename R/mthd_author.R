@@ -1,6 +1,6 @@
 #' Author and save files
-#' @description author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
-#' @param x An instance of ready4 S3 class for encapsulating the metadata required for package set-up.
+#' @description author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+#' @param x An instance of `ready4fun_manifest`, a ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param append_1L_lgl Append (a logical vector of length one), Default: F
 #' @param consent_1L_chr Consent (a character vector of length one), Default: ''
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
@@ -75,8 +75,8 @@ author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = ""
 #' @importFrom ready4 author
 methods::setMethod("author", methods::className("ready4fun_manifest", package = "ready4fun"), author.ready4fun_manifest)
 #' Author and save files
-#' @description author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations This method is implemented for the ready4 S3 class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
-#' @param x An instance of ready4 S3 class for package metadata required for initial package set-up step.
+#' @description author.ready4fun_metadata_a() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 submodule class for package metadata required for initial package set-up step. The function is called for its side effects and does not return a value.
+#' @param x An instance of `ready4fun_metadata_a`, a ready4 submodule class for package metadata required for initial package set-up step.
 #' @param consent_1L_chr Consent (a character vector of length one), Default: ''
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @return NULL

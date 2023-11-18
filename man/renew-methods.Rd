@@ -108,7 +108,7 @@ renew.ready4fun_objects(
 )
 }
 \arguments{
-\item{x}{An instance of Object types lookup table.}
+\item{x}{An instance of \code{ready4fun_objects}, a Object types lookup table.}
 
 \item{short_name_chr}{Short name (a character vector), Default: 'NA'}
 
@@ -118,7 +118,7 @@ renew.ready4fun_objects(
 
 \item{filter_cdn_1L_chr}{Filter condition (a character vector of length one), Default: 'NA'}
 
-\item{new_cases_r3}{New cases (a ready4 S3), Default: NULL}
+\item{new_cases_r3}{New cases (a ready4 submodule), Default: NULL}
 
 \item{slice_indcs_int}{Slice indices (an integer vector), Default: NA}
 
@@ -154,7 +154,7 @@ renew.ready4fun_objects(
 
 \item{atomic_element_lgl}{Atomic element (a logical vector), Default: NA}
 
-\item{r3_can_extend_lgl}{Ready4 S3 can extend (a logical vector), Default: NA}
+\item{r3_can_extend_lgl}{Ready4 submodule can extend (a logical vector), Default: NA}
 }
 \value{
 x (An object)
@@ -166,11 +166,11 @@ x (An object)
 x (An object)
 }
 \description{
-renew.ready4fun_abbreviations() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the ready4 S3 class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
+renew.ready4fun_abbreviations() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 submodule class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_functions() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
+renew.ready4fun_functions() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the ready4 S3 class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
+renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 
-renew.ready4fun_objects() is a renew method that renews an instance of a class by updating it with new data This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
+renew.ready4fun_objects() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
 }

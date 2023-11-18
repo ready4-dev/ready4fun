@@ -42,6 +42,6 @@ get_new_abbrs(
 New abbreviations (a character vector)
 }
 \description{
-get_new_abbrs() is a Get function that extracts data from an object Specifically, this function implements an algorithm to get new abbreviations. The function returns New abbreviations (a character vector).
+get_new_abbrs() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get new abbreviations. The function returns New abbreviations (a character vector).
 }
 \keyword{internal}

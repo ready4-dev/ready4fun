@@ -1,5 +1,5 @@
 #' Remove object type from name
-#' @description remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements Specifically, this function implements an algorithm to remove object type from name. The function returns Names (a character vector).
+#' @description remove_obj_type_from_nm() is a Remove function that edits an object, removing a specified element or elements. Specifically, this function implements an algorithm to remove object type from name. The function returns Names (a character vector).
 #' @param nms_chr Names (a character vector)
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL

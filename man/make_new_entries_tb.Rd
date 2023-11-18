@@ -18,12 +18,12 @@ make_new_entries_tb(
 
 \item{atomic_element_lgl}{Atomic element (a logical vector), Default: F}
 
-\item{r3_can_extend_lgl}{Ready4 S3 can extend (a logical vector), Default: F}
+\item{r3_can_extend_lgl}{Ready4 submodule can extend (a logical vector), Default: F}
 }
 \value{
 New entries (a tibble)
 }
 \description{
-make_new_entries_tb() is a Make function that creates a new R object Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
+make_new_entries_tb() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make new entries tibble. The function returns New entries (a tibble).
 }
 \keyword{internal}

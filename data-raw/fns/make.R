@@ -641,12 +641,8 @@ make_fn_dmt_tbl <- function(fns_path_chr,
     )
   }
   fn_dmt_tbl_tb <- make_fn_dmt_tbl_tmpl(fns_path_chr, fns_dir_chr = fns_dir_chr, fns_env_ls = fns_env_ls, fn_types_lup = fn_types_lup,
-                                        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn
-  )
-  if (purrr::map_lgl(
-    custom_dmt_ls,
-    ~ !is.null(.x)
-  ) %>% any()) {
+                                        abbreviations_lup = abbreviations_lup, object_type_lup = object_type_lup, test_for_write_R_warning_fn = test_for_write_R_warning_fn)
+  if (purrr::map_lgl(custom_dmt_ls, ~ !is.null(.x)) %>% any()) {
     args_ls <- append(custom_dmt_ls, list(append_1L_lgl = append_1L_lgl)) %>% purrr::discard(is.null)
     fn_dmt_tbl_tb <- rlang::exec(update_fns_dmt_tb, fns_dmt_tb = fn_dmt_tbl_tb, !!!args_ls)
   }
@@ -1265,12 +1261,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
   }
   if (fn_type_1L_chr == "set_class" | startsWith(fn_type_1L_chr, "s3_")) {
     if (fn_type_1L_chr %in% c("set_class", "s3_valid_instance")) {
-      short_class_desc_1L_chr <- ready4::get_from_lup_obj(abbreviations_lup,
-        match_var_nm_1L_chr = "short_name_chr",
-        match_value_xx = fn_name_1L_chr,
-        target_var_nm_1L_chr = "long_name_chr",
-        evaluate_1L_lgl = F
-      )
+      short_class_desc_1L_chr <- ready4::get_from_lup_obj(abbreviations_lup, match_var_nm_1L_chr = "short_name_chr", match_value_xx = fn_name_1L_chr, target_var_nm_1L_chr = "long_name_chr", evaluate_1L_lgl = F)
     }
     if (fn_type_1L_chr == "s3_valid_instance") {
       s3_class_main_1L_chr <- short_class_desc_1L_chr %>% `names<-`(fn_name_1L_chr)
@@ -1288,12 +1279,7 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
       s3_class_main_1L_chr <- stringr::str_replace(fn_name_1L_chr, "is_", "") %>% `names<-`(fn_name_1L_chr)
     }
     if (!fn_type_1L_chr %in% c("set_class", "s3_valid_instance")) {
-      short_class_desc_1L_chr <- ready4::get_from_lup_obj(abbreviations_lup,
-        match_var_nm_1L_chr = "short_name_chr",
-        match_value_xx = s3_class_main_1L_chr,
-        target_var_nm_1L_chr = "long_name_chr",
-        evaluate_1L_lgl = F
-      )
+      short_class_desc_1L_chr <- ready4::get_from_lup_obj(abbreviations_lup, match_var_nm_1L_chr = "short_name_chr", match_value_xx = s3_class_main_1L_chr, target_var_nm_1L_chr = "long_name_chr", evaluate_1L_lgl = F)
     }
     if (fn_type_1L_chr == "set_class") {
       desc_start_1L_chr <- "Create a new S4 object of the class:"
@@ -1324,7 +1310,6 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
       output_txt_1L_chr <- paste0("A logical value, TRUE if a valid instance of the ", short_class_desc_1L_chr)
     }
   }
-
   if (fn_type_1L_chr %in% c("gen_get_slot", "meth_get_slot")) {
     desc_start_1L_chr <- "Get the value of the slot "
     output_txt_1L_chr <- "A XXX ..."
@@ -1343,18 +1328,11 @@ make_new_fn_dmt <- function(fn_type_1L_chr,
     desc_start_1L_chr <- fn_desc_1L_chr
     output_txt_1L_chr <- fn_out_type_1L_chr
     if (fn_type_1L_chr == "meth_std_s3_mthd") {
-      x_param_desc_1L_chr <- paste0(
-        "An instance of ",
-        stringr::str_sub(fn_name_1L_chr,
-          start = (1 + stringi::stri_locate_last_fixed(fn_name_1L_chr, ".")[1, 1])
-        ) %>%
-          ready4::get_from_lup_obj(abbreviations_lup,
-            match_var_nm_1L_chr = "short_name_chr",
-            match_value_xx = .,
-            target_var_nm_1L_chr = "long_name_chr",
-            evaluate_1L_lgl = F
-          )
-      )
+      submodule_1L_chr <- stringr::str_sub(fn_name_1L_chr,
+                                           start = (1 + stringi::stri_locate_last_fixed(fn_name_1L_chr, ".")[1, 1]))
+      x_param_desc_1L_chr <- paste0("An instance of `", submodule_1L_chr,"`, a ", ready4::get_from_lup_obj(abbreviations_lup, match_var_nm_1L_chr = "short_name_chr",
+                                                                                                           match_value_xx = submodule_1L_chr, target_var_nm_1L_chr = "long_name_chr",
+                                                                                                           evaluate_1L_lgl = F))
     }
     if (fn_type_1L_chr == "gen_std_s3_mthd") {
       x_param_desc_1L_chr <- "An object"
@@ -1423,7 +1401,7 @@ make_obj_lup_spine <- function(seed_obj_type_lup = get_rds_from_pkg_dmt(
     seed_obj_type_lup <- tibble::tibble(
       short_name_chr = c("df", "env", "fn", "ls", "plt", "r3", "r4", "s3", "s4", "sf", "tb", "arr", "chr", "dbl", "dtm", "fct", "int", "lgl", "lup", "mat", "mdl", "prsn", "rgx"),
       long_name_chr = c(
-        "data.frame", "environment", "function", "list", "plot", "ready4 S3", "ready4 S4", "S3", "S4", "simple features object",
+        "data.frame", "environment", "function", "list", "plot", "ready4 submodule", "ready4 module", "S3", "S4", "simple features object",
         "tibble", "array", "character", "double", "date", "factor", "integer", "logical", "lookup table", "matrix", "model", "person", "regular expression"
       ),
       atomic_element_lgl = c(rep(F, 12), rep(T, 6), rep(F, 4), T),
@@ -1470,7 +1448,7 @@ make_obj_lup <- function(obj_lup_spine = make_obj_lup_spine()) {
           "_r3"
         ),
         long_name_chr = paste0(
-          "ready4 S3 extension of ",
+          "ready4 submodule extension of ",
           long_name_chr,
           purrr::map_chr(
             atomic_element_lgl,
@@ -1508,7 +1486,8 @@ make_obj_lup <- function(obj_lup_spine = make_obj_lup_spine()) {
     )
   )
   obj_tb <- obj_tb %>%
-    dplyr::mutate(plural_lgl = F)
+    dplyr::mutate(plural_lgl = F) %>%
+    dplyr::filter(!long_name_chr %>% startsWith("ready4 S4 collection of"))
   return(obj_tb)
 }
 make_pkg_desc_ls <- function(pkg_nm_1L_chr = get_dev_pkg_nm(),

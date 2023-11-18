@@ -6,7 +6,7 @@
 \usage{
 write_package(
   pkg_setup_ls,
-  append_1L_lgl = T,
+  append_1L_lgl = F,
   consent_1L_chr = "",
   dv_url_pfx_1L_chr = character(0),
   gh_prerelease_1L_lgl = T,
@@ -27,7 +27,7 @@ write_package(
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
 
-\item{append_1L_lgl}{Append (a logical vector of length one), Default: T}
+\item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 
 \item{consent_1L_chr}{Consent (a character vector of length one), Default: ''}
 
@@ -63,6 +63,6 @@ write_package(
 Package setup (a list)
 }
 \description{
-write_package() is a Write function that writes a file to a specified local directory Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
+write_package() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package. The function returns Package setup (a list).
 }
 \keyword{internal}

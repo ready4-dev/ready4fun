@@ -1457,7 +1457,7 @@ write_ns_imps_to_desc <- function(dev_pkgs_chr = NA_character_,
   }
 }
 write_package <- function(pkg_setup_ls,
-                          append_1L_lgl = T,
+                          append_1L_lgl = F,
                           consent_1L_chr = "",
                           dv_url_pfx_1L_chr = character(0),
                           gh_prerelease_1L_lgl = T,

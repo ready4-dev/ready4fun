@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_fn_types}
 \alias{get_fn_types}
-\title{Get function types}
+\title{Get supported function types}
 \usage{
 get_fn_types(
   dv_nm_1L_chr = NA_character_,
@@ -39,6 +39,5 @@ get_fn_types(
 Function types (a lookup table)
 }
 \description{
-get_fn_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function types. The function returns Function types (a lookup table).
+All functions authored with the \code{ready4} framework need to begin with a verb. The definitions of all meaningful verbs used in functions authored for a ready4 framework model implementation can be retrieved using \code{get_fn_types()}.
 }
-\keyword{internal}

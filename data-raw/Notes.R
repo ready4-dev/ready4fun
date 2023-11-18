@@ -8,25 +8,25 @@ Z <- Ready4useRepos(dv_nm_1L_chr = "ready4fw",
                     dv_server_1L_chr = "dataverse.harvard.edu",
                     dv_ds_nm_1L_chr = "https://doi.org/10.7910/DVN/RIQTKK") %>%
   ingest()
-abbreviations_lup <- Y@b_Ready4useIngest@objects_ls$abbreviations_lup %>%
-  dplyr::filter(!long_name_chr %>% startsWith("ready4 S4 collection of")) %>%
-  dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
-                                                 short_name_chr == "r4" ~ "ready4 module",
-                                                 T ~ long_name_chr)) %>%
-  dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S3","ready4 submodule"))) %>%
-  dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S4","ready4 module")))
-object_type_lup <- Y@b_Ready4useIngest@objects_ls$object_type_lup %>%
-  dplyr::filter(!long_name_chr %>% startsWith("ready4 S4 collection of")) %>%
-  dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
-                                                 short_name_chr == "r4" ~ "ready4 module",
-                                                 T ~ long_name_chr)) %>%
-  dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S3","ready4 submodule"))) %>%
-  dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S4","ready4 module")))
-#seed_obj_type_tb <- Y@b_Ready4useIngest@objects_ls$seed_obj_type_tb
-seed_obj_type_lup <- Y@b_Ready4useIngest@objects_ls$seed_obj_type_lup %>%
-  dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
-                                                 short_name_chr == "r4" ~ "ready4 module",
-                                                 T ~ long_name_chr))
+abbreviations_lup <- Y@b_Ready4useIngest@objects_ls$abbreviations_lup[order(Y@b_Ready4useIngest@objects_ls$abbreviations_lup$short_name_chr),]
+  # dplyr::filter(!long_name_chr %>% startsWith("ready4 S4 collection of")) %>%
+  # dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
+  #                                                short_name_chr == "r4" ~ "ready4 module",
+  #                                                T ~ long_name_chr)) %>%
+  # dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S3","ready4 submodule"))) %>%
+  # dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S4","ready4 module")))
+# object_type_lup <- Y@b_Ready4useIngest@objects_ls$object_type_lup %>%
+#   dplyr::filter(!long_name_chr %>% startsWith("ready4 S4 collection of")) %>%
+#   dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
+#                                                  short_name_chr == "r4" ~ "ready4 module",
+#                                                  T ~ long_name_chr)) %>%
+#   dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S3","ready4 submodule"))) %>%
+#   dplyr::mutate(long_name_chr = long_name_chr %>% purrr::map_chr(~stringr::str_replace_all(.x,"ready4 S4","ready4 module")))
+# #seed_obj_type_tb <- Y@b_Ready4useIngest@objects_ls$seed_obj_type_tb
+# seed_obj_type_lup <- Y@b_Ready4useIngest@objects_ls$seed_obj_type_lup %>%
+#   dplyr::mutate(long_name_chr = dplyr::case_when(short_name_chr == "r3" ~ "ready4 submodule",
+#                                                  short_name_chr == "r4" ~ "ready4 module",
+#                                                  T ~ long_name_chr))
 # fn_types_lup <- Y@b_Ready4useIngest@objects_ls$fn_types_lup
 # fn_types_lup$first_arg_desc_chr <- fn_types_lup$second_arg_desc_chr <- NA_character_
 # fn_types_lup <- fn_types_lup %>%
@@ -48,9 +48,10 @@ seed_obj_type_lup <- Y@b_Ready4useIngest@objects_ls$seed_obj_type_lup %>%
   #                                                   T ~ fn_type_desc_chr))
 #fn_types_lup$fn_type_desc_chr <- sub("[.]$", "", fn_types_lup$fn_type_desc_chr)
 Y <- renewSlot(Y,
-               new_val_xx = Ready4useIngest(objects_ls = list(abbreviations_lup = abbreviations_lup,
-                                                              object_type_lup = object_type_lup,
-                                                              seed_obj_type_lup = seed_obj_type_lup)),
+               new_val_xx = Ready4useIngest(objects_ls = list(abbreviations_lup = abbreviations_lup#,
+                                                              # object_type_lup = object_type_lup,
+                                                              # seed_obj_type_lup = seed_obj_type_lup
+                                                              )),
                slot_nm_1L_chr = "b_Ready4useIngest")
 Y <- share(Y,
            type_1L_chr = "prefer_gh")

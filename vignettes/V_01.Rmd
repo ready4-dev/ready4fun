@@ -85,7 +85,7 @@ class(z)
 ```
 
 ```{r abbs, tab.cap='Abbreviations', tab.id = 'abbs', results="asis"}
-exhibit(z, select_int = 1:2,scroll_box_args_ls = list(width = "100%"))
+exhibit(z %>% head(50), select_int = 1:2, scroll_box_args_ls = list(width = "100%"))
 ```
 
 The `ready4fun_abbreviations` submodule is searchable. It is therefore possible to see if an abbreviation has been defined for an existing word or phrase...

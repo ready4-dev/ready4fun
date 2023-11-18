@@ -1,5 +1,5 @@
 #' Get house style abbreviations
-#' @description An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs`.
+#' @description An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with `get_abbrs()`.
 #' @param what_1L_chr What (a character vector of length one), Default: character(0)
 #' @param type_1L_chr Type (a character vector of length one), Default: c("abbreviation", "extension")
 #' @param abbreviations_lup Abbreviations (a lookup table), Default: NULL
@@ -152,8 +152,8 @@ get_fn_nms_in_file <- function (path_1L_chr)
     local_chr <- local_chr[local_chr %>% purrr::map_lgl(~is.function(eval(parse(text = .x))))]
     return(local_chr)
 }
-#' Get function types
-#' @description get_fn_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get function types. The function returns Function types (a lookup table).
+#' Get supported function types
+#' @description All functions authored with the `ready4` framework need to begin with a verb. The definitions of all meaningful verbs used in functions authored for a ready4 framework model implementation can be retrieved using `get_fn_types()`.
 #' @param dv_nm_1L_chr Dataverse name (a character vector of length one), Default: 'NA'
 #' @param dv_ds_metadata_ls Dataverse dataset metadata (a list), Default: list(list())
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'NA'
@@ -169,7 +169,6 @@ get_fn_nms_in_file <- function (path_1L_chr)
 #' @importFrom ready4use Ready4useRepos
 #' @importFrom ready4 ingest
 #' @importFrom dplyr filter select
-#' @keywords internal
 get_fn_types <- function (dv_nm_1L_chr = NA_character_, dv_ds_metadata_ls = list(list()), 
     dv_ds_nm_1L_chr = NA_character_, dv_server_1L_chr = NA_character_, 
     dv_url_pfx_1L_chr = NA_character_, gh_repo_1L_chr = "ready4-dev/ready4", 
@@ -431,8 +430,8 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "read
     }
     return(obj_type_lup_new_cses_tb)
 }
-#' Get object types
-#' @description get_obj_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get object types. The function returns Object type (a lookup table).
+#' Get supported object types
+#' @description The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using `get_obj_types()`.
 #' @param dv_nm_1L_chr Dataverse name (a character vector of length one), Default: 'NA'
 #' @param dv_ds_metadata_ls Dataverse dataset metadata (a list), Default: list(list())
 #' @param dv_ds_nm_1L_chr Dataverse dataset name (a character vector of length one), Default: 'NA'
@@ -447,7 +446,6 @@ get_obj_type_new_cses <- function (updated_obj_type_lup, dv_ds_nm_1L_chr = "read
 #' @export 
 #' @importFrom ready4use Ready4useRepos
 #' @importFrom ready4 ingest
-#' @keywords internal
 get_obj_types <- function (dv_nm_1L_chr = NA_character_, dv_ds_metadata_ls = list(list()), 
     dv_ds_nm_1L_chr = NA_character_, dv_server_1L_chr = NA_character_, 
     dv_url_pfx_1L_chr = NA_character_, gh_repo_1L_chr = "ready4-dev/ready4", 

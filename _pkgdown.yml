@@ -37,6 +37,8 @@ reference:
 - title: "Functions"
 - contents:
   - get_abbrs
+  - get_fn_types
+  - get_obj_types
 - title: "Methods"
 - contents:
   - author.ready4fun_manifest

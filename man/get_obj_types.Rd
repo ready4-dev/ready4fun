@@ -2,7 +2,7 @@
 % Please edit documentation in R/fn_get.R
 \name{get_obj_types}
 \alias{get_obj_types}
-\title{Get object types}
+\title{Get supported object types}
 \usage{
 get_obj_types(
   dv_nm_1L_chr = NA_character_,
@@ -39,6 +39,5 @@ get_obj_types(
 Object type (a lookup table)
 }
 \description{
-get_obj_types() is a Get function that extracts data from an object. Specifically, this function implements an algorithm to get object types. The function returns Object type (a lookup table).
+The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using \code{get_obj_types()}.
 }
-\keyword{internal}

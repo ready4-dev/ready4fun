@@ -45,7 +45,7 @@ get_abbrs(
 Abbreviations (a lookup table)
 }
 \description{
-An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with \code{get_abbrs}.
+An aspect of the ready4 framework is a consistent house style for code. Retrieve details on framework abbreviations with \code{get_abbrs()}.
 }
 \examples{
 library(ready4)

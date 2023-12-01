@@ -1,7 +1,7 @@
 Package: ready4fun
 Title: Author and Document Functions that Implement Transferable Health
     Economic Model Algorithms
-Version: 0.0.0.9534
+Version: 0.0.0.9535
 Authors@R: c(
     person("Matthew", "Hamilton", , "matthew.hamilton1@monash.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7407-9194")),
@@ -47,7 +47,7 @@ Imports:
     pkgdown,
     purrr,
     readxl,
-    ready4 (>= 0.0.0.9133),
+    ready4 (>= 0.1.5.9000),
     ready4show (>= 0.0.0.9111),
     ready4use (>= 0.0.0.9231),
     rlang,

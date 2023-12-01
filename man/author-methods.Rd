@@ -48,6 +48,8 @@ author.ready4fun_metadata_a(x, consent_1L_chr = "", self_serve_1L_lgl = F)
 }
 \value{
 x (An object)
+
+No return value, called for side effects.
 }
 \description{
 author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.

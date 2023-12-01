@@ -1,7 +1,7 @@
 #' Unload packages
 #' @description unload_packages() is an Unload function that performs a custom detaching of a package from the search path. Specifically, this function implements an algorithm to unload packages. The function is called for its side effects and does not return a value.
 #' @param package_chr Package (a character vector)
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname unload_packages
 #' @export 
 #' @importFrom purrr discard map_lgl walk

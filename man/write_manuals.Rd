@@ -29,6 +29,9 @@ write_manuals(
 
 \item{pkg_desc_ls}{Package description (a list), Default: deprecated()}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_manuals() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write manuals. The function is called for its side effects and does not return a value.
 }

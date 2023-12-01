@@ -29,6 +29,9 @@ write_to_reset_pkg_files(
 
 \item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_to_reset_pkg_files() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to reset package files. The function is called for its side effects and does not return a value.
 }

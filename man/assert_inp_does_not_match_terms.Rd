@@ -11,6 +11,9 @@ assert_inp_does_not_match_terms(input_chr, exclude_if_match_chr)
 
 \item{exclude_if_match_chr}{Exclude if match (a character vector)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 assert_inp_does_not_match_terms() is an Assert function that validates that an object conforms to required condition(s). If the object does not meet all required conditions, program execution will be stopped and an error message provided. Specifically, this function implements an algorithm to assert input does not match terms. The function is called for its side effects and does not return a value.
 }

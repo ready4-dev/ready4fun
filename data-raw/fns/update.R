@@ -147,7 +147,10 @@ update_fn_dmt <- function(fn_tags_spine_ls,
         )
       )
     ) %>%
-    stringr::str_replace("OUTPUT_DESCRIPTION", new_tag_chr_ls$output_txt_1L_chr)
+    stringr::str_replace("OUTPUT_DESCRIPTION",
+                         ifelse(new_tag_chr_ls$output_txt_1L_chr == "NULL",
+                                "No return value, called for side effects.",
+                                new_tag_chr_ls$output_txt_1L_chr))
   fn_dmt_1L_chr <- fn_dmt_1L_chr %>%
     stringr::str_replace(
       "@details DETAILS",

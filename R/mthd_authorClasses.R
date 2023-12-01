@@ -4,7 +4,7 @@
 #' @param key_1L_chr Key (a character vector of length one), Default: NULL
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname authorClasses-methods
 #' @export 
 #' @importFrom ready4 authorClasses

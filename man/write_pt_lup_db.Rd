@@ -9,6 +9,9 @@ write_pt_lup_db(R_dir_1L_chr = "R")
 \arguments{
 \item{R_dir_1L_chr}{R directory (a character vector of length one), Default: 'R'}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_pt_lup_db() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write prototype lookup table database. The function is called for its side effects and does not return a value.
 }

@@ -7,7 +7,7 @@
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
 #' @param ... Additional arguments
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select
@@ -40,7 +40,7 @@ methods::setMethod("exhibit", methods::className("ready4fun_abbreviations", pack
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
 #' @param ... Additional arguments
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select
@@ -74,7 +74,7 @@ methods::setMethod("exhibit", methods::className("ready4fun_functions", package 
 #' @param select_int Select (an integer vector), Default: NA
 #' @param use_lbls_as_col_nms_1L_lgl Use labels as column names (a logical vector of length one), Default: T
 #' @param ... Additional arguments
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname exhibit-methods
 #' @export 
 #' @importFrom dplyr select

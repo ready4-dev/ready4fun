@@ -20,6 +20,9 @@ write_to_replace_fn_nms(
 
 \item{dev_pkg_nm_1L_chr}{Development package name (a character vector of length one), Default: get_dev_pkg_nm()}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_to_replace_fn_nms() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace function names. The function is called for its side effects and does not return a value.
 }

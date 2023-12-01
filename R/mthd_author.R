@@ -31,7 +31,7 @@ author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = ""
         ready4::authorFunctions(x, list_generics_1L_lgl = list_generics_1L_lgl)
         ready4::authorReport(x, key_1L_chr = key_1L_chr)
         write_fns_dmt_tb(x)
-        ready4::write_extra_pkgs_to_actions()
+        ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows")
         ready4::write_to_edit_workflow("pkgdown.yaml")
         if (!consent_1L_chr %in% c("Y", "N")) {
             consent_1_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to edit the file ", 
@@ -79,7 +79,7 @@ methods::setMethod("author", methods::className("ready4fun_manifest", package = 
 #' @param x An instance of `ready4fun_metadata_a`, a ready4 submodule class for package metadata required for initial package set-up step.
 #' @param consent_1L_chr Consent (a character vector of length one), Default: ''
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname author-methods
 #' @export 
 #' @importFrom rlang exec

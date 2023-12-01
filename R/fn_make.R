@@ -877,7 +877,7 @@ make_gtr_str_dmt_spine <- function (fn_type_1L_chr, fn_name_1L_chr, class_name_1
 #' @param key_1L_chr Key (a character vector of length one), Default: deprecated()
 #' @param object_type_lup Object type (a lookup table), Default: NULL
 #' @param server_1L_chr Server (a character vector of length one), Default: deprecated()
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname make_lines_for_fn_dmt
 #' @export 
 #' @keywords internal

@@ -1,7 +1,7 @@
 #' Add additional packages
 #' @description add_addl_pkgs() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add additional packages. The function is called for its side effects and does not return a value.
 #' @param addl_pkgs_ls Additional packages (a list)
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname add_addl_pkgs
 #' @export 
 #' @importFrom purrr walk2 walk
@@ -21,7 +21,7 @@ add_addl_pkgs <- function (addl_pkgs_ls)
 #' Add build ignore
 #' @description add_build_ignore() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add build ignore. The function is called for its side effects and does not return a value.
 #' @param build_ignore_ls Build ignore (a list)
-#' @return NULL
+#' @return No return value, called for side effects.
 #' @rdname add_build_ignore
 #' @export 
 #' @importFrom purrr walk

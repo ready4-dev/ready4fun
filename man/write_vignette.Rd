@@ -11,6 +11,9 @@ write_vignette(package_1L_chr, pkg_rt_dir_chr = ".")
 
 \item{pkg_rt_dir_chr}{Package root directory (a character vector), Default: '.'}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette. The function is called for its side effects and does not return a value.
 }

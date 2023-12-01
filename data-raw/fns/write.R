@@ -76,7 +76,7 @@ write_all_fn_dmt <- function(pkg_setup_ls,
   }
   if(dir.exists(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw/examples"))){
     if(!identical(list.files(paste0(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr,"/data-raw/examples")), character(0))){
-      ready4::write_examples()
+      ready4::write_examples(pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr)
     }
   }
   return(s4_mthds_ls)
@@ -230,6 +230,13 @@ write_and_doc_fn_fls <- function(pkg_setup_ls,
       write_ns_imps_to_desc(dev_pkgs_chr = dev_pkgs_chr, incr_ver_1L_lgl = .y)
       # devtools::load_all()
       if (make_pdfs_1L_lgl) {
+        if(!is.null(pkg_setup_ls$subsequent_ls$addl_pkgs_ls)){ # Add edited version of this to ready4fun
+          if(!is.null(pkg_setup_ls$subsequent_ls$addl_pkgs_ls$Suggests)){
+            ready4::write_conditional_tags(pkg_setup_ls$subsequent_ls$addl_pkgs_ls$Suggests,
+                                           path_to_pkg_root_1L_chr = pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr)
+            devtools::document()
+          }
+        }
         devtools::build_manual(path = gsub("\\\\", "/", .x))
       } # .x)
       s4_mthds_ls
@@ -1512,7 +1519,7 @@ write_package <- function(pkg_setup_ls,
     write_manuals(pkg_setup_ls = pkg_setup_ls, key_1L_chr = key_1L_chr, server_1L_chr = server_1L_chr)
     write_fns_dmt_tb(pkg_setup_ls, gh_prerelease_1L_lgl = gh_prerelease_1L_lgl, gh_repo_desc_1L_chr = gh_repo_desc_1L_chr, gh_tag_1L_chr = gh_tag_1L_chr)
     ready4::write_citation_cff(packageDescription(pkg_setup_ls$initial_ls$pkg_desc_ls$Package), citation_chr = readLines("inst/CITATION"))
-    ready4::write_extra_pkgs_to_actions()
+    ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows")
     ready4::write_to_edit_workflow("pkgdown.yaml")
     readLines("inst/R-CMD-check.yaml") %>% writeLines(con = ".github/workflows/R-CMD-check.yaml")
   }

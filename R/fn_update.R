@@ -117,7 +117,9 @@ update_fn_dmt <- function (fn_tags_spine_ls, new_tag_chr_ls, fn_name_1L_chr, fn_
             ifelse((fn_type_1L_chr %in% c("fn", "gen_std_s3_mthd", 
                 "meth_std_s3_mthd", "gen_std_s4_mthd", "meth_std_s4_mthd") | 
                 startsWith(fn_type_1L_chr, "s3_")), "", fn_tags_spine_ls$ref_slot_1L_chr))) %>% 
-        stringr::str_replace("OUTPUT_DESCRIPTION", new_tag_chr_ls$output_txt_1L_chr)
+        stringr::str_replace("OUTPUT_DESCRIPTION", ifelse(new_tag_chr_ls$output_txt_1L_chr == 
+            "NULL", "No return value, called for side effects.", 
+            new_tag_chr_ls$output_txt_1L_chr))
     fn_dmt_1L_chr <- fn_dmt_1L_chr %>% stringr::str_replace("@details DETAILS", 
         ifelse(fn_type_1L_chr == "s3_valid_instance" | ifelse(is.na(new_tag_chr_ls$fn_det_1L_chr), 
             F, ifelse(fn_type_1L_chr %in% c("s3_prototype", "s3_checker"), 

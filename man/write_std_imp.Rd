@@ -11,6 +11,9 @@ write_std_imp(R_dir_1L_chr = "R", package_1L_chr)
 
 \item{package_1L_chr}{Package (a character vector of length one)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_std_imp() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write standard import. The function is called for its side effects and does not return a value.
 }

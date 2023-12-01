@@ -84,6 +84,13 @@ exhibit.ready4fun_objects(
 
 \item{...}{Additional arguments}
 }
+\value{
+No return value, called for side effects.
+
+No return value, called for side effects.
+
+No return value, called for side effects.
+}
 \description{
 exhibit.ready4fun_abbreviations() is an exhibit method that exhibits features of a class instance by printing to console. This method is implemented for the ready4 submodule class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
 

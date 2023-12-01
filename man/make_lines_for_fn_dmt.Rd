@@ -71,6 +71,9 @@ make_lines_for_fn_dmt(
 
 \item{server_1L_chr}{Server (a character vector of length one), Default: deprecated()}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 make_lines_for_fn_dmt() is a Make function that creates a new R object. Specifically, this function implements an algorithm to make lines for function documentation. The function is called for its side effects and does not return a value.
 }

@@ -23,6 +23,9 @@ write_to_replace_sfx_pair(
 
 \item{dir_path_1L_chr}{Directory path (a character vector of length one), Default: 'NA'}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_to_replace_sfx_pair() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to replace suffix pair. The function is called for its side effects and does not return a value.
 }

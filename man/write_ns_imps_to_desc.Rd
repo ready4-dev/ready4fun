@@ -11,6 +11,9 @@ write_ns_imps_to_desc(dev_pkgs_chr = NA_character_, incr_ver_1L_lgl = T)
 
 \item{incr_ver_1L_lgl}{Increment version (a logical vector of length one), Default: T}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_ns_imps_to_desc() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write namespace imports to description. The function is called for its side effects and does not return a value.
 }

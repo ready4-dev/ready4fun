@@ -9,6 +9,9 @@ write_citation_fl(pkg_setup_ls)
 \arguments{
 \item{pkg_setup_ls}{Package setup (a list)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_citation_fl() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write citation file. The function is called for its side effects and does not return a value.
 }

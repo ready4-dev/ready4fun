@@ -9,6 +9,9 @@ add_addl_pkgs(addl_pkgs_ls)
 \arguments{
 \item{addl_pkgs_ls}{Additional packages (a list)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 add_addl_pkgs() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add additional packages. The function is called for its side effects and does not return a value.
 }

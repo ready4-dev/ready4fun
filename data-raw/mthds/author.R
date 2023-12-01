@@ -24,7 +24,7 @@ author.ready4fun_manifest <- function(x,
       key_1L_chr = key_1L_chr
     )
     write_fns_dmt_tb(x)
-    ready4::write_extra_pkgs_to_actions() # Add to author method once consent has been added to function.
+    ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows") # Add to author method once consent has been added to function.
     ready4::write_to_edit_workflow("pkgdown.yaml")
     if (!consent_1L_chr %in% c("Y", "N")) {
       consent_1_1L_chr <- make_prompt(

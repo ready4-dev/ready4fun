@@ -9,6 +9,9 @@ add_build_ignore(build_ignore_ls)
 \arguments{
 \item{build_ignore_ls}{Build ignore (a list)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 add_build_ignore() is an Add function that updates an object by adding new values to new or empty fields. Specifically, this function implements an algorithm to add build ignore. The function is called for its side effects and does not return a value.
 }

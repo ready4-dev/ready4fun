@@ -56,6 +56,9 @@ write_pkg_setup_fls(
 
 \item{path_to_pkg_rt_1L_chr}{Path to package root (a character vector of length one), Default: getwd()}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 write_pkg_setup_fls() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write package setup files. The function is called for its side effects and does not return a value.
 }

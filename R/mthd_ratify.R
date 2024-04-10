@@ -1,4 +1,4 @@
-#' Ratify that a dataset meets validity criteria
+#' Ratify that input or output data meet validity criteria
 #' @description ratify.ready4fun_manifest() is a ratify method that ratifies that an instance of a class conforms to specified criteria. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_manifest`, a ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param append_1L_lgl Append (a logical vector of length one), Default: F

@@ -1,4 +1,4 @@
-#' Renew values in a dataset
+#' Renew (update) values
 #' @description renew.ready4fun_abbreviations() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 submodule class for tibble object lookup table of abbreviations. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_abbreviations`, a ready4 submodule class for tibble object lookup table of abbreviations.
 #' @param short_name_chr Short name (a character vector), Default: 'NA'
@@ -32,7 +32,7 @@ renew.ready4fun_abbreviations <- function (x, short_name_chr = NA_character_, lo
 #' @aliases renew,ready4fun_abbreviations-method
 #' @importFrom ready4 renew
 methods::setMethod("renew", methods::className("ready4fun_abbreviations", package = "ready4fun"), renew.ready4fun_abbreviations)
-#' Renew values in a dataset
+#' Renew (update) values
 #' @description renew.ready4fun_functions() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Function types lookup table. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_functions`, a Function types lookup table.
 #' @param fn_type_nm_chr Function type name (a character vector), Default: 'NA'
@@ -71,7 +71,7 @@ renew.ready4fun_functions <- function (x, fn_type_nm_chr = NA_character_, fn_typ
 #' @aliases renew,ready4fun_functions-method
 #' @importFrom ready4 renew
 methods::setMethod("renew", methods::className("ready4fun_functions", package = "ready4fun"), renew.ready4fun_functions)
-#' Renew values in a dataset
+#' Renew (update) values
 #' @description renew.ready4fun_manifest() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_manifest`, a ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param type_1L_chr Type (a character vector of length one)
@@ -135,7 +135,7 @@ renew.ready4fun_manifest <- function (x, type_1L_chr, append_1L_lgl = F, are_wor
 #' @aliases renew,ready4fun_manifest-method
 #' @importFrom ready4 renew
 methods::setMethod("renew", methods::className("ready4fun_manifest", package = "ready4fun"), renew.ready4fun_manifest)
-#' Renew values in a dataset
+#' Renew (update) values
 #' @description renew.ready4fun_objects() is a renew method that renews an instance of a class by updating it with new data. This method is implemented for the Object types lookup table. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_objects`, a Object types lookup table.
 #' @param short_name_chr Short name (a character vector), Default: 'NA'

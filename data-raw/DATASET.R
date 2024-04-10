@@ -44,7 +44,7 @@ pkg_desc_ls <- fns_env_ls$fns_env$make_pkg_desc_ls(
     utils::person(
       given = "Matthew", family = "Hamilton",
       email = "matthew.hamilton1@monash.edu",
-      role = c("aut", "cre"),
+      role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0000-0001-7407-9194")
     ),
     utils::person("Glen", "Wiesner",
@@ -271,7 +271,7 @@ manifest_ls <- pkg_desc_ls %>%
                                                                          get_fn_types = "All functions authored with the `ready4` framework need to begin with a verb. The definitions of all meaningful verbs used in functions authored for a ready4 framework model implementation can be retrieved using `get_fn_types()`.",
                                                                          get_obj_types ="The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using `get_obj_types()`."),
                                                           user_manual_fns_chr = c("get_abbrs", "get_fn_types", "get_obj_types")),
-    copyright_holders_chr = "Orygen",
+    copyright_holders_chr = "Matthew Hamilton and Orygen",
     dev_pkgs_chr = c("ready4", "ready4use", "ready4show"),
     inc_pkg_meta_data_1L_lgl = T, ###
     lifecycle_stage_1L_chr = "experimental",
@@ -286,3 +286,5 @@ manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls, self_serve_1L_lgl =
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
 devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)
+readLines("_pkgdown.yml") %>% stringr::str_replace("  - text: Model","  - text: Framework") %>%
+  writeLines("_pkgdown.yml")

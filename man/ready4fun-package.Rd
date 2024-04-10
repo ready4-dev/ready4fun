@@ -2,7 +2,6 @@
 % Please edit documentation in R/pkg_ready4fun.R, R/ready4fun-package.R
 \docType{package}
 \name{ready4fun-package}
-\alias{ready4fun}
 \alias{ready4fun-package}
 \title{ready4fun: Author and Document Functions that Implement Transferable Health Economic Model Algorithms}
 \description{
@@ -32,7 +31,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton1@monash.edu} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID})
+\strong{Maintainer}: Matthew Hamilton \email{matthew.hamilton1@monash.edu} (\href{https://orcid.org/0000-0001-7407-9194}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{

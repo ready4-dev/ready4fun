@@ -3,7 +3,7 @@
 \name{ratify.ready4fun_manifest}
 \alias{ratify.ready4fun_manifest}
 \alias{ratify,ready4fun_manifest-method}
-\title{Ratify that a dataset meets validity criteria}
+\title{Ratify that input or output data meet validity criteria}
 \usage{
 ratify.ready4fun_manifest(x, append_1L_lgl = F)
 

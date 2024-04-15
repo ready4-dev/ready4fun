@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "Matthew Hamilton <matthew.hamilton1@monash.edu> [aut, cre, cph] (<https://orcid.org/0000-0001-7407-9194>) and Glen Wiesner [aut] (<https://orcid.org/0000-0002-0071-130X>)  (2024). ready4fun: Author and Document Functions that Implement Transferable Health
-Economic Model Algorithms. Version 0.0.0.9537. Zenodo. https://doi.org/10.5281/zenodo.5611779"
+Economic Model Algorithms. Version 0.0.0.9538. Zenodo. https://doi.org/10.5281/zenodo.5611779"
 authors:
   - family-names: "(<https://orcid.org/0000-0001-7407-9194>)"
     given-names: "Matthew Hamilton <matthew.hamilton1@monash.edu> [aut, cre, cph]"
@@ -8,7 +8,7 @@ authors:
     given-names: "Glen Wiesner [aut]"
 title: "ready4fun: Author and Document Functions that Implement Transferable Health
 Economic Model Algorithms"
-version: 0.0.0.9537
+version: 0.0.0.9538
 doi: 10.5281/zenodo.5611779
-date-released: 2024-04-10
+date-released: 2024-04-15
 url: "https://ready4-dev.github.io/ready4fun/"

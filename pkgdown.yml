@@ -1,10 +1,10 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.0.8
 pkgdown_sha: ~
 articles:
-  V_01: V_01.html
   ready4fun: ready4fun.html
-last_built: 2024-04-10T06:36Z
+  V_01: V_01.html
+last_built: 2024-04-15T03:56Z
 urls:
   reference: https://ready4-dev.github.io/ready4fun/reference
   article: https://ready4-dev.github.io/ready4fun/articles

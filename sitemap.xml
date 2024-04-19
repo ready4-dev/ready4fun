@@ -4,9 +4,6 @@
     <loc>https://ready4-dev.github.io/ready4fun/404.html</loc>
   </url>
   <url>
-    <loc>https://ready4-dev.github.io/ready4fun/LICENSE-text.html</loc>
-  </url>
-  <url>
     <loc>https://ready4-dev.github.io/ready4fun/LICENSE.html</loc>
   </url>
   <url>
@@ -521,6 +518,9 @@
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/write_to_rpl_1L_and_indefL_sfcs.html</loc>
+  </url>
+  <url>
+    <loc>https://ready4-dev.github.io/ready4fun/reference/write_to_tidy_pkg.html</loc>
   </url>
   <url>
     <loc>https://ready4-dev.github.io/ready4fun/reference/write_vignette.html</loc>

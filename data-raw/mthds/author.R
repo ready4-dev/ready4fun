@@ -1,10 +1,15 @@
 author.ready4fun_manifest <- function(x,
                                       append_1L_lgl = F,
+                                      build_vignettes_1L_lgl = TRUE,
+                                      clean_license_1L_lgl = TRUE,
                                       consent_1L_chr = "",
+                                      examples_chr = character(0),
                                       key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
                                       list_generics_1L_lgl = T,
+                                      project_1L_chr = "Model",
                                       self_serve_1L_lgl = F,
-                                      self_serve_fn_ls = NULL) {
+                                      self_serve_fn_ls = NULL,
+                                      suggest_chr = "pkgload") {
   x <- ready4::ratify(x, append_1L_lgl = append_1L_lgl)
   if (!is.null(x$problems_ls)) {
     message("Execution halted - fix issues with manifest before making a new call to author.")
@@ -24,8 +29,8 @@ author.ready4fun_manifest <- function(x,
       key_1L_chr = key_1L_chr
     )
     write_fns_dmt_tb(x)
-    ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows") # Add to author method once consent has been added to function.
-    ready4::write_to_edit_workflow("pkgdown.yaml")
+    ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows", consent_1L_chr = consent_1L_chr) # Add to author method once consent has been added to function.
+    ready4::write_to_edit_workflow("pkgdown.yaml", consent_1L_chr = consent_1L_chr)
     if (!consent_1L_chr %in% c("Y", "N")) {
       consent_1_1L_chr <- make_prompt(
         prompt_1L_chr = paste0(
@@ -66,6 +71,13 @@ author.ready4fun_manifest <- function(x,
         warning("Write request cancelled - no new files have been written.")
       }
     }
+    write_to_tidy_pkg(x,
+                      build_vignettes_1L_lgl = TRUE,
+                      clean_license_1L_lgl = TRUE,
+                      consent_1L_chr = consent_1L_chr,
+                      examples_chr = character(0),
+                      project_1L_chr = "Model",
+                      suggest_chr = "pkgload")
   }
   return(x)
 }

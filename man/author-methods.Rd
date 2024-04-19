@@ -10,21 +10,31 @@
 author.ready4fun_manifest(
   x,
   append_1L_lgl = F,
+  build_vignettes_1L_lgl = TRUE,
+  clean_license_1L_lgl = TRUE,
   consent_1L_chr = "",
+  examples_chr = character(0),
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = T,
+  project_1L_chr = "Model",
   self_serve_1L_lgl = F,
-  self_serve_fn_ls = NULL
+  self_serve_fn_ls = NULL,
+  suggest_chr = "pkgload"
 )
 
 \S4method{author}{ready4fun_manifest}(
   x,
   append_1L_lgl = F,
+  build_vignettes_1L_lgl = TRUE,
+  clean_license_1L_lgl = TRUE,
   consent_1L_chr = "",
+  examples_chr = character(0),
   key_1L_chr = Sys.getenv("DATAVERSE_KEY"),
   list_generics_1L_lgl = T,
+  project_1L_chr = "Model",
   self_serve_1L_lgl = F,
-  self_serve_fn_ls = NULL
+  self_serve_fn_ls = NULL,
+  suggest_chr = "pkgload"
 )
 
 author.ready4fun_metadata_a(x, consent_1L_chr = "", self_serve_1L_lgl = F)
@@ -36,15 +46,25 @@ author.ready4fun_metadata_a(x, consent_1L_chr = "", self_serve_1L_lgl = F)
 
 \item{append_1L_lgl}{Append (a logical vector of length one), Default: F}
 
+\item{build_vignettes_1L_lgl}{Build vignettes (a logical vector of length one), Default: TRUE}
+
+\item{clean_license_1L_lgl}{Clean license (a logical vector of length one), Default: TRUE}
+
 \item{consent_1L_chr}{Consent (a character vector of length one), Default: ''}
+
+\item{examples_chr}{Examples (a character vector), Default: character(0)}
 
 \item{key_1L_chr}{Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")}
 
 \item{list_generics_1L_lgl}{List generics (a logical vector of length one), Default: T}
 
+\item{project_1L_chr}{Project (a character vector of length one), Default: 'Model'}
+
 \item{self_serve_1L_lgl}{Self serve (a logical vector of length one), Default: F}
 
 \item{self_serve_fn_ls}{Self serve (a list of functions), Default: NULL}
+
+\item{suggest_chr}{Suggest (a character vector), Default: 'pkgload'}
 }
 \value{
 x (An object)

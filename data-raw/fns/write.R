@@ -2010,6 +2010,54 @@ write_to_reset_pkg_files <- function(delete_contents_of_1L_chr,
   devtools::document()
   devtools::load_all()
 }
+write_to_tidy_pkg <- function(pkg_setup_ls,
+                              build_vignettes_1L_lgl = TRUE,
+                              clean_license_1L_lgl = TRUE,
+                              consent_1L_chr = "",
+                              consent_indcs_int = 1L,
+                              examples_chr = character(0),
+                              options_chr = c("Y", "N"),
+                              project_1L_chr = "Model",
+                              suggest_chr = "pkgload"){
+  if(!identical(suggest_chr, character(0))){
+    suggest_chr %>% purrr::walk(~usethis::use_package(.x, type = "Suggests"))
+  }
+  if(!identical(examples_chr, character(0))){
+    examples_chr %>%
+      purrr::walk(~ready4::write_examples(consent_1L_chr = consent_1L_chr,
+                                          consent_indcs_int = consent_indcs_int,
+                                          options_chr = options_chr,
+                                          path_1L_chr = pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, type_1L_chr = .x))
+  }
+  if(clean_license_1L_lgl){
+    if(file.exists("LICENSE"))
+      unlink("LICENSE")
+    path_1L_chr <- "DESCRIPTION"
+    pkgdown_chr <- readLines(path_1L_chr) %>% stringr::str_replace("GPL-3 \\+ file LICENSE","GPL-3")
+    write_with_consent(consented_fn = writeLines,
+                       prompt_1L_chr = paste0("Do you confirm that you want to edit the file ", path_1L_chr, "?"),
+                       consent_1L_chr = consent_1L_chr,
+                       consent_indcs_int = consent_indcs_int,
+                       consented_args_ls = list(text = pkgdown_chr, con = path_1L_chr),
+                       consented_msg_1L_chr = paste0("File ", path_1L_chr, " has been over-written", "."), declined_msg_1L_chr = "Write request cancelled - no new files have been written.",
+                       options_chr = options_chr)
+    devtools::document()
+  }
+  if(project_1L_chr != "Model"){
+    path_1L_chr <- "_pkgdown.yml"
+    pkgdown_chr <- readLines(path_1L_chr) %>% stringr::str_replace("  - text: Model", paste0("  - text: ",project_1L_chr))
+    write_with_consent(consented_fn = writeLines,
+                       prompt_1L_chr = paste0("Do you confirm that you want to edit the file ", path_1L_chr, "?"),
+                       consent_1L_chr = consent_1L_chr,
+                       consent_indcs_int = consent_indcs_int,
+                       consented_args_ls = list(text = pkgdown_chr, con = path_1L_chr),
+                       consented_msg_1L_chr = paste0("File ", path_1L_chr, " has been over-written", "."), declined_msg_1L_chr = "Write request cancelled - no new files have been written.",
+                       options_chr = options_chr)
+  }
+  if(build_vignettes_1L_lgl){
+    devtools::build_vignettes()
+  }
+}
 write_vignette <- function(package_1L_chr,
                            pkg_rt_dir_chr = ".") {
   ready4::write_new_dirs(paste0(pkg_rt_dir_chr, "/vignettes"))

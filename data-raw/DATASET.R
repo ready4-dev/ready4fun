@@ -272,7 +272,8 @@ manifest_ls <- pkg_desc_ls %>%
                                                                          get_obj_types ="The type of input (arguments) required and output (return) produced by a function can be efficiently communicated by using meaningful suffices. Definitions of all meaningful suffices used in functions authored for a ready4 framework model implementation can be retrieved using `get_obj_types()`."),
                                                           user_manual_fns_chr = c("get_abbrs", "get_fn_types", "get_obj_types")),
     copyright_holders_chr = "Matthew Hamilton and Orygen",
-    dev_pkgs_chr = c("ready4", "ready4use", "ready4show"),
+    dev_pkgs_chr = c(#"ready4",
+                     "ready4use", "ready4show"),
     inc_pkg_meta_data_1L_lgl = T, ###
     lifecycle_stage_1L_chr = "experimental",
     path_to_pkg_logo_1L_chr = "../../../../../Documentation/Images/ready4fun-logo/default.png",
@@ -284,7 +285,10 @@ manifest_ls <- pkg_desc_ls %>%
   )
 manifest_ls <- fns_env_ls$fns_env$write_package(manifest_ls, self_serve_1L_lgl = T)
 usethis::use_dev_package("ready4show", remote = "ready4-dev/ready4show")
-devtools::build_vignettes()
+fns_env_ls$fns_env$write_to_tidy_pkg(manifest_ls, build_vignettes_1L_lgl = TRUE,
+                                     clean_license_1L_lgl = TRUE, consent_1L_chr = "Y",
+                                     examples_chr = character(0), project_1L_chr = "Framework", suggest_chr = "pkgload")
+#devtools::build_vignettes()
 # fns_env_ls$fns_env$read_fns(fns_dir_1L_chr,use_env_1L_lgl = F)
-readLines("_pkgdown.yml") %>% stringr::str_replace("  - text: Model","  - text: Framework") %>%
-  writeLines("_pkgdown.yml")
+# readLines("_pkgdown.yml") %>% stringr::str_replace("  - text: Model","  - text: Framework") %>%
+#   writeLines("_pkgdown.yml")

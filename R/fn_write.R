@@ -1820,6 +1820,71 @@ write_to_rpl_1L_and_indefL_sfcs <- function (indefL_arg_nm_1L_chr, file_path_1L_
         replacements_chr = paste0(c("_1L", ""), sfcs_chr[1]), 
         file_path_1L_chr = file_path_1L_chr, dir_path_1L_chr = dir_path_1L_chr)
 }
+#' Write to tidy package
+#' @description write_to_tidy_pkg() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write to tidy package. The function is called for its side effects and does not return a value.
+#' @param pkg_setup_ls Package setup (a list)
+#' @param build_vignettes_1L_lgl Build vignettes (a logical vector of length one), Default: TRUE
+#' @param clean_license_1L_lgl Clean license (a logical vector of length one), Default: TRUE
+#' @param consent_1L_chr Consent (a character vector of length one), Default: ''
+#' @param consent_indcs_int Consent indices (an integer vector), Default: 1
+#' @param examples_chr Examples (a character vector), Default: character(0)
+#' @param options_chr Options (a character vector), Default: c("Y", "N")
+#' @param project_1L_chr Project (a character vector of length one), Default: 'Model'
+#' @param suggest_chr Suggest (a character vector), Default: 'pkgload'
+#' @return No return value, called for side effects.
+#' @rdname write_to_tidy_pkg
+#' @export 
+#' @importFrom purrr walk
+#' @importFrom usethis use_package
+#' @importFrom ready4 write_examples
+#' @importFrom stringr str_replace
+#' @importFrom devtools document build_vignettes
+#' @keywords internal
+write_to_tidy_pkg <- function (pkg_setup_ls, build_vignettes_1L_lgl = TRUE, clean_license_1L_lgl = TRUE, 
+    consent_1L_chr = "", consent_indcs_int = 1L, examples_chr = character(0), 
+    options_chr = c("Y", "N"), project_1L_chr = "Model", suggest_chr = "pkgload") 
+{
+    if (!identical(suggest_chr, character(0))) {
+        suggest_chr %>% purrr::walk(~usethis::use_package(.x, 
+            type = "Suggests"))
+    }
+    if (!identical(examples_chr, character(0))) {
+        examples_chr %>% purrr::walk(~ready4::write_examples(consent_1L_chr = consent_1L_chr, 
+            consent_indcs_int = consent_indcs_int, options_chr = options_chr, 
+            path_1L_chr = pkg_setup_ls$initial_ls$path_to_pkg_rt_1L_chr, 
+            type_1L_chr = .x))
+    }
+    if (clean_license_1L_lgl) {
+        if (file.exists("LICENSE")) 
+            unlink("LICENSE")
+        path_1L_chr <- "DESCRIPTION"
+        pkgdown_chr <- readLines(path_1L_chr) %>% stringr::str_replace("GPL-3 \\+ file LICENSE", 
+            "GPL-3")
+        write_with_consent(consented_fn = writeLines, prompt_1L_chr = paste0("Do you confirm that you want to edit the file ", 
+            path_1L_chr, "?"), consent_1L_chr = consent_1L_chr, 
+            consent_indcs_int = consent_indcs_int, consented_args_ls = list(text = pkgdown_chr, 
+                con = path_1L_chr), consented_msg_1L_chr = paste0("File ", 
+                path_1L_chr, " has been over-written", "."), 
+            declined_msg_1L_chr = "Write request cancelled - no new files have been written.", 
+            options_chr = options_chr)
+        devtools::document()
+    }
+    if (project_1L_chr != "Model") {
+        path_1L_chr <- "_pkgdown.yml"
+        pkgdown_chr <- readLines(path_1L_chr) %>% stringr::str_replace("  - text: Model", 
+            paste0("  - text: ", project_1L_chr))
+        write_with_consent(consented_fn = writeLines, prompt_1L_chr = paste0("Do you confirm that you want to edit the file ", 
+            path_1L_chr, "?"), consent_1L_chr = consent_1L_chr, 
+            consent_indcs_int = consent_indcs_int, consented_args_ls = list(text = pkgdown_chr, 
+                con = path_1L_chr), consented_msg_1L_chr = paste0("File ", 
+                path_1L_chr, " has been over-written", "."), 
+            declined_msg_1L_chr = "Write request cancelled - no new files have been written.", 
+            options_chr = options_chr)
+    }
+    if (build_vignettes_1L_lgl) {
+        devtools::build_vignettes()
+    }
+}
 #' Write vignette
 #' @description write_vignette() is a Write function that writes a file to a specified local directory. Specifically, this function implements an algorithm to write vignette. The function is called for its side effects and does not return a value.
 #' @param package_1L_chr Package (a character vector of length one)

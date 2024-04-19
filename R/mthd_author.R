@@ -2,18 +2,26 @@
 #' @description author.ready4fun_manifest() is an author method that authors and saves files to local or remote locations. This method is implemented for the ready4 submodule class for encapsulating the metadata required for package set-up. The function is called for its side effects and does not return a value.
 #' @param x An instance of `ready4fun_manifest`, a ready4 submodule class for encapsulating the metadata required for package set-up.
 #' @param append_1L_lgl Append (a logical vector of length one), Default: F
+#' @param build_vignettes_1L_lgl Build vignettes (a logical vector of length one), Default: TRUE
+#' @param clean_license_1L_lgl Clean license (a logical vector of length one), Default: TRUE
 #' @param consent_1L_chr Consent (a character vector of length one), Default: ''
+#' @param examples_chr Examples (a character vector), Default: character(0)
 #' @param key_1L_chr Key (a character vector of length one), Default: Sys.getenv("DATAVERSE_KEY")
 #' @param list_generics_1L_lgl List generics (a logical vector of length one), Default: T
+#' @param project_1L_chr Project (a character vector of length one), Default: 'Model'
 #' @param self_serve_1L_lgl Self serve (a logical vector of length one), Default: F
 #' @param self_serve_fn_ls Self serve (a list of functions), Default: NULL
+#' @param suggest_chr Suggest (a character vector), Default: 'pkgload'
 #' @return x (An object)
 #' @rdname author-methods
 #' @export 
 #' @importFrom ready4 ratify author authorData authorClasses renew authorFunctions authorReport write_extra_pkgs_to_actions write_to_edit_workflow
 #' @importFrom stringr str_replace_all
-author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = "", key_1L_chr = Sys.getenv("DATAVERSE_KEY"), 
-    list_generics_1L_lgl = T, self_serve_1L_lgl = F, self_serve_fn_ls = NULL) 
+author.ready4fun_manifest <- function (x, append_1L_lgl = F, build_vignettes_1L_lgl = TRUE, 
+    clean_license_1L_lgl = TRUE, consent_1L_chr = "", examples_chr = character(0), 
+    key_1L_chr = Sys.getenv("DATAVERSE_KEY"), list_generics_1L_lgl = T, 
+    project_1L_chr = "Model", self_serve_1L_lgl = F, self_serve_fn_ls = NULL, 
+    suggest_chr = "pkgload") 
 {
     x <- ready4::ratify(x, append_1L_lgl = append_1L_lgl)
     if (!is.null(x$problems_ls)) {
@@ -31,8 +39,9 @@ author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = ""
         ready4::authorFunctions(x, list_generics_1L_lgl = list_generics_1L_lgl)
         ready4::authorReport(x, key_1L_chr = key_1L_chr)
         write_fns_dmt_tb(x)
-        ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows")
-        ready4::write_to_edit_workflow("pkgdown.yaml")
+        ready4::write_extra_pkgs_to_actions(path_to_dir_1L_chr = ".github/workflows", 
+            consent_1L_chr = consent_1L_chr)
+        ready4::write_to_edit_workflow("pkgdown.yaml", consent_1L_chr = consent_1L_chr)
         if (!consent_1L_chr %in% c("Y", "N")) {
             consent_1_1L_chr <- make_prompt(prompt_1L_chr = paste0("Do you confirm ('Y') that you want to edit the file ", 
                 ".github/workflows/R-CMD-check.yaml ?"), options_chr = c("Y", 
@@ -67,6 +76,9 @@ author.ready4fun_manifest <- function (x, append_1L_lgl = F, consent_1L_chr = ""
                 warning("Write request cancelled - no new files have been written.")
             }
         }
+        write_to_tidy_pkg(x, build_vignettes_1L_lgl = TRUE, clean_license_1L_lgl = TRUE, 
+            consent_1L_chr = consent_1L_chr, examples_chr = character(0), 
+            project_1L_chr = "Model", suggest_chr = "pkgload")
     }
     return(x)
 }
